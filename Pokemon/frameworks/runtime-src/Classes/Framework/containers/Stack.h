@@ -20,7 +20,7 @@ public:
 	explicit Stack();
 	~Stack();
 	void push(T pObj);
-	T pop();
+	void pop();
 	T top();
 	void clear();
 	bool isEmpty();
@@ -58,13 +58,10 @@ void Stack<T>::push(T pObj)
 }
 
 template <typename T>
-T Stack<T>::pop()
+void Stack<T>::pop()
 {
-	auto pObj = this->_container->top();
 	this->_container->pop();
 	pObj->release();
-
-	return pObj;
 }
 
 template <typename T>

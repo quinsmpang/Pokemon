@@ -46,9 +46,6 @@
     <ClInclude Include="..\Classes\Framework\ui\MaskLayer.h">
       <Filter>Classes\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Framework\ui\CheckButton.h">
-      <Filter>Classes\ui</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Framework\ui\TouchableNode.h">
       <Filter>Classes\ui</Filter>
     </ClInclude>
@@ -57,6 +54,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Framework\scene\GameScene.h">
       <Filter>Classes\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\ui\GameLayer.h">
+      <Filter>Classes\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -75,9 +75,6 @@
     <ClCompile Include="..\Classes\Framework\ui\MaskLayer.cpp">
       <Filter>Classes\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Framework\ui\CheckButton.cpp">
-      <Filter>Classes\ui</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Framework\ui\TouchableNode.cpp">
       <Filter>Classes\ui</Filter>
     </ClCompile>
@@ -86,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\scene\GameScene.cpp">
       <Filter>Classes\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\ui\GameLayer.cpp">
+      <Filter>Classes\ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

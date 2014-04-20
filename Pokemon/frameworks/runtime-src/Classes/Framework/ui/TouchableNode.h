@@ -22,8 +22,10 @@ public:
 	virtual bool init();
 
 	virtual void onTouch(void *pParam);
+	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, void *pParam);
 	
 	CC_SYNTHESIZE(bool, _isEnabled, Enabled);
+	CC_SYNTHESIZE(bool, _isSelected, Selected);
 protected:
 	TouchableNode();
 	~TouchableNode();
