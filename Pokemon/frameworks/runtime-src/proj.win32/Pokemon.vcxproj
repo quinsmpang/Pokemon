@@ -164,24 +164,24 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\containers\Queue.h" />
     <ClInclude Include="..\Classes\Framework\containers\Stack.h" />
     <ClInclude Include="..\Classes\Framework\lua\LuaUtils.h" />
+    <ClInclude Include="..\Classes\Framework\scene\GameScene.h" />
     <ClInclude Include="..\Classes\Framework\scene\ViewController.h" />
     <ClInclude Include="..\Classes\Framework\ui\CheckButton.h" />
     <ClInclude Include="..\Classes\Framework\ui\MaskLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\TouchableNode.h" />
     <ClInclude Include="..\Classes\Test.h" />
-    <ClInclude Include="GameScene.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp" />
+    <ClCompile Include="..\Classes\Framework\scene\GameScene.cpp" />
     <ClCompile Include="..\Classes\Framework\scene\ViewController.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\CheckButton.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\MaskLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\TouchableNode.cpp" />
     <ClCompile Include="..\Classes\Test.cpp" />
-    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

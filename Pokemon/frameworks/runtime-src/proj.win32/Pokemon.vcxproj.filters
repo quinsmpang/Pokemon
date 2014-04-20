@@ -43,9 +43,6 @@
     <ClInclude Include="..\Classes\Framework\lua\LuaUtils.h">
       <Filter>Classes\lua</Filter>
     </ClInclude>
-    <ClInclude Include="GameScene.h">
-      <Filter>Classes\scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Framework\ui\MaskLayer.h">
       <Filter>Classes\ui</Filter>
     </ClInclude>
@@ -57,6 +54,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Test.h">
       <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\scene\GameScene.h">
+      <Filter>Classes\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -72,9 +72,6 @@
     <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp">
       <Filter>Classes\lua</Filter>
     </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>Classes\scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Framework\ui\MaskLayer.cpp">
       <Filter>Classes\ui</Filter>
     </ClCompile>
@@ -86,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Test.cpp">
       <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\scene\GameScene.cpp">
+      <Filter>Classes\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
