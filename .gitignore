@@ -1,0 +1,13 @@
+*~
+Debug.win32
+Release.win32
+Debug
+Release
+build
+runtime
+*.lib
+*.dll
+*.a
+*.o
+*.obj
+*.sdf
