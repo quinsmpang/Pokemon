@@ -5,11 +5,6 @@ Debug
 Release
 build
 runtime
-*.lib
-*.dll
-*.a
-*.o
-*.obj
 *.sdf
 *.suo
 *.opensdf
