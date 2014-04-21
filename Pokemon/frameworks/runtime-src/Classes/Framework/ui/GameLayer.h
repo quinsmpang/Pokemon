@@ -8,7 +8,8 @@
 #define __UI_GAMELAYER__
 
 #include "cocos2d.h"
-#include "ui/TouchableNode.h"
+#include "EventLayer.h"
+#include "ui/EventNode.h"
 
 namespace framework
 {
@@ -25,33 +26,31 @@ public:
 	CC_SYNTHESIZE(bool, _isEnabled, Enabled);
 
 	// push new layer into the stack
-	void push(GameLayer *pLayer);
+	void pushLayer(GameLayer *pLayer);
 	// pop current layer
-	void pop();
+	void popLayer();
 
 	bool isCoreLayer();
+	GameLayer *getParentLayer();
+	GameLayer *getCoreLayer();
+	void setEventLayer(EventLayer *pLayer);
 
 	virtual void onEnter() override;
 	virtual void onExit() override;
 
 	void registerTouchEvents();
+	void unregisterTouchEvents();
 	void registerKeyboardEvents();
-
-	/* touch events */
-	virtual bool onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) override; 
-    virtual void onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) override; 
-    virtual void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) override; 
-    virtual void onTouchCancelled(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) override;
-
-	/* keyboard events */
-	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *pEvent) override;
-    virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *pEvent) override;
+	void unregisterKeyboardEvents();
 protected:
 	~GameLayer();
 	// the pointer to the parent layer, if it is null, then this layer is the core layer.
 	GameLayer *_parentLayer;
-	// focused node
-	TouchableNode *_focusNode;
+	// touch layer, to storage touchable nodes
+	EventLayer *_eventLayer;
+
+	cocos2d::EventListenerTouchOneByOne *_touchListener;
+	cocos2d::EventListenerKeyboard *_keyboardListener;
 };
 
 }

@@ -6,6 +6,17 @@ using namespace cocos2d;
 namespace framework
 {
 
+bool containsPoint(Rect rect, Point point)
+{
+	float minX = rect.origin.x, maxX = rect.origin.x + rect.size.width;
+	float minY = rect.origin.y - rect.size.height, maxY = rect.origin.y;
+	if (point.x >= minX && point.x <= maxX && point.y >= minY && point.y <= maxY)
+	{
+		return true;
+	}
+	return false;
+}
+
 /*****************public functions*****************/
 MaskLayer::MaskLayer()
 	: _opacity(200)
@@ -52,7 +63,8 @@ bool MaskLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 {
 	CC_UNUSED_PARAM(pEvent);
 	Point pos = pTouch->getLocation();
-	bool needIntercept = this->isInterceptAllEvents() || !this->_area.containsPoint(pos);
+	// there are some problems in Rect.containsPoint method, so use containsPoint defined by myself here.
+	bool needIntercept = this->isInterceptAllEvents() || !containsPoint(_area, pos);
 
 	// cpp callback
 	if (this->_delegate)

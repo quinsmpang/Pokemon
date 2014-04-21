@@ -12,13 +12,15 @@ namespace framework
 class MaskLayerDelegate
 {
 public:
-	virtual ~MaskLayerDelegate();
+	virtual ~MaskLayerDelegate()
+	{
+	}
 
 	/* 事件穿透 */
-	virtual void onEventPenetrated(float x, float y);
+	virtual void onEventPenetrated(float x, float y) = 0;
 
 	/* 事件拦截 */
-	virtual void onEventIntercepted(float x, float y);
+	virtual void onEventIntercepted(float x, float y) = 0;
 };
 
 class MaskLayer : public cocos2d::LayerColor
