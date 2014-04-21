@@ -144,7 +144,7 @@ EventNode *EventLayer::getNodeForTouch(Touch *pTouch)
 	for (auto iter = _children.crbegin(); iter != _children.crend(); ++iter)
 	{
 		auto child = dynamic_cast<EventNode*>(*iter);
-		if (child && child->getEnabled() && child->isVisible())
+		if (child && child->isVisible())
 		{
 			Point nodePos = child->convertToNodeSpace(location);
 			Rect region = child->getBoundingBox();
@@ -152,8 +152,16 @@ EventNode *EventLayer::getNodeForTouch(Touch *pTouch)
 
 			if (region.containsPoint(nodePos))
 			{
-				return child;
+				if (child->isEnabled())
+				{
+					return child;
+				}
+				else	// intercepted
+				{
+					return nullptr;
+				}
 			}
+
 		}
 	}
 

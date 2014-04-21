@@ -17,27 +17,28 @@ typedef void (*KeyboardCallback)(cocos2d::EventKeyboard::KeyCode, void*);
 
 class EventNode : public cocos2d::Node
 {
+	friend class EventLayer;
 public:
 	CREATE_FUNC(EventNode);
 
 	virtual bool init();
-
-	virtual void onTouch(void *pParam);
-	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, void *pParam);
 	
-	inline bool getEnabled()
+	inline bool isEnabled()
 	{
 		return _isEnabled;
 	}
 	void setEnabled(bool isEnabled);
-	inline bool getSelected()
+	inline bool isSelected()
 	{
 		return _isSelected;
 	}
 	void setSelected(bool isSelected);
 protected:
 	EventNode();
-	~EventNode();
+	virtual ~EventNode();
+
+	virtual void onTouch(void *pParam);
+	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, void *pParam);
 
 	bool _isEnabled;
 	bool _isSelected;
