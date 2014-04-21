@@ -42,6 +42,13 @@ void EventNode::setSelected(bool isSelected)
 	this->_isSelected = isSelected;
 }
 
+Rect EventNode::rect() const
+{
+    return Rect( _position.x - _contentSize.width * _anchorPoint.x,
+                      _position.y - _contentSize.height * _anchorPoint.y,
+                      _contentSize.width, _contentSize.height);
+}
+
 /*********************private functions*********************/
 EventNode::EventNode()
 	: _tabIndex(0)

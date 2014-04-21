@@ -67,6 +67,9 @@
     <ClInclude Include="..\Classes\Framework\ui\Button.h">
       <Filter>Classes\ui\controls</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\framework.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">

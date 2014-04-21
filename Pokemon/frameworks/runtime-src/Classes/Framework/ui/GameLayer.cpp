@@ -24,16 +24,8 @@ bool GameLayer::init()
 
 	// create touch layer
 	this->_eventLayer = EventLayer::create();
-	// initialize touch listener
-	this->_touchListener = EventListenerTouchOneByOne::create();
-	this->_touchListener->onTouchBegan = CC_CALLBACK_2(EventLayer::onTouchBegan, this->_eventLayer);
-	this->_touchListener->onTouchMoved = CC_CALLBACK_2(EventLayer::onTouchMoved, this->_eventLayer);
-	this->_touchListener->onTouchEnded = CC_CALLBACK_2(EventLayer::onTouchEnded, this->_eventLayer);
-	this->_touchListener->onTouchCancelled = CC_CALLBACK_2(EventLayer::onTouchCancelled, this->_eventLayer);
-	// initialize keyboard listener
-	this->_keyboardListener = EventListenerKeyboard::create();
-	this->_keyboardListener->onKeyPressed = CC_CALLBACK_2(EventLayer::onKeyPressed, this->_eventLayer);
-	this->_keyboardListener->onKeyReleased = CC_CALLBACK_2(EventLayer::onKeyReleased, this->_eventLayer);
+
+	this->addChild(this->_eventLayer);
 }
 
 void GameLayer::pushLayer(GameLayer *pLayer)
@@ -86,6 +78,11 @@ void GameLayer::setEventLayer(EventLayer *pLayer)
 	
 	this->_eventLayer = pLayer;
 	this->addChild(pLayer);
+}
+
+void GameLayer::addControl(EventNode *child)
+{
+	this->_eventLayer->addChild(child);
 }
 
 void GameLayer::onEnter()
