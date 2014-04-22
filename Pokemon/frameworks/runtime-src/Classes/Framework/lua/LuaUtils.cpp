@@ -76,7 +76,7 @@ void LuaUtils::setTableField(const std::string &tableName, const std::string &ke
 	lua_pop(pState, 1);
 }
 
-void *LuaUtils::executeTableFunction(const std::string &tableName, const std::string &functionName, cocos2d::Vector<cocos2d::Ref*> *params, cocos2d::Vector<cocos2d::Ref*> *paramTypes, bool hasReturnValue)
+void *LuaUtils::executeTableFunction(const std::string &tableName, const std::string &functionName, cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue)
 {
 	auto pEngine = LuaEngine::getInstance();
 	lua_State *pState = pEngine->getLuaStack()->getLuaState();
@@ -112,7 +112,7 @@ void *LuaUtils::executeTableFunction(const std::string &tableName, const std::st
 	return pResult;
 }
 
-void *LuaUtils::executePeertableFunction(cocos2d::Ref *userdata, const std::string &functionName, cocos2d::Vector<cocos2d::Ref*> *params, cocos2d::Vector<cocos2d::Ref*> *paramTypes, bool hasReturnValue)
+void *LuaUtils::executePeertableFunction(cocos2d::Ref *userdata, const std::string &functionName, cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue)
 {
 	auto pEngine = LuaEngine::getInstance();
 	lua_State *pState = pEngine->getLuaStack()->getLuaState();
@@ -200,7 +200,7 @@ bool LuaUtils::hasFunction(void *userdata, const std::string &functionName)
 	return isFunction;
 }
 
-void *LuaUtils::executeFunction(cocos2d::Vector<cocos2d::Ref*> *params, cocos2d::Vector<cocos2d::Ref*> *paramTypes, bool hasReturnValue)
+void *LuaUtils::executeFunction(cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue)
 {
 	auto pEngine = LuaEngine::getInstance();
 	lua_State *pState = pEngine->getLuaStack()->getLuaState();
@@ -221,18 +221,18 @@ void *LuaUtils::executeFunction(cocos2d::Vector<cocos2d::Ref*> *params, cocos2d:
 	}
 
 	// push parameters
-	if (params)
+	if (true)
 	{
 		if (traceback != 0)
 		{
 			// calculate params count
-			traceback -= params->size();
+			traceback -= params.size();
 		}
 
-		for (int i = 0; i < params->size(); ++i)
+		for (int i = 0; i < params.size(); ++i)
 		{
-			Ref *pParam = params->at(i);
-			const char *paramType = ((__String*)paramTypes->at(i))->getCString();
+			Ref *pParam = params.at(i);
+			const char *paramType = ((__String*)paramTypes.at(i))->getCString();
 			// check basic types
 			if (strcmp(paramType, "__Bool") == 0)
 			{
@@ -268,7 +268,7 @@ void *LuaUtils::executeFunction(cocos2d::Vector<cocos2d::Ref*> *params, cocos2d:
 	}
 
 	// call function	/* L: ... G, func, self, arg1, arg2, .... argn */
-	int error = lua_pcall(pState, params ? params->size() + 1 : 1, hasReturnValue ? 1 : 0, traceback);
+	int error = lua_pcall(pState, params.size() + 1, hasReturnValue ? 1 : 0, traceback);
 
 	void *pResult = NULL;
 

@@ -25,9 +25,9 @@ public:
 
 	static void setTableField(const std::string &tableName, const std::string &key, cocos2d::Ref *value, const std::string &valueType);
 
-	static void *executeTableFunction(const std::string &tableName, const std::string &functionName, cocos2d::Vector<cocos2d::Ref*> *params, cocos2d::Vector<cocos2d::Ref*> *paramTypes, bool hasReturnValue);
+	static void *executeTableFunction(const std::string &tableName, const std::string &functionName, cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue);
 
-	static void *executePeertableFunction(cocos2d::Ref *userdata, const std::string &functionName, cocos2d::Vector<cocos2d::Ref*> *params, cocos2d::Vector<cocos2d::Ref*> *paramTypes, bool hasReturnValue);
+	static void *executePeertableFunction(cocos2d::Ref *userdata, const std::string &functionName, cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue);
 
 private:
 	static void setPackagePath(const std::string &path);
@@ -36,7 +36,7 @@ private:
 
 	static bool hasFunction(void *userdata, const std::string &functionName);
 
-	static void *executeFunction(cocos2d::Vector<cocos2d::Ref*> *params, cocos2d::Vector<cocos2d::Ref*> *paramTypes, bool hasReturnValue);
+	static void *executeFunction(cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue);
 };
 
 }

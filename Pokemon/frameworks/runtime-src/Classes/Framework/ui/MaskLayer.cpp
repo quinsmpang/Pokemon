@@ -71,13 +71,13 @@ bool MaskLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 	if (this->_scriptDelegate)
 	{
 		// params
-		Vector<Ref*> *pParams = new Vector<Ref*>();
-		pParams->pushBack(__Float::create(pos.x));
-		pParams->pushBack(__Float::create(pos.y));
+		Vector<Ref*> pParams(2);
+		pParams.pushBack(__Float::create(pos.x));
+		pParams.pushBack(__Float::create(pos.y));
 		// param types
-		Vector<Ref*> *pTypes = new Vector<Ref*>();
-		pTypes->pushBack(__String::create("__Float"));
-		pTypes->pushBack(__String::create("__Float"));
+		Vector<Ref*> pTypes(2);
+		pTypes.pushBack(__String::create("__Float"));
+		pTypes.pushBack(__String::create("__Float"));
 		if (needIntercept)
 		{
 			LuaUtils::executePeertableFunction(this->_scriptDelegate, "onEventIntercepted", pParams, pTypes, false);

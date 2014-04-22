@@ -15,5 +15,6 @@
 #include "ui\MaskLayer.h"
 #include "ui\Button.h"
 #include "ui\TextBlock.h"
+#include "ui\ActiveSprite.h"
 
 #endif

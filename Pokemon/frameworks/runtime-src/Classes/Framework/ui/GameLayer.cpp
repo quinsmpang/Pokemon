@@ -97,6 +97,21 @@ void GameLayer::addControl(EventNode *pControl)
 	this->_eventLayer->addChild(pControl);
 }
 
+void GameLayer::addControlByTag(EventNode *pControl, int tag)
+{
+	this->_eventLayer->addChild(pControl, pControl->getLocalZOrder(), tag);
+}
+
+void GameLayer::removeControl(EventNode *pControl)
+{
+	this->_eventLayer->removeChild(pControl);
+}
+
+void GameLayer::removeControlByTag(int tag, bool cleanup)
+{
+	this->_eventLayer->removeChildByTag(tag, cleanup);
+}
+
 void GameLayer::setFocusNode(EventNode *pNode)
 {
 	if (this->_eventLayer && this->_eventLayer->_focusNode)
@@ -114,7 +129,7 @@ void GameLayer::onEnter()
 {
 	Layer::onEnter();
 #if ScriptType == 1
-	LuaUtils::executePeertableFunction(this, "onEnter", nullptr, nullptr, false);
+	LuaUtils::executePeertableFunction(this, "onEnter", Vector<Ref*>(), Vector<Ref*>(), false);
 #endif
 }
 
@@ -122,7 +137,7 @@ void GameLayer::onExit()
 {
 	Layer::onExit();
 #if ScriptType == 1
-	LuaUtils::executePeertableFunction(this, "onExit", nullptr, nullptr, false);
+	LuaUtils::executePeertableFunction(this, "onExit", Vector<Ref*>(), Vector<Ref*>(), false);
 #endif
 }
 

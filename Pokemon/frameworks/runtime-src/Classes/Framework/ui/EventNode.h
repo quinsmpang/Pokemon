@@ -51,6 +51,16 @@ public:
 	{
 		this->_keyboardCallback = callback;
 	}
+	/*
+	inline void setScriptTouchCallback(TouchCallback scriptCallback)
+	{
+		this->_scriptTouchCallback = scriptCallback;
+	}
+	inline void setScriptKeyboardCallback(KeyboardCallback scriptCallback)
+	{
+		this->_scriptKeyboardCallback = scriptCallback;
+	}
+	*/
 
 	cocos2d::Rect rect() const;
 protected:
@@ -69,8 +79,14 @@ protected:
 	cocos2d::Node *_defaultImage;
 	cocos2d::Node *_selectedImage;
 	cocos2d::Node *_disabledImage;
+	// cpp callback
 	TouchCallback _touchCallback;
 	KeyboardCallback _keyboardCallback;
+	/*
+	// lua callback
+	TouchCallback _scriptTouchCallback;
+	KeyboardCallback _scriptKeyboardCallback;
+	*/
 };
 
 }

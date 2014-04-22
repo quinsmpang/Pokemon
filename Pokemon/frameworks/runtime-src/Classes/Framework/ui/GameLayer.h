@@ -34,6 +34,10 @@ public:
 	void setEventLayer(EventLayer *pLayer);
 
 	virtual void addControl(EventNode *pControl);
+	virtual void addControlByTag(EventNode *pControl, int tag);
+	virtual void removeControl(EventNode *pControl);
+	virtual void removeControlByTag(int tag, bool cleanup = true);
+
 	virtual void setFocusNode(EventNode *pNode);
 
 	virtual void onEnter() override;

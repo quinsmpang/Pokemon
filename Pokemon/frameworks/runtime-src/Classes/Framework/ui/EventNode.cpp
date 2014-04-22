@@ -51,6 +51,10 @@ EventNode::EventNode()
 	, _disabledImage(nullptr)
 	, _touchCallback(nullptr)
 	, _keyboardCallback(nullptr)
+	/*
+	, _scriptTouchCallback(nullptr)
+	, _scriptKeyboardCallback(nullptr)
+	*/
 {
 }
 

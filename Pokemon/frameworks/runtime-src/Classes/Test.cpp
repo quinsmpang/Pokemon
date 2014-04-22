@@ -53,16 +53,23 @@ bool TestScene::init()
 	this->addChild(pMaskLayer);
 
 	auto pGameLayer = GameLayer::create();
+	// test btn
 	auto btn = Button::create("btn1.png", "btn2.png", TOUCH_EVENT_CALLBACK(TestScene::onBtnClick, this, 111), KEYBOARD_EVENT_CALLBACK(TestScene::onKbdPressed, this));
 	btn->setPosition(winSize.width * 0.5, winSize.height * 0.5);
+	pGameLayer->addControl(btn);
+	// test label
 	auto label = TextBlock::create("ABCD", "Consolas", 20, TOUCH_EVENT_CALLBACK(TestScene::onBtnClick, this, 999));
-	printf("content size: %.2f, %.2f", label->getContentSize().width, label->getContentSize().height);
 	label->setPosition(100, 100);
 	label->setSelectedColor(Color3B::RED);
 	pGameLayer->addControl(label);
-	pGameLayer->addControl(btn);
+	// test active sprite
+	auto sprite = ActiveSprite::create("dog.png");
+	sprite->setPosition(100, 200);
+	pGameLayer->addControl(sprite);
 
 	this->addChild(pGameLayer);
+
+	sprite->runAction(MoveBy::create(5.0f, Point(300, 50)));
 
 	return true;
 }
