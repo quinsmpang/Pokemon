@@ -23,10 +23,6 @@ class EventNode : public cocos2d::Node
 {
 	friend class EventLayer;
 public:
-	CREATE_FUNC(EventNode);
-
-	virtual bool init();
-	
 	inline bool isEnabled()
 	{
 		return _isEnabled;

@@ -6,16 +6,6 @@ namespace framework
 {
 
 /*********************public functions*********************/
-bool EventNode::init()
-{
-	if (!Node::init())
-	{
-		return false;
-	}
-
-	return true;
-}
-
 void EventNode::setEnabled(bool isEnabled)
 {
 	if (this->_isEnabled != isEnabled)
