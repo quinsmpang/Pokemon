@@ -16,8 +16,8 @@ namespace framework
 typedef std::function<void(void*)> TouchCallback;
 typedef std::function<void(cocos2d::EventKeyboard::KeyCode, void*)> KeyboardCallback;
 
-#define TOUCH_EVENT_CALLBACK(__selector__, __target__, ...) std::bind(&__selector__, __target__, ##__VA_ARGS__)
-#define KEYBOARD_EVENT_CALLBACK(__selector__, __target__, ...) std::bind(&__selector__, __target__, std::placeholders::_1, ##__VA_ARGS__)
+#define TOUCH_EVENT_CALLBACK(__selector__, __target__) std::bind(&__selector__, __target__, std::placeholders::_1)
+#define KEYBOARD_EVENT_CALLBACK(__selector__, __target__) std::bind(&__selector__, __target__, std::placeholders::_1, std::placeholders::_2)
 
 class EventNode : public cocos2d::Node
 {
@@ -34,13 +34,19 @@ public:
 	}
 	void setSelected(bool isSelected);
 
+	// to change the default behavior by rewriting these two methods on focus and blur.
+	virtual void focus();
+	virtual void blur();
+
 	cocos2d::Rect rect() const;
 protected:
 	EventNode();
 	virtual ~EventNode();
 
 	virtual void onTouch(void *pParam);
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, void *pParam);
+#endif
 
 	bool _isEnabled;
 	bool _isSelected;

@@ -32,6 +32,16 @@ void EventNode::setSelected(bool isSelected)
 	this->_isSelected = isSelected;
 }
 
+void EventNode::focus()
+{
+	this->setSelected(true);
+}
+
+void EventNode::blur()
+{
+	this->setSelected(false);
+}
+
 Rect EventNode::rect() const
 {
     return Rect( _position.x - _contentSize.width * _anchorPoint.x,
@@ -65,6 +75,7 @@ void EventNode::onTouch(void *pParam)
 	}
 }
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 void EventNode::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, void *pParam)
 {
 	if (this->_keyboardCallback)
@@ -72,5 +83,6 @@ void EventNode::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, void *pPar
 		this->_keyboardCallback(keyCode, pParam);
 	}
 }
+#endif
 
 }

@@ -16,6 +16,7 @@ namespace framework
 /* use as internal class in GameLayer */
 class EventLayer : public cocos2d::Layer
 {
+	friend class GameLayer;
 
 enum class State
 {
@@ -38,6 +39,7 @@ public:
 	{
 		this->_isTouchEnabled = false;
 	}
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	inline void enableKeyboard()
 	{
 		this->_isKeyboardEnabled = true;
@@ -46,24 +48,30 @@ public:
 	{
 		this->_isKeyboardEnabled = false;
 	}
-	
+#endif
+
 	/* touch events */
 	virtual bool onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); 
     virtual void onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); 
     virtual void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); 
     virtual void onTouchCancelled(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	/* keyboard events */
 	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *pEvent);
     virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *pEvent);
+#endif
 protected:
 	~EventLayer();
 	EventNode *getNodeForTouch(cocos2d::Touch *pTouch);
 
+	EventNode *_selectedNode;	// current operating node.
 	EventNode *_focusNode;	// one layer can only have one focus node.
 	State _state;
 	bool _isTouchEnabled;
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	bool _isKeyboardEnabled;
+#endif
 };
 
 }

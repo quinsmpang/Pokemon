@@ -10,8 +10,9 @@ GameLayer::GameLayer()
 	: _parentLayer(nullptr)
 	, _eventLayer(nullptr)
 	, _touchListener(nullptr)
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	, _keyboardListener(nullptr)
-	, _isEnabled(true)
+#endif
 {
 }
 
@@ -34,7 +35,10 @@ void GameLayer::pushLayer(GameLayer *pLayer)
 	CCASSERT(pLayer, "the layer should not be null");
 
 	pLayer->_parentLayer = this;
-	this->setEnabled(false);
+	this->unregisterTouchEvents();
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+	this->unregisterKeyboardEvents();
+#endif
 
 	auto pCurrentScene = this->getScene();
 	pCurrentScene->addChild(pLayer);
@@ -44,7 +48,10 @@ void GameLayer::popLayer()
 {
 	if (this->_parentLayer)
 	{
-		this->_parentLayer->setEnabled(true);
+		this->registerTouchEvents();
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		this->registerKeyboardEvents();
+#endif
 	}
 	this->removeFromParentAndCleanup(true);
 }
@@ -83,9 +90,22 @@ void GameLayer::setEventLayer(EventLayer *pLayer)
 	this->addChild(pLayer);
 }
 
-void GameLayer::addControl(EventNode *child)
+void GameLayer::addControl(EventNode *pControl)
 {
-	this->_eventLayer->addChild(child);
+	this->_eventLayer->addChild(pControl);
+}
+
+void GameLayer::setFocusNode(EventNode *pNode)
+{
+	if (this->_eventLayer && this->_eventLayer->_focusNode)
+	{
+		this->_eventLayer->_focusNode->blur();
+	}
+	this->_eventLayer->_focusNode = pNode;
+	if (pNode)
+	{
+		pNode->focus();
+	}
 }
 
 void GameLayer::onEnter()
@@ -120,6 +140,7 @@ void GameLayer::unregisterTouchEvents()
 	}
 }
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 void GameLayer::registerKeyboardEvents()
 {
 	if (this->_eventLayer)
@@ -135,12 +156,15 @@ void GameLayer::unregisterKeyboardEvents()
 		this->_eventLayer->disableKeyboard();
 	}
 }
+#endif
 
 GameLayer::~GameLayer()
 {
 	CC_SAFE_RELEASE(this->_eventLayer);
 	CC_SAFE_RELEASE_NULL(this->_touchListener);
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	CC_SAFE_RELEASE_NULL(this->_keyboardListener);
+#endif
 }
 
 }
