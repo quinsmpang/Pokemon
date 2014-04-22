@@ -24,6 +24,7 @@ bool GameLayer::init()
 
 	// create touch layer
 	this->_eventLayer = EventLayer::create();
+	this->_eventLayer->retain();
 
 	this->addChild(this->_eventLayer);
 }
@@ -73,10 +74,12 @@ void GameLayer::setEventLayer(EventLayer *pLayer)
 	CCASSERT(pLayer, "Event layer can't be null");
 	if (this->_eventLayer)
 	{
+		this->_eventLayer->release();
 		this->removeChild(_eventLayer);
 	}
 	
 	this->_eventLayer = pLayer;
+	pLayer->retain();
 	this->addChild(pLayer);
 }
 

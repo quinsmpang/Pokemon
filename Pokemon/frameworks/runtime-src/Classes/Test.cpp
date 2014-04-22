@@ -54,7 +54,7 @@ bool TestScene::init()
 
 	auto pGameLayer = GameLayer::create();
 	auto btn = Button::create("btn1.png", "btn2.png", TOUCH_EVENT_CALLBACK(TestScene::onBtnClick, this, nullptr), KEYBOARD_EVENT_CALLBACK(TestScene::onKbdPressed, this, nullptr));
-	btn->setPosition(300, 300);
+	btn->setPosition(winSize.width * 0.5, winSize.height * 0.5);
 	pGameLayer->addControl(btn);
 	pGameLayer->registerTouchEvents();
 

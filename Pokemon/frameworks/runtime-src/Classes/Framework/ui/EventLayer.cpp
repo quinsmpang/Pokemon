@@ -132,10 +132,6 @@ void EventLayer::onKeyReleased(EventKeyboard::KeyCode keyCode, Event *pEvent)
 /*************************** private functions ***************************/
 EventLayer::~EventLayer()
 {
-	if (this->_focusNode)
-	{
-		CC_SAFE_RELEASE_NULL(this->_focusNode);
-	}
 }
 EventNode *EventLayer::getNodeForTouch(Touch *pTouch)
 {

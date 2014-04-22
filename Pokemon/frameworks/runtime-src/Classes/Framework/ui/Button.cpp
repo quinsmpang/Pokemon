@@ -15,6 +15,12 @@ bool Button::initWithNodes(cocos2d::Node *pDefaultImage, cocos2d::Node *pSelecte
 	this->_defaultImage = pDefaultImage;
 	this->_selectedImage = pSelectedImage;
 	this->_disabledImage = pDisabledImage;
+	this->_defaultImage->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+	this->_selectedImage->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+	this->_disabledImage->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+	CC_SAFE_RETAIN(this->_defaultImage);
+	CC_SAFE_RETAIN(this->_selectedImage);
+	CC_SAFE_RETAIN(this->_disabledImage);
 
 	this->addChild(pDefaultImage);
 	this->addChild(pSelectedImage);
@@ -23,6 +29,7 @@ bool Button::initWithNodes(cocos2d::Node *pDefaultImage, cocos2d::Node *pSelecte
 	this->_selectedImage->setVisible(false);
 	this->_disabledImage->setVisible(false);
 
+	this->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	this->setContentSize(pDefaultImage->getContentSize());
 
 	this->_touchCallback = touchCallback;
