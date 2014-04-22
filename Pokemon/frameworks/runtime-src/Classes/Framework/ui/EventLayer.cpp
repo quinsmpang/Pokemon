@@ -104,7 +104,7 @@ void EventLayer::onTouchEnded(Touch *pTouch, Event *pEvent)
 	if (_selectedNode)
 	{
 		_selectedNode->setSelected(false);
-		_selectedNode->onTouch(this, nullptr);
+		_selectedNode->onTouch(this);
 	}
 	this->_state = State::Waiting;
 }
@@ -128,7 +128,10 @@ void EventLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *pEvent)
 	}
 
 	this->_state = State::Tracking;
-	_selectedNode->onKeyPressed(this, keyCode, nullptr);
+	if (_focusNode)
+	{
+		_focusNode->onKeyPressed(this, keyCode);
+	}
 	this->_state = State::Waiting;
 }
 

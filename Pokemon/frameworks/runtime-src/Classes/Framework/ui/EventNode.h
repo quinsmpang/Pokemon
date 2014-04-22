@@ -13,11 +13,11 @@
 namespace framework
 {
 
-typedef std::function<void(cocos2d::Ref*, void*)> TouchCallback;
-typedef std::function<void(cocos2d::Ref*, cocos2d::EventKeyboard::KeyCode, void*)> KeyboardCallback;
+typedef std::function<void(cocos2d::Ref*)> TouchCallback;
+typedef std::function<void(cocos2d::Ref*, cocos2d::EventKeyboard::KeyCode)> KeyboardCallback;
 
-#define TOUCH_EVENT_CALLBACK(__selector__, __target__) std::bind(&__selector__, __target__, std::placeholders::_1, std::placeholders::_2)
-#define KEYBOARD_EVENT_CALLBACK(__selector__, __target__) std::bind(&__selector__, __target__, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)
+#define TOUCH_EVENT_CALLBACK(__selector__, __target__, ...) std::bind(&__selector__, __target__, std::placeholders::_1, ##__VA_ARGS__)
+#define KEYBOARD_EVENT_CALLBACK(__selector__, __target__, ...) std::bind(&__selector__, __target__, std::placeholders::_1, std::placeholders::_2, ##__VA_ARGS__)
 
 class EventNode : public cocos2d::Node
 {
@@ -43,9 +43,9 @@ protected:
 	EventNode();
 	virtual ~EventNode();
 
-	virtual void onTouch(cocos2d::Ref *pSender, void *pParam);
+	virtual void onTouch(cocos2d::Ref *pSender);
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	virtual void onKeyPressed(cocos2d::Ref *pSender, cocos2d::EventKeyboard::KeyCode keyCode, void *pParam);
+	virtual void onKeyPressed(cocos2d::Ref *pSender, cocos2d::EventKeyboard::KeyCode keyCode);
 #endif
 
 	bool _isEnabled;

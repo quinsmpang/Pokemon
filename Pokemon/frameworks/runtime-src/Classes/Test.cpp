@@ -53,9 +53,9 @@ bool TestScene::init()
 	this->addChild(pMaskLayer);
 
 	auto pGameLayer = GameLayer::create();
-	auto btn = Button::create("btn1.png", "btn2.png", TOUCH_EVENT_CALLBACK(TestScene::onBtnClick, this), KEYBOARD_EVENT_CALLBACK(TestScene::onKbdPressed, this));
+	auto btn = Button::create("btn1.png", "btn2.png", TOUCH_EVENT_CALLBACK(TestScene::onBtnClick, this, 111), KEYBOARD_EVENT_CALLBACK(TestScene::onKbdPressed, this));
 	btn->setPosition(winSize.width * 0.5, winSize.height * 0.5);
-	auto label = TextBlock::create("ABCD", "Consolas", 20, TOUCH_EVENT_CALLBACK(TestScene::onBtnClick, this));
+	auto label = TextBlock::create("ABCD", "Consolas", 20, TOUCH_EVENT_CALLBACK(TestScene::onBtnClick, this, 999));
 	printf("content size: %.2f, %.2f", label->getContentSize().width, label->getContentSize().height);
 	label->setPosition(100, 100);
 	label->setSelectedColor(Color3B::RED);
@@ -67,7 +67,7 @@ bool TestScene::init()
 	return true;
 }
 
-void TestScene::onBtnClick(cocos2d::Ref *pSender, void *pParam)
+void TestScene::onBtnClick(cocos2d::Ref *pSender, int param)
 {
 	printf("btn clicked\n");
 	auto node = dynamic_cast<EventNode*>(pSender);
@@ -75,9 +75,10 @@ void TestScene::onBtnClick(cocos2d::Ref *pSender, void *pParam)
 	{
 		printf("content size: %.2f, %.2f\n", node->getContentSize().width, node->getContentSize().height);
 	}
+	printf("%d\n", param);
 }
 
-void TestScene::onKbdPressed(cocos2d::Ref *pSender, EventKeyboard::KeyCode keyCode, void *pParam)
+void TestScene::onKbdPressed(cocos2d::Ref *pSender, EventKeyboard::KeyCode keyCode)
 {
 	printf("%d pressed\n", keyCode);
 }
