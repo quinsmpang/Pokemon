@@ -1,5 +1,5 @@
 /******************************
-	Description: Button, inherit EventNode
+	Description: Button, extends EventNode
 	Author: M.Wan
 	Date: 4/21/2014
 ******************************/

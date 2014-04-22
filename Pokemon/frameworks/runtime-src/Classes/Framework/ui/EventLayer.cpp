@@ -31,6 +31,8 @@ bool EventLayer::init()
 
 	// register touch events
 	auto pTouchListener = EventListenerTouchOneByOne::create();
+	// dismiss the event bubble
+	pTouchListener->setSwallowTouches(true);
 	pTouchListener->onTouchBegan = CC_CALLBACK_2(EventLayer::onTouchBegan, this);
 	pTouchListener->onTouchMoved = CC_CALLBACK_2(EventLayer::onTouchMoved, this);
 	pTouchListener->onTouchEnded = CC_CALLBACK_2(EventLayer::onTouchEnded, this);
