@@ -8,28 +8,14 @@ namespace framework
 /*********************public functions*********************/
 void EventNode::setEnabled(bool isEnabled)
 {
-	if (this->_isEnabled != isEnabled)
-	{
-		this->_selectedImage->setVisible(false);
-		this->_defaultImage->setVisible(!isEnabled);
-		this->_disabledImage->setVisible(isEnabled);
-	}
 	this->_isEnabled = isEnabled;
+	this->updateImageVisibility();
 }
 
 void EventNode::setSelected(bool isSelected)
 {
-	if (!this->_isEnabled)
-	{
-		return;
-	}
-	if (this->_isSelected != isSelected)
-	{
-		this->_selectedImage->setVisible(isSelected);
-		this->_defaultImage->setVisible(!isSelected);
-		this->_disabledImage->setVisible(false);
-	}
 	this->_isSelected = isSelected;
+	this->updateImageVisibility();
 }
 
 void EventNode::focus()
@@ -37,8 +23,8 @@ void EventNode::focus()
 	if (!this->_isEnabled)
 		return;
 
-	this->_selectedImage->setVisible(true);
-	this->_defaultImage->setVisible(false);
+	SAFE_SET_VISIBILITY(this->_selectedImage, true);
+	SAFE_SET_VISIBILITY(this->_defaultImage, false);
 }
 
 void EventNode::blur()
@@ -46,8 +32,8 @@ void EventNode::blur()
 	if (!this->_isEnabled)
 		return;
 
-	this->_selectedImage->setVisible(false);
-	this->_defaultImage->setVisible(true);
+	SAFE_SET_VISIBILITY(this->_selectedImage, false);
+	SAFE_SET_VISIBILITY(this->_defaultImage, true);
 }
 
 Rect EventNode::rect() const
@@ -92,5 +78,29 @@ void EventNode::onKeyPressed(cocos2d::Ref *pSender, cocos2d::EventKeyboard::KeyC
 	}
 }
 #endif
+
+void EventNode::updateImageVisibility()
+{
+	if (this->_isEnabled)
+	{
+		SAFE_SET_VISIBILITY(_disabledImage, false);
+		if (this->_isSelected)
+		{
+			SAFE_SET_VISIBILITY(_selectedImage, true);
+			SAFE_SET_VISIBILITY(_defaultImage, false);
+		}
+		else
+		{
+			SAFE_SET_VISIBILITY(_selectedImage, false);
+			SAFE_SET_VISIBILITY(_defaultImage, true);
+		}
+	}
+	else
+	{
+		SAFE_SET_VISIBILITY(_defaultImage, false);
+		SAFE_SET_VISIBILITY(_selectedImage, false);
+		SAFE_SET_VISIBILITY(_disabledImage, true);
+	}
+}
 
 }

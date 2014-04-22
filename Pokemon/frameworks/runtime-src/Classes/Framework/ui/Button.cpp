@@ -7,7 +7,7 @@ namespace framework
 
 bool Button::initWithNodes(cocos2d::Node *pDefaultImage, cocos2d::Node *pSelectedImage, cocos2d::Node *pDisabledImage, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
 {
-	if (!EventNode::init())
+	if (!EventNode::init() || !pDefaultImage || !pSelectedImage || !pDisabledImage)
 	{
 		return false;
 	}

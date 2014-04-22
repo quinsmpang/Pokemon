@@ -19,6 +19,11 @@ typedef std::function<void(cocos2d::Ref*, cocos2d::EventKeyboard::KeyCode)> Keyb
 #define TOUCH_EVENT_CALLBACK(__selector__, __target__, ...) std::bind(&__selector__, __target__, std::placeholders::_1, ##__VA_ARGS__)
 #define KEYBOARD_EVENT_CALLBACK(__selector__, __target__, ...) std::bind(&__selector__, __target__, std::placeholders::_1, std::placeholders::_2, ##__VA_ARGS__)
 
+#define SAFE_SET_VISIBILITY(__node__, __value__) \
+	if (__node__) { \
+		__node__->setVisible(__value__); \
+	} \
+
 class EventNode : public cocos2d::Node
 {
 	friend class EventLayer;
@@ -38,6 +43,15 @@ public:
 	virtual void focus();
 	virtual void blur();
 
+	inline void setTouchCallback(TouchCallback callback)
+	{
+		this->_touchCallback = callback;
+	}
+	inline void setKeyboardCallback(KeyboardCallback callback)
+	{
+		this->_keyboardCallback = callback;
+	}
+
 	cocos2d::Rect rect() const;
 protected:
 	EventNode();
@@ -47,6 +61,7 @@ protected:
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	virtual void onKeyPressed(cocos2d::Ref *pSender, cocos2d::EventKeyboard::KeyCode keyCode);
 #endif
+	virtual void updateImageVisibility();
 
 	bool _isEnabled;
 	bool _isSelected;
