@@ -13,6 +13,9 @@ public:
 	static cocos2d::Scene *scene();
 
 	virtual bool init();
+
+	void onBtnClick(void *pParam);
+	void onKbdPressed(cocos2d::EventKeyboard::KeyCode keyCode, void *pParam);
 };
 
 #endif

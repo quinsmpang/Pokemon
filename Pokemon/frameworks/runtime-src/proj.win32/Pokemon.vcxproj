@@ -163,9 +163,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Framework\containers\Queue.h" />
     <ClInclude Include="..\Classes\Framework\containers\Stack.h" />
+    <ClInclude Include="..\Classes\Framework\framework.h" />
     <ClInclude Include="..\Classes\Framework\lua\LuaUtils.h" />
     <ClInclude Include="..\Classes\Framework\scene\GameScene.h" />
     <ClInclude Include="..\Classes\Framework\scene\ViewController.h" />
+    <ClInclude Include="..\Classes\Framework\ui\Button.h" />
     <ClInclude Include="..\Classes\Framework\ui\EventLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\GameLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\MaskLayer.h" />
@@ -179,6 +181,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp" />
     <ClCompile Include="..\Classes\Framework\scene\GameScene.cpp" />
     <ClCompile Include="..\Classes\Framework\scene\ViewController.cpp" />
+    <ClCompile Include="..\Classes\Framework\ui\Button.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\EventLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\GameLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\MaskLayer.cpp" />

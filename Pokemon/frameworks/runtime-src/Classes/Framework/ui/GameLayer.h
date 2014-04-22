@@ -35,6 +35,8 @@ public:
 	GameLayer *getCoreLayer();
 	void setEventLayer(EventLayer *pLayer);
 
+	virtual void addControl(EventNode *child);
+
 	virtual void onEnter() override;
 	virtual void onExit() override;
 

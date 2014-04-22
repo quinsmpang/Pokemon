@@ -22,6 +22,9 @@
     <Filter Include="Classes\ui">
       <UniqueIdentifier>{d8c077d0-f431-4c32-9d94-a071c7661822}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\ui\controls">
+      <UniqueIdentifier>{ad05e297-83e9-43df-9698-3d800cb531af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -61,6 +64,12 @@
     <ClInclude Include="..\Classes\Framework\ui\EventLayer.h">
       <Filter>Classes\ui</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\ui\Button.h">
+      <Filter>Classes\ui\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\framework.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -92,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\ui\EventLayer.cpp">
       <Filter>Classes\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\ui\Button.cpp">
+      <Filter>Classes\ui\controls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

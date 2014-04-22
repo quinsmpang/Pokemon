@@ -1,5 +1,5 @@
 #include "Test.h"
-#include "ui/MaskLayer.h"
+#include "framework.h"
 
 using namespace cocos2d;
 using namespace framework;
@@ -52,5 +52,23 @@ bool TestScene::init()
 
 	this->addChild(pMaskLayer);
 
+	auto pGameLayer = GameLayer::create();
+	auto btn = Button::create("btn1.png", "btn2.png", TOUCH_EVENT_CALLBACK(TestScene::onBtnClick, this, nullptr), KEYBOARD_EVENT_CALLBACK(TestScene::onKbdPressed, this, nullptr));
+	btn->setPosition(300, 300);
+	pGameLayer->addControl(btn);
+	pGameLayer->registerTouchEvents();
+
+	this->addChild(pGameLayer);
+
 	return true;
+}
+
+void TestScene::onBtnClick(void *pParam)
+{
+	printf("btn clicked\n");
+}
+
+void TestScene::onKbdPressed(EventKeyboard::KeyCode keyCode, void *pParam)
+{
+	printf("%d pressed\n", keyCode);
 }

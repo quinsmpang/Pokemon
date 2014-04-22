@@ -6,17 +6,6 @@ using namespace cocos2d;
 namespace framework
 {
 
-bool containsPoint(Rect rect, Point point)
-{
-	float minX = rect.origin.x, maxX = rect.origin.x + rect.size.width;
-	float minY = rect.origin.y - rect.size.height, maxY = rect.origin.y;
-	if (point.x >= minX && point.x <= maxX && point.y >= minY && point.y <= maxY)
-	{
-		return true;
-	}
-	return false;
-}
-
 /*****************public functions*****************/
 MaskLayer::MaskLayer()
 	: _opacity(200)
@@ -63,8 +52,7 @@ bool MaskLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 {
 	CC_UNUSED_PARAM(pEvent);
 	Point pos = pTouch->getLocation();
-	// there are some problems in Rect.containsPoint method, so use containsPoint defined by myself here.
-	bool needIntercept = this->isInterceptAllEvents() || !containsPoint(_area, pos);
+	bool needIntercept = this->isInterceptAllEvents() || !_area.containsPoint(pos);
 
 	// cpp callback
 	if (this->_delegate)
@@ -172,7 +160,8 @@ void MaskLayer::updateView()
 	if (_area.size.width != 0 && _area.size.height != 0)
 	{
 		auto pDrawNode = DrawNode::create();
-		Point rect[4] = { _area.origin, Point(_area.origin.x + _area.size.width, _area.origin.y), Point(_area.origin.x + _area.size.width, _area.origin.y - _area.size.height), Point(_area.origin.x, _area.origin.y - _area.size.height) };
+		// The origin of the rect is at bottom-left
+		Point rect[4] = { Point(_area.origin.x, _area.origin.y + _area.size.height), Point(_area.origin.x + _area.size.width, _area.origin.y + _area.size.height), Point(_area.origin.x + _area.size.width, _area.origin.y), _area.origin };
 		pDrawNode->drawPolygon(rect, 4, Color4F::WHITE, 0, Color4F::WHITE);
 		_clipper->setStencil(pDrawNode);
 	}

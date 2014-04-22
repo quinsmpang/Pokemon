@@ -40,7 +40,7 @@ bool EventLayer::init()
 	pKeyboardListener->onKeyPressed = CC_CALLBACK_2(EventLayer::onKeyPressed, this);
 	pKeyboardListener->onKeyReleased = CC_CALLBACK_2(EventLayer::onKeyReleased, this);
 
-	_eventDispatcher->addEventListenerWithFixedPriority(pKeyboardListener, -999);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(pKeyboardListener, this);
 
 	return true;
 }
@@ -144,16 +144,24 @@ EventNode *EventLayer::getNodeForTouch(Touch *pTouch)
 	for (auto iter = _children.crbegin(); iter != _children.crend(); ++iter)
 	{
 		auto child = dynamic_cast<EventNode*>(*iter);
-		if (child && child->getEnabled() && child->isVisible())
+		if (child && child->isVisible())
 		{
 			Point nodePos = child->convertToNodeSpace(location);
-			Rect region = child->getBoundingBox();
+			Rect region = child->rect();
 			region.origin = Point::ZERO;
 
 			if (region.containsPoint(nodePos))
 			{
-				return child;
+				if (child->isEnabled())
+				{
+					return child;
+				}
+				else	// intercepted
+				{
+					return nullptr;
+				}
 			}
+
 		}
 	}
 

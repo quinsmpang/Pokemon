@@ -20,44 +20,33 @@ void EventNode::setEnabled(bool isEnabled)
 {
 	if (this->_isEnabled != isEnabled)
 	{
-		this->removeAllChildren();
-		if (isEnabled)
-		{
-			this->addChild(_defaultImage);
-		}
-		else
-		{
-			this->addChild(_disabledImage);
-		}
+		this->_selectedImage->setVisible(false);
+		this->_defaultImage->setVisible(!isEnabled);
+		this->_disabledImage->setVisible(isEnabled);
 	}
 	this->_isEnabled = isEnabled;
 }
 
 void EventNode::setSelected(bool isSelected)
 {
+	if (!this->_isEnabled)
+	{
+		return;
+	}
 	if (this->_isSelected != isSelected)
 	{
-		this->removeAllChildren();
-		if (isSelected)
-		{
-			this->addChild(_selectedImage);
-		}
-		else
-		{
-			this->addChild(_defaultImage);
-		}
+		this->_selectedImage->setVisible(isSelected);
+		this->_defaultImage->setVisible(!isSelected);
+		this->_disabledImage->setVisible(false);
 	}
 	this->_isSelected = isSelected;
 }
 
-void EventNode::onTouch(void *pParam)
+Rect EventNode::rect() const
 {
-	CCASSERT(false, "override me");
-}
-
-void EventNode::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, void *pParam)
-{
-	CCASSERT(false, "override me");
+    return Rect( _position.x - _contentSize.width * _anchorPoint.x,
+                      _position.y - _contentSize.height * _anchorPoint.y,
+                      _contentSize.width, _contentSize.height);
 }
 
 /*********************private functions*********************/
@@ -73,9 +62,24 @@ EventNode::EventNode()
 
 EventNode::~EventNode()
 {
-	if (this->_defaultImage)
+	CC_SAFE_RELEASE_NULL(_defaultImage);
+	CC_SAFE_RELEASE_NULL(_selectedImage);
+	CC_SAFE_RELEASE_NULL(_disabledImage);
+}
+
+void EventNode::onTouch(void *pParam)
+{
+	if (this->_touchCallback)
 	{
-		CC_SAFE_RELEASE_NULL(_defaultImage);
+		this->_touchCallback(pParam);
+	}
+}
+
+void EventNode::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, void *pParam)
+{
+	if (this->_keyboardCallback)
+	{
+		this->_keyboardCallback(keyCode, pParam);
 	}
 }
 
