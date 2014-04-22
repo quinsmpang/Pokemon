@@ -14,5 +14,6 @@
 #include "ui\GameLayer.h"
 #include "ui\MaskLayer.h"
 #include "ui\Button.h"
+#include "ui\TextBlock.h"
 
 #endif

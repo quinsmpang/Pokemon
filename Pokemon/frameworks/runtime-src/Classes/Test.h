@@ -14,8 +14,8 @@ public:
 
 	virtual bool init();
 
-	void onBtnClick(void *pParam);
-	void onKbdPressed(cocos2d::EventKeyboard::KeyCode keyCode, void *pParam);
+	void onBtnClick(cocos2d::Ref *pSender, void *pParam);
+	void onKbdPressed(cocos2d::Ref *pSender, cocos2d::EventKeyboard::KeyCode keyCode, void *pParam);
 };
 
 #endif

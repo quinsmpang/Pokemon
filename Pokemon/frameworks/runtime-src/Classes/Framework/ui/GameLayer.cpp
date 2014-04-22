@@ -28,6 +28,8 @@ bool GameLayer::init()
 	this->_eventLayer->retain();
 
 	this->addChild(this->_eventLayer);
+
+	return true;
 }
 
 void GameLayer::pushLayer(GameLayer *pLayer)
