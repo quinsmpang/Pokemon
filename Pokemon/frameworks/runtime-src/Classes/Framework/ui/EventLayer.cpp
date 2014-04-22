@@ -6,10 +6,13 @@ namespace framework
 {
 
 EventLayer::EventLayer()
-	: _focusNode(nullptr)
+	: _selectedNode(nullptr)
+	, _focusNode(nullptr)
 	, _state(State::Waiting)
 	, _isTouchEnabled(true)
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	, _isKeyboardEnabled(true)
+#endif
 {
 }
 
@@ -28,6 +31,8 @@ bool EventLayer::init()
 
 	// register touch events
 	auto pTouchListener = EventListenerTouchOneByOne::create();
+	// dismiss the event bubble
+	pTouchListener->setSwallowTouches(true);
 	pTouchListener->onTouchBegan = CC_CALLBACK_2(EventLayer::onTouchBegan, this);
 	pTouchListener->onTouchMoved = CC_CALLBACK_2(EventLayer::onTouchMoved, this);
 	pTouchListener->onTouchEnded = CC_CALLBACK_2(EventLayer::onTouchEnded, this);
@@ -35,12 +40,14 @@ bool EventLayer::init()
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(pTouchListener, this);
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	// register keyboard events
 	auto pKeyboardListener = EventListenerKeyboard::create();
 	pKeyboardListener->onKeyPressed = CC_CALLBACK_2(EventLayer::onKeyPressed, this);
 	pKeyboardListener->onKeyReleased = CC_CALLBACK_2(EventLayer::onKeyReleased, this);
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(pKeyboardListener, this);
+#endif
 
 	return true;
 }
@@ -61,11 +68,11 @@ bool EventLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 		}
 	}
 
-	_focusNode = this->getNodeForTouch(pTouch);
-	if (_focusNode)
+	_selectedNode = this->getNodeForTouch(pTouch);
+	if (_selectedNode)
 	{
 		_state = State::Tracking;
-		_focusNode->setSelected(true);
+		_selectedNode->setSelected(true);
 
 		return true;
 	}
@@ -77,16 +84,16 @@ void EventLayer::onTouchMoved(Touch *pTouch, Event *pEvent)
 {
 	CCASSERT(_state == State::Tracking, "Invalid operation during touch moved.");
 	auto pNode = this->getNodeForTouch(pTouch);
-	if (pNode != _focusNode)
+	if (pNode != _selectedNode)
 	{
-		if (_focusNode)
+		if (_selectedNode)
 		{
-			_focusNode->setSelected(false);
+			_selectedNode->setSelected(false);
 		}
-		_focusNode = pNode;
-		if (_focusNode)
+		_selectedNode = pNode;
+		if (_selectedNode)
 		{
-			_focusNode->setSelected(true);
+			_selectedNode->setSelected(true);
 		}
 	}
 }
@@ -94,10 +101,10 @@ void EventLayer::onTouchMoved(Touch *pTouch, Event *pEvent)
 void EventLayer::onTouchEnded(Touch *pTouch, Event *pEvent)
 {
 	CCASSERT(_state == State::Tracking, "Invalid operation during touch ended.");
-	if (_focusNode)
+	if (_selectedNode)
 	{
-		_focusNode->setSelected(false);
-		_focusNode->onTouch(nullptr);
+		_selectedNode->setSelected(false);
+		_selectedNode->onTouch(this, nullptr);
 	}
 	this->_state = State::Waiting;
 }
@@ -105,22 +112,23 @@ void EventLayer::onTouchEnded(Touch *pTouch, Event *pEvent)
 void EventLayer::onTouchCancelled(Touch *pTouch, Event *pEvent)
 {
 	CCASSERT(_state == State::Tracking, "Invalid operation during touch cancelled.");
-	if (_focusNode)
+	if (_selectedNode)
 	{
-		_focusNode->setSelected(false);
+		_selectedNode->setSelected(false);
 	}
 	this->_state = State::Waiting;
 }
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 void EventLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *pEvent)
 {
-	if (_state != State::Waiting || !_visible || !_isKeyboardEnabled || !_focusNode)
+	if (_state != State::Waiting || !_visible || !_isKeyboardEnabled || !_selectedNode)
 	{
 		return;
 	}
 
 	this->_state = State::Tracking;
-	_focusNode->onKeyPressed(keyCode, nullptr);
+	_selectedNode->onKeyPressed(this, keyCode, nullptr);
 	this->_state = State::Waiting;
 }
 
@@ -128,14 +136,12 @@ void EventLayer::onKeyReleased(EventKeyboard::KeyCode keyCode, Event *pEvent)
 {
 }
 
+#endif
+
 
 /*************************** private functions ***************************/
 EventLayer::~EventLayer()
 {
-	if (this->_focusNode)
-	{
-		CC_SAFE_RELEASE_NULL(this->_focusNode);
-	}
 }
 EventNode *EventLayer::getNodeForTouch(Touch *pTouch)
 {

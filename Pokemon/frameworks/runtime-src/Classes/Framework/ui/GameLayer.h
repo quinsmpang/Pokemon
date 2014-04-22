@@ -23,8 +23,6 @@ public:
 
 	CREATE_FUNC(GameLayer);
 
-	CC_SYNTHESIZE(bool, _isEnabled, Enabled);
-
 	// push new layer into the stack
 	void pushLayer(GameLayer *pLayer);
 	// pop current layer
@@ -35,15 +33,18 @@ public:
 	GameLayer *getCoreLayer();
 	void setEventLayer(EventLayer *pLayer);
 
-	virtual void addControl(EventNode *child);
+	virtual void addControl(EventNode *pControl);
+	virtual void setFocusNode(EventNode *pNode);
 
 	virtual void onEnter() override;
 	virtual void onExit() override;
 
 	void registerTouchEvents();
 	void unregisterTouchEvents();
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	void registerKeyboardEvents();
 	void unregisterKeyboardEvents();
+#endif
 protected:
 	~GameLayer();
 	// the pointer to the parent layer, if it is null, then this layer is the core layer.
@@ -52,7 +53,9 @@ protected:
 	EventLayer *_eventLayer;
 
 	cocos2d::EventListenerTouchOneByOne *_touchListener;
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	cocos2d::EventListenerKeyboard *_keyboardListener;
+#endif
 };
 
 }

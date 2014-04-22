@@ -6,16 +6,6 @@ namespace framework
 {
 
 /*********************public functions*********************/
-bool EventNode::init()
-{
-	if (!Node::init())
-	{
-		return false;
-	}
-
-	return true;
-}
-
 void EventNode::setEnabled(bool isEnabled)
 {
 	if (this->_isEnabled != isEnabled)
@@ -40,6 +30,24 @@ void EventNode::setSelected(bool isSelected)
 		this->_disabledImage->setVisible(false);
 	}
 	this->_isSelected = isSelected;
+}
+
+void EventNode::focus()
+{
+	if (!this->_isEnabled)
+		return;
+
+	this->_selectedImage->setVisible(true);
+	this->_defaultImage->setVisible(false);
+}
+
+void EventNode::blur()
+{
+	if (!this->_isEnabled)
+		return;
+
+	this->_selectedImage->setVisible(false);
+	this->_defaultImage->setVisible(true);
 }
 
 Rect EventNode::rect() const
@@ -67,20 +75,22 @@ EventNode::~EventNode()
 	CC_SAFE_RELEASE_NULL(_disabledImage);
 }
 
-void EventNode::onTouch(void *pParam)
+void EventNode::onTouch(cocos2d::Ref *pSender, void *pParam)
 {
 	if (this->_touchCallback)
 	{
-		this->_touchCallback(pParam);
+		this->_touchCallback(this, pParam);
 	}
 }
 
-void EventNode::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, void *pParam)
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+void EventNode::onKeyPressed(cocos2d::Ref *pSender, cocos2d::EventKeyboard::KeyCode keyCode, void *pParam)
 {
 	if (this->_keyboardCallback)
 	{
-		this->_keyboardCallback(keyCode, pParam);
+		this->_keyboardCallback(this, keyCode, pParam);
 	}
 }
+#endif
 
 }

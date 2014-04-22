@@ -134,6 +134,7 @@ bool MaskLayer::initWithArea(const cocos2d::Rect &area)
 
 	// register touch events.
 	auto pListener = EventListenerTouchOneByOne::create();
+	pListener->setSwallowTouches(true);
 	pListener->onTouchBegan = CC_CALLBACK_2(MaskLayer::onTouchBegan, this);
 	pListener->onTouchMoved = CC_CALLBACK_2(MaskLayer::onTouchMoved, this);
 	pListener->onTouchEnded = CC_CALLBACK_2(MaskLayer::onTouchEnded, this);
