@@ -8,7 +8,7 @@
 #define __SCENE_GAMESCENE_H__
 
 #include "cocos2d.h"
-#include "scene/ViewController.h"
+#include "ViewController.h"
 
 namespace framework
 {

@@ -9,7 +9,7 @@
 
 #include "cocos2d.h"
 #include "EventLayer.h"
-#include "ui/EventNode.h"
+#include "../ui/EventNode.h"
 
 namespace framework
 {
