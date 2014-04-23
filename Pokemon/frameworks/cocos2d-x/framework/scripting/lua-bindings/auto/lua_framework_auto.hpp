@@ -1,5 +1,5 @@
-#ifndef __framework_h__
-#define __framework_h__
+#ifndef __psframework_h__
+#define __psframework_h__
 
 #ifdef __cplusplus
 extern "C" {
@@ -9,7 +9,7 @@ extern "C" {
 }
 #endif
 
-int register_all_framework(lua_State* tolua_S);
+int register_all_psframework(lua_State* tolua_S);
 
 
 
@@ -114,4 +114,4 @@ int register_all_framework(lua_State* tolua_S);
 
 
 
-#endif // __framework_h__
+#endif // __psframework_h__

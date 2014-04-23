@@ -5,7 +5,7 @@
 
 
 
-int lua_framework_Queue_getLength(lua_State* tolua_S)
+int lua_psframework_Queue_getLength(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Queue* cobj = nullptr;
@@ -25,7 +25,7 @@ int lua_framework_Queue_getLength(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Queue_getLength'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Queue_getLength'", nullptr);
         return 0;
     }
 #endif
@@ -44,12 +44,12 @@ int lua_framework_Queue_getLength(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Queue_getLength'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Queue_getLength'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_Queue_dequeue(lua_State* tolua_S)
+int lua_psframework_Queue_dequeue(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Queue* cobj = nullptr;
@@ -69,7 +69,7 @@ int lua_framework_Queue_dequeue(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Queue_dequeue'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Queue_dequeue'", nullptr);
         return 0;
     }
 #endif
@@ -87,12 +87,12 @@ int lua_framework_Queue_dequeue(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Queue_dequeue'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Queue_dequeue'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_Queue_clear(lua_State* tolua_S)
+int lua_psframework_Queue_clear(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Queue* cobj = nullptr;
@@ -112,7 +112,7 @@ int lua_framework_Queue_clear(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Queue_clear'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Queue_clear'", nullptr);
         return 0;
     }
 #endif
@@ -130,12 +130,12 @@ int lua_framework_Queue_clear(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Queue_clear'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Queue_clear'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_Queue_enqueue(lua_State* tolua_S)
+int lua_psframework_Queue_enqueue(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Queue* cobj = nullptr;
@@ -155,7 +155,7 @@ int lua_framework_Queue_enqueue(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Queue_enqueue'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Queue_enqueue'", nullptr);
         return 0;
     }
 #endif
@@ -176,12 +176,12 @@ int lua_framework_Queue_enqueue(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Queue_enqueue'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Queue_enqueue'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_Queue_isEmpty(lua_State* tolua_S)
+int lua_psframework_Queue_isEmpty(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Queue* cobj = nullptr;
@@ -201,7 +201,7 @@ int lua_framework_Queue_isEmpty(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Queue_isEmpty'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Queue_isEmpty'", nullptr);
         return 0;
     }
 #endif
@@ -220,12 +220,12 @@ int lua_framework_Queue_isEmpty(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Queue_isEmpty'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Queue_isEmpty'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_Queue_front(lua_State* tolua_S)
+int lua_psframework_Queue_front(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Queue* cobj = nullptr;
@@ -245,7 +245,7 @@ int lua_framework_Queue_front(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Queue_front'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Queue_front'", nullptr);
         return 0;
     }
 #endif
@@ -264,12 +264,12 @@ int lua_framework_Queue_front(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Queue_front'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Queue_front'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_Queue_constructor(lua_State* tolua_S)
+int lua_psframework_Queue_constructor(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Queue* cobj = nullptr;
@@ -287,39 +287,41 @@ int lua_framework_Queue_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::Queue();
-        tolua_pushusertype(tolua_S,(void*)cobj,"pf.Queue");
-        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+        cobj->autorelease();
+        int ID =  (int)cobj->_ID ;
+        int* luaID =  &cobj->_luaID ;
+        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.Queue");
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "Queue",argc, 0);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Queue_constructor'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Queue_constructor'.",&tolua_err);
 #endif
 
     return 0;
 }
 
-static int lua_framework_Queue_finalize(lua_State* tolua_S)
+static int lua_psframework_Queue_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Queue)");
     return 0;
 }
 
-int lua_register_framework_Queue(lua_State* tolua_S)
+int lua_register_psframework_Queue(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.Queue");
-    tolua_cclass(tolua_S,"Queue","pf.Queue","",nullptr);
+    tolua_cclass(tolua_S,"Queue","pf.Queue","cc.Ref",nullptr);
 
     tolua_beginmodule(tolua_S,"Queue");
-        tolua_function(tolua_S,"getLength",lua_framework_Queue_getLength);
-        tolua_function(tolua_S,"dequeue",lua_framework_Queue_dequeue);
-        tolua_function(tolua_S,"clear",lua_framework_Queue_clear);
-        tolua_function(tolua_S,"enqueue",lua_framework_Queue_enqueue);
-        tolua_function(tolua_S,"isEmpty",lua_framework_Queue_isEmpty);
-        tolua_function(tolua_S,"front",lua_framework_Queue_front);
-        tolua_function(tolua_S,"new",lua_framework_Queue_constructor);
+        tolua_function(tolua_S,"getLength",lua_psframework_Queue_getLength);
+        tolua_function(tolua_S,"dequeue",lua_psframework_Queue_dequeue);
+        tolua_function(tolua_S,"clear",lua_psframework_Queue_clear);
+        tolua_function(tolua_S,"enqueue",lua_psframework_Queue_enqueue);
+        tolua_function(tolua_S,"isEmpty",lua_psframework_Queue_isEmpty);
+        tolua_function(tolua_S,"front",lua_psframework_Queue_front);
+        tolua_function(tolua_S,"new",lua_psframework_Queue_constructor);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::Queue).name();
     g_luaType[typeName] = "pf.Queue";
@@ -327,7 +329,7 @@ int lua_register_framework_Queue(lua_State* tolua_S)
     return 1;
 }
 
-int lua_framework_Stack_getLength(lua_State* tolua_S)
+int lua_psframework_Stack_getLength(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Stack* cobj = nullptr;
@@ -347,7 +349,7 @@ int lua_framework_Stack_getLength(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Stack_getLength'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Stack_getLength'", nullptr);
         return 0;
     }
 #endif
@@ -366,12 +368,12 @@ int lua_framework_Stack_getLength(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Stack_getLength'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Stack_getLength'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_Stack_top(lua_State* tolua_S)
+int lua_psframework_Stack_top(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Stack* cobj = nullptr;
@@ -391,7 +393,7 @@ int lua_framework_Stack_top(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Stack_top'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Stack_top'", nullptr);
         return 0;
     }
 #endif
@@ -410,12 +412,12 @@ int lua_framework_Stack_top(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Stack_top'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Stack_top'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_Stack_pop(lua_State* tolua_S)
+int lua_psframework_Stack_pop(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Stack* cobj = nullptr;
@@ -435,7 +437,7 @@ int lua_framework_Stack_pop(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Stack_pop'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Stack_pop'", nullptr);
         return 0;
     }
 #endif
@@ -453,12 +455,12 @@ int lua_framework_Stack_pop(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Stack_pop'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Stack_pop'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_Stack_isEmpty(lua_State* tolua_S)
+int lua_psframework_Stack_isEmpty(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Stack* cobj = nullptr;
@@ -478,7 +480,7 @@ int lua_framework_Stack_isEmpty(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Stack_isEmpty'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Stack_isEmpty'", nullptr);
         return 0;
     }
 #endif
@@ -497,12 +499,12 @@ int lua_framework_Stack_isEmpty(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Stack_isEmpty'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Stack_isEmpty'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_Stack_push(lua_State* tolua_S)
+int lua_psframework_Stack_push(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Stack* cobj = nullptr;
@@ -522,7 +524,7 @@ int lua_framework_Stack_push(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Stack_push'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Stack_push'", nullptr);
         return 0;
     }
 #endif
@@ -543,12 +545,12 @@ int lua_framework_Stack_push(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Stack_push'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Stack_push'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_Stack_clear(lua_State* tolua_S)
+int lua_psframework_Stack_clear(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Stack* cobj = nullptr;
@@ -568,7 +570,7 @@ int lua_framework_Stack_clear(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Stack_clear'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Stack_clear'", nullptr);
         return 0;
     }
 #endif
@@ -586,12 +588,12 @@ int lua_framework_Stack_clear(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Stack_clear'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Stack_clear'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_Stack_constructor(lua_State* tolua_S)
+int lua_psframework_Stack_constructor(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Stack* cobj = nullptr;
@@ -609,39 +611,41 @@ int lua_framework_Stack_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::Stack();
-        tolua_pushusertype(tolua_S,(void*)cobj,"pf.Stack");
-        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+        cobj->autorelease();
+        int ID =  (int)cobj->_ID ;
+        int* luaID =  &cobj->_luaID ;
+        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.Stack");
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "Stack",argc, 0);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Stack_constructor'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Stack_constructor'.",&tolua_err);
 #endif
 
     return 0;
 }
 
-static int lua_framework_Stack_finalize(lua_State* tolua_S)
+static int lua_psframework_Stack_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Stack)");
     return 0;
 }
 
-int lua_register_framework_Stack(lua_State* tolua_S)
+int lua_register_psframework_Stack(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.Stack");
-    tolua_cclass(tolua_S,"Stack","pf.Stack","",nullptr);
+    tolua_cclass(tolua_S,"Stack","pf.Stack","cc.Ref",nullptr);
 
     tolua_beginmodule(tolua_S,"Stack");
-        tolua_function(tolua_S,"getLength",lua_framework_Stack_getLength);
-        tolua_function(tolua_S,"top",lua_framework_Stack_top);
-        tolua_function(tolua_S,"pop",lua_framework_Stack_pop);
-        tolua_function(tolua_S,"isEmpty",lua_framework_Stack_isEmpty);
-        tolua_function(tolua_S,"push",lua_framework_Stack_push);
-        tolua_function(tolua_S,"clear",lua_framework_Stack_clear);
-        tolua_function(tolua_S,"new",lua_framework_Stack_constructor);
+        tolua_function(tolua_S,"getLength",lua_psframework_Stack_getLength);
+        tolua_function(tolua_S,"top",lua_psframework_Stack_top);
+        tolua_function(tolua_S,"pop",lua_psframework_Stack_pop);
+        tolua_function(tolua_S,"isEmpty",lua_psframework_Stack_isEmpty);
+        tolua_function(tolua_S,"push",lua_psframework_Stack_push);
+        tolua_function(tolua_S,"clear",lua_psframework_Stack_clear);
+        tolua_function(tolua_S,"new",lua_psframework_Stack_constructor);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::Stack).name();
     g_luaType[typeName] = "pf.Stack";
@@ -649,7 +653,7 @@ int lua_register_framework_Stack(lua_State* tolua_S)
     return 1;
 }
 
-int lua_framework_ViewController_load(lua_State* tolua_S)
+int lua_psframework_ViewController_load(lua_State* tolua_S)
 {
     int argc = 0;
     framework::ViewController* cobj = nullptr;
@@ -669,7 +673,7 @@ int lua_framework_ViewController_load(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_ViewController_load'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ViewController_load'", nullptr);
         return 0;
     }
 #endif
@@ -687,12 +691,12 @@ int lua_framework_ViewController_load(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_ViewController_load'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ViewController_load'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_ViewController_setScene(lua_State* tolua_S)
+int lua_psframework_ViewController_setScene(lua_State* tolua_S)
 {
     int argc = 0;
     framework::ViewController* cobj = nullptr;
@@ -712,7 +716,7 @@ int lua_framework_ViewController_setScene(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_ViewController_setScene'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ViewController_setScene'", nullptr);
         return 0;
     }
 #endif
@@ -733,12 +737,12 @@ int lua_framework_ViewController_setScene(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_ViewController_setScene'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ViewController_setScene'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_ViewController_init(lua_State* tolua_S)
+int lua_psframework_ViewController_init(lua_State* tolua_S)
 {
     int argc = 0;
     framework::ViewController* cobj = nullptr;
@@ -758,7 +762,7 @@ int lua_framework_ViewController_init(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_ViewController_init'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ViewController_init'", nullptr);
         return 0;
     }
 #endif
@@ -777,12 +781,12 @@ int lua_framework_ViewController_init(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_ViewController_init'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ViewController_init'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_ViewController_getScene(lua_State* tolua_S)
+int lua_psframework_ViewController_getScene(lua_State* tolua_S)
 {
     int argc = 0;
     framework::ViewController* cobj = nullptr;
@@ -802,7 +806,7 @@ int lua_framework_ViewController_getScene(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_ViewController_getScene'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ViewController_getScene'", nullptr);
         return 0;
     }
 #endif
@@ -821,12 +825,12 @@ int lua_framework_ViewController_getScene(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_ViewController_getScene'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ViewController_getScene'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_ViewController_unload(lua_State* tolua_S)
+int lua_psframework_ViewController_unload(lua_State* tolua_S)
 {
     int argc = 0;
     framework::ViewController* cobj = nullptr;
@@ -846,7 +850,7 @@ int lua_framework_ViewController_unload(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_ViewController_unload'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ViewController_unload'", nullptr);
         return 0;
     }
 #endif
@@ -864,12 +868,12 @@ int lua_framework_ViewController_unload(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_ViewController_unload'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ViewController_unload'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_ViewController_create(lua_State* tolua_S)
+int lua_psframework_ViewController_create(lua_State* tolua_S)
 {
     int argc = 0;
     bool ok  = true;
@@ -896,28 +900,28 @@ int lua_framework_ViewController_create(lua_State* tolua_S)
     return 0;
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_ViewController_create'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ViewController_create'.",&tolua_err);
 #endif
     return 0;
 }
-static int lua_framework_ViewController_finalize(lua_State* tolua_S)
+static int lua_psframework_ViewController_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (ViewController)");
     return 0;
 }
 
-int lua_register_framework_ViewController(lua_State* tolua_S)
+int lua_register_psframework_ViewController(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.ViewController");
     tolua_cclass(tolua_S,"ViewController","pf.ViewController","cc.Ref",nullptr);
 
     tolua_beginmodule(tolua_S,"ViewController");
-        tolua_function(tolua_S,"load",lua_framework_ViewController_load);
-        tolua_function(tolua_S,"setScene",lua_framework_ViewController_setScene);
-        tolua_function(tolua_S,"init",lua_framework_ViewController_init);
-        tolua_function(tolua_S,"getScene",lua_framework_ViewController_getScene);
-        tolua_function(tolua_S,"unload",lua_framework_ViewController_unload);
-        tolua_function(tolua_S,"create", lua_framework_ViewController_create);
+        tolua_function(tolua_S,"load",lua_psframework_ViewController_load);
+        tolua_function(tolua_S,"setScene",lua_psframework_ViewController_setScene);
+        tolua_function(tolua_S,"init",lua_psframework_ViewController_init);
+        tolua_function(tolua_S,"getScene",lua_psframework_ViewController_getScene);
+        tolua_function(tolua_S,"unload",lua_psframework_ViewController_unload);
+        tolua_function(tolua_S,"create", lua_psframework_ViewController_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::ViewController).name();
     g_luaType[typeName] = "pf.ViewController";
@@ -925,7 +929,7 @@ int lua_register_framework_ViewController(lua_State* tolua_S)
     return 1;
 }
 
-int lua_framework_GameScene_loadViewController(lua_State* tolua_S)
+int lua_psframework_GameScene_loadViewController(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -945,7 +949,7 @@ int lua_framework_GameScene_loadViewController(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_loadViewController'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_loadViewController'", nullptr);
         return 0;
     }
 #endif
@@ -966,12 +970,12 @@ int lua_framework_GameScene_loadViewController(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_loadViewController'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_loadViewController'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_putIntAttribute(lua_State* tolua_S)
+int lua_psframework_GameScene_putIntAttribute(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -991,7 +995,7 @@ int lua_framework_GameScene_putIntAttribute(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_putIntAttribute'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_putIntAttribute'", nullptr);
         return 0;
     }
 #endif
@@ -1015,12 +1019,12 @@ int lua_framework_GameScene_putIntAttribute(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_putIntAttribute'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_putIntAttribute'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_getRefAttribute(lua_State* tolua_S)
+int lua_psframework_GameScene_getRefAttribute(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -1040,7 +1044,7 @@ int lua_framework_GameScene_getRefAttribute(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_getRefAttribute'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_getRefAttribute'", nullptr);
         return 0;
     }
 #endif
@@ -1062,12 +1066,12 @@ int lua_framework_GameScene_getRefAttribute(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_getRefAttribute'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_getRefAttribute'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_putBoolAttribute(lua_State* tolua_S)
+int lua_psframework_GameScene_putBoolAttribute(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -1087,7 +1091,7 @@ int lua_framework_GameScene_putBoolAttribute(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_putBoolAttribute'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_putBoolAttribute'", nullptr);
         return 0;
     }
 #endif
@@ -1111,12 +1115,12 @@ int lua_framework_GameScene_putBoolAttribute(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_putBoolAttribute'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_putBoolAttribute'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_getDoubleAttribute(lua_State* tolua_S)
+int lua_psframework_GameScene_getDoubleAttribute(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -1136,7 +1140,7 @@ int lua_framework_GameScene_getDoubleAttribute(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_getDoubleAttribute'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_getDoubleAttribute'", nullptr);
         return 0;
     }
 #endif
@@ -1158,12 +1162,12 @@ int lua_framework_GameScene_getDoubleAttribute(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_getDoubleAttribute'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_getDoubleAttribute'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_unloadViewController(lua_State* tolua_S)
+int lua_psframework_GameScene_unloadViewController(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -1183,7 +1187,7 @@ int lua_framework_GameScene_unloadViewController(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_unloadViewController'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_unloadViewController'", nullptr);
         return 0;
     }
 #endif
@@ -1204,12 +1208,12 @@ int lua_framework_GameScene_unloadViewController(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_unloadViewController'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_unloadViewController'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_unloadAllViewControllers(lua_State* tolua_S)
+int lua_psframework_GameScene_unloadAllViewControllers(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -1229,7 +1233,7 @@ int lua_framework_GameScene_unloadAllViewControllers(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_unloadAllViewControllers'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_unloadAllViewControllers'", nullptr);
         return 0;
     }
 #endif
@@ -1247,12 +1251,12 @@ int lua_framework_GameScene_unloadAllViewControllers(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_unloadAllViewControllers'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_unloadAllViewControllers'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_init(lua_State* tolua_S)
+int lua_psframework_GameScene_init(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -1272,7 +1276,7 @@ int lua_framework_GameScene_init(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_init'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_init'", nullptr);
         return 0;
     }
 #endif
@@ -1291,12 +1295,12 @@ int lua_framework_GameScene_init(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_init'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_init'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_putDoubleAttribute(lua_State* tolua_S)
+int lua_psframework_GameScene_putDoubleAttribute(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -1316,7 +1320,7 @@ int lua_framework_GameScene_putDoubleAttribute(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_putDoubleAttribute'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_putDoubleAttribute'", nullptr);
         return 0;
     }
 #endif
@@ -1340,12 +1344,12 @@ int lua_framework_GameScene_putDoubleAttribute(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_putDoubleAttribute'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_putDoubleAttribute'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_putStringAttribute(lua_State* tolua_S)
+int lua_psframework_GameScene_putStringAttribute(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -1365,7 +1369,7 @@ int lua_framework_GameScene_putStringAttribute(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_putStringAttribute'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_putStringAttribute'", nullptr);
         return 0;
     }
 #endif
@@ -1389,12 +1393,12 @@ int lua_framework_GameScene_putStringAttribute(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_putStringAttribute'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_putStringAttribute'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_putRefAttribute(lua_State* tolua_S)
+int lua_psframework_GameScene_putRefAttribute(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -1414,7 +1418,7 @@ int lua_framework_GameScene_putRefAttribute(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_putRefAttribute'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_putRefAttribute'", nullptr);
         return 0;
     }
 #endif
@@ -1438,12 +1442,12 @@ int lua_framework_GameScene_putRefAttribute(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_putRefAttribute'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_putRefAttribute'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_getIntAttribute(lua_State* tolua_S)
+int lua_psframework_GameScene_getIntAttribute(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -1463,7 +1467,7 @@ int lua_framework_GameScene_getIntAttribute(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_getIntAttribute'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_getIntAttribute'", nullptr);
         return 0;
     }
 #endif
@@ -1485,12 +1489,12 @@ int lua_framework_GameScene_getIntAttribute(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_getIntAttribute'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_getIntAttribute'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_getBoolAttribute(lua_State* tolua_S)
+int lua_psframework_GameScene_getBoolAttribute(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -1510,7 +1514,7 @@ int lua_framework_GameScene_getBoolAttribute(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_getBoolAttribute'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_getBoolAttribute'", nullptr);
         return 0;
     }
 #endif
@@ -1532,12 +1536,12 @@ int lua_framework_GameScene_getBoolAttribute(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_getBoolAttribute'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_getBoolAttribute'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_getStringAttribute(lua_State* tolua_S)
+int lua_psframework_GameScene_getStringAttribute(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameScene* cobj = nullptr;
@@ -1557,7 +1561,7 @@ int lua_framework_GameScene_getStringAttribute(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameScene_getStringAttribute'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameScene_getStringAttribute'", nullptr);
         return 0;
     }
 #endif
@@ -1579,12 +1583,12 @@ int lua_framework_GameScene_getStringAttribute(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_getStringAttribute'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_getStringAttribute'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameScene_create(lua_State* tolua_S)
+int lua_psframework_GameScene_create(lua_State* tolua_S)
 {
     int argc = 0;
     bool ok  = true;
@@ -1625,37 +1629,37 @@ int lua_framework_GameScene_create(lua_State* tolua_S)
     return 0;
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameScene_create'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameScene_create'.",&tolua_err);
 #endif
     return 0;
 }
-static int lua_framework_GameScene_finalize(lua_State* tolua_S)
+static int lua_psframework_GameScene_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (GameScene)");
     return 0;
 }
 
-int lua_register_framework_GameScene(lua_State* tolua_S)
+int lua_register_psframework_GameScene(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.GameScene");
     tolua_cclass(tolua_S,"GameScene","pf.GameScene","cc.Scene",nullptr);
 
     tolua_beginmodule(tolua_S,"GameScene");
-        tolua_function(tolua_S,"loadViewController",lua_framework_GameScene_loadViewController);
-        tolua_function(tolua_S,"putIntAttribute",lua_framework_GameScene_putIntAttribute);
-        tolua_function(tolua_S,"getRefAttribute",lua_framework_GameScene_getRefAttribute);
-        tolua_function(tolua_S,"putBoolAttribute",lua_framework_GameScene_putBoolAttribute);
-        tolua_function(tolua_S,"getDoubleAttribute",lua_framework_GameScene_getDoubleAttribute);
-        tolua_function(tolua_S,"unloadViewController",lua_framework_GameScene_unloadViewController);
-        tolua_function(tolua_S,"unloadAllViewControllers",lua_framework_GameScene_unloadAllViewControllers);
-        tolua_function(tolua_S,"init",lua_framework_GameScene_init);
-        tolua_function(tolua_S,"putDoubleAttribute",lua_framework_GameScene_putDoubleAttribute);
-        tolua_function(tolua_S,"putStringAttribute",lua_framework_GameScene_putStringAttribute);
-        tolua_function(tolua_S,"putRefAttribute",lua_framework_GameScene_putRefAttribute);
-        tolua_function(tolua_S,"getIntAttribute",lua_framework_GameScene_getIntAttribute);
-        tolua_function(tolua_S,"getBoolAttribute",lua_framework_GameScene_getBoolAttribute);
-        tolua_function(tolua_S,"getStringAttribute",lua_framework_GameScene_getStringAttribute);
-        tolua_function(tolua_S,"create", lua_framework_GameScene_create);
+        tolua_function(tolua_S,"loadViewController",lua_psframework_GameScene_loadViewController);
+        tolua_function(tolua_S,"putIntAttribute",lua_psframework_GameScene_putIntAttribute);
+        tolua_function(tolua_S,"getRefAttribute",lua_psframework_GameScene_getRefAttribute);
+        tolua_function(tolua_S,"putBoolAttribute",lua_psframework_GameScene_putBoolAttribute);
+        tolua_function(tolua_S,"getDoubleAttribute",lua_psframework_GameScene_getDoubleAttribute);
+        tolua_function(tolua_S,"unloadViewController",lua_psframework_GameScene_unloadViewController);
+        tolua_function(tolua_S,"unloadAllViewControllers",lua_psframework_GameScene_unloadAllViewControllers);
+        tolua_function(tolua_S,"init",lua_psframework_GameScene_init);
+        tolua_function(tolua_S,"putDoubleAttribute",lua_psframework_GameScene_putDoubleAttribute);
+        tolua_function(tolua_S,"putStringAttribute",lua_psframework_GameScene_putStringAttribute);
+        tolua_function(tolua_S,"putRefAttribute",lua_psframework_GameScene_putRefAttribute);
+        tolua_function(tolua_S,"getIntAttribute",lua_psframework_GameScene_getIntAttribute);
+        tolua_function(tolua_S,"getBoolAttribute",lua_psframework_GameScene_getBoolAttribute);
+        tolua_function(tolua_S,"getStringAttribute",lua_psframework_GameScene_getStringAttribute);
+        tolua_function(tolua_S,"create", lua_psframework_GameScene_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::GameScene).name();
     g_luaType[typeName] = "pf.GameScene";
@@ -1663,7 +1667,7 @@ int lua_register_framework_GameScene(lua_State* tolua_S)
     return 1;
 }
 
-int lua_framework_EventNode_setEnabled(lua_State* tolua_S)
+int lua_psframework_EventNode_setEnabled(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventNode* cobj = nullptr;
@@ -1683,7 +1687,7 @@ int lua_framework_EventNode_setEnabled(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventNode_setEnabled'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventNode_setEnabled'", nullptr);
         return 0;
     }
 #endif
@@ -1704,12 +1708,12 @@ int lua_framework_EventNode_setEnabled(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventNode_setEnabled'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventNode_setEnabled'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventNode_setSelected(lua_State* tolua_S)
+int lua_psframework_EventNode_setSelected(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventNode* cobj = nullptr;
@@ -1729,7 +1733,7 @@ int lua_framework_EventNode_setSelected(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventNode_setSelected'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventNode_setSelected'", nullptr);
         return 0;
     }
 #endif
@@ -1750,12 +1754,12 @@ int lua_framework_EventNode_setSelected(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventNode_setSelected'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventNode_setSelected'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventNode_isEnabled(lua_State* tolua_S)
+int lua_psframework_EventNode_isEnabled(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventNode* cobj = nullptr;
@@ -1775,7 +1779,7 @@ int lua_framework_EventNode_isEnabled(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventNode_isEnabled'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventNode_isEnabled'", nullptr);
         return 0;
     }
 #endif
@@ -1794,12 +1798,12 @@ int lua_framework_EventNode_isEnabled(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventNode_isEnabled'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventNode_isEnabled'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventNode_focus(lua_State* tolua_S)
+int lua_psframework_EventNode_focus(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventNode* cobj = nullptr;
@@ -1819,7 +1823,7 @@ int lua_framework_EventNode_focus(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventNode_focus'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventNode_focus'", nullptr);
         return 0;
     }
 #endif
@@ -1837,12 +1841,12 @@ int lua_framework_EventNode_focus(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventNode_focus'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventNode_focus'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventNode_setTouchCallback(lua_State* tolua_S)
+int lua_psframework_EventNode_setTouchCallback(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventNode* cobj = nullptr;
@@ -1862,7 +1866,7 @@ int lua_framework_EventNode_setTouchCallback(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventNode_setTouchCallback'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventNode_setTouchCallback'", nullptr);
         return 0;
     }
 #endif
@@ -1887,12 +1891,12 @@ int lua_framework_EventNode_setTouchCallback(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventNode_setTouchCallback'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventNode_setTouchCallback'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventNode_isSelected(lua_State* tolua_S)
+int lua_psframework_EventNode_isSelected(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventNode* cobj = nullptr;
@@ -1912,7 +1916,7 @@ int lua_framework_EventNode_isSelected(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventNode_isSelected'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventNode_isSelected'", nullptr);
         return 0;
     }
 #endif
@@ -1931,12 +1935,12 @@ int lua_framework_EventNode_isSelected(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventNode_isSelected'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventNode_isSelected'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventNode_blur(lua_State* tolua_S)
+int lua_psframework_EventNode_blur(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventNode* cobj = nullptr;
@@ -1956,7 +1960,7 @@ int lua_framework_EventNode_blur(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventNode_blur'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventNode_blur'", nullptr);
         return 0;
     }
 #endif
@@ -1974,12 +1978,12 @@ int lua_framework_EventNode_blur(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventNode_blur'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventNode_blur'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventNode_setKeyboardCallback(lua_State* tolua_S)
+int lua_psframework_EventNode_setKeyboardCallback(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventNode* cobj = nullptr;
@@ -1999,7 +2003,7 @@ int lua_framework_EventNode_setKeyboardCallback(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventNode_setKeyboardCallback'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventNode_setKeyboardCallback'", nullptr);
         return 0;
     }
 #endif
@@ -2024,12 +2028,12 @@ int lua_framework_EventNode_setKeyboardCallback(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventNode_setKeyboardCallback'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventNode_setKeyboardCallback'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventNode_rect(lua_State* tolua_S)
+int lua_psframework_EventNode_rect(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventNode* cobj = nullptr;
@@ -2049,7 +2053,7 @@ int lua_framework_EventNode_rect(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventNode_rect'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventNode_rect'", nullptr);
         return 0;
     }
 #endif
@@ -2068,32 +2072,32 @@ int lua_framework_EventNode_rect(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventNode_rect'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventNode_rect'.",&tolua_err);
 #endif
 
     return 0;
 }
-static int lua_framework_EventNode_finalize(lua_State* tolua_S)
+static int lua_psframework_EventNode_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (EventNode)");
     return 0;
 }
 
-int lua_register_framework_EventNode(lua_State* tolua_S)
+int lua_register_psframework_EventNode(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.EventNode");
     tolua_cclass(tolua_S,"EventNode","pf.EventNode","cc.Node",nullptr);
 
     tolua_beginmodule(tolua_S,"EventNode");
-        tolua_function(tolua_S,"setEnabled",lua_framework_EventNode_setEnabled);
-        tolua_function(tolua_S,"setSelected",lua_framework_EventNode_setSelected);
-        tolua_function(tolua_S,"isEnabled",lua_framework_EventNode_isEnabled);
-        tolua_function(tolua_S,"focus",lua_framework_EventNode_focus);
-        tolua_function(tolua_S,"setTouchCallback",lua_framework_EventNode_setTouchCallback);
-        tolua_function(tolua_S,"isSelected",lua_framework_EventNode_isSelected);
-        tolua_function(tolua_S,"blur",lua_framework_EventNode_blur);
-        tolua_function(tolua_S,"setKeyboardCallback",lua_framework_EventNode_setKeyboardCallback);
-        tolua_function(tolua_S,"rect",lua_framework_EventNode_rect);
+        tolua_function(tolua_S,"setEnabled",lua_psframework_EventNode_setEnabled);
+        tolua_function(tolua_S,"setSelected",lua_psframework_EventNode_setSelected);
+        tolua_function(tolua_S,"isEnabled",lua_psframework_EventNode_isEnabled);
+        tolua_function(tolua_S,"focus",lua_psframework_EventNode_focus);
+        tolua_function(tolua_S,"setTouchCallback",lua_psframework_EventNode_setTouchCallback);
+        tolua_function(tolua_S,"isSelected",lua_psframework_EventNode_isSelected);
+        tolua_function(tolua_S,"blur",lua_psframework_EventNode_blur);
+        tolua_function(tolua_S,"setKeyboardCallback",lua_psframework_EventNode_setKeyboardCallback);
+        tolua_function(tolua_S,"rect",lua_psframework_EventNode_rect);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::EventNode).name();
     g_luaType[typeName] = "pf.EventNode";
@@ -2101,7 +2105,7 @@ int lua_register_framework_EventNode(lua_State* tolua_S)
     return 1;
 }
 
-int lua_framework_EventLayer_onTouchMoved(lua_State* tolua_S)
+int lua_psframework_EventLayer_onTouchMoved(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventLayer* cobj = nullptr;
@@ -2121,7 +2125,7 @@ int lua_framework_EventLayer_onTouchMoved(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventLayer_onTouchMoved'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventLayer_onTouchMoved'", nullptr);
         return 0;
     }
 #endif
@@ -2145,12 +2149,12 @@ int lua_framework_EventLayer_onTouchMoved(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventLayer_onTouchMoved'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventLayer_onTouchMoved'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventLayer_onTouchEnded(lua_State* tolua_S)
+int lua_psframework_EventLayer_onTouchEnded(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventLayer* cobj = nullptr;
@@ -2170,7 +2174,7 @@ int lua_framework_EventLayer_onTouchEnded(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventLayer_onTouchEnded'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventLayer_onTouchEnded'", nullptr);
         return 0;
     }
 #endif
@@ -2194,12 +2198,12 @@ int lua_framework_EventLayer_onTouchEnded(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventLayer_onTouchEnded'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventLayer_onTouchEnded'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventLayer_enableTouch(lua_State* tolua_S)
+int lua_psframework_EventLayer_enableTouch(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventLayer* cobj = nullptr;
@@ -2219,7 +2223,7 @@ int lua_framework_EventLayer_enableTouch(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventLayer_enableTouch'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventLayer_enableTouch'", nullptr);
         return 0;
     }
 #endif
@@ -2237,12 +2241,12 @@ int lua_framework_EventLayer_enableTouch(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventLayer_enableTouch'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventLayer_enableTouch'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventLayer_onTouchCancelled(lua_State* tolua_S)
+int lua_psframework_EventLayer_onTouchCancelled(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventLayer* cobj = nullptr;
@@ -2262,7 +2266,7 @@ int lua_framework_EventLayer_onTouchCancelled(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventLayer_onTouchCancelled'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventLayer_onTouchCancelled'", nullptr);
         return 0;
     }
 #endif
@@ -2286,12 +2290,12 @@ int lua_framework_EventLayer_onTouchCancelled(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventLayer_onTouchCancelled'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventLayer_onTouchCancelled'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventLayer_onTouchBegan(lua_State* tolua_S)
+int lua_psframework_EventLayer_onTouchBegan(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventLayer* cobj = nullptr;
@@ -2311,7 +2315,7 @@ int lua_framework_EventLayer_onTouchBegan(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventLayer_onTouchBegan'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventLayer_onTouchBegan'", nullptr);
         return 0;
     }
 #endif
@@ -2336,12 +2340,12 @@ int lua_framework_EventLayer_onTouchBegan(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventLayer_onTouchBegan'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventLayer_onTouchBegan'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventLayer_init(lua_State* tolua_S)
+int lua_psframework_EventLayer_init(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventLayer* cobj = nullptr;
@@ -2361,7 +2365,7 @@ int lua_framework_EventLayer_init(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventLayer_init'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventLayer_init'", nullptr);
         return 0;
     }
 #endif
@@ -2380,12 +2384,12 @@ int lua_framework_EventLayer_init(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventLayer_init'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventLayer_init'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventLayer_disableTouch(lua_State* tolua_S)
+int lua_psframework_EventLayer_disableTouch(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventLayer* cobj = nullptr;
@@ -2405,7 +2409,7 @@ int lua_framework_EventLayer_disableTouch(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_EventLayer_disableTouch'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventLayer_disableTouch'", nullptr);
         return 0;
     }
 #endif
@@ -2423,12 +2427,12 @@ int lua_framework_EventLayer_disableTouch(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventLayer_disableTouch'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventLayer_disableTouch'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_EventLayer_create(lua_State* tolua_S)
+int lua_psframework_EventLayer_create(lua_State* tolua_S)
 {
     int argc = 0;
     bool ok  = true;
@@ -2455,11 +2459,11 @@ int lua_framework_EventLayer_create(lua_State* tolua_S)
     return 0;
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventLayer_create'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventLayer_create'.",&tolua_err);
 #endif
     return 0;
 }
-int lua_framework_EventLayer_constructor(lua_State* tolua_S)
+int lua_psframework_EventLayer_constructor(lua_State* tolua_S)
 {
     int argc = 0;
     framework::EventLayer* cobj = nullptr;
@@ -2487,33 +2491,33 @@ int lua_framework_EventLayer_constructor(lua_State* tolua_S)
     return 0;
 
 #if COCOS2D_DEBUG >= 1
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_EventLayer_constructor'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventLayer_constructor'.",&tolua_err);
 #endif
 
     return 0;
 }
 
-static int lua_framework_EventLayer_finalize(lua_State* tolua_S)
+static int lua_psframework_EventLayer_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (EventLayer)");
     return 0;
 }
 
-int lua_register_framework_EventLayer(lua_State* tolua_S)
+int lua_register_psframework_EventLayer(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.EventLayer");
     tolua_cclass(tolua_S,"EventLayer","pf.EventLayer","cc.Layer",nullptr);
 
     tolua_beginmodule(tolua_S,"EventLayer");
-        tolua_function(tolua_S,"onTouchMoved",lua_framework_EventLayer_onTouchMoved);
-        tolua_function(tolua_S,"onTouchEnded",lua_framework_EventLayer_onTouchEnded);
-        tolua_function(tolua_S,"enableTouch",lua_framework_EventLayer_enableTouch);
-        tolua_function(tolua_S,"onTouchCancelled",lua_framework_EventLayer_onTouchCancelled);
-        tolua_function(tolua_S,"onTouchBegan",lua_framework_EventLayer_onTouchBegan);
-        tolua_function(tolua_S,"init",lua_framework_EventLayer_init);
-        tolua_function(tolua_S,"disableTouch",lua_framework_EventLayer_disableTouch);
-        tolua_function(tolua_S,"new",lua_framework_EventLayer_constructor);
-        tolua_function(tolua_S,"create", lua_framework_EventLayer_create);
+        tolua_function(tolua_S,"onTouchMoved",lua_psframework_EventLayer_onTouchMoved);
+        tolua_function(tolua_S,"onTouchEnded",lua_psframework_EventLayer_onTouchEnded);
+        tolua_function(tolua_S,"enableTouch",lua_psframework_EventLayer_enableTouch);
+        tolua_function(tolua_S,"onTouchCancelled",lua_psframework_EventLayer_onTouchCancelled);
+        tolua_function(tolua_S,"onTouchBegan",lua_psframework_EventLayer_onTouchBegan);
+        tolua_function(tolua_S,"init",lua_psframework_EventLayer_init);
+        tolua_function(tolua_S,"disableTouch",lua_psframework_EventLayer_disableTouch);
+        tolua_function(tolua_S,"new",lua_psframework_EventLayer_constructor);
+        tolua_function(tolua_S,"create", lua_psframework_EventLayer_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::EventLayer).name();
     g_luaType[typeName] = "pf.EventLayer";
@@ -2521,7 +2525,7 @@ int lua_register_framework_EventLayer(lua_State* tolua_S)
     return 1;
 }
 
-int lua_framework_GameLayer_getCoreLayer(lua_State* tolua_S)
+int lua_psframework_GameLayer_getCoreLayer(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -2541,7 +2545,7 @@ int lua_framework_GameLayer_getCoreLayer(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_getCoreLayer'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_getCoreLayer'", nullptr);
         return 0;
     }
 #endif
@@ -2560,12 +2564,12 @@ int lua_framework_GameLayer_getCoreLayer(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_getCoreLayer'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_getCoreLayer'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_setFocusNode(lua_State* tolua_S)
+int lua_psframework_GameLayer_setFocusNode(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -2585,7 +2589,7 @@ int lua_framework_GameLayer_setFocusNode(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_setFocusNode'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_setFocusNode'", nullptr);
         return 0;
     }
 #endif
@@ -2606,12 +2610,12 @@ int lua_framework_GameLayer_setFocusNode(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_setFocusNode'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_setFocusNode'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_setEventLayer(lua_State* tolua_S)
+int lua_psframework_GameLayer_setEventLayer(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -2631,7 +2635,7 @@ int lua_framework_GameLayer_setEventLayer(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_setEventLayer'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_setEventLayer'", nullptr);
         return 0;
     }
 #endif
@@ -2652,12 +2656,12 @@ int lua_framework_GameLayer_setEventLayer(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_setEventLayer'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_setEventLayer'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_isCoreLayer(lua_State* tolua_S)
+int lua_psframework_GameLayer_isCoreLayer(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -2677,7 +2681,7 @@ int lua_framework_GameLayer_isCoreLayer(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_isCoreLayer'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_isCoreLayer'", nullptr);
         return 0;
     }
 #endif
@@ -2696,12 +2700,12 @@ int lua_framework_GameLayer_isCoreLayer(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_isCoreLayer'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_isCoreLayer'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_getParentLayer(lua_State* tolua_S)
+int lua_psframework_GameLayer_getParentLayer(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -2721,7 +2725,7 @@ int lua_framework_GameLayer_getParentLayer(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_getParentLayer'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_getParentLayer'", nullptr);
         return 0;
     }
 #endif
@@ -2740,12 +2744,12 @@ int lua_framework_GameLayer_getParentLayer(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_getParentLayer'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_getParentLayer'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_removeControl(lua_State* tolua_S)
+int lua_psframework_GameLayer_removeControl(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -2765,7 +2769,7 @@ int lua_framework_GameLayer_removeControl(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_removeControl'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_removeControl'", nullptr);
         return 0;
     }
 #endif
@@ -2786,12 +2790,12 @@ int lua_framework_GameLayer_removeControl(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_removeControl'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_removeControl'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_pushLayer(lua_State* tolua_S)
+int lua_psframework_GameLayer_pushLayer(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -2811,7 +2815,7 @@ int lua_framework_GameLayer_pushLayer(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_pushLayer'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_pushLayer'", nullptr);
         return 0;
     }
 #endif
@@ -2832,12 +2836,12 @@ int lua_framework_GameLayer_pushLayer(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_pushLayer'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_pushLayer'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_removeControlByTag(lua_State* tolua_S)
+int lua_psframework_GameLayer_removeControlByTag(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -2857,7 +2861,7 @@ int lua_framework_GameLayer_removeControlByTag(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_removeControlByTag'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_removeControlByTag'", nullptr);
         return 0;
     }
 #endif
@@ -2891,12 +2895,12 @@ int lua_framework_GameLayer_removeControlByTag(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_removeControlByTag'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_removeControlByTag'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_popLayer(lua_State* tolua_S)
+int lua_psframework_GameLayer_popLayer(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -2916,7 +2920,7 @@ int lua_framework_GameLayer_popLayer(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_popLayer'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_popLayer'", nullptr);
         return 0;
     }
 #endif
@@ -2934,12 +2938,12 @@ int lua_framework_GameLayer_popLayer(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_popLayer'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_popLayer'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_init(lua_State* tolua_S)
+int lua_psframework_GameLayer_init(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -2959,7 +2963,7 @@ int lua_framework_GameLayer_init(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_init'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_init'", nullptr);
         return 0;
     }
 #endif
@@ -2978,12 +2982,12 @@ int lua_framework_GameLayer_init(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_init'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_init'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_registerTouchEvents(lua_State* tolua_S)
+int lua_psframework_GameLayer_registerTouchEvents(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -3003,7 +3007,7 @@ int lua_framework_GameLayer_registerTouchEvents(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_registerTouchEvents'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_registerTouchEvents'", nullptr);
         return 0;
     }
 #endif
@@ -3021,12 +3025,12 @@ int lua_framework_GameLayer_registerTouchEvents(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_registerTouchEvents'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_registerTouchEvents'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_addControlByTag(lua_State* tolua_S)
+int lua_psframework_GameLayer_addControlByTag(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -3046,7 +3050,7 @@ int lua_framework_GameLayer_addControlByTag(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_addControlByTag'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_addControlByTag'", nullptr);
         return 0;
     }
 #endif
@@ -3070,12 +3074,12 @@ int lua_framework_GameLayer_addControlByTag(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_addControlByTag'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_addControlByTag'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_addControl(lua_State* tolua_S)
+int lua_psframework_GameLayer_addControl(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -3095,7 +3099,7 @@ int lua_framework_GameLayer_addControl(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_addControl'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_addControl'", nullptr);
         return 0;
     }
 #endif
@@ -3116,12 +3120,12 @@ int lua_framework_GameLayer_addControl(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_addControl'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_addControl'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_unregisterTouchEvents(lua_State* tolua_S)
+int lua_psframework_GameLayer_unregisterTouchEvents(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -3141,7 +3145,7 @@ int lua_framework_GameLayer_unregisterTouchEvents(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_GameLayer_unregisterTouchEvents'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_unregisterTouchEvents'", nullptr);
         return 0;
     }
 #endif
@@ -3159,12 +3163,12 @@ int lua_framework_GameLayer_unregisterTouchEvents(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_unregisterTouchEvents'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_unregisterTouchEvents'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_GameLayer_create(lua_State* tolua_S)
+int lua_psframework_GameLayer_create(lua_State* tolua_S)
 {
     int argc = 0;
     bool ok  = true;
@@ -3191,11 +3195,11 @@ int lua_framework_GameLayer_create(lua_State* tolua_S)
     return 0;
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_create'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_create'.",&tolua_err);
 #endif
     return 0;
 }
-int lua_framework_GameLayer_constructor(lua_State* tolua_S)
+int lua_psframework_GameLayer_constructor(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -3223,40 +3227,40 @@ int lua_framework_GameLayer_constructor(lua_State* tolua_S)
     return 0;
 
 #if COCOS2D_DEBUG >= 1
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_GameLayer_constructor'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_constructor'.",&tolua_err);
 #endif
 
     return 0;
 }
 
-static int lua_framework_GameLayer_finalize(lua_State* tolua_S)
+static int lua_psframework_GameLayer_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (GameLayer)");
     return 0;
 }
 
-int lua_register_framework_GameLayer(lua_State* tolua_S)
+int lua_register_psframework_GameLayer(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.GameLayer");
     tolua_cclass(tolua_S,"GameLayer","pf.GameLayer","cc.Layer",nullptr);
 
     tolua_beginmodule(tolua_S,"GameLayer");
-        tolua_function(tolua_S,"getCoreLayer",lua_framework_GameLayer_getCoreLayer);
-        tolua_function(tolua_S,"setFocusNode",lua_framework_GameLayer_setFocusNode);
-        tolua_function(tolua_S,"setEventLayer",lua_framework_GameLayer_setEventLayer);
-        tolua_function(tolua_S,"isCoreLayer",lua_framework_GameLayer_isCoreLayer);
-        tolua_function(tolua_S,"getParentLayer",lua_framework_GameLayer_getParentLayer);
-        tolua_function(tolua_S,"removeControl",lua_framework_GameLayer_removeControl);
-        tolua_function(tolua_S,"pushLayer",lua_framework_GameLayer_pushLayer);
-        tolua_function(tolua_S,"removeControlByTag",lua_framework_GameLayer_removeControlByTag);
-        tolua_function(tolua_S,"popLayer",lua_framework_GameLayer_popLayer);
-        tolua_function(tolua_S,"init",lua_framework_GameLayer_init);
-        tolua_function(tolua_S,"registerTouchEvents",lua_framework_GameLayer_registerTouchEvents);
-        tolua_function(tolua_S,"addControlByTag",lua_framework_GameLayer_addControlByTag);
-        tolua_function(tolua_S,"addControl",lua_framework_GameLayer_addControl);
-        tolua_function(tolua_S,"unregisterTouchEvents",lua_framework_GameLayer_unregisterTouchEvents);
-        tolua_function(tolua_S,"new",lua_framework_GameLayer_constructor);
-        tolua_function(tolua_S,"create", lua_framework_GameLayer_create);
+        tolua_function(tolua_S,"getCoreLayer",lua_psframework_GameLayer_getCoreLayer);
+        tolua_function(tolua_S,"setFocusNode",lua_psframework_GameLayer_setFocusNode);
+        tolua_function(tolua_S,"setEventLayer",lua_psframework_GameLayer_setEventLayer);
+        tolua_function(tolua_S,"isCoreLayer",lua_psframework_GameLayer_isCoreLayer);
+        tolua_function(tolua_S,"getParentLayer",lua_psframework_GameLayer_getParentLayer);
+        tolua_function(tolua_S,"removeControl",lua_psframework_GameLayer_removeControl);
+        tolua_function(tolua_S,"pushLayer",lua_psframework_GameLayer_pushLayer);
+        tolua_function(tolua_S,"removeControlByTag",lua_psframework_GameLayer_removeControlByTag);
+        tolua_function(tolua_S,"popLayer",lua_psframework_GameLayer_popLayer);
+        tolua_function(tolua_S,"init",lua_psframework_GameLayer_init);
+        tolua_function(tolua_S,"registerTouchEvents",lua_psframework_GameLayer_registerTouchEvents);
+        tolua_function(tolua_S,"addControlByTag",lua_psframework_GameLayer_addControlByTag);
+        tolua_function(tolua_S,"addControl",lua_psframework_GameLayer_addControl);
+        tolua_function(tolua_S,"unregisterTouchEvents",lua_psframework_GameLayer_unregisterTouchEvents);
+        tolua_function(tolua_S,"new",lua_psframework_GameLayer_constructor);
+        tolua_function(tolua_S,"create", lua_psframework_GameLayer_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::GameLayer).name();
     g_luaType[typeName] = "pf.GameLayer";
@@ -3264,7 +3268,7 @@ int lua_register_framework_GameLayer(lua_State* tolua_S)
     return 1;
 }
 
-int lua_framework_MaskLayerDelegate_onEventPenetrated(lua_State* tolua_S)
+int lua_psframework_MaskLayerDelegate_onEventPenetrated(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayerDelegate* cobj = nullptr;
@@ -3284,7 +3288,7 @@ int lua_framework_MaskLayerDelegate_onEventPenetrated(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_MaskLayerDelegate_onEventPenetrated'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayerDelegate_onEventPenetrated'", nullptr);
         return 0;
     }
 #endif
@@ -3308,12 +3312,12 @@ int lua_framework_MaskLayerDelegate_onEventPenetrated(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayerDelegate_onEventPenetrated'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayerDelegate_onEventPenetrated'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_MaskLayerDelegate_onEventIntercepted(lua_State* tolua_S)
+int lua_psframework_MaskLayerDelegate_onEventIntercepted(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayerDelegate* cobj = nullptr;
@@ -3333,7 +3337,7 @@ int lua_framework_MaskLayerDelegate_onEventIntercepted(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_MaskLayerDelegate_onEventIntercepted'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayerDelegate_onEventIntercepted'", nullptr);
         return 0;
     }
 #endif
@@ -3357,25 +3361,25 @@ int lua_framework_MaskLayerDelegate_onEventIntercepted(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayerDelegate_onEventIntercepted'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayerDelegate_onEventIntercepted'.",&tolua_err);
 #endif
 
     return 0;
 }
-static int lua_framework_MaskLayerDelegate_finalize(lua_State* tolua_S)
+static int lua_psframework_MaskLayerDelegate_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (MaskLayerDelegate)");
     return 0;
 }
 
-int lua_register_framework_MaskLayerDelegate(lua_State* tolua_S)
+int lua_register_psframework_MaskLayerDelegate(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.MaskLayerDelegate");
     tolua_cclass(tolua_S,"MaskLayerDelegate","pf.MaskLayerDelegate","",nullptr);
 
     tolua_beginmodule(tolua_S,"MaskLayerDelegate");
-        tolua_function(tolua_S,"onEventPenetrated",lua_framework_MaskLayerDelegate_onEventPenetrated);
-        tolua_function(tolua_S,"onEventIntercepted",lua_framework_MaskLayerDelegate_onEventIntercepted);
+        tolua_function(tolua_S,"onEventPenetrated",lua_psframework_MaskLayerDelegate_onEventPenetrated);
+        tolua_function(tolua_S,"onEventIntercepted",lua_psframework_MaskLayerDelegate_onEventIntercepted);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::MaskLayerDelegate).name();
     g_luaType[typeName] = "pf.MaskLayerDelegate";
@@ -3383,7 +3387,7 @@ int lua_register_framework_MaskLayerDelegate(lua_State* tolua_S)
     return 1;
 }
 
-int lua_framework_MaskLayer_getDelegate(lua_State* tolua_S)
+int lua_psframework_MaskLayer_getDelegate(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayer* cobj = nullptr;
@@ -3403,7 +3407,7 @@ int lua_framework_MaskLayer_getDelegate(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_MaskLayer_getDelegate'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_getDelegate'", nullptr);
         return 0;
     }
 #endif
@@ -3422,12 +3426,12 @@ int lua_framework_MaskLayer_getDelegate(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayer_getDelegate'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_getDelegate'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_MaskLayer_setArea(lua_State* tolua_S)
+int lua_psframework_MaskLayer_setArea(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayer* cobj = nullptr;
@@ -3447,7 +3451,7 @@ int lua_framework_MaskLayer_setArea(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_MaskLayer_setArea'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_setArea'", nullptr);
         return 0;
     }
 #endif
@@ -3468,12 +3472,12 @@ int lua_framework_MaskLayer_setArea(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayer_setArea'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_setArea'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_MaskLayer_setColor(lua_State* tolua_S)
+int lua_psframework_MaskLayer_setColor(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayer* cobj = nullptr;
@@ -3493,7 +3497,7 @@ int lua_framework_MaskLayer_setColor(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_MaskLayer_setColor'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_setColor'", nullptr);
         return 0;
     }
 #endif
@@ -3514,12 +3518,12 @@ int lua_framework_MaskLayer_setColor(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayer_setColor'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_setColor'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_MaskLayer_getScriptDelegate(lua_State* tolua_S)
+int lua_psframework_MaskLayer_getScriptDelegate(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayer* cobj = nullptr;
@@ -3539,7 +3543,7 @@ int lua_framework_MaskLayer_getScriptDelegate(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_MaskLayer_getScriptDelegate'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_getScriptDelegate'", nullptr);
         return 0;
     }
 #endif
@@ -3558,12 +3562,12 @@ int lua_framework_MaskLayer_getScriptDelegate(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayer_getScriptDelegate'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_getScriptDelegate'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_MaskLayer_getArea(lua_State* tolua_S)
+int lua_psframework_MaskLayer_getArea(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayer* cobj = nullptr;
@@ -3583,7 +3587,7 @@ int lua_framework_MaskLayer_getArea(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_MaskLayer_getArea'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_getArea'", nullptr);
         return 0;
     }
 #endif
@@ -3602,12 +3606,12 @@ int lua_framework_MaskLayer_getArea(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayer_getArea'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_getArea'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_MaskLayer_setOpacity(lua_State* tolua_S)
+int lua_psframework_MaskLayer_setOpacity(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayer* cobj = nullptr;
@@ -3627,7 +3631,7 @@ int lua_framework_MaskLayer_setOpacity(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_MaskLayer_setOpacity'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_setOpacity'", nullptr);
         return 0;
     }
 #endif
@@ -3648,12 +3652,12 @@ int lua_framework_MaskLayer_setOpacity(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayer_setOpacity'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_setOpacity'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_MaskLayer_isInterceptAllEvents(lua_State* tolua_S)
+int lua_psframework_MaskLayer_isInterceptAllEvents(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayer* cobj = nullptr;
@@ -3673,7 +3677,7 @@ int lua_framework_MaskLayer_isInterceptAllEvents(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_MaskLayer_isInterceptAllEvents'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_isInterceptAllEvents'", nullptr);
         return 0;
     }
 #endif
@@ -3692,12 +3696,12 @@ int lua_framework_MaskLayer_isInterceptAllEvents(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayer_isInterceptAllEvents'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_isInterceptAllEvents'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_MaskLayer_setDelegate(lua_State* tolua_S)
+int lua_psframework_MaskLayer_setDelegate(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayer* cobj = nullptr;
@@ -3717,7 +3721,7 @@ int lua_framework_MaskLayer_setDelegate(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_MaskLayer_setDelegate'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_setDelegate'", nullptr);
         return 0;
     }
 #endif
@@ -3738,12 +3742,12 @@ int lua_framework_MaskLayer_setDelegate(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayer_setDelegate'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_setDelegate'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_MaskLayer_forceInterceptAllEvents(lua_State* tolua_S)
+int lua_psframework_MaskLayer_forceInterceptAllEvents(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayer* cobj = nullptr;
@@ -3763,7 +3767,7 @@ int lua_framework_MaskLayer_forceInterceptAllEvents(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_MaskLayer_forceInterceptAllEvents'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_forceInterceptAllEvents'", nullptr);
         return 0;
     }
 #endif
@@ -3784,12 +3788,12 @@ int lua_framework_MaskLayer_forceInterceptAllEvents(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayer_forceInterceptAllEvents'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_forceInterceptAllEvents'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_MaskLayer_setScriptDelegate(lua_State* tolua_S)
+int lua_psframework_MaskLayer_setScriptDelegate(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayer* cobj = nullptr;
@@ -3809,7 +3813,7 @@ int lua_framework_MaskLayer_setScriptDelegate(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_MaskLayer_setScriptDelegate'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_setScriptDelegate'", nullptr);
         return 0;
     }
 #endif
@@ -3830,12 +3834,12 @@ int lua_framework_MaskLayer_setScriptDelegate(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayer_setScriptDelegate'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_setScriptDelegate'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_MaskLayer_create(lua_State* tolua_S)
+int lua_psframework_MaskLayer_create(lua_State* tolua_S)
 {
     int argc = 0;
     bool ok  = true;
@@ -3876,11 +3880,11 @@ int lua_framework_MaskLayer_create(lua_State* tolua_S)
     return 0;
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayer_create'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_create'.",&tolua_err);
 #endif
     return 0;
 }
-int lua_framework_MaskLayer_constructor(lua_State* tolua_S)
+int lua_psframework_MaskLayer_constructor(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayer* cobj = nullptr;
@@ -3908,36 +3912,36 @@ int lua_framework_MaskLayer_constructor(lua_State* tolua_S)
     return 0;
 
 #if COCOS2D_DEBUG >= 1
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_MaskLayer_constructor'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_constructor'.",&tolua_err);
 #endif
 
     return 0;
 }
 
-static int lua_framework_MaskLayer_finalize(lua_State* tolua_S)
+static int lua_psframework_MaskLayer_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (MaskLayer)");
     return 0;
 }
 
-int lua_register_framework_MaskLayer(lua_State* tolua_S)
+int lua_register_psframework_MaskLayer(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.MaskLayer");
     tolua_cclass(tolua_S,"MaskLayer","pf.MaskLayer","cc.LayerColor",nullptr);
 
     tolua_beginmodule(tolua_S,"MaskLayer");
-        tolua_function(tolua_S,"getDelegate",lua_framework_MaskLayer_getDelegate);
-        tolua_function(tolua_S,"setArea",lua_framework_MaskLayer_setArea);
-        tolua_function(tolua_S,"setColor",lua_framework_MaskLayer_setColor);
-        tolua_function(tolua_S,"getScriptDelegate",lua_framework_MaskLayer_getScriptDelegate);
-        tolua_function(tolua_S,"getArea",lua_framework_MaskLayer_getArea);
-        tolua_function(tolua_S,"setOpacity",lua_framework_MaskLayer_setOpacity);
-        tolua_function(tolua_S,"isInterceptAllEvents",lua_framework_MaskLayer_isInterceptAllEvents);
-        tolua_function(tolua_S,"setDelegate",lua_framework_MaskLayer_setDelegate);
-        tolua_function(tolua_S,"forceInterceptAllEvents",lua_framework_MaskLayer_forceInterceptAllEvents);
-        tolua_function(tolua_S,"setScriptDelegate",lua_framework_MaskLayer_setScriptDelegate);
-        tolua_function(tolua_S,"new",lua_framework_MaskLayer_constructor);
-        tolua_function(tolua_S,"create", lua_framework_MaskLayer_create);
+        tolua_function(tolua_S,"getDelegate",lua_psframework_MaskLayer_getDelegate);
+        tolua_function(tolua_S,"setArea",lua_psframework_MaskLayer_setArea);
+        tolua_function(tolua_S,"setColor",lua_psframework_MaskLayer_setColor);
+        tolua_function(tolua_S,"getScriptDelegate",lua_psframework_MaskLayer_getScriptDelegate);
+        tolua_function(tolua_S,"getArea",lua_psframework_MaskLayer_getArea);
+        tolua_function(tolua_S,"setOpacity",lua_psframework_MaskLayer_setOpacity);
+        tolua_function(tolua_S,"isInterceptAllEvents",lua_psframework_MaskLayer_isInterceptAllEvents);
+        tolua_function(tolua_S,"setDelegate",lua_psframework_MaskLayer_setDelegate);
+        tolua_function(tolua_S,"forceInterceptAllEvents",lua_psframework_MaskLayer_forceInterceptAllEvents);
+        tolua_function(tolua_S,"setScriptDelegate",lua_psframework_MaskLayer_setScriptDelegate);
+        tolua_function(tolua_S,"new",lua_psframework_MaskLayer_constructor);
+        tolua_function(tolua_S,"create", lua_psframework_MaskLayer_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::MaskLayer).name();
     g_luaType[typeName] = "pf.MaskLayer";
@@ -3945,7 +3949,7 @@ int lua_register_framework_MaskLayer(lua_State* tolua_S)
     return 1;
 }
 
-int lua_framework_Button_initWithNodes(lua_State* tolua_S)
+int lua_psframework_Button_initWithNodes(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Button* cobj = nullptr;
@@ -3965,7 +3969,7 @@ int lua_framework_Button_initWithNodes(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Button_initWithNodes'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Button_initWithNodes'", nullptr);
         return 0;
     }
 #endif
@@ -4031,12 +4035,12 @@ int lua_framework_Button_initWithNodes(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Button_initWithNodes'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Button_initWithNodes'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_Button_create(lua_State* tolua_S)
+int lua_psframework_Button_create(lua_State* tolua_S)
 {
     int argc = 0;
     bool ok  = true;
@@ -4372,24 +4376,24 @@ int lua_framework_Button_create(lua_State* tolua_S)
     return 0;
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Button_create'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Button_create'.",&tolua_err);
 #endif
     return 0;
 }
-static int lua_framework_Button_finalize(lua_State* tolua_S)
+static int lua_psframework_Button_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Button)");
     return 0;
 }
 
-int lua_register_framework_Button(lua_State* tolua_S)
+int lua_register_psframework_Button(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.Button");
     tolua_cclass(tolua_S,"Button","pf.Button","pf.EventNode",nullptr);
 
     tolua_beginmodule(tolua_S,"Button");
-        tolua_function(tolua_S,"initWithNodes",lua_framework_Button_initWithNodes);
-        tolua_function(tolua_S,"create", lua_framework_Button_create);
+        tolua_function(tolua_S,"initWithNodes",lua_psframework_Button_initWithNodes);
+        tolua_function(tolua_S,"create", lua_psframework_Button_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::Button).name();
     g_luaType[typeName] = "pf.Button";
@@ -4397,7 +4401,7 @@ int lua_register_framework_Button(lua_State* tolua_S)
     return 1;
 }
 
-int lua_framework_TextBlock_initWithString(lua_State* tolua_S)
+int lua_psframework_TextBlock_initWithString(lua_State* tolua_S)
 {
     int argc = 0;
     framework::TextBlock* cobj = nullptr;
@@ -4417,7 +4421,7 @@ int lua_framework_TextBlock_initWithString(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_TextBlock_initWithString'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TextBlock_initWithString'", nullptr);
         return 0;
     }
 #endif
@@ -4459,12 +4463,12 @@ int lua_framework_TextBlock_initWithString(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_TextBlock_initWithString'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TextBlock_initWithString'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_TextBlock_setSelectedColor(lua_State* tolua_S)
+int lua_psframework_TextBlock_setSelectedColor(lua_State* tolua_S)
 {
     int argc = 0;
     framework::TextBlock* cobj = nullptr;
@@ -4484,7 +4488,7 @@ int lua_framework_TextBlock_setSelectedColor(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_TextBlock_setSelectedColor'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TextBlock_setSelectedColor'", nullptr);
         return 0;
     }
 #endif
@@ -4505,12 +4509,12 @@ int lua_framework_TextBlock_setSelectedColor(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_TextBlock_setSelectedColor'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TextBlock_setSelectedColor'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_TextBlock_setDisabledColor(lua_State* tolua_S)
+int lua_psframework_TextBlock_setDisabledColor(lua_State* tolua_S)
 {
     int argc = 0;
     framework::TextBlock* cobj = nullptr;
@@ -4530,7 +4534,7 @@ int lua_framework_TextBlock_setDisabledColor(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_TextBlock_setDisabledColor'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TextBlock_setDisabledColor'", nullptr);
         return 0;
     }
 #endif
@@ -4551,12 +4555,12 @@ int lua_framework_TextBlock_setDisabledColor(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_TextBlock_setDisabledColor'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TextBlock_setDisabledColor'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_TextBlock_setDefaultColor(lua_State* tolua_S)
+int lua_psframework_TextBlock_setDefaultColor(lua_State* tolua_S)
 {
     int argc = 0;
     framework::TextBlock* cobj = nullptr;
@@ -4576,7 +4580,7 @@ int lua_framework_TextBlock_setDefaultColor(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_TextBlock_setDefaultColor'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TextBlock_setDefaultColor'", nullptr);
         return 0;
     }
 #endif
@@ -4597,12 +4601,12 @@ int lua_framework_TextBlock_setDefaultColor(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_TextBlock_setDefaultColor'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TextBlock_setDefaultColor'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_TextBlock_create(lua_State* tolua_S)
+int lua_psframework_TextBlock_create(lua_State* tolua_S)
 {
     int argc = 0;
     bool ok  = true;
@@ -4693,27 +4697,27 @@ int lua_framework_TextBlock_create(lua_State* tolua_S)
     return 0;
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_TextBlock_create'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TextBlock_create'.",&tolua_err);
 #endif
     return 0;
 }
-static int lua_framework_TextBlock_finalize(lua_State* tolua_S)
+static int lua_psframework_TextBlock_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (TextBlock)");
     return 0;
 }
 
-int lua_register_framework_TextBlock(lua_State* tolua_S)
+int lua_register_psframework_TextBlock(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.TextBlock");
     tolua_cclass(tolua_S,"TextBlock","pf.TextBlock","pf.EventNode",nullptr);
 
     tolua_beginmodule(tolua_S,"TextBlock");
-        tolua_function(tolua_S,"initWithString",lua_framework_TextBlock_initWithString);
-        tolua_function(tolua_S,"setSelectedColor",lua_framework_TextBlock_setSelectedColor);
-        tolua_function(tolua_S,"setDisabledColor",lua_framework_TextBlock_setDisabledColor);
-        tolua_function(tolua_S,"setDefaultColor",lua_framework_TextBlock_setDefaultColor);
-        tolua_function(tolua_S,"create", lua_framework_TextBlock_create);
+        tolua_function(tolua_S,"initWithString",lua_psframework_TextBlock_initWithString);
+        tolua_function(tolua_S,"setSelectedColor",lua_psframework_TextBlock_setSelectedColor);
+        tolua_function(tolua_S,"setDisabledColor",lua_psframework_TextBlock_setDisabledColor);
+        tolua_function(tolua_S,"setDefaultColor",lua_psframework_TextBlock_setDefaultColor);
+        tolua_function(tolua_S,"create", lua_psframework_TextBlock_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::TextBlock).name();
     g_luaType[typeName] = "pf.TextBlock";
@@ -4721,7 +4725,7 @@ int lua_register_framework_TextBlock(lua_State* tolua_S)
     return 1;
 }
 
-int lua_framework_ActiveSprite_initWithSprite(lua_State* tolua_S)
+int lua_psframework_ActiveSprite_initWithSprite(lua_State* tolua_S)
 {
     int argc = 0;
     framework::ActiveSprite* cobj = nullptr;
@@ -4741,7 +4745,7 @@ int lua_framework_ActiveSprite_initWithSprite(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_ActiveSprite_initWithSprite'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ActiveSprite_initWithSprite'", nullptr);
         return 0;
     }
 #endif
@@ -4777,12 +4781,12 @@ int lua_framework_ActiveSprite_initWithSprite(lua_State* tolua_S)
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_ActiveSprite_initWithSprite'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ActiveSprite_initWithSprite'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_framework_ActiveSprite_create(lua_State* tolua_S)
+int lua_psframework_ActiveSprite_create(lua_State* tolua_S)
 {
     int argc = 0;
     bool ok  = true;
@@ -4920,49 +4924,49 @@ int lua_framework_ActiveSprite_create(lua_State* tolua_S)
     return 0;
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_ActiveSprite_create'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ActiveSprite_create'.",&tolua_err);
 #endif
     return 0;
 }
-static int lua_framework_ActiveSprite_finalize(lua_State* tolua_S)
+static int lua_psframework_ActiveSprite_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (ActiveSprite)");
     return 0;
 }
 
-int lua_register_framework_ActiveSprite(lua_State* tolua_S)
+int lua_register_psframework_ActiveSprite(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.ActiveSprite");
     tolua_cclass(tolua_S,"ActiveSprite","pf.ActiveSprite","pf.EventNode",nullptr);
 
     tolua_beginmodule(tolua_S,"ActiveSprite");
-        tolua_function(tolua_S,"initWithSprite",lua_framework_ActiveSprite_initWithSprite);
-        tolua_function(tolua_S,"create", lua_framework_ActiveSprite_create);
+        tolua_function(tolua_S,"initWithSprite",lua_psframework_ActiveSprite_initWithSprite);
+        tolua_function(tolua_S,"create", lua_psframework_ActiveSprite_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::ActiveSprite).name();
     g_luaType[typeName] = "pf.ActiveSprite";
     g_typeCast["ActiveSprite"] = "pf.ActiveSprite";
     return 1;
 }
-TOLUA_API int register_all_framework(lua_State* tolua_S)
+TOLUA_API int register_all_psframework(lua_State* tolua_S)
 {
 	tolua_open(tolua_S);
 	
 	tolua_module(tolua_S,"pf",0);
 	tolua_beginmodule(tolua_S,"pf");
 
-	lua_register_framework_EventLayer(tolua_S);
-	lua_register_framework_ViewController(tolua_S);
-	lua_register_framework_EventNode(tolua_S);
-	lua_register_framework_Button(tolua_S);
-	lua_register_framework_GameLayer(tolua_S);
-	lua_register_framework_Queue(tolua_S);
-	lua_register_framework_TextBlock(tolua_S);
-	lua_register_framework_MaskLayer(tolua_S);
-	lua_register_framework_MaskLayerDelegate(tolua_S);
-	lua_register_framework_ActiveSprite(tolua_S);
-	lua_register_framework_Stack(tolua_S);
-	lua_register_framework_GameScene(tolua_S);
+	lua_register_psframework_EventLayer(tolua_S);
+	lua_register_psframework_ViewController(tolua_S);
+	lua_register_psframework_EventNode(tolua_S);
+	lua_register_psframework_Button(tolua_S);
+	lua_register_psframework_GameLayer(tolua_S);
+	lua_register_psframework_Queue(tolua_S);
+	lua_register_psframework_TextBlock(tolua_S);
+	lua_register_psframework_MaskLayer(tolua_S);
+	lua_register_psframework_MaskLayerDelegate(tolua_S);
+	lua_register_psframework_ActiveSprite(tolua_S);
+	lua_register_psframework_Stack(tolua_S);
+	lua_register_psframework_GameScene(tolua_S);
 
 	tolua_endmodule(tolua_S);
 	return 1;

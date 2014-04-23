@@ -47,7 +47,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #else
 	auto engine = LuaEngine::getInstance();
 	// lua-binding failed, fix later.
-	register_all_framework(engine->getLuaStack()->getLuaState());	
+	register_all_psframework(engine->getLuaStack()->getLuaState());	
 	ScriptEngineManager::getInstance()->setScriptEngine(engine);
 	engine->executeScriptFile("src/main.lua");
 #endif

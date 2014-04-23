@@ -1,6 +1,7 @@
 
 --------------------------------
 -- @module Queue
+-- @extend Ref
 
 --------------------------------
 -- @function [parent=#Queue] getLength 

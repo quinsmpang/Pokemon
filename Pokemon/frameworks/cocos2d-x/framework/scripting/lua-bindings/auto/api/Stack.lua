@@ -1,6 +1,7 @@
 
 --------------------------------
 -- @module Stack
+-- @extend Ref
 
 --------------------------------
 -- @function [parent=#Stack] getLength 

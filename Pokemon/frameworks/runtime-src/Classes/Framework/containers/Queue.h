@@ -13,7 +13,7 @@
 namespace framework
 {
 	
-class Queue
+class Queue : public cocos2d::Ref
 {
 public:
 	explicit Queue();
