@@ -10,25 +10,27 @@
 #include <stack>
 #include "cocos2d.h"
 
+using namespace cocos2d;
+
 namespace framework
 {
 	
-template <typename T>
 class Stack
 {
 public:
 	explicit Stack();
 	~Stack();
-	void push(T pObj);
+	void push(cocos2d::Ref *pObj);
 	void pop();
-	T top();
+	cocos2d::Ref *top();
 	void clear();
 	bool isEmpty();
-	int length();
+	int getLength();
 private:
-	std::stack<T> *_container;
+	std::stack<cocos2d::Ref*> *_container;
 };
 
+/*
 // definitions
 template <typename T>
 Stack<T>::Stack()
@@ -60,6 +62,7 @@ void Stack<T>::push(T pObj)
 template <typename T>
 void Stack<T>::pop()
 {
+	auto pObj = this->top();
 	this->_container->pop();
 	pObj->release();
 }
@@ -90,6 +93,7 @@ int Stack<T>::length()
 {
 	return this->_container->size();
 }
+*/
 
 }
 

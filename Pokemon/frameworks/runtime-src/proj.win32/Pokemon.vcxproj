@@ -165,6 +165,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\containers\Stack.h" />
     <ClInclude Include="..\Classes\Framework\framework.h" />
     <ClInclude Include="..\Classes\Framework\lua\LuaUtils.h" />
+    <ClInclude Include="..\Classes\Framework\lua\lua_framework_auto.hpp" />
     <ClInclude Include="..\Classes\Framework\scene\GameScene.h" />
     <ClInclude Include="..\Classes\Framework\scene\ViewController.h" />
     <ClInclude Include="..\Classes\Framework\ui\ActiveSprite.h" />
@@ -180,7 +181,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\Framework\containers\Queue.cpp" />
+    <ClCompile Include="..\Classes\Framework\containers\Stack.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp" />
+    <ClCompile Include="..\Classes\Framework\lua\lua_framework_auto.cpp" />
     <ClCompile Include="..\Classes\Framework\scene\GameScene.cpp" />
     <ClCompile Include="..\Classes\Framework\scene\ViewController.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\ActiveSprite.cpp" />

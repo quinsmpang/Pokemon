@@ -1,8 +1,8 @@
 #ifndef __FRAMEWORK_H__
 #define __FRAMEWORK_H__
 
-//#include "containers\Queue.h"
-//#include "containers\Stack.h"
+#include "containers\Queue.h"
+#include "containers\Stack.h"
 
 #include "lua\LuaUtils.h"
 

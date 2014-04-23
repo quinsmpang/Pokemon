@@ -2,6 +2,16 @@
 -- @module sp
 
 --------------------------------------------------------
+-- the sp Queue
+-- @field [parent=#sp] Queue#Queue Queue preloaded module
+
+
+--------------------------------------------------------
+-- the sp Stack
+-- @field [parent=#sp] Stack#Stack Stack preloaded module
+
+
+--------------------------------------------------------
 -- the sp ViewController
 -- @field [parent=#sp] ViewController#ViewController ViewController preloaded module
 

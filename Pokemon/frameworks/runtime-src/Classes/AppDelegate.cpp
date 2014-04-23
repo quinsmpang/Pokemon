@@ -3,7 +3,7 @@
 #include "SimpleAudioEngine.h"
 #include "cocos2d.h"
 
-#include "Test.h"
+#include "lua/lua_framework_auto.hpp"
 
 using namespace CocosDenshion;
 
@@ -39,11 +39,14 @@ bool AppDelegate::applicationDidFinishLaunching()
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
-	Director::getInstance()->runWithScene(TestScene::scene());
+	// For test
+	//Director::getInstance()->runWithScene(TestScene::scene());
 
-	/*auto engine = LuaEngine::getInstance();
+	auto engine = LuaEngine::getInstance();
+	// lua-binding failed, fix later.
+	//register_all_framework(engine->getLuaStack()->getLuaState());	
 	ScriptEngineManager::getInstance()->setScriptEngine(engine);
-	engine->executeScriptFile("src/main.lua");*/
+	engine->executeScriptFile("src/main.lua");
 
     return true;
 }
