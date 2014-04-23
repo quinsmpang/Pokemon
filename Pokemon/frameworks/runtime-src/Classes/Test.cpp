@@ -69,7 +69,7 @@ bool TestScene::init()
 
 	this->addChild(pGameLayer);
 
-	sprite->runAction(MoveBy::create(5.0f, Point(300, 50)));
+	sprite->runAction(MoveBy::create(5.0f, Point(0, 100)));
 
 	return true;
 }
