@@ -33,6 +33,6 @@
 -- @param #cc.Node node
 -- @param #function func
 -- @param #function func
--- @return Button#Button ret (retunr value: ps.Button)
+-- @return Button#Button ret (retunr value: pf.Button)
 
 return nil

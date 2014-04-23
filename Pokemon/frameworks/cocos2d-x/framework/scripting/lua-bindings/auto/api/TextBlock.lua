@@ -36,6 +36,6 @@
 -- @param #int int
 -- @param #function func
 -- @param #function func
--- @return TextBlock#TextBlock ret (return value: ps.TextBlock)
+-- @return TextBlock#TextBlock ret (return value: pf.TextBlock)
         
 return nil

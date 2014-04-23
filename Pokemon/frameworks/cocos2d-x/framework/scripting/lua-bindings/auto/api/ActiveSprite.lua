@@ -21,6 +21,6 @@
 -- @param #char char
 -- @param #function func
 -- @param #function func
--- @return ActiveSprite#ActiveSprite ret (retunr value: ps.ActiveSprite)
+-- @return ActiveSprite#ActiveSprite ret (retunr value: pf.ActiveSprite)
 
 return nil

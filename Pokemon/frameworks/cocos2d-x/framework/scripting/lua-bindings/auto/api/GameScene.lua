@@ -6,7 +6,7 @@
 --------------------------------
 -- @function [parent=#GameScene] loadViewController 
 -- @param self
--- @param #ps.ViewController viewcontroller
+-- @param #pf.ViewController viewcontroller
         
 --------------------------------
 -- @function [parent=#GameScene] putIntAttribute 
@@ -35,7 +35,7 @@
 --------------------------------
 -- @function [parent=#GameScene] unloadViewController 
 -- @param self
--- @param #ps.ViewController viewcontroller
+-- @param #pf.ViewController viewcontroller
         
 --------------------------------
 -- @function [parent=#GameScene] unloadAllViewControllers 
@@ -90,7 +90,7 @@
 -- @function [parent=#GameScene] create
 -- @param self
 -- @param #cc.__Dictionary __dictionary
--- @return GameScene#GameScene ret (retunr value: ps.GameScene)
+-- @return GameScene#GameScene ret (retunr value: pf.GameScene)
 
 --------------------------------
 -- @function [parent=#GameScene] onEnter 

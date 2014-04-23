@@ -44,7 +44,7 @@
 --------------------------------
 -- @function [parent=#EventLayer] create 
 -- @param self
--- @return EventLayer#EventLayer ret (return value: ps.EventLayer)
+-- @return EventLayer#EventLayer ret (return value: pf.EventLayer)
         
 --------------------------------
 -- @function [parent=#EventLayer] EventLayer 

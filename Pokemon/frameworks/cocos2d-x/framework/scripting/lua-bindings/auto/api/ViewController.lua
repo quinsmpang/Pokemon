@@ -10,7 +10,7 @@
 --------------------------------
 -- @function [parent=#ViewController] setScene 
 -- @param self
--- @param #ps.GameScene gamescene
+-- @param #pf.GameScene gamescene
         
 --------------------------------
 -- @function [parent=#ViewController] init 
@@ -20,7 +20,7 @@
 --------------------------------
 -- @function [parent=#ViewController] getScene 
 -- @param self
--- @return GameScene#GameScene ret (return value: ps.GameScene)
+-- @return GameScene#GameScene ret (return value: pf.GameScene)
         
 --------------------------------
 -- @function [parent=#ViewController] unload 
@@ -29,6 +29,6 @@
 --------------------------------
 -- @function [parent=#ViewController] create 
 -- @param self
--- @return ViewController#ViewController ret (return value: ps.ViewController)
+-- @return ViewController#ViewController ret (return value: pf.ViewController)
         
 return nil

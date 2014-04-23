@@ -6,7 +6,7 @@
 --------------------------------
 -- @function [parent=#MaskLayer] getDelegate 
 -- @param self
--- @return MaskLayerDelegate#MaskLayerDelegate ret (return value: ps.MaskLayerDelegate)
+-- @return MaskLayerDelegate#MaskLayerDelegate ret (return value: pf.MaskLayerDelegate)
         
 --------------------------------
 -- @function [parent=#MaskLayer] setArea 
@@ -41,7 +41,7 @@
 --------------------------------
 -- @function [parent=#MaskLayer] setDelegate 
 -- @param self
--- @param #ps.MaskLayerDelegate masklayerdelegate
+-- @param #pf.MaskLayerDelegate masklayerdelegate
         
 --------------------------------
 -- @function [parent=#MaskLayer] forceInterceptAllEvents 
@@ -61,7 +61,7 @@
 -- @function [parent=#MaskLayer] create
 -- @param self
 -- @param #rect_table rect
--- @return MaskLayer#MaskLayer ret (retunr value: ps.MaskLayer)
+-- @return MaskLayer#MaskLayer ret (retunr value: pf.MaskLayer)
 
 --------------------------------
 -- @function [parent=#MaskLayer] onTouchMoved 

@@ -6,17 +6,17 @@
 --------------------------------
 -- @function [parent=#GameLayer] getCoreLayer 
 -- @param self
--- @return GameLayer#GameLayer ret (return value: ps.GameLayer)
+-- @return GameLayer#GameLayer ret (return value: pf.GameLayer)
         
 --------------------------------
 -- @function [parent=#GameLayer] setFocusNode 
 -- @param self
--- @param #ps.EventNode eventnode
+-- @param #pf.EventNode eventnode
         
 --------------------------------
 -- @function [parent=#GameLayer] setEventLayer 
 -- @param self
--- @param #ps.EventLayer eventlayer
+-- @param #pf.EventLayer eventlayer
         
 --------------------------------
 -- @function [parent=#GameLayer] isCoreLayer 
@@ -26,17 +26,17 @@
 --------------------------------
 -- @function [parent=#GameLayer] getParentLayer 
 -- @param self
--- @return GameLayer#GameLayer ret (return value: ps.GameLayer)
+-- @return GameLayer#GameLayer ret (return value: pf.GameLayer)
         
 --------------------------------
 -- @function [parent=#GameLayer] removeControl 
 -- @param self
--- @param #ps.EventNode eventnode
+-- @param #pf.EventNode eventnode
         
 --------------------------------
 -- @function [parent=#GameLayer] pushLayer 
 -- @param self
--- @param #ps.GameLayer gamelayer
+-- @param #pf.GameLayer gamelayer
         
 --------------------------------
 -- @function [parent=#GameLayer] removeControlByTag 
@@ -60,13 +60,13 @@
 --------------------------------
 -- @function [parent=#GameLayer] addControlByTag 
 -- @param self
--- @param #ps.EventNode eventnode
+-- @param #pf.EventNode eventnode
 -- @param #int int
         
 --------------------------------
 -- @function [parent=#GameLayer] addControl 
 -- @param self
--- @param #ps.EventNode eventnode
+-- @param #pf.EventNode eventnode
         
 --------------------------------
 -- @function [parent=#GameLayer] unregisterTouchEvents 
@@ -75,7 +75,7 @@
 --------------------------------
 -- @function [parent=#GameLayer] create 
 -- @param self
--- @return GameLayer#GameLayer ret (return value: ps.GameLayer)
+-- @return GameLayer#GameLayer ret (return value: pf.GameLayer)
         
 --------------------------------
 -- @function [parent=#GameLayer] onEnter 

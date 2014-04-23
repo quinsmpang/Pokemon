@@ -138,7 +138,9 @@ def main():
 
         if platform == 'win32':
             with _pushd(output_dir):
-                _run_cmd('dos2unix *')
+                # use _run_cmd('dos2unix *') here will cause permission issues because there is a lua folder in the root directory. So dos2unix per file here.
+                _run_cmd('dos2unix lua_framework_auto.hpp')
+                _run_cmd('dos2unix lua_framework_auto.cpp')
 
         print '---------------------------------'
         print 'Generating lua bindings succeeds.'

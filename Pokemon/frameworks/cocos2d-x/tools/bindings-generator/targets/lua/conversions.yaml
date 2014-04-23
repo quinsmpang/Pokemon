@@ -24,7 +24,7 @@ conversions:
     "cocostudio::": "ccs."
     "cocosbuilder::": "cc."
     "CocosDenshion::": "cc."
-    "framework::": "ps."
+    "framework::": "pf."
 
   to_native:
     # lua to native
