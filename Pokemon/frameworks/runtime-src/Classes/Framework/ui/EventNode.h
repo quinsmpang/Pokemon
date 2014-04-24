@@ -43,11 +43,11 @@ public:
 	virtual void focus();
 	virtual void blur();
 
-	inline void setTouchCallback(TouchCallback callback)
+	inline void setTouchCallback(const TouchCallback &callback)
 	{
 		this->_touchCallback = callback;
 	}
-	inline void setKeyboardCallback(KeyboardCallback callback)
+	inline void setKeyboardCallback(const KeyboardCallback &callback)
 	{
 		this->_keyboardCallback = callback;
 	}

@@ -5,7 +5,7 @@ using namespace cocos2d;
 namespace framework
 {
 
-TextBlock *TextBlock::create(const std::string &szContent, const std::string &szFontName, int fontSize, TouchCallback touchCallback, KeyboardCallback keyboardCallback)
+TextBlock *TextBlock::create(const std::string &szContent, const std::string &szFontName, int fontSize, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
 {
 	auto pBlock = new TextBlock();
 
@@ -19,7 +19,7 @@ TextBlock *TextBlock::create(const std::string &szContent, const std::string &sz
 	return nullptr;
 }
 
-bool TextBlock::initWithString(const std::string &szContent, const std::string &szFontName, int fontSize, TouchCallback touchCallback, KeyboardCallback keyboardCallback)
+bool TextBlock::initWithString(const std::string &szContent, const std::string &szFontName, int fontSize, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
 {
 	if (!EventNode::init())
 	{

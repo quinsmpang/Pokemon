@@ -5,7 +5,7 @@ using namespace cocos2d;
 namespace framework
 {
 
-bool ActiveSprite::initWithSprite(Node *pSprite, TouchCallback touchCallback, KeyboardCallback keyboardCallback)
+bool ActiveSprite::initWithSprite(Node *pSprite, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
 {
 	if (!EventNode::init() || !pSprite)
 	{
@@ -27,14 +27,14 @@ bool ActiveSprite::initWithSprite(Node *pSprite, TouchCallback touchCallback, Ke
 	return true;
 }
 
-ActiveSprite *ActiveSprite::create(const char *szSpritePath, TouchCallback touchCallback, KeyboardCallback keyboardCallback)
+ActiveSprite *ActiveSprite::create(const char *szSpritePath, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
 {
 	auto pSprite = Sprite::create(szSpritePath);
 	
 	return ActiveSprite::create(pSprite, touchCallback, keyboardCallback);
 }
 
-ActiveSprite *ActiveSprite::create(Node *pSprite, TouchCallback touchCallback, KeyboardCallback keyboardCallback)
+ActiveSprite *ActiveSprite::create(Node *pSprite, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
 {
 	auto pActiveSprite = new ActiveSprite();
 

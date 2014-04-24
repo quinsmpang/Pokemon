@@ -16,9 +16,9 @@ namespace framework
 class TextBlock : public EventNode
 {
 public:
-	static TextBlock *create(const std::string &szContent, const std::string &szFontName, int fontSize = 20, TouchCallback touchCallback = nullptr, KeyboardCallback keyboardCallback = nullptr);
+	static TextBlock *create(const std::string &szContent, const std::string &szFontName, int fontSize = 20, const TouchCallback &touchCallback = nullptr, const KeyboardCallback &keyboardCallback = nullptr);
 
-	bool initWithString(const std::string &szContent, const std::string &szFontName, int fontSize, TouchCallback touchCallback, KeyboardCallback keyboardCallback);
+	bool initWithString(const std::string &szContent, const std::string &szFontName, int fontSize, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback);
 
 	void setDefaultColor(cocos2d::Color3B color);
 	void setSelectedColor(cocos2d::Color3B color);
