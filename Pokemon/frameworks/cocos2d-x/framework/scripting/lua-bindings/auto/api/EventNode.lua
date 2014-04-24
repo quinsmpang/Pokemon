@@ -23,11 +23,6 @@
 -- @param self
         
 --------------------------------
--- @function [parent=#EventNode] setTouchCallback 
--- @param self
--- @param #function func
-        
---------------------------------
 -- @function [parent=#EventNode] isSelected 
 -- @param self
 -- @return bool#bool ret (return value: bool)
@@ -35,11 +30,6 @@
 --------------------------------
 -- @function [parent=#EventNode] blur 
 -- @param self
-        
---------------------------------
--- @function [parent=#EventNode] setKeyboardCallback 
--- @param self
--- @param #function func
         
 --------------------------------
 -- @function [parent=#EventNode] rect 

@@ -51,16 +51,6 @@ public:
 	{
 		this->_keyboardCallback = callback;
 	}
-	/*
-	inline void setScriptTouchCallback(TouchCallback scriptCallback)
-	{
-		this->_scriptTouchCallback = scriptCallback;
-	}
-	inline void setScriptKeyboardCallback(KeyboardCallback scriptCallback)
-	{
-		this->_scriptKeyboardCallback = scriptCallback;
-	}
-	*/
 
 	cocos2d::Rect rect() const;
 protected:

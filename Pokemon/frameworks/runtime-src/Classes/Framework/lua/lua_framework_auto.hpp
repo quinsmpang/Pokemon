@@ -112,6 +112,4 @@ int register_all_psframework(lua_State* tolua_S);
 
 
 
-
-
 #endif // __psframework_h__

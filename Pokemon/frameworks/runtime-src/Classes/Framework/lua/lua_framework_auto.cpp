@@ -1846,56 +1846,6 @@ int lua_psframework_EventNode_focus(lua_State* tolua_S)
 
     return 0;
 }
-int lua_psframework_EventNode_setTouchCallback(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::EventNode* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.EventNode",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::EventNode*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventNode_setTouchCallback'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
-    {
-        std::function<void (cocos2d::Ref *)> arg0;
-
-        do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-        if(!ok)
-            return 0;
-        cobj->setTouchCallback(arg0);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setTouchCallback",argc, 1);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventNode_setTouchCallback'.",&tolua_err);
-#endif
-
-    return 0;
-}
 int lua_psframework_EventNode_isSelected(lua_State* tolua_S)
 {
     int argc = 0;
@@ -1983,56 +1933,6 @@ int lua_psframework_EventNode_blur(lua_State* tolua_S)
 
     return 0;
 }
-int lua_psframework_EventNode_setKeyboardCallback(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::EventNode* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.EventNode",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::EventNode*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EventNode_setKeyboardCallback'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
-    {
-        std::function<void (cocos2d::Ref *, cocos2d::EventKeyboard::KeyCode)> arg0;
-
-        do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-        if(!ok)
-            return 0;
-        cobj->setKeyboardCallback(arg0);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setKeyboardCallback",argc, 1);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EventNode_setKeyboardCallback'.",&tolua_err);
-#endif
-
-    return 0;
-}
 int lua_psframework_EventNode_rect(lua_State* tolua_S)
 {
     int argc = 0;
@@ -2093,10 +1993,8 @@ int lua_register_psframework_EventNode(lua_State* tolua_S)
         tolua_function(tolua_S,"setSelected",lua_psframework_EventNode_setSelected);
         tolua_function(tolua_S,"isEnabled",lua_psframework_EventNode_isEnabled);
         tolua_function(tolua_S,"focus",lua_psframework_EventNode_focus);
-        tolua_function(tolua_S,"setTouchCallback",lua_psframework_EventNode_setTouchCallback);
         tolua_function(tolua_S,"isSelected",lua_psframework_EventNode_isSelected);
         tolua_function(tolua_S,"blur",lua_psframework_EventNode_blur);
-        tolua_function(tolua_S,"setKeyboardCallback",lua_psframework_EventNode_setKeyboardCallback);
         tolua_function(tolua_S,"rect",lua_psframework_EventNode_rect);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::EventNode).name();

@@ -82,6 +82,9 @@
     <ClInclude Include="..\Classes\Framework\lua\lua_framework_auto.hpp">
       <Filter>Classes\lua</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\lua\lua_framework_extra.h">
+      <Filter>Classes\lua</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -130,6 +133,9 @@
       <Filter>Classes\containers</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_auto.cpp">
+      <Filter>Classes\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\lua\lua_framework_extra.cpp">
       <Filter>Classes\lua</Filter>
     </ClCompile>
   </ItemGroup>
