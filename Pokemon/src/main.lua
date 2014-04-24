@@ -21,6 +21,7 @@ local function main()
 	cc.FileUtils:getInstance():addSearchResolutionsOrder("src");
 	cc.FileUtils:getInstance():addSearchResolutionsOrder("res");
 
+    --[[
     -- test
     class("clsSprite", { create = function(...)
         return cc.Sprite:create(...)
@@ -41,6 +42,18 @@ local function main()
     pLayer:addChild(pSprite)
     pSprite = clsSubSprite:create("crop.png")
     pLayer:addChild(pSprite)
+    cc.Director:getInstance():runWithScene(pScene)
+    ]]
+
+    local pScene = GameScene:create()
+    local pLayer = GameLayer:create()
+    local btn = Button:create("btn1.png", "btn2.png")
+    btn:setPosition(200, 200)
+    local sprite = ActiveSprite:create("dog.png")
+    sprite:setPosition(400, 200)
+    pLayer:addControl(btn)
+    pLayer:addControl(sprite)
+    pScene:addChild(pLayer)
     cc.Director:getInstance():runWithScene(pScene)
 
     --[[

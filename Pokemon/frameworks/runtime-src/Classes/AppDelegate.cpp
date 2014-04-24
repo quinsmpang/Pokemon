@@ -45,11 +45,11 @@ bool AppDelegate::applicationDidFinishLaunching()
 	// For test
 	Director::getInstance()->runWithScene(TestScene::scene());
 #else
-	auto engine = LuaEngine::getInstance();
+	auto pEngine = LuaEngine::getInstance();
+	ScriptEngineManager::getInstance()->setScriptEngine(pEngine);
 	// lua-binding failed, fix later.
-	register_all_psframework(engine->getLuaStack()->getLuaState());	
-	ScriptEngineManager::getInstance()->setScriptEngine(engine);
-	engine->executeScriptFile("src/main.lua");
+	register_all_psframework(pEngine->getLuaStack()->getLuaState());	
+	pEngine->executeScriptFile("src/main.lua");
 #endif
 
     return true;

@@ -4952,8 +4952,8 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 {
 	tolua_open(tolua_S);
 	
-	tolua_module(tolua_S,"pf",0);
-	tolua_beginmodule(tolua_S,"pf");
+	tolua_module(tolua_S,nullptr,0);
+	tolua_beginmodule(tolua_S,nullptr);
 
 	lua_register_psframework_EventLayer(tolua_S);
 	lua_register_psframework_ViewController(tolua_S);
