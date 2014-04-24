@@ -49,8 +49,8 @@
     <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>
     <IntDir>$(Configuration).win32\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(IncludePath);$(SolutionDir)../Classes/Framework</IncludePath>
-    <SourcePath>$(SourcePath)</SourcePath>
+    <IncludePath>$(SolutionDir)../Classes/Framework;$(IncludePath)</IncludePath>
+    <SourcePath>$(SourcePath);</SourcePath>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,7 +88,7 @@
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
-      <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\include;$(IntDir);$(SolutionDir)res;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\include;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Midl>
@@ -172,11 +172,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\ui\ActiveSprite.h" />
     <ClInclude Include="..\Classes\Framework\ui\Button.h" />
     <ClInclude Include="..\Classes\Framework\ui\EventLayer.h" />
-    <ClInclude Include="..\Classes\Framework\ui\GameLayer.h" />
-    <ClInclude Include="..\Classes\Framework\ui\TextBlock.h" />
-    <ClInclude Include="..\Classes\Framework\ui\MaskLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\EventNode.h" />
-    <ClInclude Include="..\Classes\Test.h" />
+    <ClInclude Include="..\Classes\Framework\ui\GameLayer.h" />
+    <ClInclude Include="..\Classes\Framework\ui\MaskLayer.h" />
+    <ClInclude Include="..\Classes\Framework\ui\TextBlock.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -192,11 +191,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\ui\ActiveSprite.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\Button.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\EventLayer.cpp" />
-    <ClCompile Include="..\Classes\Framework\ui\GameLayer.cpp" />
-    <ClCompile Include="..\Classes\Framework\ui\TextBlock.cpp" />
-    <ClCompile Include="..\Classes\Framework\ui\MaskLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\EventNode.cpp" />
-    <ClCompile Include="..\Classes\Test.cpp" />
+    <ClCompile Include="..\Classes\Framework\ui\GameLayer.cpp" />
+    <ClCompile Include="..\Classes\Framework\ui\MaskLayer.cpp" />
+    <ClCompile Include="..\Classes\Framework\ui\TextBlock.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

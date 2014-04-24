@@ -10,23 +10,20 @@
     <Filter Include="resource">
       <UniqueIdentifier>{2d1d0979-58cd-4ab6-b91c-13650158f1fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\lua">
-      <UniqueIdentifier>{36077fe7-3f5d-4c87-89fe-a102eae4eaed}</UniqueIdentifier>
+    <Filter Include="Classes\psframework">
+      <UniqueIdentifier>{50bc3b4c-5139-4d23-b29b-a8fd4d8ff88e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\containers">
-      <UniqueIdentifier>{36dca92b-8eb6-4478-8aa1-f05cade64ab2}</UniqueIdentifier>
+    <Filter Include="Classes\psframework\ui">
+      <UniqueIdentifier>{92aed5d1-4791-479c-8411-81b99f3c8842}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\scene">
-      <UniqueIdentifier>{d503b96b-06d2-4593-9d21-123c5292da8f}</UniqueIdentifier>
+    <Filter Include="Classes\psframework\lua">
+      <UniqueIdentifier>{94c3ba0d-84f1-4317-bf3b-be0ba65a2c97}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\ui">
-      <UniqueIdentifier>{d8c077d0-f431-4c32-9d94-a071c7661822}</UniqueIdentifier>
+    <Filter Include="Classes\psframework\containers">
+      <UniqueIdentifier>{2125e934-4733-43b1-bf2c-39b2c355c683}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\ui\controls">
-      <UniqueIdentifier>{ad05e297-83e9-43df-9698-3d800cb531af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Classes\ui\layers">
-      <UniqueIdentifier>{939544ee-3767-4fca-8939-3538cf618edc}</UniqueIdentifier>
+    <Filter Include="Classes\psframework\scene">
+      <UniqueIdentifier>{421afae6-c1d3-425b-80c3-80b1b7b0a715}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -37,53 +34,50 @@
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="..\Classes\Framework\containers\Stack.h">
-      <Filter>Classes\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Framework\containers\Queue.h">
-      <Filter>Classes\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Framework\scene\ViewController.h">
-      <Filter>Classes\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Framework\lua\LuaUtils.h">
-      <Filter>Classes\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Test.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Framework\scene\GameScene.h">
-      <Filter>Classes\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Framework\ui\Button.h">
-      <Filter>Classes\ui\controls</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Framework\framework.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Framework\ui\EventLayer.h">
-      <Filter>Classes\ui\layers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Framework\ui\GameLayer.h">
-      <Filter>Classes\ui\layers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Framework\ui\MaskLayer.h">
-      <Filter>Classes\ui\layers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Framework\ui\EventNode.h">
-      <Filter>Classes\ui\controls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Framework\ui\TextBlock.h">
-      <Filter>Classes\ui\controls</Filter>
+      <Filter>Classes\psframework</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Framework\ui\ActiveSprite.h">
-      <Filter>Classes\ui\controls</Filter>
+      <Filter>Classes\psframework\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\ui\Button.h">
+      <Filter>Classes\psframework\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\ui\EventLayer.h">
+      <Filter>Classes\psframework\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\ui\EventNode.h">
+      <Filter>Classes\psframework\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\ui\GameLayer.h">
+      <Filter>Classes\psframework\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\ui\MaskLayer.h">
+      <Filter>Classes\psframework\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\ui\TextBlock.h">
+      <Filter>Classes\psframework\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Framework\lua\lua_framework_auto.hpp">
-      <Filter>Classes\lua</Filter>
+      <Filter>Classes\psframework\lua</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Framework\lua\lua_framework_extra.h">
-      <Filter>Classes\lua</Filter>
+      <Filter>Classes\psframework\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\lua\LuaUtils.h">
+      <Filter>Classes\psframework\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\containers\Queue.h">
+      <Filter>Classes\psframework\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\containers\Stack.h">
+      <Filter>Classes\psframework\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\scene\GameScene.h">
+      <Filter>Classes\psframework\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\scene\ViewController.h">
+      <Filter>Classes\psframework\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -93,50 +87,47 @@
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Framework\scene\ViewController.cpp">
-      <Filter>Classes\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp">
-      <Filter>Classes\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Test.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Framework\scene\GameScene.cpp">
-      <Filter>Classes\scene</Filter>
+    <ClCompile Include="..\Classes\Framework\ui\ActiveSprite.cpp">
+      <Filter>Classes\psframework\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\ui\Button.cpp">
-      <Filter>Classes\ui\controls</Filter>
+      <Filter>Classes\psframework\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\ui\EventLayer.cpp">
-      <Filter>Classes\ui\layers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Framework\ui\GameLayer.cpp">
-      <Filter>Classes\ui\layers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Framework\ui\MaskLayer.cpp">
-      <Filter>Classes\ui\layers</Filter>
+      <Filter>Classes\psframework\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\ui\EventNode.cpp">
-      <Filter>Classes\ui\controls</Filter>
+      <Filter>Classes\psframework\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\ui\GameLayer.cpp">
+      <Filter>Classes\psframework\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\ui\MaskLayer.cpp">
+      <Filter>Classes\psframework\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\ui\TextBlock.cpp">
-      <Filter>Classes\ui\controls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Framework\ui\ActiveSprite.cpp">
-      <Filter>Classes\ui\controls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Framework\containers\Queue.cpp">
-      <Filter>Classes\containers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Framework\containers\Stack.cpp">
-      <Filter>Classes\containers</Filter>
+      <Filter>Classes\psframework\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_auto.cpp">
-      <Filter>Classes\lua</Filter>
+      <Filter>Classes\psframework\lua</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_extra.cpp">
-      <Filter>Classes\lua</Filter>
+      <Filter>Classes\psframework\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp">
+      <Filter>Classes\psframework\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\containers\Queue.cpp">
+      <Filter>Classes\psframework\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\containers\Stack.cpp">
+      <Filter>Classes\psframework\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\scene\GameScene.cpp">
+      <Filter>Classes\psframework\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\scene\ViewController.cpp">
+      <Filter>Classes\psframework\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

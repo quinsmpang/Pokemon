@@ -39,4 +39,5 @@ tolua_lerror:
 
 int tolua_psframework_EventNode_registerScriptKeyboardHandler(lua_State *tolua_S)
 {
+	return 0;
 }

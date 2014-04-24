@@ -124,7 +124,7 @@ def main():
     try:
 
         tolua_root = '%s/tools/tolua' % project_root
-        output_dir = '%s/framework/scripting/lua-bindings/auto' % project_root
+        output_dir = '%s/../psframework/scripting/lua-bindings/auto' % project_root
 
         cmd_args = {'framework.ini' : ('framework', 'lua_framework_auto')}
         target = 'lua'
