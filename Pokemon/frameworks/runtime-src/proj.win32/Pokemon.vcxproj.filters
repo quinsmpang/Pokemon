@@ -123,14 +123,14 @@
     <ClCompile Include="..\Classes\Framework\ui\ActiveSprite.cpp">
       <Filter>Classes\ui\controls</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Framework\lua\lua_framework_auto.cpp">
-      <Filter>Classes\lua</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Framework\containers\Queue.cpp">
       <Filter>Classes\containers</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\containers\Stack.cpp">
       <Filter>Classes\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\lua\lua_framework_auto.cpp">
+      <Filter>Classes\lua</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
