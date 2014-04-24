@@ -79,6 +79,9 @@
     <ClInclude Include="..\Classes\Framework\scene\ViewController.h">
       <Filter>Classes\psframework\scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Test.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -128,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\scene\ViewController.cpp">
       <Filter>Classes\psframework\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Test.cpp">
+      <Filter>Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

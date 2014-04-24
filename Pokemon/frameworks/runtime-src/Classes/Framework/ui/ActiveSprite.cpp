@@ -27,14 +27,24 @@ bool ActiveSprite::initWithSprite(Node *pSprite, const TouchCallback &touchCallb
 	return true;
 }
 
-ActiveSprite *ActiveSprite::create(const char *szSpritePath, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
+ActiveSprite *ActiveSprite::create(const char *szSpritePath)
+{
+	return ActiveSprite::createWithCallback(szSpritePath, nullptr, nullptr);
+}
+
+ActiveSprite *ActiveSprite::create(cocos2d::Node *pSprite)
+{
+	return ActiveSprite::createWithCallback(pSprite, nullptr, nullptr);
+}
+
+ActiveSprite *ActiveSprite::createWithCallback(const char *szSpritePath, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
 {
 	auto pSprite = Sprite::create(szSpritePath);
 	
-	return ActiveSprite::create(pSprite, touchCallback, keyboardCallback);
+	return ActiveSprite::createWithCallback(pSprite, touchCallback, keyboardCallback);
 }
 
-ActiveSprite *ActiveSprite::create(Node *pSprite, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
+ActiveSprite *ActiveSprite::createWithCallback(Node *pSprite, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
 {
 	auto pActiveSprite = new ActiveSprite();
 

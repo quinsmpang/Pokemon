@@ -38,36 +38,66 @@ bool Button::initWithNodes(cocos2d::Node *pDefaultImage, cocos2d::Node *pSelecte
 	return true;
 }
 
-Button *Button::create(const char *szDefaultImagePath, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
+Button *Button::create(const char *szDefaultImagePath)
 {
-	return Button::create(szDefaultImagePath, szDefaultImagePath, szDefaultImagePath, touchCallback, keyboardCallback);
+	return Button::createWithCallback(szDefaultImagePath, nullptr);
 }
 
-Button *Button::create(const char *szDefaultImagePath, const char *szSelectedImagePath, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
+Button *Button::create(const char *szDefaultImagePath, const char *szSelectedImagePath)
 {
-	return Button::create(szDefaultImagePath, szSelectedImagePath, szDefaultImagePath, touchCallback, keyboardCallback);
+	return Button::createWithCallback(szDefaultImagePath, szSelectedImagePath, nullptr);
 }
 
-Button *Button::create(const char *szDefaultImagePath, const char *szSelectedImagePath, const char *szDisabledImagePath, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
+Button *Button::create(const char *szDefaultImagePath, const char *szSelectedImagePath, const char *szDisabledImagePath)
+{
+	return Button::createWithCallback(szDefaultImagePath, szSelectedImagePath, szDisabledImagePath, nullptr);
+}
+
+Button *Button::create(cocos2d::Node *pDefaultImage)
+{
+	return Button::createWithCallback(pDefaultImage, nullptr);
+}
+
+Button *Button::create(cocos2d::Node *pDefaultImage, cocos2d::Node *pSelectedImage)
+{
+	return Button::createWithCallback(pDefaultImage, pSelectedImage, nullptr);
+}
+
+Button *Button::create(cocos2d::Node *pDefaultImage, cocos2d::Node *pSelectedImage, cocos2d::Node *pDisabledImage)
+{
+	return Button::createWithCallback(pDefaultImage, pSelectedImage, pDisabledImage, nullptr);
+}
+
+Button *Button::createWithCallback(const char *szDefaultImagePath, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
+{
+	return Button::createWithCallback(szDefaultImagePath, szDefaultImagePath, szDefaultImagePath, touchCallback, keyboardCallback);
+}
+
+Button *Button::createWithCallback(const char *szDefaultImagePath, const char *szSelectedImagePath, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
+{
+	return Button::createWithCallback(szDefaultImagePath, szSelectedImagePath, szDefaultImagePath, touchCallback, keyboardCallback);
+}
+
+Button *Button::createWithCallback(const char *szDefaultImagePath, const char *szSelectedImagePath, const char *szDisabledImagePath, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
 {
 	auto pDefaultImage = Sprite::create(szDefaultImagePath);
 	auto pSelectedImage = Sprite::create(szSelectedImagePath);
 	auto pDisabledImage = Sprite::create(szDisabledImagePath);
 
-	return Button::create(pDefaultImage, pSelectedImage, pDisabledImage, touchCallback, keyboardCallback);
+	return Button::createWithCallback(pDefaultImage, pSelectedImage, pDisabledImage, touchCallback, keyboardCallback);
 }
 
-Button *Button::create(cocos2d::Node *pDefaultImage, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
+Button *Button::createWithCallback(cocos2d::Node *pDefaultImage, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
 {
-	return Button::create(pDefaultImage, pDefaultImage, pDefaultImage, touchCallback, keyboardCallback);
+	return Button::createWithCallback(pDefaultImage, pDefaultImage, pDefaultImage, touchCallback, keyboardCallback);
 }
 
-Button *Button::create(cocos2d::Node *pDefaultImage, cocos2d::Node *pSelectedImage, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
+Button *Button::createWithCallback(cocos2d::Node *pDefaultImage, cocos2d::Node *pSelectedImage, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
 {
-	return Button::create(pDefaultImage, pSelectedImage, pDefaultImage, touchCallback, keyboardCallback);
+	return Button::createWithCallback(pDefaultImage, pSelectedImage, pDefaultImage, touchCallback, keyboardCallback);
 }
 
-Button *Button::create(cocos2d::Node *pDefaultImage, cocos2d::Node *pSelectedImage, cocos2d::Node *pDisabledImage, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
+Button *Button::createWithCallback(cocos2d::Node *pDefaultImage, cocos2d::Node *pSelectedImage, cocos2d::Node *pDisabledImage, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
 {
 	auto pBtn = new Button();
 	if (pBtn && pBtn->initWithNodes(pDefaultImage, pSelectedImage, pDisabledImage, touchCallback, keyboardCallback))

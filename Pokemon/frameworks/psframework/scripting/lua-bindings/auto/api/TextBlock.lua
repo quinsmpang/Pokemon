@@ -4,16 +4,6 @@
 -- @extend EventNode
 
 --------------------------------
--- @function [parent=#TextBlock] initWithString 
--- @param self
--- @param #string str
--- @param #string str
--- @param #int int
--- @param #function func
--- @param #function func
--- @return bool#bool ret (return value: bool)
-        
---------------------------------
 -- @function [parent=#TextBlock] setSelectedColor 
 -- @param self
 -- @param #color3B_table color3b
@@ -34,8 +24,6 @@
 -- @param #string str
 -- @param #string str
 -- @param #int int
--- @param #function func
--- @param #function func
 -- @return TextBlock#TextBlock ret (return value: pf.TextBlock)
         
 return nil

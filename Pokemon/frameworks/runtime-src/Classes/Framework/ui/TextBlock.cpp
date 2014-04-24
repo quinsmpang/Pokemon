@@ -5,7 +5,12 @@ using namespace cocos2d;
 namespace framework
 {
 
-TextBlock *TextBlock::create(const std::string &szContent, const std::string &szFontName, int fontSize, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
+TextBlock *TextBlock::create(const std::string &szContent, const std::string &szFontName, int fontSize)
+{
+	return TextBlock::createWithCallback(szContent, szFontName, fontSize);
+}
+
+TextBlock *TextBlock::createWithCallback(const std::string &szContent, const std::string &szFontName, int fontSize, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback)
 {
 	auto pBlock = new TextBlock();
 

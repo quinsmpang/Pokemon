@@ -54,11 +54,11 @@ bool TestScene::init()
 
 	auto pGameLayer = GameLayer::create();
 	// test btn
-	auto btn = Button::create("btn1.png", "btn2.png", TOUCH_EVENT_CALLBACK(TestScene::onBtnClick, this, 111), KEYBOARD_EVENT_CALLBACK(TestScene::onKbdPressed, this));
+	auto btn = Button::createWithCallback("btn1.png", "btn2.png", TOUCH_EVENT_CALLBACK(TestScene::onBtnClick, this, 111), KEYBOARD_EVENT_CALLBACK(TestScene::onKbdPressed, this));
 	btn->setPosition(winSize.width * 0.5, winSize.height * 0.5);
 	pGameLayer->addControl(btn);
 	// test label
-	auto label = TextBlock::create("ABCD", "Consolas", 20, TOUCH_EVENT_CALLBACK(TestScene::onBtnClick, this, 999));
+	auto label = TextBlock::createWithCallback("ABCD", "Consolas", 20, TOUCH_EVENT_CALLBACK(TestScene::onBtnClick, this, 999));
 	label->setPosition(100, 100);
 	label->setSelectedColor(Color3B::RED);
 	pGameLayer->addControl(label);

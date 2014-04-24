@@ -5,7 +5,9 @@
 
 #include "lua/lua_framework_auto.hpp"
 
-//#define CPPTEST
+#include "Test.h"
+
+#define CPPTEST
 
 using namespace CocosDenshion;
 

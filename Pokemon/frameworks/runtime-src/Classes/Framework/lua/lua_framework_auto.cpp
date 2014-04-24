@@ -3847,97 +3847,6 @@ int lua_register_psframework_MaskLayer(lua_State* tolua_S)
     return 1;
 }
 
-int lua_psframework_Button_initWithNodes(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::Button* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.Button",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::Button*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Button_initWithNodes'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 4) 
-    {
-        cocos2d::Node* arg0;
-        cocos2d::Node* arg1;
-        cocos2d::Node* arg2;
-        std::function<void (cocos2d::Ref *)> arg3;
-
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
-
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 3, "cc.Node",&arg1);
-
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 4, "cc.Node",&arg2);
-
-        do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-        if(!ok)
-            return 0;
-        bool ret = cobj->initWithNodes(arg0, arg1, arg2, arg3);
-        tolua_pushboolean(tolua_S,(bool)ret);
-        return 1;
-    }
-    if (argc == 5) 
-    {
-        cocos2d::Node* arg0;
-        cocos2d::Node* arg1;
-        cocos2d::Node* arg2;
-        std::function<void (cocos2d::Ref *)> arg3;
-        std::function<void (cocos2d::Ref *, cocos2d::EventKeyboard::KeyCode)> arg4;
-
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
-
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 3, "cc.Node",&arg1);
-
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 4, "cc.Node",&arg2);
-
-        do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-
-        do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-        if(!ok)
-            return 0;
-        bool ret = cobj->initWithNodes(arg0, arg1, arg2, arg3, arg4);
-        tolua_pushboolean(tolua_S,(bool)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "initWithNodes",argc, 4);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Button_initWithNodes'.",&tolua_err);
-#endif
-
-    return 0;
-}
 int lua_psframework_Button_create(lua_State* tolua_S)
 {
     int argc = 0;
@@ -3954,70 +3863,13 @@ int lua_psframework_Button_create(lua_State* tolua_S)
 
     do 
     {
-        if (argc == 3)
-        {
-            const char* arg0;
-            std::string arg0_tmp; ok &= luaval_to_std_string(tolua_S, 2, &arg0_tmp); arg0 = arg0_tmp.c_str();
-            if (!ok) { break; }
-            const char* arg1;
-            std::string arg1_tmp; ok &= luaval_to_std_string(tolua_S, 3, &arg1_tmp); arg1 = arg1_tmp.c_str();
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg2;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            framework::Button* ret = framework::Button::create(arg0, arg1, arg2);
-            object_to_luaval<framework::Button>(tolua_S, "pf.Button",(framework::Button*)ret);
-            return 1;
-        }
-    } while (0);
-    ok  = true;
-    do 
-    {
-        if (argc == 4)
-        {
-            const char* arg0;
-            std::string arg0_tmp; ok &= luaval_to_std_string(tolua_S, 2, &arg0_tmp); arg0 = arg0_tmp.c_str();
-            if (!ok) { break; }
-            const char* arg1;
-            std::string arg1_tmp; ok &= luaval_to_std_string(tolua_S, 3, &arg1_tmp); arg1 = arg1_tmp.c_str();
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg2;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *, cocos2d::EventKeyboard::KeyCode)> arg3;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            framework::Button* ret = framework::Button::create(arg0, arg1, arg2, arg3);
-            object_to_luaval<framework::Button>(tolua_S, "pf.Button",(framework::Button*)ret);
-            return 1;
-        }
-    } while (0);
-    ok  = true;
-    do 
-    {
         if (argc == 2)
         {
             const char* arg0;
             std::string arg0_tmp; ok &= luaval_to_std_string(tolua_S, 2, &arg0_tmp); arg0 = arg0_tmp.c_str();
             if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg1;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
+            const char* arg1;
+            std::string arg1_tmp; ok &= luaval_to_std_string(tolua_S, 3, &arg1_tmp); arg1 = arg1_tmp.c_str();
             if (!ok) { break; }
             framework::Button* ret = framework::Button::create(arg0, arg1);
             object_to_luaval<framework::Button>(tolua_S, "pf.Button",(framework::Button*)ret);
@@ -4027,24 +3879,29 @@ int lua_psframework_Button_create(lua_State* tolua_S)
     ok  = true;
     do 
     {
+        if (argc == 1)
+        {
+            const char* arg0;
+            std::string arg0_tmp; ok &= luaval_to_std_string(tolua_S, 2, &arg0_tmp); arg0 = arg0_tmp.c_str();
+            if (!ok) { break; }
+            framework::Button* ret = framework::Button::create(arg0);
+            object_to_luaval<framework::Button>(tolua_S, "pf.Button",(framework::Button*)ret);
+            return 1;
+        }
+    } while (0);
+    ok  = true;
+    do 
+    {
         if (argc == 3)
         {
             const char* arg0;
             std::string arg0_tmp; ok &= luaval_to_std_string(tolua_S, 2, &arg0_tmp); arg0 = arg0_tmp.c_str();
             if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg1;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
+            const char* arg1;
+            std::string arg1_tmp; ok &= luaval_to_std_string(tolua_S, 3, &arg1_tmp); arg1 = arg1_tmp.c_str();
             if (!ok) { break; }
-            std::function<void (cocos2d::Ref *, cocos2d::EventKeyboard::KeyCode)> arg2;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
+            const char* arg2;
+            std::string arg2_tmp; ok &= luaval_to_std_string(tolua_S, 4, &arg2_tmp); arg2 = arg2_tmp.c_str();
             if (!ok) { break; }
             framework::Button* ret = framework::Button::create(arg0, arg1, arg2);
             object_to_luaval<framework::Button>(tolua_S, "pf.Button",(framework::Button*)ret);
@@ -4054,58 +3911,12 @@ int lua_psframework_Button_create(lua_State* tolua_S)
     ok  = true;
     do 
     {
-        if (argc == 4)
+        if (argc == 1)
         {
-            const char* arg0;
-            std::string arg0_tmp; ok &= luaval_to_std_string(tolua_S, 2, &arg0_tmp); arg0 = arg0_tmp.c_str();
+            cocos2d::Node* arg0;
+            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
             if (!ok) { break; }
-            const char* arg1;
-            std::string arg1_tmp; ok &= luaval_to_std_string(tolua_S, 3, &arg1_tmp); arg1 = arg1_tmp.c_str();
-            if (!ok) { break; }
-            const char* arg2;
-            std::string arg2_tmp; ok &= luaval_to_std_string(tolua_S, 4, &arg2_tmp); arg2 = arg2_tmp.c_str();
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg3;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            framework::Button* ret = framework::Button::create(arg0, arg1, arg2, arg3);
-            object_to_luaval<framework::Button>(tolua_S, "pf.Button",(framework::Button*)ret);
-            return 1;
-        }
-    } while (0);
-    ok  = true;
-    do 
-    {
-        if (argc == 5)
-        {
-            const char* arg0;
-            std::string arg0_tmp; ok &= luaval_to_std_string(tolua_S, 2, &arg0_tmp); arg0 = arg0_tmp.c_str();
-            if (!ok) { break; }
-            const char* arg1;
-            std::string arg1_tmp; ok &= luaval_to_std_string(tolua_S, 3, &arg1_tmp); arg1 = arg1_tmp.c_str();
-            if (!ok) { break; }
-            const char* arg2;
-            std::string arg2_tmp; ok &= luaval_to_std_string(tolua_S, 4, &arg2_tmp); arg2 = arg2_tmp.c_str();
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg3;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *, cocos2d::EventKeyboard::KeyCode)> arg4;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            framework::Button* ret = framework::Button::create(arg0, arg1, arg2, arg3, arg4);
+            framework::Button* ret = framework::Button::create(arg0);
             object_to_luaval<framework::Button>(tolua_S, "pf.Button",(framework::Button*)ret);
             return 1;
         }
@@ -4118,12 +3929,8 @@ int lua_psframework_Button_create(lua_State* tolua_S)
             cocos2d::Node* arg0;
             ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
             if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg1;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
+            cocos2d::Node* arg1;
+            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 3, "cc.Node",&arg1);
             if (!ok) { break; }
             framework::Button* ret = framework::Button::create(arg0, arg1);
             object_to_luaval<framework::Button>(tolua_S, "pf.Button",(framework::Button*)ret);
@@ -4138,19 +3945,11 @@ int lua_psframework_Button_create(lua_State* tolua_S)
             cocos2d::Node* arg0;
             ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
             if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg1;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
+            cocos2d::Node* arg1;
+            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 3, "cc.Node",&arg1);
             if (!ok) { break; }
-            std::function<void (cocos2d::Ref *, cocos2d::EventKeyboard::KeyCode)> arg2;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
+            cocos2d::Node* arg2;
+            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 4, "cc.Node",&arg2);
             if (!ok) { break; }
             framework::Button* ret = framework::Button::create(arg0, arg1, arg2);
             object_to_luaval<framework::Button>(tolua_S, "pf.Button",(framework::Button*)ret);
@@ -4158,119 +3957,7 @@ int lua_psframework_Button_create(lua_State* tolua_S)
         }
     } while (0);
     ok  = true;
-    do 
-    {
-        if (argc == 3)
-        {
-            cocos2d::Node* arg0;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
-            if (!ok) { break; }
-            cocos2d::Node* arg1;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 3, "cc.Node",&arg1);
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg2;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            framework::Button* ret = framework::Button::create(arg0, arg1, arg2);
-            object_to_luaval<framework::Button>(tolua_S, "pf.Button",(framework::Button*)ret);
-            return 1;
-        }
-    } while (0);
-    ok  = true;
-    do 
-    {
-        if (argc == 4)
-        {
-            cocos2d::Node* arg0;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
-            if (!ok) { break; }
-            cocos2d::Node* arg1;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 3, "cc.Node",&arg1);
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg2;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *, cocos2d::EventKeyboard::KeyCode)> arg3;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            framework::Button* ret = framework::Button::create(arg0, arg1, arg2, arg3);
-            object_to_luaval<framework::Button>(tolua_S, "pf.Button",(framework::Button*)ret);
-            return 1;
-        }
-    } while (0);
-    ok  = true;
-    do 
-    {
-        if (argc == 4)
-        {
-            cocos2d::Node* arg0;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
-            if (!ok) { break; }
-            cocos2d::Node* arg1;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 3, "cc.Node",&arg1);
-            if (!ok) { break; }
-            cocos2d::Node* arg2;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 4, "cc.Node",&arg2);
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg3;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            framework::Button* ret = framework::Button::create(arg0, arg1, arg2, arg3);
-            object_to_luaval<framework::Button>(tolua_S, "pf.Button",(framework::Button*)ret);
-            return 1;
-        }
-    } while (0);
-    ok  = true;
-    do 
-    {
-        if (argc == 5)
-        {
-            cocos2d::Node* arg0;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
-            if (!ok) { break; }
-            cocos2d::Node* arg1;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 3, "cc.Node",&arg1);
-            if (!ok) { break; }
-            cocos2d::Node* arg2;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 4, "cc.Node",&arg2);
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg3;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *, cocos2d::EventKeyboard::KeyCode)> arg4;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            framework::Button* ret = framework::Button::create(arg0, arg1, arg2, arg3, arg4);
-            object_to_luaval<framework::Button>(tolua_S, "pf.Button",(framework::Button*)ret);
-            return 1;
-        }
-    } while (0);
-    ok  = true;
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d", "create",argc, 4);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d", "create",argc, 3);
     return 0;
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
@@ -4290,7 +3977,6 @@ int lua_register_psframework_Button(lua_State* tolua_S)
     tolua_cclass(tolua_S,"Button","pf.Button","pf.EventNode",nullptr);
 
     tolua_beginmodule(tolua_S,"Button");
-        tolua_function(tolua_S,"initWithNodes",lua_psframework_Button_initWithNodes);
         tolua_function(tolua_S,"create", lua_psframework_Button_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::Button).name();
@@ -4299,73 +3985,6 @@ int lua_register_psframework_Button(lua_State* tolua_S)
     return 1;
 }
 
-int lua_psframework_TextBlock_initWithString(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::TextBlock* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.TextBlock",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::TextBlock*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TextBlock_initWithString'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 5) 
-    {
-        std::string arg0;
-        std::string arg1;
-        int arg2;
-        std::function<void (cocos2d::Ref *)> arg3;
-        std::function<void (cocos2d::Ref *, cocos2d::EventKeyboard::KeyCode)> arg4;
-
-        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
-
-        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
-
-        ok &= luaval_to_int32(tolua_S, 4,(int *)&arg2);
-
-        do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-
-        do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-        if(!ok)
-            return 0;
-        bool ret = cobj->initWithString(arg0, arg1, arg2, arg3, arg4);
-        tolua_pushboolean(tolua_S,(bool)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "initWithString",argc, 5);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TextBlock_initWithString'.",&tolua_err);
-#endif
-
-    return 0;
-}
 int lua_psframework_TextBlock_setSelectedColor(lua_State* tolua_S)
 {
     int argc = 0;
@@ -4545,52 +4164,6 @@ int lua_psframework_TextBlock_create(lua_State* tolua_S)
         object_to_luaval<framework::TextBlock>(tolua_S, "pf.TextBlock",(framework::TextBlock*)ret);
         return 1;
     }
-    if (argc == 4)
-    {
-        std::string arg0;
-        std::string arg1;
-        int arg2;
-        std::function<void (cocos2d::Ref *)> arg3;
-        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
-        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
-        ok &= luaval_to_int32(tolua_S, 4,(int *)&arg2);
-        do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-        if(!ok)
-            return 0;
-        framework::TextBlock* ret = framework::TextBlock::create(arg0, arg1, arg2, arg3);
-        object_to_luaval<framework::TextBlock>(tolua_S, "pf.TextBlock",(framework::TextBlock*)ret);
-        return 1;
-    }
-    if (argc == 5)
-    {
-        std::string arg0;
-        std::string arg1;
-        int arg2;
-        std::function<void (cocos2d::Ref *)> arg3;
-        std::function<void (cocos2d::Ref *, cocos2d::EventKeyboard::KeyCode)> arg4;
-        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
-        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
-        ok &= luaval_to_int32(tolua_S, 4,(int *)&arg2);
-        do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-        do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-        if(!ok)
-            return 0;
-        framework::TextBlock* ret = framework::TextBlock::create(arg0, arg1, arg2, arg3, arg4);
-        object_to_luaval<framework::TextBlock>(tolua_S, "pf.TextBlock",(framework::TextBlock*)ret);
-        return 1;
-    }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 2);
     return 0;
 #if COCOS2D_DEBUG >= 1
@@ -4611,7 +4184,6 @@ int lua_register_psframework_TextBlock(lua_State* tolua_S)
     tolua_cclass(tolua_S,"TextBlock","pf.TextBlock","pf.EventNode",nullptr);
 
     tolua_beginmodule(tolua_S,"TextBlock");
-        tolua_function(tolua_S,"initWithString",lua_psframework_TextBlock_initWithString);
         tolua_function(tolua_S,"setSelectedColor",lua_psframework_TextBlock_setSelectedColor);
         tolua_function(tolua_S,"setDisabledColor",lua_psframework_TextBlock_setDisabledColor);
         tolua_function(tolua_S,"setDefaultColor",lua_psframework_TextBlock_setDefaultColor);
@@ -4623,67 +4195,6 @@ int lua_register_psframework_TextBlock(lua_State* tolua_S)
     return 1;
 }
 
-int lua_psframework_ActiveSprite_initWithSprite(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::ActiveSprite* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.ActiveSprite",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::ActiveSprite*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ActiveSprite_initWithSprite'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 3) 
-    {
-        cocos2d::Node* arg0;
-        std::function<void (cocos2d::Ref *)> arg1;
-        std::function<void (cocos2d::Ref *, cocos2d::EventKeyboard::KeyCode)> arg2;
-
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
-
-        do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-
-        do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-        if(!ok)
-            return 0;
-        bool ret = cobj->initWithSprite(arg0, arg1, arg2);
-        tolua_pushboolean(tolua_S,(bool)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "initWithSprite",argc, 3);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ActiveSprite_initWithSprite'.",&tolua_err);
-#endif
-
-    return 0;
-}
 int lua_psframework_ActiveSprite_create(lua_State* tolua_S)
 {
     int argc = 0;
@@ -4713,106 +4224,12 @@ int lua_psframework_ActiveSprite_create(lua_State* tolua_S)
     ok  = true;
     do 
     {
-        if (argc == 2)
-        {
-            cocos2d::Node* arg0;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg1;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            framework::ActiveSprite* ret = framework::ActiveSprite::create(arg0, arg1);
-            object_to_luaval<framework::ActiveSprite>(tolua_S, "pf.ActiveSprite",(framework::ActiveSprite*)ret);
-            return 1;
-        }
-    } while (0);
-    ok  = true;
-    do 
-    {
-        if (argc == 3)
-        {
-            cocos2d::Node* arg0;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg1;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *, cocos2d::EventKeyboard::KeyCode)> arg2;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            framework::ActiveSprite* ret = framework::ActiveSprite::create(arg0, arg1, arg2);
-            object_to_luaval<framework::ActiveSprite>(tolua_S, "pf.ActiveSprite",(framework::ActiveSprite*)ret);
-            return 1;
-        }
-    } while (0);
-    ok  = true;
-    do 
-    {
         if (argc == 1)
         {
             const char* arg0;
             std::string arg0_tmp; ok &= luaval_to_std_string(tolua_S, 2, &arg0_tmp); arg0 = arg0_tmp.c_str();
             if (!ok) { break; }
             framework::ActiveSprite* ret = framework::ActiveSprite::create(arg0);
-            object_to_luaval<framework::ActiveSprite>(tolua_S, "pf.ActiveSprite",(framework::ActiveSprite*)ret);
-            return 1;
-        }
-    } while (0);
-    ok  = true;
-    do 
-    {
-        if (argc == 2)
-        {
-            const char* arg0;
-            std::string arg0_tmp; ok &= luaval_to_std_string(tolua_S, 2, &arg0_tmp); arg0 = arg0_tmp.c_str();
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg1;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            framework::ActiveSprite* ret = framework::ActiveSprite::create(arg0, arg1);
-            object_to_luaval<framework::ActiveSprite>(tolua_S, "pf.ActiveSprite",(framework::ActiveSprite*)ret);
-            return 1;
-        }
-    } while (0);
-    ok  = true;
-    do 
-    {
-        if (argc == 3)
-        {
-            const char* arg0;
-            std::string arg0_tmp; ok &= luaval_to_std_string(tolua_S, 2, &arg0_tmp); arg0 = arg0_tmp.c_str();
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *)> arg1;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            std::function<void (cocos2d::Ref *, cocos2d::EventKeyboard::KeyCode)> arg2;
-            do {
-			// Lambda binding for lua is not supported.
-			assert(false);
-		} while(0)
-		;
-            if (!ok) { break; }
-            framework::ActiveSprite* ret = framework::ActiveSprite::create(arg0, arg1, arg2);
             object_to_luaval<framework::ActiveSprite>(tolua_S, "pf.ActiveSprite",(framework::ActiveSprite*)ret);
             return 1;
         }
@@ -4838,7 +4255,6 @@ int lua_register_psframework_ActiveSprite(lua_State* tolua_S)
     tolua_cclass(tolua_S,"ActiveSprite","pf.ActiveSprite","pf.EventNode",nullptr);
 
     tolua_beginmodule(tolua_S,"ActiveSprite");
-        tolua_function(tolua_S,"initWithSprite",lua_psframework_ActiveSprite_initWithSprite);
         tolua_function(tolua_S,"create", lua_psframework_ActiveSprite_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::ActiveSprite).name();
