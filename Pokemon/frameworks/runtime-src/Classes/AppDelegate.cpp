@@ -7,7 +7,7 @@
 
 #include "Test.h"
 
-#define CPPTEST
+//#define CPPTEST
 
 using namespace CocosDenshion;
 

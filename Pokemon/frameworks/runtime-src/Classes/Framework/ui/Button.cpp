@@ -107,6 +107,7 @@ Button *Button::createWithCallback(cocos2d::Node *pDefaultImage, cocos2d::Node *
 		return pBtn;
 	}
 
+	CC_SAFE_DELETE(pBtn);
 	return nullptr;
 }
 

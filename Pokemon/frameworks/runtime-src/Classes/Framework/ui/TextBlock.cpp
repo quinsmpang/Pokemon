@@ -21,6 +21,7 @@ TextBlock *TextBlock::createWithCallback(const std::string &szContent, const std
 		return pBlock;
 	}
 
+	CC_SAFE_DELETE(pBlock);
 	return nullptr;
 }
 

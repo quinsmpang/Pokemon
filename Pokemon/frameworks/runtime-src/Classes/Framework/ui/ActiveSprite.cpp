@@ -55,6 +55,7 @@ ActiveSprite *ActiveSprite::createWithCallback(Node *pSprite, const TouchCallbac
 		return pActiveSprite;
 	}
 
+	CC_SAFE_DELETE(pActiveSprite);
 	return nullptr;
 }
 
