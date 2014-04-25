@@ -171,6 +171,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\lua\ScriptEventExtend.h" />
     <ClInclude Include="..\Classes\Framework\scene\GameScene.h" />
     <ClInclude Include="..\Classes\Framework\scene\ViewController.h" />
+    <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.h" />
+    <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3ext.h" />
+    <ClInclude Include="..\Classes\Framework\sqlite\SqliteDb.h" />
     <ClInclude Include="..\Classes\Framework\ui\ActiveSprite.h" />
     <ClInclude Include="..\Classes\Framework\ui\Button.h" />
     <ClInclude Include="..\Classes\Framework\ui\EventLayer.h" />
@@ -193,6 +196,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\lua\ScriptEventExtend.cpp" />
     <ClCompile Include="..\Classes\Framework\scene\GameScene.cpp" />
     <ClCompile Include="..\Classes\Framework\scene\ViewController.cpp" />
+    <ClCompile Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.c" />
+    <ClCompile Include="..\Classes\Framework\sqlite\SqliteDb.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\ActiveSprite.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\Button.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\EventLayer.cpp" />

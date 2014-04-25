@@ -6,6 +6,8 @@
 
 #include "lua\LuaUtils.h"
 
+#include "sqlite\SqliteDb.h"
+
 #include "scene\ViewController.h"
 #include "scene\GameScene.h"
 

@@ -25,6 +25,12 @@
     <Filter Include="Classes\psframework\scene">
       <UniqueIdentifier>{421afae6-c1d3-425b-80c3-80b1b7b0a715}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\psframework\sqlite">
+      <UniqueIdentifier>{596b5922-2dd6-4f57-b2fd-17826e5d608f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\psframework\sqlite\libsqlite">
+      <UniqueIdentifier>{61a13813-d7f4-42b0-9289-03be19d7797b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -88,6 +94,15 @@
     <ClInclude Include="..\Classes\Framework\version.h">
       <Filter>Classes\psframework</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.h">
+      <Filter>Classes\psframework\sqlite\libsqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3ext.h">
+      <Filter>Classes\psframework\sqlite\libsqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\sqlite\SqliteDb.h">
+      <Filter>Classes\psframework\sqlite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -143,6 +158,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\lua\ScriptEventExtend.cpp">
       <Filter>Classes\psframework\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.c">
+      <Filter>Classes\psframework\sqlite\libsqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\sqlite\SqliteDb.cpp">
+      <Filter>Classes\psframework\sqlite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

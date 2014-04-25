@@ -654,6 +654,660 @@ int lua_register_psframework_Stack(lua_State* tolua_S)
     return 1;
 }
 
+int lua_psframework_SqliteDb_updateTable(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::SqliteDb* cobj = nullptr;
+    bool ok  = true;
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.SqliteDb",0,&tolua_err)) goto tolua_lerror;
+#endif
+    cobj = (framework::SqliteDb*)tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+    if (!cobj)
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_SqliteDb_updateTable'", nullptr);
+        return 0;
+    }
+#endif
+    argc = lua_gettop(tolua_S)-1;
+    do{
+        if (argc == 4) {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+            if (!ok) { break; }
+            cocos2d::__Dictionary* arg1;
+            ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 3, "cc.__Dictionary",&arg1);
+
+            if (!ok) { break; }
+            std::string arg2;
+            ok &= luaval_to_std_string(tolua_S, 4,&arg2);
+
+            if (!ok) { break; }
+            std::string arg3;
+            ok &= luaval_to_std_string(tolua_S, 5,&arg3);
+
+            if (!ok) { break; }
+            bool ret = cobj->updateTable(arg0, arg1, arg2, arg3);
+            tolua_pushboolean(tolua_S,(bool)ret);
+            return 1;
+        }
+    }while(0);
+    ok  = true;
+    do{
+        if (argc == 2) {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+            if (!ok) { break; }
+            cocos2d::__Dictionary* arg1;
+            ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 3, "cc.__Dictionary",&arg1);
+
+            if (!ok) { break; }
+            bool ret = cobj->updateTable(arg0, arg1);
+            tolua_pushboolean(tolua_S,(bool)ret);
+            return 1;
+        }
+    }while(0);
+    ok  = true;
+    do{
+        if (argc == 3) {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+            if (!ok) { break; }
+            cocos2d::__Dictionary* arg1;
+            ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 3, "cc.__Dictionary",&arg1);
+
+            if (!ok) { break; }
+            cocos2d::__Dictionary* arg2;
+            ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 4, "cc.__Dictionary",&arg2);
+
+            if (!ok) { break; }
+            bool ret = cobj->updateTable(arg0, arg1, arg2);
+            tolua_pushboolean(tolua_S,(bool)ret);
+            return 1;
+        }
+    }while(0);
+    ok  = true;
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "updateTable",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SqliteDb_updateTable'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_SqliteDb_dropTable(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::SqliteDb* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.SqliteDb",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::SqliteDb*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_SqliteDb_dropTable'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        bool ret = cobj->dropTable(arg0);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "dropTable",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SqliteDb_dropTable'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_SqliteDb_clearTable(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::SqliteDb* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.SqliteDb",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::SqliteDb*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_SqliteDb_clearTable'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        bool ret = cobj->clearTable(arg0);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "clearTable",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SqliteDb_clearTable'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_SqliteDb_deleteFromTable(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::SqliteDb* cobj = nullptr;
+    bool ok  = true;
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.SqliteDb",0,&tolua_err)) goto tolua_lerror;
+#endif
+    cobj = (framework::SqliteDb*)tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+    if (!cobj)
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_SqliteDb_deleteFromTable'", nullptr);
+        return 0;
+    }
+#endif
+    argc = lua_gettop(tolua_S)-1;
+    do{
+        if (argc == 3) {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+            if (!ok) { break; }
+            std::string arg1;
+            ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+
+            if (!ok) { break; }
+            std::string arg2;
+            ok &= luaval_to_std_string(tolua_S, 4,&arg2);
+
+            if (!ok) { break; }
+            bool ret = cobj->deleteFromTable(arg0, arg1, arg2);
+            tolua_pushboolean(tolua_S,(bool)ret);
+            return 1;
+        }
+    }while(0);
+    ok  = true;
+    do{
+        if (argc == 2) {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+            if (!ok) { break; }
+            cocos2d::__Dictionary* arg1;
+            ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 3, "cc.__Dictionary",&arg1);
+
+            if (!ok) { break; }
+            bool ret = cobj->deleteFromTable(arg0, arg1);
+            tolua_pushboolean(tolua_S,(bool)ret);
+            return 1;
+        }
+    }while(0);
+    ok  = true;
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "deleteFromTable",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SqliteDb_deleteFromTable'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_SqliteDb_insertTable(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::SqliteDb* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.SqliteDb",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::SqliteDb*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_SqliteDb_insertTable'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        std::string arg0;
+        cocos2d::__Dictionary* arg1;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 3, "cc.__Dictionary",&arg1);
+        if(!ok)
+            return 0;
+        bool ret = cobj->insertTable(arg0, arg1);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "insertTable",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SqliteDb_insertTable'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_SqliteDb_createTable(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::SqliteDb* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.SqliteDb",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::SqliteDb*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_SqliteDb_createTable'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        std::string arg0;
+        cocos2d::__Array* arg1;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_object<cocos2d::__Array>(tolua_S, 3, "cc.__Array",&arg1);
+        if(!ok)
+            return 0;
+        bool ret = cobj->createTable(arg0, arg1);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "createTable",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SqliteDb_createTable'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_SqliteDb_getRecordCount(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::SqliteDb* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.SqliteDb",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::SqliteDb*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_SqliteDb_getRecordCount'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        int ret = cobj->getRecordCount(arg0);
+        tolua_pushnumber(tolua_S,(lua_Number)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getRecordCount",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SqliteDb_getRecordCount'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_SqliteDb_getValueTypeName(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::SqliteDb* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.SqliteDb",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::SqliteDb*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_SqliteDb_getValueTypeName'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::Ref* arg0;
+
+        ok &= luaval_to_object<cocos2d::Ref>(tolua_S, 2, "cc.Ref",&arg0);
+        if(!ok)
+            return 0;
+        const char* ret = cobj->getValueTypeName(arg0);
+        tolua_pushstring(tolua_S,(const char*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getValueTypeName",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SqliteDb_getValueTypeName'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_SqliteDb_selectTable(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::SqliteDb* cobj = nullptr;
+    bool ok  = true;
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.SqliteDb",0,&tolua_err)) goto tolua_lerror;
+#endif
+    cobj = (framework::SqliteDb*)tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+    if (!cobj)
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_SqliteDb_selectTable'", nullptr);
+        return 0;
+    }
+#endif
+    argc = lua_gettop(tolua_S)-1;
+    do{
+        if (argc == 3) {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+            if (!ok) { break; }
+            std::string arg1;
+            ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+
+            if (!ok) { break; }
+            std::string arg2;
+            ok &= luaval_to_std_string(tolua_S, 4,&arg2);
+
+            if (!ok) { break; }
+            cocos2d::__Array* ret = cobj->selectTable(arg0, arg1, arg2);
+            object_to_luaval<cocos2d::__Array>(tolua_S, "cc.__Array",(cocos2d::__Array*)ret);
+            return 1;
+        }
+    }while(0);
+    ok  = true;
+    do{
+        if (argc == 1) {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+            if (!ok) { break; }
+            cocos2d::__Array* ret = cobj->selectTable(arg0);
+            object_to_luaval<cocos2d::__Array>(tolua_S, "cc.__Array",(cocos2d::__Array*)ret);
+            return 1;
+        }
+    }while(0);
+    ok  = true;
+    do{
+        if (argc == 2) {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+            if (!ok) { break; }
+            cocos2d::__Dictionary* arg1;
+            ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 3, "cc.__Dictionary",&arg1);
+
+            if (!ok) { break; }
+            cocos2d::__Array* ret = cobj->selectTable(arg0, arg1);
+            object_to_luaval<cocos2d::__Array>(tolua_S, "cc.__Array",(cocos2d::__Array*)ret);
+            return 1;
+        }
+    }while(0);
+    ok  = true;
+    do{
+        if (argc == 3) {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+            if (!ok) { break; }
+            std::string arg1;
+            ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+
+            if (!ok) { break; }
+            cocos2d::__Array* arg2;
+            ok &= luaval_to_object<cocos2d::__Array>(tolua_S, 4, "cc.__Array",&arg2);
+
+            if (!ok) { break; }
+            cocos2d::__Array* ret = cobj->selectTable(arg0, arg1, arg2);
+            object_to_luaval<cocos2d::__Array>(tolua_S, "cc.__Array",(cocos2d::__Array*)ret);
+            return 1;
+        }
+    }while(0);
+    ok  = true;
+    do{
+        if (argc == 2) {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+            if (!ok) { break; }
+            std::string arg1;
+            ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+
+            if (!ok) { break; }
+            cocos2d::__Array* ret = cobj->selectTable(arg0, arg1);
+            object_to_luaval<cocos2d::__Array>(tolua_S, "cc.__Array",(cocos2d::__Array*)ret);
+            return 1;
+        }
+    }while(0);
+    ok  = true;
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "selectTable",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SqliteDb_selectTable'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_SqliteDb_openSqlite(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.SqliteDb",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 1)
+    {
+        std::string arg0;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        framework::SqliteDb* ret = framework::SqliteDb::openSqlite(arg0);
+        object_to_luaval<framework::SqliteDb>(tolua_S, "pf.SqliteDb",(framework::SqliteDb*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "openSqlite",argc, 1);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SqliteDb_openSqlite'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_psframework_SqliteDb_clearConnectionCache(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.SqliteDb",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+            return 0;
+        framework::SqliteDb::clearConnectionCache();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "clearConnectionCache",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SqliteDb_clearConnectionCache'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_SqliteDb_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (SqliteDb)");
+    return 0;
+}
+
+int lua_register_psframework_SqliteDb(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.SqliteDb");
+    tolua_cclass(tolua_S,"SqliteDb","pf.SqliteDb","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"SqliteDb");
+        tolua_function(tolua_S,"updateTable",lua_psframework_SqliteDb_updateTable);
+        tolua_function(tolua_S,"dropTable",lua_psframework_SqliteDb_dropTable);
+        tolua_function(tolua_S,"clearTable",lua_psframework_SqliteDb_clearTable);
+        tolua_function(tolua_S,"deleteFromTable",lua_psframework_SqliteDb_deleteFromTable);
+        tolua_function(tolua_S,"insertTable",lua_psframework_SqliteDb_insertTable);
+        tolua_function(tolua_S,"createTable",lua_psframework_SqliteDb_createTable);
+        tolua_function(tolua_S,"getRecordCount",lua_psframework_SqliteDb_getRecordCount);
+        tolua_function(tolua_S,"getValueTypeName",lua_psframework_SqliteDb_getValueTypeName);
+        tolua_function(tolua_S,"selectTable",lua_psframework_SqliteDb_selectTable);
+        tolua_function(tolua_S,"openSqlite", lua_psframework_SqliteDb_openSqlite);
+        tolua_function(tolua_S,"clearConnectionCache", lua_psframework_SqliteDb_clearConnectionCache);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::SqliteDb).name();
+    g_luaType[typeName] = "pf.SqliteDb";
+    g_typeCast["SqliteDb"] = "pf.SqliteDb";
+    return 1;
+}
+
 int lua_psframework_ViewController_load(lua_State* tolua_S)
 {
     int argc = 0;
@@ -4282,6 +4936,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_GameLayer(tolua_S);
 	lua_register_psframework_Queue(tolua_S);
 	lua_register_psframework_TextBlock(tolua_S);
+	lua_register_psframework_SqliteDb(tolua_S);
 	lua_register_psframework_MaskLayer(tolua_S);
 	lua_register_psframework_MaskLayerDelegate(tolua_S);
 	lua_register_psframework_ActiveSprite(tolua_S);
