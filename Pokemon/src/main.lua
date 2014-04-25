@@ -51,6 +51,19 @@ local function main()
     btn:setPosition(200, 200)
     local sprite = ActiveSprite:create("dog.png")
     sprite:setPosition(400, 200)
+
+    local function onClick(sender)
+        print("clicked")
+    end
+
+    local function onKeyPressed(sender, keyCode)
+        print("keypressed " .. keyCode)
+    end
+
+    btn:registerScriptTouchHandler(onClick)
+    sprite:registerScriptKeyboardHandler(onKeyPressed)
+    pLayer:setFocusNode(sprite)
+
     pLayer:addControl(btn)
     pLayer:addControl(sprite)
     pScene:addChild(pLayer)

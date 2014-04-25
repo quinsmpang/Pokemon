@@ -19,6 +19,9 @@ namespace framework
 		static ActiveSprite *create(cocos2d::Node *pSprite);
 		static ActiveSprite *createWithCallback(const char *szSpritePath, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback);
 		static ActiveSprite *createWithCallback(cocos2d::Node *pSprite, const TouchCallback &touchCallback, const KeyboardCallback &keyboardCallback);
+
+		void focus() override;
+		void blur() override;
 	protected:
 		virtual ~ActiveSprite();
 

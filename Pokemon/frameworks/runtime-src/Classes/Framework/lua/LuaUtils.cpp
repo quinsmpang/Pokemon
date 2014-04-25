@@ -380,7 +380,7 @@ namespace framework
 		auto pStack = LuaEngine::getInstance()->getLuaStack();
 		pStack->pushObject(pData->_sender, "cc.Ref");
 		pStack->pushInt((int)pData->_keyCode);
-		ret = pStack->executeFunctionByHandler(handler, 3);
+		ret = pStack->executeFunctionByHandler(handler, 2);
 
 		pStack->clean();
 

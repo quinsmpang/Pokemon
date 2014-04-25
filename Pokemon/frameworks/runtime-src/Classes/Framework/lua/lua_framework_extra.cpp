@@ -21,6 +21,8 @@ int tolua_psframework_EventNode_registerScriptTouchHandler(lua_State *tolua_S)
 		goto tolua_lerror;
 #endif
 
+	pNode = static_cast<framework::EventNode*>(tolua_tousertype(tolua_S, 1, 0));
+
 	argc = lua_gettop(tolua_S) - 1;
 	if (argc == 1)	// if has param
 	{
@@ -57,6 +59,8 @@ int tolua_psframework_EventNode_unregisterScriptTouchHandler(lua_State *tolua_S)
 	if (!tolua_isusertype(tolua_S, 1, "pf.EventNode", 0, &tolua_err)) 
 		goto tolua_lerror;
 #endif
+
+	pObj = static_cast<framework::EventNode*>(tolua_tousertype(tolua_S, 1, 0));
     
     argc = lua_gettop(tolua_S) - 1;
     
@@ -88,6 +92,8 @@ int tolua_psframework_EventNode_registerScriptKeyboardHandler(lua_State *tolua_S
 	if (!tolua_isusertype(tolua_S, 1, "pf.EventNode", 0, &tolua_err)) 
 		goto tolua_lerror;
 #endif
+
+	pNode = static_cast<framework::EventNode*>(tolua_tousertype(tolua_S, 1, 0));
 
 	argc = lua_gettop(tolua_S) - 1;
 	if (argc == 1)	// if has param
@@ -125,6 +131,8 @@ int tolua_psframework_EventNode_unregisterScriptKeyboardHandler(lua_State *tolua
 	if (!tolua_isusertype(tolua_S, 1, "pf.EventNode", 0, &tolua_err)) 
 		goto tolua_lerror;
 #endif
+
+	pObj = static_cast<framework::EventNode*>(tolua_tousertype(tolua_S, 1, 0));
     
     argc = lua_gettop(tolua_S) - 1;
     

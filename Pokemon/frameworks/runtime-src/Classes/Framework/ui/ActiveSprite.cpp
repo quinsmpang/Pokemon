@@ -59,6 +59,16 @@ namespace framework
 		return nullptr;
 	}
 
+	void ActiveSprite::focus()
+	{
+		SAFE_SET_VISIBILITY(this->_defaultImage, true);
+	}
+
+	void ActiveSprite::blur()
+	{
+		SAFE_SET_VISIBILITY(this->_defaultImage, true);
+	}
+
 	ActiveSprite::~ActiveSprite()
 	{
 	}

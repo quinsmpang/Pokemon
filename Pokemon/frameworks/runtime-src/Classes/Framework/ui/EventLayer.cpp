@@ -130,7 +130,7 @@ namespace framework
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	void EventLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *pEvent)
 	{
-		if (_state != State::Waiting || !_visible || !_isKeyboardEnabled || !_selectedNode)
+		if (_state != State::Waiting || !_visible || !_isKeyboardEnabled)
 		{
 			return;
 		}

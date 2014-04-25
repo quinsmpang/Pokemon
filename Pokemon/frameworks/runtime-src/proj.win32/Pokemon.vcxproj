@@ -178,6 +178,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\ui\GameLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\MaskLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\TextBlock.h" />
+    <ClInclude Include="..\Classes\Framework\version.h" />
     <ClInclude Include="..\Classes\Test.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />

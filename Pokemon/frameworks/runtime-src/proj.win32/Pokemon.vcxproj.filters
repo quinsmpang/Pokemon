@@ -85,6 +85,9 @@
     <ClInclude Include="..\Classes\Framework\lua\ScriptEventExtend.h">
       <Filter>Classes\psframework\lua</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\version.h">
+      <Filter>Classes\psframework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">

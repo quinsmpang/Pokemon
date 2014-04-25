@@ -3,6 +3,7 @@
 #include "tolua_fix.h"
 #include "LuaBasicConversions.h"
 #include "lua_framework_extra.h"
+#include "version.h"
 
 
 int lua_psframework_Queue_getLength(lua_State* tolua_S)
@@ -4288,6 +4289,9 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_GameScene(tolua_S);
 
 	tolua_endmodule(tolua_S);
+
+	// print current version
+	::printVersion();
 	return 1;
 }
 
