@@ -141,11 +141,7 @@
     <ClCompile Include="..\Classes\Test.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="..\Classes\Framework\lua\ScriptHandlerManager.cpp">
-=======
     <ClCompile Include="..\Classes\Framework\lua\ScriptEventExtend.cpp">
->>>>>>> 8ff4138edf28ebf6eac9adf9936fe878cda36515
       <Filter>Classes\psframework\lua</Filter>
     </ClCompile>
   </ItemGroup>
