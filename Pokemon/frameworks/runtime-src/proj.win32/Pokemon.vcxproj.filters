@@ -82,6 +82,9 @@
     <ClInclude Include="..\Classes\Test.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\lua\ScriptEventExtend.h">
+      <Filter>Classes\psframework\lua</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -134,6 +137,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Test.cpp">
       <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\lua\ScriptEventExtend.cpp">
+      <Filter>Classes\psframework\lua</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

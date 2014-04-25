@@ -2,7 +2,7 @@
 #include "framework.h"
 #include "tolua_fix.h"
 #include "LuaBasicConversions.h"
-
+#include "lua_framework_extra.h"
 
 
 int lua_psframework_Queue_getLength(lua_State* tolua_S)
@@ -1996,6 +1996,11 @@ int lua_register_psframework_EventNode(lua_State* tolua_S)
         tolua_function(tolua_S,"isSelected",lua_psframework_EventNode_isSelected);
         tolua_function(tolua_S,"blur",lua_psframework_EventNode_blur);
         tolua_function(tolua_S,"rect",lua_psframework_EventNode_rect);
+		// register extra functions
+		tolua_function(tolua_S,"registerScriptTouchHandler",tolua_psframework_EventNode_registerScriptTouchHandler);
+		tolua_function(tolua_S,"unregisterScriptTouchHandler",tolua_psframework_EventNode_unregisterScriptTouchHandler);
+		tolua_function(tolua_S,"registerScriptKeyboardHandler",tolua_psframework_EventNode_registerScriptKeyboardHandler);
+		tolua_function(tolua_S,"unregisterScriptKeyboardHandler",tolua_psframework_EventNode_unregisterScriptKeyboardHandler);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::EventNode).name();
     g_luaType[typeName] = "pf.EventNode";

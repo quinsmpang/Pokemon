@@ -1,7 +1,7 @@
 /******************************
-	Description: While lua-binding doesn't support std::function and std::bind, we have to rewrite a new function to bind lua functions to callbacks.
-	Author: M.Wan
-	Date: 4/24/2014
+Description: While lua-binding doesn't support std::function and std::bind, we have to rewrite a new function to bind lua functions to callbacks.
+Author: M.Wan
+Date: 4/24/2014
 ******************************/
 
 #ifndef __psframework_extra__

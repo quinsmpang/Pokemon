@@ -6,28 +6,28 @@ using namespace cocos2d;
 namespace framework
 {
 
-ViewController::~ViewController()
-{
-}
+	ViewController::~ViewController()
+	{
+	}
 
-bool ViewController::init()
-{
-	// to be override
-	return true;
-}
+	bool ViewController::init()
+	{
+		// to be override
+		return true;
+	}
 
-void ViewController::load()
-{
+	void ViewController::load()
+	{
 #if ScriptType == 1
-	LuaUtils::executePeertableFunction(this, "load", nullptr, nullptr, false);
+		LuaUtils::executePeertableFunction(this, "load", nullptr, nullptr, false);
 #endif
-}
+	}
 
-void ViewController::unload()
-{
+	void ViewController::unload()
+	{
 #if ScriptType == 1
-	LuaUtils::executePeertableFunction(this, "unload", nullptr, nullptr, false);
+		LuaUtils::executePeertableFunction(this, "unload", nullptr, nullptr, false);
 #endif
-}
+	}
 
 }
