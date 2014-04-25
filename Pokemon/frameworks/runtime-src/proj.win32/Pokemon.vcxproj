@@ -190,11 +190,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_auto.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_extra.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="..\Classes\Framework\lua\ScriptHandlerManager.cpp" />
-=======
     <ClCompile Include="..\Classes\Framework\lua\ScriptEventExtend.cpp" />
->>>>>>> 8ff4138edf28ebf6eac9adf9936fe878cda36515
     <ClCompile Include="..\Classes\Framework\scene\GameScene.cpp" />
     <ClCompile Include="..\Classes\Framework\scene\ViewController.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\ActiveSprite.cpp" />
