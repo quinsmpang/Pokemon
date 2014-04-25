@@ -13,4 +13,12 @@
 -- @param #char char
 -- @return ActiveSprite#ActiveSprite ret (retunr value: pf.ActiveSprite)
 
+--------------------------------
+-- @function [parent=#ActiveSprite] focus 
+-- @param self
+        
+--------------------------------
+-- @function [parent=#ActiveSprite] blur 
+-- @param self
+        
 return nil

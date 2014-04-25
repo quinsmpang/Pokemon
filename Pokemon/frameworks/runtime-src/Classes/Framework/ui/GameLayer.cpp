@@ -6,182 +6,182 @@ using namespace cocos2d;
 namespace framework
 {
 
-GameLayer::GameLayer()
-	: _parentLayer(nullptr)
-	, _eventLayer(nullptr)
-	, _touchListener(nullptr)
+	GameLayer::GameLayer()
+		: _parentLayer(nullptr)
+		, _eventLayer(nullptr)
+		, _touchListener(nullptr)
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	, _keyboardListener(nullptr)
+		, _keyboardListener(nullptr)
 #endif
-{
-}
-
-bool GameLayer::init()
-{
-	if (!Layer::init())
 	{
-		return false;
 	}
 
-	// create touch layer
-	this->_eventLayer = EventLayer::create();
-	this->_eventLayer->retain();
+	bool GameLayer::init()
+	{
+		if (!Layer::init())
+		{
+			return false;
+		}
 
-	this->addChild(this->_eventLayer);
+		// create touch layer
+		this->_eventLayer = EventLayer::create();
+		this->_eventLayer->retain();
 
-	return true;
-}
+		this->addChild(this->_eventLayer);
 
-void GameLayer::pushLayer(GameLayer *pLayer)
-{
-	CCASSERT(pLayer, "the layer should not be null");
+		return true;
+	}
 
-	pLayer->_parentLayer = this;
-	this->unregisterTouchEvents();
+	void GameLayer::pushLayer(GameLayer *pLayer)
+	{
+		CCASSERT(pLayer, "the layer should not be null");
+
+		pLayer->_parentLayer = this;
+		this->unregisterTouchEvents();
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	this->unregisterKeyboardEvents();
+		this->unregisterKeyboardEvents();
 #endif
 
-	auto pCurrentScene = this->getScene();
-	pCurrentScene->addChild(pLayer);
-}
+		auto pCurrentScene = this->getScene();
+		pCurrentScene->addChild(pLayer);
+	}
 
-void GameLayer::popLayer()
-{
-	if (this->_parentLayer)
+	void GameLayer::popLayer()
 	{
-		this->registerTouchEvents();
+		if (this->_parentLayer)
+		{
+			this->registerTouchEvents();
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-		this->registerKeyboardEvents();
+			this->registerKeyboardEvents();
 #endif
+		}
+		this->removeFromParentAndCleanup(true);
 	}
-	this->removeFromParentAndCleanup(true);
-}
 
-bool GameLayer::isCoreLayer()
-{
-	return !this->_parentLayer;
-}
-
-GameLayer *GameLayer::getParentLayer()
-{
-	return this->_parentLayer;
-}
-
-GameLayer *GameLayer::getCoreLayer()
-{
-	auto currentLayer = this;
-	while (currentLayer->_parentLayer)
+	bool GameLayer::isCoreLayer()
 	{
-		currentLayer = currentLayer->_parentLayer;
+		return !this->_parentLayer;
 	}
-	return currentLayer;
-}
 
-void GameLayer::setEventLayer(EventLayer *pLayer)
-{
-	CCASSERT(pLayer, "Event layer can't be null");
-	if (this->_eventLayer)
+	GameLayer *GameLayer::getParentLayer()
 	{
-		this->_eventLayer->release();
-		this->removeChild(_eventLayer);
+		return this->_parentLayer;
 	}
-	
-	this->_eventLayer = pLayer;
-	pLayer->retain();
-	this->addChild(pLayer);
-}
 
-void GameLayer::addControl(EventNode *pControl)
-{
-	this->_eventLayer->addChild(pControl);
-}
-
-void GameLayer::addControlByTag(EventNode *pControl, int tag)
-{
-	this->_eventLayer->addChild(pControl, pControl->getLocalZOrder(), tag);
-}
-
-void GameLayer::removeControl(EventNode *pControl)
-{
-	this->_eventLayer->removeChild(pControl);
-}
-
-void GameLayer::removeControlByTag(int tag, bool cleanup)
-{
-	this->_eventLayer->removeChildByTag(tag, cleanup);
-}
-
-void GameLayer::setFocusNode(EventNode *pNode)
-{
-	if (this->_eventLayer && this->_eventLayer->_focusNode)
+	GameLayer *GameLayer::getCoreLayer()
 	{
-		this->_eventLayer->_focusNode->blur();
+		auto currentLayer = this;
+		while (currentLayer->_parentLayer)
+		{
+			currentLayer = currentLayer->_parentLayer;
+		}
+		return currentLayer;
 	}
-	this->_eventLayer->_focusNode = pNode;
-	if (pNode)
-	{
-		pNode->focus();
-	}
-}
 
-void GameLayer::onEnter()
-{
-	Layer::onEnter();
+	void GameLayer::setEventLayer(EventLayer *pLayer)
+	{
+		CCASSERT(pLayer, "Event layer can't be null");
+		if (this->_eventLayer)
+		{
+			this->_eventLayer->release();
+			this->removeChild(_eventLayer);
+		}
+
+		this->_eventLayer = pLayer;
+		pLayer->retain();
+		this->addChild(pLayer);
+	}
+
+	void GameLayer::addControl(EventNode *pControl)
+	{
+		this->_eventLayer->addChild(pControl);
+	}
+
+	void GameLayer::addControlByTag(EventNode *pControl, int tag)
+	{
+		this->_eventLayer->addChild(pControl, pControl->getLocalZOrder(), tag);
+	}
+
+	void GameLayer::removeControl(EventNode *pControl)
+	{
+		this->_eventLayer->removeChild(pControl);
+	}
+
+	void GameLayer::removeControlByTag(int tag, bool cleanup)
+	{
+		this->_eventLayer->removeChildByTag(tag, cleanup);
+	}
+
+	void GameLayer::setFocusNode(EventNode *pNode)
+	{
+		if (this->_eventLayer && this->_eventLayer->_focusNode)
+		{
+			this->_eventLayer->_focusNode->blur();
+		}
+		this->_eventLayer->_focusNode = pNode;
+		if (pNode)
+		{
+			pNode->focus();
+		}
+	}
+
+	void GameLayer::onEnter()
+	{
+		Layer::onEnter();
 #if ScriptType == 1
-	LuaUtils::executePeertableFunction(this, "onEnter", Vector<Ref*>(), Vector<Ref*>(), false);
+		LuaUtils::executePeertableFunction(this, "onEnter", Vector<Ref*>(), Vector<Ref*>(), false);
 #endif
-}
+	}
 
-void GameLayer::onExit()
-{
-	Layer::onExit();
+	void GameLayer::onExit()
+	{
+		Layer::onExit();
 #if ScriptType == 1
-	LuaUtils::executePeertableFunction(this, "onExit", Vector<Ref*>(), Vector<Ref*>(), false);
+		LuaUtils::executePeertableFunction(this, "onExit", Vector<Ref*>(), Vector<Ref*>(), false);
 #endif
-}
-
-void GameLayer::registerTouchEvents()
-{
-	if (this->_eventLayer)
-	{
-		this->_eventLayer->enableTouch();
 	}
-}
 
-void GameLayer::unregisterTouchEvents()
-{
-	if (this->_eventLayer)
+	void GameLayer::registerTouchEvents()
 	{
-		this->_eventLayer->disableTouch();
+		if (this->_eventLayer)
+		{
+			this->_eventLayer->enableTouch();
+		}
 	}
-}
+
+	void GameLayer::unregisterTouchEvents()
+	{
+		if (this->_eventLayer)
+		{
+			this->_eventLayer->disableTouch();
+		}
+	}
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-void GameLayer::registerKeyboardEvents()
-{
-	if (this->_eventLayer)
+	void GameLayer::registerKeyboardEvents()
 	{
-		this->_eventLayer->enableKeyboard();
+		if (this->_eventLayer)
+		{
+			this->_eventLayer->enableKeyboard();
+		}
 	}
-}
 
-void GameLayer::unregisterKeyboardEvents()
-{
-	if (this->_eventLayer)
+	void GameLayer::unregisterKeyboardEvents()
 	{
-		this->_eventLayer->disableKeyboard();
+		if (this->_eventLayer)
+		{
+			this->_eventLayer->disableKeyboard();
+		}
 	}
-}
 #endif
 
-GameLayer::~GameLayer()
-{
-	CC_SAFE_RELEASE(this->_eventLayer);
-	CC_SAFE_RELEASE_NULL(this->_touchListener);
+	GameLayer::~GameLayer()
+	{
+		CC_SAFE_RELEASE(this->_eventLayer);
+		CC_SAFE_RELEASE_NULL(this->_touchListener);
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	CC_SAFE_RELEASE_NULL(this->_keyboardListener);
+		CC_SAFE_RELEASE_NULL(this->_keyboardListener);
 #endif
-}
+	}
 
 }

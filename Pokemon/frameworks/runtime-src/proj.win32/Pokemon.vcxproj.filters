@@ -82,8 +82,11 @@
     <ClInclude Include="..\Classes\Test.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Framework\lua\ScriptHandlerManager.h">
+    <ClInclude Include="..\Classes\Framework\lua\ScriptEventExtend.h">
       <Filter>Classes\psframework\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\version.h">
+      <Filter>Classes\psframework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -138,7 +141,11 @@
     <ClCompile Include="..\Classes\Test.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\Classes\Framework\lua\ScriptHandlerManager.cpp">
+=======
+    <ClCompile Include="..\Classes\Framework\lua\ScriptEventExtend.cpp">
+>>>>>>> 8ff4138edf28ebf6eac9adf9936fe878cda36515
       <Filter>Classes\psframework\lua</Filter>
     </ClCompile>
   </ItemGroup>

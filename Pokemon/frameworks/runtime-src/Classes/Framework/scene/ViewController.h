@@ -1,7 +1,7 @@
 /******************************
-	Description: ViewController base class
-	Author: M.Wan
-	Date: 4/17/2014
+Description: ViewController base class
+Author: M.Wan
+Date: 4/17/2014
 ******************************/
 
 #ifndef __SCENE_VIEWCONTROLLER__
@@ -12,23 +12,23 @@
 namespace framework
 {
 
-class GameScene;
+	class GameScene;
 
-class ViewController : public cocos2d::Ref
-{
-public:
-	CREATE_FUNC(ViewController);
+	class ViewController : public cocos2d::Ref
+	{
+	public:
+		CREATE_FUNC(ViewController);
 
-	virtual ~ViewController();
+		virtual ~ViewController();
 
-	virtual bool init();
+		virtual bool init();
 
-	virtual void load();
+		virtual void load();
 
-	virtual void unload();
+		virtual void unload();
 
-	CC_SYNTHESIZE(GameScene*, _scene, Scene);
-};
+		CC_SYNTHESIZE(GameScene*, _scene, Scene);
+	};
 
 }
 
