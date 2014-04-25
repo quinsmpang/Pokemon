@@ -4,6 +4,7 @@ require "Cocos2dConstants"
 require "src/framework/luaClass"
 require "src/framework/class"
 require "src/framework/Notifier"
+require "src/framework/BaseExtensions"
 
 -- for CCLuaEngine traceback
 function __G__TRACKBACK__(msg)
