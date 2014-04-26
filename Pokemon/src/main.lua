@@ -27,6 +27,7 @@ local function main()
 
     local pScene = psGameScene:create()
     local pLayer = psGameLayer:create()
+    pLayer:addChild(cc.Sprite:create("farm.jpg"))
     local btn = psButton:create("btn1.png", "btn2.png")
     btn:setPosition(200, 200)
     local sprite = psActiveSprite:create("dog.png")
@@ -51,11 +52,16 @@ local function main()
     pScene:addChild(pLayer)
     cc.Director:getInstance():runWithScene(pScene)
 
-    local ary = {}
-    table.insert(ary, cc.MoveBy:create(1, { x = 0, y = 100 }))
-    table.insert(ary, cc.MoveBy:create(1, { x = 0, y = -100 }))
-    local action = cc.RepeatForever:create(cc.Sequence:create(ary))
+    local action = cc.RepeatForever:create(cc.Sequence:create({
+            cc.MoveBy:create(1, { x = 0, y = 100 }), 
+            cc.MoveBy:create(1, { x = 0, y = -100 })
+        }))
     sprite:runAction(action)
+
+    -- local maskLayer = psMaskLayer:create(cc.rect(100, 100, 100, 100))
+    -- maskLayer:setColor({ r = 0, g = 0, b = 0 })
+    -- maskLayer:setOpacity(100)
+    -- pLayer:addChild(maskLayer)
 
     --[[
     local visibleSize = cc.Director:getInstance():getVisibleSize()

@@ -42,8 +42,8 @@ namespace framework
 		this->unregisterKeyboardEvents();
 #endif
 
-		auto pCurrentScene = this->getScene();
-		pCurrentScene->addChild(pLayer);
+		auto pCoreLayer = this->getCoreLayer();
+		pCoreLayer->addChild(pLayer);
 	}
 
 	void GameLayer::popLayer()
@@ -128,17 +128,44 @@ namespace framework
 	void GameLayer::onEnter()
 	{
 		Layer::onEnter();
-#if ScriptType == 1
-		LuaUtils::executePeertableFunction(this, "onEnter", Vector<Ref*>(), Vector<Ref*>(), false);
-#endif
+
+		if (_scriptType == kScriptTypeLua)
+		{
+			LuaUtils::executePeertableFunction(this, "onEnter", Vector<Ref*>(), Vector<Ref*>(), false);
+		}
 	}
 
 	void GameLayer::onExit()
 	{
 		Layer::onExit();
-#if ScriptType == 1
-		LuaUtils::executePeertableFunction(this, "onExit", Vector<Ref*>(), Vector<Ref*>(), false);
-#endif
+		
+		if (_scriptType == kScriptTypeLua)
+		{
+			LuaUtils::executePeertableFunction(this, "onExit", Vector<Ref*>(), Vector<Ref*>(), false);
+		}
+	}
+
+	void GameLayer::addChild(Node *child)
+	{
+		this->addChild(child, child->getLocalZOrder(), -1);
+	}
+	
+	void GameLayer::addChild(Node *child, int localZOrder)
+	{
+		this->addChild(child, localZOrder, -1);
+	}
+
+	void GameLayer::addChild(Node *child, int localZOrder, int tag)
+	{
+		if (child != _eventLayer && this->_eventLayer)
+		{
+			_eventLayer->removeFromParent();
+		}
+		Layer::addChild(child, localZOrder, tag);
+		if (child != _eventLayer && this->_eventLayer)
+		{
+			Layer::addChild(_eventLayer, _eventLayer->getLocalZOrder(), -1);
+		}
 	}
 
 	void GameLayer::registerTouchEvents()

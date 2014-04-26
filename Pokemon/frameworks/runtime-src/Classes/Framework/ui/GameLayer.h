@@ -43,6 +43,10 @@ namespace framework
 		virtual void onEnter() override;
 		virtual void onExit() override;
 
+		virtual void addChild(cocos2d::Node *child);
+		virtual void addChild(cocos2d::Node *child, int localZOrder);
+		virtual void addChild(cocos2d::Node *child, int localZOrder, int tag);
+
 		void registerTouchEvents();
 		void unregisterTouchEvents();
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32

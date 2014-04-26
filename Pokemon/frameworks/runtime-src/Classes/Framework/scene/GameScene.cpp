@@ -45,7 +45,7 @@ namespace framework
 
 	void GameScene::onEnter()
 	{
-		CCScene::onEnter();
+		Scene::onEnter();
 
 		if (_scriptType == kScriptTypeLua)
 		{
@@ -62,7 +62,7 @@ namespace framework
 
 		this->unloadAllViewControllers();
 
-		CCScene::onExit();
+		Scene::onExit();
 	}
 
 	void GameScene::putBoolAttribute(const std::string &key, bool value)
