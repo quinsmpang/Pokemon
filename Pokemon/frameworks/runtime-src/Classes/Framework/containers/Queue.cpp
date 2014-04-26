@@ -22,6 +22,20 @@ namespace framework
 		}
 	}
 
+	Queue *Queue::create()
+	{
+		auto pQueue = new Queue();
+		if (pQueue)
+		{
+			pQueue->autorelease();
+
+			return pQueue;
+		}
+
+		CC_SAFE_RELEASE_NULL(pQueue);
+		return nullptr;
+	}
+
 	void Queue::enqueue(Ref *pObj)
 	{
 		this->_container->push(pObj);

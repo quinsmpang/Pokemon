@@ -32,6 +32,11 @@
 -- @param self
         
 --------------------------------
+-- @function [parent=#Stack] create 
+-- @param self
+-- @return Stack#Stack ret (return value: pf.Stack)
+        
+--------------------------------
 -- @function [parent=#Stack] Stack 
 -- @param self
         

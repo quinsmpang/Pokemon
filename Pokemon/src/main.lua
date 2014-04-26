@@ -26,7 +26,9 @@ local function main()
 	cc.FileUtils:getInstance():addSearchResolutionsOrder("res");
 
     local pScene = psGameScene:create()
-    local pLayer = psGameLayer:create()
+    local pLayer = psCoreLayer:create()
+    pScene:setCoreLayer(pLayer)
+
     pLayer:addChild(cc.Sprite:create("farm.jpg"))
     local btn = psButton:create("btn1.png", "btn2.png")
     btn:setPosition(200, 200)
@@ -49,19 +51,18 @@ local function main()
 
     pLayer:addControl(btn)
     pLayer:addControl(sprite)
-    pScene:addChild(pLayer)
     cc.Director:getInstance():runWithScene(pScene)
 
     local action = cc.RepeatForever:create(cc.Sequence:create({
-            cc.MoveBy:create(1, { x = 0, y = 100 }), 
+            cc.MoveBy:create(1, ccp(0, 100)), 
             cc.MoveBy:create(1, { x = 0, y = -100 })
         }))
     sprite:runAction(action)
 
-    -- local maskLayer = psMaskLayer:create(cc.rect(100, 100, 100, 100))
-    -- maskLayer:setColor({ r = 0, g = 0, b = 0 })
-    -- maskLayer:setOpacity(100)
-    -- pLayer:addChild(maskLayer)
+    local maskLayer = psMaskLayer:create(cc.rect(100, 100, 100, 100))
+    maskLayer:setColor(ccc3(255, 0, 0))
+    maskLayer:setOpacity(200)
+    pLayer:pushLayer(maskLayer)
 
     --[[
     local visibleSize = cc.Director:getInstance():getVisibleSize()

@@ -19,7 +19,7 @@ namespace framework
 
 	bool EventLayer::init()
 	{
-		if (!Layer::init())
+		if (!BaseLayer::init())
 		{
 			return false;
 		}
@@ -53,9 +53,14 @@ namespace framework
 		return true;
 	}
 
+	void EventLayer::setEnabled(bool isEnabled)
+	{
+		this->_isEnabled = isEnabled;
+	}
+
 	bool EventLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 	{
-		if (_state != State::Waiting || !_visible || !_isTouchEnabled)
+		if (_state != State::Waiting || !_visible || !_isEnabled || !_isTouchEnabled)
 		{
 			return false;
 		}
@@ -130,7 +135,7 @@ namespace framework
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	void EventLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *pEvent)
 	{
-		if (_state != State::Waiting || !_visible || !_isKeyboardEnabled)
+		if (_state != State::Waiting || !_visible || !_isEnabled || !_isKeyboardEnabled)
 		{
 			return;
 		}
@@ -153,7 +158,6 @@ namespace framework
 	void EventLayer::onKeyReleased(EventKeyboard::KeyCode keyCode, Event *pEvent)
 	{
 	}
-
 #endif
 
 
@@ -161,6 +165,7 @@ namespace framework
 	EventLayer::~EventLayer()
 	{
 	}
+
 	EventNode *EventLayer::getNodeForTouch(Touch *pTouch)
 	{
 		Point location = pTouch->getLocation();

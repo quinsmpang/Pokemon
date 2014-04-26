@@ -48,8 +48,18 @@ namespace framework
 		this->updateView();
 	}
 
+	void MaskLayer::setEnabled(bool isEnabled)
+	{
+		this->_isEnabled = isEnabled;
+	}
+
 	bool MaskLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 	{
+		if (!_isEnabled || !_visible)
+		{
+			return false;
+		}
+
 		CC_UNUSED_PARAM(pEvent);
 		Point pos = pTouch->getLocation();
 		bool needIntercept = this->isInterceptAllEvents() || !_area.containsPoint(pos);
@@ -106,7 +116,7 @@ namespace framework
 	/*****************private functions*****************/
 	bool MaskLayer::initWithArea(const cocos2d::Rect &area)
 	{
-		if (!LayerColor::init())
+		if (!BaseLayer::init())
 		{
 			return false;
 		}

@@ -16,6 +16,8 @@ namespace framework
 	class Queue : public cocos2d::Ref
 	{
 	public:
+		static Queue *create();
+
 		explicit Queue();
 		~Queue();
 		void enqueue(cocos2d::Ref *pObj);

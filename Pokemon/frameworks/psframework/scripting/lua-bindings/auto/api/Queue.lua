@@ -32,6 +32,11 @@
 -- @return Ref#Ref ret (return value: cc.Ref)
         
 --------------------------------
+-- @function [parent=#Queue] create 
+-- @param self
+-- @return Queue#Queue ret (return value: pf.Queue)
+        
+--------------------------------
 -- @function [parent=#Queue] Queue 
 -- @param self
         

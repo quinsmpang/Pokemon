@@ -6,9 +6,17 @@ using namespace cocos2d;
 namespace framework
 {
 
+	GameScene::GameScene()
+		: _paramsMap(nullptr)
+		, _viewControllers(nullptr)
+		, _coreLayer(nullptr)
+	{
+	}
+
 	GameScene::~GameScene()
 	{
 		CC_SAFE_RELEASE_NULL(this->_paramsMap);
+		CC_SAFE_RELEASE_NULL(this->_coreLayer);
 		if (this->_viewControllers)
 		{
 			delete this->_viewControllers;
@@ -41,6 +49,20 @@ namespace framework
 		this->_viewControllers = new Vector<ViewController*>();
 
 		return true;
+	}
+
+	void GameScene::setCoreLayer(CoreLayer *coreLayer)
+	{
+		CCASSERT(coreLayer, "The core layer can't be null");
+
+		if (this->_coreLayer)
+		{
+			this->_coreLayer->removeFromParentAndCleanup(true);
+		}
+		this->_coreLayer = coreLayer;
+		this->_coreLayer->retain();
+
+		this->addChild(coreLayer);
 	}
 
 	void GameScene::onEnter()

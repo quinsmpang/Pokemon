@@ -18,6 +18,8 @@ namespace framework
 	class Stack : public cocos2d::Ref
 	{
 	public:
+		static Stack *create();
+
 		explicit Stack();
 		~Stack();
 		void push(cocos2d::Ref *pObj);

@@ -4,6 +4,11 @@
 -- @extend Scene
 
 --------------------------------
+-- @function [parent=#GameScene] getCoreLayer 
+-- @param self
+-- @return CoreLayer#CoreLayer ret (return value: pf.CoreLayer)
+        
+--------------------------------
 -- @function [parent=#GameScene] loadViewController 
 -- @param self
 -- @param #pf.ViewController viewcontroller
@@ -33,6 +38,11 @@
 -- @return double#double ret (return value: double)
         
 --------------------------------
+-- @function [parent=#GameScene] setCoreLayer 
+-- @param self
+-- @param #pf.CoreLayer corelayer
+        
+--------------------------------
 -- @function [parent=#GameScene] unloadViewController 
 -- @param self
 -- @param #pf.ViewController viewcontroller
@@ -53,12 +63,6 @@
 -- @param #double double
         
 --------------------------------
--- @function [parent=#GameScene] putStringAttribute 
--- @param self
--- @param #string str
--- @param #string str
-        
---------------------------------
 -- @function [parent=#GameScene] putRefAttribute 
 -- @param self
 -- @param #string str
@@ -75,6 +79,12 @@
 -- @param self
 -- @param #string str
 -- @return bool#bool ret (return value: bool)
+        
+--------------------------------
+-- @function [parent=#GameScene] putStringAttribute 
+-- @param self
+-- @param #string str
+-- @param #string str
         
 --------------------------------
 -- @function [parent=#GameScene] getStringAttribute 

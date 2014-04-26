@@ -22,6 +22,20 @@ namespace framework
 		}
 	}
 
+	Stack *Stack::create()
+	{
+		auto pStack = new Stack();
+		if (pStack)
+		{
+			pStack->autorelease();
+
+			return pStack;
+		}
+
+		CC_SAFE_RELEASE_NULL(pStack);
+		return nullptr;
+	}
+
 	void Stack::push(Ref *pObj)
 	{
 		this->_container->push(pObj);

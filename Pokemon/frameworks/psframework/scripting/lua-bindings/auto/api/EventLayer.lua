@@ -1,7 +1,7 @@
 
 --------------------------------
 -- @module EventLayer
--- @extend Layer
+-- @extend BaseLayer
 
 --------------------------------
 -- @function [parent=#EventLayer] onTouchMoved 
@@ -45,6 +45,11 @@
 -- @function [parent=#EventLayer] create 
 -- @param self
 -- @return EventLayer#EventLayer ret (return value: pf.EventLayer)
+        
+--------------------------------
+-- @function [parent=#EventLayer] setEnabled 
+-- @param self
+-- @param #bool bool
         
 --------------------------------
 -- @function [parent=#EventLayer] EventLayer 

@@ -9,6 +9,7 @@ Date: 4/18/2014
 
 #include "cocos2d.h"
 #include "ViewController.h"
+#include "../ui/CoreLayer.h"
 
 namespace framework
 {
@@ -23,6 +24,13 @@ namespace framework
 		virtual ~GameScene();
 
 		virtual bool init() override;
+
+		void setCoreLayer(CoreLayer *coreLayer);
+
+		inline CoreLayer *getCoreLayer()
+		{
+			return this->_coreLayer;
+		}
 
 		virtual void onEnter() override;
 
@@ -54,8 +62,11 @@ namespace framework
 
 		void unloadAllViewControllers();
 	protected:
+		GameScene();
+
 		cocos2d::__Dictionary *_paramsMap;
 		cocos2d::Vector<ViewController*> *_viewControllers;
+		CoreLayer *_coreLayer;
 	};
 
 }

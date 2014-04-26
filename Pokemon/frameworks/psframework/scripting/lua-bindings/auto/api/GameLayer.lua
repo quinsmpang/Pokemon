@@ -1,42 +1,36 @@
 
 --------------------------------
 -- @module GameLayer
--- @extend Layer
+-- @extend BaseLayer
 
---------------------------------
--- @function [parent=#GameLayer] getCoreLayer 
--- @param self
--- @return GameLayer#GameLayer ret (return value: pf.GameLayer)
-        
 --------------------------------
 -- @function [parent=#GameLayer] setFocusNode 
 -- @param self
 -- @param #pf.EventNode eventnode
         
 --------------------------------
--- @function [parent=#GameLayer] setEventLayer 
+-- overload function: addChild(cc.Node, int)
+--          
+-- overload function: addChild(cc.Node)
+--          
+-- overload function: addChild(cc.Node, int, int)
+--          
+-- @function [parent=#GameLayer] addChild
 -- @param self
--- @param #pf.EventLayer eventlayer
-        
+-- @param #cc.Node node
+-- @param #int int
+-- @param #int int
+
 --------------------------------
--- @function [parent=#GameLayer] isCoreLayer 
--- @param self
--- @return bool#bool ret (return value: bool)
-        
---------------------------------
--- @function [parent=#GameLayer] getParentLayer 
--- @param self
--- @return GameLayer#GameLayer ret (return value: pf.GameLayer)
-        
---------------------------------
--- @function [parent=#GameLayer] removeControl 
+-- @function [parent=#GameLayer] addControlByTag 
 -- @param self
 -- @param #pf.EventNode eventnode
+-- @param #int int
         
 --------------------------------
--- @function [parent=#GameLayer] pushLayer 
+-- @function [parent=#GameLayer] init 
 -- @param self
--- @param #pf.GameLayer gamelayer
+-- @return bool#bool ret (return value: bool)
         
 --------------------------------
 -- @function [parent=#GameLayer] removeControlByTag 
@@ -45,23 +39,17 @@
 -- @param #bool bool
         
 --------------------------------
--- @function [parent=#GameLayer] popLayer 
+-- @function [parent=#GameLayer] removeControl 
 -- @param self
-        
---------------------------------
--- @function [parent=#GameLayer] init 
--- @param self
--- @return bool#bool ret (return value: bool)
+-- @param #pf.EventNode eventnode
         
 --------------------------------
 -- @function [parent=#GameLayer] registerTouchEvents 
 -- @param self
         
 --------------------------------
--- @function [parent=#GameLayer] addControlByTag 
+-- @function [parent=#GameLayer] unregisterTouchEvents 
 -- @param self
--- @param #pf.EventNode eventnode
--- @param #int int
         
 --------------------------------
 -- @function [parent=#GameLayer] addControl 
@@ -69,13 +57,24 @@
 -- @param #pf.EventNode eventnode
         
 --------------------------------
--- @function [parent=#GameLayer] unregisterTouchEvents 
+-- @function [parent=#GameLayer] getFocusNode 
 -- @param self
+-- @return EventNode#EventNode ret (return value: pf.EventNode)
+        
+--------------------------------
+-- @function [parent=#GameLayer] setEventLayer 
+-- @param self
+-- @param #pf.EventLayer eventlayer
         
 --------------------------------
 -- @function [parent=#GameLayer] create 
 -- @param self
 -- @return GameLayer#GameLayer ret (return value: pf.GameLayer)
+        
+--------------------------------
+-- @function [parent=#GameLayer] setEnabled 
+-- @param self
+-- @param #bool bool
         
 --------------------------------
 -- @function [parent=#GameLayer] onEnter 

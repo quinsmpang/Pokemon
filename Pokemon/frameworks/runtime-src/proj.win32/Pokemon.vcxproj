@@ -175,7 +175,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3ext.h" />
     <ClInclude Include="..\Classes\Framework\sqlite\SqliteDb.h" />
     <ClInclude Include="..\Classes\Framework\ui\ActiveSprite.h" />
+    <ClInclude Include="..\Classes\Framework\ui\BaseLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\Button.h" />
+    <ClInclude Include="..\Classes\Framework\ui\CoreLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\EventLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\EventNode.h" />
     <ClInclude Include="..\Classes\Framework\ui\GameLayer.h" />
@@ -199,7 +201,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.c" />
     <ClCompile Include="..\Classes\Framework\sqlite\SqliteDb.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\ActiveSprite.cpp" />
+    <ClCompile Include="..\Classes\Framework\ui\BaseLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\Button.cpp" />
+    <ClCompile Include="..\Classes\Framework\ui\CoreLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\EventLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\EventNode.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\GameLayer.cpp" />

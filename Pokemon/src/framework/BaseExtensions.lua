@@ -39,6 +39,13 @@ class("psTextBlock", {
 		end
 	})
 
+--psCoreLayer
+class("psCoreLayer", {
+		create = function()
+			return CoreLayer:create()
+		end
+	})
+
 --psGameLayer
 class("psGameLayer", {
 		create = function()
@@ -82,3 +89,31 @@ class("psSprite", {
 			return cc.Sprite:createWithSpriteFrameName(...)
 		end
 	})
+
+--psStack
+class("psStack", {
+		create = function()
+			return Stack:create()
+		end
+	})
+
+--psQueue
+class("psQueue", {
+		create = function()
+			return Queue:create()
+		end
+	})
+
+
+-- Be accustomed to old functions
+function ccp(x, y)
+	return { x = x, y = y }
+end
+
+function ccc3(r, g, b)
+	return { r = r, g = g, b = b }
+end
+
+function ccc4(a, r, g, b)
+	return { a = a, r = r, g = g, b = b }
+end

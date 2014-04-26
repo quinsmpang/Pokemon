@@ -9,12 +9,13 @@ Date: 4/21/2014
 
 #include "cocos2d.h"
 #include "EventNode.h"
+#include "BaseLayer.h"
 
 namespace framework
 {
 
 	/* use as internal class in GameLayer */
-	class EventLayer : public cocos2d::Layer
+	class EventLayer : public BaseLayer
 	{
 		friend class GameLayer;
 
@@ -30,6 +31,8 @@ namespace framework
 		CREATE_FUNC(EventLayer);
 
 		virtual bool init();
+
+		void setEnabled(bool isEnabled) override;
 
 		inline void enableTouch()
 		{

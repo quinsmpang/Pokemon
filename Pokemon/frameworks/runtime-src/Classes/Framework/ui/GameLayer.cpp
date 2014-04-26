@@ -1,4 +1,5 @@
 #include "GameLayer.h"
+#include "MaskLayer.h"
 #include "lua/LuaUtils.h"
 
 using namespace cocos2d;
@@ -7,18 +8,13 @@ namespace framework
 {
 
 	GameLayer::GameLayer()
-		: _parentLayer(nullptr)
-		, _eventLayer(nullptr)
-		, _touchListener(nullptr)
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-		, _keyboardListener(nullptr)
-#endif
+		: _eventLayer(nullptr)
 	{
 	}
 
 	bool GameLayer::init()
 	{
-		if (!Layer::init())
+		if (!BaseLayer::init())
 		{
 			return false;
 		}
@@ -30,52 +26,6 @@ namespace framework
 		this->addChild(this->_eventLayer);
 
 		return true;
-	}
-
-	void GameLayer::pushLayer(GameLayer *pLayer)
-	{
-		CCASSERT(pLayer, "the layer should not be null");
-
-		pLayer->_parentLayer = this;
-		this->unregisterTouchEvents();
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-		this->unregisterKeyboardEvents();
-#endif
-
-		auto pCoreLayer = this->getCoreLayer();
-		pCoreLayer->addChild(pLayer);
-	}
-
-	void GameLayer::popLayer()
-	{
-		if (this->_parentLayer)
-		{
-			this->registerTouchEvents();
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-			this->registerKeyboardEvents();
-#endif
-		}
-		this->removeFromParentAndCleanup(true);
-	}
-
-	bool GameLayer::isCoreLayer()
-	{
-		return !this->_parentLayer;
-	}
-
-	GameLayer *GameLayer::getParentLayer()
-	{
-		return this->_parentLayer;
-	}
-
-	GameLayer *GameLayer::getCoreLayer()
-	{
-		auto currentLayer = this;
-		while (currentLayer->_parentLayer)
-		{
-			currentLayer = currentLayer->_parentLayer;
-		}
-		return currentLayer;
 	}
 
 	void GameLayer::setEventLayer(EventLayer *pLayer)
@@ -90,6 +40,15 @@ namespace framework
 		this->_eventLayer = pLayer;
 		pLayer->retain();
 		this->addChild(pLayer);
+	}
+
+	void GameLayer::setEnabled(bool isEnabled)
+	{
+		BaseLayer::setEnabled(isEnabled);
+		if (this->_eventLayer)
+		{
+			this->_eventLayer->setEnabled(isEnabled);
+		}
 	}
 
 	void GameLayer::addControl(EventNode *pControl)
@@ -110,6 +69,16 @@ namespace framework
 	void GameLayer::removeControlByTag(int tag, bool cleanup)
 	{
 		this->_eventLayer->removeChildByTag(tag, cleanup);
+	}
+
+	EventNode *GameLayer::getFocusNode()
+	{
+		if (this->_eventLayer)
+		{
+			return this->_eventLayer->_focusNode;
+		}
+		
+		return nullptr;
 	}
 
 	void GameLayer::setFocusNode(EventNode *pNode)
@@ -157,6 +126,13 @@ namespace framework
 
 	void GameLayer::addChild(Node *child, int localZOrder, int tag)
 	{
+		// ignore mask layer
+		if (dynamic_cast<MaskLayer*>(child))
+		{
+			Layer::addChild(child, localZOrder, tag);
+			return;
+		}
+
 		if (child != _eventLayer && this->_eventLayer)
 		{
 			_eventLayer->removeFromParent();
@@ -205,10 +181,6 @@ namespace framework
 	GameLayer::~GameLayer()
 	{
 		CC_SAFE_RELEASE(this->_eventLayer);
-		CC_SAFE_RELEASE_NULL(this->_touchListener);
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-		CC_SAFE_RELEASE_NULL(this->_keyboardListener);
-#endif
 	}
 
 }

@@ -1,7 +1,7 @@
 
 --------------------------------
 -- @module MaskLayer
--- @extend LayerColor
+-- @extend BaseLayer
 
 --------------------------------
 -- @function [parent=#MaskLayer] getDelegate 
@@ -63,6 +63,11 @@
 -- @param #rect_table rect
 -- @return MaskLayer#MaskLayer ret (retunr value: pf.MaskLayer)
 
+--------------------------------
+-- @function [parent=#MaskLayer] setEnabled 
+-- @param self
+-- @param #bool bool
+        
 --------------------------------
 -- @function [parent=#MaskLayer] onTouchMoved 
 -- @param self
