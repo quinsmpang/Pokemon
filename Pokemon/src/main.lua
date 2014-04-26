@@ -3,8 +3,11 @@ require "Cocos2dConstants"
 
 require "src/framework/luaClass"
 require "src/framework/class"
-require "src/framework/Notifier"
+require "src/framework/SystemExtensions"
 require "src/framework/BaseExtensions"
+require "src/framework/Notifier"
+require "src/framework/SqliteLua"
+require "src/framework/commonLib"
 
 -- for CCLuaEngine traceback
 function __G__TRACKBACK__(msg)
@@ -22,43 +25,21 @@ local function main()
 	cc.FileUtils:getInstance():addSearchResolutionsOrder("src");
 	cc.FileUtils:getInstance():addSearchResolutionsOrder("res");
 
-    --[[
-    -- test
-    class("clsSprite", { create = function(...)
-        return cc.Sprite:create(...)
-    end})
-    class("clsScene", { create = function()
-        return cc.Scene:create()
-    end})
-    class("clsLayer", { create = function()
-        return cc.Layer:create()
-    end})
-    class("clsGameSprite", clsSprite)
-    class("clsSubSprite", clsGameSprite)
-
-    local pScene = clsScene:create()
-    local pLayer = clsLayer:create()
-    pScene:addChild(pLayer)
-    local pSprite = clsSubSprite:create("farm.jpg")
-    pLayer:addChild(pSprite)
-    pSprite = clsSubSprite:create("crop.png")
-    pLayer:addChild(pSprite)
-    cc.Director:getInstance():runWithScene(pScene)
-    ]]
-
-    local pScene = GameScene:create()
-    local pLayer = GameLayer:create()
-    local btn = Button:create("btn1.png", "btn2.png")
+    local pScene = psGameScene:create()
+    local pLayer = psGameLayer:create()
+    local btn = psButton:create("btn1.png", "btn2.png")
     btn:setPosition(200, 200)
-    local sprite = ActiveSprite:create("dog.png")
+    local sprite = psActiveSprite:create("dog.png")
     sprite:setPosition(400, 200)
 
     local function onClick(sender)
         print("clicked")
+        btn:unregisterScriptTouchHandler()
     end
 
     local function onKeyPressed(sender, keyCode)
         print("keypressed " .. keyCode)
+        sprite:unregisterScriptKeyboardHandler()
     end
 
     btn:registerScriptTouchHandler(onClick)
@@ -70,20 +51,13 @@ local function main()
     pScene:addChild(pLayer)
     cc.Director:getInstance():runWithScene(pScene)
 
+    local ary = {}
+    table.insert(ary, cc.MoveBy:create(1, { x = 0, y = 100 }))
+    table.insert(ary, cc.MoveBy:create(1, { x = 0, y = -100 }))
+    local action = cc.RepeatForever:create(cc.Sequence:create(ary))
+    sprite:runAction(action)
+
     --[[
-	local schedulerID = 0
-    --support debug
-    local targetPlatform = cc.Application:getInstance():getTargetPlatform()
-    if (cc.PLATFORM_OS_IPHONE == targetPlatform) or (cc.PLATFORM_OS_IPAD == targetPlatform) or 
-       (cc.PLATFORM_OS_ANDROID == targetPlatform) or (cc.PLATFORM_OS_WINDOWS == targetPlatform) or
-       (cc.PLATFORM_OS_MAC == targetPlatform) then
-        --cclog("result is ")
-		--require('debugger')()
-        
-    end
-
-    ---------------
-
     local visibleSize = cc.Director:getInstance():getVisibleSize()
     local origin = cc.Director:getInstance():getVisibleOrigin()
 

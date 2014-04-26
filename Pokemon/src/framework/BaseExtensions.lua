@@ -1,5 +1,5 @@
 --[[
-	Description: Framework extension class
+	Description: Framework extensions
 	Author: M.Wan
 	Date: 04/25/2014
 ]]
@@ -36,6 +36,13 @@ class("psButton", {
 class("psTextBlock", {
 		create = function(...)
 			return TextBlock:create(...)
+		end
+	})
+
+--psGameLayer
+class("psGameLayer", {
+		create = function()
+			return GameLayer:create()
 		end
 	})
 
