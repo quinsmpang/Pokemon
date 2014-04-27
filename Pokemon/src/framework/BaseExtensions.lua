@@ -18,24 +18,10 @@ class("psViewController", {
 		end
 	})
 
---psActiveSprite
-class("psActiveSprite", {
-		create = function(...)
-			return ActiveSprite:create(...)
-		end
-	})
-
---psButton
-class("psButton", {
-		create = function(...)
-			return Button:create(...)
-		end
-	})
-
---psTextBlock
-class("psTextBlock", {
-		create = function(...)
-			return TextBlock:create(...)
+--psGameLayer
+class("psGameLayer", {
+		create = function()
+			return GameLayer:create()
 		end
 	})
 
@@ -43,13 +29,6 @@ class("psTextBlock", {
 class("psCoreLayer", {
 		create = function()
 			return CoreLayer:create()
-		end
-	})
-
---psGameLayer
-class("psGameLayer", {
-		create = function()
-			return GameLayer:create()
 		end
 	})
 

@@ -12,6 +12,18 @@ namespace framework
 
 	static std::string defaultPackagePath;
 
+	LuaUtils *LuaUtils::_instance = nullptr;
+
+	LuaUtils *LuaUtils::getInstance()
+	{
+		if (!_instance)
+		{
+			_instance = new LuaUtils();
+		}
+		
+		return _instance;
+	}
+
 	/*****************public api*****************/
 	const char *LuaUtils::getPackagePath()
 	{
@@ -138,6 +150,7 @@ namespace framework
 		return pResult;
 	}
 
+	/*
 	int LuaUtils::sendCustomEvent(framework::ScriptEvent *customEvent)
 	{
 		if (!customEvent)
@@ -155,6 +168,7 @@ namespace framework
 
 		return 0;
 	}
+	*/
 
 	/*****************private api*****************/
 	void LuaUtils::setPackagePath(const std::string &path)
@@ -336,6 +350,7 @@ namespace framework
 		return pResult;
 	}
 
+	/*
 	int LuaUtils::handleEventNodeTouchEvent(void *data)
 	{
 		if (!data)
@@ -386,5 +401,6 @@ namespace framework
 
 		return ret;
 	}
+	*/
 
 }

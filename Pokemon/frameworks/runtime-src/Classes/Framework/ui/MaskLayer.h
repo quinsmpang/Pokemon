@@ -5,7 +5,6 @@ Date: 4/18/2014
 ******************************/
 
 #include "cocos2d.h"
-#include "BaseLayer.h"
 
 namespace framework
 {
@@ -24,7 +23,7 @@ namespace framework
 		virtual void onEventIntercepted(float x, float y) = 0;
 	};
 
-	class MaskLayer : public BaseLayer
+	class MaskLayer : public cocos2d::LayerColor
 	{
 	public:
 		MaskLayer();
@@ -36,8 +35,6 @@ namespace framework
 		void setColor(const cocos2d::Color3B &color);
 
 		void setOpacity(GLubyte opacity);
-
-		void setEnabled(bool isEnabled) override;
 
 		inline cocos2d::Rect getArea()
 		{

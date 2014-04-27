@@ -11,12 +11,10 @@
 #include "scene\ViewController.h"
 #include "scene\GameScene.h"
 
-#include "ui\EventNode.h"
-#include "ui\EventLayer.h"
 #include "ui\GameLayer.h"
+#include "ui\CoreLayer.h"
 #include "ui\MaskLayer.h"
-#include "ui\Button.h"
-#include "ui\TextBlock.h"
-#include "ui\ActiveSprite.h"
+
+#include "sqlite\SqliteDb.h"
 
 #endif

@@ -167,24 +167,15 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\framework.h" />
     <ClInclude Include="..\Classes\Framework\lua\LuaUtils.h" />
     <ClInclude Include="..\Classes\Framework\lua\lua_framework_auto.hpp" />
-    <ClInclude Include="..\Classes\Framework\lua\lua_framework_extra.h" />
-    <ClInclude Include="..\Classes\Framework\lua\ScriptEventExtend.h" />
     <ClInclude Include="..\Classes\Framework\scene\GameScene.h" />
     <ClInclude Include="..\Classes\Framework\scene\ViewController.h" />
     <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.h" />
     <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3ext.h" />
     <ClInclude Include="..\Classes\Framework\sqlite\SqliteDb.h" />
-    <ClInclude Include="..\Classes\Framework\ui\ActiveSprite.h" />
-    <ClInclude Include="..\Classes\Framework\ui\BaseLayer.h" />
-    <ClInclude Include="..\Classes\Framework\ui\Button.h" />
     <ClInclude Include="..\Classes\Framework\ui\CoreLayer.h" />
-    <ClInclude Include="..\Classes\Framework\ui\EventLayer.h" />
-    <ClInclude Include="..\Classes\Framework\ui\EventNode.h" />
     <ClInclude Include="..\Classes\Framework\ui\GameLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\MaskLayer.h" />
-    <ClInclude Include="..\Classes\Framework\ui\TextBlock.h" />
     <ClInclude Include="..\Classes\Framework\version.h" />
-    <ClInclude Include="..\Classes\Test.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -194,22 +185,13 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\containers\Stack.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_auto.cpp" />
-    <ClCompile Include="..\Classes\Framework\lua\lua_framework_extra.cpp" />
-    <ClCompile Include="..\Classes\Framework\lua\ScriptEventExtend.cpp" />
     <ClCompile Include="..\Classes\Framework\scene\GameScene.cpp" />
     <ClCompile Include="..\Classes\Framework\scene\ViewController.cpp" />
     <ClCompile Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.c" />
     <ClCompile Include="..\Classes\Framework\sqlite\SqliteDb.cpp" />
-    <ClCompile Include="..\Classes\Framework\ui\ActiveSprite.cpp" />
-    <ClCompile Include="..\Classes\Framework\ui\BaseLayer.cpp" />
-    <ClCompile Include="..\Classes\Framework\ui\Button.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\CoreLayer.cpp" />
-    <ClCompile Include="..\Classes\Framework\ui\EventLayer.cpp" />
-    <ClCompile Include="..\Classes\Framework\ui\EventNode.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\GameLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\MaskLayer.cpp" />
-    <ClCompile Include="..\Classes\Framework\ui\TextBlock.cpp" />
-    <ClCompile Include="..\Classes\Test.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

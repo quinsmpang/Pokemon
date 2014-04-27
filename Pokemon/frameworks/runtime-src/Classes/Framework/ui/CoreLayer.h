@@ -20,11 +20,11 @@ namespace framework
 
 		virtual bool init();
 
-		void pushLayer(BaseLayer *topLayer);
+		void pushLayer(GameLayer *topLayer);
 
 		void popLayer();
 
-		BaseLayer *getTopLayer();
+		GameLayer *getTopLayer();
 
 	protected:
 		CoreLayer();

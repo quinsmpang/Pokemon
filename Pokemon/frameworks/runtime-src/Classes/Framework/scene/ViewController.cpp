@@ -18,15 +18,15 @@ namespace framework
 
 	void ViewController::load()
 	{
-#if ScriptType == 1
-		LuaUtils::executePeertableFunction(this, "load", nullptr, nullptr, false);
+#if CC_ENABLE_SCRIPT_BINDING
+		LuaUtils::getInstance()->executePeertableFunction(this, "load", Vector<Ref*>(), Vector<Ref*>(), false);
 #endif
 	}
 
 	void ViewController::unload()
 	{
-#if ScriptType == 1
-		LuaUtils::executePeertableFunction(this, "unload", nullptr, nullptr, false);
+#if CC_ENABLE_SCRIPT_BINDING
+		LuaUtils::getInstance()->executePeertableFunction(this, "unload", Vector<Ref*>(), Vector<Ref*>(), false);
 #endif
 	}
 

@@ -8,51 +8,34 @@ Date: 4/20/2014
 #define __UI_GAMELAYER__
 
 #include "cocos2d.h"
-#include "EventLayer.h"
-#include "BaseLayer.h"
-#include "EventNode.h"
 
 namespace framework
 {
 
-	class GameLayer : public BaseLayer
+	class GameLayer : public cocos2d::Layer
 	{
 	public:
-		GameLayer();
-
-		virtual bool init();
-
 		CREATE_FUNC(GameLayer);
 
-		void setEventLayer(EventLayer *pLayer);
+		inline bool isEnabled()
+		{
+			return _isEnabled;
+		}
+		void setEnabled(bool isEnabled)
+		{
+			_isEnabled = isEnabled;
+		}
 
-		void setEnabled(bool isEnabled) override;
-
-		virtual void addControl(EventNode *pControl);
-		virtual void addControlByTag(EventNode *pControl, int tag);
-		virtual void removeControl(EventNode *pControl);
-		virtual void removeControlByTag(int tag, bool cleanup = true);
-
-		virtual EventNode *getFocusNode();
-		virtual void setFocusNode(EventNode *pNode);
-
-		virtual void onEnter() override;
-		virtual void onExit() override;
-
-		virtual void addChild(cocos2d::Node *child);
-		virtual void addChild(cocos2d::Node *child, int localZOrder);
-		virtual void addChild(cocos2d::Node *child, int localZOrder, int tag);
-
-		void registerTouchEvents();
-		void unregisterTouchEvents();
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-		void registerKeyboardEvents();
-		void unregisterKeyboardEvents();
-#endif
+		/* touch events */
+		virtual bool onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); 
+		virtual void onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); 
+		virtual void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); 
+		virtual void onTouchCancelled(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
 	protected:
-		~GameLayer();
-		// touch layer, to storage touchable nodes
-		EventLayer *_eventLayer;
+		GameLayer();
+		virtual ~GameLayer();
+
+		bool _isEnabled;
 	};
 
 }

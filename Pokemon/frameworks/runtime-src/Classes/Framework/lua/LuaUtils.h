@@ -8,7 +8,6 @@ Date: 4/17/2014
 #define __LUA_LUAUTIL__
 
 #include "cocos2d.h"
-#include "ScriptEventExtend.h"
 #include <vector>
 #include <string>
 
@@ -18,32 +17,39 @@ namespace framework
 	class LuaUtils
 	{
 	public:
-		static const char *getPackagePath();
+		static LuaUtils *getInstance();
 
-		static void setPackagePaths(std::vector<std::string> &paths);
+		const char *getPackagePath();
 
-		static void executeScriptFile(const std::string &filePath);
+		void setPackagePaths(std::vector<std::string> &paths);
 
-		static void setTableField(const std::string &tableName, const std::string &key, cocos2d::Ref *value, const std::string &valueType);
+		void executeScriptFile(const std::string &filePath);
 
-		static void *executeTableFunction(const std::string &tableName, const std::string &functionName, cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue);
+		void setTableField(const std::string &tableName, const std::string &key, cocos2d::Ref *value, const std::string &valueType);
 
-		static void *executePeertableFunction(cocos2d::Ref *userdata, const std::string &functionName, cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue);
+		void *executeTableFunction(const std::string &tableName, const std::string &functionName, cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue);
 
-		static int sendCustomEvent(framework::ScriptEvent *customEvent);
+		void *executePeertableFunction(cocos2d::Ref *userdata, const std::string &functionName, cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue);
+
+		//int sendCustomEvent(framework::ScriptEvent *customEvent);
 
 	private:
-		static void setPackagePath(const std::string &path);
+		LuaUtils() {}
+		static LuaUtils *_instance;
 
-		static bool hasPeertable(void *userdata);
+		void setPackagePath(const std::string &path);
 
-		static bool hasFunction(void *userdata, const std::string &functionName);
+		bool hasPeertable(void *userdata);
 
-		static void *executeFunction(cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue);
+		bool hasFunction(void *userdata, const std::string &functionName);
 
-		static int handleEventNodeTouchEvent(void *data);
+		void *executeFunction(cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue);
 
-		static int handleEventNodeKeyboardEvent(void *data);
+		/*
+		int handleEventNodeTouchEvent(void *data);
+
+		int handleEventNodeKeyboardEvent(void *data);
+		*/
 	};
 
 }

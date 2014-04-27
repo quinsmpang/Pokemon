@@ -15,12 +15,12 @@
 --------------------------------
 -- @function [parent=#CoreLayer] getTopLayer 
 -- @param self
--- @return BaseLayer#BaseLayer ret (return value: pf.BaseLayer)
+-- @return GameLayer#GameLayer ret (return value: pf.GameLayer)
         
 --------------------------------
 -- @function [parent=#CoreLayer] pushLayer 
 -- @param self
--- @param #pf.BaseLayer baselayer
+-- @param #pf.GameLayer gamelayer
         
 --------------------------------
 -- @function [parent=#CoreLayer] create 

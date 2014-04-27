@@ -48,14 +48,9 @@ namespace framework
 		this->updateView();
 	}
 
-	void MaskLayer::setEnabled(bool isEnabled)
-	{
-		this->_isEnabled = isEnabled;
-	}
-
 	bool MaskLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 	{
-		if (!_isEnabled || !_visible)
+		if (!_visible)
 		{
 			return false;
 		}
@@ -78,6 +73,7 @@ namespace framework
 		}
 
 		// lua callback
+#if CC_ENABLE_SCRIPT_BINDING
 		if (_scriptType == kScriptTypeLua && this->_scriptDelegate)
 		{
 			// params
@@ -90,13 +86,14 @@ namespace framework
 			pTypes.pushBack(__String::create("__Float"));
 			if (needIntercept)
 			{
-				LuaUtils::executePeertableFunction(this->_scriptDelegate, "onEventIntercepted", pParams, pTypes, false);
+				LuaUtils::getInstance()->executePeertableFunction(this->_scriptDelegate, "onEventIntercepted", pParams, pTypes, false);
 			}
 			else
 			{
-				LuaUtils::executePeertableFunction(this->_scriptDelegate, "onEventPenetrated", pParams, pTypes, false);
+				LuaUtils::getInstance()->executePeertableFunction(this->_scriptDelegate, "onEventPenetrated", pParams, pTypes, false);
 			}
 		}
+#endif
 
 		return true;
 	}
@@ -116,7 +113,7 @@ namespace framework
 	/*****************private functions*****************/
 	bool MaskLayer::initWithArea(const cocos2d::Rect &area)
 	{
-		if (!BaseLayer::init())
+		if (!LayerColor::init())
 		{
 			return false;
 		}

@@ -5,10 +5,6 @@
 
 #include "lua/lua_framework_auto.hpp"
 
-#include "Test.h"
-
-//#define CPPTEST
-
 using namespace CocosDenshion;
 
 USING_NS_CC;
@@ -43,15 +39,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
-#ifdef CPPTEST
-	// For test
-	Director::getInstance()->runWithScene(TestScene::scene());
-#else
 	auto pEngine = LuaEngine::getInstance();
 	ScriptEngineManager::getInstance()->setScriptEngine(pEngine);
 	register_all_psframework(pEngine->getLuaStack()->getLuaState());		
 	pEngine->executeScriptFile("src/main.lua");
-#endif
 
     return true;
 }

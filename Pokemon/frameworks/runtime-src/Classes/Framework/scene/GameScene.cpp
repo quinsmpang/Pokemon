@@ -69,18 +69,22 @@ namespace framework
 	{
 		Scene::onEnter();
 
+#if CC_ENABLE_SCRIPT_BINDING
 		if (_scriptType == kScriptTypeLua)
 		{
-			LuaUtils::executePeertableFunction(this, "onEnter", Vector<Ref*>(), Vector<Ref*>(), false);
+			LuaUtils::getInstance()->executePeertableFunction(this, "onEnter", Vector<Ref*>(), Vector<Ref*>(), false);
 		}
+#endif
 	}
 
 	void GameScene::onExit()
 	{
+#if CC_ENABLE_SCRIPT_BINDING
 		if (_scriptType == kScriptTypeLua)
 		{
-			LuaUtils::executePeertableFunction(this, "onExit", Vector<Ref*>(), Vector<Ref*>(), false);
+			LuaUtils::getInstance()->executePeertableFunction(this, "onExit", Vector<Ref*>(), Vector<Ref*>(), false);
 		}
+#endif
 
 		this->unloadAllViewControllers();
 
@@ -167,7 +171,7 @@ namespace framework
 
 	void GameScene::loadViewController(ViewController *viewController)
 	{
-		assert(viewController, "viewController can't be null");
+		CCASSERT(viewController, "viewController can't be null");
 
 		this->_viewControllers->pushBack(viewController);
 		viewController->setScene(this);

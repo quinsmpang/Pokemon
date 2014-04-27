@@ -29,7 +29,7 @@ namespace framework
 		return true;
 	}
 
-	void CoreLayer::pushLayer(BaseLayer *topLayer)
+	void CoreLayer::pushLayer(GameLayer *topLayer)
 	{
 		this->getTopLayer()->setEnabled(false);
 		this->_layers->push(topLayer);
@@ -45,7 +45,7 @@ namespace framework
 		this->getTopLayer()->setEnabled(true);
 	}
 
-	BaseLayer *CoreLayer::getTopLayer()
+	GameLayer *CoreLayer::getTopLayer()
 	{
 		if (this->_layers->isEmpty())
 		{
@@ -53,7 +53,7 @@ namespace framework
 		}
 		else
 		{
-			return (BaseLayer*)this->_layers->top();
+			return (GameLayer*)this->_layers->top();
 		}
 	}
 }

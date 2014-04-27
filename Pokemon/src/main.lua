@@ -25,44 +25,34 @@ local function main()
 	cc.FileUtils:getInstance():addSearchResolutionsOrder("src");
 	cc.FileUtils:getInstance():addSearchResolutionsOrder("res");
 
-    local pScene = psGameScene:create()
-    local pLayer = psCoreLayer:create()
-    pScene:setCoreLayer(pLayer)
+    local screenSize = cc.Director:getInstance():getWinSize()
 
-    pLayer:addChild(cc.Sprite:create("farm.jpg"))
-    local btn = psButton:create("btn1.png", "btn2.png")
-    btn:setPosition(200, 200)
-    local sprite = psActiveSprite:create("dog.png")
-    sprite:setPosition(400, 200)
+    local mainScene = psGameScene:create()
 
-    local function onClick(sender)
-        print("clicked")
-        btn:unregisterScriptTouchHandler()
-    end
+    local coreLayer = psCoreLayer:create()
+    local background = cc.Sprite:create("farm.jpg")
+    background:setAnchorPoint(0, 0)
+    coreLayer:addChild(background)
 
-    local function onKeyPressed(sender, keyCode)
-        print("keypressed " .. keyCode)
-        sprite:unregisterScriptKeyboardHandler()
-    end
+    local dogTexture = cc.Director:getInstance():getTextureCache():addImage("dog.png")
+    local rect = cc.rect(0, 0, 105, 95)
+    local frame0 = cc.SpriteFrame:createWithTexture(dogTexture, rect)
+    rect = cc.rect(105, 0, 105, 95)
+    local frame1 = cc.SpriteFrame:createWithTexture(dogTexture, rect)
 
-    btn:registerScriptTouchHandler(onClick)
-    sprite:registerScriptKeyboardHandler(onKeyPressed)
-    pLayer:setFocusNode(sprite)
+    local dog = cc.Sprite:createWithSpriteFrame(frame0)
+    dog.isPaused = false
+    dog:setPosition(screenSize.width * 0.5, screenSize.height * 0.5)
 
-    pLayer:addControl(btn)
-    pLayer:addControl(sprite)
-    cc.Director:getInstance():runWithScene(pScene)
+    local animation = cc.Animation:createWithSpriteFrames({ frame0, frame1 }, 0.5)
+    local animate = cc.Animate:create(animation)
+    dog:runAction(cc.RepeatForever:create(animate))
 
-    local action = cc.RepeatForever:create(cc.Sequence:create({
-            cc.MoveBy:create(1, ccp(0, 100)), 
-            cc.MoveBy:create(1, { x = 0, y = -100 })
-        }))
-    sprite:runAction(action)
+    coreLayer:addChild(dog)
 
-    local maskLayer = psMaskLayer:create(cc.rect(100, 100, 100, 100))
-    maskLayer:setColor(ccc3(255, 0, 0))
-    maskLayer:setOpacity(200)
-    pLayer:pushLayer(maskLayer)
+    mainScene:setCoreLayer(coreLayer)
+
+    cc.Director:getInstance():runWithScene(mainScene)
 
     --[[
     local visibleSize = cc.Director:getInstance():getVisibleSize()
