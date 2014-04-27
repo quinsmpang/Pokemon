@@ -3172,7 +3172,7 @@ int lua_register_psframework_MaskLayerDelegate(lua_State* tolua_S)
     return 1;
 }
 
-int lua_psframework_MaskLayer_getDelegate(lua_State* tolua_S)
+int lua_psframework_MaskLayer_onEventPenetrated(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayer* cobj = nullptr;
@@ -3192,26 +3192,31 @@ int lua_psframework_MaskLayer_getDelegate(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_getDelegate'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_onEventPenetrated'", nullptr);
         return 0;
     }
 #endif
 
     argc = lua_gettop(tolua_S)-1;
-    if (argc == 0) 
+    if (argc == 2) 
     {
+        double arg0;
+        double arg1;
+
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_number(tolua_S, 3,&arg1);
         if(!ok)
             return 0;
-        framework::MaskLayerDelegate* ret = cobj->getDelegate();
-        object_to_luaval<framework::MaskLayerDelegate>(tolua_S, "pf.MaskLayerDelegate",(framework::MaskLayerDelegate*)ret);
-        return 1;
+        cobj->onEventPenetrated(arg0, arg1);
+        return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getDelegate",argc, 0);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onEventPenetrated",argc, 2);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_getDelegate'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_onEventPenetrated'.",&tolua_err);
 #endif
 
     return 0;
@@ -3304,50 +3309,6 @@ int lua_psframework_MaskLayer_setColor(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_setColor'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_MaskLayer_getScriptDelegate(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::MaskLayer* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.MaskLayer",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::MaskLayer*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_getScriptDelegate'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 0) 
-    {
-        if(!ok)
-            return 0;
-        cocos2d::Ref* ret = cobj->getScriptDelegate();
-        object_to_luaval<cocos2d::Ref>(tolua_S, "cc.Ref",(cocos2d::Ref*)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getScriptDelegate",argc, 0);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_getScriptDelegate'.",&tolua_err);
 #endif
 
     return 0;
@@ -3486,52 +3447,6 @@ int lua_psframework_MaskLayer_isInterceptAllEvents(lua_State* tolua_S)
 
     return 0;
 }
-int lua_psframework_MaskLayer_setDelegate(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::MaskLayer* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.MaskLayer",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::MaskLayer*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_setDelegate'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
-    {
-        framework::MaskLayerDelegate* arg0;
-
-        ok &= luaval_to_object<framework::MaskLayerDelegate>(tolua_S, 2, "pf.MaskLayerDelegate",&arg0);
-        if(!ok)
-            return 0;
-        cobj->setDelegate(arg0);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setDelegate",argc, 1);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_setDelegate'.",&tolua_err);
-#endif
-
-    return 0;
-}
 int lua_psframework_MaskLayer_forceInterceptAllEvents(lua_State* tolua_S)
 {
     int argc = 0;
@@ -3578,7 +3493,7 @@ int lua_psframework_MaskLayer_forceInterceptAllEvents(lua_State* tolua_S)
 
     return 0;
 }
-int lua_psframework_MaskLayer_setScriptDelegate(lua_State* tolua_S)
+int lua_psframework_MaskLayer_onEventIntercepted(lua_State* tolua_S)
 {
     int argc = 0;
     framework::MaskLayer* cobj = nullptr;
@@ -3598,28 +3513,31 @@ int lua_psframework_MaskLayer_setScriptDelegate(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_setScriptDelegate'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayer_onEventIntercepted'", nullptr);
         return 0;
     }
 #endif
 
     argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
+    if (argc == 2) 
     {
-        cocos2d::Ref* arg0;
+        double arg0;
+        double arg1;
 
-        ok &= luaval_to_object<cocos2d::Ref>(tolua_S, 2, "cc.Ref",&arg0);
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_number(tolua_S, 3,&arg1);
         if(!ok)
             return 0;
-        cobj->setScriptDelegate(arg0);
+        cobj->onEventIntercepted(arg0, arg1);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setScriptDelegate",argc, 1);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onEventIntercepted",argc, 2);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_setScriptDelegate'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayer_onEventIntercepted'.",&tolua_err);
 #endif
 
     return 0;
@@ -3715,16 +3633,14 @@ int lua_register_psframework_MaskLayer(lua_State* tolua_S)
     tolua_cclass(tolua_S,"MaskLayer","pf.MaskLayer","cc.LayerColor",nullptr);
 
     tolua_beginmodule(tolua_S,"MaskLayer");
-        tolua_function(tolua_S,"getDelegate",lua_psframework_MaskLayer_getDelegate);
+        tolua_function(tolua_S,"onEventPenetrated",lua_psframework_MaskLayer_onEventPenetrated);
         tolua_function(tolua_S,"setArea",lua_psframework_MaskLayer_setArea);
         tolua_function(tolua_S,"setColor",lua_psframework_MaskLayer_setColor);
-        tolua_function(tolua_S,"getScriptDelegate",lua_psframework_MaskLayer_getScriptDelegate);
         tolua_function(tolua_S,"getArea",lua_psframework_MaskLayer_getArea);
         tolua_function(tolua_S,"setOpacity",lua_psframework_MaskLayer_setOpacity);
         tolua_function(tolua_S,"isInterceptAllEvents",lua_psframework_MaskLayer_isInterceptAllEvents);
-        tolua_function(tolua_S,"setDelegate",lua_psframework_MaskLayer_setDelegate);
         tolua_function(tolua_S,"forceInterceptAllEvents",lua_psframework_MaskLayer_forceInterceptAllEvents);
-        tolua_function(tolua_S,"setScriptDelegate",lua_psframework_MaskLayer_setScriptDelegate);
+        tolua_function(tolua_S,"onEventIntercepted",lua_psframework_MaskLayer_onEventIntercepted);
         tolua_function(tolua_S,"new",lua_psframework_MaskLayer_constructor);
         tolua_function(tolua_S,"create", lua_psframework_MaskLayer_create);
     tolua_endmodule(tolua_S);

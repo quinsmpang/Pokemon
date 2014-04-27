@@ -1,12 +1,13 @@
 
 --------------------------------
 -- @module MaskLayer
--- @extend LayerColor
+-- @extend LayerColor,MaskLayerDelegate
 
 --------------------------------
--- @function [parent=#MaskLayer] getDelegate 
+-- @function [parent=#MaskLayer] onEventPenetrated 
 -- @param self
--- @return MaskLayerDelegate#MaskLayerDelegate ret (return value: pf.MaskLayerDelegate)
+-- @param #float float
+-- @param #float float
         
 --------------------------------
 -- @function [parent=#MaskLayer] setArea 
@@ -17,11 +18,6 @@
 -- @function [parent=#MaskLayer] setColor 
 -- @param self
 -- @param #color3B_table color3b
-        
---------------------------------
--- @function [parent=#MaskLayer] getScriptDelegate 
--- @param self
--- @return Ref#Ref ret (return value: cc.Ref)
         
 --------------------------------
 -- @function [parent=#MaskLayer] getArea 
@@ -39,19 +35,15 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- @function [parent=#MaskLayer] setDelegate 
--- @param self
--- @param #pf.MaskLayerDelegate masklayerdelegate
-        
---------------------------------
 -- @function [parent=#MaskLayer] forceInterceptAllEvents 
 -- @param self
 -- @param #bool bool
         
 --------------------------------
--- @function [parent=#MaskLayer] setScriptDelegate 
+-- @function [parent=#MaskLayer] onEventIntercepted 
 -- @param self
--- @param #cc.Ref ref
+-- @param #float float
+-- @param #float float
         
 --------------------------------
 -- overload function: create(rect_table)

@@ -29,6 +29,10 @@ local function main()
 
     local mainScene = psGameScene:create()
 
+    mainScene.onEnter = function(self)
+        print("onEnter")
+    end
+
     local coreLayer = psCoreLayer:create()
     local background = cc.Sprite:create("farm.jpg")
     background:setAnchorPoint(0, 0)
@@ -52,7 +56,52 @@ local function main()
 
     mainScene:setCoreLayer(coreLayer)
 
+    local function onClick()
+        print("onClick")
+    end
+
+    local menuLayer = cc.Layer:create()
+
+    local btn = cc.MenuItemImage:create("btn1.png", "btn2.png")
+    btn:registerScriptTapHandler(onClick)
+    local menu = cc.Menu:create(btn)
+    menu:setPosition(screenSize.width * 0.9, screenSize.height * 0.9)
+    menuLayer:addChild(menu)
+
+    coreLayer:addChild(menuLayer)
+
     cc.Director:getInstance():runWithScene(mainScene)
+
+    local maskLayer = psMaskLayer:create(cc.rect(200, 200, 100, 100))
+    maskLayer:setOpacity(100)
+    maskLayer:forceInterceptAllEvents(false)
+
+    maskLayer.onEventIntercepted = function(self, x, y)
+        log("onEventIntercepted at %.2f, %.2f", x, y)
+    end
+
+    maskLayer.onEventPenetrated = function(self, x, y)
+        log("onEventPenetrated at %.2f, %.2f", x, y)
+    end
+
+    coreLayer:addChild(maskLayer)
+
+    local topLayer = psGameLayer:create()
+    local land = cc.Sprite:create("land.png")
+    land:setPosition(screenSize.width * 0.25, screenSize.height * 0.25)
+    topLayer:addChild(land)
+
+    local function onTouchScreen(touch, event)
+        local pos = touch:getLocation()
+        log("onTouchScreen: %.2f, %.2f", pos.x, pos.y)
+        coreLayer:popLayer()
+    end
+
+    local listener = cc.EventListenerTouchOneByOne:create()
+    listener:registerScriptHandler(onTouchScreen, cc.Handler.EVENT_TOUCH_BEGAN)
+    topLayer:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, topLayer)
+
+    coreLayer:pushLayer(topLayer)
 
     --[[
     local visibleSize = cc.Director:getInstance():getVisibleSize()

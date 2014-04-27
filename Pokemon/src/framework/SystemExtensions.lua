@@ -4,6 +4,10 @@
 	Date: 04/26/2014
 ]]
 
+function log(...)
+	print(string.format(...))
+end
+
 -- Copy k-v from source table to the target table.
 function table.shallowCopy(targetTable, sourceTable)
 	if type(targetTable) == "table" and type(sourceTable) == "table" then

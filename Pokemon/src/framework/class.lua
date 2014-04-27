@@ -39,7 +39,10 @@ function class(className, super)
 
 				-- set the peertable of cpp instance to self (to storage user-defined methods)
 				-- seems there are risks here, to be validated later.
-				tolua.setpeer(cppInstance, self)
+				local peertable = {}
+				setmetatable(peertable, self)
+
+				tolua.setpeer(cppInstance, peertable)
 
 				return cppInstance
 			end

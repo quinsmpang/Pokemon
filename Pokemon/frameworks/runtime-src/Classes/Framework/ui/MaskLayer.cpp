@@ -11,10 +11,10 @@ namespace framework
 		: _opacity(200)
 		, _color(Color3B(0, 0, 0))
 		, _area(Rect(0, 0, 0, 0))
+		, _stencil(nullptr)
+		, _rect(nullptr)
 		, _lazyUpdate(false)
 		, _interceptAllEvents(false)
-		, _delegate(nullptr)
-		, _scriptDelegate(nullptr)
 	{
 	}
 
@@ -59,22 +59,9 @@ namespace framework
 		Point pos = pTouch->getLocation();
 		bool needIntercept = this->isInterceptAllEvents() || !_area.containsPoint(pos);
 
-		// cpp callback
-		if (this->_delegate)
-		{
-			if (needIntercept)
-			{
-				this->_delegate->onEventIntercepted(pos.x, pos.y);
-			}
-			else
-			{
-				this->_delegate->onEventPenetrated(pos.x, pos.y);
-			}
-		}
-
 		// lua callback
 #if CC_ENABLE_SCRIPT_BINDING
-		if (_scriptType == kScriptTypeLua && this->_scriptDelegate)
+		if (_scriptType == kScriptTypeLua)
 		{
 			// params
 			Vector<Ref*> pParams(2);
@@ -86,11 +73,11 @@ namespace framework
 			pTypes.pushBack(__String::create("__Float"));
 			if (needIntercept)
 			{
-				LuaUtils::getInstance()->executePeertableFunction(this->_scriptDelegate, "onEventIntercepted", pParams, pTypes, false);
+				LuaUtils::getInstance()->executePeertableFunction(this, "onEventIntercepted", pParams, pTypes, false);
 			}
 			else
 			{
-				LuaUtils::getInstance()->executePeertableFunction(this->_scriptDelegate, "onEventPenetrated", pParams, pTypes, false);
+				LuaUtils::getInstance()->executePeertableFunction(this, "onEventPenetrated", pParams, pTypes, false);
 			}
 		}
 #endif
@@ -107,6 +94,14 @@ namespace framework
 	}
 
 	void MaskLayer::onTouchCancelled(Touch *pTouch, Event *pEvent)
+	{
+	}
+
+	void MaskLayer::onEventIntercepted(float x, float y)
+	{
+	}
+
+	void MaskLayer::onEventPenetrated(float x, float y)
 	{
 	}
 
@@ -128,7 +123,14 @@ namespace framework
 		_clipper->setPosition(Point::ZERO);
 		_clipper->setAlphaThreshold(0.0f);
 		_clipper->setInverted(true);
-		this->addChild(_clipper, 999);
+		this->addChild(_clipper);
+
+		// set stencil
+		_stencil = Sprite::create("framework/mask.png");
+		_stencil->setAnchorPoint(Point::ZERO);
+		_stencil->setPosition(Point::ZERO);
+		_stencil->setVisible(false);
+		_clipper->setStencil(_stencil);
 
 		// create mask 
 		_mask = LayerColor::create(Color4B(0, 0, 0, 255));
@@ -136,6 +138,11 @@ namespace framework
 		_mask->setAnchorPoint(Point::ZERO);
 		_mask->ignoreAnchorPointForPosition(false);
 		_clipper->addChild(_mask);
+
+		_rect = extension::Scale9Sprite::create("framework/mask_rect.png", Rect(0, 0, 100, 100), Rect(48, 48, 2, 2));
+		_rect->setAnchorPoint(Point::ZERO);
+		this->addChild(_rect);
+		_rect->setVisible(false);
 
 		this->_lazyUpdate = true;
 
@@ -164,7 +171,36 @@ namespace framework
 		_mask->setColor(_color);
 		_mask->setOpacity(_opacity);
 
-		// draw area
+		// draw available area with effect
+		if (_area.size.width * _area.size.height == 0)
+		{
+			_stencil->setVisible(false);
+			_rect->setVisible(false);
+			return;
+		}
+		else
+		{
+			const int OFFSET = 10;
+
+			_rect->setPreferredSize(Size(_area.size.width + OFFSET * 2, _area.size.height + OFFSET * 2));
+			_rect->setPosition(_area.origin.x - OFFSET, _area.origin.y - OFFSET);
+			_rect->setVisible(true);
+			Node *parent = (Node*)_rect->getChildren().at(0);
+			auto children = parent->getChildren();
+			for (int i = 0; i < children.size(); ++i)
+			{
+				auto child = (Sprite*)children.at(i);
+				child->setOpacity(_opacity);
+			}
+
+			_stencil->setScaleX(_area.size.width * 0.5 + OFFSET);
+			_stencil->setScaleY(_area.size.height * 0.5 + OFFSET);
+			_stencil->setPosition(_area.origin.x - OFFSET, _area.origin.y - OFFSET);
+			_stencil->setVisible(true);
+		}
+
+		/*
+		// draw area -- deprecated, there are some issues using DrawNode when there are multiple layers covering together.
 		if (_area.size.width != 0 && _area.size.height != 0)
 		{
 			auto pDrawNode = DrawNode::create();
@@ -173,6 +209,7 @@ namespace framework
 			pDrawNode->drawPolygon(rect, 4, Color4F::WHITE, 0, Color4F::WHITE);
 			_clipper->setStencil(pDrawNode);
 		}
+		*/
 	}
 
 }

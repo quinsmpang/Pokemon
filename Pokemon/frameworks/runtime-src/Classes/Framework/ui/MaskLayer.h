@@ -5,6 +5,7 @@ Date: 4/18/2014
 ******************************/
 
 #include "cocos2d.h"
+#include "extensions\GUI\CCControlExtension\CCScale9Sprite.h"
 
 namespace framework
 {
@@ -12,10 +13,6 @@ namespace framework
 	class MaskLayerDelegate
 	{
 	public:
-		virtual ~MaskLayerDelegate()
-		{
-		}
-
 		/* ÊÂ¼þ´©Í¸ */
 		virtual void onEventPenetrated(float x, float y) = 0;
 
@@ -23,7 +20,7 @@ namespace framework
 		virtual void onEventIntercepted(float x, float y) = 0;
 	};
 
-	class MaskLayer : public cocos2d::LayerColor
+	class MaskLayer : public cocos2d::LayerColor, MaskLayerDelegate
 	{
 	public:
 		MaskLayer();
@@ -57,14 +54,13 @@ namespace framework
 			return this->_interceptAllEvents;
 		}
 
-		CC_SYNTHESIZE(MaskLayerDelegate*, _delegate, Delegate);
-		// lua delegate
-		CC_SYNTHESIZE(Ref*, _scriptDelegate, ScriptDelegate);
-
 		virtual bool onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) override;
 		virtual void onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) override; 
 		virtual void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) override; 
 		virtual void onTouchCancelled(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) override;
+
+		virtual void onEventPenetrated(float x, float y);
+		virtual void onEventIntercepted(float x, float y);
 	protected:
 		cocos2d::Color3B _color;		// mask color
 		GLubyte _opacity;		// mask opacity
@@ -73,6 +69,8 @@ namespace framework
 		bool _lazyUpdate;
 		cocos2d::ClippingNode *_clipper;
 		cocos2d::LayerColor *_mask;
+		cocos2d::Sprite *_stencil;
+		cocos2d::extension::Scale9Sprite *_rect;
 
 		bool _interceptAllEvents;	// whether to intercept all events
 
