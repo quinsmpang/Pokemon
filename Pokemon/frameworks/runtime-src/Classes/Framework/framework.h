@@ -15,6 +15,4 @@
 #include "ui\CoreLayer.h"
 #include "ui\MaskLayer.h"
 
-#include "sqlite\SqliteDb.h"
-
 #endif
