@@ -50,7 +50,14 @@ local function main()
 
     local animation = cc.Animation:createWithSpriteFrames({ frame0, frame1 }, 0.5)
     local animate = cc.Animate:create(animation)
-    dog:runAction(cc.RepeatForever:create(animate))
+    local moveAction = cc.Sequence:create({
+            cc.MoveBy:create(1, ccp(0, 100)),
+            cc.MoveBy:create(1, ccp(0, -100))
+        })
+    dog:runAction(cc.RepeatForever:create(cc.Spawn:create({
+            animate,
+            moveAction
+        })))
 
     coreLayer:addChild(dog)
 
@@ -98,6 +105,7 @@ local function main()
     end
 
     local listener = cc.EventListenerTouchOneByOne:create()
+    listener:setSwallowTouches(true)
     listener:registerScriptHandler(onTouchScreen, cc.Handler.EVENT_TOUCH_BEGAN)
     topLayer:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, topLayer)
 
