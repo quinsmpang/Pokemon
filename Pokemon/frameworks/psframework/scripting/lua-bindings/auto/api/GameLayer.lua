@@ -4,15 +4,68 @@
 -- @extend Layer
 
 --------------------------------
--- @function [parent=#GameLayer] setEnabled 
+-- @function [parent=#GameLayer] getComeInWhenPushAction 
 -- @param self
--- @param #bool bool
+-- @return ActionInterval#ActionInterval ret (return value: cc.ActionInterval)
         
 --------------------------------
--- @function [parent=#GameLayer] onTouchEnded 
+-- @function [parent=#GameLayer] isShown 
 -- @param self
--- @param #cc.Touch touch
--- @param #cc.Event event
+-- @return bool#bool ret (return value: bool)
+        
+--------------------------------
+-- @function [parent=#GameLayer] init 
+-- @param self
+-- @return bool#bool ret (return value: bool)
+        
+--------------------------------
+-- @function [parent=#GameLayer] setGoOutWhenPushAction 
+-- @param self
+-- @param #cc.ActionInterval actioninterval
+        
+--------------------------------
+-- @function [parent=#GameLayer] setComeInWhenPushAction 
+-- @param self
+-- @param #cc.ActionInterval actioninterval
+        
+--------------------------------
+-- @function [parent=#GameLayer] getGoOutWhenPushAction 
+-- @param self
+-- @return ActionInterval#ActionInterval ret (return value: cc.ActionInterval)
+        
+--------------------------------
+-- @function [parent=#GameLayer] getComeInWhenPopAction 
+-- @param self
+-- @return ActionInterval#ActionInterval ret (return value: cc.ActionInterval)
+        
+--------------------------------
+-- @function [parent=#GameLayer] getGoOutWhenPopAction 
+-- @param self
+-- @return ActionInterval#ActionInterval ret (return value: cc.ActionInterval)
+        
+--------------------------------
+-- @function [parent=#GameLayer] setComeInWhenPopAction 
+-- @param self
+-- @param #cc.ActionInterval actioninterval
+        
+--------------------------------
+-- @function [parent=#GameLayer] setGoOutWhenPopAction 
+-- @param self
+-- @param #cc.ActionInterval actioninterval
+        
+--------------------------------
+-- @function [parent=#GameLayer] createWithTransitions 
+-- @param self
+-- @param #cc.ActionInterval actioninterval
+-- @param #cc.ActionInterval actioninterval
+-- @param #cc.ActionInterval actioninterval
+-- @param #cc.ActionInterval actioninterval
+-- @return GameLayer#GameLayer ret (return value: pf.GameLayer)
+        
+--------------------------------
+-- @function [parent=#GameLayer] create 
+-- @param self
+-- @return GameLayer#GameLayer ret (return value: pf.GameLayer)
         
 --------------------------------
 -- @function [parent=#GameLayer] onTouchMoved 
@@ -21,9 +74,10 @@
 -- @param #cc.Event event
         
 --------------------------------
--- @function [parent=#GameLayer] isEnabled 
+-- @function [parent=#GameLayer] onTouchEnded 
 -- @param self
--- @return bool#bool ret (return value: bool)
+-- @param #cc.Touch touch
+-- @param #cc.Event event
         
 --------------------------------
 -- @function [parent=#GameLayer] onTouchCancelled 
@@ -37,10 +91,5 @@
 -- @param #cc.Touch touch
 -- @param #cc.Event event
 -- @return bool#bool ret (return value: bool)
-        
---------------------------------
--- @function [parent=#GameLayer] create 
--- @param self
--- @return GameLayer#GameLayer ret (return value: pf.GameLayer)
         
 return nil

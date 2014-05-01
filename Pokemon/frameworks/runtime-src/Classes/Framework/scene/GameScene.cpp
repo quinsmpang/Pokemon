@@ -7,7 +7,8 @@ namespace framework
 {
 
 	GameScene::GameScene()
-		: _paramsMap(nullptr)
+		: Scene()
+		, _paramsMap(nullptr)
 		, _viewControllers(nullptr)
 		, _coreLayer(nullptr)
 	{

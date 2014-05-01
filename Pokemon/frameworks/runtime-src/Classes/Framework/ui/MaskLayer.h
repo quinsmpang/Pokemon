@@ -20,7 +20,7 @@ namespace framework
 		virtual void onEventIntercepted(float x, float y) = 0;
 	};
 
-	class MaskLayer : public cocos2d::LayerColor, MaskLayerDelegate
+	class MaskLayer : public cocos2d::LayerColor, public MaskLayerDelegate
 	{
 	public:
 		MaskLayer();

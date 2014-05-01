@@ -93,7 +93,13 @@ local function main()
 
     coreLayer:addChild(maskLayer)
 
-    local topLayer = psGameLayer:create()
+    local topLayer = psGameLayer:createWithTransitions(
+        cc.EaseOut:create(cc.MoveBy:create(0.5, ccp(-screenSize.width, 0)), 5), 
+        cc.EaseOut:create(cc.MoveBy:create(0.5, ccp(screenSize.width, 0)), 5),
+        cc.EaseIn:create(cc.MoveBy:create(0.5, ccp(-screenSize.width, 0)), 5),
+        cc.EaseIn:create(cc.MoveBy:create(0.5, ccp(screenSize.width, 0)), 5)
+        )
+    topLayer:setPosition(screenSize.width, 0)
     local land = cc.Sprite:create("land.png")
     land:setPosition(screenSize.width * 0.25, screenSize.height * 0.25)
     topLayer:addChild(land)
@@ -101,7 +107,30 @@ local function main()
     local function onTouchScreen(touch, event)
         local pos = touch:getLocation()
         log("onTouchScreen: %.2f, %.2f", pos.x, pos.y)
-        coreLayer:popLayer()
+        local copyLayer = psGameLayer:createWithTransitions(
+            cc.EaseOut:create(cc.MoveBy:create(0.5, ccp(-screenSize.width, 0)), 5), 
+            cc.EaseOut:create(cc.MoveBy:create(0.5, ccp(screenSize.width, 0)), 5),
+            cc.EaseIn:create(cc.MoveBy:create(0.5, ccp(-screenSize.width, 0)), 5),
+            cc.EaseIn:create(cc.MoveBy:create(0.5, ccp(screenSize.width, 0)), 5)
+            )
+        copyLayer:setPosition(screenSize.width, 0)
+        local land = cc.Sprite:create("land.png")
+        land:setPosition(screenSize.width * 0.75, screenSize.height * 0.75)
+        copyLayer:addChild(land)
+
+        local function tmpTouchScreen(touch, event)
+            coreLayer:popLayer()
+        end
+
+        local listener = cc.EventListenerTouchOneByOne:create()
+        listener:setSwallowTouches(true)
+        listener:registerScriptHandler(tmpTouchScreen, cc.Handler.EVENT_TOUCH_BEGAN)
+        copyLayer:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, copyLayer)
+
+        coreLayer:pushLayer(copyLayer)
+        --coreLayer:popLayer()
+
+        return true
     end
 
     local listener = cc.EventListenerTouchOneByOne:create()

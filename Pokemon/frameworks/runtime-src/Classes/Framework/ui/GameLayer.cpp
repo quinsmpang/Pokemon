@@ -5,7 +5,13 @@ using namespace cocos2d;
 namespace framework
 {
 	GameLayer::GameLayer()
-		: _isEnabled(true)
+		: Layer()
+		, _winSize(Director::getInstance()->getWinSize())
+		, _isShown(false)
+		, _comeInWhenPushAction(nullptr)
+		, _comeInWhenPopAction(nullptr)
+		, _goOutWhenPushAction(nullptr)
+		, _goOutWhenPopAction(nullptr)
 	{
 	}
 
@@ -13,44 +19,88 @@ namespace framework
 	{
 	}
 
-	bool GameLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
+	bool GameLayer::init()
 	{
-		if (!_isEnabled)
+		if (!Layer::init())
 		{
 			return false;
 		}
 
-		return Layer::onTouchBegan(pTouch, pEvent);
+		auto pListener = EventListenerTouchOneByOne::create();
+		pListener->setSwallowTouches(true);
+
+		pListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
+		pListener->onTouchMoved = CC_CALLBACK_2(GameLayer::onTouchMoved, this);
+		pListener->onTouchEnded = CC_CALLBACK_2(GameLayer::onTouchEnded, this);
+		pListener->onTouchCancelled = CC_CALLBACK_2(GameLayer::onTouchCancelled, this);
+
+		this->_eventDispatcher->addEventListenerWithSceneGraphPriority(pListener, this);
+
+		return true;
 	}
 
-	void GameLayer::onTouchMoved(Touch *pTouch, Event *pEvent)
+	GameLayer *GameLayer::createWithTransitions(cocos2d::ActionInterval *comeInWhenPushAction, cocos2d::ActionInterval *comeInWhenPopAction, cocos2d::ActionInterval *goOutWhenPushAction, cocos2d::ActionInterval *goOutWhenPopAction)
 	{
-		if (!_isEnabled)
+		auto pLayer = new GameLayer();
+		if (pLayer && pLayer->init())
+		{
+			pLayer->_comeInWhenPushAction = comeInWhenPushAction;
+			pLayer->_comeInWhenPopAction = comeInWhenPopAction;
+			pLayer->_goOutWhenPushAction = goOutWhenPushAction;
+			pLayer->_goOutWhenPopAction = goOutWhenPopAction;
+			
+			pLayer->_comeInWhenPushAction->retain();
+			pLayer->_comeInWhenPopAction->retain();
+			pLayer->_goOutWhenPushAction->retain();
+			pLayer->_goOutWhenPopAction->retain();
+
+			pLayer->autorelease();
+
+			return pLayer;
+		}
+
+		CC_SAFE_RELEASE_NULL(pLayer);
+		return nullptr;
+	}
+
+	bool GameLayer::onTouchBegan(Touch *touch, Event *unused_event)
+	{
+		if (!this->_isShown)
+		{
+			return true;
+		}
+
+		return Layer::onTouchBegan(touch, unused_event);
+	}
+
+	void GameLayer::onTouchMoved(Touch *touch, Event *unused_event)
+	{
+		if (!this->_isShown)
 		{
 			return;
 		}
 
-		Layer::onTouchMoved(pTouch, pEvent);
+		Layer::onTouchMoved(touch, unused_event);
 	}
 
-	void GameLayer::onTouchEnded(Touch *pTouch, Event *pEvent)
+	void GameLayer::onTouchEnded(Touch *touch, Event *unused_event)
 	{
-		if (!_isEnabled)
+		if (!this->_isShown)
 		{
 			return;
 		}
 
-		Layer::onTouchEnded(pTouch, pEvent);
+		Layer::onTouchEnded(touch, unused_event);
 	}
 
-	void GameLayer::onTouchCancelled(Touch *pTouch, Event *pEvent)
+	void GameLayer::onTouchCancelled(Touch *touch, Event *unused_event)
 	{
-		if (!_isEnabled)
+		if (!this->_isShown)
 		{
 			return;
 		}
 
-		Layer::onTouchCancelled(pTouch, pEvent);
+		Layer::onTouchCancelled(touch, unused_event);
 	}
 
 }

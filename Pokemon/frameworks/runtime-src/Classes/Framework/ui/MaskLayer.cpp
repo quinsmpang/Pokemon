@@ -8,7 +8,8 @@ namespace framework
 
 	/*****************public functions*****************/
 	MaskLayer::MaskLayer()
-		: _opacity(200)
+		: LayerColor()
+		, _opacity(200)
 		, _color(Color3B(0, 0, 0))
 		, _area(Rect(0, 0, 0, 0))
 		, _stencil(nullptr)

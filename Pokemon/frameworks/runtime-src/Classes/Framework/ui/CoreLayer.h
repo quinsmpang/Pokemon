@@ -30,6 +30,15 @@ namespace framework
 		CoreLayer();
 		virtual ~CoreLayer();
 
+		// The top layer goes out at first when push a new layer.
+		virtual void topLayerDidGoOutWhenPush(GameLayer *newLayer);
+		// New layer comes in.
+		virtual void newLayerReadyToComeInWhenPush(GameLayer *newLayer);
+		// The top layer goes out at first when pop.
+		virtual void newLayerDidGoOutWhenPop();
+		// The front layer comes in after pop.
+		virtual void topLayerReadyToComeInWhenPop();
+
 		Stack *_layers;
 	};
 }

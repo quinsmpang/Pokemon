@@ -1647,7 +1647,7 @@ int lua_register_psframework_ViewController(lua_State* tolua_S)
     return 1;
 }
 
-int lua_psframework_GameLayer_setEnabled(lua_State* tolua_S)
+int lua_psframework_GameLayer_getComeInWhenPushAction(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -1667,151 +1667,7 @@ int lua_psframework_GameLayer_setEnabled(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_setEnabled'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
-    {
-        bool arg0;
-
-        ok &= luaval_to_boolean(tolua_S, 2,&arg0);
-        if(!ok)
-            return 0;
-        cobj->setEnabled(arg0);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setEnabled",argc, 1);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_setEnabled'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_GameLayer_onTouchEnded(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::GameLayer* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.GameLayer",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::GameLayer*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_onTouchEnded'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 2) 
-    {
-        cocos2d::Touch* arg0;
-        cocos2d::Event* arg1;
-
-        ok &= luaval_to_object<cocos2d::Touch>(tolua_S, 2, "cc.Touch",&arg0);
-
-        ok &= luaval_to_object<cocos2d::Event>(tolua_S, 3, "cc.Event",&arg1);
-        if(!ok)
-            return 0;
-        cobj->onTouchEnded(arg0, arg1);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTouchEnded",argc, 2);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_onTouchEnded'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_GameLayer_onTouchMoved(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::GameLayer* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.GameLayer",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::GameLayer*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_onTouchMoved'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 2) 
-    {
-        cocos2d::Touch* arg0;
-        cocos2d::Event* arg1;
-
-        ok &= luaval_to_object<cocos2d::Touch>(tolua_S, 2, "cc.Touch",&arg0);
-
-        ok &= luaval_to_object<cocos2d::Event>(tolua_S, 3, "cc.Event",&arg1);
-        if(!ok)
-            return 0;
-        cobj->onTouchMoved(arg0, arg1);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTouchMoved",argc, 2);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_onTouchMoved'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_GameLayer_isEnabled(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::GameLayer* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.GameLayer",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::GameLayer*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_isEnabled'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_getComeInWhenPushAction'", nullptr);
         return 0;
     }
 #endif
@@ -1821,21 +1677,21 @@ int lua_psframework_GameLayer_isEnabled(lua_State* tolua_S)
     {
         if(!ok)
             return 0;
-        bool ret = cobj->isEnabled();
-        tolua_pushboolean(tolua_S,(bool)ret);
+        cocos2d::ActionInterval* ret = cobj->getComeInWhenPushAction();
+        object_to_luaval<cocos2d::ActionInterval>(tolua_S, "cc.ActionInterval",(cocos2d::ActionInterval*)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isEnabled",argc, 0);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getComeInWhenPushAction",argc, 0);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_isEnabled'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_getComeInWhenPushAction'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_psframework_GameLayer_onTouchCancelled(lua_State* tolua_S)
+int lua_psframework_GameLayer_isShown(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -1855,36 +1711,31 @@ int lua_psframework_GameLayer_onTouchCancelled(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_onTouchCancelled'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_isShown'", nullptr);
         return 0;
     }
 #endif
 
     argc = lua_gettop(tolua_S)-1;
-    if (argc == 2) 
+    if (argc == 0) 
     {
-        cocos2d::Touch* arg0;
-        cocos2d::Event* arg1;
-
-        ok &= luaval_to_object<cocos2d::Touch>(tolua_S, 2, "cc.Touch",&arg0);
-
-        ok &= luaval_to_object<cocos2d::Event>(tolua_S, 3, "cc.Event",&arg1);
         if(!ok)
             return 0;
-        cobj->onTouchCancelled(arg0, arg1);
-        return 0;
+        bool ret = cobj->isShown();
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTouchCancelled",argc, 2);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isShown",argc, 0);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_onTouchCancelled'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_isShown'.",&tolua_err);
 #endif
 
     return 0;
 }
-int lua_psframework_GameLayer_onTouchBegan(lua_State* tolua_S)
+int lua_psframework_GameLayer_init(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -1904,34 +1755,383 @@ int lua_psframework_GameLayer_onTouchBegan(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_onTouchBegan'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_init'", nullptr);
         return 0;
     }
 #endif
 
     argc = lua_gettop(tolua_S)-1;
-    if (argc == 2) 
+    if (argc == 0) 
     {
-        cocos2d::Touch* arg0;
-        cocos2d::Event* arg1;
-
-        ok &= luaval_to_object<cocos2d::Touch>(tolua_S, 2, "cc.Touch",&arg0);
-
-        ok &= luaval_to_object<cocos2d::Event>(tolua_S, 3, "cc.Event",&arg1);
         if(!ok)
             return 0;
-        bool ret = cobj->onTouchBegan(arg0, arg1);
+        bool ret = cobj->init();
         tolua_pushboolean(tolua_S,(bool)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTouchBegan",argc, 2);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "init",argc, 0);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_onTouchBegan'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_init'.",&tolua_err);
 #endif
 
+    return 0;
+}
+int lua_psframework_GameLayer_setGoOutWhenPushAction(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::GameLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.GameLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::GameLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_setGoOutWhenPushAction'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::ActionInterval* arg0;
+
+        ok &= luaval_to_object<cocos2d::ActionInterval>(tolua_S, 2, "cc.ActionInterval",&arg0);
+        if(!ok)
+            return 0;
+        cobj->setGoOutWhenPushAction(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setGoOutWhenPushAction",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_setGoOutWhenPushAction'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_GameLayer_setComeInWhenPushAction(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::GameLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.GameLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::GameLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_setComeInWhenPushAction'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::ActionInterval* arg0;
+
+        ok &= luaval_to_object<cocos2d::ActionInterval>(tolua_S, 2, "cc.ActionInterval",&arg0);
+        if(!ok)
+            return 0;
+        cobj->setComeInWhenPushAction(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setComeInWhenPushAction",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_setComeInWhenPushAction'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_GameLayer_getGoOutWhenPushAction(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::GameLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.GameLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::GameLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_getGoOutWhenPushAction'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cocos2d::ActionInterval* ret = cobj->getGoOutWhenPushAction();
+        object_to_luaval<cocos2d::ActionInterval>(tolua_S, "cc.ActionInterval",(cocos2d::ActionInterval*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getGoOutWhenPushAction",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_getGoOutWhenPushAction'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_GameLayer_getComeInWhenPopAction(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::GameLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.GameLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::GameLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_getComeInWhenPopAction'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cocos2d::ActionInterval* ret = cobj->getComeInWhenPopAction();
+        object_to_luaval<cocos2d::ActionInterval>(tolua_S, "cc.ActionInterval",(cocos2d::ActionInterval*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getComeInWhenPopAction",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_getComeInWhenPopAction'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_GameLayer_getGoOutWhenPopAction(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::GameLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.GameLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::GameLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_getGoOutWhenPopAction'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cocos2d::ActionInterval* ret = cobj->getGoOutWhenPopAction();
+        object_to_luaval<cocos2d::ActionInterval>(tolua_S, "cc.ActionInterval",(cocos2d::ActionInterval*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getGoOutWhenPopAction",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_getGoOutWhenPopAction'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_GameLayer_setComeInWhenPopAction(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::GameLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.GameLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::GameLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_setComeInWhenPopAction'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::ActionInterval* arg0;
+
+        ok &= luaval_to_object<cocos2d::ActionInterval>(tolua_S, 2, "cc.ActionInterval",&arg0);
+        if(!ok)
+            return 0;
+        cobj->setComeInWhenPopAction(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setComeInWhenPopAction",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_setComeInWhenPopAction'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_GameLayer_setGoOutWhenPopAction(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::GameLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.GameLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::GameLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_setGoOutWhenPopAction'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::ActionInterval* arg0;
+
+        ok &= luaval_to_object<cocos2d::ActionInterval>(tolua_S, 2, "cc.ActionInterval",&arg0);
+        if(!ok)
+            return 0;
+        cobj->setGoOutWhenPopAction(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setGoOutWhenPopAction",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_setGoOutWhenPopAction'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_GameLayer_createWithTransitions(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.GameLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 4)
+    {
+        cocos2d::ActionInterval* arg0;
+        cocos2d::ActionInterval* arg1;
+        cocos2d::ActionInterval* arg2;
+        cocos2d::ActionInterval* arg3;
+        ok &= luaval_to_object<cocos2d::ActionInterval>(tolua_S, 2, "cc.ActionInterval",&arg0);
+        ok &= luaval_to_object<cocos2d::ActionInterval>(tolua_S, 3, "cc.ActionInterval",&arg1);
+        ok &= luaval_to_object<cocos2d::ActionInterval>(tolua_S, 4, "cc.ActionInterval",&arg2);
+        ok &= luaval_to_object<cocos2d::ActionInterval>(tolua_S, 5, "cc.ActionInterval",&arg3);
+        if(!ok)
+            return 0;
+        framework::GameLayer* ret = framework::GameLayer::createWithTransitions(arg0, arg1, arg2, arg3);
+        object_to_luaval<framework::GameLayer>(tolua_S, "pf.GameLayer",(framework::GameLayer*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "createWithTransitions",argc, 4);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_createWithTransitions'.",&tolua_err);
+#endif
     return 0;
 }
 int lua_psframework_GameLayer_create(lua_State* tolua_S)
@@ -1977,12 +2177,17 @@ int lua_register_psframework_GameLayer(lua_State* tolua_S)
     tolua_cclass(tolua_S,"GameLayer","pf.GameLayer","cc.Layer",nullptr);
 
     tolua_beginmodule(tolua_S,"GameLayer");
-        tolua_function(tolua_S,"setEnabled",lua_psframework_GameLayer_setEnabled);
-        tolua_function(tolua_S,"onTouchEnded",lua_psframework_GameLayer_onTouchEnded);
-        tolua_function(tolua_S,"onTouchMoved",lua_psframework_GameLayer_onTouchMoved);
-        tolua_function(tolua_S,"isEnabled",lua_psframework_GameLayer_isEnabled);
-        tolua_function(tolua_S,"onTouchCancelled",lua_psframework_GameLayer_onTouchCancelled);
-        tolua_function(tolua_S,"onTouchBegan",lua_psframework_GameLayer_onTouchBegan);
+        tolua_function(tolua_S,"getComeInWhenPushAction",lua_psframework_GameLayer_getComeInWhenPushAction);
+        tolua_function(tolua_S,"isShown",lua_psframework_GameLayer_isShown);
+        tolua_function(tolua_S,"init",lua_psframework_GameLayer_init);
+        tolua_function(tolua_S,"setGoOutWhenPushAction",lua_psframework_GameLayer_setGoOutWhenPushAction);
+        tolua_function(tolua_S,"setComeInWhenPushAction",lua_psframework_GameLayer_setComeInWhenPushAction);
+        tolua_function(tolua_S,"getGoOutWhenPushAction",lua_psframework_GameLayer_getGoOutWhenPushAction);
+        tolua_function(tolua_S,"getComeInWhenPopAction",lua_psframework_GameLayer_getComeInWhenPopAction);
+        tolua_function(tolua_S,"getGoOutWhenPopAction",lua_psframework_GameLayer_getGoOutWhenPopAction);
+        tolua_function(tolua_S,"setComeInWhenPopAction",lua_psframework_GameLayer_setComeInWhenPopAction);
+        tolua_function(tolua_S,"setGoOutWhenPopAction",lua_psframework_GameLayer_setGoOutWhenPopAction);
+        tolua_function(tolua_S,"createWithTransitions", lua_psframework_GameLayer_createWithTransitions);
         tolua_function(tolua_S,"create", lua_psframework_GameLayer_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::GameLayer).name();
@@ -3053,125 +3258,6 @@ int lua_register_psframework_GameScene(lua_State* tolua_S)
     return 1;
 }
 
-int lua_psframework_MaskLayerDelegate_onEventPenetrated(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::MaskLayerDelegate* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.MaskLayerDelegate",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::MaskLayerDelegate*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayerDelegate_onEventPenetrated'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 2) 
-    {
-        double arg0;
-        double arg1;
-
-        ok &= luaval_to_number(tolua_S, 2,&arg0);
-
-        ok &= luaval_to_number(tolua_S, 3,&arg1);
-        if(!ok)
-            return 0;
-        cobj->onEventPenetrated(arg0, arg1);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onEventPenetrated",argc, 2);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayerDelegate_onEventPenetrated'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_MaskLayerDelegate_onEventIntercepted(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::MaskLayerDelegate* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.MaskLayerDelegate",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::MaskLayerDelegate*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_MaskLayerDelegate_onEventIntercepted'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 2) 
-    {
-        double arg0;
-        double arg1;
-
-        ok &= luaval_to_number(tolua_S, 2,&arg0);
-
-        ok &= luaval_to_number(tolua_S, 3,&arg1);
-        if(!ok)
-            return 0;
-        cobj->onEventIntercepted(arg0, arg1);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onEventIntercepted",argc, 2);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_MaskLayerDelegate_onEventIntercepted'.",&tolua_err);
-#endif
-
-    return 0;
-}
-static int lua_psframework_MaskLayerDelegate_finalize(lua_State* tolua_S)
-{
-    printf("luabindings: finalizing LUA object (MaskLayerDelegate)");
-    return 0;
-}
-
-int lua_register_psframework_MaskLayerDelegate(lua_State* tolua_S)
-{
-    tolua_usertype(tolua_S,"pf.MaskLayerDelegate");
-    tolua_cclass(tolua_S,"MaskLayerDelegate","pf.MaskLayerDelegate","",nullptr);
-
-    tolua_beginmodule(tolua_S,"MaskLayerDelegate");
-        tolua_function(tolua_S,"onEventPenetrated",lua_psframework_MaskLayerDelegate_onEventPenetrated);
-        tolua_function(tolua_S,"onEventIntercepted",lua_psframework_MaskLayerDelegate_onEventIntercepted);
-    tolua_endmodule(tolua_S);
-    std::string typeName = typeid(framework::MaskLayerDelegate).name();
-    g_luaType[typeName] = "pf.MaskLayerDelegate";
-    g_typeCast["MaskLayerDelegate"] = "pf.MaskLayerDelegate";
-    return 1;
-}
-
 int lua_psframework_MaskLayer_onEventPenetrated(lua_State* tolua_S)
 {
     int argc = 0;
@@ -3657,7 +3743,6 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	tolua_beginmodule(tolua_S,nullptr);
 
 	lua_register_psframework_ViewController(tolua_S);
-	lua_register_psframework_MaskLayerDelegate(tolua_S);
 	lua_register_psframework_GameLayer(tolua_S);
 	lua_register_psframework_Queue(tolua_S);
 	lua_register_psframework_SqliteDb(tolua_S);

@@ -6,7 +6,8 @@ namespace framework
 {
 
 	Stack::Stack()
-		: _container(new std::stack<Ref*>())
+		: Ref()
+		, _container(new std::stack<Ref*>())
 	{
 	}
 

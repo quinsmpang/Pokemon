@@ -6,7 +6,8 @@ namespace framework
 {
 
 	Queue::Queue()
-		: _container(new std::queue<Ref*>())
+		: Ref()
+		, _container(new std::queue<Ref*>())
 	{
 	}
 

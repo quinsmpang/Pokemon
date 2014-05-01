@@ -22,6 +22,9 @@ class("psViewController", {
 class("psGameLayer", {
 		create = function()
 			return GameLayer:create()
+		end,
+		createWithTransitions = function(...)
+			return GameLayer:createWithTransitions(...)
 		end
 	})
 
@@ -29,6 +32,13 @@ class("psGameLayer", {
 class("psCoreLayer", {
 		create = function()
 			return CoreLayer:create()
+		end
+	})
+
+--psModalLayer
+class("psModalLayer", {
+		create = function()
+			return ModalLayer:create()
 		end
 	})
 
