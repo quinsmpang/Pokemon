@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 
 #include "lua/lua_framework_auto.hpp"
+#include "version.h"
 
 using namespace CocosDenshion;
 
@@ -41,7 +42,12 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	auto pEngine = LuaEngine::getInstance();
 	ScriptEngineManager::getInstance()->setScriptEngine(pEngine);
-	register_all_psframework(pEngine->getLuaStack()->getLuaState());		
+	// bind our framework to lua.
+	register_all_psframework(pEngine->getLuaStack()->getLuaState());
+	// version management.
+	::printVersion();
+	lua_register_psframework_version(pEngine->getLuaStack()->getLuaState());
+
 	pEngine->executeScriptFile("src/main.lua");
 
     return true;

@@ -3735,6 +3735,390 @@ int lua_register_psframework_MaskLayer(lua_State* tolua_S)
     g_typeCast["MaskLayer"] = "pf.MaskLayer";
     return 1;
 }
+
+int lua_psframework_ModalLayer_onModalTouchMoved(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ModalLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ModalLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ModalLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ModalLayer_onModalTouchMoved'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        double arg0;
+        double arg1;
+
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_number(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        cobj->onModalTouchMoved(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onModalTouchMoved",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ModalLayer_onModalTouchMoved'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ModalLayer_onModalTouchBegan(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ModalLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ModalLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ModalLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ModalLayer_onModalTouchBegan'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        double arg0;
+        double arg1;
+
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_number(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        cobj->onModalTouchBegan(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onModalTouchBegan",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ModalLayer_onModalTouchBegan'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ModalLayer_onGoOut(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ModalLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ModalLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ModalLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ModalLayer_onGoOut'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj->onGoOut();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onGoOut",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ModalLayer_onGoOut'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ModalLayer_onModalTouchEnded(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ModalLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ModalLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ModalLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ModalLayer_onModalTouchEnded'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        double arg0;
+        double arg1;
+
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_number(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        cobj->onModalTouchEnded(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onModalTouchEnded",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ModalLayer_onModalTouchEnded'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ModalLayer_init(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ModalLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ModalLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ModalLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ModalLayer_init'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        bool ret = cobj->init();
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "init",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ModalLayer_init'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ModalLayer_onModalTouchCancelled(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ModalLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ModalLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ModalLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ModalLayer_onModalTouchCancelled'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        double arg0;
+        double arg1;
+
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_number(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        cobj->onModalTouchCancelled(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onModalTouchCancelled",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ModalLayer_onModalTouchCancelled'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ModalLayer_onComeIn(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ModalLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ModalLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ModalLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ModalLayer_onComeIn'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj->onComeIn();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onComeIn",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ModalLayer_onComeIn'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ModalLayer_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.ModalLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+            return 0;
+        framework::ModalLayer* ret = framework::ModalLayer::create();
+        object_to_luaval<framework::ModalLayer>(tolua_S, "pf.ModalLayer",(framework::ModalLayer*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ModalLayer_create'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_ModalLayer_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (ModalLayer)");
+    return 0;
+}
+
+int lua_register_psframework_ModalLayer(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.ModalLayer");
+    tolua_cclass(tolua_S,"ModalLayer","pf.ModalLayer","cc.LayerColor",nullptr);
+
+    tolua_beginmodule(tolua_S,"ModalLayer");
+        tolua_function(tolua_S,"onModalTouchMoved",lua_psframework_ModalLayer_onModalTouchMoved);
+        tolua_function(tolua_S,"onModalTouchBegan",lua_psframework_ModalLayer_onModalTouchBegan);
+        tolua_function(tolua_S,"onGoOut",lua_psframework_ModalLayer_onGoOut);
+        tolua_function(tolua_S,"onModalTouchEnded",lua_psframework_ModalLayer_onModalTouchEnded);
+        tolua_function(tolua_S,"init",lua_psframework_ModalLayer_init);
+        tolua_function(tolua_S,"onModalTouchCancelled",lua_psframework_ModalLayer_onModalTouchCancelled);
+        tolua_function(tolua_S,"onComeIn",lua_psframework_ModalLayer_onComeIn);
+        tolua_function(tolua_S,"create", lua_psframework_ModalLayer_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::ModalLayer).name();
+    g_luaType[typeName] = "pf.ModalLayer";
+    g_typeCast["ModalLayer"] = "pf.ModalLayer";
+    return 1;
+}
 TOLUA_API int register_all_psframework(lua_State* tolua_S)
 {
 	tolua_open(tolua_S);
@@ -3745,6 +4129,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_ViewController(tolua_S);
 	lua_register_psframework_GameLayer(tolua_S);
 	lua_register_psframework_Queue(tolua_S);
+	lua_register_psframework_ModalLayer(tolua_S);
 	lua_register_psframework_SqliteDb(tolua_S);
 	lua_register_psframework_MaskLayer(tolua_S);
 	lua_register_psframework_CoreLayer(tolua_S);

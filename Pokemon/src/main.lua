@@ -25,6 +25,11 @@ local function main()
 	cc.FileUtils:getInstance():addSearchResolutionsOrder("src");
 	cc.FileUtils:getInstance():addSearchResolutionsOrder("res");
 
+    --[[
+        Framework Demo
+    ]]
+    log("framework version string: %s, number: %.2f", PSFrameworkVersionStr, PSFrameworkVersionNumber)
+    
     local screenSize = cc.Director:getInstance():getWinSize()
 
     local mainScene = psGameScene:create()
@@ -94,10 +99,10 @@ local function main()
     coreLayer:addChild(maskLayer)
 
     local topLayer = psGameLayer:createWithTransitions(
-        cc.EaseOut:create(cc.MoveBy:create(0.5, ccp(-screenSize.width, 0)), 5), 
-        cc.EaseOut:create(cc.MoveBy:create(0.5, ccp(screenSize.width, 0)), 5),
-        cc.EaseIn:create(cc.MoveBy:create(0.5, ccp(-screenSize.width, 0)), 5),
-        cc.EaseIn:create(cc.MoveBy:create(0.5, ccp(screenSize.width, 0)), 5)
+        cc.EaseOut:create(cc.MoveBy:create(0.5, ccp(-screenSize.width, 0)), 2), 
+        cc.EaseOut:create(cc.MoveBy:create(0.5, ccp(screenSize.width, 0)), 2),
+        cc.EaseIn:create(cc.MoveBy:create(0.5, ccp(-screenSize.width, 0)), 2),
+        cc.EaseIn:create(cc.MoveBy:create(0.5, ccp(screenSize.width, 0)), 2)
         )
     topLayer:setPosition(screenSize.width, 0)
     local land = cc.Sprite:create("land.png")
@@ -108,10 +113,10 @@ local function main()
         local pos = touch:getLocation()
         log("onTouchScreen: %.2f, %.2f", pos.x, pos.y)
         local copyLayer = psGameLayer:createWithTransitions(
-            cc.EaseOut:create(cc.MoveBy:create(0.5, ccp(-screenSize.width, 0)), 5), 
-            cc.EaseOut:create(cc.MoveBy:create(0.5, ccp(screenSize.width, 0)), 5),
-            cc.EaseIn:create(cc.MoveBy:create(0.5, ccp(-screenSize.width, 0)), 5),
-            cc.EaseIn:create(cc.MoveBy:create(0.5, ccp(screenSize.width, 0)), 5)
+            cc.EaseOut:create(cc.MoveBy:create(0.5, ccp(-screenSize.width, 0)), 2), 
+            cc.EaseOut:create(cc.MoveBy:create(0.5, ccp(screenSize.width, 0)), 2),
+            cc.EaseIn:create(cc.MoveBy:create(0.5, ccp(-screenSize.width, 0)), 2),
+            cc.EaseIn:create(cc.MoveBy:create(0.5, ccp(screenSize.width, 0)), 2)
             )
         copyLayer:setPosition(screenSize.width, 0)
         local land = cc.Sprite:create("land.png")
@@ -139,6 +144,35 @@ local function main()
     topLayer:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, topLayer)
 
     coreLayer:pushLayer(topLayer)
+
+    local modalLayer = psModalLayer:create()
+    modalLayer:ignoreAnchorPointForPosition(false)
+    modalLayer:setAnchorPoint(0.5, 0.5)
+    modalLayer:setPosition(screenSize.width * 0.5, screenSize.height * 0.5)
+    modalLayer:setScale(0)
+    modalLayer:setOpacity(100)
+    modalLayer:setColor(ccc3(0, 0, 0))
+
+    modalLayer.onComeIn = function(self)
+        local comeInAction = cc.ScaleTo:create(0.5, 1)
+        self:runAction(comeInAction)
+    end
+
+    modalLayer.cleanUp = function(self)
+        self:removeFromParent()
+        log("modalLayer is cleaned up.")
+    end
+
+    modalLayer.onModalTouchBegan = function(self, x, y)
+        log("Modal layer touched at: %.2f, %.2f", x, y)
+        local goOutAction = cc.Sequence:create(
+            cc.ScaleTo:create(0.5, 0),
+            cc.CallFunc:create(MakeScriptHandler(self, self.cleanUp))
+            )
+        self:runAction(goOutAction)
+    end
+
+    topLayer:addChild(modalLayer)
 
     --[[
     local visibleSize = cc.Director:getInstance():getVisibleSize()

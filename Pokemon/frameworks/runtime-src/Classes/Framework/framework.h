@@ -14,5 +14,6 @@
 #include "ui\GameLayer.h"
 #include "ui\CoreLayer.h"
 #include "ui\MaskLayer.h"
+#include "ui\ModalLayer.h"
 
 #endif
