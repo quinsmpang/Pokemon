@@ -66,6 +66,23 @@ function SqliteLua:insertLuaTableIntoDB(luaTable, tableName)
 		return false
 	end
 
+	local dict = self:mergeValueToDictionary(luaTable)
+
+	return self:insertTable(tableName, dict)
+end
+
+-- 将Lua Table更新到表中
+function SqliteLua:updateLuaTableIntoDB(luaTable, tableName)
+	if type(luaTable) ~= "table" then
+		return false
+	end
+
+	local dict = self:mergeValueToDictionary(luaTable)
+
+	return self:updateTable(tableName, dict, "ID", tostring(luaTable.ID))
+end
+
+function SqliteLua:mergeValueToDictionary(luaTable)
 	local dict = __Dictionary:create()
 	local count = 0
 	for k, v in pairs(luaTable) do
@@ -87,22 +104,8 @@ function SqliteLua:insertLuaTableIntoDB(luaTable, tableName)
 			str = tostring(v)
 		end
 
-		dict:objectForKey(__String:create(k)) = __String:create(str)
+		dict:setObject(__String:create(str), __String:create(k))
 	end	
 
-	return self:insertTable(tableName, dict)
-end
-
--- 将Lua Table更新到表中
-function SqliteLua:updateLuaTableIntoDB(luaTable, tableName)
-	if type(luaTable) ~= "table" then
-		return false
-	end
-
-	local dict = __Dictionary:create()
-	for k, v in pairs(luaTable) do
-		dict:objectForKey(__String:create(k)) = __String:create(v)
-	end
-
-	return self:updateTable(tableName, dict, "ID", tostring(luaTable.ID))
+	return dict
 end

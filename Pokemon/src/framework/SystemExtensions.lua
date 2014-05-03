@@ -60,7 +60,7 @@ end
 
 -- concat strings with the specified character
 function table.join(table, joinChar)
-	if type(table) ~= "table" || type(joinChar) ~= "string" then
+	if type(table) ~= "table" or type(joinChar) ~= "string" then
 		return
 	end
 

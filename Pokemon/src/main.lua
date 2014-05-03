@@ -1,14 +1,6 @@
 require "Cocos2d"
 require "Cocos2dConstants"
 
-require "src/framework/luaClass"
-require "src/framework/class"
-require "src/framework/SystemExtensions"
-require "src/framework/BaseExtensions"
-require "src/framework/Notifier"
-require "src/framework/SqliteLua"
-require "src/framework/commonLib"
-
 -- for CCLuaEngine traceback
 function __G__TRACKBACK__(msg)
     print("----------------------------------------")
@@ -17,14 +9,36 @@ function __G__TRACKBACK__(msg)
     print("----------------------------------------")
 end
 
-local function main()
+GameLauncher = {}
+
+function GameLauncher:init()
     collectgarbage("collect")
     -- avoid memory leak
     collectgarbage("setpause", 100)
     collectgarbage("setstepmul", 5000)
-	cc.FileUtils:getInstance():addSearchResolutionsOrder("src");
-	cc.FileUtils:getInstance():addSearchResolutionsOrder("res");
+    cc.FileUtils:getInstance():addSearchResolutionsOrder("src");
+    cc.FileUtils:getInstance():addSearchResolutionsOrder("res");
+    
+    self:loadLuaFramework()
+end
 
+function GameLauncher:loadLuaFramework()
+    require "src/framework/luaClass"
+    require "src/framework/class"
+    require "src/framework/SystemExtensions"
+    require "src/framework/BaseExtensions"
+    require "src/framework/commonLib"
+    require "src/framework/Notifier"
+    require "src/framework/SqliteLua"
+end
+
+function GameLauncher:launch()
+    GameLauncher:init()
+
+    GameLauncher:demo()
+end
+
+function GameLauncher:demo()
     --[[
         Framework Demo
     ]]
@@ -353,14 +367,13 @@ local function main()
     local sceneGame = cc.Scene:create()
     sceneGame:addChild(createLayerFarm())
     sceneGame:addChild(createLayerMenu())
-	
-	if cc.Director:getInstance():getRunningScene() then
-		cc.Director:getInstance():replaceScene(sceneGame)
-	else
-		cc.Director:getInstance():runWithScene(sceneGame)
-	end
+    
+    if cc.Director:getInstance():getRunningScene() then
+        cc.Director:getInstance():replaceScene(sceneGame)
+    else
+        cc.Director:getInstance():runWithScene(sceneGame)
+    end
 ]]
 end
 
-
-xpcall(main, __G__TRACKBACK__)
+xpcall(GameLauncher.launch, __G__TRACKBACK__)
