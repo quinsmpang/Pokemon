@@ -69,7 +69,7 @@ function table.join(table, joinChar)
 	for k, v in pairs(table) do
 		str = str .. tostring(v)
 		count = count + 1
-		if count ~= table.getTotalCount(table) then		
+		if count ~= #table then		
 			str = str .. joinChar	
 		end
 	end
@@ -87,7 +87,7 @@ function string.split(str, splitChar)
 			break
 		end
 		local subStr = string.sub(str, 1, pos - 1)
-		table.insert(resultTable, subStr)
+		resultTable[#resultTable + 1] = subStr
 		str = string.sub(str, pos + 1, #str)
 	end
 

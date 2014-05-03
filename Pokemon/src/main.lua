@@ -11,6 +11,8 @@ end
 
 GameLauncher = {}
 
+DEBUG = false
+
 function GameLauncher:init()
     collectgarbage("collect")
     -- avoid memory leak
@@ -20,12 +22,13 @@ function GameLauncher:init()
     cc.FileUtils:getInstance():addSearchResolutionsOrder("res");
     
     self:loadLuaFramework()
+    self:loadPublicModules()
 
     -- set random seed
     math.randomseed(tostring(os.time()):reverse():sub(1, 6))
 
     -- print current version
-    log("framework version string: %s, number: %.2f", PSFrameworkVersionStr, PSFrameworkVersionNumber)
+    log("framework version string: %s, number: %.2f\n", PSFrameworkVersionStr, PSFrameworkVersionNumber)
 end
 
 function GameLauncher:loadLuaFramework()
@@ -39,10 +42,24 @@ function GameLauncher:loadLuaFramework()
     require "src/framework/psModel"
 end
 
+function GameLauncher:loadPublicModules()
+    
+end
+
+function GameLauncher:startGame()
+    require "src/view/maintitle/MainViewScene"
+
+    local mainView = MainViewScene:create()
+
+    cc.Director:getInstance():runWithScene(mainView)
+end
+
 function GameLauncher:launch()
     GameLauncher:init()
 
     --GameLauncher:demo()
+
+    GameLauncher:startGame()
 end
 
 function GameLauncher:demo()
