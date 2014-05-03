@@ -87,7 +87,7 @@ function string.split(str, splitChar)
 			break
 		end
 		local subStr = string.sub(str, 1, pos - 1)
-		resultTable[#resultTable + 1] = subStr
+		table.insert(resultTable, subStr)
 		str = string.sub(str, pos + 1, #str)
 	end
 

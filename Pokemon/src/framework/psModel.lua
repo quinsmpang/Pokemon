@@ -9,10 +9,16 @@ DBNULL = "null"
 
 luaClass("psModel")
 
-psModel.updateFlag = false
-
--- override init.
 function psModel:init()
-	
+	local data = self:getDataFromDB()
+	self:updateWithData(data)
 end
 
+-- data is the lua table from db.
+function psModel:updateWithData(data)
+	table.deepCopy(self, data)
+end
+
+function psModel:getDataFromDB()
+	-- override me
+end

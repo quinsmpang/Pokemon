@@ -25,3 +25,8 @@ function CallFunctionAsync(target, selector, delay, ...)
 	end
 	handlerId = cc.Director:getInstance():getScheduler():scheduleScriptFunc(handlerFunction, delay, false)
 end
+
+function fallInRandom(numerator, denominator)
+	local randomNum = math.random(1, denominator)
+	return randomNum <= numerator
+end

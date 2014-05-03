@@ -20,6 +20,12 @@ function GameLauncher:init()
     cc.FileUtils:getInstance():addSearchResolutionsOrder("res");
     
     self:loadLuaFramework()
+
+    -- set random seed
+    math.randomseed(tostring(os.time()):reverse():sub(1, 6))
+
+    -- print current version
+    log("framework version string: %s, number: %.2f", PSFrameworkVersionStr, PSFrameworkVersionNumber)
 end
 
 function GameLauncher:loadLuaFramework()
@@ -30,18 +36,16 @@ function GameLauncher:loadLuaFramework()
     require "src/framework/commonLib"
     require "src/framework/Notifier"
     require "src/framework/SqliteLua"
+    require "src/framework/psModel"
 end
 
 function GameLauncher:launch()
     GameLauncher:init()
 
-    GameLauncher:demo()
+    --GameLauncher:demo()
 end
 
 function GameLauncher:demo()
-    --[[
-        Framework Demo
-    ]]
     log("framework version string: %s, number: %.2f", PSFrameworkVersionStr, PSFrameworkVersionNumber)
     
     local screenSize = cc.Director:getInstance():getWinSize()
