@@ -57,3 +57,39 @@ end
 function table.unlock(table)
 	setmetatable(table, nil)
 end
+
+-- concat strings with the specified character
+function table.join(table, joinChar)
+	if type(table) ~= "table" || type(joinChar) ~= "string" then
+		return
+	end
+
+	local str = ""
+	local count = 0
+	for k, v in pairs(table) do
+		str = str .. tostring(v)
+		count = count + 1
+		if count ~= table.getTotalCount(table) then		
+			str = str .. joinChar	
+		end
+	end
+	return str
+end
+
+-- split string from the specified character
+function string.split(str, splitChar)
+	local resultTable = {}
+
+	while true do
+		local pos = string.find(str, splitChar)
+		if not pos then
+			resultTable[#resultTable + 1] = str
+			break
+		end
+		local subStr = string.sub(str, 1, pos - 1)
+		resultTable[#resultTable + 1] = subStr
+		str = string.sub(str, pos + 1, #str)
+	end
+
+	return resultTable
+end
