@@ -33,18 +33,19 @@ function MainViewController:renderView()
 	local screenSize = cc.Director:getInstance():getWinSize()
 
 	-- info text
-	local gameInfoText = cc.LabelTTF:create(self.GAME_INFO_TEXT, "Consolas", 24)
+	local gameInfoText = cc.Label:createWithSystemFont(self.GAME_INFO_TEXT, "Consolas", 24)
 	gameInfoText:setAnchorPoint(0.5, 0.5)
 	gameInfoText:setPosition(screenSize.width * 0.5, screenSize.height * 0.5)
-	gameInfoText:setVisible(false)
+	-- label bug, you have to cascade opacity first and then set opacity.
+	gameInfoText:setCascadeOpacityEnabled(true)
+	gameInfoText:setOpacity(0)
 	coreLayer:addChild(gameInfoText)
 
 	self.infoLabel = gameInfoText
 
 	-- main layer
 	self.mainLayer = psGameLayer:create()
-	self.mainLayer:setVisible(false)
-	coreLayer:addChild(self.mainLayer)
+	coreLayer:pushLayer(self.mainLayer)
 
 	-- background
 	local back = cc.Sprite:create("images/maintitle/title.jpg")
@@ -55,7 +56,7 @@ function MainViewController:renderView()
 	self.background = back
 
 	-- touch text
-	local touchText = cc.LabelTTF:create(self.GAME_TOUCH_TEXT, "Consolas", 20)
+	local touchText = cc.Label:createWithSystemFont(self.GAME_TOUCH_TEXT, "Consolas", 20)
 	touchText:setAnchorPoint(0.5, 0.5)
 	touchText:setPosition(screenSize.width * 0.5, screenSize.height * 0.3)
 	touchText:setColor(ccc3(0, 0, 0))
@@ -63,40 +64,43 @@ function MainViewController:renderView()
 
 	self.touchLabel = touchText
 
+	-- set cascade opacity, otherwise the opacity property of parent node won't affect the opacity of children.
+	self.mainLayer:setCascadeOpacityEnabled(true)
+	self.mainLayer:setOpacity(0)
+
 	self:run()
 end
 
 function MainViewController:run()
 	self.infoLabel:runAction(cc.Sequence:create(
 		cc.DelayTime:create(1),
-		cc.FadeOut:create(0),
-		cc.Spawn:create(
-			cc.FadeIn:create(0.5),
-			cc.CallFunc:create(MakeScriptHandler(self, self.showNode, self.infoLabel))
-			),
+		cc.FadeIn:create(0.5),
 		cc.DelayTime:create(2),
-		cc.FadeOut:create(0.5),
-		cc.RemoveSelf:create(true)
+		cc.TargetedAction:create(self.infoLabel, cc.FadeOut:create(0.5))
 		))
 	self.mainLayer:runAction(cc.Sequence:create(
 		cc.DelayTime:create(4.5),
-		cc.FadeOut:create(0),
-		cc.Spawn:create(
-			cc.TargetedAction:create(self.background, cc.FadeIn:create(0.5)),
-			cc.TargetedAction:create(self.touchLabel, cc.FadeIn:create(0.5)),
-			cc.CallFunc:create(MakeScriptHandler(self, self.showNode, self.mainLayer))
-			),
-		cc.CallFunc:create(MakeScriptHandler(self, self.runTouchLabelActoin))
+		cc.FadeIn:create(0.5),
+		cc.CallFunc:create(MakeScriptHandler(self, self.registerMainLayerEvents)),
+		cc.CallFunc:create(MakeScriptHandler(self, self.runTouchLabelAction))
 		))
 end
-function MainViewController:showNode(node)
-	node:setVisible(true)
-end
-function MainViewController:runTouchLabelActoin()
+function MainViewController:runTouchLabelAction()
 	self.touchLabel:runAction(cc.RepeatForever:create(
 		cc.Sequence:create(
 			cc.FadeOut:create(0.5),
 			cc.FadeIn:create(0.5)
 			)
 		))
+end
+function MainViewController:registerMainLayerEvents()
+	local listener = cc.EventListenerTouchOneByOne:create()
+	listener:setSwallowTouches(true)
+	listener:registerScriptHandler(MakeScriptHandler(self, self.onMainViewTouch), cc.Handler.EVENT_TOUCH_BEGAN)
+
+	self.mainLayer:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, self.mainLayer)
+end
+
+function MainViewController:onMainViewTouch(touch, event)
+	log("touched")
 end
