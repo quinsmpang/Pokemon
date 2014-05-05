@@ -11,7 +11,9 @@ luaClass("psModel")
 
 function psModel:init()
 	local data = self:getDataFromDB()
-	self:updateWithData(data)
+	if data then
+		self:updateWithData(data)
+	end
 end
 
 -- data is the lua table from db.
@@ -21,4 +23,5 @@ end
 
 function psModel:getDataFromDB()
 	-- override me
+	return nil
 end
