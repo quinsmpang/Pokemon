@@ -60,7 +60,7 @@
           "capInsetsY": 0,
           "fileName": null,
           "fileNameData": {
-            "path": "images/maintitle/back.jpg",
+            "path": "../images/maintitle/back.jpg",
             "plistFile": "",
             "resourceType": 0
           },
@@ -114,7 +114,7 @@
           "capInsetsY": 0,
           "fileName": null,
           "fileNameData": {
-            "path": "sunrise_text.png",
+            "path": "../images/maintitle/sunrise_text.png",
             "plistFile": "",
             "resourceType": 0
           },
@@ -168,7 +168,7 @@
           "capInsetsY": 0,
           "fileName": null,
           "fileNameData": {
-            "path": "pokemon_text.png",
+            "path": "../images/maintitle/pokemon_text.png",
             "plistFile": "",
             "resourceType": 0
           },
@@ -219,7 +219,7 @@
           "areaHeight": 0,
           "areaWidth": 0,
           "fontFile": null,
-          "fontName": "微软雅黑",
+          "fontName": "Consolas",
           "fontSize": 20,
           "hAlignment": 0,
           "text": "Touch Anywhere To Start",
@@ -246,7 +246,7 @@
       "height": 480,
       "ignoreSize": false,
       "layoutParameter": null,
-      "opacity": 255,
+      "opacity": 0,
       "positionPercentX": 0,
       "positionPercentY": 0,
       "positionType": 0,

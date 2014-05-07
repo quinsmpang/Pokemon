@@ -51,21 +51,17 @@ function MainViewController:renderView()
 	coreLayer:pushLayer(self.mainLayer)
 
 	local ccsMainView = ccs.GUIReader:getInstance():widgetFromJsonFile("ccs/MainTitle.json")
-	self.mainLayer:addChild(ccsMainView)
 	ccsMainView:setOpacity(0)
+	self.mainLayer:addChild(ccsMainView)
 
 	self.touchLabel = ccsMainView:getChildByTag(TAG.TOUCHLABEL)
-	tolua.cast(self.touchLabel, "cc.Label")
-	self.touchLabel:setSystemFontName("Consolas")
 
 --[[
 	-- background
-	local back = cc.Sprite:create("images/maintitle/title.jpg")
+	local back = cc.Sprite:create("images/maintitle/back.jpg")
 	back:setAnchorPoint(0.5, 0.5)
 	back:setPosition(screenSize.width * 0.5, screenSize.height * 0.5)
 	self.mainLayer:addChild(back)
-
-	self.background = back
 
 	-- touch text
 	local touchText = cc.Label:createWithSystemFont(self.GAME_TOUCH_TEXT, "Consolas", 20)

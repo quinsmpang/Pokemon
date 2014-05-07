@@ -34,6 +34,7 @@ end
 function GameLauncher:loadLuaFramework()
     require "src/framework/luaClass"
     require "src/framework/class"
+    require "src/framework/json"
     require "src/framework/SystemExtensions"
     require "src/framework/BaseExtensions"
     require "src/framework/commonLib"
