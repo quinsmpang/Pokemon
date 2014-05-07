@@ -8,13 +8,16 @@ class("MainViewController", psViewController)
 
 MainViewController.infoLabel = nil		-- 游戏说明文字
 MainViewController.mainLayer = nil		-- 游戏主界面层
-MainViewController.background = nil		-- 背景
-MainViewController.touchLabel = nil		-- touch 文字
 MainViewController.mainMenu = nil		-- 游戏主菜单
 
 -- const values
 MainViewController.GAME_INFO_TEXT = "本作仅供学习交流  请勿用于商业用途\n源码已在GitHub上托管"
 MainViewController.GAME_TOUCH_TEXT = "Touch Anywhere To Start"
+
+TAG = {
+	MAINVIEW = 1,
+		TOUCHLABEL = 11,
+}
 
 function MainViewController:load()
 	self:renderView()
@@ -47,6 +50,15 @@ function MainViewController:renderView()
 	self.mainLayer = psGameLayer:create()
 	coreLayer:pushLayer(self.mainLayer)
 
+	local ccsMainView = ccs.GUIReader:getInstance():widgetFromJsonFile("ccs/MainTitle.json")
+	self.mainLayer:addChild(ccsMainView)
+	ccsMainView:setOpacity(0)
+
+	self.touchLabel = ccsMainView:getChildByTag(TAG.TOUCHLABEL)
+	tolua.cast(self.touchLabel, "cc.Label")
+	self.touchLabel:setSystemFontName("Consolas")
+
+--[[
 	-- background
 	local back = cc.Sprite:create("images/maintitle/title.jpg")
 	back:setAnchorPoint(0.5, 0.5)
@@ -62,7 +74,7 @@ function MainViewController:renderView()
 	touchText:setColor(ccc3(0, 0, 0))
 	self.mainLayer:addChild(touchText)
 
-	self.touchLabel = touchText
+	self.touchLabel = touchText]]
 
 	-- set cascade opacity, otherwise the opacity property of parent node won't affect the opacity of children.
 	self.mainLayer:setCascadeOpacityEnabled(true)

@@ -114,7 +114,7 @@
           "capInsetsY": 0,
           "fileName": null,
           "fileNameData": {
-            "path": "images/maintitle/sunrise_text.png",
+            "path": "sunrise_text.png",
             "plistFile": "",
             "resourceType": 0
           },
@@ -168,7 +168,7 @@
           "capInsetsY": 0,
           "fileName": null,
           "fileNameData": {
-            "path": "images/maintitle/pokemon_text.png",
+            "path": "pokemon_text.png",
             "plistFile": "",
             "resourceType": 0
           },
