@@ -51,6 +51,7 @@ function MainViewController:renderView()
 	coreLayer:pushLayer(self.mainLayer)
 
 	local ccsMainView = ccs.GUIReader:getInstance():widgetFromJsonFile("ccs/MainTitle.json")
+	ccsMainView:setCascadeOpacityEnabled(true)
 	ccsMainView:setOpacity(0)
 	self.mainLayer:addChild(ccsMainView)
 
