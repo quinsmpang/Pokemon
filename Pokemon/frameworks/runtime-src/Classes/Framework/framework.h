@@ -5,6 +5,7 @@
 #include "containers\Stack.h"
 
 #include "lua\LuaUtils.h"
+#include "utils\ScriptCCBReader.h"
 
 #include "sqlite\SqliteDb.h"
 
