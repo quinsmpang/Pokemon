@@ -88,6 +88,9 @@
     <ClInclude Include="..\Classes\Framework\ui\ModalLayer.h">
       <Filter>Classes\psframework\ui</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\utils\ScriptCCBReader.h">
+      <Filter>Classes\psframework\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -131,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\ui\ModalLayer.cpp">
       <Filter>Classes\psframework\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\utils\ScriptCCBReader.cpp">
+      <Filter>Classes\psframework\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
