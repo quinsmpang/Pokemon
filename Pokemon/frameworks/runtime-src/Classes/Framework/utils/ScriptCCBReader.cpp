@@ -1,4 +1,6 @@
 #include "ScriptCCBReader.h"
+#include "cocos\editor-support\cocosbuilder\CCNodeLoaderLibrary.h"
+#include "cocos\editor-support\cocosbuilder\CCBReader.h"
 #include "lua/LuaUtils.h"
 
 using namespace cocos2d;
@@ -6,6 +8,7 @@ using namespace cocosbuilder;
 
 namespace framework
 {
+	/***********************ScriptCCBOwner implementation***********************/
 	ScriptCCBOwner *ScriptCCBOwner::create()
 	{
 		auto pOwner = new ScriptCCBOwner();
@@ -42,7 +45,7 @@ namespace framework
 			pParams.pushBack(sender);
 			Vector<Ref*> pParamTypes(1);
 			pParams.pushBack(__String::create("cc.Node"));
-			LuaUtils::getInstance()->executePeertableFunction(this->_scriptDelegate, "onClick", pParams, pParamTypes, false);
+			LuaUtils::getInstance()->executePeertableFunction(this->_scriptDelegate, "onMenuItemSelect", pParams, pParamTypes, false);
 #endif
 		}
 	}
@@ -59,8 +62,24 @@ namespace framework
 			Vector<Ref*> pParamTypes(2);
 			pParams.pushBack(__String::create("cc.Node"));
 			pParams.pushBack(__String::create("__Integer"));
-			LuaUtils::getInstance()->executePeertableFunction(this->_scriptDelegate, "onClick", pParams, pParamTypes, false);
+			LuaUtils::getInstance()->executePeertableFunction(this->_scriptDelegate, "onControlSelect", pParams, pParamTypes, false);
 #endif
 		}
+	}
+
+	/***********************ScriptCCBReader implementation***********************/
+	Node *ScriptCCBReader::readCCB(const std::string &ccbFilePath, Ref *scriptDelegate)
+	{
+		static Vector<ScriptCCBOwner*> scriptCCBOwnerArray;
+
+		// 创建一个owner接受事件，owner负责接收ccb的各种事件并转发到scriptDelegate
+		auto pOwner = ScriptCCBOwner::create();
+		pOwner->setScriptDelegate(scriptDelegate);
+		scriptCCBOwnerArray.pushBack(pOwner);
+
+		// 读取ccb
+		auto pReader = new CCBReader(NodeLoaderLibrary::getInstance());
+		pReader->autorelease();
+		return pReader->readNodeGraphFromFile(ccbFilePath.c_str(), pOwner);
 	}
 }

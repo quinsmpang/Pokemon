@@ -9,6 +9,7 @@ Date: 5/8/2014
 
 #include "cocos2d.h"
 #include "cocos\editor-support\cocosbuilder\CCBSelectorResolver.h"
+#include <string>
 
 namespace framework
 {
