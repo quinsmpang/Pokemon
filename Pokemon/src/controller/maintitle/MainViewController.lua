@@ -8,6 +8,7 @@ class("MainViewController", psViewController)
 
 MainViewController.infoLabel = nil		-- 游戏说明文字
 MainViewController.mainLayer = nil		-- 游戏主界面层
+MainViewController.mainView = nil		-- ccb主界面层
 MainViewController.mainMenu = nil		-- 游戏主菜单
 
 -- const values
@@ -15,8 +16,7 @@ MainViewController.GAME_INFO_TEXT = "本作仅供学习交流  请勿用于商�
 MainViewController.GAME_TOUCH_TEXT = "Touch Anywhere To Start"
 
 TAG = {
-	MAINVIEW = 1,
-		TOUCHLABEL = 11,
+	TOUCHLABEL = 1,
 }
 
 function MainViewController:load()
@@ -50,24 +50,20 @@ function MainViewController:renderView()
 	self.mainLayer = psGameLayer:create()
 	coreLayer:pushLayer(self.mainLayer)
 
-	-- background
-	local back = cc.Sprite:create("images/maintitle/back.jpg")
-	back:setAnchorPoint(0.5, 0.5)
-	back:setPosition(screenSize.width * 0.5, screenSize.height * 0.5)
-	self.mainLayer:addChild(back)
-
-	-- touch text
-	local touchText = cc.Label:createWithSystemFont(self.GAME_TOUCH_TEXT, "Consolas", 20)
-	touchText:setAnchorPoint(0.5, 0.5)
-	touchText:setPosition(screenSize.width * 0.5, screenSize.height * 0.3)
-	touchText:setColor(ccc3(0, 0, 0))
-	self.mainLayer:addChild(touchText)
-
-	self.touchLabel = touchText
-
+	local ccbMainView = ScriptCCBReader:readCCB("ccb/MainTitle.ccbi", self)
+	ccbMainView:setScale(2)
+	ccbMainView:setAnchorPoint(0, 0)
+	ccbMainView:setPosition(0, 0)
 	-- set cascade opacity, otherwise the opacity property of parent node won't affect the opacity of children.
-	self.mainLayer:setCascadeOpacityEnabled(true)
-	self.mainLayer:setOpacity(0)
+	ccbMainView:setCascadeOpacityEnabled(true)
+	ccbMainView:setOpacity(0)
+	self.mainView = ccbMainView
+	tolua.cast(self.mainView, "cc.Layer")
+	self.mainLayer:addChild(ccbMainView)
+
+	self.touchLabel = ccbMainView:getChildByTag(TAG.TOUCHLABEL)
+	self.touchLabel:setSystemFontName("Consolas")
+	tolua.cast(self.touchLabel, "cc.Label")
 
 	self:run()
 end
@@ -79,7 +75,7 @@ function MainViewController:run()
 		cc.DelayTime:create(2),
 		cc.TargetedAction:create(self.infoLabel, cc.FadeOut:create(0.5))
 		))
-	self.mainLayer:runAction(cc.Sequence:create(
+	self.mainView:runAction(cc.Sequence:create(
 		cc.DelayTime:create(4.5),
 		cc.FadeIn:create(0.5),
 		cc.CallFunc:create(MakeScriptHandler(self, self.registerMainLayerEvents)),
