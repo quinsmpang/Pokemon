@@ -9,10 +9,11 @@ require "src/controller/maintitle/MainViewController"
 class("MainViewScene", psGameScene)
 
 function MainViewScene:onEnter()
+	log("MainViewScene:onEnter")
 	local mainViewController = MainViewController:create()
 	self:loadViewController(mainViewController)
 end
 
 function MainViewScene:onExit()
-	
+	log("MainViewScene:onExit")
 end

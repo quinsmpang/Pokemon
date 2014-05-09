@@ -20,11 +20,12 @@ TAG = {
 }
 
 function MainViewController:load()
+	log("MainViewController:load")
 	self:renderView()
 end
 
 function MainViewController:unload()
-	
+	load("MainViewController:unload")
 end
 
 function MainViewController:renderView()
