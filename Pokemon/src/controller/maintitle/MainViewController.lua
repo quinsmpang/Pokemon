@@ -50,14 +50,6 @@ function MainViewController:renderView()
 	self.mainLayer = psGameLayer:create()
 	coreLayer:pushLayer(self.mainLayer)
 
-	local ccsMainView = ccs.GUIReader:getInstance():widgetFromJsonFile("ccs/MainTitle.json")
-	ccsMainView:setCascadeOpacityEnabled(true)
-	ccsMainView:setOpacity(0)
-	self.mainLayer:addChild(ccsMainView)
-
-	self.touchLabel = ccsMainView:getChildByTag(TAG.TOUCHLABEL)
-
---[[
 	-- background
 	local back = cc.Sprite:create("images/maintitle/back.jpg")
 	back:setAnchorPoint(0.5, 0.5)
@@ -71,7 +63,7 @@ function MainViewController:renderView()
 	touchText:setColor(ccc3(0, 0, 0))
 	self.mainLayer:addChild(touchText)
 
-	self.touchLabel = touchText]]
+	self.touchLabel = touchText
 
 	-- set cascade opacity, otherwise the opacity property of parent node won't affect the opacity of children.
 	self.mainLayer:setCascadeOpacityEnabled(true)
