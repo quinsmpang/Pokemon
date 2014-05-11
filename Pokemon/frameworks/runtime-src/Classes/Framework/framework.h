@@ -6,6 +6,7 @@
 
 #include "lua\LuaUtils.h"
 #include "utils\ScriptCCBReader.h"
+#include "utils\IOUtils.h"
 
 #include "sqlite\SqliteDb.h"
 

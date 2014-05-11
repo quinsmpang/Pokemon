@@ -24,7 +24,7 @@ function MainViewController:load()
 end
 
 function MainViewController:unload()
-	load("MainViewController:unload")
+	log("MainViewController:unload")
 end
 
 function MainViewController:renderView()
@@ -98,5 +98,5 @@ function MainViewController:registerMainLayerEvents()
 end
 
 function MainViewController:onMainViewTouch(touch, event)
-	log("touched")
+	--IOUtils:getInstance():createDirectory("save")
 end
