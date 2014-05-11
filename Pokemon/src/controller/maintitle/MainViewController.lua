@@ -13,7 +13,6 @@ MainViewController.mainMenu = nil		-- 游戏主菜单
 
 -- const values
 MainViewController.GAME_INFO_TEXT = "本作仅供学习交流  请勿用于商业用途\n源码已在GitHub上托管"
-MainViewController.GAME_TOUCH_TEXT = "Touch Anywhere To Start"
 
 TAG = {
 	TOUCHLABEL = 1,
@@ -52,7 +51,6 @@ function MainViewController:renderView()
 	coreLayer:pushLayer(self.mainLayer)
 
 	local ccbMainView = ScriptCCBReader:readCCB("ccb/MainTitle.ccbi", self)
-	ccbMainView:setScale(2)
 	ccbMainView:setAnchorPoint(0, 0)
 	ccbMainView:setPosition(0, 0)
 	-- set cascade opacity, otherwise the opacity property of parent node won't affect the opacity of children.
@@ -63,8 +61,8 @@ function MainViewController:renderView()
 	self.mainLayer:addChild(ccbMainView)
 
 	self.touchLabel = ccbMainView:getChildByTag(TAG.TOUCHLABEL)
-	self.touchLabel:setSystemFontName("Consolas")
 	tolua.cast(self.touchLabel, "cc.Label")
+	self.touchLabel:setSystemFontName("Consolas")
 
 	self:run()
 end

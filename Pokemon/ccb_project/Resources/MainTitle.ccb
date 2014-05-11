@@ -44,8 +44,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>160</real>
-							<real>120</real>
+							<real>400</real>
+							<real>240</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -67,8 +67,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.5</real>
-							<real>0.5</real>
+							<real>1</real>
+							<real>1</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -89,7 +89,7 @@
 						<key>value</key>
 						<array>
 							<string>images/maintitle/maintitle.plist</string>
-							<string>maintitle/back.jpg</string>
+							<string>images/maintitle/back.jpg</string>
 						</array>
 					</dict>
 					<dict>
@@ -113,7 +113,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>sunrise_label</string>
+				<string>sunrise_text</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -127,8 +127,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>246</real>
-							<real>153</real>
+							<real>587</real>
+							<real>340</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -150,8 +150,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.5</real>
-							<real>0.5</real>
+							<real>1</real>
+							<real>1</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -172,7 +172,7 @@
 						<key>value</key>
 						<array>
 							<string>images/maintitle/maintitle.plist</string>
-							<string>maintitle/sunrise_text.png</string>
+							<string>images/maintitle/sunrise_text.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -196,7 +196,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>pokemon_label</string>
+				<string>pokemon_text</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -210,8 +210,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>110</real>
-							<real>203</real>
+							<real>271</real>
+							<real>403</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -233,8 +233,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.5</real>
-							<real>0.5</real>
+							<real>1</real>
+							<real>1</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -255,7 +255,7 @@
 						<key>value</key>
 						<array>
 							<string>images/maintitle/maintitle.plist</string>
-							<string>maintitle/pokemon_text.png</string>
+							<string>images/maintitle/pokemon_text.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -279,7 +279,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>touch_label</string>
+				<string>CCLabelTTF</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -293,8 +293,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>160</real>
-							<real>59</real>
+							<real>400</real>
+							<real>140</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -344,7 +344,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>Courier</string>
+						<string>Helvetica</string>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -353,7 +353,7 @@
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>12</real>
+							<real>22</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -492,15 +492,15 @@
 			<key>centeredOrigin</key>
 			<false/>
 			<key>ext</key>
-			<string>xsmall</string>
+			<string>medium</string>
 			<key>height</key>
-			<integer>240</integer>
+			<integer>480</integer>
 			<key>name</key>
-			<string>Android X-Small Landscape</string>
+			<string>Android Medium Landscape</string>
 			<key>scale</key>
-			<real>0.5</real>
+			<real>1.5</real>
 			<key>width</key>
-			<integer>320</integer>
+			<integer>800</integer>
 		</dict>
 	</array>
 	<key>sequences</key>

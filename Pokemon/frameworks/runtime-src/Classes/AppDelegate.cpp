@@ -26,11 +26,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto director = Director::getInstance();
 	auto glview = director->getOpenGLView();
 	if(!glview) {
-		glview = GLView::createWithRect("Pokemon Sunrise", Rect(0, 0, 640, 480));
+		glview = GLView::createWithRect("Pokemon Sunrise", Rect(0, 0, 800, 480));
 		director->setOpenGLView(glview);
 	}
 
-    glview->setDesignResolutionSize(640, 480, ResolutionPolicy::NO_BORDER);
+    glview->setDesignResolutionSize(800, 480, ResolutionPolicy::NO_BORDER);
 
 	FileUtils::getInstance()->addSearchPath("res");
 

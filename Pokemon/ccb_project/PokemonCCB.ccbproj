@@ -24,22 +24,20 @@
 	<true/>
 	<key>javascriptMainCCB</key>
 	<string>MainScene</string>
-	<key>needRepublish</key>
-	<false/>
 	<key>onlyPublishCCBs</key>
-	<false/>
+	<true/>
 	<key>publishDirectory</key>
-	<string>Published-iOS</string>
+	<string>ccbi</string>
 	<key>publishDirectoryAndroid</key>
-	<string>Published-Android</string>
+	<string>ccbi</string>
 	<key>publishDirectoryHTML5</key>
-	<string>Published-HTML5</string>
+	<string>ccbi</string>
 	<key>publishEnabledAndroid</key>
-	<false/>
+	<true/>
 	<key>publishEnabledHTML5</key>
-	<true/>
+	<false/>
 	<key>publishEnablediPhone</key>
-	<true/>
+	<false/>
 	<key>publishResolutionHTML5_height</key>
 	<integer>320</integer>
 	<key>publishResolutionHTML5_scale</key>
@@ -75,9 +73,5 @@
 			<string>Resources</string>
 		</dict>
 	</array>
-	<key>versionStr</key>
-	<string>Version: 3.0-alpha5
-GitHub: 76499877e8
-</string>
 </dict>
 </plist>
