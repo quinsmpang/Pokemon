@@ -58,24 +58,20 @@ namespace framework
 
 	bool IOUtils::createDirectory(const std::string &directoryPath)
 	{
+		// split the directory path
 		vector<string> dirPathArray;
-		string fullPath = directoryPath.c_str();
-
-		// find the last directory which doesn't exist.
-		string dirSubPath;
+		string subStr = directoryPath;
 		do
 		{
-			int pos = fullPath.find_last_of('/');
-			dirSubPath = fullPath.substr(0, pos);
-			if (!fileOrDirectoryExist(directoryPath))
+			auto pos = subStr.find_first_of('/');
+			if (pos < subStr.size())
 			{
-				dirPathArray.insert(dirPathArray.begin(), dirSubPath);
-				fullPath = dirSubPath.c_str();
+				dirPathArray.push_back(directoryPath.substr(0, pos));
+				subStr = subStr.substr(pos + 1, subStr.size() - 1);
+				continue;
 			}
-			else
-			{
-				break;
-			}
+			dirPathArray.push_back(directoryPath);
+			break;
 		} while (true);
 
 		// create directory in a loop.
@@ -84,7 +80,7 @@ namespace framework
 		while (iter != dirPathArray.end())
 		{
 			auto dir = (*iter).c_str();
-			if (!_mkdir(dir))
+			if (_mkdir(dir))
 			{
 				result = false;
 				break;

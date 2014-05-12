@@ -98,5 +98,7 @@ function MainViewController:registerMainLayerEvents()
 end
 
 function MainViewController:onMainViewTouch(touch, event)
-	--IOUtils:getInstance():createDirectory("save")
+	if not IOUtils:getInstance():fileOrDirectoryExist("save") then
+		IOUtils:getInstance():createDirectory("save")
+	end
 end
