@@ -20,11 +20,22 @@ TAG = {
 
 function MainViewController:load()
 	log("MainViewController:load")
+	self:loadResources()
 	self:renderView()
 end
 
 function MainViewController:unload()
 	log("MainViewController:unload")
+	self:cleanResources()
+end
+
+function MainViewController:loadResources()
+	cc.SpriteFrameCache:getInstance():addSpriteFrames("images/maintitle/maintitle.plist", "images/maintitle/maintitle.pvr.ccz")
+end
+
+function MainViewController:cleanResources()
+	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("images/maintitle/maintitle.plist")
+	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromTexture("images/maintitle/maintitle.pvr.ccz")
 end
 
 function MainViewController:renderView()
@@ -77,7 +88,7 @@ function MainViewController:run()
 	self.mainView:runAction(cc.Sequence:create(
 		cc.DelayTime:create(4.5),
 		cc.FadeIn:create(0.5),
-		cc.CallFunc:create(MakeScriptHandler(self, self.registerMainLayerEvents)),
+		cc.CallFunc:create(MakeScriptHandler(self, self.registerMainViewEvents)),
 		cc.CallFunc:create(MakeScriptHandler(self, self.runTouchLabelAction))
 		))
 end
@@ -89,15 +100,24 @@ function MainViewController:runTouchLabelAction()
 			)
 		))
 end
-function MainViewController:registerMainLayerEvents()
+function MainViewController:registerMainViewEvents()
 	local listener = cc.EventListenerTouchOneByOne:create()
 	listener:setSwallowTouches(true)
 	listener:registerScriptHandler(MakeScriptHandler(self, self.onMainViewTouch), cc.Handler.EVENT_TOUCH_BEGAN)
 
-	self.mainLayer:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, self.mainLayer)
+	self.mainView:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, self.mainLayer)
 end
 
 function MainViewController:onMainViewTouch(touch, event)
+	log("MainViewController:onMainViewTouch")
+	-- remove event listeners first
+	self.mainView:getEventDispatcher():removeAllEventListeners()
+	self.mainView:runAction(cc.Sequence:create(
+		cc.FadeOut:create(0.5),
+		cc.RemoveSelf:create(true)
+		))
+
+	-- check if there is save directory
 	if not IOUtils:getInstance():fileOrDirectoryExist("save") then
 		IOUtils:getInstance():createDirectory("save")
 	end
