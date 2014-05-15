@@ -106,3 +106,11 @@ end
 function ccc4(a, r, g, b)
 	return { a = a, r = r, g = g, b = b }
 end
+
+function CCSizeMake(width, height)
+	return { width = width, height = height }
+end
+
+function CCRectMake(originX, originY, width, height)
+	return cc.rect(originX, originY, width, height)
+end

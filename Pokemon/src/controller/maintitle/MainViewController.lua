@@ -7,9 +7,10 @@
 class("MainViewController", psViewController)
 
 MainViewController.infoLabel = nil		-- 游戏说明文字
-MainViewController.mainLayer = nil		-- 游戏主界面层
-MainViewController.mainView = nil		-- ccb主界面层
-MainViewController.mainMenu = nil		-- 游戏主菜单
+MainViewController.mainView = nil		-- 主界面view (ccb)
+MainViewController.mainMenuView = nil 		-- 主菜单view
+
+MainViewController.isRunningAction = nil
 
 -- const values
 MainViewController.GAME_INFO_TEXT = "本作仅供学习交流  请勿用于商业用途\n源码已在GitHub上托管"
@@ -57,10 +58,7 @@ function MainViewController:renderView()
 
 	self.infoLabel = gameInfoText
 
-	-- main layer
-	self.mainLayer = psGameLayer:create()
-	coreLayer:pushLayer(self.mainLayer)
-
+	-- main view
 	local ccbMainView = ScriptCCBReader:readCCB("ccb/MainTitle.ccbi", self)
 	ccbMainView:setAnchorPoint(0, 0)
 	ccbMainView:setPosition(0, 0)
@@ -69,11 +67,38 @@ function MainViewController:renderView()
 	ccbMainView:setOpacity(0)
 	self.mainView = ccbMainView
 	tolua.cast(self.mainView, "cc.Layer")
-	self.mainLayer:addChild(ccbMainView)
+	coreLayer:addChild(ccbMainView)
 
 	self.touchLabel = ccbMainView:getChildByTag(TAG.TOUCHLABEL)
 	tolua.cast(self.touchLabel, "cc.Label")
 	self.touchLabel:setSystemFontName("Consolas")
+
+	-- main menu view
+	self.mainMenuView = cc.Layer:create()
+	self.mainMenuView:setCascadeOpacityEnabled(true)
+	self.mainMenuView:setOpacity(0)
+
+	local capInsets = CCRectMake(21, 21, 8, 8)
+	local normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border1_normal.png", capInsets)
+	normalImage:setPreferredSize(CCSizeMake(200, 100))
+	local selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border1_pressed.png", capInsets)
+	selectedImage:setPreferredSize(CCSizeMake(200, 100))
+	local btnNewGame = cc.MenuItemSprite:create(normalImage, selectedImage)
+	btnNewGame:setAnchorPoint(0, 0)
+
+	local function aaa()
+		if self.isRunningAction then
+			return
+		end
+		
+		log("@@@@@@@@@")
+	end
+	btnNewGame:registerScriptTapHandler(aaa)
+
+	local newGameMenu = cc.Menu:create(btnNewGame)
+	newGameMenu:setPosition(100, 100)
+	self.mainMenuView:addChild(newGameMenu)
+	coreLayer:addChild(self.mainMenuView)
 
 	self:run()
 end
@@ -105,20 +130,41 @@ function MainViewController:registerMainViewEvents()
 	listener:setSwallowTouches(true)
 	listener:registerScriptHandler(MakeScriptHandler(self, self.onMainViewTouch), cc.Handler.EVENT_TOUCH_BEGAN)
 
-	self.mainView:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, self.mainLayer)
+	self.mainView:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, self.mainView)
 end
 
 function MainViewController:onMainViewTouch(touch, event)
+	if self.isRunningAction then
+		return true
+	end
+
 	log("MainViewController:onMainViewTouch")
-	-- remove event listeners first
-	self.mainView:getEventDispatcher():removeAllEventListeners()
+
+	self.isRunningAction = true
+
 	self.mainView:runAction(cc.Sequence:create(
 		cc.FadeOut:create(0.5),
-		cc.RemoveSelf:create(true)
+		cc.CallFunc:create(MakeScriptHandler(self, self.enterMainMenu))
 		))
 
 	-- check if there is save directory
 	if not IOUtils:getInstance():fileOrDirectoryExist("save") then
 		IOUtils:getInstance():createDirectory("save")
 	end
+
+	return true
+end
+
+function MainViewController:enterMainMenu()
+	self.mainView:removeFromParent()
+
+	-- load main menu
+	self.mainMenuView:runAction(cc.Sequence:create(
+		cc.DelayTime:create(0.5),
+		cc.FadeIn:create(0.5),
+		cc.CallFunc:create(MakeScriptHandler(self, self.runActionOver))
+		))
+end
+function MainViewController:runActionOver()
+	self.isRunningAction = false
 end

@@ -11,7 +11,7 @@ end
 
 GameLauncher = {}
 
-DEBUG = false
+DEBUG = true
 
 function GameLauncher:init()
     collectgarbage("collect")
