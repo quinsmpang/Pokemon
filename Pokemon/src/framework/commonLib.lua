@@ -7,12 +7,7 @@
 function MakeScriptHandler(target, selector, ...)
 	local args = {...}
 	return function(...)
-		local internalArgs = {...}
-		for _, v in pairs(args) do
-			table.insert(internalArgs, v)
-		end
-		internalArgs.n = table.maxn(internalArgs)
-		return selector(target, unpack(internalArgs))
+		return selector(target, unpack(args))
 	end
 end
 
