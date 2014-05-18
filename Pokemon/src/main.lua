@@ -31,6 +31,21 @@ function GameLauncher:init()
     log("framework version string: %s, number: %.2f\n", PSFrameworkVersionStr, PSFrameworkVersionNumber)
 end
 
+function GameLauncher:loadAudioResources()
+    log("GameLauncher:loadAudioResources begin")
+    -- effects
+    for i = 1, 649 do
+        local str = "audio/pm/"
+        if i < 10 then
+            str = str .. "00"
+        elseif i < 100 then
+            str = str .. "0"
+        end
+        cc.SimpleAudioEngine:getInstance():preloadEffect(str .. i .. ".wav")
+    end
+    log("GameLauncher:loadAudioResources end")
+end
+
 function GameLauncher:loadLuaFramework()
     require "src/framework/luaClass"
     require "src/framework/class"

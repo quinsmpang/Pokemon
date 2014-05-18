@@ -4,6 +4,8 @@
 	Date: 05/17/2014
 ]]
 
+require "src/view/map/MapViewScene"
+
 class("MainMenu", psLayer)
 
 MainMenu.btnNewGame = nil		--新游戏按钮
@@ -20,6 +22,7 @@ MainMenu.BTN_FONTNAME = "Arial"
 MainMenu.BTN_FONTSIZE = 26
 MainMenu.BTN_FONTCOLOR = ccc3(0, 120, 255)
 MainMenu.BTN_TEXT_POSITION_X = 260
+MainMenu.BTN_SIZE = CCSizeMake(500, 50)
 
 -- static method
 function MainMenu:initUI()
@@ -37,9 +40,9 @@ function MainMenu:initUI()
 	-- new game button
 	local capInsets = CCRectMake(20, 20, 60, 60)
 	local normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_red.png", capInsets)
-	normalImage:setPreferredSize(CCSizeMake(500, 50))
+	normalImage:setPreferredSize(self.BTN_SIZE)
 	local selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_aqua.png", capInsets)
-	selectedImage:setPreferredSize(CCSizeMake(500, 50))
+	selectedImage:setPreferredSize(self.BTN_SIZE)
 	self.btnNewGame = cc.MenuItemSprite:create(normalImage, selectedImage)
 	self.btnNewGame:registerScriptTapHandler(MakeScriptHandler(self, self.onBtnNewGameClicked))
 	local newGameMenu = cc.Menu:create(self.btnNewGame)
@@ -53,9 +56,9 @@ function MainMenu:initUI()
 
 	-- load game button
 	normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_orange.png", capInsets)
-	normalImage:setPreferredSize(CCSizeMake(500, 50))
+	normalImage:setPreferredSize(self.BTN_SIZE)
 	selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_aqua.png", capInsets)
-	selectedImage:setPreferredSize(CCSizeMake(500, 50))
+	selectedImage:setPreferredSize(self.BTN_SIZE)
 	self.btnLoadGame = cc.MenuItemSprite:create(normalImage, selectedImage)
 	self.btnLoadGame:registerScriptTapHandler(MakeScriptHandler(self, self.onBtnLoadGameClicked))
 	local loadGameMenu = cc.Menu:create(self.btnLoadGame)
@@ -69,9 +72,9 @@ function MainMenu:initUI()
 
 	-- setting button
 	normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_yellow.png", capInsets)
-	normalImage:setPreferredSize(CCSizeMake(500, 50))
+	normalImage:setPreferredSize(self.BTN_SIZE)
 	selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_aqua.png", capInsets)
-	selectedImage:setPreferredSize(CCSizeMake(500, 50))
+	selectedImage:setPreferredSize(self.BTN_SIZE)
 	self.btnSettings = cc.MenuItemSprite:create(normalImage, selectedImage)
 	self.btnSettings:registerScriptTapHandler(MakeScriptHandler(self, self.onBtnSettingsClicked))
 	local settingsMenu = cc.Menu:create(self.btnSettings)
@@ -97,6 +100,8 @@ end
 -- btn callbacks
 function MainMenu:onBtnNewGameClicked()
 	log("MainMenu:onBtnNewGameClicked")
+	local mapViewScene = MapViewScene:create()
+	cc.Director:getInstance():replaceScene(cc.TransitionFade:create(2, mapViewScene, ccc3(0, 0, 0)))
 end
 
 function MainMenu:onBtnLoadGameClicked()

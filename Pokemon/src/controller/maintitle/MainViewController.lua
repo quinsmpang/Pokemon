@@ -16,6 +16,7 @@ MainViewController.isRunningAction = nil
 
 -- const values
 MainViewController.GAME_INFO_TEXT = "本作仅供学习交流  请勿用于商业用途\n源码已在GitHub上托管"
+MainViewController.TITLE_MUSIC = "audio/scene/title.mp3"
 
 TAG = {
 	TOUCHLABEL = 1,
@@ -40,7 +41,7 @@ end
 function MainViewController:cleanResources()
 	log("MainViewController:cleanResources")
 	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("images/maintitle/maintitle.plist")
-	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromTexture("images/maintitle/maintitle.pvr.ccz")
+	--cc.SpriteFrameCache:getInstance():removeSpriteFramesFromTexture("images/maintitle/maintitle.pvr.ccz")
 end
 
 function MainViewController:renderView()
@@ -95,10 +96,14 @@ function MainViewController:run()
 		))
 	self.mainView:runAction(cc.Sequence:create(
 		cc.DelayTime:create(4.5),
+		cc.CallFunc:create(MakeScriptHandler(self, self.playBackgroundMusic)),
 		cc.FadeIn:create(0.5),
 		cc.CallFunc:create(MakeScriptHandler(self, self.registerMainViewEvents)),
 		cc.CallFunc:create(MakeScriptHandler(self, self.runTouchLabelAction))
 		))
+end
+function MainViewController:playBackgroundMusic()
+	cc.SimpleAudioEngine:getInstance():playMusic(self.TITLE_MUSIC, true)
 end
 function MainViewController:runTouchLabelAction()
 	self.touchLabel:runAction(cc.RepeatForever:create(
@@ -125,15 +130,18 @@ function MainViewController:onMainViewTouch(touch, event)
 
 	self.isRunningAction = true
 
+	cc.SimpleAudioEngine:getInstance():stopMusic(true)
+	cc.SimpleAudioEngine:getInstance():playEffect("audio/pm/493.wav")
+
 	self.mainView:runAction(cc.Sequence:create(
 		cc.FadeOut:create(0.5),
 		cc.CallFunc:create(MakeScriptHandler(self, self.enterMainMenu))
 		))
 
 	-- check if there is save directory
-	if not IOUtils:getInstance():fileOrDirectoryExist("save") then
-		IOUtils:getInstance():createDirectory("save")
-	end
+	-- if not IOUtils:getInstance():fileOrDirectoryExist("save") then
+	-- 	IOUtils:getInstance():createDirectory("save")
+	-- end
 
 	return true
 end
