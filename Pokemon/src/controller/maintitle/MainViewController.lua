@@ -35,6 +35,7 @@ end
 
 function MainViewController:loadResources()
 	log("MainViewController:loadResources")
+	cc.SimpleAudioEngine:getInstance():preloadMusic(self.TITLE_MUSIC)
 	cc.SpriteFrameCache:getInstance():addSpriteFrames("images/maintitle/maintitle.plist", "images/maintitle/maintitle.pvr.ccz")
 end
 
