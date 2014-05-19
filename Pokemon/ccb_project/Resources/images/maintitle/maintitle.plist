@@ -7,6 +7,71 @@
             <key>images/maintitle/back.jpg</key>
             <dict>
                 <key>frame</key>
+                <string>{{2,484},{800,480}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{800,480}}</string>
+                <key>sourceSize</key>
+                <string>{800,480}</string>
+            </dict>
+            <key>images/maintitle/border_aqua.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{906,512},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>images/maintitle/border_orange.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{804,512},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>images/maintitle/border_red.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{906,410},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>images/maintitle/border_yellow.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{804,410},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>images/maintitle/menu_back.jpg</key>
+            <dict>
+                <key>frame</key>
                 <string>{{2,2},{800,480}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
@@ -33,7 +98,7 @@
             <key>images/maintitle/sunrise_text.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{804,410},{259,78}}</string>
+                <string>{{804,614},{259,78}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -53,7 +118,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2b30db7b2696d03c627426ec60bb30c8:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:2ba271d16e1e871f4d7072370598e784:1/1$</string>
             <key>textureFileName</key>
             <string>maintitle.pvr.ccz</string>
         </dict>

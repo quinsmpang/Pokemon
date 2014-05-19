@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="48" tileheight="48">
+ <tileset firstgid="1" name="rock1" tilewidth="48" tileheight="48">
+  <image source="../images/terrains/rock1.vti" width="144" height="192"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYmBgYBrFo3iQYhYgZgViNiqZxw7EHEDMSSXzuICYG4h5BkFYjeJRTG8MAH1mA1c=
+  </data>
+ </layer>
+</map>

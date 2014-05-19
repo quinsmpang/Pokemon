@@ -4,6 +4,8 @@
 	Date: 05/03/2014
 ]]
 
+require "src/view/maintitle/MainMenu"
+
 class("MainViewController", psViewController)
 
 MainViewController.infoLabel = nil		-- 游戏说明文字
@@ -14,6 +16,7 @@ MainViewController.isRunningAction = nil
 
 -- const values
 MainViewController.GAME_INFO_TEXT = "本作仅供学习交流  请勿用于商业用途\n源码已在GitHub上托管"
+MainViewController.TITLE_MUSIC = "audio/scene/title.mp3"
 
 TAG = {
 	TOUCHLABEL = 1,
@@ -31,12 +34,15 @@ function MainViewController:unload()
 end
 
 function MainViewController:loadResources()
+	log("MainViewController:loadResources")
+	cc.SimpleAudioEngine:getInstance():preloadMusic(self.TITLE_MUSIC)
 	cc.SpriteFrameCache:getInstance():addSpriteFrames("images/maintitle/maintitle.plist", "images/maintitle/maintitle.pvr.ccz")
 end
 
 function MainViewController:cleanResources()
+	log("MainViewController:cleanResources")
 	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("images/maintitle/maintitle.plist")
-	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromTexture("images/maintitle/maintitle.pvr.ccz")
+	--cc.SpriteFrameCache:getInstance():removeSpriteFramesFromTexture("images/maintitle/maintitle.pvr.ccz")
 end
 
 function MainViewController:renderView()
@@ -74,30 +80,9 @@ function MainViewController:renderView()
 	self.touchLabel:setSystemFontName("Consolas")
 
 	-- main menu view
-	self.mainMenuView = cc.Layer:create()
-	self.mainMenuView:setCascadeOpacityEnabled(true)
-	self.mainMenuView:setOpacity(0)
+	self.mainMenuView = MainMenu:create()
+	self.mainMenuView:initUI()
 
-	local capInsets = CCRectMake(21, 21, 8, 8)
-	local normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border1_normal.png", capInsets)
-	normalImage:setPreferredSize(CCSizeMake(200, 100))
-	local selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border1_pressed.png", capInsets)
-	selectedImage:setPreferredSize(CCSizeMake(200, 100))
-	local btnNewGame = cc.MenuItemSprite:create(normalImage, selectedImage)
-	btnNewGame:setAnchorPoint(0, 0)
-
-	local function aaa()
-		if self.isRunningAction then
-			return
-		end
-		
-		log("@@@@@@@@@")
-	end
-	btnNewGame:registerScriptTapHandler(aaa)
-
-	local newGameMenu = cc.Menu:create(btnNewGame)
-	newGameMenu:setPosition(100, 100)
-	self.mainMenuView:addChild(newGameMenu)
 	coreLayer:addChild(self.mainMenuView)
 
 	self:run()
@@ -112,10 +97,14 @@ function MainViewController:run()
 		))
 	self.mainView:runAction(cc.Sequence:create(
 		cc.DelayTime:create(4.5),
+		cc.CallFunc:create(MakeScriptHandler(self, self.playBackgroundMusic)),
 		cc.FadeIn:create(0.5),
 		cc.CallFunc:create(MakeScriptHandler(self, self.registerMainViewEvents)),
 		cc.CallFunc:create(MakeScriptHandler(self, self.runTouchLabelAction))
 		))
+end
+function MainViewController:playBackgroundMusic()
+	cc.SimpleAudioEngine:getInstance():playMusic(self.TITLE_MUSIC, true)
 end
 function MainViewController:runTouchLabelAction()
 	self.touchLabel:runAction(cc.RepeatForever:create(
@@ -142,15 +131,18 @@ function MainViewController:onMainViewTouch(touch, event)
 
 	self.isRunningAction = true
 
+	cc.SimpleAudioEngine:getInstance():stopMusic(true)
+	cc.SimpleAudioEngine:getInstance():playEffect("audio/pm/493.wav")
+
 	self.mainView:runAction(cc.Sequence:create(
 		cc.FadeOut:create(0.5),
 		cc.CallFunc:create(MakeScriptHandler(self, self.enterMainMenu))
 		))
 
 	-- check if there is save directory
-	if not IOUtils:getInstance():fileOrDirectoryExist("save") then
-		IOUtils:getInstance():createDirectory("save")
-	end
+	-- if not IOUtils:getInstance():fileOrDirectoryExist("save") then
+	-- 	IOUtils:getInstance():createDirectory("save")
+	-- end
 
 	return true
 end
@@ -161,6 +153,7 @@ function MainViewController:enterMainMenu()
 	-- load main menu
 	self.mainMenuView:runAction(cc.Sequence:create(
 		cc.DelayTime:create(0.5),
+		cc.CallFunc:create(MakeScriptHandler(self.mainMenuView, self.mainMenuView.showButtons)),
 		cc.FadeIn:create(0.5),
 		cc.CallFunc:create(MakeScriptHandler(self, self.runActionOver))
 		))
