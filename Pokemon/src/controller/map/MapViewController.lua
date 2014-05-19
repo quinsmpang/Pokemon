@@ -8,22 +8,11 @@ class("MapViewController", psViewController)
 
 function MapViewController:load()
 	log("MapViewController:load")
-	--self:loadResources()
 	self:renderView()
 end
 
 function MapViewController:unload()
 	log("MapViewController:unload")
-end
-
-function MapViewController:loadResources()
-	log("MapViewController:loadResources")
-	cc.SpriteFrameCache:getInstance():addSpriteFrames("images/terrains/rock1.plist", "images/terrains/rock1.pvr.ccz")
-end
-
-function MapViewController:cleanResources()
-	log("MapViewController:cleanResources")
-	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("images/terrains/rock1.plist")
 end
 
 function MapViewController:renderView()

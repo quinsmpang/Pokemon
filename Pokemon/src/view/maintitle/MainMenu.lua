@@ -100,6 +100,7 @@ end
 -- btn callbacks
 function MainMenu:onBtnNewGameClicked()
 	log("MainMenu:onBtnNewGameClicked")
+	--cc.SimpleAudioEngine:getInstance():playEffect("audio/effects/btn_click.wav")
 	local mapViewScene = MapViewScene:create()
 	cc.Director:getInstance():replaceScene(cc.TransitionFade:create(2, mapViewScene, ccc3(0, 0, 0)))
 end
@@ -110,4 +111,5 @@ end
 
 function MainMenu:onBtnSettingsClicked()
 	log("MainMenu:onBtnSettingsClicked")
+	GameSettings:saveSettings()
 end

@@ -94,6 +94,9 @@
     <ClInclude Include="..\Classes\Framework\utils\IOUtils.h">
       <Filter>Classes\psframework\utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\utils\RecordHelper.h">
+      <Filter>Classes\psframework\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -142,6 +145,9 @@
       <Filter>Classes\psframework\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\utils\IOUtils.cpp">
+      <Filter>Classes\psframework\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\utils\RecordHelper.cpp">
       <Filter>Classes\psframework\utils</Filter>
     </ClCompile>
   </ItemGroup>

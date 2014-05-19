@@ -717,381 +717,6 @@ int lua_register_psframework_Stack(lua_State* tolua_S)
     return 1;
 }
 
-int lua_psframework_ScriptCCBReader_readCCB(lua_State* tolua_S)
-{
-    int argc = 0;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertable(tolua_S,1,"pf.ScriptCCBReader",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    argc = lua_gettop(tolua_S) - 1;
-
-    if (argc == 2)
-    {
-        std::string arg0;
-        cocos2d::Ref* arg1;
-        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
-        ok &= luaval_to_object<cocos2d::Ref>(tolua_S, 3, "cc.Ref",&arg1);
-        if(!ok)
-            return 0;
-        cocos2d::Node* ret = framework::ScriptCCBReader::readCCB(arg0, arg1);
-        object_to_luaval<cocos2d::Node>(tolua_S, "cc.Node",(cocos2d::Node*)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "readCCB",argc, 2);
-    return 0;
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ScriptCCBReader_readCCB'.",&tolua_err);
-#endif
-    return 0;
-}
-static int lua_psframework_ScriptCCBReader_finalize(lua_State* tolua_S)
-{
-    printf("luabindings: finalizing LUA object (ScriptCCBReader)");
-    return 0;
-}
-
-int lua_register_psframework_ScriptCCBReader(lua_State* tolua_S)
-{
-    tolua_usertype(tolua_S,"pf.ScriptCCBReader");
-    tolua_cclass(tolua_S,"ScriptCCBReader","pf.ScriptCCBReader","",nullptr);
-
-    tolua_beginmodule(tolua_S,"ScriptCCBReader");
-        tolua_function(tolua_S,"readCCB", lua_psframework_ScriptCCBReader_readCCB);
-    tolua_endmodule(tolua_S);
-    std::string typeName = typeid(framework::ScriptCCBReader).name();
-    g_luaType[typeName] = "pf.ScriptCCBReader";
-    g_typeCast["ScriptCCBReader"] = "pf.ScriptCCBReader";
-    return 1;
-}
-
-int lua_psframework_IOUtils_removeFile(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::IOUtils* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.IOUtils",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::IOUtils*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_IOUtils_removeFile'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
-    {
-        std::string arg0;
-
-        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
-        if(!ok)
-            return 0;
-        bool ret = cobj->removeFile(arg0);
-        tolua_pushboolean(tolua_S,(bool)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeFile",argc, 1);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_IOUtils_removeFile'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_IOUtils_moveFile(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::IOUtils* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.IOUtils",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::IOUtils*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_IOUtils_moveFile'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 2) 
-    {
-        std::string arg0;
-        std::string arg1;
-
-        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
-
-        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
-        if(!ok)
-            return 0;
-        bool ret = cobj->moveFile(arg0, arg1);
-        tolua_pushboolean(tolua_S,(bool)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "moveFile",argc, 2);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_IOUtils_moveFile'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_IOUtils_createDirectory(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::IOUtils* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.IOUtils",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::IOUtils*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_IOUtils_createDirectory'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
-    {
-        std::string arg0;
-
-        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
-        if(!ok)
-            return 0;
-        bool ret = cobj->createDirectory(arg0);
-        tolua_pushboolean(tolua_S,(bool)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "createDirectory",argc, 1);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_IOUtils_createDirectory'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_IOUtils_fileOrDirectoryExist(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::IOUtils* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.IOUtils",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::IOUtils*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_IOUtils_fileOrDirectoryExist'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
-    {
-        std::string arg0;
-
-        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
-        if(!ok)
-            return 0;
-        bool ret = cobj->fileOrDirectoryExist(arg0);
-        tolua_pushboolean(tolua_S,(bool)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "fileOrDirectoryExist",argc, 1);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_IOUtils_fileOrDirectoryExist'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_IOUtils_writeDataToFile(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::IOUtils* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.IOUtils",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::IOUtils*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_IOUtils_writeDataToFile'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 3) 
-    {
-        const unsigned char* arg0;
-        unsigned long arg1;
-        std::string arg2;
-
-        #pragma warning NO CONVERSION TO NATIVE FOR unsigned char*;
-
-        ok &= luaval_to_ulong(tolua_S, 3, &arg1);
-
-        ok &= luaval_to_std_string(tolua_S, 4,&arg2);
-        if(!ok)
-            return 0;
-        bool ret = cobj->writeDataToFile(arg0, arg1, arg2);
-        tolua_pushboolean(tolua_S,(bool)ret);
-        return 1;
-    }
-    if (argc == 4) 
-    {
-        const unsigned char* arg0;
-        unsigned long arg1;
-        std::string arg2;
-        bool arg3;
-
-        #pragma warning NO CONVERSION TO NATIVE FOR unsigned char*;
-
-        ok &= luaval_to_ulong(tolua_S, 3, &arg1);
-
-        ok &= luaval_to_std_string(tolua_S, 4,&arg2);
-
-        ok &= luaval_to_boolean(tolua_S, 5,&arg3);
-        if(!ok)
-            return 0;
-        bool ret = cobj->writeDataToFile(arg0, arg1, arg2, arg3);
-        tolua_pushboolean(tolua_S,(bool)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "writeDataToFile",argc, 3);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_IOUtils_writeDataToFile'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_IOUtils_getInstance(lua_State* tolua_S)
-{
-    int argc = 0;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertable(tolua_S,1,"pf.IOUtils",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    argc = lua_gettop(tolua_S) - 1;
-
-    if (argc == 0)
-    {
-        if(!ok)
-            return 0;
-        framework::IOUtils* ret = framework::IOUtils::getInstance();
-        object_to_luaval<framework::IOUtils>(tolua_S, "pf.IOUtils",(framework::IOUtils*)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "getInstance",argc, 0);
-    return 0;
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_IOUtils_getInstance'.",&tolua_err);
-#endif
-    return 0;
-}
-static int lua_psframework_IOUtils_finalize(lua_State* tolua_S)
-{
-    printf("luabindings: finalizing LUA object (IOUtils)");
-    return 0;
-}
-
-int lua_register_psframework_IOUtils(lua_State* tolua_S)
-{
-    tolua_usertype(tolua_S,"pf.IOUtils");
-    tolua_cclass(tolua_S,"IOUtils","pf.IOUtils","",nullptr);
-
-    tolua_beginmodule(tolua_S,"IOUtils");
-        tolua_function(tolua_S,"removeFile",lua_psframework_IOUtils_removeFile);
-        tolua_function(tolua_S,"moveFile",lua_psframework_IOUtils_moveFile);
-        tolua_function(tolua_S,"createDirectory",lua_psframework_IOUtils_createDirectory);
-        tolua_function(tolua_S,"fileOrDirectoryExist",lua_psframework_IOUtils_fileOrDirectoryExist);
-        tolua_function(tolua_S,"writeDataToFile",lua_psframework_IOUtils_writeDataToFile);
-        tolua_function(tolua_S,"getInstance", lua_psframework_IOUtils_getInstance);
-    tolua_endmodule(tolua_S);
-    std::string typeName = typeid(framework::IOUtils).name();
-    g_luaType[typeName] = "pf.IOUtils";
-    g_typeCast["IOUtils"] = "pf.IOUtils";
-    return 1;
-}
-
 int lua_psframework_SqliteDb_updateTable(lua_State* tolua_S)
 {
     int argc = 0;
@@ -4494,6 +4119,578 @@ int lua_register_psframework_ModalLayer(lua_State* tolua_S)
     g_typeCast["ModalLayer"] = "pf.ModalLayer";
     return 1;
 }
+
+int lua_psframework_ScriptCCBReader_readCCB(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.ScriptCCBReader",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 2)
+    {
+        std::string arg0;
+        cocos2d::Ref* arg1;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        ok &= luaval_to_object<cocos2d::Ref>(tolua_S, 3, "cc.Ref",&arg1);
+        if(!ok)
+            return 0;
+        cocos2d::Node* ret = framework::ScriptCCBReader::readCCB(arg0, arg1);
+        object_to_luaval<cocos2d::Node>(tolua_S, "cc.Node",(cocos2d::Node*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "readCCB",argc, 2);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ScriptCCBReader_readCCB'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_ScriptCCBReader_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (ScriptCCBReader)");
+    return 0;
+}
+
+int lua_register_psframework_ScriptCCBReader(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.ScriptCCBReader");
+    tolua_cclass(tolua_S,"ScriptCCBReader","pf.ScriptCCBReader","",nullptr);
+
+    tolua_beginmodule(tolua_S,"ScriptCCBReader");
+        tolua_function(tolua_S,"readCCB", lua_psframework_ScriptCCBReader_readCCB);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::ScriptCCBReader).name();
+    g_luaType[typeName] = "pf.ScriptCCBReader";
+    g_typeCast["ScriptCCBReader"] = "pf.ScriptCCBReader";
+    return 1;
+}
+
+int lua_psframework_IOUtils_removeFile(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::IOUtils* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.IOUtils",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::IOUtils*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_IOUtils_removeFile'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        bool ret = cobj->removeFile(arg0);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeFile",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_IOUtils_removeFile'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_IOUtils_moveFile(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::IOUtils* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.IOUtils",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::IOUtils*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_IOUtils_moveFile'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        std::string arg0;
+        std::string arg1;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        bool ret = cobj->moveFile(arg0, arg1);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "moveFile",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_IOUtils_moveFile'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_IOUtils_createDirectory(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::IOUtils* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.IOUtils",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::IOUtils*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_IOUtils_createDirectory'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        bool ret = cobj->createDirectory(arg0);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "createDirectory",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_IOUtils_createDirectory'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_IOUtils_fileOrDirectoryExist(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::IOUtils* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.IOUtils",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::IOUtils*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_IOUtils_fileOrDirectoryExist'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        bool ret = cobj->fileOrDirectoryExist(arg0);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "fileOrDirectoryExist",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_IOUtils_fileOrDirectoryExist'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_IOUtils_writeDataToFile(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::IOUtils* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.IOUtils",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::IOUtils*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_IOUtils_writeDataToFile'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 3) 
+    {
+        const unsigned char* arg0;
+        unsigned long arg1;
+        std::string arg2;
+
+        #pragma warning NO CONVERSION TO NATIVE FOR unsigned char*;
+
+        ok &= luaval_to_ulong(tolua_S, 3, &arg1);
+
+        ok &= luaval_to_std_string(tolua_S, 4,&arg2);
+        if(!ok)
+            return 0;
+        bool ret = cobj->writeDataToFile(arg0, arg1, arg2);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    if (argc == 4) 
+    {
+        const unsigned char* arg0;
+        unsigned long arg1;
+        std::string arg2;
+        bool arg3;
+
+        #pragma warning NO CONVERSION TO NATIVE FOR unsigned char*;
+
+        ok &= luaval_to_ulong(tolua_S, 3, &arg1);
+
+        ok &= luaval_to_std_string(tolua_S, 4,&arg2);
+
+        ok &= luaval_to_boolean(tolua_S, 5,&arg3);
+        if(!ok)
+            return 0;
+        bool ret = cobj->writeDataToFile(arg0, arg1, arg2, arg3);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "writeDataToFile",argc, 3);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_IOUtils_writeDataToFile'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_IOUtils_getInstance(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.IOUtils",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+            return 0;
+        framework::IOUtils* ret = framework::IOUtils::getInstance();
+        object_to_luaval<framework::IOUtils>(tolua_S, "pf.IOUtils",(framework::IOUtils*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "getInstance",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_IOUtils_getInstance'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_IOUtils_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (IOUtils)");
+    return 0;
+}
+
+int lua_register_psframework_IOUtils(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.IOUtils");
+    tolua_cclass(tolua_S,"IOUtils","pf.IOUtils","",nullptr);
+
+    tolua_beginmodule(tolua_S,"IOUtils");
+        tolua_function(tolua_S,"removeFile",lua_psframework_IOUtils_removeFile);
+        tolua_function(tolua_S,"moveFile",lua_psframework_IOUtils_moveFile);
+        tolua_function(tolua_S,"createDirectory",lua_psframework_IOUtils_createDirectory);
+        tolua_function(tolua_S,"fileOrDirectoryExist",lua_psframework_IOUtils_fileOrDirectoryExist);
+        tolua_function(tolua_S,"writeDataToFile",lua_psframework_IOUtils_writeDataToFile);
+        tolua_function(tolua_S,"getInstance", lua_psframework_IOUtils_getInstance);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::IOUtils).name();
+    g_luaType[typeName] = "pf.IOUtils";
+    g_typeCast["IOUtils"] = "pf.IOUtils";
+    return 1;
+}
+
+int lua_psframework_RecordHelper_setEncryptionKey(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::RecordHelper* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.RecordHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::RecordHelper*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_RecordHelper_setEncryptionKey'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        cobj->setEncryptionKey(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setEncryptionKey",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RecordHelper_setEncryptionKey'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_RecordHelper_writeRecord(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::RecordHelper* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.RecordHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::RecordHelper*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_RecordHelper_writeRecord'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        std::string arg0;
+        std::string arg1;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        bool ret = cobj->writeRecord(arg0, arg1);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "writeRecord",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RecordHelper_writeRecord'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_RecordHelper_readRecord(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::RecordHelper* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.RecordHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::RecordHelper*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_RecordHelper_readRecord'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        const char* ret = cobj->readRecord(arg0);
+        tolua_pushstring(tolua_S,(const char*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "readRecord",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RecordHelper_readRecord'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_RecordHelper_getInstance(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.RecordHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+            return 0;
+        framework::RecordHelper* ret = framework::RecordHelper::getInstance();
+        object_to_luaval<framework::RecordHelper>(tolua_S, "pf.RecordHelper",(framework::RecordHelper*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "getInstance",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RecordHelper_getInstance'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_RecordHelper_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (RecordHelper)");
+    return 0;
+}
+
+int lua_register_psframework_RecordHelper(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.RecordHelper");
+    tolua_cclass(tolua_S,"RecordHelper","pf.RecordHelper","",nullptr);
+
+    tolua_beginmodule(tolua_S,"RecordHelper");
+        tolua_function(tolua_S,"setEncryptionKey",lua_psframework_RecordHelper_setEncryptionKey);
+        tolua_function(tolua_S,"writeRecord",lua_psframework_RecordHelper_writeRecord);
+        tolua_function(tolua_S,"readRecord",lua_psframework_RecordHelper_readRecord);
+        tolua_function(tolua_S,"getInstance", lua_psframework_RecordHelper_getInstance);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::RecordHelper).name();
+    g_luaType[typeName] = "pf.RecordHelper";
+    g_typeCast["RecordHelper"] = "pf.RecordHelper";
+    return 1;
+}
 TOLUA_API int register_all_psframework(lua_State* tolua_S)
 {
 	tolua_open(tolua_S);
@@ -4507,6 +4704,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_Queue(tolua_S);
 	lua_register_psframework_ModalLayer(tolua_S);
 	lua_register_psframework_SqliteDb(tolua_S);
+	lua_register_psframework_RecordHelper(tolua_S);
 	lua_register_psframework_IOUtils(tolua_S);
 	lua_register_psframework_MaskLayer(tolua_S);
 	lua_register_psframework_CoreLayer(tolua_S);

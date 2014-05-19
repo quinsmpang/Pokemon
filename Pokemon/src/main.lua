@@ -27,6 +27,12 @@ function GameLauncher:init()
     -- set random seed
     math.randomseed(tostring(os.time()):reverse():sub(1, 6))
 
+    -- set record encryption key
+    RecordHelper:getInstance():setEncryptionKey(213)
+
+    -- load game settings
+    GameSettings:loadSettings()
+
     -- print current version
     log("framework version string: %s, number: %.2f\n", PSFrameworkVersionStr, PSFrameworkVersionNumber)
 end
@@ -55,10 +61,11 @@ function GameLauncher:loadLuaFramework()
     require "src/framework/Notifier"
     require "src/framework/SqliteLua"
     require "src/framework/psModel"
+    require "src/framework/RecordHelperLua"
 end
 
 function GameLauncher:loadPublicModules()
-    
+    require "src/model/GameSettings"
 end
 
 function GameLauncher:startGame()
