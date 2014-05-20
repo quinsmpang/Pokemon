@@ -65,6 +65,7 @@ function GameLauncher:loadLuaFramework()
 end
 
 function GameLauncher:loadPublicModules()
+    require "src/utils/GameConst"
     require "src/utils/GameSettings"
     require "src/utils/GameVolumeHelper"
 end

@@ -9,6 +9,9 @@ class("SettingsLayer", psModalLayer)
 SettingsLayer.window = nil			--背景窗口
 SettingsLayer.musicSlider = nil 	--音乐音量Slider
 SettingsLayer.effectSlider = nil	--音效音量Slider
+SettingsLayer.btnDefault = nil		--恢复默认按钮
+SettingsLayer.btnClose = nil		--关闭按钮
+
 SettingsLayer.enableClick = nil		--是否可以响应事件
 
 --const
@@ -37,9 +40,9 @@ function SettingsLayer:initUI()
 	self.musicSlider:setAnchorPoint(0.5, 0.5)
 	self.musicSlider:setPosition(windowSize.width * 0.55, windowSize.height * 0.6)
 	self.musicSlider:setMinimumValue(0)
-	self.musicSlider:setMaximumValue(100)
-	self.musicSlider:setValue(GameSettings.musicVolume * 100)
-	self.musicSlider:registerControlEventHandler(MakeScriptHandler(self, self.onMusicSliderValueChanged), 256)
+	self.musicSlider:setMaximumValue(1)
+	self.musicSlider:setValue(GameSettings.musicVolume)
+	self.musicSlider:registerControlEventHandler(MakeScriptHandler(self, self.onMusicSliderValueChanged), cc.Handler.CONTROL_VALUE_CHANGED)
 	self.window:addChild(self.musicSlider)
 
 	sliderTrack = cc.Sprite:createWithSpriteFrameName(self.SLIDER_TRACK_PATH)
@@ -49,9 +52,36 @@ function SettingsLayer:initUI()
 	self.effectSlider:setAnchorPoint(0.5, 0.5)
 	self.effectSlider:setPosition(windowSize.width * 0.55, windowSize.height * 0.45)
 	self.effectSlider:setMinimumValue(0)
-	self.effectSlider:setMaximumValue(100)
-	self.effectSlider:setValue(GameSettings.effectVolume * 100)
+	self.effectSlider:setMaximumValue(1)
+	self.effectSlider:setValue(GameSettings.effectVolume)
+	self.effectSlider:registerControlEventHandler(MakeScriptHandler(self, self.onEffectSliderValueChanged), cc.Handler.CONTROL_VALUE_CHANGED)
 	self.window:addChild(self.effectSlider)
+
+	-- labels
+	local musicLabel = cc.Label:createWithTTF("音乐", GameConst.DEFAULT_FONT_PATH, 20)
+	musicLabel:setColor(ccc3(255, 255, 255))
+	musicLabel:setAnchorPoint(0.5, 0.5)
+	musicLabel:setPosition(windowSize.width * 0.25, windowSize.height * 0.6)
+	self.window:addChild(musicLabel)
+
+	local effectLabel = cc.Label:createWithTTF("音效", GameConst.DEFAULT_FONT_PATH, 20)
+	effectLabel:setColor(ccc3(255, 255, 255))
+	effectLabel:setAnchorPoint(0.5, 0.5)
+	effectLabel:setPosition(windowSize.width * 0.25, windowSize.height * 0.45)
+	self.window:addChild(effectLabel)
+
+	-- buttons
+	self.btnDefault = cc.ControlButton:create("默认", GameConst.DEFAULT_FONT_PATH, 22)
+	self.btnDefault:setAnchorPoint(0.5, 0.5)
+	self.btnDefault:setPosition(windowSize.width * 0.35, windowSize.height * 0.28)
+	self.btnDefault:registerControlEventHandler(MakeScriptHandler(self, self.onBtnDefaultClick), cc.Handler.CONTROL_TOUCH_UP_INSIDE)
+	self.window:addChild(self.btnDefault)
+
+	self.btnClose = cc.ControlButton:create("关闭", GameConst.DEFAULT_FONT_PATH, 22)
+	self.btnClose:setAnchorPoint(0.5, 0.5)
+	self.btnClose:setPosition(windowSize.width * 0.65, windowSize.height * 0.28)
+	self.btnClose:registerControlEventHandler(MakeScriptHandler(self, self.onBtnCloseClick), cc.Handler.CONTROL_TOUCH_UP_INSIDE)
+	self.window:addChild(self.btnClose)
 
 	self.window:setScale(0)
 	self.enableClick = false
@@ -71,16 +101,47 @@ function SettingsLayer:onComeInEnd()
 end
 
 function SettingsLayer:onGoOut()
-	GameSettings:saveSettings()
 end
 
 function SettingsLayer:onMusicSliderValueChanged()
+	if not self.enableClick then
+		return
+	end
 	log("SettingsLayer:onMusicSliderValueChanged")
 	local currentValue = self.musicSlider:getValue()
 	cc.SimpleAudioEngine:getInstance():setMusicVolume(currentValue)
 end
 function SettingsLayer:onEffectSliderValueChanged()
-	log("onEffectSliderValueChanged")
+	if not self.enableClick then
+		return
+	end
+	log("SettingsLayer:onEffectSliderValueChanged")
 	local currentValue = self.effectSlider:getValue()
-	cc.SimpleAudioEngine:getInstance():setEffectVolumn(currentValue)
+	cc.SimpleAudioEngine:getInstance():setEffectsVolume(currentValue)
+end
+
+function SettingsLayer:onBtnDefaultClick()
+	if not self.enableClick then
+		return
+	end
+	log("SettingsLayer:onBtnDefaultClick")
+	self.musicSlider:setValue(0.5)
+	self.effectSlider:setValue(0.5)
+	cc.SimpleAudioEngine:getInstance():setMusicVolume(0.5)
+	cc.SimpleAudioEngine:getInstance():setEffectsVolume(0.5)
+end
+function SettingsLayer:onBtnCloseClick()
+	if not self.enableClick then
+		return
+	end
+	log("SettingsLayer:onBtnCloseClick")
+	GameSettings.musicVolume = self.musicSlider:getValue()
+	GameSettings.effectVolume = self.effectSlider:getValue()
+	GameSettings:saveSettings()
+	self.enableClick = false
+	local quitAction = cc.Sequence:create(
+		cc.EaseOut:create(cc.ScaleTo:create(0.15, 0), 2),
+		cc.RemoveSelf:create()
+		)
+	self:runAction(quitAction)
 end

@@ -54,7 +54,7 @@ function MainViewController:renderView()
 	local screenSize = cc.Director:getInstance():getWinSize()
 
 	-- info text
-	local gameInfoText = cc.Label:createWithSystemFont(self.GAME_INFO_TEXT, "Consolas", 24)
+	local gameInfoText = cc.Label:createWithTTF(self.GAME_INFO_TEXT, GameConst.DEFAULT_FONT_PATH, 24)
 	gameInfoText:setAnchorPoint(0.5, 0.5)
 	gameInfoText:setPosition(screenSize.width * 0.5, screenSize.height * 0.5)
 	-- label bug, you have to cascade opacity first and then set opacity.
@@ -131,7 +131,7 @@ function MainViewController:onMainViewTouch(touch, event)
 
 	self.isRunningAction = true
 
-	cc.SimpleAudioEngine:getInstance():stopMusic(true)
+	--cc.SimpleAudioEngine:getInstance():stopMusic(true)
 	cc.SimpleAudioEngine:getInstance():playEffect("audio/pm/493.wav")
 
 	self.mainView:runAction(cc.Sequence:create(

@@ -19,7 +19,6 @@ MainMenu.settingsWindow = nil 	--设置窗口
 MainMenu.BTNNEWGAME_TEXT = "新 的 旅 程"
 MainMenu.BTNLOADGAME_TEXT = "继 续 旅 程"
 MainMenu.BTNSETTINGS_TEXT = "游 戏 设 置"
-MainMenu.BTN_FONTNAME = "Arial"
 MainMenu.BTN_FONTSIZE = 26
 MainMenu.BTN_FONTCOLOR = ccc3(0, 120, 255)
 MainMenu.BTN_TEXT_POSITION_X = 260
@@ -49,7 +48,7 @@ function MainMenu:initUI()
 	local newGameMenu = cc.Menu:create(self.btnNewGame)
 	newGameMenu:setPosition(screenSize.width * 0.5, screenSize.height * 0.85)
 	self:addChild(newGameMenu)
-	local newGameLabel = cc.Label:createWithSystemFont(self.BTNNEWGAME_TEXT, self.BTN_FONTNAME, self.BTN_FONTSIZE)
+	local newGameLabel = cc.Label:createWithTTF(self.BTNNEWGAME_TEXT, GameConst.DEFAULT_FONT_PATH, self.BTN_FONTSIZE)
 	newGameLabel:setCascadeOpacityEnabled(true)
 	newGameLabel:setPosition(self.BTN_TEXT_POSITION_X, screenSize.height * 0.85)
 	newGameLabel:setColor(self.BTN_FONTCOLOR)
@@ -65,7 +64,7 @@ function MainMenu:initUI()
 	local loadGameMenu = cc.Menu:create(self.btnLoadGame)
 	loadGameMenu:setPosition(screenSize.width * 0.5, screenSize.height * 0.65)
 	self:addChild(loadGameMenu)
-	local loadGameLabel = cc.Label:createWithSystemFont(self.BTNLOADGAME_TEXT, self.BTN_FONTNAME, self.BTN_FONTSIZE)
+	local loadGameLabel = cc.Label:createWithTTF(self.BTNLOADGAME_TEXT, GameConst.DEFAULT_FONT_PATH, self.BTN_FONTSIZE)
 	loadGameLabel:setCascadeOpacityEnabled(true)
 	loadGameLabel:setPosition(self.BTN_TEXT_POSITION_X, screenSize.height * 0.65)
 	loadGameLabel:setColor(self.BTN_FONTCOLOR)
@@ -81,7 +80,7 @@ function MainMenu:initUI()
 	local settingsMenu = cc.Menu:create(self.btnSettings)
 	settingsMenu:setPosition(screenSize.width * 0.5, screenSize.height * 0.45)
 	self:addChild(settingsMenu)
-	local settingsLabel = cc.Label:createWithSystemFont(self.BTNSETTINGS_TEXT, self.BTN_FONTNAME, self.BTN_FONTSIZE)
+	local settingsLabel = cc.Label:createWithTTF(self.BTNSETTINGS_TEXT, GameConst.DEFAULT_FONT_PATH, self.BTN_FONTSIZE)
 	settingsLabel:setCascadeOpacityEnabled(true)
 	settingsLabel:setPosition(self.BTN_TEXT_POSITION_X, screenSize.height * 0.45)
 	settingsLabel:setColor(self.BTN_FONTCOLOR)
