@@ -20,7 +20,7 @@
             <key>images/maintitle/border_aqua.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{906,512},{100,100}}</string>
+                <string>{{906,530},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>images/maintitle/border_orange.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{804,512},{100,100}}</string>
+                <string>{{804,530},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>images/maintitle/border_red.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{906,410},{100,100}}</string>
+                <string>{{906,428},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>images/maintitle/border_yellow.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{804,410},{100,100}}</string>
+                <string>{{804,428},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>images/maintitle/pokemon_text.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{804,2},{406,147}}</string>
+                <string>{{804,20},{406,147}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -95,10 +95,49 @@
                 <key>sourceSize</key>
                 <string>{406,147}</string>
             </dict>
+            <key>images/maintitle/slider_fill.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{804,2},{196,8}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{196,8}}</string>
+                <key>sourceSize</key>
+                <string>{196,8}</string>
+            </dict>
+            <key>images/maintitle/slider_none.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{804,12},{194,6}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{194,6}}</string>
+                <key>sourceSize</key>
+                <string>{194,6}</string>
+            </dict>
+            <key>images/maintitle/slider_thumb.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1002,2},{19,19}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{19,19}}</string>
+                <key>sourceSize</key>
+                <string>{19,19}</string>
+            </dict>
             <key>images/maintitle/sunrise_text.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{804,614},{259,78}}</string>
+                <string>{{804,632},{259,78}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -108,6 +147,19 @@
                 <key>sourceSize</key>
                 <string>{261,78}</string>
             </dict>
+            <key>images/maintitle/window.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,966},{419,383}}</string>
+                <key>offset</key>
+                <string>{1,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,0},{419,383}}</string>
+                <key>sourceSize</key>
+                <string>{421,383}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -116,9 +168,9 @@
             <key>realTextureFileName</key>
             <string>maintitle.pvr.ccz</string>
             <key>size</key>
-            <string>{1024,1024}</string>
+            <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2f77c8d6b212ee14ef72e61c6bf87b3f:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:940a3e920427a859c13dc8ec9a29c8f0:1/1$</string>
             <key>textureFileName</key>
             <string>maintitle.pvr.ccz</string>
         </dict>

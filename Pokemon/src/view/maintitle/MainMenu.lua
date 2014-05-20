@@ -5,6 +5,7 @@
 ]]
 
 require "src/view/map/MapViewScene"
+require "src/view/maintitle/SettingsLayer"
 
 class("MainMenu", psLayer)
 
@@ -100,16 +101,21 @@ end
 -- btn callbacks
 function MainMenu:onBtnNewGameClicked()
 	log("MainMenu:onBtnNewGameClicked")
-	--cc.SimpleAudioEngine:getInstance():playEffect("audio/effects/btn_click.wav")
+	GameVolumeHelper:playBtnClickSound()
 	local mapViewScene = MapViewScene:create()
 	cc.Director:getInstance():replaceScene(cc.TransitionFade:create(2, mapViewScene, ccc3(0, 0, 0)))
 end
 
 function MainMenu:onBtnLoadGameClicked()
 	log("MainMenu:onBtnLoadGameClicked")
+	GameVolumeHelper:playBtnClickSound()
 end
 
 function MainMenu:onBtnSettingsClicked()
 	log("MainMenu:onBtnSettingsClicked")
-	GameSettings:saveSettings()
+	GameVolumeHelper:playBtnClickSound()
+
+	self.settingsWindow = SettingsLayer:create()
+	self.settingsWindow:initUI()
+	self:addChild(self.settingsWindow)
 end

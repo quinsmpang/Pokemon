@@ -266,6 +266,10 @@ static int tolua_cocos2d_Control_registerControlEventHandler(lua_State* tolua_S)
 #endif
         LUA_FUNCTION handler = (  toluafix_ref_function(tolua_S,2,0));
         int controlevent = (int)tolua_tonumber(tolua_S,3,0);
+		if (controlevent >= (int)ScriptHandlerMgr::HandlerType::CONTROL_TOUCH_DOWN && controlevent <= (int)ScriptHandlerMgr::HandlerType::CONTROL_VALUE_CHANGED)
+		{
+			controlevent = pow(2, controlevent - 7);
+		}
         for (int i = 0; i < kControlEventTotalNumber; i++)
         {
             if ((controlevent & (1 << i)))

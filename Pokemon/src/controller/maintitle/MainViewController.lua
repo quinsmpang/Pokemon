@@ -140,9 +140,9 @@ function MainViewController:onMainViewTouch(touch, event)
 		))
 
 	-- check if there is save directory
-	-- if not IOUtils:getInstance():fileOrDirectoryExist("save") then
-	-- 	IOUtils:getInstance():createDirectory("save")
-	-- end
+	if not IOUtils:getInstance():fileOrDirectoryExist("save") then
+		IOUtils:getInstance():createDirectory("save")
+	end
 
 	return true
 end
