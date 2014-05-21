@@ -21,7 +21,7 @@ function MapViewController:renderView()
 
 	local screenSize = cc.Director:getInstance():getWinSize()
 	
-	local tiledMap = cc.TMXTiledMap:create("maps/test.tmx")
+	local tiledMap = cc.TMXTiledMap:create("maps/pokemon_center.tmx")
 	tiledMap:setAnchorPoint(0.5, 0.5)
 	tiledMap:setPosition(screenSize.width * 0.5, screenSize.height * 0.5)
 

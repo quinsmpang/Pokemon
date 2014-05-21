@@ -69,6 +69,19 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
+            <key>images/maintitle/btn_back.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{953,20},{5,5}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{5,5}}</string>
+                <key>sourceSize</key>
+                <string>{5,5}</string>
+            </dict>
             <key>images/maintitle/menu_back.jpg</key>
             <dict>
                 <key>frame</key>
@@ -170,7 +183,7 @@
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:11b845203ae26c24f03b920abe40d289:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:e56496d03f4689fd7e8691087b9f24b4:1/1$</string>
             <key>textureFileName</key>
             <string>maintitle.pvr.ccz</string>
         </dict>
