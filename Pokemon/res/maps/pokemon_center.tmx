@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="19" height="13" tilewidth="48" tileheight="48">
+ <tileset firstgid="1" name="pokemon_center" tilewidth="48" tileheight="48">
+  <image source="../images/terrains/pokemon_center.vti" width="384" height="818"/>
+ </tileset>
+ <layer name="floor" width="19" height="13">
+  <data encoding="base64" compression="zlib">
+   eJzl0qcOgFAQRNF9oCmCJmiCJmj//3VcQ0KeIdnFIY69YjJORNwPhB94tlIESonX0nZub60MOQqUqAytGg1adOgNrQEjJsxYDK0VG3YcOA0tzfaRsROL/eO+C+fGBFs=
+  </data>
+ </layer>
+ <layer name="wall" width="19" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAu4ARiLgowN5JZgkAsRAEWRjJLkkJ/SVOof6iBRCBOopJZmUCcRSWzCoG4iEpm0QtoArEWEGvT2V4AZQoFCA==
+  </data>
+ </layer>
+ <layer name="items" width="19" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAviATiKBL1uAOxBxLfFIjNsKjzIWBOBBD7A3EAlA0CtkBsh0VtCIluBAFXIHYjQ98oGAW0AADm2wSj
+  </data>
+ </layer>
+ <layer name="table" width="19" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYBhawBCLmAkQG5NhliUWMRsgtibDLEcgdkLDLkDsTIZZnkDshQV7k2HWKBi5AADpSAUf
+  </data>
+ </layer>
+ <layer name="tableitems" width="19" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgaIHygHUAm8KOiWWFUNGsUDH8AAJiOAPw=
+  </data>
+ </layer>
+</map>
