@@ -46,10 +46,7 @@ function MainViewController:cleanResources()
 end
 
 function MainViewController:renderView()
-	local coreLayer = psCoreLayer:create()
-
-	local mainViewScene = self:getScene()
-	mainViewScene:setCoreLayer(coreLayer)
+	local coreLayer = self:getScene():getCoreLayer()
 
 	local screenSize = cc.Director:getInstance():getWinSize()
 

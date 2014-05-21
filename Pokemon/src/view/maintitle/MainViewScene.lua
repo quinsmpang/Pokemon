@@ -10,6 +10,9 @@ class("MainViewScene", psGameScene)
 
 function MainViewScene:onEnter()
 	log("MainViewScene:onEnter")
+	local coreLayer = CoreLayer:create()
+	self:setCoreLayer(coreLayer)
+
 	local mainViewController = MainViewController:create()
 	self:loadViewController(mainViewController)
 end

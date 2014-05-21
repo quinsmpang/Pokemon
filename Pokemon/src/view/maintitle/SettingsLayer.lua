@@ -141,7 +141,8 @@ function SettingsLayer:onBtnCloseClick()
 	self.enableClick = false
 	local quitAction = cc.Sequence:create(
 		cc.EaseOut:create(cc.ScaleTo:create(0.15, 0), 2),
-		cc.RemoveSelf:create()
+		cc.TargetedAction:create(self, cc.RemoveSelf:create())
 		)
-	self:runAction(quitAction)
+
+	self.window:runAction(quitAction)
 end
