@@ -10,12 +10,12 @@
  </layer>
  <layer name="wall" width="19" height="13">
   <data encoding="base64" compression="zlib">
-   eJxjYKAu4ARiLgowN5JZgkAsRAEWRjJLkkJ/SVOof6iBRCBOopJZmUCcRSWzCoG4iEpm0QtoArEWEGvT2V4AZQoFCA==
+   eJxjYKAu4ARiLgowN5JZgkAsRAEWRjJLkkJ/SVOofxSMAnoDAJh+AhE=
   </data>
  </layer>
  <layer name="items" width="19" height="13">
   <data encoding="base64" compression="zlib">
-   eJxjYKAviATiKBL1uAOxBxLfFIjNsKjzIWBOBBD7A3EAlA0CtkBsh0VtCIluBAFXIHYjQ98oGAW0AADm2wSj
+   eJxjYBj8wB2IPZD4pkBsRoY5EUDsD8QBUDYI2AKxHUWuQwBXIHajklnkgEQgTqKSWZlAnEUlswqBuIhKZg1FoAnEWkCsTWd7ATr6Bkc=
   </data>
  </layer>
  <layer name="table" width="19" height="13">
