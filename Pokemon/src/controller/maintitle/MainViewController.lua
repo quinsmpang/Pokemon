@@ -13,10 +13,13 @@ MainViewController.mainView = nil		-- 主界面view (ccb)
 MainViewController.mainMenuView = nil 		-- 主菜单view
 
 MainViewController.isRunningAction = nil
+MainViewController.state = nil 		--当前的状态 (主界面/菜单界面)
 
 -- const values
 MainViewController.GAME_INFO_TEXT = "本作仅供学习交流  请勿用于商业用途\n源码已在GitHub上托管"
 MainViewController.TITLE_MUSIC = "audio/scene/title.mp3"
+MainViewController.STATE_MAINVIEW = 1
+MainViewController.STATE_MAINMENU = 2
 
 TAG = {
 	TOUCHLABEL = 1,
@@ -112,6 +115,9 @@ function MainViewController:runTouchLabelAction()
 		))
 end
 function MainViewController:registerMainViewEvents()
+	-- change state
+	self.state = self.STATE_MAINVIEW
+
 	local listener = cc.EventListenerTouchOneByOne:create()
 	listener:setSwallowTouches(true)
 	listener:registerScriptHandler(MakeScriptHandler(self, self.onMainViewTouch), cc.Handler.EVENT_TOUCH_BEGAN)
@@ -126,6 +132,12 @@ function MainViewController:onMainViewTouch(touch, event)
 
 	log("MainViewController:onMainViewTouch")
 
+	self:readyToEnterMainMenu()
+
+	return true
+end
+
+function MainViewController:readyToEnterMainMenu()
 	self.isRunningAction = true
 
 	--cc.SimpleAudioEngine:getInstance():stopMusic(true)
@@ -140,11 +152,12 @@ function MainViewController:onMainViewTouch(touch, event)
 	if not IOUtils:getInstance():fileOrDirectoryExist("save") then
 		IOUtils:getInstance():createDirectory("save")
 	end
-
-	return true
 end
 
 function MainViewController:enterMainMenu()
+	--change state
+	self.state = self.STATE_MAINMENU
+
 	self.mainView:removeFromParent()
 
 	-- load main menu

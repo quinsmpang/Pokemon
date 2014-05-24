@@ -9,7 +9,7 @@ RecordHelperLua = {}
 -- analyze the record string to lua table
 function RecordHelperLua:getTableFromRecord(filePath)
 	local content = RecordHelper:getInstance():readRecord(filePath)
-	log("Load record content: %s", content)
+	log(string.format("Load record content: %s", content))
 	local resultTable = {}
 
 	local pairTable = string.split(content, ";")
@@ -39,6 +39,6 @@ function RecordHelperLua:recordTable(filePath, table)
 		index = index + 1
 	end
 
-	log("Save record content: %s", content)
+	log(string.format("Save record content: %s", content))
 	return RecordHelper:getInstance():writeRecord(filePath, content)
 end

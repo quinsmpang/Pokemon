@@ -5,7 +5,7 @@
 ]]
 
 function log(...)
-	print(os.date("%X"), string.format(...))
+	print(os.date("%X"), unpack{...})
 end
 
 -- Copy k-v from source table to the target table.

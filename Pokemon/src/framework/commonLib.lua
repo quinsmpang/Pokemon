@@ -6,8 +6,13 @@
 
 function MakeScriptHandler(target, selector, ...)
 	local args = {...}
-	return function()
-		return selector(target, unpack(args))
+	return function(...)
+		-- the varadic params here are sent by the event automatically, append our own args after them.
+		local internalArgs = {...}
+		for _, arg in ipairs(args) do
+			table.insert(internalArgs, arg)
+		end
+		return selector(target, unpack(internalArgs))
 	end
 end
 

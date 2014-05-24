@@ -34,7 +34,7 @@ function GameLauncher:init()
     GameSettings:loadSettings()
 
     -- print current version
-    log("framework version string: %s, number: %.2f\n", PSFrameworkVersionStr, PSFrameworkVersionNumber)
+    log(string.format("framework version string: %s, number: %.2f\n", PSFrameworkVersionStr, PSFrameworkVersionNumber))
 end
 
 function GameLauncher:loadLuaFramework()
