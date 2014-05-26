@@ -6,6 +6,7 @@
 
 require "src/view/map/MapViewScene"
 require "src/view/maintitle/SettingsLayer"
+require "src/view/maintitle/KeysetLayer"
 
 class("MainMenu", psLayer)
 
@@ -56,6 +57,7 @@ function MainMenu:initUI()
 	newGameLabel:setColor(self.BTN_FONTCOLOR)
 	self:addChild(newGameLabel)
 
+
 	-- load game button
 	normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_red.png", capInsets)
 	normalImage:setPreferredSize(self.BTN_SIZE)
@@ -89,20 +91,24 @@ function MainMenu:initUI()
 	self:addChild(settingsLabel)
 
 	-- keyset button
-	normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_red.png", capInsets)
-	normalImage:setPreferredSize(self.BTN_SIZE)
-	selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_orange.png", capInsets)
-	selectedImage:setPreferredSize(self.BTN_SIZE)
-	self.btnKeySet = cc.MenuItemSprite:create(normalImage, selectedImage)
-	self.btnKeySet:registerScriptTapHandler(MakeScriptHandler(self, self.onBtnKeysetClicked))
-	local keysetMenu = cc.Menu:create(self.btnKeySet)
-	keysetMenu:setPosition(screenSize.width * 0.52, screenSize.height * 0.18)
-	self:addChild(keysetMenu)
-	local keysetLabel = cc.Label:createWithTTF(self.BTNKEYSET_TEXT, GameConst.DEFAULT_FONT_PATH, self.BTN_FONTSIZE)
-	keysetLabel:setCascadeOpacityEnabled(true)
-	keysetLabel:setPosition(screenSize.width * 0.52, screenSize.height * 0.18)
-	keysetLabel:setColor(self.BTN_FONTCOLOR)
-	self:addChild(keysetLabel)
+	if targetPlatform == cc.PLATFORM_OS_WIN32 then
+		normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_red.png", capInsets)
+		normalImage:setPreferredSize(self.BTN_SIZE)
+		selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_orange.png", capInsets)
+		selectedImage:setPreferredSize(self.BTN_SIZE)
+		self.btnKeySet = cc.MenuItemSprite:create(normalImage, selectedImage)
+		self.btnKeySet:registerScriptTapHandler(MakeScriptHandler(self, self.onBtnKeysetClicked))
+		local keysetMenu = cc.Menu:create(self.btnKeySet)
+		keysetMenu:setPosition(screenSize.width * 0.52, screenSize.height * 0.18)
+		self:addChild(keysetMenu)
+		local keysetLabel = cc.Label:createWithTTF(self.BTNKEYSET_TEXT, GameConst.DEFAULT_FONT_PATH, self.BTN_FONTSIZE)
+		keysetLabel:setCascadeOpacityEnabled(true)
+		keysetLabel:setPosition(screenSize.width * 0.52, screenSize.height * 0.18)
+		keysetLabel:setColor(self.BTN_FONTCOLOR)
+		self:addChild(keysetLabel)
+
+		self.btnKeySet:setVisible(false)
+	end
 
 	self.btnNewGame:setVisible(false)
 	self.btnLoadGame:setVisible(false)
@@ -113,6 +119,10 @@ function MainMenu:showButtons()
 	self.btnNewGame:setVisible(true)
 	self.btnLoadGame:setVisible(true)
 	self.btnSettings:setVisible(true)
+
+	if targetPlatform == cc.PLATFORM_OS_WIN32 then
+		self.btnKeySet:setVisible(true)
+	end
 end
 
 -- btn callbacks
@@ -140,4 +150,8 @@ end
 function MainMenu:onBtnKeysetClicked()
 	log("MainMenu:onBtnKeysetClicked")
 	GameVolumeHelper:playBtnClickSound()
+
+	self.keysetWindow = KeysetLayer:create()
+	self.keysetWindow:initUI()
+	self:addChild(self.keysetWindow)
 end

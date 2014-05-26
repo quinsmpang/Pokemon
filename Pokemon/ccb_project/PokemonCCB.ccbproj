@@ -24,6 +24,8 @@
 	<true/>
 	<key>javascriptMainCCB</key>
 	<string>MainScene</string>
+	<key>needRepublish</key>
+	<false/>
 	<key>onlyPublishCCBs</key>
 	<true/>
 	<key>publishDirectory</key>
@@ -37,7 +39,7 @@
 	<key>publishEnabledHTML5</key>
 	<false/>
 	<key>publishEnablediPhone</key>
-	<false/>
+	<true/>
 	<key>publishResolutionHTML5_height</key>
 	<integer>320</integer>
 	<key>publishResolutionHTML5_scale</key>
@@ -73,5 +75,9 @@
 			<string>Resources</string>
 		</dict>
 	</array>
+	<key>versionStr</key>
+	<string>Version: 3.0-alpha5
+GitHub: 76499877e8
+</string>
 </dict>
 </plist>

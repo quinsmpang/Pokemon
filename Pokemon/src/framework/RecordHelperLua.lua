@@ -30,7 +30,7 @@ function RecordHelperLua:recordTable(filePath, table)
 	local content = ""
 	local index = 1
 	for k, v in pairs(table) do
-		if type(v) ~= "function" and type(v) ~= "nil" then
+		if type(v) ~= "function" and type(v) ~= "table" and type(v) ~= "nil" then
 			if index > 1 then
 				content = content .. ";"
 			end

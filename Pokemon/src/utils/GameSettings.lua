@@ -8,6 +8,7 @@ GameSettings = {}
 
 GameSettings.musicVolume = nil		-- 音乐声音大小
 GameSettings.effectVolume = nil		-- 音效声音大小
+GameSettings.Keys = nil
 
 if targetPlatform == cc.PLATFORM_OS_WIN32 then
 	GameSettings.upKey = nil
@@ -23,6 +24,7 @@ local CONFIG_PATH = "config"
 
 function GameSettings:loadSettings()
 	log("GameSettings:loadSettings")
+
 	if not cc.FileUtils:getInstance():isFileExist(CONFIG_PATH) then
 		self.musicVolume = 0.5
 		self.effectVolume = 0.5
@@ -35,11 +37,31 @@ function GameSettings:loadSettings()
 			self.confirmKey = cc.KeyCode.KEY_C
 			self.cancelKey = cc.KeyCode.KEY_V
 			self.startKey = cc.KeyCode.KEY_KP_ENTER
+
+			self.Keys = {
+				self.upKey,
+				self.downKey,
+				self.leftKey,
+				self.rightKey,
+				self.confirmKey,
+				self.cancelKey,
+				self.startKey
+			}
 		end
 	else
 		local result = RecordHelperLua:getTableFromRecord(CONFIG_PATH)
 		self.musicVolume = tonumber(result["musicVolume"])
 		self.effectVolume = tonumber(result["effectVolume"])
+
+		if targetPlatform == cc.PLATFORM_OS_WIN32 then
+			self.upKey = tonumber(result["upKey"])
+			self.downKey = tonumber(result["downKey"])
+			self.leftKey = tonumber(result["leftKey"])
+			self.rightKey = tonumber(result["rightKey"])
+			self.confirmKey = tonumber(result["confirmKey"])
+			self.cancelKey = tonumber(result["cancelKey"])
+			self.startKey = tonumber(result["startKey"])
+		end
 	end
 	cc.SimpleAudioEngine:getInstance():setMusicVolume(self.musicVolume)
 	cc.SimpleAudioEngine:getInstance():setEffectsVolume(self.effectVolume)
