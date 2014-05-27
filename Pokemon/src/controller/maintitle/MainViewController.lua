@@ -21,7 +21,7 @@ MainViewController.TITLE_MUSIC = "audio/scene/title.mp3"
 MainViewController.STATE_MAINVIEW = 1
 MainViewController.STATE_MAINMENU = 2
 
-TAG = {
+MainViewController.TAG = {
 	TOUCHLABEL = 1,
 }
 
@@ -75,7 +75,7 @@ function MainViewController:renderView()
 	tolua.cast(self.mainView, "cc.Layer")
 	coreLayer:addChild(ccbMainView)
 
-	self.touchLabel = ccbMainView:getChildByTag(TAG.TOUCHLABEL)
+	self.touchLabel = ccbMainView:getChildByTag(self.TAG.TOUCHLABEL)
 	tolua.cast(self.touchLabel, "cc.Label")
 	self.touchLabel:setSystemFontName("Consolas")
 

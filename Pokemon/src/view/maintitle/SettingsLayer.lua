@@ -25,7 +25,7 @@ function SettingsLayer:initUI()
 	local screenSize = cc.Director:getInstance():getWinSize()
 
 	-- init window
-	self.window = cc.Sprite:createWithSpriteFrameName("images/maintitle/window.png")
+	self.window = cc.Sprite:createWithSpriteFrameName("images/maintitle/setting_window.png")
 	self.window:setAnchorPoint(0.5, 0.5)
 	self.window:setPosition(screenSize.width * 0.5, screenSize.height * 0.6)
 	self:addChild(self.window)

@@ -30,3 +30,7 @@ function fallInRandom(numerator, denominator)
 	local randomNum = math.random(1, denominator)
 	return randomNum <= numerator
 end
+
+function containsPoint(rect, pos)
+	return pos.x > rect.x and pos.x < rect.x + rect.width and pos.y > rect.y and pos.y < rect.y + rect.height
+end

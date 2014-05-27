@@ -9,3 +9,7 @@ GameVolumeHelper = {}
 function GameVolumeHelper:playBtnClickSound()
 	--cc.SimpleAudioEngine:getInstance():playEffect("audio/effects/btn_click.wav")
 end
+
+function GameVolumeHelper:playUnableSound()
+	
+end
