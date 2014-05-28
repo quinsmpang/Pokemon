@@ -34,22 +34,13 @@ function GameSettings:loadSettings()
 			self.downKey = cc.KeyCode.KEY_DOWN_ARROW
 			self.leftKey = cc.KeyCode.KEY_LEFT_ARROW
 			self.rightKey = cc.KeyCode.KEY_RIGHT_ARROW
-			self.confirmKey = cc.KeyCode.KEY_C
-			self.cancelKey = cc.KeyCode.KEY_V
+			self.confirmKey = 99		-- c
+			self.cancelKey = 118		-- V
 			self.startKey = cc.KeyCode.KEY_KP_ENTER
-
-			self.Keys = {
-				self.upKey,
-				self.downKey,
-				self.leftKey,
-				self.rightKey,
-				self.confirmKey,
-				self.cancelKey,
-				self.startKey
-			}
 		end
 	else
 		local result = RecordHelperLua:getTableFromRecord(CONFIG_PATH)
+
 		self.musicVolume = tonumber(result["musicVolume"])
 		self.effectVolume = tonumber(result["effectVolume"])
 
@@ -63,6 +54,17 @@ function GameSettings:loadSettings()
 			self.startKey = tonumber(result["startKey"])
 		end
 	end
+
+	self.Keys = {
+		self.upKey,
+		self.downKey,
+		self.leftKey,
+		self.rightKey,
+		self.confirmKey,
+		self.cancelKey,
+		self.startKey
+	}
+
 	cc.SimpleAudioEngine:getInstance():setMusicVolume(self.musicVolume)
 	cc.SimpleAudioEngine:getInstance():setEffectsVolume(self.effectVolume)
 	log(string.format("MusicVolume: %.2f, EffectVolume: %.2f", self.musicVolume, self.effectVolume))
@@ -70,5 +72,17 @@ end
 
 function GameSettings:saveSettings()
 	log("GameSettings:saveSettings")
+	
+	self:updateKeys()
 	RecordHelperLua:recordTable(CONFIG_PATH, self)
+end
+
+function GameSettings:updateKeys()
+	self.upKey = self.Keys[1]
+	self.downKey = self.Keys[2]
+	self.leftKey = self.Keys[3]
+	self.rightKey = self.Keys[4]
+	self.confirmKey = self.Keys[5]
+	self.cancelKey = self.Keys[6]
+	self.startKey = self.Keys[7]
 end

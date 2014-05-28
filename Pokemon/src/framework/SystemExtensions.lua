@@ -76,6 +76,28 @@ function table.join(table, joinChar)
 	return str
 end
 
+-- do action for each array element in table
+function table.forEachAsArray(table, action)
+	if type(table) ~= "table" or type(action) ~= "function" then
+		return
+	end
+
+	for _, v in ipairs(table) do
+		action(v)
+	end
+end
+
+-- do action for each element in table
+function table.forEachAsHash(table, action)
+	if type(table) ~= "table" or type(action) ~= "function" then
+		return
+	end
+
+	for k, v in pairs(table) do
+		action(k, v)
+	end
+end
+
 -- split string from the specified character
 function string.split(str, splitChar)
 	local resultTable = {}

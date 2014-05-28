@@ -17,7 +17,6 @@ KeysetLayer.availableKeys = nil
 KeysetLayer.enableClick = nil		--是否允许用户点击
 KeysetLayer.runningLabel = nil
 KeysetLayer.runningIndex = nil
-KeysetLayer.newKeys = nil
 
 -- const value
 KeysetLayer.TAG = {
@@ -59,9 +58,7 @@ function KeysetLayer:initUI()
 	-- set key label content
 	assert(#self.panelList == 7, "Incorrect panel count")
 
-	for i, panel in ipairs(self.panelList) do
-		self:setKeyString(i, panel)
-	end
+	table.forEachAsHash(self.panelList, MakeScriptHandler(self, self.setKeyString))
 
 	-- init buttons
 	local windowSize = self.border:getContentSize()
@@ -231,11 +228,7 @@ end
 function KeysetLayer:onBtnConfirmClick()
 	log("KeysetLayer:onBtnConfirmClick")
 
-	if self.newKeys then
-		for index, keyCode in pairs(self.newKeys) do
-			GameSettings.Keys[index] = keyCode
-		end
-	end
+	GameSettings:saveSettings()
 
 	self:close()
 end
@@ -265,12 +258,6 @@ function KeysetLayer:onKeyboardPressed(keyCode, event)
 	log("KeysetLayer:onKeyboardPressed", keyCode)
 
 	if self.availableKeys[keyCode] then
-		assert(self.runningLabel, "running label should not be nil")
-		self.runningLabel:setString(self.availableKeys[keyCode])
-
-		if not self.newKeys then
-			self.newKeys = {}
-		end
 		self:handleNewKey(keyCode)
 
 		self.runningLabel:stopAllActions()
@@ -282,17 +269,27 @@ function KeysetLayer:onKeyboardPressed(keyCode, event)
 end
 
 function KeysetLayer:handleNewKey(keyCode)
-	-- check whether there is conflict keys, if true, exchange them.
+	assert(self.runningLabel, "running label should not be nil")
+	local oldStr = self.runningLabel:getString()
+	self.runningLabel:setString(self.availableKeys[keyCode])
+
+	-- check whether there is conflict keys, if exists, exchange them.
 	local index = 1
+	local exchangeExists = false
 	while index <= #GameSettings.Keys do
 		if index ~= self.runningIndex and GameSettings.Keys[index] == keyCode then
-			self.newKeys[self.runningIndex] = keyCode
-			self.newKeys[index] = GameSettings.Keys[index]
+			log(string.format("Exchange keys: %d, %d", self.runningIndex, index))
+			GameSettings.Keys[index], GameSettings.Keys[self.runningIndex] = GameSettings.Keys[self.runningIndex], keyCode
+			local exchangePanel = self.panelList[index]
+			local exchangeLabel = exchangePanel:getChildByTag(self.TAG.KEY_LABEL)
+			exchangeLabel:setString(oldStr)
+			exchangeExists = true
 			break
 		end
 		index = index + 1
 	end
 
-	self.newKeys[self.runningIndex] = keyCode
-	
+	if not exchangeExists then
+		GameSettings.Keys[self.runningIndex] = keyCode
+	end
 end
