@@ -11,6 +11,7 @@ GameSettings.effectVolume = nil		-- 音效声音大小
 GameSettings.Keys = nil
 
 if targetPlatform == cc.PLATFORM_OS_WIN32 then
+	-- 按键信息
 	GameSettings.upKey = nil
 	GameSettings.downKey = nil
 	GameSettings.leftKey = nil
