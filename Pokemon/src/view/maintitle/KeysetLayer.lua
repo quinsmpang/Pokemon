@@ -226,7 +226,12 @@ function KeysetLayer:exitWaitingStatus()
 end
 
 function KeysetLayer:onBtnConfirmClick()
+	if not self.enableClick then
+		return
+	end
 	log("KeysetLayer:onBtnConfirmClick")
+
+	GameVolumeHelper:playBtnClickSound()
 
 	GameSettings:saveSettings()
 
@@ -238,6 +243,8 @@ function KeysetLayer:onBtnCancelClick()
 		return
 	end
 	log("KeysetLayer:onBtnCancelClick")
+
+	GameVolumeHelper:playBtnClickSound()
 
 	self:close()
 end

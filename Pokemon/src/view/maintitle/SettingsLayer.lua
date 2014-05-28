@@ -129,6 +129,9 @@ function SettingsLayer:onBtnDefaultClick()
 		return
 	end
 	log("SettingsLayer:onBtnDefaultClick")
+
+	GameVolumeHelper:playBtnClickSound()
+
 	self.musicSlider:setValue(0.5)
 	self.effectSlider:setValue(0.5)
 	cc.SimpleAudioEngine:getInstance():setMusicVolume(0.5)
@@ -139,6 +142,9 @@ function SettingsLayer:onBtnCloseClick()
 		return
 	end
 	log("SettingsLayer:onBtnCloseClick")
+
+	GameVolumeHelper:playBtnClickSound()
+	
 	GameSettings.musicVolume = self.musicSlider:getValue()
 	GameSettings.effectVolume = self.effectSlider:getValue()
 	GameSettings:saveSettings()
