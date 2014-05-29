@@ -74,7 +74,9 @@ end
 function GameSettings:saveSettings()
 	log("GameSettings:saveSettings")
 	
-	self:updateKeys()
+	if targetPlatform == cc.PLATFORM_OS_WIN32 then
+		self:updateKeys()
+	end
 	RecordHelperLua:recordTable(CONFIG_PATH, self)
 end
 

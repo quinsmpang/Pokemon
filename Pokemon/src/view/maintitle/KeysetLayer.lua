@@ -146,10 +146,10 @@ function KeysetLayer:setAvailableKeys()
 	self.availableKeys[120] = "X"
 	self.availableKeys[121] = "Y"
 	self.availableKeys[122] = "Z"
-	self.availableKeys[160] = "L_SHIFT"
-	self.availableKeys[161] = "R_SHIFT"
-	self.availableKeys[162] = "L_CTRL"
-	self.availableKeys[163] = "R_CTRL"
+	self.availableKeys[160] = "LSHIFT"
+	self.availableKeys[161] = "RSHIFT"
+	self.availableKeys[162] = "LCTRL"
+	self.availableKeys[163] = "RCTRL"
 end
 
 function KeysetLayer:setKeyString(index, panel)
