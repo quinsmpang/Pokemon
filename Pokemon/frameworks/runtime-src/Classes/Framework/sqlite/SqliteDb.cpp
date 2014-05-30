@@ -35,6 +35,15 @@ namespace framework
 
 		g_sqliteCache.setObject(pSqlite, filePath);
 
+		int res = sqlite3_open(filePath.c_str(), &pSqlite->_db);
+
+		if (res)
+		{
+			CCLOG("create sqlite3 db failed");
+			CC_SAFE_RELEASE_NULL(pSqlite);
+			return nullptr;
+		}
+
 		return pSqlite;
 	}
 
