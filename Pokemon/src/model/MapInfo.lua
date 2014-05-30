@@ -6,4 +6,4 @@
 
 luaClass("MapInfo", psModel)
 
-MapInfo.mapId = NULL		-- id
+MapInfo.mapId = DBNULL		-- id

@@ -14,7 +14,7 @@ function SqliteLua:selectTableAsLuaTable(...)
 	local resultArray = self:selectTable(...)
 
 	local luaArray = {}
-	local resultCount = luaArray:count()
+	local resultCount = resultArray:count()
 	for i = 0, resultCount - 1 do
 		local dataRow = {}
 		local columnDict = tolua.cast(resultArray:objectAtIndex(i), "__Dictionary")

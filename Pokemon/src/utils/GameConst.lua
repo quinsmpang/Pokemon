@@ -7,3 +7,4 @@
 GameConst = {}
 
 GameConst.DEFAULT_FONT_PATH = "fonts/DFPYuanW7-GB.ttf"
+GameConst.GAME_DB_PATH = "icon.jpg"
