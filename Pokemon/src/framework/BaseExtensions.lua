@@ -79,20 +79,6 @@ class("psSprite", {
 		end
 	})
 
---psStack
-class("psStack", {
-		create = function()
-			return Stack:create()
-		end
-	})
-
---psQueue
-class("psQueue", {
-		create = function()
-			return Queue:create()
-		end
-	})
-
 
 -- Be accustomed to old functions
 function ccp(x, y)

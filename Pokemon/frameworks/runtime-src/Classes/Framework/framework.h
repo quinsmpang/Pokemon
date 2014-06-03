@@ -3,6 +3,8 @@
 
 #include "containers\Queue.h"
 #include "containers\Stack.h"
+#include "containers\Vector.h"
+#include "containers\Map.h"
 
 #include "lua\LuaUtils.h"
 

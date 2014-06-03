@@ -162,6 +162,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\Framework\containers\Vector.h" />
+    <ClInclude Include="..\Classes\Framework\containers\Map.h" />
     <ClInclude Include="..\Classes\Framework\containers\Queue.h" />
     <ClInclude Include="..\Classes\Framework\containers\Stack.h" />
     <ClInclude Include="..\Classes\Framework\framework.h" />
@@ -185,6 +187,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\Framework\containers\Vector.cpp" />
+    <ClCompile Include="..\Classes\Framework\containers\Map.cpp" />
     <ClCompile Include="..\Classes\Framework\containers\Queue.cpp" />
     <ClCompile Include="..\Classes\Framework\containers\Stack.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp" />

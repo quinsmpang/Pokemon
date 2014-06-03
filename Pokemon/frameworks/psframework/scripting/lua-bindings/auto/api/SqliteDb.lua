@@ -4,14 +4,14 @@
 -- @extend Ref
 
 --------------------------------
--- overload function: updateTable(string, cc.__Dictionary, string, string)
+-- overload function: updateTable(string, pf.Map, string, string)
 --          
--- overload function: updateTable(string, cc.__Dictionary, cc.__Dictionary)
+-- overload function: updateTable(string, pf.Map, pf.Map)
 --          
 -- @function [parent=#SqliteDb] updateTable
 -- @param self
 -- @param #string str
--- @param #cc.__Dictionary __dictionary
+-- @param #pf.Map map
 -- @param #string str
 -- @param #string str
 -- @return bool#bool ret (retunr value: bool)
@@ -31,7 +31,7 @@
 --------------------------------
 -- overload function: deleteFromTable(string, string, string)
 --          
--- overload function: deleteFromTable(string, cc.__Dictionary)
+-- overload function: deleteFromTable(string, pf.Map)
 --          
 -- @function [parent=#SqliteDb] deleteFromTable
 -- @param self
@@ -44,14 +44,14 @@
 -- @function [parent=#SqliteDb] insertTable 
 -- @param self
 -- @param #string str
--- @param #cc.__Dictionary __dictionary
+-- @param #pf.Map map
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
 -- @function [parent=#SqliteDb] createTable 
 -- @param self
 -- @param #string str
--- @param #cc.__Array __array
+-- @param #pf.Vector array
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
@@ -69,9 +69,9 @@
 --------------------------------
 -- overload function: selectTable(string, string, string)
 --          
--- overload function: selectTable(string, cc.__Dictionary)
+-- overload function: selectTable(string, pf.Map)
 --          
--- overload function: selectTable(string, string, cc.__Array)
+-- overload function: selectTable(string, string, pf.Vector)
 --          
 -- overload function: selectTable(string, string)
 --          
@@ -79,8 +79,8 @@
 -- @param self
 -- @param #string str
 -- @param #string str
--- @param #cc.__Array __array
--- @return __Array#__Array ret (retunr value: cc.__Array)
+-- @param #pf.Vector array
+-- @return Vector#Vector ret (retunr value: pf.Vector)
 
 --------------------------------
 -- @function [parent=#SqliteDb] openSqlite 

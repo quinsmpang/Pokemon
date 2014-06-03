@@ -717,6 +717,1121 @@ int lua_register_psframework_Stack(lua_State* tolua_S)
     return 1;
 }
 
+int lua_psframework_Vector_addObject(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Vector* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Vector",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Vector*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Vector_addObject'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::Ref* arg0;
+
+        ok &= luaval_to_object<cocos2d::Ref>(tolua_S, 2, "cc.Ref",&arg0);
+        if(!ok)
+            return 0;
+        cobj->addObject(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "addObject",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Vector_addObject'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Vector_addDouble(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Vector* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Vector",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Vector*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Vector_addDouble'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        double arg0;
+
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj->addDouble(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "addDouble",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Vector_addDouble'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Vector_getLength(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Vector* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Vector",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Vector*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Vector_getLength'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        int ret = cobj->getLength();
+        tolua_pushnumber(tolua_S,(lua_Number)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getLength",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Vector_getLength'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Vector_clear(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Vector* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Vector",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Vector*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Vector_clear'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj->clear();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "clear",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Vector_clear'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Vector_removeAt(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Vector* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Vector",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Vector*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Vector_removeAt'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        cobj->removeAt(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeAt",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Vector_removeAt'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Vector_setObjectAt(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Vector* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Vector",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Vector*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Vector_setObjectAt'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        cocos2d::Ref* arg0;
+        int arg1;
+
+        ok &= luaval_to_object<cocos2d::Ref>(tolua_S, 2, "cc.Ref",&arg0);
+
+        ok &= luaval_to_int32(tolua_S, 3,(int *)&arg1);
+        if(!ok)
+            return 0;
+        cobj->setObjectAt(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setObjectAt",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Vector_setObjectAt'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Vector_objectAt(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Vector* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Vector",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Vector*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Vector_objectAt'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        cocos2d::Ref* ret = cobj->objectAt(arg0);
+        object_to_luaval<cocos2d::Ref>(tolua_S, "cc.Ref",(cocos2d::Ref*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "objectAt",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Vector_objectAt'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Vector_isEmpty(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Vector* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Vector",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Vector*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Vector_isEmpty'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        bool ret = cobj->isEmpty();
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isEmpty",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Vector_isEmpty'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Vector_removeObject(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Vector* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Vector",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Vector*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Vector_removeObject'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::Ref* arg0;
+
+        ok &= luaval_to_object<cocos2d::Ref>(tolua_S, 2, "cc.Ref",&arg0);
+        if(!ok)
+            return 0;
+        cobj->removeObject(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeObject",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Vector_removeObject'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Vector_addString(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Vector* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Vector",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Vector*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Vector_addString'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj->addString(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "addString",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Vector_addString'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Vector_addInteger(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Vector* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Vector",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Vector*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Vector_addInteger'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        cobj->addInteger(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "addInteger",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Vector_addInteger'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Vector_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.Vector",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+            return 0;
+        framework::Vector* ret = framework::Vector::create();
+        object_to_luaval<framework::Vector>(tolua_S, "pf.Vector",(framework::Vector*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Vector_create'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_psframework_Vector_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Vector* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj = new framework::Vector();
+        cobj->autorelease();
+        int ID =  (int)cobj->_ID ;
+        int* luaID =  &cobj->_luaID ;
+        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.Vector");
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "Vector",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Vector_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_Vector_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (Vector)");
+    return 0;
+}
+
+int lua_register_psframework_Vector(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.Vector");
+    tolua_cclass(tolua_S,"Vector","pf.Vector","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"Vector");
+        tolua_function(tolua_S,"addObject",lua_psframework_Vector_addObject);
+        tolua_function(tolua_S,"addDouble",lua_psframework_Vector_addDouble);
+        tolua_function(tolua_S,"getLength",lua_psframework_Vector_getLength);
+        tolua_function(tolua_S,"clear",lua_psframework_Vector_clear);
+        tolua_function(tolua_S,"removeAt",lua_psframework_Vector_removeAt);
+        tolua_function(tolua_S,"setObjectAt",lua_psframework_Vector_setObjectAt);
+        tolua_function(tolua_S,"objectAt",lua_psframework_Vector_objectAt);
+        tolua_function(tolua_S,"isEmpty",lua_psframework_Vector_isEmpty);
+        tolua_function(tolua_S,"removeObject",lua_psframework_Vector_removeObject);
+        tolua_function(tolua_S,"addString",lua_psframework_Vector_addString);
+        tolua_function(tolua_S,"addInteger",lua_psframework_Vector_addInteger);
+        tolua_function(tolua_S,"new",lua_psframework_Vector_constructor);
+        tolua_function(tolua_S,"create", lua_psframework_Vector_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::Vector).name();
+    g_luaType[typeName] = "pf.Vector";
+    g_typeCast["Vector"] = "pf.Vector";
+    return 1;
+}
+
+int lua_psframework_Map_setIntegerForKey(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Map* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Map",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Map*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Map_setIntegerForKey'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        int arg0;
+        std::string arg1;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        cobj->setIntegerForKey(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setIntegerForKey",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Map_setIntegerForKey'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Map_removeObjectForKey(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Map* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Map",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Map*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Map_removeObjectForKey'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj->removeObjectForKey(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeObjectForKey",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Map_removeObjectForKey'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Map_clear(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Map* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Map",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Map*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Map_clear'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj->clear();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "clear",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Map_clear'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Map_setObjectForKey(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Map* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Map",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Map*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Map_setObjectForKey'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        cocos2d::Ref* arg0;
+        std::string arg1;
+
+        ok &= luaval_to_object<cocos2d::Ref>(tolua_S, 2, "cc.Ref",&arg0);
+
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        cobj->setObjectForKey(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setObjectForKey",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Map_setObjectForKey'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Map_objectForKey(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Map* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Map",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Map*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Map_objectForKey'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cocos2d::Ref* ret = cobj->objectForKey(arg0);
+        object_to_luaval<cocos2d::Ref>(tolua_S, "cc.Ref",(cocos2d::Ref*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "objectForKey",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Map_objectForKey'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Map_getLength(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Map* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Map",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Map*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Map_getLength'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        int ret = cobj->getLength();
+        tolua_pushnumber(tolua_S,(lua_Number)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getLength",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Map_getLength'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Map_setDoubleForKey(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Map* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Map",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Map*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Map_setDoubleForKey'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        double arg0;
+        std::string arg1;
+
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        cobj->setDoubleForKey(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setDoubleForKey",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Map_setDoubleForKey'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Map_setStringForKey(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Map* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Map",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Map*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Map_setStringForKey'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        std::string arg0;
+        std::string arg1;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        cobj->setStringForKey(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setStringForKey",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Map_setStringForKey'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Map_allKeys(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Map* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Map",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Map*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Map_allKeys'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        framework::Vector* ret = cobj->allKeys();
+        object_to_luaval<framework::Vector>(tolua_S, "pf.Vector",(framework::Vector*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "allKeys",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Map_allKeys'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Map_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.Map",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+            return 0;
+        framework::Map* ret = framework::Map::create();
+        object_to_luaval<framework::Map>(tolua_S, "pf.Map",(framework::Map*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Map_create'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_psframework_Map_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Map* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj = new framework::Map();
+        cobj->autorelease();
+        int ID =  (int)cobj->_ID ;
+        int* luaID =  &cobj->_luaID ;
+        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.Map");
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "Map",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Map_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_Map_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (Map)");
+    return 0;
+}
+
+int lua_register_psframework_Map(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.Map");
+    tolua_cclass(tolua_S,"Map","pf.Map","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"Map");
+        tolua_function(tolua_S,"setIntegerForKey",lua_psframework_Map_setIntegerForKey);
+        tolua_function(tolua_S,"removeObjectForKey",lua_psframework_Map_removeObjectForKey);
+        tolua_function(tolua_S,"clear",lua_psframework_Map_clear);
+        tolua_function(tolua_S,"setObjectForKey",lua_psframework_Map_setObjectForKey);
+        tolua_function(tolua_S,"objectForKey",lua_psframework_Map_objectForKey);
+        tolua_function(tolua_S,"getLength",lua_psframework_Map_getLength);
+        tolua_function(tolua_S,"setDoubleForKey",lua_psframework_Map_setDoubleForKey);
+        tolua_function(tolua_S,"setStringForKey",lua_psframework_Map_setStringForKey);
+        tolua_function(tolua_S,"allKeys",lua_psframework_Map_allKeys);
+        tolua_function(tolua_S,"new",lua_psframework_Map_constructor);
+        tolua_function(tolua_S,"create", lua_psframework_Map_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::Map).name();
+    g_luaType[typeName] = "pf.Map";
+    g_typeCast["Map"] = "pf.Map";
+    return 1;
+}
+
 int lua_psframework_SqliteDb_updateTable(lua_State* tolua_S)
 {
     int argc = 0;
@@ -744,8 +1859,8 @@ int lua_psframework_SqliteDb_updateTable(lua_State* tolua_S)
             ok &= luaval_to_std_string(tolua_S, 2,&arg0);
 
             if (!ok) { break; }
-            cocos2d::__Dictionary* arg1;
-            ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 3, "cc.__Dictionary",&arg1);
+            framework::Map* arg1;
+            ok &= luaval_to_object<framework::Map>(tolua_S, 3, "pf.Map",&arg1);
 
             if (!ok) { break; }
             std::string arg2;
@@ -768,8 +1883,8 @@ int lua_psframework_SqliteDb_updateTable(lua_State* tolua_S)
             ok &= luaval_to_std_string(tolua_S, 2,&arg0);
 
             if (!ok) { break; }
-            cocos2d::__Dictionary* arg1;
-            ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 3, "cc.__Dictionary",&arg1);
+            framework::Map* arg1;
+            ok &= luaval_to_object<framework::Map>(tolua_S, 3, "pf.Map",&arg1);
 
             if (!ok) { break; }
             bool ret = cobj->updateTable(arg0, arg1);
@@ -784,12 +1899,12 @@ int lua_psframework_SqliteDb_updateTable(lua_State* tolua_S)
             ok &= luaval_to_std_string(tolua_S, 2,&arg0);
 
             if (!ok) { break; }
-            cocos2d::__Dictionary* arg1;
-            ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 3, "cc.__Dictionary",&arg1);
+            framework::Map* arg1;
+            ok &= luaval_to_object<framework::Map>(tolua_S, 3, "pf.Map",&arg1);
 
             if (!ok) { break; }
-            cocos2d::__Dictionary* arg2;
-            ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 4, "cc.__Dictionary",&arg2);
+            framework::Map* arg2;
+            ok &= luaval_to_object<framework::Map>(tolua_S, 4, "pf.Map",&arg2);
 
             if (!ok) { break; }
             bool ret = cobj->updateTable(arg0, arg1, arg2);
@@ -949,8 +2064,8 @@ int lua_psframework_SqliteDb_deleteFromTable(lua_State* tolua_S)
             ok &= luaval_to_std_string(tolua_S, 2,&arg0);
 
             if (!ok) { break; }
-            cocos2d::__Dictionary* arg1;
-            ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 3, "cc.__Dictionary",&arg1);
+            framework::Map* arg1;
+            ok &= luaval_to_object<framework::Map>(tolua_S, 3, "pf.Map",&arg1);
 
             if (!ok) { break; }
             bool ret = cobj->deleteFromTable(arg0, arg1);
@@ -998,11 +2113,11 @@ int lua_psframework_SqliteDb_insertTable(lua_State* tolua_S)
     if (argc == 2) 
     {
         std::string arg0;
-        cocos2d::__Dictionary* arg1;
+        framework::Map* arg1;
 
         ok &= luaval_to_std_string(tolua_S, 2,&arg0);
 
-        ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 3, "cc.__Dictionary",&arg1);
+        ok &= luaval_to_object<framework::Map>(tolua_S, 3, "pf.Map",&arg1);
         if(!ok)
             return 0;
         bool ret = cobj->insertTable(arg0, arg1);
@@ -1048,11 +2163,11 @@ int lua_psframework_SqliteDb_createTable(lua_State* tolua_S)
     if (argc == 2) 
     {
         std::string arg0;
-        cocos2d::__Array* arg1;
+        framework::Vector* arg1;
 
         ok &= luaval_to_std_string(tolua_S, 2,&arg0);
 
-        ok &= luaval_to_object<cocos2d::__Array>(tolua_S, 3, "cc.__Array",&arg1);
+        ok &= luaval_to_object<framework::Vector>(tolua_S, 3, "pf.Vector",&arg1);
         if(!ok)
             return 0;
         bool ret = cobj->createTable(arg0, arg1);
@@ -1198,8 +2313,8 @@ int lua_psframework_SqliteDb_selectTable(lua_State* tolua_S)
             ok &= luaval_to_std_string(tolua_S, 4,&arg2);
 
             if (!ok) { break; }
-            cocos2d::__Array* ret = cobj->selectTable(arg0, arg1, arg2);
-            object_to_luaval<cocos2d::__Array>(tolua_S, "cc.__Array",(cocos2d::__Array*)ret);
+            framework::Vector* ret = cobj->selectTable(arg0, arg1, arg2);
+            object_to_luaval<framework::Vector>(tolua_S, "pf.Vector",(framework::Vector*)ret);
             return 1;
         }
     }while(0);
@@ -1210,8 +2325,8 @@ int lua_psframework_SqliteDb_selectTable(lua_State* tolua_S)
             ok &= luaval_to_std_string(tolua_S, 2,&arg0);
 
             if (!ok) { break; }
-            cocos2d::__Array* ret = cobj->selectTable(arg0);
-            object_to_luaval<cocos2d::__Array>(tolua_S, "cc.__Array",(cocos2d::__Array*)ret);
+            framework::Vector* ret = cobj->selectTable(arg0);
+            object_to_luaval<framework::Vector>(tolua_S, "pf.Vector",(framework::Vector*)ret);
             return 1;
         }
     }while(0);
@@ -1222,12 +2337,12 @@ int lua_psframework_SqliteDb_selectTable(lua_State* tolua_S)
             ok &= luaval_to_std_string(tolua_S, 2,&arg0);
 
             if (!ok) { break; }
-            cocos2d::__Dictionary* arg1;
-            ok &= luaval_to_object<cocos2d::__Dictionary>(tolua_S, 3, "cc.__Dictionary",&arg1);
+            framework::Map* arg1;
+            ok &= luaval_to_object<framework::Map>(tolua_S, 3, "pf.Map",&arg1);
 
             if (!ok) { break; }
-            cocos2d::__Array* ret = cobj->selectTable(arg0, arg1);
-            object_to_luaval<cocos2d::__Array>(tolua_S, "cc.__Array",(cocos2d::__Array*)ret);
+            framework::Vector* ret = cobj->selectTable(arg0, arg1);
+            object_to_luaval<framework::Vector>(tolua_S, "pf.Vector",(framework::Vector*)ret);
             return 1;
         }
     }while(0);
@@ -1242,12 +2357,12 @@ int lua_psframework_SqliteDb_selectTable(lua_State* tolua_S)
             ok &= luaval_to_std_string(tolua_S, 3,&arg1);
 
             if (!ok) { break; }
-            cocos2d::__Array* arg2;
-            ok &= luaval_to_object<cocos2d::__Array>(tolua_S, 4, "cc.__Array",&arg2);
+            framework::Vector* arg2;
+            ok &= luaval_to_object<framework::Vector>(tolua_S, 4, "pf.Vector",&arg2);
 
             if (!ok) { break; }
-            cocos2d::__Array* ret = cobj->selectTable(arg0, arg1, arg2);
-            object_to_luaval<cocos2d::__Array>(tolua_S, "cc.__Array",(cocos2d::__Array*)ret);
+            framework::Vector* ret = cobj->selectTable(arg0, arg1, arg2);
+            object_to_luaval<framework::Vector>(tolua_S, "pf.Vector",(framework::Vector*)ret);
             return 1;
         }
     }while(0);
@@ -1262,8 +2377,8 @@ int lua_psframework_SqliteDb_selectTable(lua_State* tolua_S)
             ok &= luaval_to_std_string(tolua_S, 3,&arg1);
 
             if (!ok) { break; }
-            cocos2d::__Array* ret = cobj->selectTable(arg0, arg1);
-            object_to_luaval<cocos2d::__Array>(tolua_S, "cc.__Array",(cocos2d::__Array*)ret);
+            framework::Vector* ret = cobj->selectTable(arg0, arg1);
+            object_to_luaval<framework::Vector>(tolua_S, "pf.Vector",(framework::Vector*)ret);
             return 1;
         }
     }while(0);
@@ -4698,18 +5813,20 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	tolua_module(tolua_S,nullptr,0);
 	tolua_beginmodule(tolua_S,nullptr);
 
-	lua_register_psframework_ScriptCCBReader(tolua_S);
 	lua_register_psframework_ViewController(tolua_S);
-	lua_register_psframework_GameLayer(tolua_S);
-	lua_register_psframework_Queue(tolua_S);
-	lua_register_psframework_ModalLayer(tolua_S);
-	lua_register_psframework_SqliteDb(tolua_S);
 	lua_register_psframework_RecordHelper(tolua_S);
 	lua_register_psframework_IOUtils(tolua_S);
-	lua_register_psframework_MaskLayer(tolua_S);
-	lua_register_psframework_CoreLayer(tolua_S);
+	lua_register_psframework_Map(tolua_S);
 	lua_register_psframework_Stack(tolua_S);
 	lua_register_psframework_GameScene(tolua_S);
+	lua_register_psframework_ScriptCCBReader(tolua_S);
+	lua_register_psframework_Queue(tolua_S);
+	lua_register_psframework_SqliteDb(tolua_S);
+	lua_register_psframework_Vector(tolua_S);
+	lua_register_psframework_GameLayer(tolua_S);
+	lua_register_psframework_CoreLayer(tolua_S);
+	lua_register_psframework_MaskLayer(tolua_S);
+	lua_register_psframework_ModalLayer(tolua_S);
 
 	tolua_endmodule(tolua_S);
 	return 1;

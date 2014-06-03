@@ -72,16 +72,16 @@ namespace framework
 		}
 	}
 
-	bool SqliteDb::createTable(const std::string &tableName, __Array *columns)
+	bool SqliteDb::createTable(const std::string &tableName, Vector *columns)
 	{
 		std::string sql = "create table if not exists ";
 		sql.append(tableName);
 		sql.append("(");
 
-		int count = columns->count();
+		int count = columns->getLength();
 		for (int i = 0; i < count; ++i)
 		{
-			__String *columnName = (__String*)columns->getObjectAtIndex(i);
+			__String *columnName = (__String*)columns->objectAt(i);
 			sql.append(columnName->getCString());
 			sql.append(" text");
 			if (i != count - 1)
@@ -104,7 +104,7 @@ namespace framework
 		return res;
 	}
 
-	bool SqliteDb::insertTable(const std::string &tableName, cocos2d::__Dictionary *keyValueDict)
+	bool SqliteDb::insertTable(const std::string &tableName, Map *keyValueDict)
 	{
 		std::string sql = "insert into ";
 		sql.append(tableName);
@@ -112,11 +112,11 @@ namespace framework
 		std::string valueStr = "(";
 
 		auto keyArray = keyValueDict->allKeys();
-		int count = keyArray->count();
+		int count = keyArray->getLength();
 
 		for (int i = 0; i < count; ++i)
 		{
-			__String *key = (__String*)keyArray->getObjectAtIndex(i);
+			__String *key = (__String*)keyArray->objectAt(i);
 			__String *value = (__String*)keyValueDict->objectForKey(key->getCString());
 			keyStr.append(key->getCString());
 			valueStr.append("'");
@@ -143,7 +143,7 @@ namespace framework
 		return this->deleteFromTable(tableName, nullptr);
 	}
 
-	bool SqliteDb::deleteFromTable(const std::string &tableName, cocos2d::__Dictionary *conditionDict)
+	bool SqliteDb::deleteFromTable(const std::string &tableName, Map *conditionDict)
 	{
 		std::string sql = "delete from ";
 		sql.append(tableName);
@@ -154,24 +154,24 @@ namespace framework
 
 	bool SqliteDb::deleteFromTable(const std::string &tableName, const std::string &columnName, const std::string &columnValue)
 	{
-		auto conditionDict = __Dictionary::create();
-		conditionDict->setObject(__String::create(columnValue), columnName);
+		auto conditionDict = Map::create();
+		conditionDict->setObjectForKey(__String::create(columnValue), columnName);
 
 		return this->deleteFromTable(tableName, conditionDict);
 	}
 
-	bool SqliteDb::updateTable(const std::string &tableName, cocos2d::__Dictionary *keyValueDict, cocos2d::__Dictionary *conditionDict)
+	bool SqliteDb::updateTable(const std::string &tableName, Map *keyValueDict, Map *conditionDict)
 	{
 		std::string sql = "update ";
 		sql.append(tableName);
 		sql.append(" set ");
 
-		__Array *keyArray = keyValueDict->allKeys();
-		int count = keyArray->count();
+		Vector *keyArray = keyValueDict->allKeys();
+		int count = keyArray->getLength();
 
 		for (int i = 0; i < count; ++i)
 		{
-			__String *key = (__String*)keyArray->getObjectAtIndex(i);
+			__String *key = (__String*)keyArray->objectAt(i);
 			__String *value = (__String*)keyValueDict->objectForKey(key->getCString());
 			sql.append(key->getCString());
 			sql.append("='");
@@ -188,10 +188,10 @@ namespace framework
 		return this->executeSql(sql);
 	}
 
-	bool SqliteDb::updateTable(const std::string &tableName, cocos2d::__Dictionary *keyValueDict, const std::string &columnName, const std::string &columnValue)
+	bool SqliteDb::updateTable(const std::string &tableName, Map *keyValueDict, const std::string &columnName, const std::string &columnValue)
 	{
-		auto conditionDict = __Dictionary::create();
-		conditionDict->setObject(__String::create(columnValue), columnName);
+		auto conditionDict = Map::create();
+		conditionDict->setObjectForKey(__String::create(columnValue), columnName);
 
 		return this->updateTable(tableName, keyValueDict, conditionDict);
 	}
@@ -217,28 +217,28 @@ namespace framework
 		return count;
 	}
 
-	__Array *SqliteDb::selectTable(const std::string &tableName, cocos2d::__Dictionary *conditionDict)
+	Vector *SqliteDb::selectTable(const std::string &tableName, Map *conditionDict)
 	{
 		std::string sql = this->getExecuteSql(tableName, conditionDict);
 
 		return this->executeQuery(sql);
 	}
 
-	__Array *SqliteDb::selectTable(const std::string &tableName, const std::string &columnName, const std::string &columnValue)
+	Vector *SqliteDb::selectTable(const std::string &tableName, const std::string &columnName, const std::string &columnValue)
 	{
 		std::string sql = this->getExecuteSql(tableName, columnName, columnValue);
 
 		return this->executeQuery(sql);
 	}
 
-	__Array *SqliteDb::selectTable(const std::string &tableName, const std::string &columnName, cocos2d::__Array *columnValues)
+	Vector *SqliteDb::selectTable(const std::string &tableName, const std::string &columnName, Vector *columnValues)
 	{
 		std::string sql = this->getExecuteSql(tableName, columnName, columnValues);
 
 		return this->executeQuery(sql);
 	}
 
-	__Array *SqliteDb::selectTable(const std::string &tableName, const std::string &sql)
+	Vector *SqliteDb::selectTable(const std::string &tableName, const std::string &sql)
 	{
 		return this->executeQuery(sql);
 	}
@@ -257,7 +257,7 @@ namespace framework
 		}
 	}
 
-	std::string SqliteDb::getExecuteSql(const std::string &tableName, cocos2d::__Dictionary *conditionDict)
+	std::string SqliteDb::getExecuteSql(const std::string &tableName, Map *conditionDict)
 	{
 		std::string sql = "select * from ";
 		sql.append(tableName);
@@ -268,13 +268,13 @@ namespace framework
 
 	std::string SqliteDb::getExecuteSql(const std::string &tableName, const std::string &columnName, const std::string &columnValue)
 	{
-		auto conditionDict = __Dictionary::create();
-		conditionDict->setObject(__String::create(columnValue), columnName);
+		auto conditionDict = Map::create();
+		conditionDict->setObjectForKey(__String::create(columnValue), columnName);
 
 		return this->getExecuteSql(tableName, conditionDict);
 	}
 
-	std::string SqliteDb::getExecuteSql(const std::string &tableName, const std::string &columnName, cocos2d::__Array *columnValues)
+	std::string SqliteDb::getExecuteSql(const std::string &tableName, const std::string &columnName, Vector *columnValues)
 	{
 		std::string sql = "select * from ";
 		sql.append(tableName);
@@ -282,10 +282,10 @@ namespace framework
 		sql.append(columnName);
 		sql.append(" in (");
 
-		int count = columnValues->count();
+		int count = columnValues->getLength();
 		for (int i = 0; i < count; ++i)
 		{
-			__String *value = (__String*)columnValues->getObjectAtIndex(i);
+			__String *value = (__String*)columnValues->objectAt(i);
 			sql.append("'");
 			sql.append(value->getCString());
 			sql.append("'");
@@ -315,10 +315,10 @@ namespace framework
 		return res;
 	}
 
-	__Array *SqliteDb::executeQuery(const std::string &sql)
+	Vector *SqliteDb::executeQuery(const std::string &sql)
 	{
 		CCLOG("Sqlite: %s", sql.c_str());
-		auto valueArray = __Array::create();
+		auto valueArray = Vector::create();
 		sqlite3_stmt *pStmt = nullptr;
 
 		bool res = sqlite3_prepare(_db, sql.c_str(), -1, &pStmt, nullptr) == SQLITE_OK;
@@ -326,7 +326,7 @@ namespace framework
 		{
 			while (sqlite3_step(pStmt) == SQLITE_ROW)
 			{
-				auto columnDict = __Dictionary::create();
+				auto columnDict = Map::create();
 				int columnNum = sqlite3_column_count(pStmt);
 				for (int i = 0; i < columnNum; ++i)
 				{
@@ -346,7 +346,7 @@ namespace framework
 					{
 						pValue = __String::create("");
 					}
-					columnDict->setObject(pValue, szName);
+					columnDict->setObjectForKey(pValue, szName);
 				}
 				valueArray->addObject(columnDict);
 			}
@@ -356,20 +356,20 @@ namespace framework
 		return valueArray;
 	}
 
-	std::string SqliteDb::convertConditionDictionary(cocos2d::__Dictionary *conditionDict)
+	std::string SqliteDb::convertConditionDictionary(Map *conditionDict)
 	{
 		std::string conditionStr;
 
-		if (conditionDict && conditionDict->count() > 0)
+		if (conditionDict && conditionDict->getLength() > 0)
 		{
 			conditionStr.append(" where ");
 
-			__Array *columnNameArray = conditionDict->allKeys();
-			int count = columnNameArray->count();
+			Vector *columnNameArray = conditionDict->allKeys();
+			int count = columnNameArray->getLength();
 
 			for (int i = 0; i < count; ++i)
 			{
-				auto columnName = (__String*)columnNameArray->getObjectAtIndex(i);
+				auto columnName = (__String*)columnNameArray->objectAt(i);
 				auto columnValue = (__String*)conditionDict->objectForKey(columnName->getCString());
 
 				conditionStr.append(columnName->getCString());

@@ -14,15 +14,15 @@ function SqliteLua:selectTableAsLuaTable(...)
 	local resultArray = self:selectTable(...)
 
 	local luaArray = {}
-	local resultCount = resultArray:count()
+	local resultCount = resultArray:getLength()
 	for i = 0, resultCount - 1 do
 		local dataRow = {}
-		local columnDict = tolua.cast(resultArray:objectAtIndex(i), "__Dictionary")
+		local columnDict = resultArray:objectAt(i)
 		local columnNames = columnDict:allKeys()
-		local columnCount = columnNames:count()
+		local columnCount = columnNames:getLength()
 		for j = 0, columnCount - 1 do
-			local columnName = tolua.cast(columnNames:objectAtIndex(j), "__String")
-			local columnValue = tolua.cast(columnDict:objectForKey(columnNames:getCString()), "__String")
+			local columnName = tolua.cast(columnNames:objectAt(j), "__String")
+			local columnValue = tolua.cast(columnDict:objectForKey(columnName:getCString()), "__String")
 			dataRow[columnName:getCString()] = columnValue:getCString()
 		end
 
