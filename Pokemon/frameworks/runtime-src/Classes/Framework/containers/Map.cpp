@@ -7,7 +7,7 @@ namespace framework
 {
 	Map::Map()
 		: Ref()
-		, _container(new map<const std::string, Ref*>())
+		, _container(new map<std::string, Ref*>())
 	{
 	}
 
@@ -50,22 +50,22 @@ namespace framework
 
 	void Map::setStringForKey(const string &value, const string &key)
 	{
-		this->_container->at(key) = __String::create(value);
+		(*(this->_container))[key] = __String::create(value);
 	}
 
 	void Map::setIntegerForKey(const int &value, const string &key)
 	{
-		this->_container->at(key) = __Integer::create(value);
+		(*(this->_container))[key] = __Integer::create(value);
 	}
 
 	void Map::setDoubleForKey(const float &value, const string &key)
 	{
-		this->_container->at(key) = __Double::create(value);
+		(*(this->_container))[key] = __Double::create(value);
 	}
 
 	void Map::setObjectForKey(Ref *obj, const string &key)
 	{
-		this->_container->at(key) = obj;
+		(*(this->_container))[key] = obj;
 	}
 
 	void Map::removeObjectForKey(const string &key)

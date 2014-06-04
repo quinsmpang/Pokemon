@@ -19,8 +19,8 @@ function GameDBHelper:openDB()
 	self.db:createTable("test", columns)
 
 	local values = Map:create()
-	values:setStringForKey("id", "1")
-	values:setStringForKey("name", "Maple")
-	values:setStringForKey("age", "23")
+	values:setStringForKey("1", "id")
+	values:setStringForKey("Maple", "name")
+	values:setStringForKey("23", "age")
 	self.db:insertTable("test", values)
 end

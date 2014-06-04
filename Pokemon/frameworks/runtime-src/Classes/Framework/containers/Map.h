@@ -33,7 +33,7 @@ namespace framework
 		int getLength();
 
 	private:
-		std::map<const std::string, cocos2d::Ref*> *_container;
+		std::map<std::string, cocos2d::Ref*> *_container;
 	};
 }
 
