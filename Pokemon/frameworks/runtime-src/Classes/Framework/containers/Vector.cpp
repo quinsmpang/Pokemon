@@ -1,4 +1,7 @@
 #include "Vector.h"
+#include "../base/RefString.h"
+#include "../base/RefInteger.h"
+#include "../base/RefDouble.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -33,17 +36,17 @@ namespace framework
 
 	void Vector::addString(const string &str)
 	{
-		this->_container->push_back(__String::create(str));
+		this->_container->push_back(RefString::create(str.c_str()));
 	}
 
 	void Vector::addInteger(const int &num)
 	{
-		this->_container->push_back(__Integer::create(num));
+		this->_container->push_back(RefInteger::create(num));
 	}
 
 	void Vector::addDouble(const float &num)
 	{
-		this->_container->push_back(__Double::create(num));
+		this->_container->push_back(RefDouble::create(num));
 	}
 
 	void Vector::addObject(Ref *obj)

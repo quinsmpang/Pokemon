@@ -5,6 +5,422 @@
 
 
 
+int lua_psframework_RefString_getCString(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::RefString* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.RefString",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::RefString*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_RefString_getCString'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        const char* ret = cobj->getCString();
+        tolua_pushstring(tolua_S,(const char*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getCString",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RefString_getCString'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_RefString_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.RefString",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 1)
+    {
+        std::string arg0;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        framework::RefString* ret = framework::RefString::create(arg0);
+        object_to_luaval<framework::RefString>(tolua_S, "pf.RefString",(framework::RefString*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 1);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RefString_create'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_psframework_RefString_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::RefString* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj = new framework::RefString(arg0);
+        cobj->autorelease();
+        int ID =  (int)cobj->_ID ;
+        int* luaID =  &cobj->_luaID ;
+        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.RefString");
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "RefString",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RefString_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_RefString_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (RefString)");
+    return 0;
+}
+
+int lua_register_psframework_RefString(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.RefString");
+    tolua_cclass(tolua_S,"RefString","pf.RefString","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"RefString");
+        tolua_function(tolua_S,"getCString",lua_psframework_RefString_getCString);
+        tolua_function(tolua_S,"new",lua_psframework_RefString_constructor);
+        tolua_function(tolua_S,"create", lua_psframework_RefString_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::RefString).name();
+    g_luaType[typeName] = "pf.RefString";
+    g_typeCast["RefString"] = "pf.RefString";
+    return 1;
+}
+
+int lua_psframework_RefInteger_getNumber(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::RefInteger* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.RefInteger",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::RefInteger*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_RefInteger_getNumber'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        int ret = cobj->getNumber();
+        tolua_pushnumber(tolua_S,(lua_Number)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getNumber",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RefInteger_getNumber'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_RefInteger_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.RefInteger",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+            return 0;
+        framework::RefInteger* ret = framework::RefInteger::create();
+        object_to_luaval<framework::RefInteger>(tolua_S, "pf.RefInteger",(framework::RefInteger*)ret);
+        return 1;
+    }
+    if (argc == 1)
+    {
+        int arg0;
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        framework::RefInteger* ret = framework::RefInteger::create(arg0);
+        object_to_luaval<framework::RefInteger>(tolua_S, "pf.RefInteger",(framework::RefInteger*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RefInteger_create'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_psframework_RefInteger_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::RefInteger* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        cobj = new framework::RefInteger(arg0);
+        cobj->autorelease();
+        int ID =  (int)cobj->_ID ;
+        int* luaID =  &cobj->_luaID ;
+        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.RefInteger");
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "RefInteger",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RefInteger_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_RefInteger_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (RefInteger)");
+    return 0;
+}
+
+int lua_register_psframework_RefInteger(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.RefInteger");
+    tolua_cclass(tolua_S,"RefInteger","pf.RefInteger","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"RefInteger");
+        tolua_function(tolua_S,"getNumber",lua_psframework_RefInteger_getNumber);
+        tolua_function(tolua_S,"new",lua_psframework_RefInteger_constructor);
+        tolua_function(tolua_S,"create", lua_psframework_RefInteger_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::RefInteger).name();
+    g_luaType[typeName] = "pf.RefInteger";
+    g_typeCast["RefInteger"] = "pf.RefInteger";
+    return 1;
+}
+
+int lua_psframework_RefDouble_getNumber(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::RefDouble* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.RefDouble",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::RefDouble*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_RefDouble_getNumber'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        double ret = cobj->getNumber();
+        tolua_pushnumber(tolua_S,(lua_Number)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getNumber",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RefDouble_getNumber'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_RefDouble_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.RefDouble",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 1)
+    {
+        double arg0;
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        framework::RefDouble* ret = framework::RefDouble::create(arg0);
+        object_to_luaval<framework::RefDouble>(tolua_S, "pf.RefDouble",(framework::RefDouble*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 1);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RefDouble_create'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_psframework_RefDouble_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::RefDouble* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        double arg0;
+
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj = new framework::RefDouble(arg0);
+        cobj->autorelease();
+        int ID =  (int)cobj->_ID ;
+        int* luaID =  &cobj->_luaID ;
+        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.RefDouble");
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "RefDouble",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RefDouble_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_RefDouble_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (RefDouble)");
+    return 0;
+}
+
+int lua_register_psframework_RefDouble(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.RefDouble");
+    tolua_cclass(tolua_S,"RefDouble","pf.RefDouble","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"RefDouble");
+        tolua_function(tolua_S,"getNumber",lua_psframework_RefDouble_getNumber);
+        tolua_function(tolua_S,"new",lua_psframework_RefDouble_constructor);
+        tolua_function(tolua_S,"create", lua_psframework_RefDouble_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::RefDouble).name();
+    g_luaType[typeName] = "pf.RefDouble";
+    g_typeCast["RefDouble"] = "pf.RefDouble";
+    return 1;
+}
+
 int lua_psframework_Queue_getLength(lua_State* tolua_S)
 {
     int argc = 0;
@@ -5816,6 +6232,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_ViewController(tolua_S);
 	lua_register_psframework_RecordHelper(tolua_S);
 	lua_register_psframework_IOUtils(tolua_S);
+	lua_register_psframework_RefInteger(tolua_S);
 	lua_register_psframework_Map(tolua_S);
 	lua_register_psframework_Stack(tolua_S);
 	lua_register_psframework_GameScene(tolua_S);
@@ -5826,6 +6243,8 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_GameLayer(tolua_S);
 	lua_register_psframework_CoreLayer(tolua_S);
 	lua_register_psframework_MaskLayer(tolua_S);
+	lua_register_psframework_RefDouble(tolua_S);
+	lua_register_psframework_RefString(tolua_S);
 	lua_register_psframework_ModalLayer(tolua_S);
 
 	tolua_endmodule(tolua_S);

@@ -34,6 +34,9 @@
     <Filter Include="Classes\psframework\utils">
       <UniqueIdentifier>{8d7243fc-d8d7-4d93-a348-08e9ab323eb1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\psframework\base">
+      <UniqueIdentifier>{b83720ec-8d60-4503-9917-ba11c1435d63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -103,6 +106,15 @@
     <ClInclude Include="..\Classes\Framework\containers\Map.h">
       <Filter>Classes\psframework\containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\base\RefString.h">
+      <Filter>Classes\psframework\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\base\RefInteger.h">
+      <Filter>Classes\psframework\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\base\RefDouble.h">
+      <Filter>Classes\psframework\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -161,6 +173,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\containers\Map.cpp">
       <Filter>Classes\psframework\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\base\RefString.cpp">
+      <Filter>Classes\psframework\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\base\RefInteger.cpp">
+      <Filter>Classes\psframework\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\base\RefDouble.cpp">
+      <Filter>Classes\psframework\base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

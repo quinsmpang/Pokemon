@@ -1,4 +1,7 @@
 #include "Map.h"
+#include "../base/RefString.h"
+#include "../base/RefInteger.h"
+#include "../base/RefDouble.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -37,7 +40,7 @@ namespace framework
 
 		for (auto iter = this->_container->cbegin(); iter != this->_container->cend(); ++iter)
 		{
-			pAry->addObject(__String::create(iter->first));
+			pAry->addObject(RefString::create(iter->first.c_str()));
 		}
 
 		return pAry;
@@ -50,17 +53,17 @@ namespace framework
 
 	void Map::setStringForKey(const string &value, const string &key)
 	{
-		(*(this->_container))[key] = __String::create(value);
+		(*(this->_container))[key] = RefString::create(value.c_str());
 	}
 
 	void Map::setIntegerForKey(const int &value, const string &key)
 	{
-		(*(this->_container))[key] = __Integer::create(value);
+		(*(this->_container))[key] = RefInteger::create(value);
 	}
 
 	void Map::setDoubleForKey(const float &value, const string &key)
 	{
-		(*(this->_container))[key] = __Double::create(value);
+		(*(this->_container))[key] = RefDouble::create(value);
 	}
 
 	void Map::setObjectForKey(Ref *obj, const string &key)

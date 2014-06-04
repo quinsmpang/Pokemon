@@ -1,4 +1,5 @@
 #include "SqliteDb.h"
+#include "../base/RefString.h"
 
 using namespace cocos2d;
 
@@ -81,7 +82,7 @@ namespace framework
 		int count = columns->getLength();
 		for (int i = 0; i < count; ++i)
 		{
-			__String *columnName = (__String*)columns->objectAt(i);
+			RefString *columnName = (RefString*)columns->objectAt(i);
 			sql.append(columnName->getCString());
 			sql.append(" text");
 			if (i != count - 1)
@@ -116,8 +117,8 @@ namespace framework
 
 		for (int i = 0; i < count; ++i)
 		{
-			__String *key = (__String*)keyArray->objectAt(i);
-			__String *value = (__String*)keyValueDict->objectForKey(key->getCString());
+			RefString *key = (RefString*)keyArray->objectAt(i);
+			RefString *value = (RefString*)keyValueDict->objectForKey(key->getCString());
 			keyStr.append(key->getCString());
 			valueStr.append("'");
 			valueStr.append(value->getCString());
@@ -155,7 +156,7 @@ namespace framework
 	bool SqliteDb::deleteFromTable(const std::string &tableName, const std::string &columnName, const std::string &columnValue)
 	{
 		auto conditionDict = Map::create();
-		conditionDict->setObjectForKey(__String::create(columnValue), columnName);
+		conditionDict->setObjectForKey(RefString::create(columnValue), columnName);
 
 		return this->deleteFromTable(tableName, conditionDict);
 	}
@@ -171,8 +172,8 @@ namespace framework
 
 		for (int i = 0; i < count; ++i)
 		{
-			__String *key = (__String*)keyArray->objectAt(i);
-			__String *value = (__String*)keyValueDict->objectForKey(key->getCString());
+			RefString *key = (RefString*)keyArray->objectAt(i);
+			RefString *value = (RefString*)keyValueDict->objectForKey(key->getCString());
 			sql.append(key->getCString());
 			sql.append("='");
 			sql.append(value->getCString());
@@ -191,7 +192,7 @@ namespace framework
 	bool SqliteDb::updateTable(const std::string &tableName, Map *keyValueDict, const std::string &columnName, const std::string &columnValue)
 	{
 		auto conditionDict = Map::create();
-		conditionDict->setObjectForKey(__String::create(columnValue), columnName);
+		conditionDict->setObjectForKey(RefString::create(columnValue), columnName);
 
 		return this->updateTable(tableName, keyValueDict, conditionDict);
 	}
@@ -269,7 +270,7 @@ namespace framework
 	std::string SqliteDb::getExecuteSql(const std::string &tableName, const std::string &columnName, const std::string &columnValue)
 	{
 		auto conditionDict = Map::create();
-		conditionDict->setObjectForKey(__String::create(columnValue), columnName);
+		conditionDict->setObjectForKey(RefString::create(columnValue), columnName);
 
 		return this->getExecuteSql(tableName, conditionDict);
 	}
@@ -285,7 +286,7 @@ namespace framework
 		int count = columnValues->getLength();
 		for (int i = 0; i < count; ++i)
 		{
-			__String *value = (__String*)columnValues->objectAt(i);
+			RefString *value = (RefString*)columnValues->objectAt(i);
 			sql.append("'");
 			sql.append(value->getCString());
 			sql.append("'");
@@ -344,7 +345,7 @@ namespace framework
 					}
 					else if (type == SQLITE_TEXT)
 					{
-						pValue = __String::create("");
+						pValue = RefString::create("");
 					}
 					columnDict->setObjectForKey(pValue, szName);
 				}
@@ -369,8 +370,8 @@ namespace framework
 
 			for (int i = 0; i < count; ++i)
 			{
-				auto columnName = (__String*)columnNameArray->objectAt(i);
-				auto columnValue = (__String*)conditionDict->objectForKey(columnName->getCString());
+				auto columnName = (RefString*)columnNameArray->objectAt(i);
+				auto columnValue = (RefString*)conditionDict->objectForKey(columnName->getCString());
 
 				conditionStr.append(columnName->getCString());
 				conditionStr.append("='");

@@ -23,4 +23,20 @@ function GameDBHelper:openDB()
 	values:setStringForKey("Maple", "name")
 	values:setStringForKey("23", "age")
 	self.db:insertTable("test", values)
+
+	local table = self.db:selectTable("test")
+	local count = table:getLength()
+	log("table count", count)
+	for i = 0, count do
+		local dict = table:objectAt(i)
+		local keys = dict:allKeys()
+		for i = 0, keys:getLength() - 1 do
+			local key = keys:objectAt(i)
+			local value = dict:objectForKey(key:getCString())
+			log(key:getCString(), value:getCString())
+		end
+	end
+
+	-- local sqliteLua = SqliteLua:openSqlite(GameConst.GAME_DB_PATH)
+	-- local table = SqliteLua:selectTableAsLuaTable("test")
 end
