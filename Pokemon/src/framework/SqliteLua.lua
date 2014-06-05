@@ -13,7 +13,6 @@ class("SqliteLua", {
 -- columns is a lua array
 function SqliteLua:createTableByLuaArray(tableName, columns)
 	if type(columns) ~= "table" then
-		log("columns is not table")
 		return false
 	end
 
