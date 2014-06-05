@@ -1,5 +1,7 @@
 #include "SqliteDb.h"
 #include "../base/RefString.h"
+#include "../base/RefInteger.h"
+#include "../base/RefDouble.h"
 
 using namespace cocos2d;
 
@@ -55,17 +57,17 @@ namespace framework
 
 	const char *SqliteDb::getValueTypeName(cocos2d::Ref *value)
 	{
-		if (dynamic_cast<__String*>(value))
+		if (dynamic_cast<RefString*>(value))
 		{
-			return "__String";
+			return "RefString";
 		}
-		else if (dynamic_cast<__Integer*>(value))
+		else if (dynamic_cast<RefInteger*>(value))
 		{
-			return "__Integer";
+			return "RefInteger";
 		}
-		else if (dynamic_cast<__Float*>(value))
+		else if (dynamic_cast<RefDouble*>(value))
 		{
-			return "__Float";
+			return "RefDouble";
 		}
 		else
 		{
@@ -337,11 +339,11 @@ namespace framework
 					Ref *pValue = nullptr;
 					if (type == SQLITE_INTEGER)
 					{
-						pValue = __Integer::create(sqlite3_column_int(pStmt, i));
+						pValue = RefInteger::create(sqlite3_column_int(pStmt, i));
 					}
 					else if (type == SQLITE_FLOAT)
 					{
-						pValue = __Float::create(sqlite3_column_int(pStmt, i));
+						pValue = RefDouble::create(sqlite3_column_int(pStmt, i));
 					}
 					else if (type == SQLITE_TEXT)
 					{
