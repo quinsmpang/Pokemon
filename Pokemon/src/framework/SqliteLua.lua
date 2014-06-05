@@ -113,7 +113,7 @@ function SqliteLua:updateLuaTableIntoDB(luaTable, tableName)
 	return self:updateTable(tableName, dict, "id", tostring(luaTable.id))
 end
 
-function SqliteLua:deleteFromTableByCondition(tableName, columnName, columnValue)
+function SqliteLua:deleteFromTableWithOneValue(tableName, columnName, columnValue)
 	return self:deleteFromTable(tableName, columnName, columnValue)
 end
 
