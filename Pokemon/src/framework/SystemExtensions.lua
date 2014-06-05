@@ -35,6 +35,10 @@ end
 
 -- get k-v count
 function table.getTotalCount(table)
+	if type(table) ~= "table" then
+		return -1
+	end
+	
 	local count = 0
 	for k, v in pairs(table) do
 		count = count + 1

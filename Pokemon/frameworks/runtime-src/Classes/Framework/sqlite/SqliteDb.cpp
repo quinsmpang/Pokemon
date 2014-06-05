@@ -1,4 +1,5 @@
 #include "SqliteDb.h"
+#include <string>
 #include "../base/RefString.h"
 #include "../base/RefInteger.h"
 #include "../base/RefDouble.h"
@@ -343,11 +344,11 @@ namespace framework
 					}
 					else if (type == SQLITE_FLOAT)
 					{
-						pValue = RefDouble::create(sqlite3_column_int(pStmt, i));
+						pValue = RefDouble::create(sqlite3_column_double(pStmt, i));
 					}
 					else if (type == SQLITE_TEXT)
 					{
-						pValue = RefString::create("");
+						pValue = RefString::create((const char*)sqlite3_column_text(pStmt, i));
 					}
 					columnDict->setObjectForKey(pValue, szName);
 				}
