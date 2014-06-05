@@ -1,5 +1,5 @@
 --[[
-	Description: Child class of SqliteDb
+	Description: Support passing lua table to operate sqlite3
 	Author: M.Wan
 	Date: 04/26/2014
 ]]
