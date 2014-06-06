@@ -4,6 +4,7 @@
 	Date: 04/26/2014
 ]]
 
+-- return instance function pointer
 function MakeScriptHandler(target, selector, ...)
 	local args = {...}
 	return function(...)
@@ -16,6 +17,7 @@ function MakeScriptHandler(target, selector, ...)
 	end
 end
 
+-- call a function after delay
 function CallFunctionAsync(target, selector, delay, ...)
 	local args = {...}
 	local handlerId = nil
@@ -26,11 +28,13 @@ function CallFunctionAsync(target, selector, delay, ...)
 	handlerId = cc.Director:getInstance():getScheduler():scheduleScriptFunc(handlerFunction, delay, false)
 end
 
+-- check whether fall in the random area, such as fallInRandom(3, 7) means whether it falls in 3/7.
 function fallInRandom(numerator, denominator)
 	local randomNum = math.random(1, denominator)
 	return randomNum <= numerator
 end
 
+-- check whether a rect contains a point.
 function containsPoint(rect, pos)
 	return pos.x > rect.x and pos.x < rect.x + rect.width and pos.y > rect.y and pos.y < rect.y + rect.height
 end

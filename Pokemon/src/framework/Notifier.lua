@@ -42,7 +42,7 @@ function Notifier:removeObserver(event, sender, callback)
 	local newObservers = {}
 	for i, observer in ipairs(self.observerMap[event]) do
 		-- if callback is nil, remove all observers related to the sender of this event.
-		if observer.sender == sender and (observer.callback == callback or not callback) then
+		if observer.sender == sender and (observer.callback == callback or callback == nil) then
 		else
 			table.insert(newObservers, observer)
 		end

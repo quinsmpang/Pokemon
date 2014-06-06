@@ -131,6 +131,8 @@ end
 function SqliteLua:mergeValueToDictionary(luaTable)
 	local dict = Map:create()
 	local count = 0
+	-- concat by ',' at the first level
+	-- concat by '|' at the second level
 	for k, v in pairs(luaTable) do
 		local str = ""
 		if type(v) == "table" then

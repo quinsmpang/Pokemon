@@ -69,8 +69,7 @@ function GameLauncher:launch()
 
     --GameLauncher:demo()
 
-    --GameLauncher:startGame()
-    GameDBHelper:openDB()
+    GameLauncher:startGame()
 end
 
 function GameLauncher:demo()
