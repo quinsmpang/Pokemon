@@ -4,14 +4,21 @@
 	Date: 05/18/2014
 ]]
 
-require "src/controller/map/MapViewController"
+require "src/controller/map/MapLayerController"
+require "src/controller/map/DialogLayerController"
 
 class("MapViewScene", psGameScene)
 
 function MapViewScene:onEnter()
 	log("MapViewScene:onEnter")
-	local mapViewController = MapViewController:create()
-	self:loadViewController(mapViewController)
+
+	local coreLayer = CoreLayer:create()
+	self:setCoreLayer(coreLayer)
+
+	local mapLayerController = MapLayerController:create()
+	self:loadViewController(mapLayerController)
+	local dialogLayerController = DialogLayerController:create()
+	self:loadViewController(dialogLayerController)
 end
 
 function MapViewScene:onExit()

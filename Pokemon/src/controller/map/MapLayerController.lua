@@ -6,4 +6,26 @@
 
 class("MapLayerController", psViewController)
 
-MapLayerController.layer = nil 		-- 地图层
+function MapLayerController:load()
+	log("MapLayerController:load")
+	self:loadResources()
+	self:renderView()
+end
+
+function MapLayerController:unload()
+	log("MapLayerController:unload")
+	self:cleanResources()
+end
+
+function MapLayerController:loadResources()
+	log("MapLayerController:loadResources")
+	cc.SpriteFrameCache:getInstance():addSpriteFrames("images/characters.plist", "images/characters.pvr.ccz")
+end
+
+function MapLayerController:cleanResources()
+	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("images/characters.plist")
+end
+
+function MapLayerController:renderView()
+	
+end

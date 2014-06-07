@@ -181,7 +181,6 @@ function KeysetLayer:onModalTouchBegan(x, y)
 	if not self.enableClick then
 		return
 	end
-	log("KeysetLayer:onModalTouchBegan")
 	for i, panel in ipairs(self.panelList) do
 		if containsPoint(panel:getBoundingBox(), ccp(x, y)) then
 			self:selectPanel(i, panel)
