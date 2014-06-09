@@ -16,7 +16,6 @@ psModel.updateTimes = 0
 
 -- constructor
 function psModel:new()
-	log("psModel:new")
 	local instance = self:__ctor()
 	log("psModel new [" .. self.className .. "]")
 	return instance:__createProxy()
@@ -30,15 +29,6 @@ function psModel:updateFromDB()
 	assert(false, "override me")
 end
 
--- real update method, static
-function psModel:__updateFromDB(instance)
-	-- the self here is class, not instance
-	if self.super and self.super[1] then
-		self.super[1]:__updateFromDB(instance)
-	end
-	self.updateFromDB(instance)
-end
-
 -- create a proxy for the object, to realize two features:
 -- 1. check updateFlag when index an attribute, invoke updateFromDB when it's true.
 -- 2. Forbid adding new attributes to the model instance.
@@ -47,15 +37,17 @@ function psModel:__createProxy()
 	local instance = self
 	local proxy = {}
 	local mt = {
-		__index = function(t, key)
-			log("###", instance.updateFlag)
+		__index = function(_, key)
 			if type(instance[key]) ~= "function" and instance.updateFlag then
 				-- don't modify updateFlag in updateFromDB() method, otherwise it may cause endless loop
 				instance.updateFlag = false
-				instance:__updateFromDB(instance)
+				instance:updateFromDB()
 				instance.updateTimes = instance.updateTimes + 1
 			end
 			return instance[key]
+		end,
+		__newindex = function(_, key, value)
+			instance[key] = value
 		end
 	}
 	setmetatable(proxy, mt)

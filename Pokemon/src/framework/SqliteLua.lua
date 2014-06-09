@@ -154,9 +154,6 @@ function SqliteLua:mergeValueToDictionary(luaTable)
 				end
 			end
 		else
-			if v == "null" then
-				v = ""
-			end
 			str = tostring(v)
 		end
 

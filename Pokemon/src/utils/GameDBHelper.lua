@@ -12,8 +12,8 @@ function GameDBHelper:openDB()
 	self.db = SqliteLua:openSqlite(GameConst.GAME_DB_PATH)
 
 	local dialog = Dialog:create(1)
-	print(dialog.updateFlag)
 	local i = dialog["isQuestion"]
+	table.forEachAsHash(dialog, log)
 end
 
 ------------------------ dialog_info ------------------------

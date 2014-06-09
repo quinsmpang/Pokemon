@@ -31,4 +31,12 @@ function Dialog:updateFromDB()
 
 	self.id = tonumber(data.id)
 	self.relatedStep = tonumber(data.relatedStep)
+	self.params = string.split(data.params, ";")
+	if data.isQuestion == "1" then
+		self.isQuestion = true
+	else
+		self.isQuestion = false
+	end
+	self.choices = string.split(data.choices, ";")
+	self.actionId = tonumber(data.actionId)
 end

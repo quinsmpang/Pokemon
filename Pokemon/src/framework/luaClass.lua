@@ -4,25 +4,17 @@
 	Date: 04/13/2014
 ]]
 
-function luaClass(className, ...)
+function luaClass(className, super)
 	local class = {}
 	class.__index = class
 
 	class.className = className
-	class.super = {...}
+	-- super class
+	class.super = super
 
-	-- support multiple inheritance
-	setmetatable(class, {__index = function (_, key)
-		for i = 1, #class.super do
-			local value = class.super[i][key]
-			if value then
-				return value
-			end
-		end
-		return nil
-	end})
+	setmetatable(class, super)
 
-	if #class.super <= 0 then
+	if not class.super then
 		-- to create object.
 		function class:new()
 			local instance = self:__ctor()
@@ -33,14 +25,16 @@ function luaClass(className, ...)
 		-- real constructor, don't call this outside.
 		function class:__ctor()
 			local instance = nil
-			if #class.super > 0 then
+			if self.super then
 				-- only call the first super class constructor
-				instance = class.super[1]:__ctor()
+				instance = self.super:__ctor()
 			else
 				instance = {}
 			end
 
-			setmetatable(instance, class)
+			setmetatable(instance, self)
+			-- set template pointer
+			instance.class = self
 			-- set class template
 			instance:init()
 
