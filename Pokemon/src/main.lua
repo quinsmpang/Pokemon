@@ -50,6 +50,11 @@ function GameLauncher:loadLuaFramework()
 end
 
 function GameLauncher:loadPublicModules()
+    -- models
+    require "src/model/Dialog"
+    require "src/model/MapInfo"
+
+    -- public data or utils
     require "src/utils/GameConst"
     require "src/utils/GameSettings"
     require "src/utils/GameVolumeHelper"

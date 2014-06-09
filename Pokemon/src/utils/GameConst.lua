@@ -10,3 +10,6 @@ GameConst = {}
 GameConst.DEFAULT_FONT_PATH = "fonts/DFPYuanW7-GB.ttf"
 -- local db
 GameConst.GAME_DB_PATH = "icon.jpg"
+
+-- db tables
+GameConst.DIALOG_TABLE = "dialog_info"

@@ -19,28 +19,33 @@ function luaClass(className, ...)
 				return value
 			end
 		end
+		return nil
 	end})
 
-	-- to create object.
-	function class:new()
-		local instance = self:__ctor()
-		self:init()
-		return instance
-	end
-
-	-- real constructor, don't call this outside.
-	function class:__ctor()
-		local instance = nil
-		if #class.super > 0 then
-			-- only call the first super class constructor
-			instance = class.super[1]:__ctor()
-		else
-			instance = {}
+	if #class.super <= 0 then
+		-- to create object.
+		function class:new()
+			local instance = self:__ctor()
+			log("luaclass new [" .. self.className .. "]")
+			return instance
 		end
 
-		setmetatable(instance, class)
+		-- real constructor, don't call this outside.
+		function class:__ctor()
+			local instance = nil
+			if #class.super > 0 then
+				-- only call the first super class constructor
+				instance = class.super[1]:__ctor()
+			else
+				instance = {}
+			end
 
-		return instance
+			setmetatable(instance, class)
+			-- set class template
+			instance:init()
+
+			return instance
+		end
 	end
 
 	-- You can override this method to initialize.

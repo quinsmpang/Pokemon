@@ -37,7 +37,12 @@ function SqliteLua:selectTableAsLuaTable(...)
 		for j = 0, columnCount - 1 do
 			local columnName = tolua.cast(columnNames:objectAt(j), "pf.RefString")
 			local columnValue = tolua.cast(columnDict:objectForKey(columnName:getCString()), "pf.RefString")
-			dataRow[columnName:getCString()] = columnValue:getCString()
+			if not columnValue or columnValue:getCString() == "" then
+				columnValue = "null"
+			else
+				columnValue = columnValue:getCString()
+			end
+			dataRow[columnName:getCString()] = columnValue
 		end
 
 		table.insert(luaArray, dataRow)
@@ -149,6 +154,9 @@ function SqliteLua:mergeValueToDictionary(luaTable)
 				end
 			end
 		else
+			if v == "null" then
+				v = ""
+			end
 			str = tostring(v)
 		end
 
