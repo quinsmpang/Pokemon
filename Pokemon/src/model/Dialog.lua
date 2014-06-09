@@ -27,16 +27,20 @@ end
 function Dialog:updateFromDB()
 	log("Dialog:updateFromDB")
 	local data = GameDBHelper:queryDialogById(self.id)
-	self:updateWithData(data)
+	if data then
+		self:updateWithData(data)
 
-	self.id = tonumber(data.id)
-	self.relatedStep = tonumber(data.relatedStep)
-	self.params = string.split(data.params, ";")
-	if data.isQuestion == "1" then
-		self.isQuestion = true
+		self.id = tonumber(data.id)
+		self.relatedStep = tonumber(data.relatedStep)
+		self.params = string.split(data.params, ";")
+		if data.isQuestion == "1" then
+			self.isQuestion = true
+		else
+			self.isQuestion = false
+		end
+		self.choices = string.split(data.choices, ";")
+		self.actionId = tonumber(data.actionId)
 	else
-		self.isQuestion = false
+		log("Dialog:updateFromDB failed, id [" .. self.id .. "] does not exist.")
 	end
-	self.choices = string.split(data.choices, ";")
-	self.actionId = tonumber(data.actionId)
 end

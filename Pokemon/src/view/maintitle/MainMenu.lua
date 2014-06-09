@@ -129,6 +129,7 @@ end
 function MainMenu:onBtnNewGameClicked()
 	log("MainMenu:onBtnNewGameClicked")
 	GameVolumeHelper:playBtnClickSound()
+	cc.SimpleAudioEngine:getInstance():stopMusic()
 	GameDBHelper:openDB()
 	local mapViewScene = MapViewScene:create()
 	cc.Director:getInstance():replaceScene(cc.TransitionFade:create(2, mapViewScene, ccc3(0, 0, 0)))
