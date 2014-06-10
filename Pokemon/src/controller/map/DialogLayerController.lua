@@ -13,7 +13,8 @@ DialogLayerController.dialogIndice = nil	-- indice for continuing talking
 
 -- logic 
 DialogLayerController.currentDialogId = nil		-- current dialog id
-DialogLayerController.enableClick = nil			-- whether can player operate
+DialogLayerController.currentDialogModel = nil
+DialogLayerController.isDialogInProcess = nil	-- whether the dialog is in action
 
 -- const values
 DialogLayerController.DIALOG_WINDOW_SIZE = CCSizeMake(780, 100)
@@ -22,11 +23,13 @@ DialogLayerController.DIALOG_TEXT_FONT_SIZE = 18
 DialogLayerController.DIALOG_TEXT_DIMENSION = CCSizeMake(700, 60)
 DialogLayerController.DIALOG_TEXT_POSITION = ccp(60, 80)
 DialogLayerController.DIALOG_TEXT_COLOR = ccc3(0, 0, 0)
+DialogLayerController.DIALOG_TEXT_DURATION = 0.05
 DialogLayerController.DIALOG_INDICE_POSITION = ccp(750, 10)
 
 function DialogLayerController:load()
 	log("DialogLayerController:load")
 	self:loadResources()
+
 	self:renderView()
 end
 
@@ -98,46 +101,72 @@ function DialogLayerController:renderView()
 	self.dialogIndice = dialogIndice
 	self.root:addChild(dialogIndice)
 
-	coreLayer:pushLayer(self.root)
-
-	self.enableClick = false
+	self.isDialogInProcess = false
 	self.currentDialogId = 0
 
+	coreLayer:pushLayer(self.root)
+
 	self:generateNextDialog()
+	--CallFunctionAsync(self, self.generateNextDialog, 2.5)
 end
 
 function DialogLayerController:onLayerTouch(touch, event)
-	if not self.enableClick then
-		return
-	end
 	log("DialogLayerController:onLayerTouch")
-	GameVolumeHelper:playBtnClickSound()
-	self:generateNextDialog()
+	if self.isDialogInProcess then
+		self.isDialogInProcess = false
+		self.dialogLabel:setString(self.currentDialogModel.dialog)
+		self.dialogIndice:setVisible(true)
+	else
+		GameVolumeHelper:playBtnClickSound()
+		self:generateNextDialog()
+	end
 end
 
 function DialogLayerController:onKeyboardPressed(keyCode, event)
-	if not self.enableClick then
-		return
-	end
 	log("DialogLayerController:onKeyboardPressed")
 	if keyCode == GameSettings.confirmKey or keyCode == GameSettings.cancelKey then
-		GameVolumeHelper:playBtnClickSound()
-		self:generateNextDialog()
+		if self.isDialogInProcess then
+			self.isDialogInProcess = false
+			self.root:stopAllActions()
+			self.dialogLabel:setString(self.currentDialogModel.dialog)
+			self.dialogIndice:setVisible(true)
+		else
+			GameVolumeHelper:playBtnClickSound()
+			self:generateNextDialog()
+		end
 	end
 end
 
 function DialogLayerController:generateNextDialog()
 	log("DialogLayerController:generateNextDialog")
 	log("current dialog id: " .. self.currentDialogId)
-	self.enableClick = false
+	self.dialogIndice:setVisible(false)
 	self.currentDialogId = self.currentDialogId + 1
 	local currentDialog = GameDBHelper:queryDialogById(self.currentDialogId)
+	local substrings = GenerateAllUTF8Substrings(currentDialog.dialog)
+	self.currentDialogModel = currentDialog
 
-	self:showTextOneByOne(currentDialog.dialog)
+	self.isDialogInProcess = true
+	self:showTextOneByOne(substrings, 1)
 end
 
-function DialogLayerController:showTextOneByOne(text)
-	self.dialogLabel:setString(text)
-	self.dialogIndice:setVisible(true)
-	self.enableClick = true
+function DialogLayerController:showTextOneByOne(substrings, index)
+	if not self.isDialogInProcess then
+		return
+	end
+	-- jump out of recursive
+	if index > #substrings then
+		self.dialogIndice:setVisible(true)
+		self.isDialogInProcess = false
+		return
+	end
+	self.dialogLabel:setString(substrings[index])
+	--[[ there is an issue, cc.CallFunc passes an default parameter which is the caller to the callback function
+	so use callfunc here would cause error!]]
+	-- local action = cc.Sequence:create(
+	-- 		cc.DelayTime:create(self.DIALOG_TEXT_DURATION),
+	-- 		cc.CallFunc:create(MakeScriptHandler(self, self.showTextOneByOne, substrings, index + 1))
+	-- 	)
+	-- self.root:runAction(action)
+	CallFunctionAsync(self, self.showTextOneByOne, self.DIALOG_TEXT_DURATION, substrings, index + 1)
 end

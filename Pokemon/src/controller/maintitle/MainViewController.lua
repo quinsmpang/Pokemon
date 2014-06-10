@@ -39,13 +39,13 @@ end
 function MainViewController:loadResources()
 	log("MainViewController:loadResources")
 	cc.SimpleAudioEngine:getInstance():preloadMusic(self.TITLE_MUSIC)
-	cc.SpriteFrameCache:getInstance():addSpriteFrames("images/maintitle.plist", "images/maintitle.pvr.ccz")
+	cc.SpriteFrameCache:getInstance():addSpriteFrames("images/maintitle/maintitle.plist", "images/maintitle/maintitle.pvr.ccz")
 end
 
 function MainViewController:cleanResources()
 	log("MainViewController:cleanResources")
-	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("images/maintitle.plist")
-	--cc.SpriteFrameCache:getInstance():removeSpriteFramesFromTexture("images/maintitle.pvr.ccz")
+	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("images/maintitle/maintitle.plist")
+	--cc.SpriteFrameCache:getInstance():removeSpriteFramesFromTexture("images/maintitle/maintitle.pvr.ccz")
 end
 
 function MainViewController:renderView()

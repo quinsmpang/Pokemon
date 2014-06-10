@@ -182,7 +182,7 @@ function KeysetLayer:onModalTouchBegan(x, y)
 		return
 	end
 	for i, panel in ipairs(self.panelList) do
-		if containsPoint(panel:getBoundingBox(), ccp(x, y)) then
+		if ContainsPoint(panel:getBoundingBox(), ccp(x, y)) then
 			self:selectPanel(i, panel)
 			break
 		end

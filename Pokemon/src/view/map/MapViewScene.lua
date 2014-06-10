@@ -12,15 +12,20 @@ class("MapViewScene", psGameScene)
 function MapViewScene:onEnter()
 	log("MapViewScene:onEnter")
 
+	CallFunctionAsync(self, self.init, 2)
+	--self:init()
+end
+
+function MapViewScene:onExit()
+	log("MapViewScene:onExit")
+end
+
+function MapViewScene:init()
 	local coreLayer = CoreLayer:create()
 	self:setCoreLayer(coreLayer)
 
 	local mapLayerController = MapLayerController:create()
 	self:loadViewController(mapLayerController)
 	local dialogLayerController = DialogLayerController:create()
-	self:loadViewController(dialogLayerController)
-end
-
-function MapViewScene:onExit()
-	log("MapViewScene:onExit")
+	self:loadViewController(dialogLayerController)	
 end

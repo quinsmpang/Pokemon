@@ -29,12 +29,42 @@ function CallFunctionAsync(target, selector, delay, ...)
 end
 
 -- check whether fall in the random area, such as fallInRandom(3, 7) means whether it falls in 3/7.
-function fallInRandom(numerator, denominator)
+function FallInRandom(numerator, denominator)
 	local randomNum = math.random(1, denominator)
 	return randomNum <= numerator
 end
 
 -- check whether a rect contains a point.
-function containsPoint(rect, pos)
+function ContainsPoint(rect, pos)
 	return pos.x > rect.x and pos.x < rect.x + rect.width and pos.y > rect.y and pos.y < rect.y + rect.height
+end
+
+-- return an array which contains all UTF-8 substrings from a string, from the first character.
+function GenerateAllUTF8Substrings(text)
+	if type(text) ~= "string" then
+		return nil
+	end
+	local function isChinese(index)
+		-- the high 4 bits of UTF-8 Chinese is 1110
+		local byte = string.byte(text, index)
+		byte = bit.rshift(byte, 4)
+		if byte == 0xE then
+			return true
+		end
+		return false
+	end
+
+	local strings = {}
+	local index = 1
+	while index <= #text do
+		if isChinese(index) then
+			index = index + 3
+		else
+			index = index + 1
+		end
+		local substr = string.sub(text, 1, index - 1)
+		table.insert(strings, substr)
+	end
+
+	return strings
 end
