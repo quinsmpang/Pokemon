@@ -9,7 +9,8 @@ DBNULL = "null"
 
 luaClass("psModel")
 
--- update indice, instance would call updateFromDB() when indexed if this attribute is true, and the attribute would be set to false after that.
+-- update indice, instance would call updateFromDB() when indexed if this attribute is true, and the attribute 
+-- would be set to false after that.
 psModel.updateFlag = false
 -- update times
 psModel.updateTimes = 0
@@ -36,6 +37,8 @@ function psModel:__createProxy()
 	log("psModel:__createProxy")
 	local instance = self
 	local proxy = {}
+	-- add a reference to the real object
+	proxy.__instance = instance
 	local mt = {
 		__index = function(_, key)
 			if type(instance[key]) ~= "function" and instance.updateFlag then
@@ -52,5 +55,7 @@ function psModel:__createProxy()
 	}
 	setmetatable(proxy, mt)
 
+	-- remember that the proxy here doesn't have any members even if you add some to it, because all index operations
+	-- to this proxy object is exactly affecting the its real instance.
 	return proxy
 end
