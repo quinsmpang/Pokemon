@@ -55,8 +55,15 @@ function DialogLayerController:renderView()
 	self.root = psGameLayer:create()
 	local listener = cc.EventListenerTouchOneByOne:create()
 	listener:setSwallowTouches(true)
-	listener:registerScriptHandler(MakeScriptHandler(self, self.onResponsePlayer), cc.Handler.EVENT_TOUCH_BEGAN)
+	listener:registerScriptHandler(MakeScriptHandler(self, self.onLayerTouch), cc.Handler.EVENT_TOUCH_BEGAN)
 	self.root:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, self.root)
+	-- register keyboard event
+	if targetPlatform == cc.PLATFORM_OS_WIN32 then
+		local kbdListener = cc.EventListenerKeyboard:create()
+		kbdListener:registerScriptHandler(MakeScriptHandler(self, self.onKeyboardPressed), cc.Handler.EVENT_KEYBOARD_PRESSED)
+
+		self.root:getEventDispatcher():addEventListenerWithSceneGraphPriority(kbdListener, self.root)
+	end
 
 	-- dialog window initialization
 	local capInsets = CCRectMake(20, 20, 60, 60)
@@ -99,12 +106,24 @@ function DialogLayerController:renderView()
 	self:generateNextDialog()
 end
 
-function DialogLayerController:onResponsePlayer()
+function DialogLayerController:onLayerTouch(touch, event)
 	if not self.enableClick then
 		return
 	end
+	log("DialogLayerController:onLayerTouch")
 	GameVolumeHelper:playBtnClickSound()
 	self:generateNextDialog()
+end
+
+function DialogLayerController:onKeyboardPressed(keyCode, event)
+	if not self.enableClick then
+		return
+	end
+	log("DialogLayerController:onKeyboardPressed")
+	if keyCode == GameSettings.confirmKey or keyCode == GameSettings.cancelKey then
+		GameVolumeHelper:playBtnClickSound()
+		self:generateNextDialog()
+	end
 end
 
 function DialogLayerController:generateNextDialog()
