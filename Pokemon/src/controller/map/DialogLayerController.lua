@@ -55,7 +55,7 @@ function DialogLayerController:renderView()
 	self.root = psGameLayer:create()
 	local listener = cc.EventListenerTouchOneByOne:create()
 	listener:setSwallowTouches(true)
-	listener:registerScriptHandler(MakeScriptHandler(self, self.generateNextDialog), cc.Handler.EVENT_TOUCH_BEGAN)
+	listener:registerScriptHandler(MakeScriptHandler(self, self.onResponsePlayer), cc.Handler.EVENT_TOUCH_BEGAN)
 	self.root:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, self.root)
 
 	-- dialog window initialization
@@ -96,6 +96,14 @@ function DialogLayerController:renderView()
 	self.enableClick = false
 	self.currentDialogId = 0
 
+	self:generateNextDialog()
+end
+
+function DialogLayerController:onResponsePlayer()
+	if not self.enableClick then
+		return
+	end
+	GameVolumeHelper:playBtnClickSound()
 	self:generateNextDialog()
 end
 
