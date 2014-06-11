@@ -72,7 +72,7 @@ function SettingsLayer:initUI()
 
 	-- buttons
 	local btnDefaultLabel = cc.Label:createWithTTF("默认", GameConst.DEFAULT_FONT_PATH, 22)
-	local btnBack = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/btn_back.png", CCRectMake(1, 1, 1, 1))
+	local btnBack = cc.Scale9Sprite:createWithSpriteFrameName("images/common/black_back.png", CCRectMake(1, 1, 1, 1))
 	self.btnDefault = cc.ControlButton:create(btnDefaultLabel, btnBack)
 	self.btnDefault:setAnchorPoint(0.5, 0.5)
 	self.btnDefault:setPosition(windowSize.width * 0.35, windowSize.height * 0.28)
@@ -80,7 +80,7 @@ function SettingsLayer:initUI()
 	self.window:addChild(self.btnDefault)
 
 	local btnCloseLabel = cc.Label:createWithTTF("关闭", GameConst.DEFAULT_FONT_PATH, 22)
-	btnBack = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/btn_back.png", CCRectMake(1, 1, 1, 1))
+	btnBack = cc.Scale9Sprite:createWithSpriteFrameName("images/common/black_back.png", CCRectMake(1, 1, 1, 1))
 	self.btnClose = cc.ControlButton:create(btnCloseLabel, btnBack)
 	self.btnClose:setAnchorPoint(0.5, 0.5)
 	self.btnClose:setPosition(windowSize.width * 0.65, windowSize.height * 0.28)

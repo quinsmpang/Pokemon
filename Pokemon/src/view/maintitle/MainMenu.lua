@@ -7,6 +7,7 @@
 require "src/view/map/MapViewScene"
 require "src/view/maintitle/SettingsLayer"
 require "src/view/maintitle/KeysetLayer"
+require "src/view/maintitle/NewNameLayer"
 
 class("MainMenu", psLayer)
 
@@ -17,6 +18,7 @@ MainMenu.btnKeySet = nil 		--按键设定按钮
 MainMenu.savesWindow = nil 		--存档窗口
 MainMenu.settingsWindow = nil 	--游戏设置窗口
 MainMenu.keysetWindow = nil 	--按键设置窗口
+MainMenu.newNameWindow = nil 	--新名字窗口
 
 -- const values
 MainMenu.BTNNEWGAME_TEXT = "新 的 旅 程"
@@ -42,9 +44,9 @@ function MainMenu:initUI()
 
 	-- new game button
 	local capInsets = CCRectMake(20, 20, 60, 60)
-	local normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_red.png", capInsets)
+	local normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_red.png", capInsets)
 	normalImage:setPreferredSize(self.BTN_SIZE)
-	local selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_orange.png", capInsets)
+	local selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_orange.png", capInsets)
 	selectedImage:setPreferredSize(self.BTN_SIZE)
 	self.btnNewGame = cc.MenuItemSprite:create(normalImage, selectedImage)
 	self.btnNewGame:registerScriptTapHandler(MakeScriptHandler(self, self.onBtnNewGameClicked))
@@ -59,9 +61,9 @@ function MainMenu:initUI()
 
 
 	-- load game button
-	normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_red.png", capInsets)
+	normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_red.png", capInsets)
 	normalImage:setPreferredSize(self.BTN_SIZE)
-	selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_orange.png", capInsets)
+	selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_orange.png", capInsets)
 	selectedImage:setPreferredSize(self.BTN_SIZE)
 	self.btnLoadGame = cc.MenuItemSprite:create(normalImage, selectedImage)
 	self.btnLoadGame:registerScriptTapHandler(MakeScriptHandler(self, self.onBtnLoadGameClicked))
@@ -75,9 +77,9 @@ function MainMenu:initUI()
 	self:addChild(loadGameLabel)
 
 	-- setting button
-	normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_red.png", capInsets)
+	normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_red.png", capInsets)
 	normalImage:setPreferredSize(self.BTN_SIZE)
-	selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_orange.png", capInsets)
+	selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_orange.png", capInsets)
 	selectedImage:setPreferredSize(self.BTN_SIZE)
 	self.btnSettings = cc.MenuItemSprite:create(normalImage, selectedImage)
 	self.btnSettings:registerScriptTapHandler(MakeScriptHandler(self, self.onBtnSettingsClicked))
@@ -92,9 +94,9 @@ function MainMenu:initUI()
 
 	-- keyset button
 	if targetPlatform == cc.PLATFORM_OS_WIN32 then
-		normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_red.png", capInsets)
+		normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_red.png", capInsets)
 		normalImage:setPreferredSize(self.BTN_SIZE)
-		selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_orange.png", capInsets)
+		selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_orange.png", capInsets)
 		selectedImage:setPreferredSize(self.BTN_SIZE)
 		self.btnKeySet = cc.MenuItemSprite:create(normalImage, selectedImage)
 		self.btnKeySet:registerScriptTapHandler(MakeScriptHandler(self, self.onBtnKeysetClicked))
@@ -125,14 +127,27 @@ function MainMenu:showButtons()
 	end
 end
 
+function MainMenu:showNewNameWindow()
+	GameDBHelper:openDB()
+	self.newNameWindow = NewNameLayer:create()
+	self.newNameWindow:initUI()
+	self:addChild(self.newNameWindow)
+end
+
 -- btn callbacks
 function MainMenu:onBtnNewGameClicked()
 	log("MainMenu:onBtnNewGameClicked")
 	GameVolumeHelper:playBtnClickSound()
 	cc.SimpleAudioEngine:getInstance():stopMusic()
-	GameDBHelper:openDB()
-	local mapViewScene = MapViewScene:create()
-	cc.Director:getInstance():replaceScene(cc.TransitionFade:create(2, mapViewScene, ccc3(0, 0, 0)))
+
+	local quitAction = cc.Sequence:create(
+		cc.FadeOut:create(1.5),
+		cc.DelayTime:create(0.5),
+		cc.CallFunc:create(MakeScriptHandler(self, self.showNewNameWindow))
+		)
+	self:runAction(quitAction)
+	-- local mapViewScene = MapViewScene:create()
+	-- cc.Director:getInstance():replaceScene(cc.TransitionFade:create(2, mapViewScene, ccc3(0, 0, 0)))
 end
 
 function MainMenu:onBtnLoadGameClicked()

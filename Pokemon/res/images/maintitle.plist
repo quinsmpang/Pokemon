@@ -17,70 +17,31 @@
                 <key>sourceSize</key>
                 <string>{800,480}</string>
             </dict>
-            <key>images/maintitle/border_aqua.png</key>
+            <key>images/maintitle/confirm_text_deep.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{906,530},{100,100}}</string>
+                <string>{{953,48},{54,23}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{100,100}}</string>
+                <string>{{0,0},{54,23}}</string>
                 <key>sourceSize</key>
-                <string>{100,100}</string>
+                <string>{54,23}</string>
             </dict>
-            <key>images/maintitle/border_orange.png</key>
+            <key>images/maintitle/confirm_text_shallow.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{804,530},{100,100}}</string>
+                <string>{{953,23},{54,23}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{100,100}}</string>
+                <string>{{0,0},{54,23}}</string>
                 <key>sourceSize</key>
-                <string>{100,100}</string>
-            </dict>
-            <key>images/maintitle/border_red.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{906,428},{100,100}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{100,100}}</string>
-                <key>sourceSize</key>
-                <string>{100,100}</string>
-            </dict>
-            <key>images/maintitle/border_yellow.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{804,428},{100,100}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{100,100}}</string>
-                <key>sourceSize</key>
-                <string>{100,100}</string>
-            </dict>
-            <key>images/maintitle/btn_back.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{953,20},{5,5}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{5,5}}</string>
-                <key>sourceSize</key>
-                <string>{5,5}</string>
+                <string>{54,23}</string>
             </dict>
             <key>images/maintitle/keyset_window.png</key>
             <dict>
@@ -107,6 +68,19 @@
                 <string>{{0,0},{800,480}}</string>
                 <key>sourceSize</key>
                 <string>{800,480}</string>
+            </dict>
+            <key>images/maintitle/newname_back.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{423,1277},{331,247}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{331,247}}</string>
+                <key>sourceSize</key>
+                <string>{331,247}</string>
             </dict>
             <key>images/maintitle/pokemon_text.png</key>
             <dict>
@@ -176,7 +150,7 @@
             <key>images/maintitle/sunrise_text.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{804,632},{259,78}}</string>
+                <string>{{804,428},{259,78}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -196,7 +170,7 @@
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a82ff877ee208b219cf33a8ea7c0e54d:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:95590af8f6379b162cae9383a32c2b5e:1/1$</string>
             <key>textureFileName</key>
             <string>maintitle.pvr.ccz</string>
         </dict>

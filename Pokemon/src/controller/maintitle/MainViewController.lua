@@ -11,6 +11,8 @@ class("MainViewController", psViewController)
 MainViewController.resources = {
 	"images/maintitle.plist",
 	"images/maintitle.pvr.ccz",
+	"images/common.plist",
+	"images/common.pvr.ccz",
 }
 
 MainViewController.infoLabel = nil		-- 游戏说明文字
