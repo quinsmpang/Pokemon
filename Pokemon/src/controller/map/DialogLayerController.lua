@@ -6,6 +6,13 @@
 
 class("DialogLayerController", psViewController)
 
+DialogLayerController.resources = {
+	"images/common.plist",
+	"images/common.pvr.ccz",
+	"images/dialog.plist",
+	"images/dialog.pvr.ccz"
+}
+
 DialogLayerController.root = nil		-- root layer(pf.GameLayer)
 DialogLayerController.dialogWindow = nil	-- dialog window
 DialogLayerController.dialogLabel = nil		-- dialog text
@@ -40,14 +47,16 @@ end
 
 function DialogLayerController:loadResources()
 	log("DialogLayerController:loadResources")
-	cc.SpriteFrameCache:getInstance():addSpriteFrames("images/common.plist", "images/common.pvr.ccz")
-	cc.SpriteFrameCache:getInstance():addSpriteFrames("images/dialog.plist", "images/dialog.pvr.ccz")
+	for i = 1, #self.resources, 2 do
+		cc.SpriteFrameCache:getInstance():addSpriteFrames(self.resources[i], self.resources[i + 1])
+	end
 end
 
 function DialogLayerController:cleanResources()
 	log("DialogLayerController:cleanResources")
-	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("images/common.plist")
-	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("images/dialog.plist")
+	for i = 1, #self.resources, 2 do
+		cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile(self.resources[i])
+	end
 end
 
 function DialogLayerController:renderView()

@@ -6,6 +6,11 @@
 
 class("MapLayerController", psViewController)
 
+MapLayerController.resources = {
+	"images/characters.plist", 
+	"images/characters.pvr.ccz",
+}
+
 function MapLayerController:load()
 	log("MapLayerController:load")
 	self:loadResources()
@@ -19,11 +24,15 @@ end
 
 function MapLayerController:loadResources()
 	log("MapLayerController:loadResources")
-	cc.SpriteFrameCache:getInstance():addSpriteFrames("images/characters.plist", "images/characters.pvr.ccz")
+	for i = 1, #self.resources, 2 do
+		cc.SpriteFrameCache:getInstance():addSpriteFrames(self.resources[i], self.resources[i + 1])
+	end
 end
 
 function MapLayerController:cleanResources()
-	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("images/characters.plist")
+	for i = 1, #self.resources, 2 do
+		cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile(self.resources[i])
+	end
 end
 
 function MapLayerController:renderView()

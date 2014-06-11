@@ -7,158 +7,158 @@
             <key>images/characters/player_male_walk_down1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{38,186},{32,48}}</string>
+                <string>{{104,36},{22,32}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{9,0},{32,48}}</string>
+                <string>{{6,0},{22,32}}</string>
                 <key>sourceSize</key>
-                <string>{48,48}</string>
+                <string>{32,32}</string>
             </dict>
             <key>images/characters/player_male_walk_down2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,186},{34,48}}</string>
+                <string>{{70,28},{22,32}}</string>
+                <key>offset</key>
+                <string>{1,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{6,0},{22,32}}</string>
+                <key>sourceSize</key>
+                <string>{32,32}</string>
+            </dict>
+            <key>images/characters/player_male_walk_down3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{36,104},{22,32}}</string>
+                <key>offset</key>
+                <string>{1,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{6,0},{22,32}}</string>
+                <key>sourceSize</key>
+                <string>{32,32}</string>
+            </dict>
+            <key>images/characters/player_male_walk_left1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{70,2},{24,32}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{4,0},{24,32}}</string>
+                <key>sourceSize</key>
+                <string>{32,32}</string>
+            </dict>
+            <key>images/characters/player_male_walk_left2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{28,70},{22,32}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{5,0},{22,32}}</string>
+                <key>sourceSize</key>
+                <string>{32,32}</string>
+            </dict>
+            <key>images/characters/player_male_walk_left3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{36,2},{24,32}}</string>
+                <key>offset</key>
+                <string>{-1,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{3,0},{24,32}}</string>
+                <key>sourceSize</key>
+                <string>{32,32}</string>
+            </dict>
+            <key>images/characters/player_male_walk_right1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,70},{24,32}}</string>
+                <key>offset</key>
+                <string>{-1,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{3,0},{24,32}}</string>
+                <key>sourceSize</key>
+                <string>{32,32}</string>
+            </dict>
+            <key>images/characters/player_male_walk_right2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{28,36},{22,32}}</string>
+                <key>offset</key>
+                <string>{-1,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{4,0},{22,32}}</string>
+                <key>sourceSize</key>
+                <string>{32,32}</string>
+            </dict>
+            <key>images/characters/player_male_walk_right3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,36},{24,32}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{4,0},{24,32}}</string>
+                <key>sourceSize</key>
+                <string>{32,32}</string>
+            </dict>
+            <key>images/characters/player_male_walk_up1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{24,32}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{4,0},{24,32}}</string>
+                <key>sourceSize</key>
+                <string>{32,32}</string>
+            </dict>
+            <key>images/characters/player_male_walk_up2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{104,2},{22,32}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{8,0},{34,48}}</string>
+                <string>{{6,0},{22,32}}</string>
                 <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>images/characters/player_male_walk_down3.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,150},{34,48}}</string>
-                <key>offset</key>
-                <string>{1,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{8,0},{34,48}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>images/characters/player_male_walk_left1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,40},{36,48}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{6,0},{36,48}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>images/characters/player_male_walk_left2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{52,148},{34,48}}</string>
-                <key>offset</key>
-                <string>{1,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{8,0},{34,48}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>images/characters/player_male_walk_left3.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,114},{34,48}}</string>
-                <key>offset</key>
-                <string>{-1,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{6,0},{34,48}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>images/characters/player_male_walk_right1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{52,2},{36,48}}</string>
-                <key>offset</key>
-                <string>{-1,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{5,0},{36,48}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>images/characters/player_male_walk_right2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{52,112},{34,48}}</string>
-                <key>offset</key>
-                <string>{-2,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{5,0},{34,48}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>images/characters/player_male_walk_right3.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,78},{34,48}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{7,0},{34,48}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>images/characters/player_male_walk_up1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{36,48}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{6,0},{36,48}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>images/characters/player_male_walk_up2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{52,76},{34,48}}</string>
-                <key>offset</key>
-                <string>{1,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{8,0},{34,48}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
+                <string>{32,32}</string>
             </dict>
             <key>images/characters/player_male_walk_up3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{52,40},{34,48}}</string>
+                <string>{{2,104},{22,32}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{8,0},{34,48}}</string>
+                <string>{{6,0},{22,32}}</string>
                 <key>sourceSize</key>
-                <string>{48,48}</string>
+                <string>{32,32}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -168,9 +168,9 @@
             <key>realTextureFileName</key>
             <string>characters.pvr.ccz</string>
             <key>size</key>
-            <string>{128,256}</string>
+            <string>{128,128}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:30a85bc65fdd295daabedc8cd3c6e226:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:71b0aedeeffe22d086e31d68d2b5c9e6:1/1$</string>
             <key>textureFileName</key>
             <string>characters.pvr.ccz</string>
         </dict>

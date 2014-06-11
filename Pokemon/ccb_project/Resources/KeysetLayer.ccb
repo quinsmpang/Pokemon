@@ -96,7 +96,7 @@
 						<string>SpriteFrame</string>
 						<key>value</key>
 						<array>
-							<string>images/maintitle/maintitle.plist</string>
+							<string>images/maintitle.plist</string>
 							<string>images/maintitle/keyset_window.png</string>
 						</array>
 					</dict>
@@ -2457,8 +2457,6 @@
 								<string>ENTER</string>
 							</dict>
 						</array>
-						<key>selected</key>
-						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>

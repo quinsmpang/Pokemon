@@ -8,6 +8,11 @@ require "src/view/maintitle/MainMenu"
 
 class("MainViewController", psViewController)
 
+MainViewController.resources = {
+	"images/maintitle.plist",
+	"images/maintitle.pvr.ccz",
+}
+
 MainViewController.infoLabel = nil		-- 游戏说明文字
 MainViewController.mainView = nil		-- 主界面view (ccb)
 MainViewController.mainMenuView = nil 		-- 主菜单view
@@ -39,13 +44,17 @@ end
 function MainViewController:loadResources()
 	log("MainViewController:loadResources")
 	cc.SimpleAudioEngine:getInstance():preloadMusic(self.TITLE_MUSIC)
-	cc.SpriteFrameCache:getInstance():addSpriteFrames("images/maintitle/maintitle.plist", "images/maintitle/maintitle.pvr.ccz")
+	for i = 1, #self.resources, 2 do
+		cc.SpriteFrameCache:getInstance():addSpriteFrames(self.resources[i], self.resources[i + 1])
+	end
 end
 
 function MainViewController:cleanResources()
 	log("MainViewController:cleanResources")
-	cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("images/maintitle/maintitle.plist")
-	--cc.SpriteFrameCache:getInstance():removeSpriteFramesFromTexture("images/maintitle/maintitle.pvr.ccz")
+	for i = 1, #self.resources, 2 do
+		cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile(self.resources[i])
+	end
+	--cc.SpriteFrameCache:getInstance():removeSpriteFramesFromTexture("images/maintitle.pvr.ccz")
 end
 
 function MainViewController:renderView()

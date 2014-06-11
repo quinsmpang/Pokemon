@@ -56,6 +56,32 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
+            <key>images/common/btn_orange.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{22,206},{80,40}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{80,40}}</string>
+                <key>sourceSize</key>
+                <string>{80,40}</string>
+            </dict>
+            <key>images/common/confirm_text.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,206},{46,18}}</string>
+                <key>offset</key>
+                <string>{-1,1}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{16,10},{46,18}}</string>
+                <key>sourceSize</key>
+                <string>{80,40}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -66,7 +92,7 @@
             <key>size</key>
             <string>{256,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d4aff21baddf06d4c2c4d9c775021a06:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:e3331596008835b9537ecaacbe73cb1b:1/1$</string>
             <key>textureFileName</key>
             <string>common.pvr.ccz</string>
         </dict>

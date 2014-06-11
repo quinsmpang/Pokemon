@@ -7,15 +7,15 @@
             <key>images/dialog/dialog_indice.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{20,14}}</string>
+                <string>{{2,2},{20,8}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{20,14}}</string>
+                <string>{{0,0},{20,8}}</string>
                 <key>sourceSize</key>
-                <string>{20,14}</string>
+                <string>{20,8}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -25,9 +25,9 @@
             <key>realTextureFileName</key>
             <string>dialog.pvr.ccz</string>
             <key>size</key>
-            <string>{32,32}</string>
+            <string>{16,32}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:4c4ee45740eb4b20f16d182cc8688638:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:2a0a3d9668f83250fb25e7d59886477c:1/1$</string>
             <key>textureFileName</key>
             <string>dialog.pvr.ccz</string>
         </dict>
