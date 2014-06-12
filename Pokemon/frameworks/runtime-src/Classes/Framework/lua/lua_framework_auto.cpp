@@ -5651,6 +5651,631 @@ int lua_register_psframework_ModalLayer(lua_State* tolua_S)
     return 1;
 }
 
+int lua_psframework_CursorTextField_onTextFieldAttachWithIME(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::CursorTextField* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.CursorTextField",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::CursorTextField*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_CursorTextField_onTextFieldAttachWithIME'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::TextFieldTTF* arg0;
+
+        ok &= luaval_to_object<cocos2d::TextFieldTTF>(tolua_S, 2, "cc.TextFieldTTF",&arg0);
+        if(!ok)
+            return 0;
+        bool ret = cobj->onTextFieldAttachWithIME(arg0);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTextFieldAttachWithIME",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CursorTextField_onTextFieldAttachWithIME'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_CursorTextField_onTextFieldDeleteBackward(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::CursorTextField* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.CursorTextField",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::CursorTextField*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_CursorTextField_onTextFieldDeleteBackward'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 3) 
+    {
+        cocos2d::TextFieldTTF* arg0;
+        const char* arg1;
+        unsigned int arg2;
+
+        ok &= luaval_to_object<cocos2d::TextFieldTTF>(tolua_S, 2, "cc.TextFieldTTF",&arg0);
+
+        std::string arg1_tmp; ok &= luaval_to_std_string(tolua_S, 3, &arg1_tmp); arg1 = arg1_tmp.c_str();
+
+        ok &= luaval_to_uint32(tolua_S, 4,&arg2);
+        if(!ok)
+            return 0;
+        bool ret = cobj->onTextFieldDeleteBackward(arg0, arg1, arg2);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTextFieldDeleteBackward",argc, 3);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CursorTextField_onTextFieldDeleteBackward'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_CursorTextField_getFieldRegion(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::CursorTextField* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.CursorTextField",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::CursorTextField*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_CursorTextField_getFieldRegion'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        const cocos2d::Rect& ret = cobj->getFieldRegion();
+        rect_to_luaval(tolua_S, ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getFieldRegion",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CursorTextField_getFieldRegion'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_CursorTextField_closeIME(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::CursorTextField* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.CursorTextField",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::CursorTextField*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_CursorTextField_closeIME'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj->closeIME();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "closeIME",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CursorTextField_closeIME'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_CursorTextField_onTouchEnded(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::CursorTextField* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.CursorTextField",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::CursorTextField*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_CursorTextField_onTouchEnded'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        cocos2d::Touch* arg0;
+        cocos2d::Event* arg1;
+
+        ok &= luaval_to_object<cocos2d::Touch>(tolua_S, 2, "cc.Touch",&arg0);
+
+        ok &= luaval_to_object<cocos2d::Event>(tolua_S, 3, "cc.Event",&arg1);
+        if(!ok)
+            return 0;
+        cobj->onTouchEnded(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTouchEnded",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CursorTextField_onTouchEnded'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_CursorTextField_openIME(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::CursorTextField* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.CursorTextField",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::CursorTextField*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_CursorTextField_openIME'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj->openIME();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "openIME",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CursorTextField_openIME'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_CursorTextField_onTouchBegan(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::CursorTextField* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.CursorTextField",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::CursorTextField*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_CursorTextField_onTouchBegan'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        cocos2d::Touch* arg0;
+        cocos2d::Event* arg1;
+
+        ok &= luaval_to_object<cocos2d::Touch>(tolua_S, 2, "cc.Touch",&arg0);
+
+        ok &= luaval_to_object<cocos2d::Event>(tolua_S, 3, "cc.Event",&arg1);
+        if(!ok)
+            return 0;
+        bool ret = cobj->onTouchBegan(arg0, arg1);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTouchBegan",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CursorTextField_onTouchBegan'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_CursorTextField_initCursorSprite(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::CursorTextField* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.CursorTextField",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::CursorTextField*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_CursorTextField_initCursorSprite'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        cobj->initCursorSprite(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "initCursorSprite",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CursorTextField_initCursorSprite'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_CursorTextField_isInTextField(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::CursorTextField* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.CursorTextField",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::CursorTextField*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_CursorTextField_isInTextField'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::Touch* arg0;
+
+        ok &= luaval_to_object<cocos2d::Touch>(tolua_S, 2, "cc.Touch",&arg0);
+        if(!ok)
+            return 0;
+        bool ret = cobj->isInTextField(arg0);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isInTextField",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CursorTextField_isInTextField'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_CursorTextField_onTextFieldInsertText(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::CursorTextField* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.CursorTextField",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::CursorTextField*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_CursorTextField_onTextFieldInsertText'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 3) 
+    {
+        cocos2d::TextFieldTTF* arg0;
+        const char* arg1;
+        unsigned int arg2;
+
+        ok &= luaval_to_object<cocos2d::TextFieldTTF>(tolua_S, 2, "cc.TextFieldTTF",&arg0);
+
+        std::string arg1_tmp; ok &= luaval_to_std_string(tolua_S, 3, &arg1_tmp); arg1 = arg1_tmp.c_str();
+
+        ok &= luaval_to_uint32(tolua_S, 4,&arg2);
+        if(!ok)
+            return 0;
+        bool ret = cobj->onTextFieldInsertText(arg0, arg1, arg2);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTextFieldInsertText",argc, 3);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CursorTextField_onTextFieldInsertText'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_CursorTextField_onTextFieldDetachWithIME(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::CursorTextField* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.CursorTextField",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::CursorTextField*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_CursorTextField_onTextFieldDetachWithIME'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::TextFieldTTF* arg0;
+
+        ok &= luaval_to_object<cocos2d::TextFieldTTF>(tolua_S, 2, "cc.TextFieldTTF",&arg0);
+        if(!ok)
+            return 0;
+        bool ret = cobj->onTextFieldDetachWithIME(arg0);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTextFieldDetachWithIME",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CursorTextField_onTextFieldDetachWithIME'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_CursorTextField_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.CursorTextField",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 3)
+    {
+        std::string arg0;
+        std::string arg1;
+        double arg2;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+        ok &= luaval_to_number(tolua_S, 4,&arg2);
+        if(!ok)
+            return 0;
+        framework::CursorTextField* ret = framework::CursorTextField::create(arg0, arg1, arg2);
+        object_to_luaval<framework::CursorTextField>(tolua_S, "pf.CursorTextField",(framework::CursorTextField*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 3);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CursorTextField_create'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_psframework_CursorTextField_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::CursorTextField* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj = new framework::CursorTextField();
+        cobj->autorelease();
+        int ID =  (int)cobj->_ID ;
+        int* luaID =  &cobj->_luaID ;
+        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.CursorTextField");
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "CursorTextField",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CursorTextField_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_CursorTextField_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (CursorTextField)");
+    return 0;
+}
+
+int lua_register_psframework_CursorTextField(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.CursorTextField");
+    tolua_cclass(tolua_S,"CursorTextField","pf.CursorTextField","cc.TextFieldTTF",nullptr);
+
+    tolua_beginmodule(tolua_S,"CursorTextField");
+        tolua_function(tolua_S,"onTextFieldAttachWithIME",lua_psframework_CursorTextField_onTextFieldAttachWithIME);
+        tolua_function(tolua_S,"onTextFieldDeleteBackward",lua_psframework_CursorTextField_onTextFieldDeleteBackward);
+        tolua_function(tolua_S,"getFieldRegion",lua_psframework_CursorTextField_getFieldRegion);
+        tolua_function(tolua_S,"closeIME",lua_psframework_CursorTextField_closeIME);
+        tolua_function(tolua_S,"onTouchEnded",lua_psframework_CursorTextField_onTouchEnded);
+        tolua_function(tolua_S,"openIME",lua_psframework_CursorTextField_openIME);
+        tolua_function(tolua_S,"onTouchBegan",lua_psframework_CursorTextField_onTouchBegan);
+        tolua_function(tolua_S,"initCursorSprite",lua_psframework_CursorTextField_initCursorSprite);
+        tolua_function(tolua_S,"isInTextField",lua_psframework_CursorTextField_isInTextField);
+        tolua_function(tolua_S,"onTextFieldInsertText",lua_psframework_CursorTextField_onTextFieldInsertText);
+        tolua_function(tolua_S,"onTextFieldDetachWithIME",lua_psframework_CursorTextField_onTextFieldDetachWithIME);
+        tolua_function(tolua_S,"new",lua_psframework_CursorTextField_constructor);
+        tolua_function(tolua_S,"create", lua_psframework_CursorTextField_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::CursorTextField).name();
+    g_luaType[typeName] = "pf.CursorTextField";
+    g_typeCast["CursorTextField"] = "pf.CursorTextField";
+    return 1;
+}
+
 int lua_psframework_ScriptCCBReader_readCCB(lua_State* tolua_S)
 {
     int argc = 0;
@@ -6241,6 +6866,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_SqliteDb(tolua_S);
 	lua_register_psframework_Vector(tolua_S);
 	lua_register_psframework_GameLayer(tolua_S);
+	lua_register_psframework_CursorTextField(tolua_S);
 	lua_register_psframework_CoreLayer(tolua_S);
 	lua_register_psframework_MaskLayer(tolua_S);
 	lua_register_psframework_RefDouble(tolua_S);

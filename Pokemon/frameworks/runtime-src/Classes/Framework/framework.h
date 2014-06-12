@@ -22,6 +22,8 @@
 #include "ui\MaskLayer.h"
 #include "ui\ModalLayer.h"
 
+#include "controls\CursorTextField.h"
+
 #include "utils\ScriptCCBReader.h"
 #include "utils\IOUtils.h"
 #include "utils\RecordHelper.h"

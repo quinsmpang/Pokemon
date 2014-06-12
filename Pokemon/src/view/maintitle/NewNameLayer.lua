@@ -28,7 +28,7 @@ function NewNameLayer:initUI()
 	self:addChild(self.window)
 
 	-- textbox
-	self.txtName = cc.TextFieldTTF:textFieldWithPlaceHolder("请输入您的名字", GameConst.DEFAULT_FONT_PATH, 20)
+	self.txtName = CursorTextField:create("请输入您的名字", GameConst.DEFAULT_FONT_PATH, 20)
 	self.txtName:setPosition(400, 220)
 	self.window:addChild(self.txtName)
 
