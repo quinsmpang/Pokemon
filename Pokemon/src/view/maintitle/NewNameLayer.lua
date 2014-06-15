@@ -28,9 +28,12 @@ function NewNameLayer:initUI()
 	self:addChild(self.window)
 
 	-- textbox
-	self.txtName = CursorTextField:create("请输入您的名字", GameConst.DEFAULT_FONT_PATH, 20)
-	self.txtName:setPosition(400, 220)
-	self.window:addChild(self.txtName)
+	self.txtName = ccui.TextField:create("请输入您的名字", GameConst.DEFAULT_FONT_PATH, 20)
+	self.txtName:setMaxLengthEnabled(true)
+	self.txtName:setMaxLength(15)
+	self.txtName:setColor(ccc3(0, 0, 0))
+	self.txtName:setPosition(400, 230)
+	self:addChild(self.txtName)
 
 	-- confirm button
 	self.btnConfirm = self.window:getChildByTag(self.TAG.MENU):getChildByTag(self.TAG.BTN_CONFIRM)

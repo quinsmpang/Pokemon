@@ -77,6 +77,13 @@
 -- @return CursorTextField#CursorTextField ret (return value: pf.CursorTextField)
         
 --------------------------------
+-- @function [parent=#CursorTextField] addChild 
+-- @param self
+-- @param #cc.Node node
+-- @param #int int
+-- @param #int int
+        
+--------------------------------
 -- @function [parent=#CursorTextField] onEnter 
 -- @param self
         
