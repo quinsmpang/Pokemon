@@ -7,7 +7,7 @@
 require "src/view/map/MapViewScene"
 require "src/view/maintitle/SettingsLayer"
 require "src/view/maintitle/KeysetLayer"
-require "src/view/maintitle/NewNameLayer"
+require "src/view/maintitle/GenderChooseLayer"
 
 class("MainMenu", psLayer)
 
@@ -18,7 +18,6 @@ MainMenu.btnKeySet = nil 		--按键设定按钮
 MainMenu.savesWindow = nil 		--存档窗口
 MainMenu.settingsWindow = nil 	--游戏设置窗口
 MainMenu.keysetWindow = nil 	--按键设置窗口
-MainMenu.newNameWindow = nil 	--新名字窗口
 
 -- const values
 MainMenu.BTNNEWGAME_TEXT = "新 的 旅 程"
@@ -127,11 +126,11 @@ function MainMenu:showButtons()
 	end
 end
 
-function MainMenu:showNewNameWindow()
+function MainMenu:showGenderWindow()
 	GameDBHelper:openDB()
-	self.newNameWindow = NewNameLayer:create()
-	self.newNameWindow:initUI()
-	self:addChild(self.newNameWindow)
+	local genderChooseLayer = GenderChooseLayer:create()
+	genderChooseLayer:initUI()
+	self:addChild(genderChooseLayer)
 end
 
 -- btn callbacks
@@ -143,7 +142,7 @@ function MainMenu:onBtnNewGameClicked()
 	local quitAction = cc.Sequence:create(
 		cc.FadeOut:create(1.5),
 		cc.DelayTime:create(0.5),
-		cc.CallFunc:create(MakeScriptHandler(self, self.showNewNameWindow))
+		cc.CallFunc:create(MakeScriptHandler(self, self.showGenderWindow))
 		)
 	self:runAction(quitAction)
 	-- local mapViewScene = MapViewScene:create()

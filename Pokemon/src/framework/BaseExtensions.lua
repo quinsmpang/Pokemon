@@ -100,3 +100,10 @@ end
 function CCRectMake(originX, originY, width, height)
 	return cc.rect(originX, originY, width, height)
 end
+
+POINT_ZERO = ccp(0, 0)
+COLOR3B_BLACK = ccc3(0, 0, 0)
+COLOR3B_WHITE = ccc3(255, 255, 255)
+COLOR3B_RED = ccc3(255, 0, 0)
+COLOR3B_GREEN = ccc3(0, 255, 0)
+COLOR3B_BLUE = ccc3(0, 0, 255)

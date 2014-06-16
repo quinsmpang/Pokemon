@@ -10,6 +10,7 @@ GenderChooseLayer.window = nil		--背景窗口
 GenderChooseLayer.maleSprite = nil		--男性精灵
 GenderChooseLayer.femaleSprite = nil	--女性精灵
 
+GenderChooseLayer.choice = nil		--最终选择
 GenderChooseLayer.enableClick = nil
 
 GenderChooseLayer.TAG = {
@@ -19,6 +20,16 @@ GenderChooseLayer.TAG = {
 
 function GenderChooseLayer:initUI()
 	log("GenderChooseLayer:initUI")
+
+	self.enableClick = false
+
+	self.window = ScriptCCBReader:readCCB("ccb/GenderChooseLayer.ccbi", self)
+	self.window:setPosition(0, 0)
+	self.window:setScale(0)
+	self:addChild(self.window)
+
+	self.maleSprite = self.window:getChildByTag(self.TAG.SPRITE_MALE)
+	self.femaleSprite = self.window:getChildByTag(self.TAG.SPRITE_FEMALE)
 end
 
 function GenderChooseLayer:onComeIn()
@@ -35,4 +46,35 @@ function GenderChooseLayer:onComeInEnd()
 end
 
 function GenderChooseLayer:onGoOut()
+end
+
+function GenderChooseLayer:onModalTouchBegan(x, y)
+	if not self.enableClick then
+		return
+	end
+
+	local sprites = { self.maleSprite, self.femaleSprite }
+	for i, sprite in ipairs(sprites) do
+		if ContainsPoint(sprite:getBoundingBox(), ccp(x, y)) then
+			if i == 1 then
+				-- male
+				log("Choose a male")
+				self.choice = 1
+				DialogPopHelper:popQuestionWindow(CCSizeMake(200, 150), "您是一名男孩?", MakeScriptHandler(self, self.onChoiceConfirm), MakeScriptHandler(self, self.onChoiceCancel))
+			else
+				-- female
+				log("Choose a female")
+				self.choice = 2
+				DialogPopHelper:popQuestionWindow(CCSizeMake(200, 150), "您是一名女孩?", MakeScriptHandler(self, self.onChoiceConfirm), MakeScriptHandler(self, self.onChoiceCancel))
+			end
+		end
+	end
+end
+
+function GenderChooseLayer:onChoiceConfirm()
+	log("GenderChooseLayer:onChoiceConfirm")
+end
+
+function GenderChooseLayer:onChoiceCancel()
+	log("GenderChooseLayer:onChoiceCancel")
 end

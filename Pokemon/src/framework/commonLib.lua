@@ -68,3 +68,16 @@ function GenerateAllUTF8Substrings(text)
 
 	return strings
 end
+
+-- create frame animation
+function CreateAnimation(frameName, frameCount, timeline)
+	local frames = {}
+	for i = 1, frameCount do
+		local frame = cc.SpriteFrameCache:getInstance():getSpriteFrameByName(frameName .. tostring(i))
+		table.insert(frames, frame)
+	end
+	local animation = cc.Animation:createWithSpriteFrames(frames, timeline)
+	local animate = cc.Animate:create(animation)
+
+	return animate
+end

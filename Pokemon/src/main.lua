@@ -59,6 +59,7 @@ function GameLauncher:loadPublicModules()
     require "src/utils/GameSettings"
     require "src/utils/GameVolumeHelper"
     require "src/utils/GameDBHelper"
+    require "src/utils/DialogPopHelper"
 end
 
 function GameLauncher:startGame()
