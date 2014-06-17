@@ -8,6 +8,7 @@ class("DialogWindow", psModalLayer)
 
 DialogWindow.window = nil		--窗口
 DialogWindow.textLabel = nil		--消息
+DialogWindow.menu = nil
 DialogWindow.btnOK = nil
 DialogWindow.btnCancel = nil
 
@@ -35,21 +36,25 @@ function DialogWindow:createOne()
 	dialog.textLabel:setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 	dialog.window:addChild(dialog.textLabel)
 
+	self.menu = cc.Menu:create()
+
 	local okLabel = cc.Label:createWithTTF("确定", GameConst.DEFAULT_FONT_PATH, 20)
+	local okLabel2 = cc.Label:createWithTTF("确定", GameConst.DEFAULT_FONT_PATH, 21)
 	okLabel:setColor(COLOR3B_BLACK)
-	local whiteBack = cc.Scale9Sprite:createWithSpriteFrameName("images/common/white_back.png", CCRectMake(1, 1, 1, 1))
-	dialog.btnOK = cc.ControlButton:create(okLabel, whiteBack)
-	dialog.btnOK:setColor(ccc3(0, 0, 0))
-	dialog.btnOK:registerControlEventHandler(MakeScriptHandler(dialog, dialog.onBtnOKClick), cc.Handler.CONTROL_TOUCH_UP_INSIDE)
-	dialog.window:addChild(dialog.btnOK)
+	okLabel2:setColor(COLOR3B_BLACK)
+	dialog.btnOK = cc.MenuItemSprite:create(okLabel, okLabel2)
+	dialog.btnOK:registerScriptTapHandler(MakeScriptHandler(dialog, dialog.onBtnOKClick))
+	self.menu:addChild(dialog.btnOK)
 
 	local cancelLabel = cc.Label:createWithTTF("取消", GameConst.DEFAULT_FONT_PATH, 20)
+	local cancelLabel2 = cc.Label:createWithTTF("取消", GameConst.DEFAULT_FONT_PATH, 21)
 	cancelLabel:setColor(COLOR3B_BLACK)
-	whiteBack = cc.Scale9Sprite:createWithSpriteFrameName("images/common/white_back.png", CCRectMake(1, 1, 1, 1))
-	dialog.btnCancel = cc.ControlButton:create(cancelLabel, whiteBack)
-	dialog.btnCancel:setColor(ccc3(0, 0, 0))
-	dialog.btnCancel:registerControlEventHandler(MakeScriptHandler(dialog, dialog.onBtnCancelClick), cc.Handler.CONTROL_TOUCH_UP_INSIDE)
-	dialog.window:addChild(dialog.btnCancel)
+	cancelLabel2:setColor(COLOR3B_BLACK)
+	dialog.btnCancel = cc.MenuItemSprite:create(cancelLabel, cancelLabel2)
+	dialog.btnCancel:registerScriptTapHandler(MakeScriptHandler(dialog, dialog.onBtnCancelClick))
+	self.menu:addChild(dialog.btnCancel)
+
+	dialog.window:addChild(self.menu)
 
 	return dialog
 end
@@ -117,8 +122,9 @@ function DialogPopHelper:quickPop(content, okScript, cancelScript)
 	dialog.textLabel:setString(content)
 	dialog.textLabel:setDimensions(self.DEFAULT_LABEL_DIMENSIONS.width, self.DEFAULT_LABEL_DIMENSIONS.height)
 	dialog.textLabel:setPosition(winSize.width * 0.5, 40 + 80)
-	dialog.btnOK:setPosition(winSize.width * 0.3, 40)
-	dialog.btnCancel:setPosition(winSize.width * 0.7, 40)
+	dialog.btnOK:setPosition(-winSize.width * 0.2, -(winSize.height * 0.5 - 40))
+	dialog.btnCancel:setPosition(winSize.width * 0.2, -(winSize.height * 0.5 - 40))
+	dialog.menu:setPosition(winSize.width * 0.5, winSize.height * 0.5)
 
 	cc.Director:getInstance():getRunningScene():addChild(dialog)
 end
@@ -129,8 +135,9 @@ function DialogPopHelper:popQuestionWindow(windowSize, content, okScript, cancel
 	dialog.textLabel:setString(content)
 	dialog.textLabel:setDimensions(windowSize.width - 50, windowSize.height - 80)
 	dialog.textLabel:setPosition(windowSize.width * 0.5, 40 + (windowSize.height - 40) * 0.5)
-	dialog.btnOK:setPosition(windowSize.width * 0.3, 40)
-	dialog.btnCancel:setPosition(windowSize.width * 0.7, 40)
+	dialog.btnOK:setPosition(-windowSize.width * 0.2, -(windowSize.height * 0.5 - 40))
+	dialog.btnCancel:setPosition(windowSize.width * 0.2, -(windowSize.height * 0.5 - 40))
+	dialog.menu:setPosition(windowSize.width * 0.5, windowSize.height * 0.5)
 
 	cc.Director:getInstance():getRunningScene():addChild(dialog)
 end
@@ -141,8 +148,9 @@ function DialogPopHelper:popMessageWindow(windowSize, content, okScript)
 	dialog.textLabel:setString(content)
 	dialog.textLabel:setDimensions(windowSize.width - 50, windowSize.height - 80)
 	dialog.textLabel:setPosition(windowSize.width * 0.5, 40 + (windowSize.height - 40) * 0.5)
-	dialog.btnOK:setPosition(windowSize.width * 0.5, 40)
+	dialog.btnOK:setPosition(-windowSize.width * 0.5, -(windowSize.height * 0.5 - 40))
 	dialog.btnCancel:setVisible(false)
+	dialog.menu:setPosition(windowSize.width * 0.5, windowSize.height * 0.5)
 
 	cc.Director:getInstance():getRunningScene():addChild(dialog)
 end

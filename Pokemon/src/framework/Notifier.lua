@@ -17,7 +17,6 @@ function Observer:call()
 end
 
 
--- support delegate chain.
 -- static
 Notifier = {}
 
@@ -35,17 +34,18 @@ function Notifier:addObserver(event, sender, callback, ...)
 	table.insert(self.observerMap[event], observer)
 end
 
-function Notifier:removeObserver(event, sender, callback)
+function Notifier:removeObserver(event, sender)
 	if not self.observerMap[event] then
 		return
 	end
 	local newObservers = {}
 	for i, observer in ipairs(self.observerMap[event]) do
-		-- if callback is nil, remove all observers related to the sender of this event.
-		if observer.sender == sender and (observer.callback == callback or callback == nil) then
-		else
+		if observer.sender ~= sender then
 			table.insert(newObservers, observer)
 		end
+	end
+	if #newObservers <= 0 then
+		newObservers = nil
 	end
 	self.observerMap[event] = newObservers
 end
