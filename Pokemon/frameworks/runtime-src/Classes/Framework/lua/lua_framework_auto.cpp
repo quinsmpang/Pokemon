@@ -5651,6 +5651,188 @@ int lua_register_psframework_ModalLayer(lua_State* tolua_S)
     return 1;
 }
 
+int lua_psframework_TableViewEx_getScriptDelegate(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TableViewEx* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.TableViewEx",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::TableViewEx*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TableViewEx_getScriptDelegate'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cocos2d::Ref* ret = cobj->getScriptDelegate();
+        object_to_luaval<cocos2d::Ref>(tolua_S, "cc.Ref",(cocos2d::Ref*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getScriptDelegate",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TableViewEx_getScriptDelegate'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_TableViewEx_setScriptDelegate(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TableViewEx* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.TableViewEx",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::TableViewEx*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TableViewEx_setScriptDelegate'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::Ref* arg0;
+
+        ok &= luaval_to_object<cocos2d::Ref>(tolua_S, 2, "cc.Ref",&arg0);
+        if(!ok)
+            return 0;
+        cobj->setScriptDelegate(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setScriptDelegate",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TableViewEx_setScriptDelegate'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_TableViewEx_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.TableViewEx",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 2)
+    {
+        cocos2d::extension::TableViewDataSource* arg0;
+        cocos2d::Size arg1;
+        ok &= luaval_to_object<cocos2d::extension::TableViewDataSource>(tolua_S, 2, "cc.TableViewDataSource",&arg0);
+        ok &= luaval_to_size(tolua_S, 3, &arg1);
+        if(!ok)
+            return 0;
+        framework::TableViewEx* ret = framework::TableViewEx::create(arg0, arg1);
+        object_to_luaval<framework::TableViewEx>(tolua_S, "pf.TableViewEx",(framework::TableViewEx*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 2);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TableViewEx_create'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_psframework_TableViewEx_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TableViewEx* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj = new framework::TableViewEx();
+        cobj->autorelease();
+        int ID =  (int)cobj->_ID ;
+        int* luaID =  &cobj->_luaID ;
+        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.TableViewEx");
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "TableViewEx",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TableViewEx_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_TableViewEx_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (TableViewEx)");
+    return 0;
+}
+
+int lua_register_psframework_TableViewEx(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.TableViewEx");
+    tolua_cclass(tolua_S,"TableViewEx","pf.TableViewEx","cc.TableView",nullptr);
+
+    tolua_beginmodule(tolua_S,"TableViewEx");
+        tolua_function(tolua_S,"getScriptDelegate",lua_psframework_TableViewEx_getScriptDelegate);
+        tolua_function(tolua_S,"setScriptDelegate",lua_psframework_TableViewEx_setScriptDelegate);
+        tolua_function(tolua_S,"new",lua_psframework_TableViewEx_constructor);
+        tolua_function(tolua_S,"create", lua_psframework_TableViewEx_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::TableViewEx).name();
+    g_luaType[typeName] = "pf.TableViewEx";
+    g_typeCast["TableViewEx"] = "pf.TableViewEx";
+    return 1;
+}
+
 int lua_psframework_ScriptCCBReader_readCCB(lua_State* tolua_S)
 {
     int argc = 0;
@@ -6234,6 +6416,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_IOUtils(tolua_S);
 	lua_register_psframework_RefInteger(tolua_S);
 	lua_register_psframework_Map(tolua_S);
+	lua_register_psframework_TableViewEx(tolua_S);
 	lua_register_psframework_Stack(tolua_S);
 	lua_register_psframework_GameScene(tolua_S);
 	lua_register_psframework_ScriptCCBReader(tolua_S);

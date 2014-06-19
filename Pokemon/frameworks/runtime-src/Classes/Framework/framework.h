@@ -22,7 +22,7 @@
 #include "ui\MaskLayer.h"
 #include "ui\ModalLayer.h"
 
-
+#include "controls\TableViewEx.h"
 
 #include "utils\ScriptCCBReader.h"
 #include "utils\IOUtils.h"

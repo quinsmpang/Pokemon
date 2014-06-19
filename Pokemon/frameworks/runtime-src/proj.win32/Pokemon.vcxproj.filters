@@ -118,6 +118,9 @@
     <ClInclude Include="..\Classes\Framework\base\RefDouble.h">
       <Filter>Classes\psframework\base</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\controls\TableViewEx.h">
+      <Filter>Classes\psframework\controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -185,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\base\RefDouble.cpp">
       <Filter>Classes\psframework\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\controls\TableViewEx.cpp">
+      <Filter>Classes\psframework\controls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
