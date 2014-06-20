@@ -10,7 +10,14 @@ Observer.sender = nil		-- notifier
 Observer.callback = nil		-- callback
 Observer.params = nil		-- params, a table
 
-function Observer:call()
+function Observer:call(...)
+	local args = {...}
+	if #args > 0 then
+		for _, param in ipairs(self.params) do
+			table.insert(args, param)
+		end
+		self.params = args
+	end
 	if self.callback then
 		self.callback(self.sender, unpack(self.params))
 	end
@@ -23,6 +30,7 @@ Notifier = {}
 Notifier.observerMap = {}		-- observer map
 
 function Notifier:addObserver(event, sender, callback, ...)
+	log("Notifier:addObserver", event, sender.className)
 	local observer = Observer:new()
 	observer.sender = sender
 	observer.callback = callback
@@ -35,6 +43,7 @@ function Notifier:addObserver(event, sender, callback, ...)
 end
 
 function Notifier:removeObserver(event, sender)
+	log("Notifier:removeObserver", event, sender.className)
 	if not self.observerMap[event] then
 		return
 	end
@@ -50,11 +59,12 @@ function Notifier:removeObserver(event, sender)
 	self.observerMap[event] = newObservers
 end
 
-function Notifier:notify(event)
+function Notifier:notify(event, ...)
+	log("Notifier:notify", event)
 	for k, v in pairs(self.observerMap) do
 		if k == event then
 			for _, observer in ipairs(v) do
-				observer:call()
+				observer:call(unpack{...})
 			end
 			break
 		end
