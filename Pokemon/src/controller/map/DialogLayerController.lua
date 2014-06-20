@@ -87,7 +87,7 @@ function DialogLayerController:renderView()
 	self.root:addChild(dialogWindow)
 
 	-- dialog label initialization
-	local dialogLabel = cc.Label:createWithTTF("", GameConst.DEFAULT_FONT_PATH, self.DIALOG_TEXT_FONT_SIZE, self.DIALOG_TEXT_DIMENSION)
+	local dialogLabel = cc.Label:createWithTTF("", GameConfig.DEFAULT_FONT_PATH, self.DIALOG_TEXT_FONT_SIZE, self.DIALOG_TEXT_DIMENSION)
 	dialogLabel:setAnchorPoint(ccp(0, 1))
 	dialogLabel:setPosition(self.DIALOG_TEXT_POSITION)
 	dialogLabel:setColor(self.DIALOG_TEXT_COLOR)

@@ -59,12 +59,12 @@ function GenderChooseLayer:onModalTouchBegan(x, y)
 			if i == 1 then
 				-- male
 				log("Choose a male")
-				self.choice = 1
+				self.choice = Enumerations.GENDER.MALE
 				DialogPopHelper:popQuestionWindow(CCSizeMake(200, 150), "您是一名男孩?", MakeScriptHandler(self, self.onChoiceConfirm), MakeScriptHandler(self, self.onChoiceCancel))
 			else
 				-- female
 				log("Choose a female")
-				self.choice = 2
+				self.choice = Enumerations.GENDER.FEMALE
 				DialogPopHelper:popQuestionWindow(CCSizeMake(200, 150), "您是一名女孩?", MakeScriptHandler(self, self.onChoiceConfirm), MakeScriptHandler(self, self.onChoiceCancel))
 			end
 		end

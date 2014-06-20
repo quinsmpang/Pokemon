@@ -55,7 +55,8 @@ function GameLauncher:loadPublicModules()
     require "src/model/MapInfo"
 
     -- public data or utils
-    require "src/utils/GameConst"
+    require "src/utils/GameConfig"
+    require "src/utils/Enumerations"
     require "src/utils/GameSettings"
     require "src/utils/GameVolumeHelper"
     require "src/utils/GameDBHelper"

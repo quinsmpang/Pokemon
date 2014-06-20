@@ -63,7 +63,7 @@ function KeysetLayer:initUI()
 	-- init buttons
 	local windowSize = self.border:getContentSize()
 
-	local btnConfirmLabel = cc.Label:createWithTTF("保存", GameConst.DEFAULT_FONT_PATH, 22)
+	local btnConfirmLabel = cc.Label:createWithTTF("保存", GameConfig.DEFAULT_FONT_PATH, 22)
 	local btnBack = cc.Scale9Sprite:createWithSpriteFrameName("images/common/black_back.png", CCRectMake(1, 1, 1, 1))
 	self.btnConfirm = cc.ControlButton:create(btnConfirmLabel, btnBack)
 	self.btnConfirm:setAnchorPoint(0.5, 0.5)
@@ -71,7 +71,7 @@ function KeysetLayer:initUI()
 	self.btnConfirm:registerControlEventHandler(MakeScriptHandler(self, self.onBtnConfirmClick), cc.Handler.CONTROL_TOUCH_UP_INSIDE)
 	self.border:addChild(self.btnConfirm)
 
-	local btnCancelLabel = cc.Label:createWithTTF("关闭", GameConst.DEFAULT_FONT_PATH, 22)
+	local btnCancelLabel = cc.Label:createWithTTF("关闭", GameConfig.DEFAULT_FONT_PATH, 22)
 	btnBack = cc.Scale9Sprite:createWithSpriteFrameName("images/common/black_back.png", CCRectMake(1, 1, 1, 1))
 	self.btnCancel = cc.ControlButton:create(btnCancelLabel, btnBack)
 	self.btnCancel:setAnchorPoint(0.5, 0.5)

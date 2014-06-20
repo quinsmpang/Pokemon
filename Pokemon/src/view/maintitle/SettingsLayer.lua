@@ -58,20 +58,20 @@ function SettingsLayer:initUI()
 	self.window:addChild(self.effectSlider)
 
 	-- labels
-	local musicLabel = cc.Label:createWithTTF("音乐", GameConst.DEFAULT_FONT_PATH, 20)
+	local musicLabel = cc.Label:createWithTTF("音乐", GameConfig.DEFAULT_FONT_PATH, 20)
 	musicLabel:setColor(ccc3(255, 255, 255))
 	musicLabel:setAnchorPoint(0.5, 0.5)
 	musicLabel:setPosition(windowSize.width * 0.25, windowSize.height * 0.6)
 	self.window:addChild(musicLabel)
 
-	local effectLabel = cc.Label:createWithTTF("音效", GameConst.DEFAULT_FONT_PATH, 20)
+	local effectLabel = cc.Label:createWithTTF("音效", GameConfig.DEFAULT_FONT_PATH, 20)
 	effectLabel:setColor(ccc3(255, 255, 255))
 	effectLabel:setAnchorPoint(0.5, 0.5)
 	effectLabel:setPosition(windowSize.width * 0.25, windowSize.height * 0.45)
 	self.window:addChild(effectLabel)
 
 	-- buttons
-	local btnDefaultLabel = cc.Label:createWithTTF("默认", GameConst.DEFAULT_FONT_PATH, 22)
+	local btnDefaultLabel = cc.Label:createWithTTF("默认", GameConfig.DEFAULT_FONT_PATH, 22)
 	local btnBack = cc.Scale9Sprite:createWithSpriteFrameName("images/common/black_back.png", CCRectMake(1, 1, 1, 1))
 	self.btnDefault = cc.ControlButton:create(btnDefaultLabel, btnBack)
 	self.btnDefault:setAnchorPoint(0.5, 0.5)
@@ -79,7 +79,7 @@ function SettingsLayer:initUI()
 	self.btnDefault:registerControlEventHandler(MakeScriptHandler(self, self.onBtnDefaultClick), cc.Handler.CONTROL_TOUCH_UP_INSIDE)
 	self.window:addChild(self.btnDefault)
 
-	local btnCloseLabel = cc.Label:createWithTTF("关闭", GameConst.DEFAULT_FONT_PATH, 22)
+	local btnCloseLabel = cc.Label:createWithTTF("关闭", GameConfig.DEFAULT_FONT_PATH, 22)
 	btnBack = cc.Scale9Sprite:createWithSpriteFrameName("images/common/black_back.png", CCRectMake(1, 1, 1, 1))
 	self.btnClose = cc.ControlButton:create(btnCloseLabel, btnBack)
 	self.btnClose:setAnchorPoint(0.5, 0.5)

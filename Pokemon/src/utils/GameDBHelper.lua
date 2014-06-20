@@ -9,7 +9,7 @@ GameDBHelper = {}
 GameDBHelper.db = nil		-- sqlite3 db instance
 
 function GameDBHelper:openDB()
-	self.db = SqliteLua:openSqlite(GameConst.GAME_DB_PATH)
+	self.db = SqliteLua:openSqlite(GameConfig.GAME_DB_PATH)
 end
 
 ------------------------ dialog_info ------------------------

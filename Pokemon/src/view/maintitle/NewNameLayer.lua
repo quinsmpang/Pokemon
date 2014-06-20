@@ -28,7 +28,7 @@ function NewNameLayer:initUI()
 	self:addChild(self.window)
 
 	-- textbox
-	self.txtName = ccui.TextField:create("请输入您的名字", GameConst.DEFAULT_FONT_PATH, 20)
+	self.txtName = ccui.TextField:create("请输入您的名字", GameConfig.DEFAULT_FONT_PATH, 20)
 	self.txtName:setMaxLengthEnabled(true)
 	self.txtName:setMaxLength(15)
 	self.txtName:setColor(ccc3(0, 0, 0))
