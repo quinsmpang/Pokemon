@@ -12,6 +12,9 @@
 
 #include "lua\LuaUtils.h"
 
+#include "encryption\DesUtils.h"
+#include "encryption\FileEncryptor.h"
+
 #include "sqlite\SqliteDb.h"
 
 #include "scene\ViewController.h"

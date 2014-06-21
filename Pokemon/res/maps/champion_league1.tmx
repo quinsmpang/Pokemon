@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="13" height="13" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="champion_league1" tilewidth="32" tileheight="32">
+  <image source="../images/terrains/champion_league1.png" width="480" height="480"/>
+ </tileset>
+ <layer name="main" width="13" height="13">
+  <data encoding="base64" compression="zlib">
+   eJwNwwkvFgAAANDvLwgp1YaSiq3DUbFJN7aUq7I5o7LRhbKFqLBRum2pyLWpRKqtk5QtJaT+kfe2FxQIBFYYbIihrjTMVa423DWudZ0RRhrlejcY7UZj3ORmtxhrnFvd5nZ3GG+CiSa5013uNtkUU91jmnvd534PeNBDHjbdDDM9YpZHPWa2OeaaZ77HPeFJCyy0yGJLLLXMU5Zb4WnPeNZKq6z2nOe94EUvWWOtdV72ivVetcFGm7xmsy1e94Y3bbXNdjvs9Ja37fKOd73nfR/40Ed2+9gen/jUZ/ba53P7HXDQIYcd8YUvfeWorx1z3DdO+NZ3vveDH/3kZ7/41Umn/Oa03/3hjD+d9Ze/nfOP8y646F+X/Od/lwHMEkqa
+  </data>
+ </layer>
+</map>
