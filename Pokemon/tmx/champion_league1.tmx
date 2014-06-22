@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="13" height="13" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="champion_league1" tilewidth="32" tileheight="32">
+  <image source="images/terrains/champion_league1.png" width="480" height="480"/>
+ </tileset>
+ <layer name="main" width="13" height="13">
+  <data encoding="base64" compression="zlib">
+   eJwtx2kvFgAAAOD3L3RIUZuUGtoUMmpLlxUbUok291Vbl0RtHSK05UhUmw4hNkohtk4d2ko58496Prwfng/PqkAgsJo1rCWEdYSyng2EEc5GNhHBZiLZwlai2Mb24KOJIZYdxLGTXcSTQCK7SQo+mRT2sJd9pLKfAxzkEIdJC/4IR0kng0yyyOYYORznBCfJ5RR55HOaAgopopgSSimjnAoqqeIMZznHeS5wkUtUc5karlBLHVe5xnVucJNb1HObBhq5QxPNtHCXe7TSRjsd3KeTB3TRzUMe8ZgenvCUZzynlxf00c8ALxlkiGFGeMVrRnnDW8YYZ4J3TDLFez7wkU985gvTfOUb3/nBDD/5xW9m+cNf5phngUWWWOYfK/wHssJKjg==
+  </data>
+ </layer>
+ <objectgroup name="characters" width="13" height="13">
+  <object name="hero" x="192" y="192" width="32" height="32">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object name="champion" x="192" y="160" width="32" height="32">
+   <properties>
+    <property name="direction" value="down"/>
+    <property name="npc_name" value="champion1"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

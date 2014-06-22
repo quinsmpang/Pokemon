@@ -108,4 +108,41 @@ namespace framework
 		}
 		return ret;    
 	}
+
+	void EncryptedTMXLayer::addChild(Node * child, int zOrder, int tag)
+	{
+		CCASSERT( child != nullptr, "Argument must be non-nil");
+		CCASSERT( child->getParent() == nullptr, "child already added. It can't be added again");
+
+		if (_children.empty())
+		{
+			this->childrenAlloc();
+		}
+
+		this->insertChild(child, zOrder);
+
+		child->setTag(tag);
+
+		child->setParent(this);
+		child->setOrderOfArrival(s_globalOrderOfArrival++);
+
+		if( _running )
+		{
+			child->onEnter();
+			// prevent onEnterTransitionDidFinish to be called twice when a node is added in onEnter
+			if (_isTransitionFinished) {
+				child->onEnterTransitionDidFinish();
+			}
+		}
+
+		if (_cascadeColorEnabled)
+		{
+			updateCascadeColor();
+		}
+
+		if (_cascadeOpacityEnabled)
+		{
+			updateCascadeOpacity();
+		}
+	}
 }

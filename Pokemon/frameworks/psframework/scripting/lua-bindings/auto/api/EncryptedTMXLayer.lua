@@ -20,6 +20,13 @@
 -- @return EncryptedTMXLayer#EncryptedTMXLayer ret (return value: pf.EncryptedTMXLayer)
         
 --------------------------------
+-- @function [parent=#EncryptedTMXLayer] addChild 
+-- @param self
+-- @param #cc.Node node
+-- @param #int int
+-- @param #int int
+        
+--------------------------------
 -- @function [parent=#EncryptedTMXLayer] EncryptedTMXLayer 
 -- @param self
         

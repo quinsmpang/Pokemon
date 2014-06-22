@@ -10,14 +10,14 @@ Date: 6/22/2014
 #ifdef WIN32
 #include <ObjBase.h>
 #else
-#include <uuid/uuid.h>
-
-typedef struct _GUID {
-	unsigned long Data1;
-	unsigned short Data2;
-	unsigned short Data3;
-	unsigned char Data4[8];
-} GUID, UUID;
+//#include <uuid/uuid.h>
+//
+//typedef struct _GUID {
+//	unsigned long Data1;
+//	unsigned short Data2;
+//	unsigned short Data3;
+//	unsigned char Data4[8];
+//} GUID, UUID;
 #endif
 
 #include <string>

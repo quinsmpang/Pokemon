@@ -24,3 +24,11 @@ function PlayerData:create(gender)
 
 	return model
 end
+
+function PlayerData:getGenderString()
+	if self.gender == Enumerations.GENDER.MALE then
+		return "male"
+	else
+		return "female"
+	end
+end

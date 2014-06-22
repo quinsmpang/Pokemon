@@ -23,6 +23,8 @@ namespace framework
 		~EncryptedTMXLayer();
 
 		bool initWithInfo(cocos2d::TMXTilesetInfo *tilesetInfo, cocos2d::TMXLayerInfo *layerInfo, cocos2d::TMXMapInfo *mapInfo);
+
+		virtual void addChild(cocos2d::Node * child, int zOrder, int tag) override;
 		
 	protected:
 		cocos2d::Point calculateLayerOffset(const cocos2d::Point &pos);
