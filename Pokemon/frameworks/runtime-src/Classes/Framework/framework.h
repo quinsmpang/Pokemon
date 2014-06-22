@@ -32,5 +32,6 @@
 #include "utils\ScriptCCBReader.h"
 #include "utils\IOUtils.h"
 #include "utils\RecordHelper.h"
+#include "utils\UUIDGenerator.h"
 
 #endif

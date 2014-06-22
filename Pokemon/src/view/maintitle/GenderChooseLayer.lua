@@ -77,6 +77,7 @@ function GenderChooseLayer:onChoiceConfirm()
 	log("GenderChooseLayer:onChoiceConfirm")
 
 	local mapScene = MapViewScene:create()
+	mapScene:newData(self.choice)
 	cc.Director:getInstance():replaceScene(cc.TransitionFade:create(2, mapScene))
 end
 

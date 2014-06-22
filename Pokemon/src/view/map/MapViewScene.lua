@@ -9,6 +9,8 @@ require "src/controller/map/DialogLayerController"
 
 class("MapViewScene", psGameScene)
 
+MapViewScene.currentPlayerData = nil		-- 当前玩家数据
+
 function MapViewScene:onEnter()
 	log("MapViewScene:onEnter")
 end
@@ -30,4 +32,12 @@ function MapViewScene:init()
 	self:loadViewController(mapLayerController)
 	local dialogLayerController = DialogLayerController:create()
 	self:loadViewController(dialogLayerController)	
+end
+
+function MapViewScene:newData(gender)
+	local newPlayer = PlayerData:create(gender)
+	self.currentPlayerData = newPlayer
+end
+
+function MapViewScene:loadData(data)
 end
