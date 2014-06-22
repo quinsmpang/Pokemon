@@ -9,10 +9,11 @@ luaClass("Dialog", psModel)
 -- db attributes
 Dialog.id = DBNULL		--id
 Dialog.relatedStep = DBNULL		--关联剧情step
+Dialog.mapId = DBNULL		--剧情所在地图
 Dialog.dialog = DBNULL		--对话内容
 Dialog.speaker = DBNULL		--说话者
-Dialog.params = DBNULL		--参数
-Dialog.isQuestion = DBNULL	--是否需要回答
+Dialog.params = DBNULL		--对话参数
+Dialog.isQuestion = DBNULL	--是否是问题
 Dialog.choices = DBNULL		--回答选项
 Dialog.actionId = DBNULL	--执行的动画id
 
@@ -30,8 +31,8 @@ function Dialog:updateFromDB()
 	if data then
 		self:updateWithData(data)
 
-		self.id = tonumber(data.id)
 		self.relatedStep = tonumber(data.relatedStep)
+		self.mapId = tonumber(data.mapId)
 		self.params = string.split(data.params, ";")
 		if data.isQuestion == "1" then
 			self.isQuestion = true

@@ -53,6 +53,7 @@ namespace framework
 			}
 
 			texture = Director::getInstance()->getTextureCache()->addImage(pImage, resourcePath);
+			free(data);
 		}
 
 		if (SpriteBatchNode::initWithTexture(texture, static_cast<ssize_t>(capacity)))

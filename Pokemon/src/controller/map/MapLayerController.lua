@@ -6,6 +6,7 @@
 
 class("MapLayerController", psViewController)
 
+MapLayerController.currentMap = nil		-- 当前地图层
 MapLayerController.playerLayer = nil		-- 玩家精灵所在层
 
 MapLayerController.resources = {
@@ -45,7 +46,7 @@ function MapLayerController:renderView()
 
 	local screenSize = cc.Director:getInstance():getWinSize()
 
-	local playerData = self:getScene().currentPlayerData
+	local playerData = DataCenter.currentPlayerData
 
 	self.playerLayer = cc.Layer:create()
 	coreLayer:addChild(self.playerLayer, self.ZORDER.PLAYER)
@@ -74,4 +75,8 @@ function MapLayerController:renderView()
 	self.playerLayer:addChild(champion)
 
 	coreLayer:addChild(map)
+end
+
+function MapLayerController:switchMap(mapInfo)
+	
 end

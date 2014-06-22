@@ -14,7 +14,17 @@ end
 
 ------------------------ dialog_info ------------------------
 function GameDBHelper:queryDialogById(id)
-	local data = self.db:selectTableByConditionWithOneValue("dialog_info", "id", tostring(id))
+	local data = self.db:selectTableByConditionWithOneValue(GameConfig.DIALOG_TABLE, "id", tostring(id))
+
+	if data then
+		return data[1]
+	end
+	return nil
+end
+
+------------------------ map_info ------------------------
+function GameDBHelper:queryMapById(id)
+	local data = self.db:selectTableByConditionWithOneValue(GameConfig.MAP_TABLE, "id", tostring(id))
 
 	if data then
 		return data[1]

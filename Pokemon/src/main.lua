@@ -64,9 +64,11 @@ function GameLauncher:loadPublicModules()
     -- public data or utils
     require "src/utils/GameConfig"
     require "src/utils/Enumerations"
+    require "src/utils/NotifyEvents"
     require "src/utils/GameSettings"
     require "src/utils/GameVolumeHelper"
     require "src/utils/GameDBHelper"
+    require "src/utils/DataCenter"
     require "src/utils/DialogPopHelper"
 end
 
