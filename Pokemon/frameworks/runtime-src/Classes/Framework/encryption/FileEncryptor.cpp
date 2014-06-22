@@ -24,7 +24,7 @@ namespace framework
 		return nullptr;
 	}
 
-	void FileEncryptor::encrypt(const string filePath)
+	void FileEncryptor::encrypt(const string &filePath)
 	{
 		if (_key.size() == 0)
 		{
@@ -48,7 +48,7 @@ namespace framework
 		free(encryptData);
 	}
 
-	unsigned char *FileEncryptor::decrypt(const string filePath, bool writeToFile)
+	unsigned char *FileEncryptor::decrypt(const string &filePath, int *dataSize, bool writeToFile)
 	{
 		if (_key.size() == 0)
 		{
@@ -66,6 +66,7 @@ namespace framework
 		int outSize = 0;
 		// don't forget to release it.
 		unsigned char *decryptData = DesUtils::getInstance()->decrypt(_key.c_str(), data, size, &outSize);
+		*dataSize = outSize;
 
 		if (writeToFile)
 		{

@@ -5,7 +5,19 @@
  </tileset>
  <layer name="main" width="13" height="13">
   <data encoding="base64" compression="zlib">
-   eJwNwwkvFgAAANDvLwgp1YaSiq3DUbFJN7aUq7I5o7LRhbKFqLBRum2pyLWpRKqtk5QtJaT+kfe2FxQIBFYYbIihrjTMVa423DWudZ0RRhrlejcY7UZj3ORmtxhrnFvd5nZ3GG+CiSa5013uNtkUU91jmnvd534PeNBDHjbdDDM9YpZHPWa2OeaaZ77HPeFJCyy0yGJLLLXMU5Zb4WnPeNZKq6z2nOe94EUvWWOtdV72ivVetcFGm7xmsy1e94Y3bbXNdjvs9Ja37fKOd73nfR/40Ed2+9gen/jUZ/ba53P7HXDQIYcd8YUvfeWorx1z3DdO+NZ3vveDH/3kZ7/41Umn/Oa03/3hjD+d9Ze/nfOP8y646F+X/Od/lwHMEkqa
+   eJwtx2kvFgAAAOD3L3RIUZuUGtoUMmpLlxUbUok291Vbl0RtHSK05UhUmw4hNkohtk4d2ko58496Prwfng/PqkAgsJo1rCWEdYSyng2EEc5GNhHBZiLZwlai2Mb24KOJIZYdxLGTXcSTQCK7SQo+mRT2sJd9pLKfAxzkEIdJC/4IR0kng0yyyOYYORznBCfJ5RR55HOaAgopopgSSimjnAoqqeIMZznHeS5wkUtUc5karlBLHVe5xnVucJNb1HObBhq5QxPNtHCXe7TSRjsd3KeTB3TRzUMe8ZgenvCUZzynlxf00c8ALxlkiGFGeMVrRnnDW8YYZ4J3TDLFez7wkU985gvTfOUb3/nBDD/5xW9m+cNf5phngUWWWOYfK/wHssJKjg==
   </data>
  </layer>
+ <objectgroup name="characters" width="13" height="13">
+  <object name="hero" x="192" y="192" width="32" height="32">
+   <properties>
+    <property name="hero" value="1"/>
+   </properties>
+  </object>
+  <object name="champion" x="192" y="160" width="32" height="32">
+   <properties>
+    <property name="npc" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

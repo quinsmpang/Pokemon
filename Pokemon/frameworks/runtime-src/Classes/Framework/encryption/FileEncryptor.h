@@ -19,9 +19,9 @@ namespace framework
 
 		static FileEncryptor *create(const char *key);
 
-		void encrypt(const std::string filePath);
+		void encrypt(const std::string &filePath);
 
-		unsigned char *decrypt(const std::string filePath, bool writeToFile = false);
+		unsigned char *decrypt(const std::string &filePath, int *dataSize, bool writeToFile = false);
 
 	private:
 		const std::string _key;

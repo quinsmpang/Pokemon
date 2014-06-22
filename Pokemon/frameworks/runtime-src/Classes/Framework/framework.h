@@ -26,6 +26,8 @@
 #include "ui\ModalLayer.h"
 
 #include "controls\TableViewEx.h"
+#include "controls\EncryptedTMXLayer.h"
+#include "controls\EncryptedTMXTiledMap.h"
 
 #include "utils\ScriptCCBReader.h"
 #include "utils\IOUtils.h"

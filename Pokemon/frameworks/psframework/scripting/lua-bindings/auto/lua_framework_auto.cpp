@@ -5833,6 +5833,288 @@ int lua_register_psframework_TableViewEx(lua_State* tolua_S)
     return 1;
 }
 
+int lua_psframework_EncryptedTMXLayer_initWithInfo(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::EncryptedTMXLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.EncryptedTMXLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::EncryptedTMXLayer*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EncryptedTMXLayer_initWithInfo'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 3) 
+    {
+        cocos2d::TMXTilesetInfo* arg0;
+        cocos2d::TMXLayerInfo* arg1;
+        cocos2d::TMXMapInfo* arg2;
+
+        ok &= luaval_to_object<cocos2d::TMXTilesetInfo>(tolua_S, 2, "cc.TMXTilesetInfo",&arg0);
+
+        ok &= luaval_to_object<cocos2d::TMXLayerInfo>(tolua_S, 3, "cc.TMXLayerInfo",&arg1);
+
+        ok &= luaval_to_object<cocos2d::TMXMapInfo>(tolua_S, 4, "cc.TMXMapInfo",&arg2);
+        if(!ok)
+            return 0;
+        bool ret = cobj->initWithInfo(arg0, arg1, arg2);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "initWithInfo",argc, 3);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EncryptedTMXLayer_initWithInfo'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_EncryptedTMXLayer_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.EncryptedTMXLayer",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 3)
+    {
+        cocos2d::TMXTilesetInfo* arg0;
+        cocos2d::TMXLayerInfo* arg1;
+        cocos2d::TMXMapInfo* arg2;
+        ok &= luaval_to_object<cocos2d::TMXTilesetInfo>(tolua_S, 2, "cc.TMXTilesetInfo",&arg0);
+        ok &= luaval_to_object<cocos2d::TMXLayerInfo>(tolua_S, 3, "cc.TMXLayerInfo",&arg1);
+        ok &= luaval_to_object<cocos2d::TMXMapInfo>(tolua_S, 4, "cc.TMXMapInfo",&arg2);
+        if(!ok)
+            return 0;
+        framework::EncryptedTMXLayer* ret = framework::EncryptedTMXLayer::create(arg0, arg1, arg2);
+        object_to_luaval<framework::EncryptedTMXLayer>(tolua_S, "pf.EncryptedTMXLayer",(framework::EncryptedTMXLayer*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 3);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EncryptedTMXLayer_create'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_psframework_EncryptedTMXLayer_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::EncryptedTMXLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj = new framework::EncryptedTMXLayer();
+        cobj->autorelease();
+        int ID =  (int)cobj->_ID ;
+        int* luaID =  &cobj->_luaID ;
+        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.EncryptedTMXLayer");
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "EncryptedTMXLayer",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EncryptedTMXLayer_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_EncryptedTMXLayer_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (EncryptedTMXLayer)");
+    return 0;
+}
+
+int lua_register_psframework_EncryptedTMXLayer(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.EncryptedTMXLayer");
+    tolua_cclass(tolua_S,"EncryptedTMXLayer","pf.EncryptedTMXLayer","cc.TMXLayer",nullptr);
+
+    tolua_beginmodule(tolua_S,"EncryptedTMXLayer");
+        tolua_function(tolua_S,"initWithInfo",lua_psframework_EncryptedTMXLayer_initWithInfo);
+        tolua_function(tolua_S,"new",lua_psframework_EncryptedTMXLayer_constructor);
+        tolua_function(tolua_S,"create", lua_psframework_EncryptedTMXLayer_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::EncryptedTMXLayer).name();
+    g_luaType[typeName] = "pf.EncryptedTMXLayer";
+    g_typeCast["EncryptedTMXLayer"] = "pf.EncryptedTMXLayer";
+    return 1;
+}
+
+int lua_psframework_EncryptedTMXTiledMap_initWithEncryptedTMXFile(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::EncryptedTMXTiledMap* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.EncryptedTMXTiledMap",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::EncryptedTMXTiledMap*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_EncryptedTMXTiledMap_initWithEncryptedTMXFile'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        bool ret = cobj->initWithEncryptedTMXFile(arg0);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "initWithEncryptedTMXFile",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EncryptedTMXTiledMap_initWithEncryptedTMXFile'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_EncryptedTMXTiledMap_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.EncryptedTMXTiledMap",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 1)
+    {
+        std::string arg0;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        framework::EncryptedTMXTiledMap* ret = framework::EncryptedTMXTiledMap::create(arg0);
+        object_to_luaval<framework::EncryptedTMXTiledMap>(tolua_S, "pf.EncryptedTMXTiledMap",(framework::EncryptedTMXTiledMap*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 1);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EncryptedTMXTiledMap_create'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_psframework_EncryptedTMXTiledMap_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::EncryptedTMXTiledMap* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj = new framework::EncryptedTMXTiledMap();
+        cobj->autorelease();
+        int ID =  (int)cobj->_ID ;
+        int* luaID =  &cobj->_luaID ;
+        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.EncryptedTMXTiledMap");
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "EncryptedTMXTiledMap",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_EncryptedTMXTiledMap_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_EncryptedTMXTiledMap_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (EncryptedTMXTiledMap)");
+    return 0;
+}
+
+int lua_register_psframework_EncryptedTMXTiledMap(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.EncryptedTMXTiledMap");
+    tolua_cclass(tolua_S,"EncryptedTMXTiledMap","pf.EncryptedTMXTiledMap","cc.TMXTiledMap",nullptr);
+
+    tolua_beginmodule(tolua_S,"EncryptedTMXTiledMap");
+        tolua_function(tolua_S,"initWithEncryptedTMXFile",lua_psframework_EncryptedTMXTiledMap_initWithEncryptedTMXFile);
+        tolua_function(tolua_S,"new",lua_psframework_EncryptedTMXTiledMap_constructor);
+        tolua_function(tolua_S,"create", lua_psframework_EncryptedTMXTiledMap_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::EncryptedTMXTiledMap).name();
+    g_luaType[typeName] = "pf.EncryptedTMXTiledMap";
+    g_typeCast["EncryptedTMXTiledMap"] = "pf.EncryptedTMXTiledMap";
+    return 1;
+}
+
 int lua_psframework_ScriptCCBReader_readCCB(lua_State* tolua_S)
 {
     int argc = 0;
@@ -6412,6 +6694,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	tolua_beginmodule(tolua_S,nullptr);
 
 	lua_register_psframework_ViewController(tolua_S);
+	lua_register_psframework_EncryptedTMXTiledMap(tolua_S);
 	lua_register_psframework_RecordHelper(tolua_S);
 	lua_register_psframework_IOUtils(tolua_S);
 	lua_register_psframework_RefInteger(tolua_S);
@@ -6420,6 +6703,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_Stack(tolua_S);
 	lua_register_psframework_GameScene(tolua_S);
 	lua_register_psframework_ScriptCCBReader(tolua_S);
+	lua_register_psframework_EncryptedTMXLayer(tolua_S);
 	lua_register_psframework_Queue(tolua_S);
 	lua_register_psframework_SqliteDb(tolua_S);
 	lua_register_psframework_Vector(tolua_S);
