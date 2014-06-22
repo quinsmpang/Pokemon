@@ -81,3 +81,10 @@ function CreateAnimation(frameName, frameCount, timeline)
 
 	return animate
 end
+
+-- add frames to the cache
+function LoadSpriteFrames(frames)
+	for i = 1, #frames, 2 do
+		cc.SpriteFrameCache:getInstance():addSpriteFrames(frames[i], frames[i + 1])
+	end
+end

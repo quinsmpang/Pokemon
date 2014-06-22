@@ -103,11 +103,19 @@
 -- @return GameScene#GameScene ret (retunr value: pf.GameScene)
 
 --------------------------------
+-- @function [parent=#GameScene] onExitTransitionDidStart 
+-- @param self
+        
+--------------------------------
 -- @function [parent=#GameScene] onEnter 
 -- @param self
         
 --------------------------------
 -- @function [parent=#GameScene] onExit 
+-- @param self
+        
+--------------------------------
+-- @function [parent=#GameScene] onEnterTransitionDidFinish 
 -- @param self
         
 return nil

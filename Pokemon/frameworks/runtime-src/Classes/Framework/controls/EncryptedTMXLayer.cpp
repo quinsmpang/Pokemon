@@ -12,8 +12,6 @@ namespace framework
 		if (pLayer && pLayer->initWithInfo(tilesetInfo, layerInfo, mapInfo))
 		{
 			pLayer->autorelease();
-			pLayer->_encryptor = FileEncryptor::create(EncryptedTMXLayer::ENCRYPTION_KEY);
-			pLayer->_encryptor->retain();
 			return pLayer;
 		}
 		CC_SAFE_RELEASE_NULL(pLayer);
@@ -36,6 +34,9 @@ namespace framework
 		Size size = layerInfo->_layerSize;
 		float totalNumberOfTiles = size.width * size.height;
 		float capacity = totalNumberOfTiles * 0.35f + 1; // 35 percent is occupied ?
+
+		this->_encryptor = FileEncryptor::create(EncryptedTMXLayer::ENCRYPTION_KEY);
+		this->_encryptor->retain();
 
 		Texture2D *texture = nullptr;
 		if( tilesetInfo )

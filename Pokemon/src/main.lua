@@ -13,6 +13,11 @@ GameLauncher = {}
 
 DEBUG = true
 
+GameLauncher.publicResources = {
+    "images/common.plist",
+    "images/common.pvr.ccz",
+}
+
 function GameLauncher:init()
     collectgarbage("collect")
     -- avoid memory leak
@@ -23,6 +28,7 @@ function GameLauncher:init()
     
     self:loadLuaFramework()
     self:loadPublicModules()
+    self:loadPublicResources()
 
     -- set random seed
     math.randomseed(tostring(os.time()):reverse():sub(1, 6))
@@ -61,6 +67,10 @@ function GameLauncher:loadPublicModules()
     require "src/utils/GameVolumeHelper"
     require "src/utils/GameDBHelper"
     require "src/utils/DialogPopHelper"
+end
+
+function GameLauncher:loadPublicResources()
+    LoadSpriteFrames(self.publicResources)
 end
 
 function GameLauncher:startGame()

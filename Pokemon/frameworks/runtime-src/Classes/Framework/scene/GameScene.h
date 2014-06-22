@@ -36,6 +36,10 @@ namespace framework
 
 		virtual void onExit() override;
 
+		virtual void onEnterTransitionDidFinish() override;
+
+		virtual void onExitTransitionDidStart() override;
+
 		void putBoolAttribute(const std::string &key, bool value);
 
 		void putIntAttribute(const std::string &key, int value);

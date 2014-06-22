@@ -11,8 +11,6 @@ class("MainViewController", psViewController)
 MainViewController.resources = {
 	"images/maintitle.plist",
 	"images/maintitle.pvr.ccz",
-	"images/common.plist",
-	"images/common.pvr.ccz",
 }
 
 MainViewController.infoLabel = nil		-- 游戏说明文字
@@ -46,9 +44,7 @@ end
 function MainViewController:loadResources()
 	log("MainViewController:loadResources")
 	cc.SimpleAudioEngine:getInstance():preloadMusic(self.TITLE_MUSIC)
-	for i = 1, #self.resources, 2 do
-		cc.SpriteFrameCache:getInstance():addSpriteFrames(self.resources[i], self.resources[i + 1])
-	end
+	LoadSpriteFrames(self.resources)
 end
 
 function MainViewController:cleanResources()

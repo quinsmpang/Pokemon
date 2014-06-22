@@ -126,6 +126,9 @@ function DialogPopHelper:quickPop(content, okScript, cancelScript)
 	dialog.btnCancel:setPosition(winSize.width * 0.2, -(winSize.height * 0.5 - 40))
 	dialog.menu:setPosition(winSize.width * 0.5, winSize.height * 0.5)
 
+	dialog.okScript = okScript
+	dialog.cancelScript = cancelScript
+
 	cc.Director:getInstance():getRunningScene():addChild(dialog)
 end
 
@@ -139,6 +142,9 @@ function DialogPopHelper:popQuestionWindow(windowSize, content, okScript, cancel
 	dialog.btnCancel:setPosition(windowSize.width * 0.2, -(windowSize.height * 0.5 - 40))
 	dialog.menu:setPosition(windowSize.width * 0.5, windowSize.height * 0.5)
 
+	dialog.okScript = okScript
+	dialog.cancelScript = cancelScript
+
 	cc.Director:getInstance():getRunningScene():addChild(dialog)
 end
 
@@ -151,6 +157,8 @@ function DialogPopHelper:popMessageWindow(windowSize, content, okScript)
 	dialog.btnOK:setPosition(-windowSize.width * 0.5, -(windowSize.height * 0.5 - 40))
 	dialog.btnCancel:setVisible(false)
 	dialog.menu:setPosition(windowSize.width * 0.5, windowSize.height * 0.5)
+
+	dialog.okScript = okScript
 
 	cc.Director:getInstance():getRunningScene():addChild(dialog)
 end

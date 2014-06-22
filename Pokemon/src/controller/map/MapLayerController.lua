@@ -24,9 +24,7 @@ end
 
 function MapLayerController:loadResources()
 	log("MapLayerController:loadResources")
-	for i = 1, #self.resources, 2 do
-		cc.SpriteFrameCache:getInstance():addSpriteFrames(self.resources[i], self.resources[i + 1])
-	end
+	LoadSpriteFrames(self.resources)
 end
 
 function MapLayerController:cleanResources()
@@ -36,5 +34,13 @@ function MapLayerController:cleanResources()
 end
 
 function MapLayerController:renderView()
-	
+	local coreLayer = self:getScene():getCoreLayer()
+
+	local screenSize = cc.Director:getInstance():getWinSize()
+
+	local map = EncryptedTMXTiledMap:create("maps/champion_league1.tmx")
+	map:setAnchorPoint(0.5, 0.5)
+	map:setPosition(screenSize.width * 0.5, screenSize.height * 0.5)
+
+	coreLayer:addChild(map)
 end

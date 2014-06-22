@@ -6,6 +6,8 @@
 
 class("GenderChooseLayer", psModalLayer)
 
+require "src/view/map/MapViewScene"
+
 GenderChooseLayer.window = nil		--背景窗口
 GenderChooseLayer.maleSprite = nil		--男性精灵
 GenderChooseLayer.femaleSprite = nil	--女性精灵
@@ -73,6 +75,9 @@ end
 
 function GenderChooseLayer:onChoiceConfirm()
 	log("GenderChooseLayer:onChoiceConfirm")
+
+	local mapScene = MapViewScene:create()
+	cc.Director:getInstance():replaceScene(cc.TransitionFade:create(2, mapScene))
 end
 
 function GenderChooseLayer:onChoiceCancel()

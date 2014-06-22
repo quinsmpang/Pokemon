@@ -24,8 +24,6 @@ namespace framework
 		if (pMap && pMap->initWithEncryptedTMXFile(tmxFile))
 		{
 			pMap->autorelease();
-			pMap->_encryptor = FileEncryptor::create(EncryptedTMXTiledMap::ENCRYPTION_KEY);
-			pMap->_encryptor->retain();
 			return pMap;
 		}
 		CC_SAFE_RELEASE_NULL(pMap);
@@ -38,6 +36,9 @@ namespace framework
 
 		this->setContentSize(Size::ZERO);
 
+		this->_encryptor = FileEncryptor::create(EncryptedTMXTiledMap::ENCRYPTION_KEY);
+		this->_encryptor->retain();
+
 		// compatible with Android
 		const std::string &fullPath = FileUtils::getInstance()->fullPathForFilename(tmxFile);
 		int outSize = 0;
@@ -45,6 +46,7 @@ namespace framework
 		string xml((const char*)decryptData);
 
 		auto mapInfo = TMXMapInfo::createWithXML(xml, "");
+		free(decryptData);
 
 		if (!mapInfo)
 		{

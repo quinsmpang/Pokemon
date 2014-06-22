@@ -11,9 +11,11 @@ class("MapViewScene", psGameScene)
 
 function MapViewScene:onEnter()
 	log("MapViewScene:onEnter")
+end
 
-	CallFunctionAsync(self, self.init, 2)
-	--self:init()
+function MapViewScene:onEnterTransitionDidFinish()
+	log("MapViewScene:onEnterTransitionDidFinish")
+	self:init()
 end
 
 function MapViewScene:onExit()

@@ -7,8 +7,6 @@
 class("DialogLayerController", psViewController)
 
 DialogLayerController.resources = {
-	"images/common.plist",
-	"images/common.pvr.ccz",
 	"images/dialog.plist",
 	"images/dialog.pvr.ccz"
 }
@@ -54,9 +52,7 @@ end
 
 function DialogLayerController:cleanResources()
 	log("DialogLayerController:cleanResources")
-	for i = 1, #self.resources, 2 do
-		cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile(self.resources[i])
-	end
+	LoadSpriteFrames(self.resources)
 end
 
 function DialogLayerController:renderView()
@@ -79,7 +75,7 @@ function DialogLayerController:renderView()
 
 	-- dialog window initialization
 	local capInsets = CCRectMake(20, 20, 60, 60)
-	local dialogWindow = cc.Scale9Sprite:createWithSpriteFrameName("images/maintitle/border_orange.png", capInsets)
+	local dialogWindow = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_orange.png", capInsets)
 	dialogWindow:setPreferredSize(self.DIALOG_WINDOW_SIZE)
 	dialogWindow:setPosition(self.DIALOG_WINDOW_POSITION)
 

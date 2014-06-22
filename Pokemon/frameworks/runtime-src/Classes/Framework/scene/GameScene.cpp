@@ -92,6 +92,30 @@ namespace framework
 		Scene::onExit();
 	}
 
+	void GameScene::onEnterTransitionDidFinish()
+	{
+		Scene::onEnterTransitionDidFinish();
+
+#if CC_ENABLE_SCRIPT_BINDING
+		if (_scriptType == kScriptTypeLua)
+		{
+			LuaUtils::getInstance()->executePeertableFunction(this, "onEnterTransitionDidFinish", Vector<Ref*>(), Vector<Ref*>(), false);
+		}
+#endif
+	}
+
+	void GameScene::onExitTransitionDidStart()
+	{
+		Scene::onExitTransitionDidStart();
+
+#if CC_ENABLE_SCRIPT_BINDING
+		if (_scriptType == kScriptTypeLua)
+		{
+			LuaUtils::getInstance()->executePeertableFunction(this, "onExitTransitionDidStart", Vector<Ref*>(), Vector<Ref*>(), false);
+		}
+#endif
+	}
+
 	void GameScene::putBoolAttribute(const std::string &key, bool value)
 	{
 		this->_paramsMap->setObject(__Bool::create(value), key);
