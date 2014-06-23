@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="9" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="room_common" tilewidth="32" tileheight="32">
+  <image source="images/terrains/room_common.png" width="256" height="896"/>
+ </tileset>
+ <layer name="main" width="10" height="9">
+  <data encoding="base64" compression="zlib">
+   eJwTZmBgEEbDFlCMLCaNBcPUIYsxYsFCQCyCRZwZDUsBsQyaPLJ6JixizEhinFDMhcVsZHW45GipDgCJ0QNb
+  </data>
+ </layer>
+ <layer name="items" width="10" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYIAAdSDWYEAFtkBsB2UvAeKlQKwPxAZAvAxJnSsQuwFxEBCvAeK1SHLrkNi+QOwHxFEM2MFGIN6EJtYDxL1A3IckthOId+EwgxhwE4gLgbgIylcEYiUgVsaithKIq6BsQyA2AmJjJPmTaOotgdgKTQykBgDa7BEf
+  </data>
+ </layer>
+ <layer name="tops" width="10" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgY0ALErUDcRmVzM4E4iwrmHKSSGhgAAEpuA+U=
+  </data>
+ </layer>
+</map>

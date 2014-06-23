@@ -7,10 +7,19 @@
 class("TMXMapLayer", psGameLayer)
 
 TMXMapLayer.mapInfo = nil 		-- MapInfo model
+
+-- ui
 TMXMapLayer.playerLayer = nil	-- player layer
 TMXMapLayer.npcLayer = nil		-- npc layer
 TMXMapLayer.main = nil			-- main layer
+TMXMapLayer.tops = nil			-- layer whose items can cover the player
 
+-- logic
+TMXMapLayer.obstacleList = nil		-- 障碍物(Obstacle model)集合
+TMXMapLayer.entranceList = nil		-- 入口出口(Entrance model)集合
+
+-- const
+TMXMapLayer.TILE_SIZE = 32
 TMXMapLayer.ZORDER = {
 	MAIN = 0,
 	PLAYER = 2,
@@ -23,7 +32,7 @@ function TMXMapLayer:createWithMapInfo(mapInfo, heroPos)
 		cc.FadeIn:create(0.5),
 		cc.FadeIn:create(0.5),
 		cc.FadeOut:create(0.5),
-		cc.FadeOut:create(0.5),
+		cc.FadeOut:create(0.5)
 		)
 
 	mapLayer:initWithMapInfo(mapInfo, heroPos)
@@ -31,7 +40,7 @@ function TMXMapLayer:createWithMapInfo(mapInfo, heroPos)
 	return mapLayer
 end
 
-function TMXMapLayer:initWithMapInfo(mapInfo, heroPos, heroDirection)
+function TMXMapLayer:initWithMapInfo(mapInfo)
 	self.mapInfo = mapInfo
 
 	local screenSize = cc.Director:getInstance():getWinSize()
@@ -39,29 +48,43 @@ function TMXMapLayer:initWithMapInfo(mapInfo, heroPos, heroDirection)
 	local map = EncryptedTMXTiledMap:create(mapInfo.path)
 	map:setAnchorPoint(0.5, 0.5)
 	map:setPosition(screenSize.width * 0.5, screenSize.height * 0.5)
+	self:addChild(map, self.ZORDER.MAIN)
 
 	-- main layer must be exist
 	self.main = map:getLayer("main")
+	-- top items layer
+	self.tops = map:getLayer("tops")
+	if self.tops then
+		self.tops:setZOrder(self.ZORDER.HIGH_ITEMS)
+	end
 
 	self.playerLayer = cc.Layer:create()
-	self:addChild(self.playerLayer)
+	self:addChild(self.playerLayer, self.ZORDER.PLAYER)
 	self.npcLayer = cc.Layer:create()
-	self:addChild(self.npcLayer)
+	self:addChild(self.npcLayer, self.ZORDER.PLAYER)
 
-	-- 如果没有hero position的信息，则显示在地图的默认位置
-	if not heroPos then
-		local heroObj = map:getObjectGroup("heroObjects"):getObject("hero")
-		local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. heroObj["direction"] .. "1.png"
+	-- 如果当前是非活动状态，说明是剧情载入，则显示在剧情设定位置
+	DataCenter.currentPlayerData.currentMapId = mapInfo.id
+	if DataCenter.currentPlayerData.currentStep ~= 0 then
+		local heroObjectGroup = map:getObjectGroup("heroObjects")
+		local heroObjects = heroObjectGroup:getObjects()
+		for _, heroObj in ipairs(heroObjects) do
+			if tonumber(heroObj["step"]) == DataCenter.currentPlayerData.currentStep then
+				local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. heroObj["direction"] .. "1.png"
+				local hero = cc.Sprite:createWithSpriteFrameName(heroFrameName)
+				local pos = self.main:convertToWorldSpace(ccp(tonumber(heroObj["x"]), tonumber(heroObj["y"])))
+				DataCenter.currentPlayerData.currentPosition = ccp(tonumber(heroObj["x"]) / self.TILE_SIZE, tonumber(heroObj["y"]) / self.TILE_SIZE)
+				hero:setAnchorPoint(0, 0)
+				hero:setPosition(pos)
+				self.playerLayer:addChild(hero)
+				break
+			end
+		end
+	else	-- 说明是读取存档载入，直接显示在存档记录的位置
+		local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
 		local hero = cc.Sprite:createWithSpriteFrameName(heroFrameName)
-		local pos = self.main:convertToWorldSpace(ccp(tonumber(heroObj["x"]), tonumber(heroObj["y"])))
 		hero:setAnchorPoint(0, 0)
-		hero:setPosition(pos)
-		self.playerLayer:addChild(hero)
-	else
-		local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. heroDirection .. "1.png"
-		local hero = cc.Sprite:createWithSpriteFrameName(heroFrameName)
-		hero:setAnchorPoint(0, 0)
-		hero:setPosition(heroPos)
+		hero:setPosition(DataCenter.currentPlayerData.currentPosition)
 		self.playerLayer:addChild(hero)
 	end
 
@@ -71,14 +94,31 @@ function TMXMapLayer:initWithMapInfo(mapInfo, heroPos, heroDirection)
 		-- 遍历生成npc
 		local npcObjects = npcObjectGroup:getObjects()
 		for _, npcObj in ipairs(npcObjects) do
-			local npcFrameName = "images/characters/" .. npcObj["npc_name"] .. "_" .. npcObj["direction"] .. "1.png"
-			local npc = cc.Sprite:createWithSpriteFrameName(npcFrameName)
-			local npcPos = self.main:convertToWorldSpace(ccp(tonumber(npcObj["x"]), tonumber(npcObj["y"])))
-			npc:setAnchorPoint(0, 0)
-			npc:setPosition(npcPos)
-			self.npcLayer:addChild(npc)
+			if tonumber(npcObj["step"]) == DataCenter.currentPlayerData.currentStep then
+				local npcFrameName = "images/characters/" .. npcObj["npc_name"] .. "_" .. npcObj["direction"] .. "1.png"
+				local npc = cc.Sprite:createWithSpriteFrameName(npcFrameName)
+				local npcPos = self.main:convertToWorldSpace(ccp(tonumber(npcObj["x"]), tonumber(npcObj["y"])))
+				npc:setAnchorPoint(0, 0)
+				npc:setPosition(npcPos)
+				self.npcLayer:addChild(npc)
+			end
 		end
 	end
 
 	-- 设置障碍物
+	self.obstacleList = {}
+	local obstacleObejctGroup = map:getObjectGroup("obstacleObjects")
+	if obstacleObejctGroup then
+		-- 遍历放到障碍物table中
+		local obstacleObjects = obstacleObejctGroup:getObjects()
+		local obstacleModel = Obstacle:create(obstacleObjects)
+		table.insert(self.obstacleList, obstacleModel)
+	end
+
+	-- 设置入口
+	self.entranceList = {}
+	local entranceObjectGroup = map:getObjectGroup("entranceObjects")
+	if entranceObjectGroup then
+		-- 遍历放到入口table中
+	end
 end

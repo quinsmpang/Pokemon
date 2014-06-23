@@ -60,6 +60,7 @@ function GameLauncher:loadPublicModules()
     require "src/model/Dialog"
     require "src/model/MapInfo"
     require "src/model/PlayerData"
+    require "src/model/obstacle"
 
     -- public data or utils
     require "src/utils/GameConfig"

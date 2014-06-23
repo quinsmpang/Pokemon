@@ -8,16 +8,21 @@
    eJwtx2kvFgAAAOD3L3RIUZuUGtoUMmpLlxUbUok291Vbl0RtHSK05UhUmw4hNkohtk4d2ko58496Prwfng/PqkAgsJo1rCWEdYSyng2EEc5GNhHBZiLZwlai2Mb24KOJIZYdxLGTXcSTQCK7SQo+mRT2sJd9pLKfAxzkEIdJC/4IR0kng0yyyOYYORznBCfJ5RR55HOaAgopopgSSimjnAoqqeIMZznHeS5wkUtUc5karlBLHVe5xnVucJNb1HObBhq5QxPNtHCXe7TSRjsd3KeTB3TRzUMe8ZgenvCUZzynlxf00c8ALxlkiGFGeMVrRnnDW8YYZ4J3TDLFez7wkU985gvTfOUb3/nBDD/5xW9m+cNf5phngUWWWOYfK/wHssJKjg==
   </data>
  </layer>
- <objectgroup name="characters" width="13" height="13">
-  <object name="hero" x="192" y="192" width="32" height="32">
+ <objectgroup name="heroObjects" width="13" height="13">
+  <object name="hero1" x="192" y="192" width="32" height="32">
    <properties>
     <property name="direction" value="up"/>
+    <property name="step" value="1"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="npcObjects" width="13" height="13">
   <object name="champion" x="192" y="160" width="32" height="32">
    <properties>
     <property name="direction" value="down"/>
     <property name="npc_name" value="champion1"/>
+    <property name="responseId" value="-1"/>
+    <property name="step" value="1"/>
    </properties>
   </object>
  </objectgroup>
