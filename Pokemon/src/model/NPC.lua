@@ -12,6 +12,8 @@ NPC.npcId = DBNULL				-- 对应的npc model id
 NPC.responseId = DBNULL			-- 响应的id
 NPC.step = DBNULL				-- 对应的剧情step
 
+NPC.npcDbModel = DBNULL			-- 对应id的npc model
+
 function NPC:create(npcInfo)
 	if type(npcInfo) ~= "table" then
 		return nil
@@ -29,6 +31,8 @@ function NPC:initWithInfo(npcInfo)
 	self.npcId = tonumber(npcInfo["npcId"])
 	self.responseId = tonumber(npcInfo["responseId"])
 	self.step = tonumber(npcInfo["step"])
+
+	self.npcDbModel = NpcInfo:create(self.npcId)
 end
 
 function NPC:getDirectionString()
@@ -46,5 +50,5 @@ function NPC:getDirectionString()
 end
 
 function NPC:getSpriteName()
-	return "champion1"
+	return self.npcDbModel.frameName
 end

@@ -62,6 +62,7 @@ function GameLauncher:loadPublicModules()
     require "src/model/PlayerData"
     require "src/model/obstacle"
     require "src/model/Entrance"
+    require "src/model/NpcInfo"
     require "src/model/NPC"
 
     -- public data or utils

@@ -14,3 +14,4 @@ GameConfig.GAME_DB_PATH = "icon.jpg"
 -- db tables
 GameConfig.DIALOG_TABLE = "dialog_info"
 GameConfig.MAP_TABLE = "map_info"
+GameConfig.NPC_TABLE = "npc_info"
