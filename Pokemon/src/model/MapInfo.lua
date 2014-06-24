@@ -1,5 +1,5 @@
 --[[
-	Description: Map info model
+	Description: Map info model (From DB)
 	Author: M.Wan
 	Date: 05/29/2014
 ]]

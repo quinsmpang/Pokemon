@@ -127,7 +127,6 @@ function MainMenu:showButtons()
 end
 
 function MainMenu:showGenderWindow()
-	GameDBHelper:openDB()
 	local genderChooseLayer = GenderChooseLayer:create()
 	genderChooseLayer:initUI()
 	self:addChild(genderChooseLayer)

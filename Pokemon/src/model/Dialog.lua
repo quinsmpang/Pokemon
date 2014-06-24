@@ -1,5 +1,5 @@
 --[[
-	Description: Dialog Model
+	Description: Dialog Model (From DB)
 	Author: M.Wan
 	Date: 06/09/2014
 ]]

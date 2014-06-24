@@ -245,6 +245,7 @@ function KeysetLayer:onBtnCancelClick()
 
 	GameVolumeHelper:playBtnClickSound()
 
+	GameSettings:loadSettings()
 	self:close()
 end
 

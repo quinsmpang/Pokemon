@@ -18,6 +18,7 @@ GenderChooseLayer.enableClick = nil
 GenderChooseLayer.TAG = {
 	SPRITE_MALE = 1,
 	SPRITE_FEMALE = 2,
+	TITLE_LABEL = 3,
 }
 
 function GenderChooseLayer:initUI()

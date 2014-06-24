@@ -15,6 +15,7 @@ TMXMapLayer.main = nil			-- main layer
 TMXMapLayer.tops = nil			-- layer whose items can cover the player
 
 -- logic
+TMXMapLayer.npcList = nil 			-- NPC(NPC model)集合
 TMXMapLayer.obstacleList = nil		-- 障碍物(Obstacle model)集合
 TMXMapLayer.entranceList = nil		-- 入口出口(Entrance model)集合
 
@@ -52,27 +53,30 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 
 	-- main layer must be exist
 	self.main = map:getLayer("main")
+	self.main:setLocalZOrder(self.ZORDER.MAIN)
 	-- top items layer
 	self.tops = map:getLayer("tops")
 	if self.tops then
-		self.tops:setZOrder(self.ZORDER.HIGH_ITEMS)
+		self.tops:setLocalZOrder(self.ZORDER.HIGH_ITEMS)
 	end
 
 	self.playerLayer = cc.Layer:create()
-	self:addChild(self.playerLayer, self.ZORDER.PLAYER)
+	map:addChild(self.playerLayer, self.ZORDER.PLAYER)
 	self.npcLayer = cc.Layer:create()
-	self:addChild(self.npcLayer, self.ZORDER.PLAYER)
+	map:addChild(self.npcLayer, self.ZORDER.PLAYER)
 
 	-- 如果当前是非活动状态，说明是剧情载入，则显示在剧情设定位置
+	log("Map Initialization: Loading hero")
 	DataCenter.currentPlayerData.currentMapId = mapInfo.id
 	if DataCenter.currentPlayerData.currentStep ~= 0 then
 		local heroObjectGroup = map:getObjectGroup("heroObjects")
 		local heroObjects = heroObjectGroup:getObjects()
 		for _, heroObj in ipairs(heroObjects) do
 			if tonumber(heroObj["step"]) == DataCenter.currentPlayerData.currentStep then
-				local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. heroObj["direction"] .. "1.png"
+				DataCenter.currentPlayerData.direction = tonumber(heroObj["direction"])
+				local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
 				local hero = cc.Sprite:createWithSpriteFrameName(heroFrameName)
-				local pos = self.main:convertToWorldSpace(ccp(tonumber(heroObj["x"]), tonumber(heroObj["y"])))
+				local pos = ccp(tonumber(heroObj["x"]), tonumber(heroObj["y"]))
 				DataCenter.currentPlayerData.currentPosition = ccp(tonumber(heroObj["x"]) / self.TILE_SIZE, tonumber(heroObj["y"]) / self.TILE_SIZE)
 				hero:setAnchorPoint(0, 0)
 				hero:setPosition(pos)
@@ -84,20 +88,25 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 		local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
 		local hero = cc.Sprite:createWithSpriteFrameName(heroFrameName)
 		hero:setAnchorPoint(0, 0)
-		hero:setPosition(DataCenter.currentPlayerData.currentPosition)
+		hero:setPosition(DataCenter.currentPlayerData.currentPosition.x * self.TILE_SIZE, DataCenter.currentPlayerData.currentPosition.y * self.TILE_SIZE)
 		self.playerLayer:addChild(hero)
 	end
 
 	-- 判断地图是否拥有npc
+	log("Map Initialization: Loading npc")
+	self.npcList = {}
 	local npcObjectGroup = map:getObjectGroup("npcObjects")
 	if npcObjectGroup then
 		-- 遍历生成npc
 		local npcObjects = npcObjectGroup:getObjects()
 		for _, npcObj in ipairs(npcObjects) do
-			if tonumber(npcObj["step"]) == DataCenter.currentPlayerData.currentStep then
-				local npcFrameName = "images/characters/" .. npcObj["npc_name"] .. "_" .. npcObj["direction"] .. "1.png"
+			if tonumber(npcObj["step"]) == DataCenter.currentPlayerData.currentStep or tonumber(npcObj["step"]) == 0 then
+				local npcModel = NPC:create(npcObj)
+				table.insert(self.npcList, npcModel)
+
+				local npcFrameName = "images/characters/" .. npcModel:getSpriteName() .. "_" .. npcModel:getDirectionString() .. "1.png"
 				local npc = cc.Sprite:createWithSpriteFrameName(npcFrameName)
-				local npcPos = self.main:convertToWorldSpace(ccp(tonumber(npcObj["x"]), tonumber(npcObj["y"])))
+				local npcPos = ccp(tonumber(npcObj["x"]), tonumber(npcObj["y"]))
 				npc:setAnchorPoint(0, 0)
 				npc:setPosition(npcPos)
 				self.npcLayer:addChild(npc)
@@ -106,19 +115,28 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 	end
 
 	-- 设置障碍物
+	log("Map Initialization: Loading obstacles")
 	self.obstacleList = {}
 	local obstacleObejctGroup = map:getObjectGroup("obstacleObjects")
 	if obstacleObejctGroup then
 		-- 遍历放到障碍物table中
 		local obstacleObjects = obstacleObejctGroup:getObjects()
-		local obstacleModel = Obstacle:create(obstacleObjects)
-		table.insert(self.obstacleList, obstacleModel)
+		for _, obstacleObj in ipairs(obstacleObjects) do
+			local obstacleModel = Obstacle:create(obstacleObj)
+			table.insert(self.obstacleList, obstacleModel)
+		end
 	end
 
 	-- 设置入口
+	log("Map Initialization: Loading entrances")
 	self.entranceList = {}
 	local entranceObjectGroup = map:getObjectGroup("entranceObjects")
 	if entranceObjectGroup then
 		-- 遍历放到入口table中
+		local entranceObjects = entranceObjectGroup:getObjects()
+		for _, entranceObj in ipairs(entranceObjects) do
+			local entranceModel = Entrance:create(entranceObj)
+			table.insert(self.entranceList, entranceModel)
+		end
 	end
 end

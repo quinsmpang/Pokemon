@@ -26,6 +26,8 @@ function MapViewScene:init()
 	local coreLayer = CoreLayer:create()
 	self:setCoreLayer(coreLayer)
 
+	GameDBHelper:openDB()
+	
 	local mapLayerController = MapLayerController:create()
 	self:loadViewController(mapLayerController)
 	local dialogLayerController = DialogLayerController:create()

@@ -1,5 +1,5 @@
 --[[
-	Description: Obstacle info
+	Description: Obstacle info (from map)
 	Author: M.Wan
 	Date: 06/23/2014
 ]]
@@ -16,27 +16,27 @@ Obstacle.allowDown = DBNULL		--是否可以从下面进入
 Obstacle.shouldBeCovered = DBNULL	-- 进入后是否应该被遮盖
 Obstacle.responseId = DBNULL		-- 响应的事件id, -1表示不能响应
 
-function Obstacle:create(obstacles)
-	if type(obstacles) ~= "table" then
+function Obstacle:create(obstacleInfo)
+	if type(obstacleInfo) ~= "table" then
 		return nil
 	end
 
 	local model = Obstacle:new()
-	model:init(obstacles)
+	model:initWithInfo(obstacleInfo)
 
 	return model
 end
 
-function Obstacle:init(obstacles)
-	self.position = ccp(tonumber(obstacles["x"]) / 32, tonumber(obstacles["y"]) / 32)
-	self.width = tonumber(obstacles["width"] / 32)
-	self.height = tonumber(obstacles["height"] / 32)
-	self.allowLeft = tonumber(obstacles["allowLeft"]) == 1
-	self.allowRight = tonumber(obstacles["allowRight"]) == 1
-	self.allowUp = tonumber(obstacles["allowUp"]) == 1
-	self.allowDown = tonumber(obstacles["allowDown"]) == 1
-	self.shouldBeCovered = tonumber(obstacles["shouldBeCovered"]) == 1
-	self.responseId = tonumber(obstacles["responseId"])
+function Obstacle:initWithInfo(obstacleInfo)
+	self.position = ccp(tonumber(obstacleInfo["x"]) / 32, tonumber(obstacleInfo["y"]) / 32)
+	self.width = tonumber(obstacleInfo["width"] / 32)
+	self.height = tonumber(obstacleInfo["height"] / 32)
+	self.allowLeft = tonumber(obstacleInfo["allowLeft"]) == 1
+	self.allowRight = tonumber(obstacleInfo["allowRight"]) == 1
+	self.allowUp = tonumber(obstacleInfo["allowUp"]) == 1
+	self.allowDown = tonumber(obstacleInfo["allowDown"]) == 1
+	self.shouldBeCovered = tonumber(obstacleInfo["shouldBeCovered"]) == 1
+	self.responseId = tonumber(obstacleInfo["responseId"])
 end
 
 function Obstacle:canBeResponsed()
