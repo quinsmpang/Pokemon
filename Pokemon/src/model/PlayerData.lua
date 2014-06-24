@@ -6,14 +6,14 @@
 
 luaClass("PlayerData", psModel)
 
-PlayerData.id = nil				-- id
-PlayerData.gender = nil			-- 性别
-PlayerData.name = nil			-- 名字
-PlayerData.currentMapId = nil	-- 所在地图的id
-PlayerData.currentPosition = nil	-- 所在位置的坐标
-PlayerData.currentDirection	= nil	-- 当前面朝的方向
-PlayerData.lastStep = nil		-- 剧情发生到的step
-PlayerData.currentStep = nil	-- 当前正在发生的剧情step
+PlayerData.id = DBNULL				-- id
+PlayerData.gender = DBNULL			-- 性别
+PlayerData.name = DBNULL			-- 名字
+PlayerData.currentMapId = DBNULL	-- 所在地图的id
+PlayerData.currentPosition = DBNULL	-- 所在位置的坐标
+PlayerData.currentDirection	= DBNULL	-- 当前面朝的方向
+PlayerData.lastStep = DBNULL		-- 剧情发生到的step
+PlayerData.currentStep = DBNULL	-- 当前正在发生的剧情step
 
 -- const
 local NAMES = {
