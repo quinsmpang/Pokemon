@@ -56,6 +56,6 @@ function psModel:__createProxy()
 	setmetatable(proxy, mt)
 
 	-- remember that the proxy here doesn't have any members even if you add some to it, because all index operations
-	-- to this proxy object is exactly affecting the its real instance.
+	-- to this proxy object is exactly affecting its real instance.
 	return proxy
 end
