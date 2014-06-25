@@ -38,7 +38,7 @@ function psModel:__createProxy()
 	local instance = self
 	local proxy = {}
 	-- add a reference to the real object
-	proxy.__instance = instance
+	proxy.__model = instance
 	local mt = {
 		__index = function(_, key)
 			if type(instance[key]) ~= "function" and instance.updateFlag then

@@ -6,6 +6,7 @@
 
 luaClass("NPC", psModel)
 
+NPC.id = DBNULL
 NPC.position = DBNULL			-- npc位置
 NPC.direction = DBNULL			-- npc方向
 NPC.npcId = DBNULL				-- 对应的npc model id
@@ -26,6 +27,7 @@ function NPC:create(npcInfo)
 end
 
 function NPC:initWithInfo(npcInfo)
+	self.id = tonumber(npcInfo["id"])
 	self.position = ccp(tonumber(npcInfo["x"]) / 32, tonumber(npcInfo["y"]) / 32)
 	self.direction = tonumber(npcInfo["direction"])
 	self.npcId = tonumber(npcInfo["npcId"])

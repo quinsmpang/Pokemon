@@ -6,6 +6,9 @@
 
 class("TMXMapLayer", psGameLayer)
 
+require "src/view/map/HeroSprite"
+require "src/view/map/NpcSprite"
+
 TMXMapLayer.mapInfo = nil 		-- MapInfo model
 
 -- ui
@@ -13,9 +16,10 @@ TMXMapLayer.playerLayer = nil	-- player layer
 TMXMapLayer.npcLayer = nil		-- npc layer
 TMXMapLayer.main = nil			-- main layer
 TMXMapLayer.tops = nil			-- layer whose items can cover the player
+TMXMapLayer.hero = nil 			-- 玩家精灵
+TMXMapLayer.npcList = nil 		-- NPC sprite集合
 
 -- logic
-TMXMapLayer.npcList = nil 			-- NPC(NPC model)集合
 TMXMapLayer.obstacleList = nil		-- 障碍物(Obstacle model)集合
 TMXMapLayer.entranceList = nil		-- 入口出口(Entrance model)集合
 
@@ -74,8 +78,7 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 		for _, heroObj in ipairs(heroObjects) do
 			if tonumber(heroObj["step"]) == DataCenter.currentPlayerData.currentStep then
 				DataCenter.currentPlayerData.direction = tonumber(heroObj["direction"])
-				local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
-				local hero = cc.Sprite:createWithSpriteFrameName(heroFrameName)
+				local hero = HeroSprite:createWithModel(heroObj)
 				local pos = ccp(tonumber(heroObj["x"]), tonumber(heroObj["y"]))
 				DataCenter.currentPlayerData.currentPosition = ccp(tonumber(heroObj["x"]) / self.TILE_SIZE, tonumber(heroObj["y"]) / self.TILE_SIZE)
 				hero:setAnchorPoint(0, 0)
@@ -102,13 +105,11 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 		for _, npcObj in ipairs(npcObjects) do
 			if tonumber(npcObj["step"]) == DataCenter.currentPlayerData.currentStep or tonumber(npcObj["step"]) == 0 then
 				local npcModel = NPC:create(npcObj)
-				table.insert(self.npcList, npcModel)
-
-				local npcFrameName = "images/characters/" .. npcModel:getSpriteName() .. "_" .. npcModel:getDirectionString() .. "1.png"
-				local npc = cc.Sprite:createWithSpriteFrameName(npcFrameName)
+				local npc = NpcSprite:createWithModel(npcModel)
 				local npcPos = ccp(tonumber(npcObj["x"]), tonumber(npcObj["y"]))
 				npc:setAnchorPoint(0, 0)
 				npc:setPosition(npcPos)
+				table.insert(self.npcList, npc)
 				self.npcLayer:addChild(npc)
 			end
 		end

@@ -40,7 +40,9 @@ function Dialog:updateFromDB()
 			self.isQuestion = false
 		end
 		self.choices = string.split(data.choices, ";")
-		self.actionId = tonumber(data.actionId)
+		if data.actionId ~= DBNULL then
+			self.actionId = tonumber(data.actionId)
+		end
 	else
 		log("Dialog:updateFromDB failed, id [" .. self.id .. "] does not exist.")
 	end

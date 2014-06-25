@@ -9,7 +9,7 @@ NotifyEvents = {}
 -- 地图事件
 NotifyEvents.MapView = {}
 
--- 剧情结束后进入自由活动  DialogViewController通知, MapLayerController接收
-NotifyEvents.MapView.DialogEnded = "NotifyEvents.MapView.DialogEnded"
--- 地图切换完成  MapLayerController通知
-NotifyEvents.MapView.MapSwitchEnded = "NotifyEvents.MapView.MapSwitchEnded"
+-- 开始处理Action  DialogViewController通知, MapLayerController接收
+NotifyEvents.MapView.ActionBegan = "NotifyEvents.MapView.ActionBegan"
+-- Action处理完毕  MapLayerController通知，DialogViewController接收
+NotifyEvents.MapView.ActionEnded = "NotifyEvents.MapView.ActionEnded"

@@ -64,6 +64,7 @@ function GameLauncher:loadPublicModules()
     require "src/model/Entrance"
     require "src/model/NpcInfo"
     require "src/model/NPC"
+    require "src/model/ActionInfo"
 
     -- public data or utils
     require "src/utils/GameConfig"
@@ -74,6 +75,7 @@ function GameLauncher:loadPublicModules()
     require "src/utils/GameDBHelper"
     require "src/utils/DataCenter"
     require "src/utils/DialogPopHelper"
+    require "src/utils/ActionHelper"
 end
 
 function GameLauncher:loadPublicResources()

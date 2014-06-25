@@ -19,3 +19,11 @@ Enumerations.DIRECTIONS = {
 	DOWN = 3,
 	RIGHT = 4,
 }
+
+-- Action Type
+Enumerations.ACTION_TYPE = {
+	FADEOUT = 1,		-- 显示黑屏
+	FADEIN = 2,			-- 显示地图
+	WALKOUT = 3,		-- 移动并走出地图
+	FADEOUTIN = 4,		-- 立即更换地图
+}

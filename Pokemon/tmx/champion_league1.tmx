@@ -20,6 +20,7 @@
   <object name="npc1" x="192" y="160" width="32" height="32">
    <properties>
     <property name="direction" value="3"/>
+    <property name="id" value="1"/>
     <property name="npcId" value="1"/>
     <property name="responseId" value="-1"/>
     <property name="step" value="1"/>

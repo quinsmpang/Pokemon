@@ -41,3 +41,13 @@ function GameDBHelper:queryNpcInfoById(id)
 	end
 	return nil
 end
+
+------------------------ action_info ------------------------
+function GameDBHelper:queryActionInfoById(id)
+	local data = self.db:selectTableByConditionWithOneValue(GameConfig.ACTION_TABLE, "id", tostring(id))
+
+	if data then
+		return data[1]
+	end
+	return nil
+end

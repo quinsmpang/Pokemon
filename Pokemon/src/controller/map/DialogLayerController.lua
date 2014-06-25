@@ -11,6 +11,7 @@ DialogLayerController.resources = {
 	"images/dialog.pvr.ccz"
 }
 
+-- ui
 DialogLayerController.root = nil		-- root layer(pf.GameLayer)
 DialogLayerController.dialogWindow = nil	-- dialog window
 DialogLayerController.dialogLabel = nil		-- dialog text
@@ -19,7 +20,8 @@ DialogLayerController.dialogIndice = nil	-- indice for continuing talking
 -- logic 
 DialogLayerController.currentDialogId = nil		-- current dialog id
 DialogLayerController.currentDialogModel = nil
-DialogLayerController.isDialogInProcess = nil	-- whether the dialog is in action
+DialogLayerController.isDialogInProcess = nil	-- whether the dialog is in progress
+DialogLayerController.isUnderAction = nil		-- whether it's processing action
 
 -- const values
 DialogLayerController.DIALOG_WINDOW_SIZE = CCSizeMake(780, 100)
@@ -34,6 +36,7 @@ DialogLayerController.DIALOG_INDICE_POSITION = ccp(750, 10)
 function DialogLayerController:load()
 	log("DialogLayerController:load")
 	self:loadResources()
+	self:addObservers()
 
 	self:renderView()
 end
@@ -41,6 +44,7 @@ end
 function DialogLayerController:unload()
 	log("DialogLayerController:unload")
 	self:cleanResources()
+	self:removeObservers()
 end
 
 function DialogLayerController:loadResources()
@@ -53,6 +57,16 @@ end
 function DialogLayerController:cleanResources()
 	log("DialogLayerController:cleanResources")
 	LoadSpriteFrames(self.resources)
+end
+
+function DialogLayerController:addObservers()
+	log("DialogLayerController:addObservers")
+	Notifier:addObserver(NotifyEvents.MapView.ActionEnded, self, self.onActionEnded)
+end
+
+function DialogLayerController:removeObservers()
+	log("DialogLayerController:removeObservers")
+	Notifier:removeObserver(NotifyEvents.MapView.ActionEnded, self)
 end
 
 function DialogLayerController:renderView()
@@ -107,6 +121,7 @@ function DialogLayerController:renderView()
 	self.root:addChild(dialogIndice)
 
 	self.isDialogInProcess = false
+	self.isUnderAction = false
 	self.currentDialogId = 0
 
 	coreLayer:pushLayer(self.root)
@@ -145,11 +160,27 @@ end
 function DialogLayerController:generateNextDialog()
 	log("DialogLayerController:generateNextDialog")
 	log("current dialog id: " .. self.currentDialogId)
+	-- 执行action处理 如果有的话
+	if self.currentDialogModel and not self.isUnderAction then
+		if self.currentDialogModel.actionId ~= DBNULL then
+			local actionModel = ActionInfo:create(self.currentDialogModel.actionId)
+			ActionHelper:processAction(actionModel)
+			self.isUnderAction = true
+			self.root:setVisible(false)
+			Notifier:notify(NotifyEvents.MapView.ActionBegan, actionModel)
+			return
+		end
+	else
+		self.isUnderAction = false
+		self.root:setVisible(true)
+	end
+
 	self.dialogIndice:setVisible(false)
 	self.currentDialogId = self.currentDialogId + 1
 	local currentDialog = GameDBHelper:queryDialogById(self.currentDialogId)
 	local substrings = GenerateAllUTF8Substrings(currentDialog.dialog)
 	self.currentDialogModel = currentDialog
+	DataCenter.currentPlayerData.step = currentDialog.relatedStep
 
 	self.isDialogInProcess = true
 	self:showTextOneByOne(substrings, 1)
@@ -165,7 +196,7 @@ function DialogLayerController:showTextOneByOne(substrings, index)
 		self.isDialogInProcess = false
 		return
 	end
-	self.dialogLabel:setString(substrings[index])
+	self.dialogLabel:setString(self.currentDialogModel.speaker .. ": " .. substrings[index])
 	--[[ there is an issue, cc.CallFunc passes an default parameter which is the caller to the callback function
 	so use callfunc here would cause error!]]
 	-- local action = cc.Sequence:create(
@@ -174,4 +205,8 @@ function DialogLayerController:showTextOneByOne(substrings, index)
 	-- 	)
 	-- self.root:runAction(action)
 	CallFunctionAsync(self, self.showTextOneByOne, self.DIALOG_TEXT_DURATION, substrings, index + 1)
+end
+
+function DialogLayerController:onActionEnded()
+	self:generateNextDialog()
 end
