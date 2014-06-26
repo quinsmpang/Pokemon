@@ -73,9 +73,10 @@ end
 function CreateAnimation(frameName, frameCount, timeline)
 	local frames = {}
 	for i = 1, frameCount do
-		local frame = cc.SpriteFrameCache:getInstance():getSpriteFrameByName(frameName .. tostring(i))
+		local frame = cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName .. tostring(i) .. ".png")
 		table.insert(frames, frame)
 	end
+	table.insert(frames, cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName .. 1 .. ".png"))
 	local animation = cc.Animation:createWithSpriteFrames(frames, timeline)
 	local animate = cc.Animate:create(animation)
 

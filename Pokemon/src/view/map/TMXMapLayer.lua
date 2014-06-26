@@ -24,6 +24,7 @@ TMXMapLayer.obstacleList = nil		-- 障碍物(Obstacle model)集合
 TMXMapLayer.entranceList = nil		-- 入口出口(Entrance model)集合
 
 -- const
+TMXMapLayer.PLAYER_POS = ccp(384, 224)
 TMXMapLayer.TILE_SIZE = 32
 TMXMapLayer.ZORDER = {
 	MAIN = 0,
@@ -33,12 +34,13 @@ TMXMapLayer.ZORDER = {
 
 -- treat as static method
 function TMXMapLayer:createWithMapInfo(mapInfo, heroPos)
-	local mapLayer = TMXMapLayer:createWithTransitions(
-		cc.FadeIn:create(0.5),
-		cc.FadeIn:create(0.5),
-		cc.FadeOut:create(0.5),
-		cc.FadeOut:create(0.5)
-		)
+	-- local mapLayer = TMXMapLayer:createWithTransitions(
+	-- 	cc.FadeIn:create(0.5),
+	-- 	cc.FadeIn:create(0.5),
+	-- 	cc.FadeOut:create(0.5),
+	-- 	cc.FadeOut:create(0.5)
+	-- 	)
+	local mapLayer = TMXMapLayer:create()
 
 	mapLayer:initWithMapInfo(mapInfo, heroPos)
 
@@ -84,6 +86,7 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 				hero:setAnchorPoint(0, 0)
 				hero:setPosition(pos)
 				self.playerLayer:addChild(hero)
+				self.hero = hero
 				break
 			end
 		end
@@ -139,5 +142,33 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 			local entranceModel = Entrance:create(entranceObj)
 			table.insert(self.entranceList, entranceModel)
 		end
+	end
+
+	self:updatePlayerPosition()
+end
+
+-- 玩家需要显示在地图中间
+function TMXMapLayer:updatePlayerPosition()
+	local heroLocalPos = ccp(self.hero:getPosition())
+	local heroWorldPos = self.hero:convertToWorldSpace(POINT_ZERO)
+	local diffX = self.PLAYER_POS.x - heroWorldPos.x
+	local diffY = self.PLAYER_POS.y - heroWorldPos.y
+
+	local curPos = ccp(self:getPosition())
+	self:setPosition(curPos.x + diffX, curPos.y + diffY)
+end
+
+function TMXMapLayer:move(direction, speed)
+	self.hero:walk(direction)
+
+	-- 地图是反方向移动
+	if direction == Enumerations.DIRECTIONS.UP then
+		self:runAction(cc.MoveBy:create(speed, ccp(0, -self.TILE_SIZE)))
+	elseif direction == Enumerations.DIRECTIONS.DOWN then
+		self:runAction(cc.MoveBy:create(speed, ccp(0, self.TILE_SIZE)))
+	elseif direction == Enumerations.DIRECTIONS.LEFT then
+		self:runAction(cc.MoveBy:create(speed, ccp(self.TILE_SIZE, 0)))
+	elseif direction == Enumerations.DIRECTIONS.RIGHT then
+		self:runAction(cc.MoveBy:create(speed, ccp(-self.TILE_SIZE, 0)))
 	end
 end

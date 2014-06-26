@@ -47,21 +47,6 @@ function table.getTotalCount(table)
 	return count
 end
 
--- lock table, for synchronization
-function table.lock(table)
-	local mt = {
-		__newindex = function(_, key, value)
-			error("The table is locked, you can't insert any new data now.")
-		end
-	}
-	setmetatable(table, mt)
-end
-
--- unlock table
-function table.unlock(table)
-	setmetatable(table, nil)
-end
-
 -- concat strings with the specified character
 function table.join(table, joinChar)
 	if type(table) ~= "table" or type(joinChar) ~= "string" then

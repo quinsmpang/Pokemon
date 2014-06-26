@@ -74,7 +74,7 @@ function DialogLayerController:renderView()
 
 	local screenSize = cc.Director:getInstance():getWinSize()
 
-	self.root = psGameLayer:create()
+	self.root = cc.Layer:create()
 	local listener = cc.EventListenerTouchOneByOne:create()
 	listener:setSwallowTouches(true)
 	listener:registerScriptHandler(MakeScriptHandler(self, self.onLayerTouch), cc.Handler.EVENT_TOUCH_BEGAN)
@@ -122,9 +122,10 @@ function DialogLayerController:renderView()
 
 	self.isDialogInProcess = false
 	self.isUnderAction = false
-	self.currentDialogId = 0
+	self.currentDialogId = self.currentDialogId or 0
 
-	coreLayer:pushLayer(self.root)
+	--coreLayer:pushLayer(self.root)
+	self:getScene():addChild(self.root)
 
 	self:generateNextDialog()
 	--CallFunctionAsync(self, self.generateNextDialog, 2.5)
@@ -134,7 +135,7 @@ function DialogLayerController:onLayerTouch(touch, event)
 	log("DialogLayerController:onLayerTouch")
 	if self.isDialogInProcess then
 		self.isDialogInProcess = false
-		self.dialogLabel:setString(self.currentDialogModel.dialog)
+		self.dialogLabel:setString(self.currentDialogModel.speaker .. ": " .. self.currentDialogModel.dialog)
 		self.dialogIndice:setVisible(true)
 	else
 		GameVolumeHelper:playBtnClickSound()
@@ -148,7 +149,7 @@ function DialogLayerController:onKeyboardPressed(keyCode, event)
 		if self.isDialogInProcess then
 			self.isDialogInProcess = false
 			self.root:stopAllActions()
-			self.dialogLabel:setString(self.currentDialogModel.dialog)
+			self.dialogLabel:setString(self.currentDialogModel.speaker .. ": " .. self.currentDialogModel.dialog)
 			self.dialogIndice:setVisible(true)
 		else
 			GameVolumeHelper:playBtnClickSound()

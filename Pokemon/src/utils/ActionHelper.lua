@@ -7,7 +7,7 @@
 ActionHelper = {}
 
 function ActionHelper:processAction(actionModel)
-	log("ActionHelper:processAction", actionModel.handler)
+	log("ActionHelper:processAction", actionModel.handler, actionModel.params)
 	local actionHandler = actionModel.handler
 	local handler = self["action_" .. actionHandler]
 	assert(type(handler) == "function", "Unimplemented action handler in ActionHelper.")
@@ -15,6 +15,16 @@ function ActionHelper:processAction(actionModel)
 end
 
 -------------------------- Action 处理函数 --------------------------
-function ActionHelper:action_FadeOut()
+function ActionHelper:action_FadeOut(params)
 	
+end
+
+function ActionHelper:action_FadeIn(params)
+	local mapId = tonumber(params)
+	DataCenter.currentPlayerData.currentMapId = mapId
+end
+
+function ActionHelper:action_WalkOut(params)
+	params = string.split(params, ",")
+	local target = tonumber(params[1])
 end
