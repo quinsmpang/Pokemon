@@ -1,5 +1,3 @@
-require "Cocos2d"
-require "Cocos2dConstants"
 
 -- for CCLuaEngine traceback
 function __G__TRACKBACK__(msg)
@@ -44,6 +42,8 @@ function GameLauncher:init()
 end
 
 function GameLauncher:loadLuaFramework()
+    require "src/framework/Cocos2d"
+    require "src/framework/Cocos2dConstants"
     require "src/framework/luaClass"
     require "src/framework/class"
     require "src/framework/SystemExtensions"

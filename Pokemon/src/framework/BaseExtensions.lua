@@ -80,23 +80,29 @@ class("psSprite", {
 	})
 
 
--- Be accustomed to old functions
+----------- Be accustomed to old functions -----------
+
+-- Point
 function ccp(x, y)
-	return { x = x, y = y }
+	return cc.p(x, y)
 end
 
+-- Color3B
 function ccc3(r, g, b)
-	return { r = r, g = g, b = b }
+	return cc.c3b(r, g, b)
 end
 
-function ccc4(a, r, g, b)
-	return { a = a, r = r, g = g, b = b }
+-- Color4B
+function ccc4(r, g, b, a)
+	return cc.c4b(r, g, b, a)
 end
 
+-- Size
 function CCSizeMake(width, height)
-	return { width = width, height = height }
+	return cc.size(width, height)
 end
 
+-- Rect
 function CCRectMake(originX, originY, width, height)
 	return cc.rect(originX, originY, width, height)
 end
