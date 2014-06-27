@@ -49,10 +49,7 @@ end
 
 function MainViewController:cleanResources()
 	log("MainViewController:cleanResources")
-	for i = 1, #self.resources, 2 do
-		cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile(self.resources[i])
-	end
-	--cc.SpriteFrameCache:getInstance():removeSpriteFramesFromTexture("images/maintitle.pvr.ccz")
+	RemoveSpriteFrames(self.resources)
 end
 
 function MainViewController:renderView()

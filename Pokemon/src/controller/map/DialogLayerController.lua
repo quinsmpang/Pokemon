@@ -7,8 +7,6 @@
 class("DialogLayerController", psViewController)
 
 DialogLayerController.resources = {
-	"images/dialog.plist",
-	"images/dialog.pvr.ccz"
 }
 
 -- ui
@@ -49,14 +47,12 @@ end
 
 function DialogLayerController:loadResources()
 	log("DialogLayerController:loadResources")
-	for i = 1, #self.resources, 2 do
-		cc.SpriteFrameCache:getInstance():addSpriteFrames(self.resources[i], self.resources[i + 1])
-	end
+	LoadSpriteFrames(self.resources)
 end
 
 function DialogLayerController:cleanResources()
 	log("DialogLayerController:cleanResources")
-	LoadSpriteFrames(self.resources)
+	RemoveSpriteFrames(self.resources)
 end
 
 function DialogLayerController:addObservers()
@@ -106,7 +102,7 @@ function DialogLayerController:renderView()
 	self.root:addChild(dialogLabel)
 
 	-- dialog indice
-	local dialogIndice = cc.Sprite:createWithSpriteFrameName("images/dialog/dialog_indice.png")
+	local dialogIndice = cc.Sprite:createWithSpriteFrameName("images/map/dialog_indice.png")
 	dialogIndice:setAnchorPoint(ccp(0, 0))
 	dialogIndice:setPosition(self.DIALOG_INDICE_POSITION)
 	dialogIndice:setVisible(false)

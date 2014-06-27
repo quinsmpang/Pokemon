@@ -39,9 +39,7 @@ function MapLayerController:loadResources()
 end
 
 function MapLayerController:cleanResources()
-	for i = 1, #self.resources, 2 do
-		cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile(self.resources[i])
-	end
+	RemoveSpriteFrames(self.resources)
 end
 
 function MapLayerController:addObservers()

@@ -89,3 +89,11 @@ function LoadSpriteFrames(frames)
 		cc.SpriteFrameCache:getInstance():addSpriteFrames(frames[i], frames[i + 1])
 	end
 end
+
+-- remove frames
+function RemoveSpriteFrames(frames)	
+	for i = 1, #frames, 2 do
+		cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile(frames[i])
+		cc.SpriteFrameCache:getInstance():removeSpriteFramesFromTexture(frames[i + 1])
+	end
+end
