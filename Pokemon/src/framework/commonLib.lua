@@ -70,13 +70,15 @@ function GenerateAllUTF8Substrings(text)
 end
 
 -- create frame animation
-function CreateAnimation(frameName, frameCount, timeline)
+function CreateAnimation(frameName, frameCount, timeline, seperator)
+	seperator = seperator or ""
+
 	local frames = {}
 	for i = 1, frameCount do
-		local frame = cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName .. tostring(i) .. ".png")
+		local frame = cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName .. seperator .. tostring(i) .. ".png")
 		table.insert(frames, frame)
 	end
-	table.insert(frames, cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName .. 1 .. ".png"))
+	table.insert(frames, cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName .. seperator .. 1 .. ".png"))
 	local animation = cc.Animation:createWithSpriteFrames(frames, timeline)
 	local animate = cc.Animate:create(animation)
 
