@@ -5,6 +5,7 @@
 #include <errno.h>
 #include <direct.h>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -26,7 +27,17 @@ namespace framework
 	{
 	}
 
-	bool IOUtils::fileOrDirectoryExist(const std::string &path)
+	bool IOUtils::fileExists(const std::string &path)
+	{
+		fstream file;
+		file.open(path, ios::in);
+		bool exist = file;
+		file.close();
+
+		return exist;
+	}
+
+	bool IOUtils::directoryExists(const std::string &path)
 	{
 		return _access(path.c_str(), 0) != -1;
 	}
@@ -34,6 +45,24 @@ namespace framework
 	bool IOUtils::moveFile(const std::string &oldPath, const std::string &newPath)
 	{
 		return rename(oldPath.c_str(), newPath.c_str()) == 0;
+	}
+
+	bool IOUtils::copyFile(const std::string &oldPath, const std::string &newPath)
+	{
+		ifstream in;
+		ofstream out;
+		in.open(oldPath, ios::binary);		// open source file
+		if (in.fail())
+		{
+			printf("Failed to open the source file.");
+			in.close();
+			out.close();
+			return false;
+		}
+		out << in.rdbuf();
+		out.close();
+		in.close();
+		return true;
 	}
 
 	bool IOUtils::writeDataToFile(const unsigned char *content, unsigned long length, const std::string &filePath, bool isAppend)

@@ -17,11 +17,17 @@ namespace framework
 	public:
 		static IOUtils *getInstance();
 
-		// Judge whether the file or directory of specific name does exist.
-		bool fileOrDirectoryExist(const std::string &path);
+		// Judge whether the file does exist.
+		bool fileExists(const std::string &path);
+
+		// Judge whether the directory does exist.
+		bool directoryExists(const std::string &path);
 
 		// Move file from one path to another path, which can be also used to rename a file.
 		bool moveFile(const std::string &oldPath, const std::string &newPath);
+
+		// Copy file from one path to another path
+		bool copyFile(const std::string &oldPath, const std::string &newPath);
 
 		// Write data to file
 		bool writeDataToFile(const unsigned char *content, unsigned long length, const std::string &filePath, bool isAppend = false);
