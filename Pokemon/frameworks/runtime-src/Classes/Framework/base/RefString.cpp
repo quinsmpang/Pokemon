@@ -18,7 +18,7 @@ namespace framework
 	{
 	}
 
-	const char *RefString::getCString()
+	const char *RefString::getCString() const
 	{
 		return _str.c_str();
 	}

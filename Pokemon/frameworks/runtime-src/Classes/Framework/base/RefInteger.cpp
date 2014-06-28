@@ -17,7 +17,7 @@ namespace framework
 	{
 	}
 
-	int RefInteger::getNumber()
+	int RefInteger::getNumber() const
 	{
 		return _num;
 	}

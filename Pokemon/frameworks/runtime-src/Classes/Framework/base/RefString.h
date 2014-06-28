@@ -18,7 +18,7 @@ namespace framework
 		static RefString *create(const std::string &str);
 
 		explicit RefString(const std::string &str);
-		const char *getCString();
+		const char *getCString() const;
 
 	private:
 		std::string _str;

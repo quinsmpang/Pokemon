@@ -21,12 +21,11 @@ if targetPlatform == cc.PLATFORM_OS_WIN32 then
 	GameSettings.startKey = nil
 end
 
-local CONFIG_PATH = "config"
-
 function GameSettings:loadSettings()
 	log("GameSettings:loadSettings")
 
-	if not cc.FileUtils:getInstance():isFileExist(CONFIG_PATH) then
+	if not IOUtils:getInstance():fileExists(GameConfig.CONFIG_PATH) then
+		log("config file doesn't exist, init default settings.")
 		self.musicVolume = 0.5
 		self.effectVolume = 0.5
 
@@ -40,7 +39,8 @@ function GameSettings:loadSettings()
 			self.startKey = cc.KeyCode.KEY_KP_ENTER
 		end
 	else
-		local result = RecordHelperLua:getTableFromRecord(CONFIG_PATH)
+		log("config file found, load settings.")
+		local result = RecordHelperLua:getTableFromRecord(GameConfig.CONFIG_PATH)
 
 		self.musicVolume = tonumber(result["musicVolume"])
 		self.effectVolume = tonumber(result["effectVolume"])
@@ -77,7 +77,12 @@ function GameSettings:saveSettings()
 	if targetPlatform == cc.PLATFORM_OS_WIN32 then
 		self:updateKeys()
 	end
-	RecordHelperLua:recordTable(CONFIG_PATH, self)
+	RecordHelperLua:recordTable(GameConfig.CONFIG_PATH, self)
+
+	-- copy config file
+	if DEBUG then
+		IOUtils:getInstance():copyFile(GameConfig.CONFIG_PATH, "../../tools/DBImportTool/config")
+	end
 end
 
 function GameSettings:updateKeys()

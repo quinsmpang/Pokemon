@@ -17,7 +17,7 @@ namespace framework
 		static RefInteger *create(int number = 0);
 
 		explicit RefInteger(int number);
-		int getNumber();
+		int getNumber() const;
 
 	private:
 		int _num;

@@ -10,6 +10,7 @@ Date: 4/18/2014
 #include "cocos2d.h"
 #include "ViewController.h"
 #include "../ui/CoreLayer.h"
+#include "../containers/Map.h"
 
 namespace framework
 {
@@ -19,7 +20,7 @@ namespace framework
 	public:
 		CREATE_FUNC(GameScene);
 
-		static GameScene *create(cocos2d::__Dictionary *paramsMap);
+		static GameScene *create(Map *paramsMap);
 
 		virtual ~GameScene();
 
@@ -50,15 +51,15 @@ namespace framework
 
 		void putRefAttribute(const std::string &key, cocos2d::Ref *value);
 
-		bool getBoolAttribute(const std::string &key);
+		bool getBoolAttribute(const std::string &key) const;
 
-		int getIntAttribute(const std::string &key);
+		int getIntAttribute(const std::string &key) const;
 
-		double getDoubleAttribute(const std::string &key);
+		double getDoubleAttribute(const std::string &key) const;
 
-		const char *getStringAttribute(const std::string &key);
+		const char *getStringAttribute(const std::string &key) const;
 
-		cocos2d::Ref *getRefAttribute(const std::string &key);
+		cocos2d::Ref *getRefAttribute(const std::string &key) const;
 
 		void loadViewController(ViewController *viewController);
 
@@ -68,7 +69,7 @@ namespace framework
 	protected:
 		GameScene();
 
-		cocos2d::__Dictionary *_paramsMap;
+		Map *_paramsMap;
 		cocos2d::Vector<ViewController*> *_viewControllers;
 		CoreLayer *_coreLayer;
 	};

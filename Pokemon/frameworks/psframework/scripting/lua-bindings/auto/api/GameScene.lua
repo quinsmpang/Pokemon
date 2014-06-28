@@ -93,13 +93,13 @@
 -- @return char#char ret (return value: char)
         
 --------------------------------
--- overload function: create(cc.__Dictionary)
+-- overload function: create(pf.Map)
 --          
 -- overload function: create()
 --          
 -- @function [parent=#GameScene] create
 -- @param self
--- @param #cc.__Dictionary __dictionary
+-- @param #pf.Map map
 -- @return GameScene#GameScene ret (retunr value: pf.GameScene)
 
 --------------------------------

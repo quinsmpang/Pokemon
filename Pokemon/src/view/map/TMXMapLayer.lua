@@ -184,6 +184,7 @@ end
 function TMXMapLayer:setInstructions(instructions)
 	if type(instructions) == "table" then
 		self.instructions = Queue:create()
+	end
 end
 
 function TMXMapLayer:heroWalkWithInstructions(instructions)

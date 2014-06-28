@@ -24,14 +24,13 @@ namespace framework
 		}
 	}
 
-	GameScene *GameScene::create(cocos2d::__Dictionary *paramsMap)
+	GameScene *GameScene::create(Map *paramsMap)
 	{
 		auto pScene = GameScene::create();
 		paramsMap->retain();
 		if (pScene->_paramsMap)
 		{
-			pScene->release();
-			pScene = nullptr;
+			pScene->_paramsMap->release();
 		}
 		pScene->_paramsMap = paramsMap;
 
@@ -45,9 +44,9 @@ namespace framework
 			return false;
 		}
 
-		this->_paramsMap = __Dictionary::create();
+		this->_paramsMap = Map::create();
 		this->_paramsMap->retain();
-		this->_viewControllers = new Vector<ViewController*>();
+		this->_viewControllers = new cocos2d::Vector<ViewController*>();
 
 		return true;
 	}
@@ -73,7 +72,7 @@ namespace framework
 #if CC_ENABLE_SCRIPT_BINDING
 		if (_scriptType == kScriptTypeLua)
 		{
-			LuaUtils::getInstance()->executePeertableFunction(this, "onEnter", Vector<Ref*>(), Vector<Ref*>(), false);
+			LuaUtils::getInstance()->executePeertableFunction(this, "onEnter", cocos2d::Vector<Ref*>(), cocos2d::Vector<Ref*>(), false);
 		}
 #endif
 	}
@@ -83,7 +82,7 @@ namespace framework
 #if CC_ENABLE_SCRIPT_BINDING
 		if (_scriptType == kScriptTypeLua)
 		{
-			LuaUtils::getInstance()->executePeertableFunction(this, "onExit", Vector<Ref*>(), Vector<Ref*>(), false);
+			LuaUtils::getInstance()->executePeertableFunction(this, "onExit", cocos2d::Vector<Ref*>(), cocos2d::Vector<Ref*>(), false);
 		}
 #endif
 
@@ -99,49 +98,49 @@ namespace framework
 #if CC_ENABLE_SCRIPT_BINDING
 		if (_scriptType == kScriptTypeLua)
 		{
-			LuaUtils::getInstance()->executePeertableFunction(this, "onEnterTransitionDidFinish", Vector<Ref*>(), Vector<Ref*>(), false);
+			LuaUtils::getInstance()->executePeertableFunction(this, "onEnterTransitionDidFinish", cocos2d::Vector<Ref*>(), cocos2d::Vector<Ref*>(), false);
 		}
 #endif
 	}
 
 	void GameScene::onExitTransitionDidStart()
 	{
-		Scene::onExitTransitionDidStart();
-
 #if CC_ENABLE_SCRIPT_BINDING
 		if (_scriptType == kScriptTypeLua)
 		{
-			LuaUtils::getInstance()->executePeertableFunction(this, "onExitTransitionDidStart", Vector<Ref*>(), Vector<Ref*>(), false);
+			LuaUtils::getInstance()->executePeertableFunction(this, "onExitTransitionDidStart", cocos2d::Vector<Ref*>(), cocos2d::Vector<Ref*>(), false);
 		}
 #endif
+		
+		Scene::onExitTransitionDidStart();
 	}
 
 	void GameScene::putBoolAttribute(const std::string &key, bool value)
 	{
-		this->_paramsMap->setObject(__Bool::create(value), key);
+		this->_paramsMap->setObjectForKey(__Bool::create(value), key);
 	}
 
 	void GameScene::putIntAttribute(const std::string &key, int value)
 	{
-		this->_paramsMap->setObject(__Integer::create(value), key);
+		this->_paramsMap->setObjectForKey(__Integer::create(value), key);
 	}
 
 	void GameScene::putDoubleAttribute(const std::string &key, double value)
 	{
-		this->_paramsMap->setObject(__Double::create(value), key);
+		this->_paramsMap->setObjectForKey(__Double::create(value), key);
 	}
 
 	void GameScene::putStringAttribute(const std::string &key, const std::string &value)
 	{
-		this->_paramsMap->setObject(__String::create(value), key);
+		this->_paramsMap->setObjectForKey(__String::create(value), key);
 	}
 
 	void GameScene::putRefAttribute(const std::string &key, Ref *value)
 	{
-		this->_paramsMap->setObject(value, key);
+		this->_paramsMap->setObjectForKey(value, key);
 	}
 
-	bool GameScene::getBoolAttribute(const std::string &key)
+	bool GameScene::getBoolAttribute(const std::string &key) const
 	{
 		Ref *value = this->getRefAttribute(key);
 		__Bool *boolValue = dynamic_cast<__Bool*>(value);
@@ -153,7 +152,7 @@ namespace framework
 		return false;
 	}
 
-	int GameScene::getIntAttribute(const std::string &key)
+	int GameScene::getIntAttribute(const std::string &key) const
 	{
 		Ref *value = this->getRefAttribute(key);
 		__Integer *intValue = dynamic_cast<__Integer*>(value);
@@ -165,7 +164,7 @@ namespace framework
 		return 0;
 	}
 
-	double GameScene::getDoubleAttribute(const std::string &key)
+	double GameScene::getDoubleAttribute(const std::string &key) const
 	{
 		Ref *value = this->getRefAttribute(key);
 		__Double *doubleValue = dynamic_cast<__Double*>(value);
@@ -177,7 +176,7 @@ namespace framework
 		return 0;
 	}
 
-	const char *GameScene::getStringAttribute(const std::string &key)
+	const char *GameScene::getStringAttribute(const std::string &key) const
 	{
 		Ref *value = this->getRefAttribute(key);
 		__String *strValue = dynamic_cast<__String*>(value);
@@ -189,7 +188,7 @@ namespace framework
 		return nullptr;
 	}
 
-	Ref *GameScene::getRefAttribute(const std::string &key)
+	Ref *GameScene::getRefAttribute(const std::string &key) const
 	{
 		return this->_paramsMap->objectForKey(key);
 	}

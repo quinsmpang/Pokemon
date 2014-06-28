@@ -31,7 +31,11 @@ namespace framework
 	{
 		fstream file;
 		file.open(path, ios::in);
-		bool exist = file;
+		bool exist = false;
+		if (file)
+		{
+			exist = true;
+		}
 		file.close();
 
 		return exist;
@@ -57,6 +61,14 @@ namespace framework
 			printf("Failed to open the source file.");
 			in.close();
 			out.close();
+			return false;
+		}
+		out.open(newPath, ios::binary);
+		if (out.fail())
+		{
+			printf("Failed to create the target file.");
+			out.close();
+			in.close();
 			return false;
 		}
 		out << in.rdbuf();

@@ -162,6 +162,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\Framework\base\RefBoolean.h" />
     <ClInclude Include="..\Classes\Framework\base\RefDouble.h" />
     <ClInclude Include="..\Classes\Framework\base\RefInteger.h" />
     <ClInclude Include="..\Classes\Framework\base\RefString.h" />
@@ -197,6 +198,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\Framework\base\RefBoolean.cpp" />
     <ClCompile Include="..\Classes\Framework\base\RefDouble.cpp" />
     <ClCompile Include="..\Classes\Framework\base\RefInteger.cpp" />
     <ClCompile Include="..\Classes\Framework\base\RefString.cpp" />

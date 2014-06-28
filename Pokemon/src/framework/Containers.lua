@@ -8,7 +8,7 @@
 luaClass("IContainer")
 
 function IContainer:size()
-	assert(false, )
+	assert(false, "")
 end
 
 luaClass("LinkedList")

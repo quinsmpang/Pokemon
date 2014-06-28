@@ -17,7 +17,7 @@ namespace framework
 	{
 	}
 
-	double RefDouble::getNumber()
+	double RefDouble::getNumber() const
 	{
 		return _num;
 	}

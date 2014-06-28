@@ -17,7 +17,7 @@ namespace framework
 		static RefDouble *create(double number);
 
 		explicit RefDouble(double number);
-		double getNumber();
+		double getNumber() const;
 
 	private:
 		double _num;
