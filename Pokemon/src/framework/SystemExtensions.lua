@@ -5,7 +5,9 @@
 ]]
 
 function log(...)
-	print(os.date("%X"), unpack{...})
+	if DEBUG then
+		print(os.date("%X"), unpack{...})
+	end
 end
 
 -- Copy k-v from source table to the target table.
