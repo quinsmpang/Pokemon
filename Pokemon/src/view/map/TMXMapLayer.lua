@@ -34,7 +34,7 @@ TMXMapLayer.ZORDER = {
 }
 
 -- treat as static method
-function TMXMapLayer:createWithMapInfo(mapInfo, heroPos)
+function TMXMapLayer:createWithMapInfo(mapInfo)
 	-- local mapLayer = TMXMapLayer:createWithTransitions(
 	-- 	cc.FadeIn:create(0.5),
 	-- 	cc.FadeIn:create(0.5),
@@ -43,7 +43,7 @@ function TMXMapLayer:createWithMapInfo(mapInfo, heroPos)
 	-- 	)
 	local mapLayer = TMXMapLayer:create()
 
-	mapLayer:initWithMapInfo(mapInfo, heroPos)
+	mapLayer:initWithMapInfo(mapInfo)
 
 	return mapLayer
 end
@@ -160,6 +160,7 @@ function TMXMapLayer:updatePlayerPosition()
 end
 
 function TMXMapLayer:heroWalk(direction)
+	log("TMXMapLayer:heroWalk [" .. direction .. "]")
 	local heroAction = self.hero:getWalkAction(direction)
 
 	-- 地图是反方向移动
@@ -178,24 +179,70 @@ function TMXMapLayer:heroWalk(direction)
 		cc.TargetedAction:create(self.hero, heroAction), 
 		mapAction
 		)
+
+	self:runAction(action)
+end
+
+function TMXMapLayer:heroWalkWithInstructions(sender, direction)
+	log("TMXMapLayer:heroWalkWithInstructions [" .. direction .. "]")
+
+	local action = nil
+
+	local heroAction = self.hero:getWalkAction(direction)
+
+	-- 地图是反方向移动
+	local mapAction = nil
+	if direction == Enumerations.DIRECTIONS.UP then
+		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(0, -self.TILE_SIZE))
+	elseif direction == Enumerations.DIRECTIONS.DOWN then
+		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(0, self.TILE_SIZE))
+	elseif direction == Enumerations.DIRECTIONS.LEFT then
+		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(self.TILE_SIZE, 0))
+	elseif direction == Enumerations.DIRECTIONS.RIGHT then
+		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(-self.TILE_SIZE, 0))
+	end
+
+	action = cc.Spawn:create(
+		cc.TargetedAction:create(self.hero, heroAction), 
+		mapAction
+		)
+
+	-- 判断是否拥有下一个指令
+	if type(self.instructions) == "table" and self.instructions:count() > 0 then
+		local ins = self.instructions:front().data
+		log("instructions found, execute next instruction.", ins[1], ins[2])
+		local dir = ins[1]
+		if ins[2] > 0 then
+			ins[2] = ins[2] - 1
+			if ins[2] <= 0 then
+				-- 步数为0后，出队列
+				self.instructions:dequeue()
+				-- 如果队列为空，则将指令置空
+				if self.instructions:empty() then
+					self.instructions = nil
+				end
+			end
+			action = cc.Sequence:create(
+				action,
+				cc.CallFunc:create(MakeScriptHandler(self, self.heroWalkWithInstructions, dir))
+				)
+		end
+	else
+		-- 指令执行完毕的话，通知MapLayerController
+		action = cc.Sequence:create(
+			action, 
+			cc.CallFunc:create(MakeScriptHandler(self, self.onHeroWalkInstructionsEnd))
+			)
+	end
+
+	self:runAction(action)
 end
 
 -- instruction { direction, steps }
 function TMXMapLayer:setInstructions(instructions)
-	if type(instructions) == "table" then
-		self.instructions = Queue:create()
-	end
+	self.instructions = instructions
 end
 
-function TMXMapLayer:heroWalkWithInstructions(instructions)
-	if instructions then
-		self.instructions = instructions
-	end
-
-	if type(self.instructions) == "table" and #self.instructions > 0 then
-		for _, ins in ipairs(self.instructions) do
-			local dir = ins[1]
-			local steps = ins[2]
-		end
-	end
+function TMXMapLayer:onHeroWalkInstructionsEnd()
+	Notifier:notify(NotifyEvents.MapView.ActionInstructionsEnded)
 end

@@ -61,6 +61,7 @@ function GameLauncher:loadLuaFramework()
     require "src/framework/SqliteLua"
     require "src/framework/psModel"
     require "src/framework/RecordHelperLua"
+    require "src/framework/Containers"
 end
 
 function GameLauncher:loadPublicModules()

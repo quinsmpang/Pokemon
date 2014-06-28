@@ -14,7 +14,7 @@ function luaClass(className, super)
 
 	setmetatable(class, super)
 
-	if not class.super then
+	if not class.__super then
 		-- to create object.
 		function class:new()
 			local instance = self:__ctor()

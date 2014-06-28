@@ -128,6 +128,9 @@ function DialogLayerController:renderView()
 end
 
 function DialogLayerController:onLayerTouch(touch, event)
+	if self.isUnderAction then
+		return
+	end
 	log("DialogLayerController:onLayerTouch")
 	if self.isDialogInProcess then
 		self.isDialogInProcess = false
@@ -140,6 +143,9 @@ function DialogLayerController:onLayerTouch(touch, event)
 end
 
 function DialogLayerController:onKeyboardPressed(keyCode, event)
+	if self.isUnderAction then
+		return
+	end
 	log("DialogLayerController:onKeyboardPressed")
 	if keyCode == GameSettings.confirmKey or keyCode == GameSettings.cancelKey then
 		if self.isDialogInProcess then
