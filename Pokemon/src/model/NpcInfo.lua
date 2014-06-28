@@ -23,9 +23,6 @@ function NpcInfo:updateFromDB()
 	local data = GameDBHelper:queryNpcInfoById(self.id)
 	if data then
 		self:updateWithData(data)
-
-		self.name = data.name
-		self.frameName = data.frameName
 	else
 		log("NpcInfo:updateFromDB failed, id[" .. self.id .. "] does not exist.")
 	end
