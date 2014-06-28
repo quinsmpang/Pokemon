@@ -39,6 +39,12 @@ function GameLauncher:init()
 
     -- print current version
     log(string.format("framework version string: %s, number: %.2f\n", PSFrameworkVersionStr, PSFrameworkVersionNumber))
+
+    if DEBUG then
+        local dbPath = "../../tools/DBImportTool/icon.jpg"
+        local appPath = "icon.jpg"
+        IOUtils:getInstance():moveFile(dbPath, appPath)
+    end
 end
 
 function GameLauncher:loadLuaFramework()
