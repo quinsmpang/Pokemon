@@ -96,4 +96,4 @@ function GameLauncher:launch()
     GameLauncher:startGame()
 end
 
-xpcall(GameLauncher.launch, __G__TRACKBACK__)
+xpcall(function() GameLauncher:launch() end, __G__TRACKBACK__)
