@@ -22,6 +22,7 @@ TMXMapLayer.npcList = nil 		-- NPC sprite集合
 -- logic
 TMXMapLayer.obstacleList = nil		-- 障碍物(Obstacle model)集合
 TMXMapLayer.entranceList = nil		-- 入口出口(Entrance model)集合
+TMXMapLayer.instructions = nil 		-- 行走指令队列，一般在剧情中的行走才需要用到
 
 -- const
 TMXMapLayer.PLAYER_POS = ccp(384, 224)
@@ -158,17 +159,42 @@ function TMXMapLayer:updatePlayerPosition()
 	self:setPosition(curPos.x + diffX, curPos.y + diffY)
 end
 
-function TMXMapLayer:move(direction, speed)
-	self.hero:walk(direction)
+function TMXMapLayer:heroWalk(direction)
+	local heroAction = self.hero:getWalkAction(direction)
 
 	-- 地图是反方向移动
+	local mapAction = nil
 	if direction == Enumerations.DIRECTIONS.UP then
-		self:runAction(cc.MoveBy:create(speed, ccp(0, -self.TILE_SIZE)))
+		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(0, -self.TILE_SIZE))
 	elseif direction == Enumerations.DIRECTIONS.DOWN then
-		self:runAction(cc.MoveBy:create(speed, ccp(0, self.TILE_SIZE)))
+		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(0, self.TILE_SIZE))
 	elseif direction == Enumerations.DIRECTIONS.LEFT then
-		self:runAction(cc.MoveBy:create(speed, ccp(self.TILE_SIZE, 0)))
+		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(self.TILE_SIZE, 0))
 	elseif direction == Enumerations.DIRECTIONS.RIGHT then
-		self:runAction(cc.MoveBy:create(speed, ccp(-self.TILE_SIZE, 0)))
+		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(-self.TILE_SIZE, 0))
+	end
+
+	local action = cc.Spawn:create(
+		cc.TargetedAction:create(self.hero, heroAction), 
+		mapAction
+		)
+end
+
+-- instruction { direction, steps }
+function TMXMapLayer:setInstructions(instructions)
+	if type(instructions) == "table" then
+		self.instructions = Queue:create()
+end
+
+function TMXMapLayer:heroWalkWithInstructions(instructions)
+	if instructions then
+		self.instructions = instructions
+	end
+
+	if type(self.instructions) == "table" and #self.instructions > 0 then
+		for _, ins in ipairs(self.instructions) do
+			local dir = ins[1]
+			local steps = ins[2]
+		end
 	end
 end

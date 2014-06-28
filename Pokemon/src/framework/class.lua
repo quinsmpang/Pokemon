@@ -12,7 +12,7 @@ function class(className, super)
 	local cls = {}
 	cls.__index = cls
 
-	cls.className = className
+	cls.__className = className
 
 	-- super class is created by this method
 	if super.__ctype == 1 then
@@ -21,7 +21,7 @@ function class(className, super)
 	else	-- super is a table with create methods
 		-- indice this class is a cpp subclass
 		cls.__ctype = 1
-		-- to keep instances from gc
+		-- keep instances
 		cls.instanceList = {}
 
 		-- constructor
@@ -46,6 +46,21 @@ function class(className, super)
 
 				return cppInstance
 			end
+		end
+
+		-- invoke origin methods of the cpp class
+		function cls:callOrigin(functionName, ...)
+			-- get peertable of the instance
+			local peertable = tolua.getpeer(self)
+
+			-- clear the peertable so that the instance could invoke the origin functions.
+			tolua.setpeer(self, nil)
+
+			-- invoke origin function
+			self[functionName](self, unpack{...})
+
+			-- restore the peertable
+			tolua.setpeer(self, peertable)
 		end
 	end
 

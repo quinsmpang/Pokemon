@@ -30,7 +30,7 @@ Notifier = {}
 Notifier.observerMap = {}		-- observer map
 
 function Notifier:addObserver(event, sender, callback, ...)
-	log("Notifier:addObserver", event, sender.className)
+	log("Notifier:addObserver", event, sender.__className)
 	local observer = Observer:new()
 	observer.sender = sender
 	observer.callback = callback
@@ -43,7 +43,7 @@ function Notifier:addObserver(event, sender, callback, ...)
 end
 
 function Notifier:removeObserver(event, sender)
-	log("Notifier:removeObserver", event, sender.className)
+	log("Notifier:removeObserver", event, sender.__className)
 	if not self.observerMap[event] then
 		return
 	end

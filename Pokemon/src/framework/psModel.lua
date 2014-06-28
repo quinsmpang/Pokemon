@@ -18,7 +18,7 @@ psModel.updateTimes = 0
 -- constructor
 function psModel:new()
 	local instance = self:__ctor()
-	log("psModel new [" .. self.className .. "]")
+	log("psModel new [" .. self.__className .. "]")
 	return instance:__createProxy()
 end
 

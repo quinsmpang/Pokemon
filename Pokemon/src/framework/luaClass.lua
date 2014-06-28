@@ -8,9 +8,9 @@ function luaClass(className, super)
 	local class = {}
 	class.__index = class
 
-	class.className = className
+	class.__className = className
 	-- super class
-	class.super = super
+	class.__super = super
 
 	setmetatable(class, super)
 
@@ -18,23 +18,23 @@ function luaClass(className, super)
 		-- to create object.
 		function class:new()
 			local instance = self:__ctor()
-			log("luaclass new [" .. self.className .. "]")
+			log("luaclass new [" .. self.__className .. "]")
 			return instance
 		end
 
 		-- real constructor, don't call this outside.
 		function class:__ctor()
 			local instance = nil
-			if self.super then
+			if self.__super then
 				-- only call the first super class constructor
-				instance = self.super:__ctor()
+				instance = self.__super:__ctor()
 			else
 				instance = {}
 			end
 
 			setmetatable(instance, self)
 			-- set template pointer
-			instance.class = self
+			instance.__class = self
 			-- set class template
 			instance:init()
 
