@@ -22,7 +22,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>collection.pvr.ccz</filename>
+        <filename>pokemons.pvr.ccz</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -40,7 +40,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -50,7 +50,7 @@
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">pvr2ccz</enum>
         <key>borderPadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -99,7 +99,7 @@
             <key>packageName</key>
             <string>Texture</string>
             <key>javaFileName</key>
-            <filename>collection.java</filename>
+            <filename>pokemons.java</filename>
             <key>wrap</key>
             <struct type="AndEngineWrap">
                 <key>s</key>
@@ -111,7 +111,7 @@
             <enum type="AndEngine::MagFilter">MagLinear</enum>
         </struct>
         <key>dataFileName</key>
-        <filename>collection.plist</filename>
+        <filename>pokemons.plist</filename>
         <key>multiPack</key>
         <false/>
         <key>mainExtension</key>
@@ -123,7 +123,7 @@
         <key>contentProtection</key>
         <struct type="ContentProtection">
             <key>key</key>
-            <string></string>
+            <string>33b495bcb090291ccb5aaa689a516406</string>
         </struct>
         <key>autoAliasEnabled</key>
         <true/>
@@ -148,7 +148,7 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>collection</filename>
+            <filename>pokemons</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

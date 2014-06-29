@@ -8,6 +8,7 @@ require "src/view/map/MapViewScene"
 require "src/view/maintitle/SettingsLayer"
 require "src/view/maintitle/KeysetLayer"
 require "src/view/maintitle/GenderChooseLayer"
+require "src/view/collection/CollectionScene"
 
 class("MainMenu", psLayer)
 
@@ -151,6 +152,9 @@ end
 function MainMenu:onBtnLoadGameClicked()
 	log("MainMenu:onBtnLoadGameClicked")
 	GameVolumeHelper:playBtnClickSound()
+
+	local collectionScene = CollectionScene:create()
+	cc.Director:getInstance():replaceScene(cc.TransitionFade:create(2, collectionScene, ccc3(0, 0, 0)))
 end
 
 function MainMenu:onBtnSettingsClicked()
