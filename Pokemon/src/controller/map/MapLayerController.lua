@@ -15,11 +15,6 @@ MapLayerController.resources = {
 	"images/characters.pvr.ccz",
 }
 
--- const
-MapLayerController.ZORDER = {
-	PLAYER = 999,
-}
-
 function MapLayerController:load()
 	log("MapLayerController:load")
 	self:loadResources()
@@ -45,6 +40,7 @@ end
 function MapLayerController:addObservers()
 	log("MapLayerController:addObservers")
 	Notifier:addObserver(NotifyEvents.MapView.ActionBegan, self, self.onActionBegan)
+	Notifier:addObserver(NotifyEvents.MapView.SwitchMap, self, self.onSwitchMap)
 end
 
 function MapLayerController:removeObservers()
@@ -65,6 +61,22 @@ function MapLayerController:renderView()
 	self.currentMap = map
 
 	coreLayer:pushLayer(map)
+end
+
+function MapLayerController:onSwitchMap(newMapId)
+	local coreLayer = self:getScene():getCoreLayer()
+
+	local newMapInfo = GameDBHelper:queryMapById(newMapId)
+
+	local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
+
+	if self.currentMap then
+		coreLayer:popLayer()
+	end
+
+	self.currentMap = newMap
+	CallFunctionAsync(coreLayer, coreLayer.pushLayer, 0.5, newMap)
+	--coreLayer:pushLayer(newMap)
 end
 
 -------------------------- Action 处理函数 --------------------------

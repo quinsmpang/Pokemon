@@ -15,3 +15,5 @@ NotifyEvents.MapView.ActionBegan = "NotifyEvents.MapView.ActionBegan"
 NotifyEvents.MapView.ActionEnded = "NotifyEvents.MapView.ActionEnded"
 -- 指令处理完毕  TMXMapLayer通知，MapLayerController接收
 NotifyEvents.MapView.ActionInstructionsEnded = "NotifyEvents.MapView.ActionInstructionsEnded"
+-- 切换地图	TMXMapLayer通知，MapLayerController接收
+NotifyEvents.MapView.SwitchMap = "NotifyEvents.MapView.SwitchMap"

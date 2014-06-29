@@ -39,6 +39,10 @@ function ContainsPoint(rect, pos)
 	return pos.x > rect.x and pos.x < rect.x + rect.width and pos.y > rect.y and pos.y < rect.y + rect.height
 end
 
+function PositionEquals(pos1, pos2)
+	return pos1.x == pos2.x and pos1.y == pos2.y
+end
+
 -- return an array which contains all UTF-8 substrings from a string, from the first character.
 function GenerateAllUTF8Substrings(text)
 	if type(text) ~= "string" then

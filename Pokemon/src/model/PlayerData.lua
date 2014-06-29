@@ -63,3 +63,7 @@ function PlayerData:getDirectionString()
 
 	assert(false, "Invalid player current direction")
 end
+
+function PlayerData:updatePosition(position)
+	self.currentPosition = position
+end
