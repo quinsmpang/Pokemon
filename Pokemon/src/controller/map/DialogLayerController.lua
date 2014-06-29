@@ -166,12 +166,20 @@ function DialogLayerController:generateNextDialog()
 	-- 执行action处理 如果有的话
 	if self.currentDialogModel and not self.isUnderAction then
 		if self.currentDialogModel.actionId ~= DBNULL then
-			local actionModel = ActionInfo:create(self.currentDialogModel.actionId)
-			ActionHelper:processAction(actionModel)
-			self.isUnderAction = true
-			self.root:setVisible(false)
-			Notifier:notify(NotifyEvents.MapView.ActionBegan, actionModel)
-			return
+			-- 如果action是-1，则进入自由活动
+			if tonumber(self.currentDialogModel.actionId) == -1 then
+				DataCenter.currentPlayerData:enterFreedom()
+				DataCenter.currentPlayerData.lastDialogId = self.currentDialogId
+				self.root:setVisible(false)
+				return
+			else
+				local actionModel = ActionInfo:create(self.currentDialogModel.actionId)
+				ActionHelper:processAction(actionModel)
+				self.isUnderAction = true
+				self.root:setVisible(false)
+				Notifier:notify(NotifyEvents.MapView.ActionBegan, actionModel)
+				return
+			end
 		end
 	else
 		self.isUnderAction = false

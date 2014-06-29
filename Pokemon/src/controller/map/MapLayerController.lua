@@ -105,7 +105,7 @@ end
 function MapLayerController:action_FadeIn(params)
 	local mapId = tonumber(params)
 	self:switchMap(mapId)
-	self:endAction()
+	CallFunctionAsync(self, self.endAction, 0.5)
 end
 
 function MapLayerController:action_WalkOut(params)
@@ -146,7 +146,9 @@ function MapLayerController:action_WalkOut(params)
 end
 
 function MapLayerController:action_SwitchMap(params)
-	
+	local newMapId = tonumber(params)
+	self:switchMap(newMapId)
+	CallFunctionAsync(self, self.endAction, 0.5)
 end
 
 -------------------------- Action相关的回调函数 --------------------------

@@ -88,15 +88,26 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 		local heroObjects = heroObjectGroup:getObjects()
 		for _, heroObj in ipairs(heroObjects) do
 			if tonumber(heroObj["step"]) == DataCenter.currentPlayerData.currentStep then
-				DataCenter.currentPlayerData.direction = tonumber(heroObj["direction"])
-				local hero = HeroSprite:createWithModel(heroObj)
-				local pos = ccp(tonumber(heroObj["x"]), tonumber(heroObj["y"]))
-				DataCenter.currentPlayerData.currentPosition = ccp(tonumber(heroObj["x"]) / self.TILE_SIZE, tonumber(heroObj["y"]) / self.TILE_SIZE)
-				hero:setAnchorPoint(0, 0)
-				hero:setPosition(pos)
-				self.playerLayer:addChild(hero)
-				self.hero = hero
-				break
+				-- 如果有性别区分的话
+				local shouldSkip = false
+				if heroObj["gender"] then
+					local gender = tonumber(heroObj["gender"])
+					if gender ~= DataCenter.currentPlayerData.gender then
+						-- 性别不同则跳过
+						shouldSkip = true
+					end
+				end
+				if not shouldSkip then
+					DataCenter.currentPlayerData.currentDirection = tonumber(heroObj["direction"])
+					local hero = HeroSprite:createWithModel(heroObj)
+					local pos = ccp(tonumber(heroObj["x"]), tonumber(heroObj["y"]))
+					DataCenter.currentPlayerData.currentPosition = ccp(tonumber(heroObj["x"]) / self.TILE_SIZE, tonumber(heroObj["y"]) / self.TILE_SIZE)
+					hero:setAnchorPoint(0, 0)
+					hero:setPosition(pos)
+					self.playerLayer:addChild(hero)
+					self.hero = hero
+					break
+				end
 			end
 		end
 	else	-- 说明是读取存档载入，直接显示在存档记录的位置

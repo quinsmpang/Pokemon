@@ -14,6 +14,7 @@ PlayerData.currentPosition = DBNULL	-- 所在位置的坐标
 PlayerData.currentDirection	= DBNULL	-- 当前面朝的方向
 PlayerData.lastStep = DBNULL		-- 剧情发生到的step
 PlayerData.currentStep = DBNULL	-- 当前正在发生的剧情step
+PlayerData.lastDialogId = DBNULL	-- 当前执行到的对话id
 
 -- const
 local NAMES = {
@@ -66,4 +67,10 @@ end
 
 function PlayerData:updatePosition(position)
 	self.currentPosition = position
+end
+
+-- 进入自由活动
+function PlayerData:enterFreedom()
+	self.lastStep = self.currentStep
+	self.currentStep = 0
 end

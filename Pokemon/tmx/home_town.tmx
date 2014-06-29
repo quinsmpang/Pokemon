@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="45" height="25" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="buildings1" tilewidth="32" tileheight="32">
+  <image source="images/terrains/buildings1.png" width="800" height="544"/>
+ </tileset>
+ <layer name="main" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6GzUf9G52IvSFg1VVVVVV8fvkpt3g==
+  </data>
+ </layer>
+ <layer name="tree1" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztkMENgDAAAutU1S3ULapbqFtYdy0ryAM+XMKPBHJ1KmVGFsRBJfZXdDdkN31m9hu6B3KaPjP78fyfeNYQzxriWUM8a4hnDfGsIZ41xLOGeNbA7F/o3shj+szsv+h25DN9ZvYHv7M41w==
+  </data>
+ </layer>
+ <layer name="tree2" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztkMENgDAUQn+nUrdQt6huoW5h3bUkTlAO/Asv4UYCeRE/U4mYkaVECsz+iu6G7Emfmf2K7oGcSZ+ZfXsex5412LMGe9ZgzxrsWYM9a7BnDfaswZ41MPsXujfyJH1m9l90G/IlfR7Z7/jlONc=
+  </data>
+ </layer>
+ <layer name="tree3" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztkLENgDAQAz9TAVsAWwS2ALYg7Bq3dODC3/gkd5ZsXcSboUSMyFQiBWZ/RndB1qTPzH5Fd0P2pM/Mvj3/x5412LMGe9ZgzxrsWYM9a7BnDfaswZ41MPsHuidyJX1m9m90G/Ikff6y3wEyJjjX
+  </data>
+ </layer>
+ <layer name="tree4" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztkNENQFAUQ++bCltgC2yBLTy76gBINNH705P0r0mbE3FPUyJapCsPhZ9h9nt0B2RM+szsT+jOyJL0mdm35+/YswZ71mDPGuxZgz1rsGcN9qzBnjXYswZmf0V3Q/akz8z+gW5FzqTPb/sXa1g41w==
+  </data>
+ </layer>
+ <layer name="tree5" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztkNENQFAUQ++bCltgC2yBLTy76gBCNNH705P0r0mbE/FMUyJapCsvxZ9g9nt0B2RM+szsT+jOyJL0mdm35+/YswZ71mDPGuxZgz1rsGcN9qzBnjXYswZmf0V3Q/akz8z+gW5FzqTPd/sXpIo41w==
+  </data>
+ </layer>
+ <layer name="tree6" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztkLENgEAMA/NTAVsAWwBbAFvw7IpLysdCTuOT3CWydRFtdCWiR4bS+PAzTP+I2wmZkzYz/QtuV2RL2sz02/N37FmDPWuwZw32rMGeNdizBnvWYM8a7FkD07/j9kDOpM1M/4XbitxJm9/9D928ONc=
+  </data>
+ </layer>
+ <layer name="tree7" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzt18ENgCAQRNGlKrQLoAuxJKFXpoW9qEv+S+ZI8sNtzXxyMju0MzkffqiotWotUPOl1q7dgZoj/vOj1qHNQM0AAAAA9sbd/Y4/3IMLjLgJKA==
+  </data>
+ </layer>
+ <layer name="tree8" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzt18ENwCAMBEG7KpIugC4CJSX0mqvBjyBHO9J90YqfzWKKmx3a6cEHNqhqbVpP1HypdWgzUXPGf77V+mgrUTMAAACAf+Pu/sbOe/AFQ4AJKA==
+  </data>
+ </layer>
+ <layer name="tree9" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzt19EJwCAMRdE4VdstWreojlS7q2+HQCRyD7xfufgXM5+jmJ3aVZwPBbrV+mg1UfOr1qb1RM0Z//lT69D+RM0AAAAA9sbdHWPFPTgB+jkJKA==
+  </data>
+ </layer>
+ <layer name="tree10" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzt19EJwCAMRdFkKusW2i1aR2rdtW+IEEi5B96vXPyLWYzmZofWPejBBEOtUzsLNV9qvbVVqLniPz9qfbVdqBkAAADAv3F358i8Bz+xAQko
+  </data>
+ </layer>
+ <layer name="tree11" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzt19ENgCAMRdF2KnQLYAthJGVX3xCVpOae5P2SG/5qFqu42aGdHvzwh6pam9YTNV9qHdpM1Jzxn2+1PtpK1AwAAADg37i799hxD75nyQko
+  </data>
+ </layer>
+ <layer name="tree12" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzt18ENgCAQRNGhKrULpQuhJLFXpoklWfJfMmd+uK0U4yjS6V0l6IEAt1sfryZqft3avJ6oOeM/f24d3p+oGQAAAMDeuLvXiLwHJx6RCSg=
+  </data>
+ </layer>
+ <layer name="tree13" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzt18ENwCAMBEFTFUkXQBeEkhJ65YrAkYx2pHuz4mczXzmZXdqdnB/aqKi1ai1Qc1fro41AzRH/+VXrp81AzQAAAADOxt39D497cAHVSgko
+  </data>
+ </layer>
+ <layer name="tree14" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzt19ENgCAMRdF2KmQLcAtlJGVX3xBNk5p7kvfNDX81y9Hc7NC6Jz0YYKh1ameh5kutt7YKNVf850etr7YLNQMAAAD4N+7uHJH34AeMEgko
+  </data>
+ </layer>
+ <layer name="items" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzt1MdOAkEAh/HhbrnYYkfPFords6ALds5i2bV7tu1iQT3b0NexPIXlKSxnv5jdhEwglsNOovMlv2zYCeEfsiCETqfT6f5itahDPRrQKJ03oRlBtKDVz3FFiiCKLnSjx71vuNde9KEfAxjMe68h1JRAEqMYw7h0PoFJTGEaKV/XFc6EhUUsYVk6X8Eq1rCODV/XFc5BBnvYx4F0fogsjnCMEz/HSal6Fv9jFQEhKlGFatQEVC/6ujY2tqMDnQghjAii0v4b3OIO9wq2eg2xK4Y4hjECAwkkpc0PeMQTnhVs9ZphVxqzmMM8FmDCcjd7v9UXvOIN72rmfrbJri1sYwe7sOEgI33PJbwuRRnKFT73p3z2Gc5xgUvkuH/F9fobu/T/pa5YOdUDfpCd5zd9ANIELcA=
+  </data>
+ </layer>
+ <layer name="tops" width="45" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzt1LsNgDAMANGEXyAbAPtLQJbkGgoiJDpo7knX2I0rhyBJehOpoZY66qv9QIlGmih/ep0k6TLzsBda432+0U4HlR/ukiTpyQlQ3wMv
+  </data>
+ </layer>
+ <objectgroup name="heroObjects" width="45" height="25">
+  <object name="hero1" x="544" y="416" width="32" height="32">
+   <properties>
+    <property name="direction" value="3"/>
+    <property name="gender" value="0"/>
+    <property name="step" value="1"/>
+   </properties>
+  </object>
+  <object name="hero2" x="800" y="416" width="32" height="32">
+   <properties>
+    <property name="direction" value="3"/>
+    <property name="gender" value="1"/>
+    <property name="step" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="obstacleObjects" width="45" height="25">
+  <object name="ob1" x="384" y="160" width="32" height="544">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob2" x="416" y="128" width="512" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob3" x="416" y="704" width="512" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob4" x="1024" y="0" width="32" height="800">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob5" x="896" y="0" width="32" height="128">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob6" x="928" y="768" width="96" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob7" x="992" y="736" width="32" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob8" x="512" y="256" width="160" height="160">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob9" x="768" y="256" width="160" height="160">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob10" x="480" y="480" width="160" height="192">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob11" x="640" y="512" width="96" height="128">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob12" x="832" y="480" width="128" height="160">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob13" x="640" y="640" width="32" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="2"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob14" x="896" y="736" width="32" height="64">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="npcObjects" width="45" height="25"/>
+ <objectgroup name="entranceObjects" width="45" height="25"/>
+</map>
