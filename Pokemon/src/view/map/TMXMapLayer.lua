@@ -12,6 +12,7 @@ require "src/view/map/NpcSprite"
 TMXMapLayer.mapInfo = nil 		-- MapInfo model
 
 -- ui
+TMXMapLayer.mask = nil 			-- 遮罩层用来实现Fade效果
 TMXMapLayer.playerLayer = nil	-- player layer
 TMXMapLayer.npcLayer = nil		-- npc layer
 TMXMapLayer.main = nil			-- main layer
@@ -32,15 +33,20 @@ TMXMapLayer.ZORDER = {
 	MAIN = 0,
 	PLAYER = 2,
 	HIGH_ITEMS = 4,
+	MASK = 999,
 }
 
 -- treat as static method
 function TMXMapLayer:createWithMapInfo(mapInfo)
+	-- 本身无法修改opacity, 只好借助一个遮罩层来模拟FadeIn和FadeOut的效果
+	self.mask = cc.LayerColor:create(ccc4(0, 0, 0, 255))
+	self.mask:setCascadeOpacityEnabled(true)
+	self.mask:retain()
 	local mapLayer = TMXMapLayer:createWithTransitions(
-		cc.FadeIn:create(0.5),
-		cc.FadeIn:create(0.5),
-		cc.FadeOut:create(0.5),
-		cc.FadeOut:create(0.5)
+		cc.TargetedAction:create(self.mask, cc.FadeOut:create(0.25)),
+		cc.TargetedAction:create(self.mask, cc.FadeOut:create(0.25)),
+		cc.TargetedAction:create(self.mask, cc.FadeIn:create(0.25)),
+		cc.TargetedAction:create(self.mask, cc.FadeIn:create(0.25))
 		)
 	-- local mapLayer = TMXMapLayer:create()
 
@@ -58,7 +64,6 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 	local map = EncryptedTMXTiledMap:create(mapInfo.path)
 	map:setAnchorPoint(0.5, 0.5)
 	map:setPosition(screenSize.width * 0.5, screenSize.height * 0.5)
-	map:setCascadeOpacityEnabled(true)
 	self:addChild(map, self.ZORDER.MAIN)
 
 	-- main layer must be exist
@@ -149,6 +154,8 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 	end
 
 	self:updatePlayerPosition()
+	self:addChild(self.mask, self.ZORDER.MASK)
+	self.mask:release()
 end
 
 -- 玩家需要显示在地图中间
@@ -317,6 +324,7 @@ function TMXMapLayer:checkEntrance()
 	for _, entrance in ipairs(self.entranceList) do
 		if PositionEquals(entrance.position, curPos) then
 			-- 切换地图
+			DataCenter.currentPlayerData.currentMapId = entrance.relatedMapId
 			Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId)
 			break
 		end

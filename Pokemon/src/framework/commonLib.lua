@@ -28,6 +28,21 @@ function CallFunctionAsync(target, selector, delay, ...)
 	handlerId = cc.Director:getInstance():getScheduler():scheduleScriptFunc(handlerFunction, delay, false)
 end
 
+-- switch scene
+function ReplaceScene(scene, params)
+	if type(scene) == "string" then
+		scene = _G[scene]
+	end
+	local newScene = scene:create(params)
+
+	local currentScene = cc.Director:getInstance():getRunningScene()
+	if currentScene then
+		cc.Director:getInstance():replaceScene(currentScene)
+	else
+		cc.Director:getInstance():runWithScene(currentScene)
+	end
+end
+
 -- check whether fall in the random area, such as fallInRandom(3, 7) means whether it falls in 3/7.
 function FallInRandom(numerator, denominator)
 	local randomNum = math.random(1, denominator)

@@ -40,7 +40,7 @@ end
 function MapLayerController:addObservers()
 	log("MapLayerController:addObservers")
 	Notifier:addObserver(NotifyEvents.MapView.ActionBegan, self, self.onActionBegan)
-	Notifier:addObserver(NotifyEvents.MapView.SwitchMap, self, self.onSwitchMap)
+	Notifier:addObserver(NotifyEvents.MapView.SwitchMap, self, self.switchMap)
 end
 
 function MapLayerController:removeObservers()
@@ -63,19 +63,28 @@ function MapLayerController:renderView()
 	coreLayer:pushLayer(map)
 end
 
-function MapLayerController:onSwitchMap(newMapId)
+function MapLayerController:switchMap(newMapId)
 	local coreLayer = self:getScene():getCoreLayer()
 
-	local newMapInfo = GameDBHelper:queryMapById(newMapId)
+	if self.currentMap and self.currentMap.mapInfo.id == newMapId then
+		self.currentMap:setVisible(true)
+	else
+		-- 记录新地图id
+		DataCenter.currentPlayerData.currentMapId = newMapId
 
-	local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
+		local newMapInfo = GameDBHelper:queryMapById(newMapId)
+		local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
 
-	if self.currentMap then
-		coreLayer:popLayer()
+		if self.currentMap then
+			coreLayer:popLayer()
+		end
+		self.currentMap = newMap
+		self.currentMap:retain()
+		CallFunctionAsync(coreLayer, function() 
+				coreLayer:pushLayer(newMap) 
+				newMap:release()
+			end, 0.25, newMap)
 	end
-
-	self.currentMap = newMap
-	CallFunctionAsync(coreLayer, coreLayer.pushLayer, 0.5, newMap)
 	--coreLayer:pushLayer(newMap)
 end
 
@@ -95,17 +104,17 @@ end
 
 function MapLayerController:action_FadeIn(params)
 	local mapId = tonumber(params)
-	-- 如果map依然存在，说明是直接显示
-	if self.currentMap then
-		self.currentMap:setVisible(true)
-	else
-		local newMapInfo = GameDBHelper:queryMapById(mapId)
+	self:switchMap(mapId)
+	-- if self.currentMap then
+	-- 	self.currentMap:setVisible(true)
+	-- else
+	-- 	local newMapInfo = GameDBHelper:queryMapById(mapId)
 
-		local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
-		self.currentMap = newMap
+	-- 	local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
+	-- 	self.currentMap = newMap
 
-		self:getScene():getCoreLayer():pushLayer(newMap)
-	end
+	-- 	self:getScene():getCoreLayer():pushLayer(newMap)
+	-- end
 	self:endAction()
 end
 
@@ -135,6 +144,10 @@ function MapLayerController:action_WalkOut(params)
 	end
 
 	Notifier:addObserver(NotifyEvents.MapView.ActionInstructionsEnded, self, self.onWalkOutEnd, target)
+end
+
+function MapLayerController:action_SwitchMap(params)
+	
 end
 
 -------------------------- Action相关的回调函数 --------------------------
