@@ -105,24 +105,23 @@ end
 function MapLayerController:action_FadeIn(params)
 	local mapId = tonumber(params)
 	self:switchMap(mapId)
-	-- if self.currentMap then
-	-- 	self.currentMap:setVisible(true)
-	-- else
-	-- 	local newMapInfo = GameDBHelper:queryMapById(mapId)
-
-	-- 	local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
-	-- 	self.currentMap = newMap
-
-	-- 	self:getScene():getCoreLayer():pushLayer(newMap)
-	-- end
 	self:endAction()
 end
 
 function MapLayerController:action_WalkOut(params)
 	params = string.split(params, ",")
 	local target = tonumber(params[1])
+
+	local observers = {}
+	if params[2] ~= "" then
+		observers = string.split(params[2], "|")
+		for i, observer in ipairs(observers) do
+			observers[i] = tonumber(observer)
+		end
+	end
+
 	local instructions = QueueLua:new()
-	for i = 2, #params do
+	for i = 3, #params do
 		local param = string.split(params[i], "|")
 		local ins = { tonumber(param[1]), tonumber(param[2]) }
 		instructions:enqueue(ins)
@@ -139,7 +138,7 @@ function MapLayerController:action_WalkOut(params)
 
 	-- target为0说明目标是hero
 	if target == 0 then
-		self.currentMap:setInstructions(instructions)
+		self.currentMap:setInstructions(instructions, observers)
 		self.currentMap:heroWalkWithInstructions(nil, dir)
 	end
 

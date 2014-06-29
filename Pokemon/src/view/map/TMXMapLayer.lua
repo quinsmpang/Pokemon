@@ -218,6 +218,9 @@ function TMXMapLayer:heroWalkWithInstructions(sender, direction)
 	-- 设置hero移动后的位置
 	local nextPos = self.hero:getNextPosition(direction)
 	DataCenter.currentPlayerData:updatePosition(nextPos)
+	if self.observers then
+		self:updateObserversDirection(0)
+	end
 
 	local action = nil
 
@@ -261,6 +264,8 @@ function TMXMapLayer:heroWalkWithInstructions(sender, direction)
 				)
 		end
 	else
+		-- 清空观察的对象
+		self.observers = nil
 		-- 指令执行完毕的话，通知MapLayerController
 		action = cc.Sequence:create(
 			action, 
@@ -271,9 +276,58 @@ function TMXMapLayer:heroWalkWithInstructions(sender, direction)
 	self:runAction(action)
 end
 
+-- 更新观察对象的方向
+function TMXMapLayer:updateObserversDirection(targetId)
+	if self.observers then
+		local targetPos = nil
+		if targetId == 0 then
+			targetPos = DataCenter.currentPlayerData.currentPosition
+		else
+			local targetNpc = table.find(self.npcList, function(obj, seekId)
+					return obj.model.id == seekId
+				end, targetId)
+			assert(targetNpc, "invalid target.")
+			targetPos = targetNpc.model.position
+		end
+
+		-- target为hero
+		for _, observer in ipairs(self.observers) do
+			local targetNpc = table.find(self.npcList, function(obj, seekId)
+					return obj.model.id == seekId
+				end, observer)
+			assert(targetNpc, "invalid observer.")
+			local newDir = self:calculateObserverDirection(targetPos, targetNpc.model.position)
+			if newDir then
+				targetNpc:updateDirection(newDir)
+			end
+		end
+	end
+end
+
+function TMXMapLayer:calculateObserverDirection(targetPosition, observerPosition)
+	local diffX = targetPosition.x - observerPosition.x
+	local diffY = targetPosition.y - observerPosition.y
+	if math.abs(diffX) > math.abs(diffY) then
+		if diffX < 0 then
+			return Enumerations.DIRECTIONS.LEFT
+		else
+			return Enumerations.DIRECTIONS.RIGHT
+		end
+	elseif math.abs(diffX) < math.abs(diffY) then
+		if diffY < 0 then
+			return Enumerations.DIRECTIONS.DOWN
+		else
+			return Enumerations.DIRECTIONS.UP
+		end
+	end
+	return nil
+end
+
 -- instruction { direction, steps }
-function TMXMapLayer:setInstructions(instructions)
+function TMXMapLayer:setInstructions(instructions, observers)
 	self.instructions = instructions
+
+	self.observers = observers
 end
 
 function TMXMapLayer:onHeroWalkInstructionsEnd()
@@ -300,7 +354,7 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 
 	-- npc碰撞
 	for _, npc in ipairs(self.npcList) do
-		local npcPos = npc.position
+		local npcPos = npc.model.position
 		if PositionEquals(npcPos, nextPosition) then
 			return true
 		end

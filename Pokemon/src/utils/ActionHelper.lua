@@ -25,8 +25,7 @@ function ActionHelper:action_FadeIn(params)
 end
 
 function ActionHelper:action_WalkOut(params)
-	params = string.split(params, ",")
-	local target = tonumber(params[1])
+	
 end
 
 function ActionHelper:action_SwitchMap(params)
