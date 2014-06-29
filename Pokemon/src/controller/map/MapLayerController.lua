@@ -15,11 +15,6 @@ MapLayerController.resources = {
 	"images/characters.pvr.ccz",
 }
 
--- const
-MapLayerController.ZORDER = {
-	PLAYER = 999,
-}
-
 function MapLayerController:load()
 	log("MapLayerController:load")
 	self:loadResources()
@@ -45,6 +40,7 @@ end
 function MapLayerController:addObservers()
 	log("MapLayerController:addObservers")
 	Notifier:addObserver(NotifyEvents.MapView.ActionBegan, self, self.onActionBegan)
+	Notifier:addObserver(NotifyEvents.MapView.SwitchMap, self, self.switchMap)
 end
 
 function MapLayerController:removeObservers()
@@ -67,6 +63,31 @@ function MapLayerController:renderView()
 	coreLayer:pushLayer(map)
 end
 
+function MapLayerController:switchMap(newMapId)
+	local coreLayer = self:getScene():getCoreLayer()
+
+	if self.currentMap and self.currentMap.mapInfo.id == newMapId then
+		self.currentMap:setVisible(true)
+	else
+		-- 记录新地图id
+		DataCenter.currentPlayerData.currentMapId = newMapId
+
+		local newMapInfo = GameDBHelper:queryMapById(newMapId)
+		local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
+
+		if self.currentMap then
+			coreLayer:popLayer()
+		end
+		self.currentMap = newMap
+		self.currentMap:retain()
+		CallFunctionAsync(coreLayer, function() 
+				coreLayer:pushLayer(newMap) 
+				newMap:release()
+			end, 0.25, newMap)
+	end
+	--coreLayer:pushLayer(newMap)
+end
+
 -------------------------- Action 处理函数 --------------------------
 function MapLayerController:action_FadeOut(params)
 	if self.currentMap then
@@ -83,25 +104,24 @@ end
 
 function MapLayerController:action_FadeIn(params)
 	local mapId = tonumber(params)
-	-- 如果map依然存在，说明是直接显示
-	if self.currentMap then
-		self.currentMap:setVisible(true)
-	else
-		local newMapInfo = GameDBHelper:queryMapById(mapId)
-
-		local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
-		self.currentMap = newMap
-
-		self:getScene():getCoreLayer():pushLayer(newMap)
-	end
+	self:switchMap(mapId)
 	self:endAction()
 end
 
 function MapLayerController:action_WalkOut(params)
 	params = string.split(params, ",")
 	local target = tonumber(params[1])
+
+	local observers = {}
+	if params[2] ~= "" then
+		observers = string.split(params[2], "|")
+		for i, observer in ipairs(observers) do
+			observers[i] = tonumber(observer)
+		end
+	end
+
 	local instructions = QueueLua:new()
-	for i = 2, #params do
+	for i = 3, #params do
 		local param = string.split(params[i], "|")
 		local ins = { tonumber(param[1]), tonumber(param[2]) }
 		instructions:enqueue(ins)
@@ -118,11 +138,15 @@ function MapLayerController:action_WalkOut(params)
 
 	-- target为0说明目标是hero
 	if target == 0 then
-		self.currentMap:setInstructions(instructions)
+		self.currentMap:setInstructions(instructions, observers)
 		self.currentMap:heroWalkWithInstructions(nil, dir)
 	end
 
 	Notifier:addObserver(NotifyEvents.MapView.ActionInstructionsEnded, self, self.onWalkOutEnd, target)
+end
+
+function MapLayerController:action_SwitchMap(params)
+	
 end
 
 -------------------------- Action相关的回调函数 --------------------------

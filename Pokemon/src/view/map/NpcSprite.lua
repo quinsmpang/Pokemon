@@ -15,3 +15,9 @@ function NpcSprite:createWithModel(npcModel)
 	npc.model = npcModel
 	return npc
 end
+
+function NpcSprite:updateDirection(direction)
+	self.model.direction = direction
+	local frameName = "images/characters/" .. self.model:getSpriteName() .. "_" .. self.model:getDirectionString() .. "1.png"
+	self:setSpriteFrame(frameName)
+end

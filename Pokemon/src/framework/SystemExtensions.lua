@@ -89,6 +89,34 @@ function table.forEachAsHash(table, action)
 	end
 end
 
+-- whether the table contains the object which satisfies the condition
+function table.contains(table, selector, ...)
+	if type(table) ~= "table" then
+		return false
+	end
+
+	for _, v in ipairs(table) do
+		if selector(v, unpack{...}) then
+			return true
+		end
+	end
+	return false
+end
+
+-- find the object which satisfies the condition
+function table.find(table, selector, ...)
+	if type(table) ~= "table" then
+		return false
+	end
+
+	for _, v in ipairs(table) do
+		if selector(v, unpack{...}) then
+			return v
+		end
+	end
+	return nil
+end
+
 -- split string from the specified character
 function string.split(str, splitChar)
 	local resultTable = {}

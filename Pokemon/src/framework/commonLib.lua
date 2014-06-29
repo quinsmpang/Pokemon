@@ -28,6 +28,21 @@ function CallFunctionAsync(target, selector, delay, ...)
 	handlerId = cc.Director:getInstance():getScheduler():scheduleScriptFunc(handlerFunction, delay, false)
 end
 
+-- switch scene
+function ReplaceScene(scene, params)
+	if type(scene) == "string" then
+		scene = _G[scene]
+	end
+	local newScene = scene:create(params)
+
+	local currentScene = cc.Director:getInstance():getRunningScene()
+	if currentScene then
+		cc.Director:getInstance():replaceScene(currentScene)
+	else
+		cc.Director:getInstance():runWithScene(currentScene)
+	end
+end
+
 -- check whether fall in the random area, such as fallInRandom(3, 7) means whether it falls in 3/7.
 function FallInRandom(numerator, denominator)
 	local randomNum = math.random(1, denominator)
@@ -37,6 +52,10 @@ end
 -- check whether a rect contains a point.
 function ContainsPoint(rect, pos)
 	return pos.x > rect.x and pos.x < rect.x + rect.width and pos.y > rect.y and pos.y < rect.y + rect.height
+end
+
+function PositionEquals(pos1, pos2)
+	return pos1.x == pos2.x and pos1.y == pos2.y
 end
 
 -- return an array which contains all UTF-8 substrings from a string, from the first character.

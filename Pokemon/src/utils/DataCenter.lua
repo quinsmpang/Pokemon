@@ -6,4 +6,4 @@
 
 DataCenter = {}
 
-DataCenter.currentPlayerData = nil		-- 当前玩家数据
+DataCenter.currentPlayerData = nil		-- 当前玩家数据(PlayerData)

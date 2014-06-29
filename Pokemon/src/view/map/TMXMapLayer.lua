@@ -12,6 +12,7 @@ require "src/view/map/NpcSprite"
 TMXMapLayer.mapInfo = nil 		-- MapInfo model
 
 -- ui
+TMXMapLayer.mask = nil 			-- 遮罩层用来实现Fade效果
 TMXMapLayer.playerLayer = nil	-- player layer
 TMXMapLayer.npcLayer = nil		-- npc layer
 TMXMapLayer.main = nil			-- main layer
@@ -23,6 +24,7 @@ TMXMapLayer.npcList = nil 		-- NPC sprite集合
 TMXMapLayer.obstacleList = nil		-- 障碍物(Obstacle model)集合
 TMXMapLayer.entranceList = nil		-- 入口出口(Entrance model)集合
 TMXMapLayer.instructions = nil 		-- 行走指令队列，一般在剧情中的行走才需要用到
+TMXMapLayer.isMoving = nil 			-- 是否在行走，自由行走的时候需要用到
 
 -- const
 TMXMapLayer.PLAYER_POS = ccp(384, 224)
@@ -31,17 +33,22 @@ TMXMapLayer.ZORDER = {
 	MAIN = 0,
 	PLAYER = 2,
 	HIGH_ITEMS = 4,
+	MASK = 999,
 }
 
 -- treat as static method
 function TMXMapLayer:createWithMapInfo(mapInfo)
-	-- local mapLayer = TMXMapLayer:createWithTransitions(
-	-- 	cc.FadeIn:create(0.5),
-	-- 	cc.FadeIn:create(0.5),
-	-- 	cc.FadeOut:create(0.5),
-	-- 	cc.FadeOut:create(0.5)
-	-- 	)
-	local mapLayer = TMXMapLayer:create()
+	-- 本身无法修改opacity, 只好借助一个遮罩层来模拟FadeIn和FadeOut的效果
+	self.mask = cc.LayerColor:create(ccc4(0, 0, 0, 255))
+	self.mask:setCascadeOpacityEnabled(true)
+	self.mask:retain()
+	local mapLayer = TMXMapLayer:createWithTransitions(
+		cc.TargetedAction:create(self.mask, cc.FadeOut:create(0.25)),
+		cc.TargetedAction:create(self.mask, cc.FadeOut:create(0.25)),
+		cc.TargetedAction:create(self.mask, cc.FadeIn:create(0.25)),
+		cc.TargetedAction:create(self.mask, cc.FadeIn:create(0.25))
+		)
+	-- local mapLayer = TMXMapLayer:create()
 
 	mapLayer:initWithMapInfo(mapInfo)
 
@@ -50,6 +57,7 @@ end
 
 function TMXMapLayer:initWithMapInfo(mapInfo)
 	self.mapInfo = mapInfo
+	self.isMoving = false
 
 	local screenSize = cc.Director:getInstance():getWinSize()
 
@@ -146,6 +154,8 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 	end
 
 	self:updatePlayerPosition()
+	self:addChild(self.mask, self.ZORDER.MASK)
+	self.mask:release()
 end
 
 -- 玩家需要显示在地图中间
@@ -160,7 +170,18 @@ function TMXMapLayer:updatePlayerPosition()
 end
 
 function TMXMapLayer:heroWalk(direction)
+	if self.isMoving then
+		return
+	end
+
 	log("TMXMapLayer:heroWalk [" .. direction .. "]")
+
+	-- 验证下个位置
+	if not self:validateHeroNextPosition(direction) then
+		log("Next position is invalid.")
+		return
+	end
+
 	local heroAction = self.hero:getWalkAction(direction)
 
 	-- 地图是反方向移动
@@ -175,16 +196,31 @@ function TMXMapLayer:heroWalk(direction)
 		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(-self.TILE_SIZE, 0))
 	end
 
-	local action = cc.Spawn:create(
-		cc.TargetedAction:create(self.hero, heroAction), 
-		mapAction
+	local action = cc.Sequence:create(
+		cc.Spawn:create(
+			cc.TargetedAction:create(self.hero, heroAction), 
+			mapAction
+			),
+		cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnd))
 		)
 
+	self.isMoving = true
 	self:runAction(action)
+end
+
+function TMXMapLayer:onMovingEnd()
+	self.isMoving = false
 end
 
 function TMXMapLayer:heroWalkWithInstructions(sender, direction)
 	log("TMXMapLayer:heroWalkWithInstructions [" .. direction .. "]")
+
+	-- 设置hero移动后的位置
+	local nextPos = self.hero:getNextPosition(direction)
+	DataCenter.currentPlayerData:updatePosition(nextPos)
+	if self.observers then
+		self:updateObserversDirection(0)
+	end
 
 	local action = nil
 
@@ -228,6 +264,8 @@ function TMXMapLayer:heroWalkWithInstructions(sender, direction)
 				)
 		end
 	else
+		-- 清空观察的对象
+		self.observers = nil
 		-- 指令执行完毕的话，通知MapLayerController
 		action = cc.Sequence:create(
 			action, 
@@ -238,11 +276,111 @@ function TMXMapLayer:heroWalkWithInstructions(sender, direction)
 	self:runAction(action)
 end
 
+-- 更新观察对象的方向
+function TMXMapLayer:updateObserversDirection(targetId)
+	if self.observers then
+		local targetPos = nil
+		if targetId == 0 then
+			targetPos = DataCenter.currentPlayerData.currentPosition
+		else
+			local targetNpc = table.find(self.npcList, function(obj, seekId)
+					return obj.model.id == seekId
+				end, targetId)
+			assert(targetNpc, "invalid target.")
+			targetPos = targetNpc.model.position
+		end
+
+		-- target为hero
+		for _, observer in ipairs(self.observers) do
+			local targetNpc = table.find(self.npcList, function(obj, seekId)
+					return obj.model.id == seekId
+				end, observer)
+			assert(targetNpc, "invalid observer.")
+			local newDir = self:calculateObserverDirection(targetPos, targetNpc.model.position)
+			if newDir then
+				targetNpc:updateDirection(newDir)
+			end
+		end
+	end
+end
+
+function TMXMapLayer:calculateObserverDirection(targetPosition, observerPosition)
+	local diffX = targetPosition.x - observerPosition.x
+	local diffY = targetPosition.y - observerPosition.y
+	if math.abs(diffX) > math.abs(diffY) then
+		if diffX < 0 then
+			return Enumerations.DIRECTIONS.LEFT
+		else
+			return Enumerations.DIRECTIONS.RIGHT
+		end
+	elseif math.abs(diffX) < math.abs(diffY) then
+		if diffY < 0 then
+			return Enumerations.DIRECTIONS.DOWN
+		else
+			return Enumerations.DIRECTIONS.UP
+		end
+	end
+	return nil
+end
+
 -- instruction { direction, steps }
-function TMXMapLayer:setInstructions(instructions)
+function TMXMapLayer:setInstructions(instructions, observers)
 	self.instructions = instructions
+
+	self.observers = observers
 end
 
 function TMXMapLayer:onHeroWalkInstructionsEnd()
 	Notifier:notify(NotifyEvents.MapView.ActionInstructionsEnded)
+end
+
+function TMXMapLayer:validateHeroNextPosition(direction)
+	local nextPos = self.hero:getNextPosition(direction)
+	if self:checkCollision(nextPos, true) then
+		return false
+	end
+	DataCenter.currentPlayerData:updatePosition(nextPos)
+end
+
+-- 检测移动过程中的碰撞
+function TMXMapLayer:checkCollision(nextPosition, isHero)
+	if not isHero then
+		-- 检测与玩家的碰撞
+		local heroPos = DataCenter.currentPlayerData.currentPosition
+		if PositionEquals(nextPosition, heroPos) then
+			return true
+		end
+	end
+
+	-- npc碰撞
+	for _, npc in ipairs(self.npcList) do
+		local npcPos = npc.model.position
+		if PositionEquals(npcPos, nextPosition) then
+			return true
+		end
+	end
+
+	-- 障碍物碰撞
+	for _, obstacle in ipairs(self.obstacleList) do
+		local obstaclePos = obstacle.position
+		if PositionEquals(obstaclePos, nextPosition) then
+			return true
+		end
+	end
+
+	return false
+end
+
+-- 检测移动后是否在入口或出口处
+function TMXMapLayer:checkEntrance()
+	local curPos = DataCenter.currentPlayerData.currentPosition
+
+	for _, entrance in ipairs(self.entranceList) do
+		if PositionEquals(entrance.position, curPos) then
+			-- 切换地图
+			DataCenter.currentPlayerData.currentMapId = entrance.relatedMapId
+			Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId)
+			break
+		end
+	end
 end

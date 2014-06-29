@@ -143,3 +143,20 @@ function HeroSprite:onMovingEnded()
 	log("HeroSprite:onMovingEnded")
 	self.isLeftStep = not self.isLeftStep
 end
+
+function HeroSprite:getNextPosition(direction)
+	local curPos = DataCenter.currentPlayerData.currentPosition
+	if direction == Enumerations.DIRECTIONS.UP then
+		curPos.y = curPos.y + 1
+	elseif direction == Enumerations.DIRECTIONS.DOWN then
+		curPos.y = curPos.y - 1
+	elseif direction == Enumerations.DIRECTIONS.LEFT then
+		curPos.x = curPos.x - 1
+	elseif direction == Enumerations.DIRECTIONS.RIGHT then
+		curPos.x = curPos.x + 1
+	else
+		assert(false, "Inavailable direction.")
+	end
+
+	return curPos
+end
