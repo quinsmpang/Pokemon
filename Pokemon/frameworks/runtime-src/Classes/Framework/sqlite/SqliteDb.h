@@ -8,9 +8,9 @@ Date: 4/25/2014
 #define __SQLITE_SQLITEDB__
 
 #include "cocos2d.h"
-#include "libsqlite\sqlite3.h"
-#include "..\containers\Vector.h"
-#include "..\containers\Map.h"
+#include "libsqlite/sqlite3.h"
+#include "../containers/Vector.h"
+#include "../containers/Map.h"
 
 namespace framework
 {

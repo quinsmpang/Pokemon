@@ -1,6 +1,6 @@
 #include "ScriptCCBReader.h"
-#include "cocos\editor-support\cocosbuilder\CCNodeLoaderLibrary.h"
-#include "cocos\editor-support\cocosbuilder\CCBReader.h"
+#include "cocos/editor-support/cocosbuilder/CCNodeLoaderLibrary.h"
+#include "cocos/editor-support/cocosbuilder/CCBReader.h"
 #include "lua/LuaUtils.h"
 
 using namespace cocos2d;

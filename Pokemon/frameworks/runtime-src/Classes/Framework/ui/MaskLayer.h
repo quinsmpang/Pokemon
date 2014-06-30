@@ -5,7 +5,7 @@ Date: 4/18/2014
 ******************************/
 
 #include "cocos2d.h"
-#include "extensions\GUI\CCControlExtension\CCScale9Sprite.h"
+#include "extensions/GUI/CCControlExtension/CCScale9Sprite.h"
 
 namespace framework
 {
