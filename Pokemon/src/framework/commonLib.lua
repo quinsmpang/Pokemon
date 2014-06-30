@@ -118,3 +118,35 @@ function RemoveSpriteFrames(frames)
 		cc.SpriteFrameCache:getInstance():removeSpriteFramesFromTexture(frames[i + 1])
 	end
 end
+
+-- use coroutine to run multiple actions
+-- warning: you have to use this function in a coroutine
+-- invoke this as CoPerformActions(target1, action1[, target2, action2] ...)
+function CoPerformActions(...)
+	local co = coroutine.running()
+	assert(co, "CoPerformActions should only be used in a coroutine")
+	local actions = {...}
+
+	local maxDuration = -1
+	local maxDurationTarget = nil
+
+	for i = 1, #actions, 2 do
+		local target = actions[i]
+		local action = actions[i + 1]
+		local duration = action:getDuration()
+		-- seek the longest-duration action target
+		if duration > maxDuration then
+			maxDuration = duration
+			maxDurationTarget = target
+		end
+		target:runAction(action)
+	end
+
+	-- wait for the longest action
+	local coAction = cc.Sequence:create(
+		cc.DelayTime:create(maxDuration),
+		cc.CallFunc:create(function() coroutine.resume(co) end)
+		)
+	maxDurationTarget:runAction(coAction)
+	coroutine.yield()
+end
