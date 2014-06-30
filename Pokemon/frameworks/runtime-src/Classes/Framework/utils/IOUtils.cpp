@@ -1,5 +1,9 @@
 #include "IOUtils.h"
+#ifdef WIN32
 #include <io.h>
+#else
+//#include <sys/uio.h>
+#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
