@@ -32,7 +32,7 @@ end
 function PlayerData:initNewGameData(gender)
 	self.id = 111
 	self.gender = gender
-	self.name = NAMES[gender]
+	self.name = NAMES[gender + 1]
 
 	self.currentMapId = 1
 	self.currentPosition = ccp(6, 6)

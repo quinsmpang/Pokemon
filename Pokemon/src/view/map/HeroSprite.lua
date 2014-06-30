@@ -160,3 +160,25 @@ function HeroSprite:getNextPosition(direction)
 
 	return curPos
 end
+
+function HeroSprite:changeDirection(newDirection)
+	log("Hero change direction to [" .. (newDirection or "nil") .. "]")
+
+	local directionStr = nil
+	if newDirection == Enumerations.DIRECTIONS.UP then
+		directionStr = "up"
+	elseif newDirection == Enumerations.DIRECTIONS.DOWN then
+		directionStr = "down"
+	elseif newDirection == Enumerations.DIRECTIONS.LEFT then
+		directionStr = "left"
+	elseif newDirection == Enumerations.DIRECTIONS.RIGHT then
+		directionStr = "right"
+	else
+		assert(false, "Invalid direction.")
+		return
+	end
+
+	local newFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. directionStr .. "1.png"
+	local newFrame = cc.SpriteFrameCache:getInstance():getSpriteFrame(newFrameName)
+	self:setSpriteFrame(newFrame)
+end

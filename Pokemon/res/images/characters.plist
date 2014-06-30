@@ -7,11 +7,11 @@
             <key>images/characters/champion1_down1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{149,138},{24,30}}</string>
+                <string>{{182,76},{24,30}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{3,1},{24,30}}</string>
                 <key>sourceSize</key>
@@ -46,11 +46,11 @@
             <key>images/characters/champion1_left1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{148,172},{20,32}}</string>
+                <string>{{148,76},{20,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{6,0},{20,32}}</string>
                 <key>sourceSize</key>
@@ -59,7 +59,7 @@
             <key>images/characters/champion1_left2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{104,104},{22,32}}</string>
+                <string>{{104,138},{22,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>images/characters/champion1_left3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{104,70},{22,32}}</string>
+                <string>{{104,104},{22,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,11 +85,11 @@
             <key>images/characters/champion1_right1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{128,104},{20,32}}</string>
+                <string>{{216,70},{20,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{6,0},{20,32}}</string>
                 <key>sourceSize</key>
@@ -98,7 +98,7 @@
             <key>images/characters/champion1_right2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{102,206},{22,32}}</string>
+                <string>{{104,70},{22,32}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>images/characters/champion1_right3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{103,138},{22,32}}</string>
+                <string>{{102,206},{22,32}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -189,7 +189,7 @@
             <key>images/characters/hero_mum_down3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{80,104},{22,32}}</string>
+                <string>{{80,138},{22,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -202,11 +202,11 @@
             <key>images/characters/hero_mum_left1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{128,70},{20,32}}</string>
+                <string>{{182,54},{20,32}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{5,0},{20,32}}</string>
                 <key>sourceSize</key>
@@ -215,11 +215,11 @@
             <key>images/characters/hero_mum_left2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{126,206},{20,32}}</string>
+                <string>{{148,54},{20,32}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{5,0},{20,32}}</string>
                 <key>sourceSize</key>
@@ -228,7 +228,7 @@
             <key>images/characters/hero_mum_left3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{127,138},{20,32}}</string>
+                <string>{{126,206},{20,32}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -293,7 +293,7 @@
             <key>images/characters/hero_mum_up2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{80,70},{22,32}}</string>
+                <string>{{80,104},{22,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -306,7 +306,7 @@
             <key>images/characters/hero_mum_up3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{78,206},{22,32}}</string>
+                <string>{{80,70},{22,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -319,7 +319,7 @@
             <key>images/characters/player_female_walk_down1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{30,104},{24,32}}</string>
+                <string>{{30,138},{24,32}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -332,7 +332,7 @@
             <key>images/characters/player_female_walk_down2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{30,70},{24,32}}</string>
+                <string>{{30,104},{24,32}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -345,11 +345,11 @@
             <key>images/characters/player_female_walk_down3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{200,28},{24,32}}</string>
+                <string>{{30,70},{24,32}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{3,0},{24,32}}</string>
                 <key>sourceSize</key>
@@ -358,7 +358,7 @@
             <key>images/characters/player_female_walk_left1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{166,28},{24,32}}</string>
+                <string>{{200,28},{24,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -371,7 +371,7 @@
             <key>images/characters/player_female_walk_left2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{79,138},{22,32}}</string>
+                <string>{{78,206},{22,32}}</string>
                 <key>offset</key>
                 <string>{2,0}</string>
                 <key>rotated</key>
@@ -384,7 +384,7 @@
             <key>images/characters/player_female_walk_left3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,28},{24,32}}</string>
+                <string>{{166,28},{24,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -397,7 +397,7 @@
             <key>images/characters/player_female_walk_right1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{98,28},{24,32}}</string>
+                <string>{{132,28},{24,32}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -423,7 +423,7 @@
             <key>images/characters/player_female_walk_right3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{64,28},{24,32}}</string>
+                <string>{{98,28},{24,32}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -436,7 +436,7 @@
             <key>images/characters/player_female_walk_up1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{30,28},{24,32}}</string>
+                <string>{{64,28},{24,32}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -449,15 +449,15 @@
             <key>images/characters/player_female_walk_up2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{30,138},{23,32}}</string>
+                <string>{{30,28},{24,32}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{-1,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{3,0},{23,32}}</string>
+                <string>{{3,0},{24,32}}</string>
                 <key>sourceSize</key>
-                <string>{29,32}</string>
+                <string>{32,32}</string>
             </dict>
             <key>images/characters/player_female_walk_up3.png</key>
             <dict>
@@ -475,7 +475,7 @@
             <key>images/characters/player_male_walk_down1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{56,104},{22,32}}</string>
+                <string>{{56,138},{22,32}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
@@ -488,7 +488,7 @@
             <key>images/characters/player_male_walk_down2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{56,70},{22,32}}</string>
+                <string>{{56,104},{22,32}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
@@ -501,7 +501,7 @@
             <key>images/characters/player_male_walk_down3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{54,206},{22,32}}</string>
+                <string>{{56,70},{22,32}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
@@ -527,7 +527,7 @@
             <key>images/characters/player_male_walk_left2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{55,138},{22,32}}</string>
+                <string>{{54,206},{22,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -638,7 +638,7 @@
             <key>size</key>
             <string>{256,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ee8c9bc0fe24ddd5daaf0d84b1c3f50a:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:f70c17512c2405148d999150807e88b0:1/1$</string>
             <key>textureFileName</key>
             <string>characters.pvr.ccz</string>
         </dict>

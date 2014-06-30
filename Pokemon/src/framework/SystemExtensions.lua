@@ -124,13 +124,18 @@ function string.split(str, splitChar)
 	while true do
 		local pos = string.find(str, splitChar)
 		if not pos then
-			resultTable[#resultTable + 1] = str
+			table.insert(resultTable, str)
 			break
 		end
 		local subStr = string.sub(str, 1, pos - 1)
-		resultTable[#resultTable + 1] = subStr
+		table.insert(resultTable, subStr)
 		str = string.sub(str, pos + 1, #str)
 	end
 
 	return resultTable
+end
+
+-- replace all substrings to another
+function string.replaceAll(str, origin, target)
+	return string.gsub(str, origin, target)
 end

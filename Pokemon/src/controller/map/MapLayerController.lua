@@ -41,12 +41,14 @@ function MapLayerController:addObservers()
 	log("MapLayerController:addObservers")
 	Notifier:addObserver(NotifyEvents.MapView.ActionBegan, self, self.onActionBegan)
 	Notifier:addObserver(NotifyEvents.MapView.SwitchMap, self, self.switchMap)
+	Notifier:addObserver(NotifyEvents.MapView.MapKeyboardResponse, self, self.onKeyboardEvent)
 end
 
 function MapLayerController:removeObservers()
 	log("MapLayerController:removeObservers")
 	Notifier:removeObserver(NotifyEvents.MapView.ActionBegan, self)
 	Notifier:removeObserver(NotifyEvents.MapView.ActionInstructionsEnded, self)
+	Notifier:removeObserver(NotifyEvents.MapView.MapKeyboardResponse, self)
 end
 
 function MapLayerController:renderView()
@@ -63,7 +65,38 @@ function MapLayerController:renderView()
 	coreLayer:pushLayer(map)
 end
 
+function MapLayerController:onKeyboardEvent(keyCode, eventType)
+	log("MapLayerController:onKeyboardEvent, eventType: [" .. eventType .. "]")
+	if eventType == Enumerations.KEYBOARD_STATE.PRESSED then
+		-- 方向键处理
+		local nextDir = nil
+		if keyCode == GameSettings.upKey then
+			nextDir = Enumerations.DIRECTIONS.UP
+		elseif keyCode == GameSettings.downKey then
+			nextDir = Enumerations.DIRECTIONS.DOWN
+		elseif keyCode == GameSettings.leftKey then
+			nextDir = Enumerations.DIRECTIONS.LEFT
+		elseif keyCode == GameSettings.rightKey then
+			nextDir = Enumerations.DIRECTIONS.RIGHT
+		else
+			return
+		end
+
+		local hero = self.currentMap.hero
+		if DataCenter.currentPlayerData.currentDirection ~= nextDir then
+			hero:changeDirection(nextDir)
+			DataCenter.currentPlayerData.currentDirection = nextDir
+		else
+			self.currentMap:heroWalk(nextDir)
+		end
+	elseif eventType == Enumerations.KEYBOARD_STATE.RELEASED then
+	end
+end
+
 function MapLayerController:switchMap(newMapId)
+	-- 记录上一个状态
+	local lastState = MapStateController:getCurrentState()
+	MapStateController:setCurrentState(Enumerations.MAP_STATE.LOADING)
 	local coreLayer = self:getScene():getCoreLayer()
 
 	if self.currentMap and self.currentMap.mapInfo.id == newMapId then
@@ -83,6 +116,8 @@ function MapLayerController:switchMap(newMapId)
 		CallFunctionAsync(coreLayer, function() 
 				coreLayer:pushLayer(newMap) 
 				newMap:release()
+				-- 还原上一个状态
+				MapStateController:setCurrentState(lastState)
 			end, 0.25, newMap)
 	end
 	--coreLayer:pushLayer(newMap)

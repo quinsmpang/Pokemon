@@ -33,7 +33,7 @@ function ReplaceScene(scene, params)
 	if type(scene) == "string" then
 		scene = _G[scene]
 	end
-	local newScene = scene:create(params)
+	local newScene = scene["create"](scene, params)
 
 	local currentScene = cc.Director:getInstance():getRunningScene()
 	if currentScene then

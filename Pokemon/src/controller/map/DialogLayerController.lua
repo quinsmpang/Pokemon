@@ -6,6 +6,8 @@
 
 class("DialogLayerController", psViewController)
 
+require "src/controller/map/ActionController"
+
 DialogLayerController.resources = {
 }
 
@@ -16,10 +18,10 @@ DialogLayerController.dialogLabel = nil		-- dialog text
 DialogLayerController.dialogIndice = nil	-- indice for continuing talking
 
 -- logic 
+DialogLayerController.touchEventListener = nil
 DialogLayerController.currentDialogId = nil		-- current dialog id
 DialogLayerController.currentDialogModel = nil
 DialogLayerController.isDialogInProcess = nil	-- whether the dialog is in progress
-DialogLayerController.isUnderAction = nil		-- whether it's processing action
 
 -- const values
 DialogLayerController.DIALOG_WINDOW_SIZE = CCSizeMake(780, 100)
@@ -35,6 +37,7 @@ function DialogLayerController:load()
 	log("DialogLayerController:load")
 	self:loadResources()
 	self:addObservers()
+	MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
 
 	self:renderView()
 end
@@ -43,6 +46,8 @@ function DialogLayerController:unload()
 	log("DialogLayerController:unload")
 	self:cleanResources()
 	self:removeObservers()
+	self.root:getEventDispatcher():removeEventListener(self.touchEventListener)
+	self.root:removeFromParent()
 end
 
 function DialogLayerController:loadResources()
@@ -58,11 +63,13 @@ end
 function DialogLayerController:addObservers()
 	log("DialogLayerController:addObservers")
 	Notifier:addObserver(NotifyEvents.MapView.ActionEnded, self, self.onActionEnded)
+	Notifier:addObserver(NotifyEvents.MapView.DialogKeyboardResponse, self, self.onKeyboardEvent)
 end
 
 function DialogLayerController:removeObservers()
 	log("DialogLayerController:removeObservers")
 	Notifier:removeObserver(NotifyEvents.MapView.ActionEnded, self)
+	Notifier:removeObserver(NotifyEvents.MapView.DialogKeyboardResponse, self)
 end
 
 function DialogLayerController:renderView()
@@ -75,13 +82,7 @@ function DialogLayerController:renderView()
 	listener:setSwallowTouches(true)
 	listener:registerScriptHandler(MakeScriptHandler(self, self.onLayerTouch), cc.Handler.EVENT_TOUCH_BEGAN)
 	self.root:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, self.root)
-	-- register keyboard event
-	if targetPlatform == cc.PLATFORM_OS_WIN32 then
-		local kbdListener = cc.EventListenerKeyboard:create()
-		kbdListener:registerScriptHandler(MakeScriptHandler(self, self.onKeyboardPressed), cc.Handler.EVENT_KEYBOARD_PRESSED)
-
-		self.root:getEventDispatcher():addEventListenerWithSceneGraphPriority(kbdListener, self.root)
-	end
+	self.touchEventListener = listener
 
 	-- dialog window initialization
 	local capInsets = CCRectMake(20, 20, 60, 60)
@@ -117,7 +118,6 @@ function DialogLayerController:renderView()
 	self.root:addChild(dialogIndice)
 
 	self.isDialogInProcess = false
-	self.isUnderAction = false
 	self.currentDialogId = self.currentDialogId or 0
 
 	--coreLayer:pushLayer(self.root)
@@ -128,13 +128,30 @@ function DialogLayerController:renderView()
 end
 
 function DialogLayerController:onLayerTouch(touch, event)
-	if self.isUnderAction then
+	if ActionController.isUnderAction then
 		return
 	end
 	log("DialogLayerController:onLayerTouch")
+	self:handleDialogDisplay()
+end
+
+function DialogLayerController:onKeyboardEvent(keyCode, eventType)
+	if ActionController.isUnderAction then
+		return
+	end
+	log("DialogLayerController:onKeyboardEvent, eventType: [" .. eventType .. "]")
+	if eventType == Enumerations.KEYBOARD_STATE.PRESSED then
+		if keyCode == GameSettings.confirmKey or keyCode == GameSettings.cancelKey then
+			self:handleDialogDisplay()
+		end
+	end
+end
+
+function DialogLayerController:handleDialogDisplay()
 	if self.isDialogInProcess then
 		self.isDialogInProcess = false
-		self.dialogLabel:setString(self.currentDialogModel.speaker .. ": " .. self.currentDialogModel.dialog)
+		self.root:stopAllActions()
+		self.dialogLabel:setString(self.currentDialogModel.speaker .. ": " .. self.currentDialogModel:getCorrectDialog())
 		self.dialogIndice:setVisible(true)
 	else
 		GameVolumeHelper:playBtnClickSound()
@@ -142,54 +159,36 @@ function DialogLayerController:onLayerTouch(touch, event)
 	end
 end
 
-function DialogLayerController:onKeyboardPressed(keyCode, event)
-	if self.isUnderAction then
-		return
-	end
-	log("DialogLayerController:onKeyboardPressed")
-	if keyCode == GameSettings.confirmKey or keyCode == GameSettings.cancelKey then
-		if self.isDialogInProcess then
-			self.isDialogInProcess = false
-			self.root:stopAllActions()
-			self.dialogLabel:setString(self.currentDialogModel.speaker .. ": " .. self.currentDialogModel.dialog)
-			self.dialogIndice:setVisible(true)
-		else
-			GameVolumeHelper:playBtnClickSound()
-			self:generateNextDialog()
-		end
-	end
-end
-
 function DialogLayerController:generateNextDialog()
 	log("DialogLayerController:generateNextDialog")
 	log("current dialog id: " .. self.currentDialogId)
 	-- 执行action处理 如果有的话
-	if self.currentDialogModel and not self.isUnderAction then
+	if self.currentDialogModel and not ActionController.isUnderAction then
 		if self.currentDialogModel.actionId ~= DBNULL then
 			-- 如果action是-1，则进入自由活动
 			if tonumber(self.currentDialogModel.actionId) == -1 then
 				DataCenter.currentPlayerData:enterFreedom()
 				DataCenter.currentPlayerData.lastDialogId = self.currentDialogId
-				self.root:setVisible(false)
+				MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
+				self:getScene():unloadViewController(self)
 				return
 			else
 				local actionModel = ActionInfo:create(self.currentDialogModel.actionId)
-				ActionHelper:processAction(actionModel)
-				self.isUnderAction = true
+				ActionController.isUnderAction = true
 				self.root:setVisible(false)
-				Notifier:notify(NotifyEvents.MapView.ActionBegan, actionModel)
+				ActionController:processAction(actionModel)
 				return
 			end
 		end
 	else
-		self.isUnderAction = false
+		ActionController.isUnderAction = false
 		self.root:setVisible(true)
 	end
 
 	self.dialogIndice:setVisible(false)
 	self.currentDialogId = self.currentDialogId + 1
-	local currentDialog = GameDBHelper:queryDialogById(self.currentDialogId)
-	local substrings = GenerateAllUTF8Substrings(currentDialog.dialog)
+	local currentDialog = Dialog:create(self.currentDialogId)
+	local substrings = GenerateAllUTF8Substrings(currentDialog:getCorrectDialog())
 	self.currentDialogModel = currentDialog
 	DataCenter.currentPlayerData.step = currentDialog.relatedStep
 

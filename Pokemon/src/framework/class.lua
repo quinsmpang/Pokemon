@@ -35,7 +35,7 @@ function class(className, super)
 
 				-- get cpp instance
 				local cppInstance = ctor(unpack(args))
-				table.insert(cls.instanceList, cppInstance)
+				cls.instanceList[name] = cppInstance
 
 				-- set the peertable of cpp instance to self (to storage user-defined methods)
 				-- seems there are risks here, to be validated later.
@@ -48,7 +48,7 @@ function class(className, super)
 			end
 		end
 
-		-- invoke origin methods of the cpp class
+		-- invoke origin methods of the cpp class( only instance could invoke this method )
 		function cls:callOrigin(functionName, ...)
 			-- get peertable of the instance
 			local peertable = tolua.getpeer(self)
@@ -57,10 +57,12 @@ function class(className, super)
 			tolua.setpeer(self, nil)
 
 			-- invoke origin function
-			self[functionName](self, unpack{...})
+			local ret = self[functionName](self, unpack{...})
 
 			-- restore the peertable
 			tolua.setpeer(self, peertable)
+
+			return ret
 		end
 	end
 

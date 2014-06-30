@@ -31,8 +31,8 @@ TMXMapLayer.PLAYER_POS = ccp(384, 224)
 TMXMapLayer.TILE_SIZE = 32
 TMXMapLayer.ZORDER = {
 	MAIN = 0,
-	PLAYER = 2,
-	HIGH_ITEMS = 4,
+	PLAYER = 100,
+	HIGH_ITEMS = 101,
 	MASK = 999,
 }
 
@@ -189,7 +189,7 @@ function TMXMapLayer:heroWalk(direction)
 
 	-- 验证下个位置
 	if not self:validateHeroNextPosition(direction) then
-		log("Next position is invalid.")
+		log("Hero walk: Next position is invalid.")
 		return
 	end
 
@@ -346,11 +346,13 @@ function TMXMapLayer:onHeroWalkInstructionsEnd()
 end
 
 function TMXMapLayer:validateHeroNextPosition(direction)
+	log("TMXMapLayer:validateHeroNextPosition", direction)
 	local nextPos = self.hero:getNextPosition(direction)
 	if self:checkCollision(nextPos, true) then
 		return false
 	end
 	DataCenter.currentPlayerData:updatePosition(nextPos)
+	return true
 end
 
 -- 检测移动过程中的碰撞
@@ -359,6 +361,7 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 		-- 检测与玩家的碰撞
 		local heroPos = DataCenter.currentPlayerData.currentPosition
 		if PositionEquals(nextPosition, heroPos) then
+			log("与玩家发生碰撞")
 			return true
 		end
 	end
@@ -367,6 +370,7 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 	for _, npc in ipairs(self.npcList) do
 		local npcPos = npc.model.position
 		if PositionEquals(npcPos, nextPosition) then
+			log("与npc发生碰撞")
 			return true
 		end
 	end
@@ -375,6 +379,7 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 	for _, obstacle in ipairs(self.obstacleList) do
 		local obstaclePos = obstacle.position
 		if PositionEquals(obstaclePos, nextPosition) then
+			log("与障碍物发生碰撞")
 			return true
 		end
 	end

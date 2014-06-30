@@ -33,7 +33,11 @@ function Dialog:updateFromDB()
 
 		self.relatedStep = tonumber(data.relatedStep)
 		self.mapId = tonumber(data.mapId)
-		self.params = string.split(data.params, ";")
+		if data.params ~= DBNULL then
+			self.params = string.split(data.params, ";")
+		else
+			self.params = {}
+		end
 		if data.isQuestion == "1" then
 			self.isQuestion = true
 		else
@@ -46,4 +50,24 @@ function Dialog:updateFromDB()
 	else
 		log("Dialog:updateFromDB failed, id [" .. self.id .. "] does not exist.")
 	end
+end
+
+-- 获得拥有参数的对话的正确内容
+function Dialog:getCorrectDialog()
+	local correctDialog = self.dialog
+	for i, param in ipairs(self.params) do
+		-- tmd 为什么用中括号会有bug!!!
+		local originStr = "{" .. tostring(i) .. "}"
+		local targetStr = self:getParamString(param)
+		correctDialog = string.replaceAll(correctDialog, originStr, targetStr)
+	end
+	log("Correct Dialog: ", correctDialog)
+	return correctDialog
+end
+
+function Dialog:getParamString(param)
+	if param == "hero" then
+		return DataCenter.currentPlayerData.name
+	end
+	return ""
 end

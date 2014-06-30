@@ -6,6 +6,8 @@
 
 require "src/controller/map/MapLayerController"
 require "src/controller/map/DialogLayerController"
+require "src/controller/map/MapStateController"
+require "src/view/map/MapCoreLayer"
 
 class("MapViewScene", psGameScene)
 
@@ -38,20 +40,23 @@ function MapViewScene:cleanResources()
 end
 
 function MapViewScene:init()
-	local coreLayer = CoreLayer:create()
+	local coreLayer = MapCoreLayer:create()
 	self:setCoreLayer(coreLayer)
 
 	GameDBHelper:openDB()
 	
 	local mapLayerController = MapLayerController:create()
 	self:loadViewController(mapLayerController)
-	local dialogLayerController = DialogLayerController:create()
-	self:loadViewController(dialogLayerController)	
+	if DataCenter.currentPlayerData.currentStep ~= 0 then
+		local dialogLayerController = DialogLayerController:create()
+		self:loadViewController(dialogLayerController)
+	end
 end
 
 function MapViewScene:newData(gender)
 	local newPlayer = PlayerData:create(gender)
 	DataCenter.currentPlayerData = newPlayer
+	MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
 end
 
 function MapViewScene:loadData(data)
