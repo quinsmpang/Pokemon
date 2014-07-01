@@ -189,6 +189,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\ui\MaskLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\ModalLayer.h" />
     <ClInclude Include="..\Classes\Framework\utils\IOUtils.h" />
+    <ClInclude Include="..\Classes\Framework\utils\KeyboardHelper.h" />
     <ClInclude Include="..\Classes\Framework\utils\ScriptCCBReader.h" />
     <ClInclude Include="..\Classes\Framework\utils\RecordHelper.h" />
     <ClInclude Include="..\Classes\Framework\utils\UUIDGenerator.h" />
@@ -223,6 +224,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\ui\MaskLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\ModalLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\utils\IOUtils.cpp" />
+    <ClCompile Include="..\Classes\Framework\utils\KeyboardHelper.cpp" />
     <ClCompile Include="..\Classes\Framework\utils\ScriptCCBReader.cpp" />
     <ClCompile Include="..\Classes\Framework\utils\RecordHelper.cpp" />
     <ClCompile Include="..\Classes\Framework\utils\UUIDGenerator.cpp" />

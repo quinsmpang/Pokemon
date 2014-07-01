@@ -9,9 +9,9 @@ GameConfig = {}
 -- font path
 GameConfig.DEFAULT_FONT_PATH = "fonts/DFPYuanW7-GB.ttf"
 -- local db
-GameConfig.GAME_DB_PATH = "icon.jpg"
+GameConfig.GAME_DB_PATH = "res/icon.jpg"
 -- config path
-GameConfig.CONFIG_PATH = "config"
+GameConfig.CONFIG_PATH = "res/icon_small.jpg"
 
 -- db tables
 GameConfig.DIALOG_TABLE = "dialog_info"

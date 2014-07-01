@@ -34,5 +34,6 @@
 #include "utils/IOUtils.h"
 #include "utils/RecordHelper.h"
 //#include "utils/UUIDGenerator.h"
+#include "utils/KeyboardHelper.h"
 
 #endif

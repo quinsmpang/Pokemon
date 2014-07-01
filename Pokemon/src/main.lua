@@ -34,14 +34,6 @@ function GameLauncher:init()
     -- set record encryption key
     RecordHelper:getInstance():setEncryptionKey(213)
 
-    -- copy db file, to be removed when packaging the app
-    if DEBUG then
-        local dbPath = "../../tools/DBImportTool/icon.jpg"
-        local appPath = "icon.jpg"
-        IOUtils:getInstance():copyFile(dbPath, appPath)
-        IOUtils:getInstance():copyFile("../../tools/DBImportTool/config", GameConfig.CONFIG_PATH)
-    end
-
     -- load game settings
     GameSettings:loadSettings()
 

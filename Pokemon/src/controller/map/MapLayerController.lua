@@ -10,6 +10,13 @@ require "src/view/map/TMXMapLayer"
 
 MapLayerController.currentMap = nil		-- 当前地图层
 
+-- logic
+MapLayerController.isDirectionKeyPressed = nil
+MapLayerController.nextDirection = nil
+
+-- const
+MapLayerController.KEYBOARD_DT = 0.25
+
 MapLayerController.resources = {
 	"images/characters.plist", 
 	"images/characters.pvr.ccz",
@@ -52,6 +59,8 @@ function MapLayerController:removeObservers()
 end
 
 function MapLayerController:renderView()
+	self.isDirectionKeyPressed = false
+
 	local coreLayer = self:getScene():getCoreLayer()
 
 	local screenSize = cc.Director:getInstance():getWinSize()
@@ -68,28 +77,53 @@ end
 function MapLayerController:onKeyboardEvent(keyCode, eventType)
 	log("MapLayerController:onKeyboardEvent, eventType: [" .. eventType .. "]")
 	if eventType == Enumerations.KEYBOARD_STATE.PRESSED then
-		-- 方向键处理
-		local nextDir = nil
-		if keyCode == GameSettings.upKey then
-			nextDir = Enumerations.DIRECTIONS.UP
-		elseif keyCode == GameSettings.downKey then
-			nextDir = Enumerations.DIRECTIONS.DOWN
-		elseif keyCode == GameSettings.leftKey then
-			nextDir = Enumerations.DIRECTIONS.LEFT
-		elseif keyCode == GameSettings.rightKey then
-			nextDir = Enumerations.DIRECTIONS.RIGHT
-		else
-			return
-		end
+		if keyCode == GameSettings.upKey or keyCode == GameSettings.downKey or keyCode == GameSettings.leftKey or keyCode == GameSettings.rightKey then
+			if self.currentMap and self.currentMap:isHeroMoving() then
+				return
+			end
 
-		local hero = self.currentMap.hero
-		if DataCenter.currentPlayerData.currentDirection ~= nextDir then
-			hero:changeDirection(nextDir)
-			DataCenter.currentPlayerData.currentDirection = nextDir
-		else
-			self.currentMap:heroWalk(nextDir)
+			self.isDirectionKeyPressed = true
+			-- 方向键处理
+			local nextDir = nil
+			if keyCode == GameSettings.upKey then
+				nextDir = Enumerations.DIRECTIONS.UP
+			elseif keyCode == GameSettings.downKey then
+				nextDir = Enumerations.DIRECTIONS.DOWN
+			elseif keyCode == GameSettings.leftKey then
+				nextDir = Enumerations.DIRECTIONS.LEFT
+			elseif keyCode == GameSettings.rightKey then
+				nextDir = Enumerations.DIRECTIONS.RIGHT
+			else
+				return
+			end
+
+			self.nextDirection = nextDir
+
+			self:handleDirectionEvents()
+
+			-- scheduler is not friendly.
+			--self.walkSchedulerEntry = cc.Director:getInstance():getScheduler():scheduleScriptFunc(MakeScriptHandler(self, self.onWalkSchedule, nextDir), HeroSprite.WALK_DURATION * 2, false)
 		end
+		-- schedule walk action while the key is 
 	elseif eventType == Enumerations.KEYBOARD_STATE.RELEASED then
+		if keyCode == GameSettings.upKey or keyCode == GameSettings.downKey or keyCode == GameSettings.leftKey or keyCode == GameSettings.rightKey then
+			--cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.walkSchedulerEntry)
+			self.isDirectionKeyPressed = false
+		end
+	end
+end
+
+function MapLayerController:handleDirectionEvents()
+	log("MapLayerController:handleDirectionEvents")
+	if self.isDirectionKeyPressed then
+		local hero = self.currentMap.hero
+		if DataCenter.currentPlayerData.currentDirection ~= self.nextDirection then
+			hero:changeDirection(self.nextDirection)
+			DataCenter.currentPlayerData.currentDirection = self.nextDirection
+		else
+			self.currentMap:heroWalk(self.nextDirection)
+		end
+		CallFunctionAsync(self, self.handleDirectionEvents, self.KEYBOARD_DT)
 	end
 end
 

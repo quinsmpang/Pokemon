@@ -180,7 +180,7 @@ function TMXMapLayer:updatePlayerPosition()
 	self:setPosition(curPos.x + diffX, curPos.y + diffY)
 end
 
-function TMXMapLayer:heroWalk(direction)
+function TMXMapLayer:heroWalk(direction, callback)
 	if self.isMoving then
 		return
 	end
@@ -207,13 +207,16 @@ function TMXMapLayer:heroWalk(direction)
 		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(-self.TILE_SIZE, 0))
 	end
 
-	local action = cc.Sequence:create(
-		cc.Spawn:create(
+	local sequence = {}
+	table.insert(sequence, cc.Spawn:create(
 			cc.TargetedAction:create(self.hero, heroAction), 
 			mapAction
-			),
-		cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnd))
-		)
+			))
+	if callback then
+		table.insert(sequence, cc.CallFunc:create(callback))
+	end
+	table.insert(sequence, cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnd)))
+	local action = cc.Sequence:create(sequence)
 
 	self.isMoving = true
 	self:runAction(action)
@@ -399,4 +402,8 @@ function TMXMapLayer:checkEntrance()
 			break
 		end
 	end
+end
+
+function TMXMapLayer:isHeroMoving()
+	return self.isMoving
 end

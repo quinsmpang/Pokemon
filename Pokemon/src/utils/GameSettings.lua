@@ -78,11 +78,6 @@ function GameSettings:saveSettings()
 		self:updateKeys()
 	end
 	RecordHelperLua:recordTable(GameConfig.CONFIG_PATH, self)
-
-	-- copy config file
-	if DEBUG then
-		IOUtils:getInstance():copyFile(GameConfig.CONFIG_PATH, "../../tools/DBImportTool/config")
-	end
 end
 
 function GameSettings:updateKeys()

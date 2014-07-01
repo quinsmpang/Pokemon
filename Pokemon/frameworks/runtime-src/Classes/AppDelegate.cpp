@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "ZipUtils.h"
 
-#include "lua/lua_framework_auto.hpp"
+#include "Framework/lua/lua_framework_auto.hpp"
 #include "version.h"
 
 using namespace CocosDenshion;

@@ -6921,6 +6921,153 @@ int lua_register_psframework_RecordHelper(lua_State* tolua_S)
     g_typeCast["RecordHelper"] = "pf.RecordHelper";
     return 1;
 }
+
+int lua_psframework_KeyboardHelper_isKeyPressed(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::KeyboardHelper* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.KeyboardHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::KeyboardHelper*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_KeyboardHelper_isKeyPressed'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        bool ret = cobj->isKeyPressed(arg0);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isKeyPressed",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_KeyboardHelper_isKeyPressed'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_KeyboardHelper_isKeyReleased(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::KeyboardHelper* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.KeyboardHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::KeyboardHelper*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_KeyboardHelper_isKeyReleased'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        bool ret = cobj->isKeyReleased(arg0);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isKeyReleased",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_KeyboardHelper_isKeyReleased'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_KeyboardHelper_getInstance(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.KeyboardHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+            return 0;
+        framework::KeyboardHelper* ret = framework::KeyboardHelper::getInstance();
+        object_to_luaval<framework::KeyboardHelper>(tolua_S, "pf.KeyboardHelper",(framework::KeyboardHelper*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "getInstance",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_KeyboardHelper_getInstance'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_KeyboardHelper_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (KeyboardHelper)");
+    return 0;
+}
+
+int lua_register_psframework_KeyboardHelper(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.KeyboardHelper");
+    tolua_cclass(tolua_S,"KeyboardHelper","pf.KeyboardHelper","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"KeyboardHelper");
+        tolua_function(tolua_S,"isKeyPressed",lua_psframework_KeyboardHelper_isKeyPressed);
+        tolua_function(tolua_S,"isKeyReleased",lua_psframework_KeyboardHelper_isKeyReleased);
+        tolua_function(tolua_S,"getInstance", lua_psframework_KeyboardHelper_getInstance);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::KeyboardHelper).name();
+    g_luaType[typeName] = "pf.KeyboardHelper";
+    g_typeCast["KeyboardHelper"] = "pf.KeyboardHelper";
+    return 1;
+}
 TOLUA_API int register_all_psframework(lua_State* tolua_S)
 {
 	tolua_open(tolua_S);
@@ -6934,6 +7081,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_IOUtils(tolua_S);
 	lua_register_psframework_RefInteger(tolua_S);
 	lua_register_psframework_Map(tolua_S);
+	lua_register_psframework_KeyboardHelper(tolua_S);
 	lua_register_psframework_TableViewEx(tolua_S);
 	lua_register_psframework_RefBoolean(tolua_S);
 	lua_register_psframework_Stack(tolua_S);
