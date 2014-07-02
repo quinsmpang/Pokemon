@@ -1,5 +1,5 @@
 #include "MaskLayer.h"
-#include "lua/LuaUtils.h"
+#include "../lua/LuaUtils.h"
 
 using namespace cocos2d;
 

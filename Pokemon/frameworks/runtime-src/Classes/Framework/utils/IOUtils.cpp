@@ -2,12 +2,14 @@
 #ifdef WIN32
 #include <io.h>
 #else
-//#include <sys/uio.h>
+#include <sys/uio.h>
 #endif
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
+#ifdef WIN32
 #include <direct.h>
+#endif
 #include <vector>
 #include <fstream>
 
@@ -47,7 +49,20 @@ namespace framework
 
 	bool IOUtils::directoryExists(const std::string &path)
 	{
+#ifdef WIN32
 		return _access(path.c_str(), 0) != -1;
+#else
+        struct stat info;
+        
+        if (::stat(path.c_str(), &info) != 0) {
+            printf("Directory not found.");
+            return false;
+        } else if (info.st_mode & S_IFDIR) {
+            return true;
+        } else {
+            return false;
+        }
+#endif
 	}
 
 	bool IOUtils::moveFile(const std::string &oldPath, const std::string &newPath)
@@ -125,11 +140,21 @@ namespace framework
 		while (iter != dirPathArray.end())
 		{
 			auto dir = (*iter).c_str();
+#ifdef WIN32
 			if (_mkdir(dir))
 			{
 				result = false;
 				break;
 			}
+#else
+            struct stat st = {0};
+            if (::stat(dir, &st) == -1) {
+                if (mkdir(dir, 0700)) {
+                    result = false;
+                    break;
+                }
+            }
+#endif
 			++iter;
 		}
 
