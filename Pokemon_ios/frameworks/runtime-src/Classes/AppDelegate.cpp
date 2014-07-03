@@ -30,20 +30,20 @@ bool AppDelegate::applicationDidFinishLaunching()
 		glview = GLView::createWithRect("Pokemon Sunrise", Rect(0, 0, 800, 480));
 		director->setOpenGLView(glview);
 	}
-
+    
     glview->setDesignResolutionSize(800, 480, ResolutionPolicy::NO_BORDER);
-
+    
 	FileUtils::getInstance()->addSearchPath("res");
-
+    
     // turn on display FPS
     director->setDisplayStats(false);
-
+    
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
-
+    
 	// set pvr.ccz encryption key 33b495bcb090291ccb5aaa689a516406
 	ZipUtils::setPvrEncryptionKey(0x33b495bc, 0xb090291c, 0xcb5aaa68, 0x9a516406);
-
+    
 	auto pEngine = LuaEngine::getInstance();
 	ScriptEngineManager::getInstance()->setScriptEngine(pEngine);
 	// bind our framework to lua.
@@ -51,9 +51,9 @@ bool AppDelegate::applicationDidFinishLaunching()
 	// version management.
 	::printVersion();
 	lua_register_psframework_version(pEngine->getLuaStack()->getLuaState());
-
+    
 	pEngine->executeScriptFile("src/main.lua");
-
+    
     return true;
 }
 
@@ -61,7 +61,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 void AppDelegate::applicationDidEnterBackground()
 {
     Director::getInstance()->stopAnimation();
-
+    
     SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
 
@@ -69,6 +69,6 @@ void AppDelegate::applicationDidEnterBackground()
 void AppDelegate::applicationWillEnterForeground()
 {
     Director::getInstance()->startAnimation();
-
+    
     SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
