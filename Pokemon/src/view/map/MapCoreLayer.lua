@@ -8,7 +8,7 @@ class("MapCoreLayer", psCoreLayer)
 
 MapCoreLayer.pressedKeys = nil
 
-MapCoreLayer.KEYBOARD_DT = 0.5
+MapCoreLayer.KEYBOARD_DT = 0.25
 
 -- 记录基类的create方法
 MapCoreLayer.__create = MapCoreLayer.create

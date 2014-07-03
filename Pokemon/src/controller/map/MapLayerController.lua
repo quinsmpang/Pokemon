@@ -152,12 +152,13 @@ function MapLayerController:switchMap(newMapId)
 		-- 记录新地图id
 		DataCenter.currentPlayerData.currentMapId = newMapId
 
-		local newMapInfo = GameDBHelper:queryMapById(newMapId)
-		local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
-
 		if self.currentMap then
 			coreLayer:popLayer()
 		end
+
+		local newMapInfo = GameDBHelper:queryMapById(newMapId)
+		local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
+		
 		self.currentMap = newMap
 		self.currentMap:retain()
 		CallFunctionAsync(coreLayer, function() 
