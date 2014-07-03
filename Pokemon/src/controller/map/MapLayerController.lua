@@ -74,16 +74,17 @@ function MapLayerController:renderView()
 	coreLayer:pushLayer(map)
 end
 
-function MapLayerController:onKeyboardEvent(keyCode, eventType)
+function MapLayerController:onKeyboardEvent(keyCode, eventType, pressedKeys)
 	log("MapLayerController:onKeyboardEvent, eventType: [" .. eventType .. "]")
 	if eventType == Enumerations.KEYBOARD_STATE.PRESSED then
+		-- 方向键处理
 		if keyCode == GameSettings.upKey or keyCode == GameSettings.downKey or keyCode == GameSettings.leftKey or keyCode == GameSettings.rightKey then
-			if self.currentMap and self.currentMap:isHeroMoving() then
-				return
-			end
+			-- if self.currentMap and self.currentMap:isHeroMoving() then
+			-- 	return
+			-- end
 
 			self.isDirectionKeyPressed = true
-			-- 方向键处理
+
 			local nextDir = nil
 			if keyCode == GameSettings.upKey then
 				nextDir = Enumerations.DIRECTIONS.UP
@@ -99,7 +100,7 @@ function MapLayerController:onKeyboardEvent(keyCode, eventType)
 
 			self.nextDirection = nextDir
 
-			self:handleDirectionEvents()
+			--self:handleDirectionEvents()
 
 			-- scheduler is not friendly.
 			--self.walkSchedulerEntry = cc.Director:getInstance():getScheduler():scheduleScriptFunc(MakeScriptHandler(self, self.onWalkSchedule, nextDir), HeroSprite.WALK_DURATION * 2, false)
@@ -108,7 +109,20 @@ function MapLayerController:onKeyboardEvent(keyCode, eventType)
 	elseif eventType == Enumerations.KEYBOARD_STATE.RELEASED then
 		if keyCode == GameSettings.upKey or keyCode == GameSettings.downKey or keyCode == GameSettings.leftKey or keyCode == GameSettings.rightKey then
 			--cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.walkSchedulerEntry)
-			self.isDirectionKeyPressed = false
+			local hasDirectionKey = false
+			for _, pressedKey in ipairs(pressedKeys) do
+				if pressedKey == GameSettings.upKey or pressedKey == GameSettings.downKey or pressedKey == GameSettings.leftKey or pressedKey == GameSettings.rightKey then
+					hasDirectionKey = true
+					break
+				end
+			end
+			if not hasDirectionKey then
+				self.isDirectionKeyPressed = false
+			end
+		end
+	elseif eventType == Enumerations.KEYBOARD_STATE.LONGPRESSED then
+		if self.isDirectionKeyPressed then
+			self.currentMap:heroWalk(self.nextDirection)
 		end
 	end
 end
@@ -123,7 +137,6 @@ function MapLayerController:handleDirectionEvents()
 		else
 			self.currentMap:heroWalk(self.nextDirection)
 		end
-		CallFunctionAsync(self, self.handleDirectionEvents, self.KEYBOARD_DT)
 	end
 end
 

@@ -66,6 +66,7 @@ function PlayerData:getDirectionString()
 end
 
 function PlayerData:updatePosition(position)
+	log("PlayerData:updatePosition: ", position.x, position.y)
 	self.currentPosition = position
 end
 

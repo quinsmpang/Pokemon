@@ -190,6 +190,12 @@ function TMXMapLayer:heroWalk(direction, callback)
 	-- 验证下个位置
 	if not self:validateHeroNextPosition(direction) then
 		log("Hero walk: Next position is invalid.")
+		local collisionAction = cc.Sequence:create(
+			self.hero:getWalkActionWithoutMoving(direction),
+			cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnd))
+			)
+		self.isMoving = true
+		self.hero:runAction(collisionAction)
 		return
 	end
 
@@ -348,6 +354,7 @@ function TMXMapLayer:onHeroWalkInstructionsEnd()
 	Notifier:notify(NotifyEvents.MapView.ActionInstructionsEnded)
 end
 
+-- 验证玩家下个位置
 function TMXMapLayer:validateHeroNextPosition(direction)
 	log("TMXMapLayer:validateHeroNextPosition", direction)
 	local nextPos = self.hero:getNextPosition(direction)
@@ -380,8 +387,8 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 
 	-- 障碍物碰撞
 	for _, obstacle in ipairs(self.obstacleList) do
-		local obstaclePos = obstacle.position
-		if PositionEquals(obstaclePos, nextPosition) then
+		local obstacleRect = CCRectMake(obstacle.position.x, obstacle.position.y, obstacle.width, obstacle.height)
+		if ContainsPoint(obstacleRect, nextPosition) then
 			log("与障碍物发生碰撞")
 			return true
 		end

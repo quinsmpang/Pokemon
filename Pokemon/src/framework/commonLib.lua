@@ -51,7 +51,7 @@ end
 
 -- check whether a rect contains a point.
 function ContainsPoint(rect, pos)
-	return pos.x > rect.x and pos.x < rect.x + rect.width and pos.y > rect.y and pos.y < rect.y + rect.height
+	return pos.x >= rect.x and pos.x <= rect.x + rect.width and pos.y >= rect.y and pos.y <= rect.y + rect.height
 end
 
 function PositionEquals(pos1, pos2)

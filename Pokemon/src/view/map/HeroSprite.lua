@@ -57,7 +57,11 @@ function HeroSprite:init()
 	self:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
 end
 
-function HeroSprite:createWalkStepAction(direction, isLeftStep)
+function HeroSprite:createWalkStepAction(direction, isLeftStep, shouldMove)
+	if shouldMove == nil then
+		shouldMove = true
+	end
+
 	local frames = {}
 	local frameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_"
 	local dirStr, dirVec = nil, nil
@@ -85,10 +89,14 @@ function HeroSprite:createWalkStepAction(direction, isLeftStep)
 	end
 	table.insert(frames, cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName .. 1 .. ".png"))
 	local animation = cc.Animation:createWithSpriteFrames(frames, self.WALK_DURATION)
-	return cc.Spawn:create(
-		cc.Animate:create(animation),
-		cc.MoveBy:create(self.WALK_DURATION * 2, dirVec)
-		)
+	if shouldMove then
+		return cc.Spawn:create(
+			cc.Animate:create(animation),
+			cc.MoveBy:create(self.WALK_DURATION * 2, dirVec)
+			)
+	else
+		return cc.Animate:create(animation)
+	end
 end
 
 function HeroSprite:onNodeEvent(event)
@@ -135,6 +143,14 @@ function HeroSprite:getWalkAction(direction)
 
 	return cc.Sequence:create(
 		beginAction,
+		cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnded))
+		)
+end
+
+function HeroSprite:getWalkActionWithoutMoving(direction)
+	local stepAction = self:createWalkStepAction(direction, self.isLeftStep, false)
+	return cc.Sequence:create(
+		stepAction,
 		cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnded))
 		)
 end
