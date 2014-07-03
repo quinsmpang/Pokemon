@@ -93,7 +93,7 @@ function MainMenu:initUI()
 	self:addChild(settingsLabel)
 
 	-- keyset button
-	if targetPlatform == cc.PLATFORM_OS_WIN32 then
+	if targetPlatform == cc.PLATFORM_OS_WINDOWS then
 		normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_red.png", capInsets)
 		normalImage:setPreferredSize(self.BTN_SIZE)
 		selectedImage = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_orange.png", capInsets)
@@ -122,7 +122,7 @@ function MainMenu:showButtons()
 	self.btnLoadGame:setVisible(true)
 	self.btnSettings:setVisible(true)
 
-	if targetPlatform == cc.PLATFORM_OS_WIN32 then
+	if targetPlatform == cc.PLATFORM_OS_WINDOWS then
 		self.btnKeySet:setVisible(true)
 	end
 end

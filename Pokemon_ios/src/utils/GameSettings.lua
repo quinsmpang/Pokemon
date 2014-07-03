@@ -10,7 +10,7 @@ GameSettings.musicVolume = nil		-- 音乐声音大小
 GameSettings.effectVolume = nil		-- 音效声音大小
 GameSettings.Keys = nil
 
-if targetPlatform == cc.PLATFORM_OS_WIN32 then
+if targetPlatform == cc.PLATFORM_OS_WINDOWS then
 	-- 按键信息
 	GameSettings.upKey = nil
 	GameSettings.downKey = nil
@@ -29,7 +29,7 @@ function GameSettings:loadSettings()
 		self.musicVolume = 0.5
 		self.effectVolume = 0.5
 
-		if targetPlatform == cc.PLATFORM_OS_WIN32 then
+		if targetPlatform == cc.PLATFORM_OS_WINDOWS then
 			self.upKey = cc.KeyCode.KEY_UP_ARROW
 			self.downKey = cc.KeyCode.KEY_DOWN_ARROW
 			self.leftKey = cc.KeyCode.KEY_LEFT_ARROW
@@ -45,7 +45,7 @@ function GameSettings:loadSettings()
 		self.musicVolume = tonumber(result["musicVolume"])
 		self.effectVolume = tonumber(result["effectVolume"])
 
-		if targetPlatform == cc.PLATFORM_OS_WIN32 then
+		if targetPlatform == cc.PLATFORM_OS_WINDOWS then
 			self.upKey = tonumber(result["upKey"])
 			self.downKey = tonumber(result["downKey"])
 			self.leftKey = tonumber(result["leftKey"])
@@ -74,7 +74,7 @@ end
 function GameSettings:saveSettings()
 	log("GameSettings:saveSettings")
 	
-	if targetPlatform == cc.PLATFORM_OS_WIN32 then
+	if targetPlatform == cc.PLATFORM_OS_WINDOWS then
 		self:updateKeys()
 	end
 	RecordHelperLua:recordTable(GameConfig.CONFIG_PATH, self)

@@ -23,7 +23,7 @@ end
 function MapCoreLayer:init()
 	log("MapCoreLayer:init")
 
-	if targetPlatform == cc.PLATFORM_OS_WIN32 then
+	if targetPlatform == cc.PLATFORM_OS_WINDOWS then
 		local kbdListener = cc.EventListenerKeyboard:create()
 		kbdListener:registerScriptHandler(MakeScriptHandler(self, self.onKeyboardPressed), cc.Handler.EVENT_KEYBOARD_PRESSED)
 		kbdListener:registerScriptHandler(MakeScriptHandler(self, self.onKeyboardReleased), cc.Handler.EVENT_KEYBOARD_RELEASED)
