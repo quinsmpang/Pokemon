@@ -100,7 +100,7 @@ function MapLayerController:onKeyboardEvent(keyCode, eventType, pressedKeys)
 
 			self.nextDirection = nextDir
 
-			--self:handleDirectionEvents()
+			self:handleDirectionEvents()
 
 			-- scheduler is not friendly.
 			--self.walkSchedulerEntry = cc.Director:getInstance():getScheduler():scheduleScriptFunc(MakeScriptHandler(self, self.onWalkSchedule, nextDir), HeroSprite.WALK_DURATION * 2, false)
@@ -131,7 +131,7 @@ function MapLayerController:handleDirectionEvents()
 	log("MapLayerController:handleDirectionEvents")
 	if self.isDirectionKeyPressed then
 		local hero = self.currentMap.hero
-		if DataCenter.currentPlayerData.currentDirection ~= self.nextDirection then
+		if not self.currentMap:isHeroMoving() and DataCenter.currentPlayerData.currentDirection ~= self.nextDirection then
 			hero:changeDirection(self.nextDirection)
 			DataCenter.currentPlayerData.currentDirection = self.nextDirection
 		else

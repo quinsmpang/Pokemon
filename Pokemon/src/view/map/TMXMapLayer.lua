@@ -356,8 +356,8 @@ end
 
 -- 验证玩家下个位置
 function TMXMapLayer:validateHeroNextPosition(direction)
-	log("TMXMapLayer:validateHeroNextPosition", direction)
 	local nextPos = self.hero:getNextPosition(direction)
+	log("TMXMapLayer:validateHeroNextPosition", direction, nextPos.x, nextPos.y)
 	if self:checkCollision(nextPos, true) then
 		return false
 	end
@@ -387,7 +387,7 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 
 	-- 障碍物碰撞
 	for _, obstacle in ipairs(self.obstacleList) do
-		local obstacleRect = CCRectMake(obstacle.position.x, obstacle.position.y, obstacle.width, obstacle.height)
+		local obstacleRect = CCRectMake(obstacle.position.x, obstacle.position.y, obstacle.width - 1, obstacle.height - 1)
 		if ContainsPoint(obstacleRect, nextPosition) then
 			log("与障碍物发生碰撞")
 			return true

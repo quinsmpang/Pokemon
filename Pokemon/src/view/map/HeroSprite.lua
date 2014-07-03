@@ -162,19 +162,20 @@ end
 
 function HeroSprite:getNextPosition(direction)
 	local curPos = DataCenter.currentPlayerData.currentPosition
+	local nextPos = ccp(curPos.x, curPos.y)
 	if direction == Enumerations.DIRECTIONS.UP then
-		curPos.y = curPos.y + 1
+		nextPos.y = nextPos.y + 1
 	elseif direction == Enumerations.DIRECTIONS.DOWN then
-		curPos.y = curPos.y - 1
+		nextPos.y = nextPos.y - 1
 	elseif direction == Enumerations.DIRECTIONS.LEFT then
-		curPos.x = curPos.x - 1
+		nextPos.x = nextPos.x - 1
 	elseif direction == Enumerations.DIRECTIONS.RIGHT then
-		curPos.x = curPos.x + 1
+		nextPos.x = nextPos.x + 1
 	else
 		assert(false, "Inavailable direction.")
 	end
 
-	return curPos
+	return nextPos
 end
 
 function HeroSprite:changeDirection(newDirection)
