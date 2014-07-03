@@ -80,12 +80,12 @@
  </layer>
  <layer name="items" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt1MdOAkEAh/HhbrnYYkfPFords6ALds5i2bV7tu1iQT3b0NexPIXlKSxnv5jdhEwglsNOovMlv2zYCeEfsiCETqfT6f5itahDPRrQKJ03oRlBtKDVz3FFiiCKLnSjx71vuNde9KEfAxjMe68h1JRAEqMYw7h0PoFJTGEaKV/XFc6EhUUsYVk6X8Eq1rCODV/XFc5BBnvYx4F0fogsjnCMEz/HSal6Fv9jFQEhKlGFatQEVC/6ujY2tqMDnQghjAii0v4b3OIO9wq2eg2xK4Y4hjECAwkkpc0PeMQTnhVs9ZphVxqzmMM8FmDCcjd7v9UXvOIN72rmfrbJri1sYwe7sOEgI33PJbwuRRnKFT73p3z2Gc5xgUvkuH/F9fobu/T/pa5YOdUDfpCd5zd9ANIELcA=
+   eJzt1MdOAkEAh/HZu+hdsZ8VFeyeBV0Q69kKds6CAnbOFtDXsTyF4FNYzn4xuwlOlkQ9zEQzX/ILYYfyDwGEMJlMJtN/rBFN8KMZLdJ5K9rQjg50qhxXoyBC6McABp3rtnM7hGGMYBRjVc+1hZ6iiGEKcUxL5zOYxRzmsaB0nXcJJLGODWxK51vYxg52kVK6zrsc8jjEEY6l8xOc4gznKKgcJ6Xru2j6G3VZQnQjgB70og9BhKyvj73DPR7wqGGr2zi7wohgApOwEUVM2vyEMip41rDVbZFdS1jGClaxhgSSzmb3t/qCV7zhXc/cz/bYlUYG+zhAFjnkpc+5jvs+1KPB8n49FV3w3pe4wjWKKHH9htvbb+wy/5emWpV0D/hB2Sq/6QPH+C1N
   </data>
  </layer>
  <layer name="tops" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt1LsNgDAMANGEXyAbAPtLQJbkGgoiJDpo7knX2I0rhyBJehOpoZY66qv9QIlGmih/ep0k6TLzsBda432+0U4HlR/ukiTpyQlQ3wMv
+   eJzt1CkOgFAMAFE+O2h27p+wXJKxEBIcCOYlo1pR1SiSJD0JFFNCKWWXeU4FlVRR/ep1kvRPDc+5pY56GmikieZw3l1opY32D26VJOnOAVrrA6I=
   </data>
  </layer>
  <objectgroup name="heroObjects" width="45" height="25">
@@ -195,7 +195,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob10" x="480" y="480" width="160" height="192">
+  <object name="ob10" x="480" y="512" width="160" height="160">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -215,7 +215,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob12" x="832" y="480" width="128" height="160">
+  <object name="ob12" x="832" y="512" width="128" height="128">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
