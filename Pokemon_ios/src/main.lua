@@ -29,8 +29,8 @@ function GameLauncher:init()
     self:loadPublicResources()
 
     -- print current platform
-    _G["targetPlatform"] = cc.Application:getInstance():getTargetPlatform()
-    log("Current Platform: ", targetPlatform)
+    _G["TARGET_PLATFORM"] = cc.Application:getInstance():getTargetPlatform()
+    log("Current Platform: ", TARGET_PLATFORM)
 
     -- set random seed
     math.randomseed(tostring(os.time()):reverse():sub(1, 6))

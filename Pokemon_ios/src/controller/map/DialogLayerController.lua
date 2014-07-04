@@ -24,8 +24,6 @@ DialogLayerController.currentDialogModel = nil
 DialogLayerController.isDialogInProcess = nil	-- whether the dialog is in progress
 
 -- const values
-DialogLayerController.DIALOG_WINDOW_SIZE = CCSizeMake(780, 100)
-DialogLayerController.DIALOG_WINDOW_POSITION = ccp(400, 50)
 DialogLayerController.DIALOG_TEXT_FONT_SIZE = 18
 DialogLayerController.DIALOG_TEXT_DIMENSION = CCSizeMake(700, 60)
 DialogLayerController.DIALOG_TEXT_POSITION = ccp(60, 80)
@@ -87,8 +85,10 @@ function DialogLayerController:renderView()
 	-- dialog window initialization
 	local capInsets = CCRectMake(20, 20, 60, 60)
 	local dialogWindow = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_orange.png", capInsets)
-	dialogWindow:setPreferredSize(self.DIALOG_WINDOW_SIZE)
-	dialogWindow:setPosition(self.DIALOG_WINDOW_POSITION)
+	local windowSize = CCSizeMake(screenSize.width * 0.95, screenSize.height * 0.2)
+	local windowPos = ccp(screenSize.width * 0.5, screenSize.height * 0.1)
+	dialogWindow:setPreferredSize(windowSize)
+	dialogWindow:setPosition(windowPos)
 
 	self.dialogWindow = dialogWindow
 	self.root:addChild(dialogWindow)

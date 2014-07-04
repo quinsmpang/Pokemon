@@ -40,4 +40,5 @@ Enumerations.MAP_STATE = {
 Enumerations.KEYBOARD_STATE = {
 	PRESSED = 1,
 	RELEASED = 2,
+	LONGPRESSED = 3,
 }

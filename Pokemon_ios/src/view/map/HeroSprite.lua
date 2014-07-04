@@ -57,7 +57,11 @@ function HeroSprite:init()
 	self:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
 end
 
-function HeroSprite:createWalkStepAction(direction, isLeftStep)
+function HeroSprite:createWalkStepAction(direction, isLeftStep, shouldMove)
+	if shouldMove == nil then
+		shouldMove = true
+	end
+
 	local frames = {}
 	local frameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_"
 	local dirStr, dirVec = nil, nil
@@ -85,10 +89,14 @@ function HeroSprite:createWalkStepAction(direction, isLeftStep)
 	end
 	table.insert(frames, cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName .. 1 .. ".png"))
 	local animation = cc.Animation:createWithSpriteFrames(frames, self.WALK_DURATION)
-	return cc.Spawn:create(
-		cc.Animate:create(animation),
-		cc.MoveBy:create(self.WALK_DURATION * 2, dirVec)
-		)
+	if shouldMove then
+		return cc.Spawn:create(
+			cc.Animate:create(animation),
+			cc.MoveBy:create(self.WALK_DURATION * 2, dirVec)
+			)
+	else
+		return cc.Animate:create(animation)
+	end
 end
 
 function HeroSprite:onNodeEvent(event)
@@ -139,6 +147,14 @@ function HeroSprite:getWalkAction(direction)
 		)
 end
 
+function HeroSprite:getWalkActionWithoutMoving(direction)
+	local stepAction = self:createWalkStepAction(direction, self.isLeftStep, false)
+	return cc.Sequence:create(
+		stepAction,
+		cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnded))
+		)
+end
+
 function HeroSprite:onMovingEnded()
 	log("HeroSprite:onMovingEnded")
 	self.isLeftStep = not self.isLeftStep
@@ -146,19 +162,20 @@ end
 
 function HeroSprite:getNextPosition(direction)
 	local curPos = DataCenter.currentPlayerData.currentPosition
+	local nextPos = ccp(curPos.x, curPos.y)
 	if direction == Enumerations.DIRECTIONS.UP then
-		curPos.y = curPos.y + 1
+		nextPos.y = nextPos.y + 1
 	elseif direction == Enumerations.DIRECTIONS.DOWN then
-		curPos.y = curPos.y - 1
+		nextPos.y = nextPos.y - 1
 	elseif direction == Enumerations.DIRECTIONS.LEFT then
-		curPos.x = curPos.x - 1
+		nextPos.x = nextPos.x - 1
 	elseif direction == Enumerations.DIRECTIONS.RIGHT then
-		curPos.x = curPos.x + 1
+		nextPos.x = nextPos.x + 1
 	else
 		assert(false, "Inavailable direction.")
 	end
 
-	return curPos
+	return nextPos
 end
 
 function HeroSprite:changeDirection(newDirection)

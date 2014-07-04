@@ -80,7 +80,7 @@ function KeysetLayer:initUI()
 	self.border:addChild(self.btnCancel)
 
 	-- register keyboard event
-	if targetPlatform == cc.PLATFORM_OS_WINDOWS then
+	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
 		local kbdListener = cc.EventListenerKeyboard:create()
 		kbdListener:registerScriptHandler(MakeScriptHandler(self, self.onKeyboardPressed), cc.Handler.EVENT_KEYBOARD_PRESSED)
 
