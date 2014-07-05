@@ -12,6 +12,7 @@
 #include "containers/Map.h"
 
 #include "lua/LuaUtils.h"
+#include "lua/LuaEngineEx.h"
 
 #include "encryption/DesUtils.h"
 #include "encryption/FileEncryptor.h"
@@ -29,11 +30,11 @@
 #include "controls/TableViewEx.h"
 #include "controls/EncryptedTMXLayer.h"
 #include "controls/EncryptedTMXTiledMap.h"
+#include "controls/ListMenuItem.h"
+#include "controls/ListMenu.h"
 
 #include "utils/ScriptCCBReader.h"
 #include "utils/IOUtils.h"
 #include "utils/RecordHelper.h"
-//#include "utils/UUIDGenerator.h"
-#include "utils/KeyboardHelper.h"
 
 #endif

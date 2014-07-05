@@ -5,6 +5,7 @@
 #include "ZipUtils.h"
 
 #include "Framework/lua/lua_framework_auto.hpp"
+#include "Framework/lua/lua_framework_manual.hpp"
 #include "version.h"
 
 using namespace CocosDenshion;
@@ -48,6 +49,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	ScriptEngineManager::getInstance()->setScriptEngine(pEngine);
 	// bind our framework to lua.
 	register_all_psframework(pEngine->getLuaStack()->getLuaState());
+	register_all_psframework_manual(pEngine->getLuaStack()->getLuaState());
 	// version management.
 	::printVersion();
 	lua_register_psframework_version(pEngine->getLuaStack()->getLuaState());

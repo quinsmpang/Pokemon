@@ -1,0 +1,15 @@
+--[[
+	Description: Framework constants
+	Author: M.Wan
+	Date: 07/06/2014
+]]
+
+pf = pf or {}
+
+pf.Handler.LISTMENU_ITEM_SELECTED = 10001
+pf.Handler.LISTMENU_ITEM_FOCUSED = 10002
+pf.Handler.LISTMENU_ITEM_BLURRED = 10003
+pf.Handler.LISTMENU_ITEM_WILL_RECYCLE = 10004
+pf.Handler.LISTMENU_ITEM_SIZE_FOR_MENU = 10005
+pf.Handler.LISTMENU_ITEM_AT_INDEX = 10006
+pf.Handler.LISTMENU_COUNT_OF_ITEMS = 10007

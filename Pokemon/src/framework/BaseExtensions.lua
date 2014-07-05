@@ -79,6 +79,13 @@ class("psSprite", {
 		end
 	})
 
+--psTableView
+class("psTableView", {
+		create = function(...)
+			return cc.TableView:create(...)
+		end
+	})
+
 
 ----------- Be accustomed to old functions -----------
 
