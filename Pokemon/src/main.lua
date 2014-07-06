@@ -81,7 +81,6 @@ function GameLauncher:loadPublicModules()
     require "src/utils/GameDBHelper"
     require "src/utils/DataCenter"
     require "src/utils/DialogPopHelper"
-    require "src/utils/ListMenuLua"
 end
 
 function GameLauncher:loadPublicResources()
