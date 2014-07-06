@@ -88,8 +88,8 @@ class("psTableView", {
 
 --psListMenu
 class("psListMenu", {
-		create = function(rowCount)
-			return ListMenu:create(rowCount)
+		create = function(...)
+			return ListMenu:create(...)
 		end
 	})
 
