@@ -7,7 +7,7 @@
 NotifyEvents = {}
 
 -- 地图事件
-NotifyEvents.MapView = {}
+NotifyEvents.MapView = NotifyEvents.MapView or {}
 
 -- 响应MapLayerController的键盘事件	MapCoreLayer通知, MapLayerController接收
 NotifyEvents.MapView.MapKeyboardResponse = "NotifyEvents.MapView.MapKeyboardResponse"

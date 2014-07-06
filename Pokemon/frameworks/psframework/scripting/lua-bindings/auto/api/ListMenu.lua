@@ -13,6 +13,7 @@
 -- @param self
 -- @param #int int
 -- @param #int int
+-- @param #int int
         
 --------------------------------
 -- @function [parent=#ListMenu] updateItemAtIndex 

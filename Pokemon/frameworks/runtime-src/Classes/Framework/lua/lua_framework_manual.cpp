@@ -24,7 +24,7 @@ public:
 			int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)menu, ScriptHandlerMgr::HandlerType::LISTMENU_ITEMSELECTED);
 			if (handler)
 			{
-				LuaListMenuEventData eventData;
+				LuaListMenuEventData eventData(item);
 				BasicScriptData data(menu, &eventData);
 				LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::LISTMENU_ITEMSELECTED, (void*)&data);
 			}
@@ -38,7 +38,7 @@ public:
 			int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)menu, ScriptHandlerMgr::HandlerType::LISTMENU_ITEMFOCUSED);
 			if (handler)
 			{
-				LuaListMenuEventData eventData;
+				LuaListMenuEventData eventData(item);
 				BasicScriptData data(menu, &eventData);
 				LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::LISTMENU_ITEMFOCUSED, (void*)&data);
 			}
@@ -52,7 +52,7 @@ public:
 			int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)menu, ScriptHandlerMgr::HandlerType::LISTMENU_ITEMBLURRED);
 			if (handler)
 			{
-				LuaListMenuEventData eventData;
+				LuaListMenuEventData eventData(item);
 				BasicScriptData data(menu, &eventData);
 				LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::LISTMENU_ITEMBLURRED, (void*)&data);
 			}
@@ -66,7 +66,7 @@ public:
 			int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)menu, ScriptHandlerMgr::HandlerType::LISTMENU_ITEMWILLRECYCLE);
 			if (handler)
 			{
-				LuaListMenuEventData eventData;
+				LuaListMenuEventData eventData(item);
 				BasicScriptData data(menu, &eventData);
 				LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::LISTMENU_ITEMWILLRECYCLE, (void*)&data);
 			}
@@ -153,9 +153,9 @@ public:
 				LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::LISTMENU_ITEM_SIZE_FOR_MENU, (void*)&data, 2, [&](lua_State* L, int numReturn){
 					CCASSERT(numReturn == 2, "itemSizeForMenu return count error");
 					ValueVector vec;
-					width  = (float)tolua_tonumber(L, -1, 0);
+					height  = (float)tolua_tonumber(L, -1, 0);
 					lua_pop(L, 1);
-					height = (float)tolua_tonumber(L, -1, 0);
+					width = (float)tolua_tonumber(L, -1, 0);
 					lua_pop(L, 1);
 				});
 
@@ -176,7 +176,7 @@ public:
 				LuaListMenuEventData eventData(&index);
 				BasicScriptData data(menu, &eventData);
 				ListMenuItem* item = nullptr;
-				LuaEngine::getInstance()->handleEvent(ScriptHandlerMgr::HandlerType::LISTMENU_ITEM_AT_INDEX, (void*)&data, 1, [&](lua_State* L, int numReturn){
+				LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::LISTMENU_ITEM_AT_INDEX, (void*)&data, 1, [&](lua_State* L, int numReturn){
 					CCASSERT(numReturn == 1, "itemAtIndex return count error");
 					item = static_cast<ListMenuItem*>(tolua_tousertype(L, -1, nullptr));
 					lua_pop(L, 1);
@@ -199,7 +199,7 @@ public:
 				LuaListMenuEventData eventData;
 				BasicScriptData data(menu, &eventData);
 				ssize_t count = 0;
-				LuaEngine::getInstance()->handleEvent(ScriptHandlerMgr::HandlerType::LISTMENU_COUNT_OF_ITEMS, (void*)&data, 1, [&](lua_State* L, int numReturn){
+				LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::LISTMENU_COUNT_OF_ITEMS, (void*)&data, 1, [&](lua_State* L, int numReturn){
 					CCASSERT(numReturn == 1, "countOfItemsInMenu return count error");
 					count = (ssize_t)tolua_tonumber(L, -1, 0);
 					lua_pop(L, 1);

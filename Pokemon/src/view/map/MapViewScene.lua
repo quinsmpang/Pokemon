@@ -6,6 +6,7 @@
 
 require "src/controller/map/MapLayerController"
 require "src/controller/map/DialogLayerController"
+require "src/controller/map/MenuLayerController"
 require "src/controller/map/MapStateController"
 require "src/view/map/MapCoreLayer"
 

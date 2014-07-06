@@ -5,6 +5,9 @@ using namespace cocos2d;
 
 namespace framework
 {
+	float ListMenu::LONG_PRESSED_DT = 0.05f;
+	float ListMenu::LONG_PRESSED_DELAY = 1.0f;
+
 	ListMenu *ListMenu::create(ssize_t showCount)
 	{
 		return ListMenu::create(nullptr, showCount);
@@ -32,10 +35,12 @@ namespace framework
 		, _recycledItems(nullptr)
 		, _upKeyCode(0)
 		, _downKeyCode(0)
+		, _confirmKeyCode(0)
 		, _isEnabled(true)
 		, _topGlobalIndex(0)
 		, _currentShowIndex(0)
 		, _kbdListener(nullptr)
+		, _pressedKey(0)
 	{
 	}
 
@@ -59,10 +64,10 @@ namespace framework
 	void ListMenu::onEnter()
 	{
 		auto pKbdListener = EventListenerKeyboard::create();
-		pKbdListener->onKeyPressed = std::bind(&ListMenu::onKeyPressed, this, std::placeholders::_1, std::placeholders::_2);
-		pKbdListener->onKeyReleased = std::bind(&ListMenu::onKeyReleased, this, std::placeholders::_1, std::placeholders::_2);
+		pKbdListener->onKeyPressed = CC_CALLBACK_2(ListMenu::onKeyPressed, this);
+		pKbdListener->onKeyReleased = CC_CALLBACK_2(ListMenu::onKeyReleased, this);
 
-		this->_eventDispatcher->addEventListenerWithSceneGraphPriority(pKbdListener, this);
+		this->_eventDispatcher->addEventListenerWithFixedPriority(pKbdListener, -1);
 		this->_kbdListener = pKbdListener;
 	}
 
@@ -71,10 +76,11 @@ namespace framework
 		this->_eventDispatcher->removeEventListener(_kbdListener);
 	}
 
-	void ListMenu::setResponseKeyCodes(int upKeyCode, int downKeyCode)
+	void ListMenu::setResponseKeyCodes(int upKeyCode, int downKeyCode, int confirmKeyCode)
 	{
 		this->_upKeyCode = upKeyCode;
 		this->_downKeyCode = downKeyCode;
+		this->_confirmKeyCode = confirmKeyCode;
 	}
 
 	void ListMenu::reloadData()
@@ -97,8 +103,10 @@ namespace framework
 			ssize_t itemCount = _dataSource->countOfItemsInMenu(this);
 			if (itemCount > 0)
 			{
+				// init ui
+				itemCount = itemCount > _showCount ? _showCount : itemCount;
 				Size itemSize = _dataSource->itemSizeForMenu(this);
-				this->setContentSize(Size(itemSize.width, itemCount * itemSize.height));
+				this->setContentSize(Size(itemSize.width, _showCount * itemSize.height));
 				ListMenuItem *item = nullptr;
 				for (int i = 0; i < itemCount; ++i)
 				{
@@ -109,6 +117,11 @@ namespace framework
 						this->setItemAtIndex(item, i);
 					}
 				}
+				// focus the first item
+				if (_delegate)
+				{
+					_delegate->itemFocused(this, this->getItemAtIndex(0));
+				}
 			}
 		}
 	}
@@ -117,7 +130,13 @@ namespace framework
 	{
 		if (index >= 0 && index < _shownItems.size())
 		{
-			return _shownItems.at(index);
+			for (const auto &item : _shownItems)
+			{
+				if (item->getShowIndex() == index)
+				{
+					return item;
+				}
+			}
 		}
 		return nullptr;
 	}
@@ -216,7 +235,7 @@ namespace framework
 		_shownItems.eraseObject(pItem);
 
 		// readd the item
-		pItem = _dataSource->itemAtIndex(this, index);
+		pItem = _dataSource->itemAtIndex(this, _topGlobalIndex + index);
 		this->setItemAtIndex(pItem, index);
 	}
 
@@ -226,9 +245,10 @@ namespace framework
 		ListMenuItem *pItem = nullptr;
 		if (!_recycledItems->empty())
 		{
-			pItem = _recycledItems->at(0);
+			pItem = _recycledItems->at(_recycledItems->size() - 1);
+			pItem->removeAllChildrenWithCleanup(true);
 			pItem->retain();
-			_recycledItems->erase(0);
+			_recycledItems->erase(_recycledItems->size() - 1);
 			pItem->autorelease();
 		}
 		return pItem;
@@ -241,101 +261,34 @@ namespace framework
 			return;
 		}
 
+		if ((_pressedKey == _downKeyCode || _pressedKey == _upKeyCode) && (int)keyCode != _confirmKeyCode)
+		{
+			return;
+		}
+		_pressedKey = (int)keyCode;
+
 		if ((int)keyCode == _upKeyCode)
 		{
-			if (_topGlobalIndex == 0)
-			{
-				return;
-			}
-			// unfocus the current item
-			if (_delegate)
-			{
-				_delegate->itemBlurred(this, this->getItemAtIndex(_currentShowIndex));
-			}
-			if (_currentShowIndex > 0)
-			{
-				--_currentShowIndex;
-			}
-			else
-			{
-				ListMenuItem *pItem = nullptr;
-				for (int i = 0; i < _shownItems.size(); ++i)
-				{
-					pItem = this->getItemAtIndex(i);
-					if (i == _shownItems.size() - 1)
-					{
-						// recycle the item.
-						if (_delegate)
-						{
-							_delegate->itemWillRecycle(this, pItem);
-						}
-						pItem->reset();
-						_recycledItems->pushBack(pItem);
-						pItem->removeFromParentAndCleanup(false);
-						_shownItems.eraseObject(pItem);
-						break;
-					}
-					this->setItemAtIndex(pItem, i + 1);
-				}
-				--_topGlobalIndex;
-				pItem = _dataSource->itemAtIndex(this, _topGlobalIndex);
-				this->setItemAtIndex(pItem, 0);
-			}
-			// focus the current item
-			if (_delegate)
-			{
-				_delegate->itemFocused(this, this->getItemAtIndex(_currentShowIndex));
-			}
+			this->moveUp();
+
+			Director::getInstance()->getScheduler()->schedule(CC_CALLBACK_1(ListMenu::onScheduleLongPressed, this), this, LONG_PRESSED_DT, kRepeatForever, LONG_PRESSED_DELAY, false, "long_pressed_delay");
 		}
 		else if ((int)keyCode == _downKeyCode)
 		{
-			if (_topGlobalIndex + _showCount >= _dataSource->countOfItemsInMenu(this) - 1)
-			{
-				return;
-			}
-			// unfocus the current item
-			if (_delegate)
-			{
-				_delegate->itemBlurred(this, this->getItemAtIndex(_currentShowIndex));
-			}
-			if (_currentShowIndex + _topGlobalIndex < _shownItems.size() - 1)
-			{
-				++_currentShowIndex;
-			}
-			else
-			{
-				ListMenuItem *pItem = nullptr;
-				for (int i = 0; i < _shownItems.size(); ++i)
-				{
-					pItem = this->getItemAtIndex(i);
-					if (i == 0)
-					{
-						// recycle the item.
-						if (_delegate)
-						{
-							_delegate->itemWillRecycle(this, pItem);
-						}
-						pItem->reset();
-						_recycledItems->pushBack(pItem);
-						pItem->removeFromParentAndCleanup(false);
-						_shownItems.eraseObject(pItem);
-						continue;
-					}
-					this->setItemAtIndex(pItem, i - 1);
-				}
-				--_topGlobalIndex;
-				pItem = _dataSource->itemAtIndex(this, _topGlobalIndex + _shownItems.size() - 1);
-				this->setItemAtIndex(pItem, _shownItems.size() - 1);
-			}
-			// focus the current item
-			if (_delegate)
-			{
-				_delegate->itemFocused(this, this->getItemAtIndex(_currentShowIndex));
-			}
+			this->moveDown();
+
+			Director::getInstance()->getScheduler()->schedule(CC_CALLBACK_1(ListMenu::onScheduleLongPressed, this), this, LONG_PRESSED_DT, kRepeatForever, LONG_PRESSED_DELAY, false, "long_pressed_delay");
 		}
-		else
+		else if ((int)keyCode == _confirmKeyCode)
 		{
-			return;
+			Director::getInstance()->getScheduler()->unschedule("long_pressed_delay", this);
+			_pressedKey = 0;
+
+			// select the current item
+			if (_delegate)
+			{
+				_delegate->itemSelected(this, this->getItemAtIndex(_currentShowIndex));
+			}
 		}
 
 #if CC_ENABLE_SCRIPT_BINDING
@@ -357,6 +310,12 @@ namespace framework
 		if (!_isEnabled)
 		{
 			return;
+		}
+
+		if ((int)keyCode == _pressedKey)
+		{
+			Director::getInstance()->getScheduler()->unschedule("long_pressed_delay", this);
+			_pressedKey = 0;
 		}
 
 #if CC_ENABLE_SCRIPT_BINDING
@@ -386,6 +345,116 @@ namespace framework
 				this->addChild(item);
 				_shownItems.pushBack(item);
 			}
+		}
+	}
+
+	void ListMenu::onScheduleLongPressed(float dt)
+	{
+		if (_pressedKey == _upKeyCode)
+		{
+			this->moveUp();
+		}
+		else if (_pressedKey == _downKeyCode)
+		{
+			this->moveDown();
+		}
+	}
+
+	void ListMenu::moveUp()
+	{
+		if (_topGlobalIndex + _currentShowIndex == 0)
+		{
+			return;
+		}
+		// unfocus the current item
+		if (_delegate)
+		{
+			_delegate->itemBlurred(this, this->getItemAtIndex(_currentShowIndex));
+		}
+		// current show index is not at the beginning, just move up.
+		if (_currentShowIndex > 0)
+		{
+			--_currentShowIndex;
+		}
+		// show the previous item, index doesn't change
+		else
+		{
+			ListMenuItem *pItem = nullptr;
+			ListMenuItem *pLastItem = this->getItemAtIndex(_showCount - 1);
+			// move down the rest items.
+			for (int i = _showCount - 2; i >= 0; --i)
+			{
+				pItem = this->getItemAtIndex(i);
+				this->setItemAtIndex(pItem, i + 1);
+			}
+			// recycle the last item
+			if (_delegate)
+			{
+				_delegate->itemWillRecycle(this, pLastItem);
+			}
+			pLastItem->reset();
+			_recycledItems->pushBack(pLastItem);
+			pLastItem->removeFromParentAndCleanup(false);
+			_shownItems.eraseObject(pLastItem);
+			// decrease the top global index.
+			--_topGlobalIndex;
+			// add the previous item
+			pItem = _dataSource->itemAtIndex(this, _topGlobalIndex);
+			this->setItemAtIndex(pItem, 0);
+		}
+		// focus the current item
+		if (_delegate)
+		{
+			_delegate->itemFocused(this, this->getItemAtIndex(_currentShowIndex));
+		}
+	}
+
+	void ListMenu::moveDown()
+	{
+		if (_topGlobalIndex + _currentShowIndex == _dataSource->countOfItemsInMenu(this) - 1)
+		{
+			return;
+		}
+		// unfocus the current item
+		if (_delegate)
+		{
+			_delegate->itemBlurred(this, this->getItemAtIndex(_currentShowIndex));
+		}
+		// current show index is not at the end, just move down.
+		if (_currentShowIndex < _shownItems.size() - 1)
+		{
+			++_currentShowIndex;
+		}
+		// show the next item, index doesn't change
+		else
+		{
+			ListMenuItem *pItem = nullptr;
+			ListMenuItem *pFirstItem = this->getItemAtIndex(0);
+			// move up the rest item
+			for (int i = 1; i < _shownItems.size(); ++i)
+			{
+				pItem = this->getItemAtIndex(i);
+				this->setItemAtIndex(pItem, i - 1);
+			}
+			// recycle the first item
+			if (_delegate)
+			{
+				_delegate->itemWillRecycle(this, pFirstItem);
+			}
+			pFirstItem->reset();
+			_recycledItems->pushBack(pFirstItem);
+			pFirstItem->removeFromParentAndCleanup(false);
+			_shownItems.eraseObject(pFirstItem);
+			// add the next item
+			pItem = _dataSource->itemAtIndex(this, _topGlobalIndex + _showCount);
+			this->setItemAtIndex(pItem, _showCount - 1);
+			// increase top global index
+			++_topGlobalIndex;
+		}
+		// focus the current item
+		if (_delegate)
+		{
+			_delegate->itemFocused(this, this->getItemAtIndex(_currentShowIndex));
 		}
 	}
 }

@@ -86,6 +86,13 @@ class("psTableView", {
 		end
 	})
 
+--psListMenu
+class("psListMenu", {
+		create = function(rowCount)
+			return ListMenu:create(rowCount)
+		end
+	})
+
 
 ----------- Be accustomed to old functions -----------
 

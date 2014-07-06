@@ -6543,20 +6543,23 @@ int lua_psframework_ListMenu_setResponseKeyCodes(lua_State* tolua_S)
 #endif
 
     argc = lua_gettop(tolua_S)-1;
-    if (argc == 2) 
+    if (argc == 3) 
     {
         int arg0;
         int arg1;
+        int arg2;
 
         ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
 
         ok &= luaval_to_int32(tolua_S, 3,(int *)&arg1);
+
+        ok &= luaval_to_int32(tolua_S, 4,(int *)&arg2);
         if(!ok)
             return 0;
-        cobj->setResponseKeyCodes(arg0, arg1);
+        cobj->setResponseKeyCodes(arg0, arg1, arg2);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setResponseKeyCodes",argc, 2);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setResponseKeyCodes",argc, 3);
     return 0;
 
 #if COCOS2D_DEBUG >= 1

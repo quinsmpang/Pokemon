@@ -8,7 +8,7 @@ MapStateController = {}
 
 MapStateController.currentState = nil	-- 当前地图状态
 
-function MapStateController:getCurrentState(state)
+function MapStateController:getCurrentState()
 	return self.currentState
 end
 

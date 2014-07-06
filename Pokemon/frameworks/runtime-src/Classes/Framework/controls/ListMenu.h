@@ -75,7 +75,7 @@ namespace framework
 			return this->_currentShowIndex;
 		}
 
-		void setResponseKeyCodes(int upKeyCode, int downKeyCode);
+		void setResponseKeyCodes(int upKeyCode, int downKeyCode, int confirmKeyCode);
 
 		// reload data from the data source
 		void reloadData();
@@ -92,17 +92,25 @@ namespace framework
 		virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) override;
 
 	protected:
+		static float LONG_PRESSED_DT;		// long pressed duration
+		static float LONG_PRESSED_DELAY;		// long pressed delay
+
 		void setItemAtIndex(ListMenuItem *item, ssize_t index);
+		void moveUp();
+		void moveDown();
+		void onScheduleLongPressed(float dt);
 
 		ssize_t _showCount;
 		cocos2d::Vector<ListMenuItem*> *_recycledItems;
 		cocos2d::Vector<ListMenuItem*> _shownItems;
 		int _upKeyCode;
 		int _downKeyCode;
+		int _confirmKeyCode;
 		bool _isEnabled;
 		ssize_t _topGlobalIndex;
 		ssize_t _currentShowIndex;
 		cocos2d::EventListenerKeyboard *_kbdListener;
+		int _pressedKey;
 	};
 }
 
