@@ -7,7 +7,7 @@
 NotifyEvents = {}
 
 -- 地图事件
-NotifyEvents.MapView = {}
+NotifyEvents.MapView = NotifyEvents.MapView or {}
 
 -- 响应MapLayerController的键盘事件	MapCoreLayer通知, MapLayerController接收
 NotifyEvents.MapView.MapKeyboardResponse = "NotifyEvents.MapView.MapKeyboardResponse"
@@ -23,3 +23,5 @@ NotifyEvents.MapView.ActionEnded = "NotifyEvents.MapView.ActionEnded"
 NotifyEvents.MapView.ActionInstructionsEnded = "NotifyEvents.MapView.ActionInstructionsEnded"
 -- 切换地图	TMXMapLayer通知，MapLayerController接收
 NotifyEvents.MapView.SwitchMap = "NotifyEvents.MapView.SwitchMap"
+-- 地图状态变更 MapStateController通知，MapLayerController, DialogLayerController, MenuLayerController接收
+NotifyEvents.MapView.MapStateChanged = "NotifyEvents.MapView.MapStateChanged"

@@ -59,7 +59,6 @@ function MainMenu:initUI()
 	newGameLabel:setColor(self.BTN_FONTCOLOR)
 	self:addChild(newGameLabel)
 
-
 	-- load game button
 	normalImage = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_red.png", capInsets)
 	normalImage:setPreferredSize(self.BTN_SIZE)

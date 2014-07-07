@@ -49,6 +49,7 @@ function MapLayerController:addObservers()
 	Notifier:addObserver(NotifyEvents.MapView.ActionBegan, self, self.onActionBegan)
 	Notifier:addObserver(NotifyEvents.MapView.SwitchMap, self, self.switchMap)
 	Notifier:addObserver(NotifyEvents.MapView.MapKeyboardResponse, self, self.onKeyboardEvent)
+	Notifier:addObserver(NotifyEvents.MapView.MapStateChanged, self, self.onMapStateChanged)
 end
 
 function MapLayerController:removeObservers()
@@ -56,6 +57,7 @@ function MapLayerController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.MapView.ActionBegan, self)
 	Notifier:removeObserver(NotifyEvents.MapView.ActionInstructionsEnded, self)
 	Notifier:removeObserver(NotifyEvents.MapView.MapKeyboardResponse, self)
+	Notifier:removeObserver(NotifyEvents.MapView.MapStateChanged, self)
 end
 
 function MapLayerController:renderView()
@@ -169,6 +171,13 @@ function MapLayerController:switchMap(newMapId)
 			end, 0.25, newMap)
 	end
 	--coreLayer:pushLayer(newMap)
+end
+
+function MapLayerController:onMapStateChanged(oldState, newState)
+	if oldState ~= Enumerations.MAP_STATE.MENU and newState == Enumerations.MAP_STATE.FREEDOM then
+		local menuLayerController = MenuLayerController:create()
+		self:getScene():loadViewController(menuLayerController)
+	end
 end
 
 -------------------------- Action 处理函数 --------------------------
