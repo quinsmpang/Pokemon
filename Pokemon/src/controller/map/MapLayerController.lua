@@ -12,6 +12,7 @@ MapLayerController.currentMap = nil		-- 当前地图层
 
 -- logic
 MapLayerController.isDirectionKeyPressed = nil
+MapLayerController.isCancelKeyPressed = nil
 MapLayerController.nextDirection = nil
 
 -- const
@@ -62,6 +63,7 @@ end
 
 function MapLayerController:renderView()
 	self.isDirectionKeyPressed = false
+	self.isCancelKeyPressed = false
 
 	local coreLayer = self:getScene():getCoreLayer()
 
@@ -81,10 +83,6 @@ function MapLayerController:onKeyboardEvent(keyCode, eventType, pressedKeys)
 	if eventType == Enumerations.KEYBOARD_STATE.PRESSED then
 		-- 方向键处理
 		if keyCode == GameSettings.upKey or keyCode == GameSettings.downKey or keyCode == GameSettings.leftKey or keyCode == GameSettings.rightKey then
-			-- if self.currentMap and self.currentMap:isHeroMoving() then
-			-- 	return
-			-- end
-
 			self.isDirectionKeyPressed = true
 
 			local nextDir = nil
@@ -106,8 +104,9 @@ function MapLayerController:onKeyboardEvent(keyCode, eventType, pressedKeys)
 
 			-- scheduler is not friendly.
 			--self.walkSchedulerEntry = cc.Director:getInstance():getScheduler():scheduleScriptFunc(MakeScriptHandler(self, self.onWalkSchedule, nextDir), HeroSprite.WALK_DURATION * 2, false)
+		elseif keyCode == GameSettings.cancelKey then
+			self.isCancelKeyPressed = true
 		end
-		-- schedule walk action while the key is 
 	elseif eventType == Enumerations.KEYBOARD_STATE.RELEASED then
 		if keyCode == GameSettings.upKey or keyCode == GameSettings.downKey or keyCode == GameSettings.leftKey or keyCode == GameSettings.rightKey then
 			--cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.walkSchedulerEntry)
@@ -118,13 +117,17 @@ function MapLayerController:onKeyboardEvent(keyCode, eventType, pressedKeys)
 					break
 				end
 			end
-			if not hasDirectionKey then
-				self.isDirectionKeyPressed = false
-			end
+			self.isDirectionKeyPressed = hasDirectionKey
+		elseif keyCode == GameSettings.cancelKey then
+			self.isCancelKeyPressed = false
 		end
 	elseif eventType == Enumerations.KEYBOARD_STATE.LONGPRESSED then
 		if self.isDirectionKeyPressed then
-			self.currentMap:heroWalk(self.nextDirection)
+			if self.isCancelKeyPressed then
+				self.currentMap:heroRun(self.nextDirection, MakeScriptHandler(self, self.turnBackStandState))
+			else
+				self.currentMap:heroWalk(self.nextDirection)
+			end
 		end
 	end
 end
@@ -133,12 +136,25 @@ function MapLayerController:handleDirectionEvents()
 	log("MapLayerController:handleDirectionEvents")
 	if self.isDirectionKeyPressed then
 		local hero = self.currentMap.hero
-		if not self.currentMap:isHeroMoving() and DataCenter.currentPlayerData.currentDirection ~= self.nextDirection then
-			hero:changeDirection(self.nextDirection)
-			DataCenter.currentPlayerData.currentDirection = self.nextDirection
+		if self.isCancelKeyPressed then
+			self.currentMap:heroRun(self.nextDirection, MakeScriptHandler(self, self.turnBackStandState))
 		else
-			self.currentMap:heroWalk(self.nextDirection)
+			if not self.currentMap:isHeroMoving() and DataCenter.currentPlayerData.currentDirection ~= self.nextDirection then
+				hero:changeDirection(self.nextDirection)
+				DataCenter.currentPlayerData.currentDirection = self.nextDirection
+			else
+				self.currentMap:heroWalk(self.nextDirection)
+			end
 		end
+	end
+end
+
+-- 跑步完后 将状态设回站立
+function MapLayerController:turnBackStandState()
+	if not self.isCancelKeyPressed or not self.isDirectionKeyPressed then
+		local frameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
+		local frame = cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName)
+		self.currentMap.hero:setSpriteFrame(frame)
 	end
 end
 

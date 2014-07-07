@@ -25,6 +25,7 @@ TMXMapLayer.obstacleList = nil		-- 障碍物(Obstacle model)集合
 TMXMapLayer.entranceList = nil		-- 入口出口(Entrance model)集合
 TMXMapLayer.instructions = nil 		-- 行走指令队列，一般在剧情中的行走才需要用到
 TMXMapLayer.isMoving = nil 			-- 是否在行走，自由行走的时候需要用到
+TMXMapLayer.isRunning = nil 		-- 是否在跑
 
 -- const
 TMXMapLayer.PLAYER_POS = ccp(384, 224)
@@ -58,6 +59,7 @@ end
 function TMXMapLayer:initWithMapInfo(mapInfo)
 	self.mapInfo = mapInfo
 	self.isMoving = false
+	self.isRunning = false
 
 	local screenSize = cc.Director:getInstance():getWinSize()
 
@@ -187,6 +189,8 @@ function TMXMapLayer:heroWalk(direction, callback)
 
 	log("TMXMapLayer:heroWalk [" .. direction .. "]")
 
+	DataCenter.currentPlayerData.currentDirection = direction
+
 	-- 验证下个位置
 	if not self:validateHeroNextPosition(direction) then
 		log("Hero walk: Next position is invalid.")
@@ -230,6 +234,60 @@ end
 
 function TMXMapLayer:onMovingEnd()
 	self.isMoving = false
+end
+
+function TMXMapLayer:heroRun(direction, callback)
+	if self.isRunning then
+		return
+	end
+
+	log("TMXMapLayer:heroRun [" .. direction .. "]")
+
+	DataCenter.currentPlayerData.currentDirection = direction
+	
+	-- 验证下个位置
+	if not self:validateHeroNextPosition(direction) then
+		log("Hero walk: Next position is invalid.")
+		local collisionAction = cc.Sequence:create(
+			self.hero:getWalkActionWithoutMoving(direction),
+			cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnd))
+			)
+		self.isMoving = true
+		self.hero:runAction(collisionAction)
+		return
+	end
+
+	local heroAction = self.hero:getRunAction(direction)
+
+	--地图反向运动
+	local mapAction = nil
+	if direction == Enumerations.DIRECTIONS.UP then
+		mapAction = cc.MoveBy:create(HeroSprite.RUN_DURATION * 2, ccp(0, -self.TILE_SIZE))
+	elseif direction == Enumerations.DIRECTIONS.DOWN then
+		mapAction = cc.MoveBy:create(HeroSprite.RUN_DURATION * 2, ccp(0, self.TILE_SIZE))
+	elseif direction == Enumerations.DIRECTIONS.LEFT then
+		mapAction = cc.MoveBy:create(HeroSprite.RUN_DURATION * 2, ccp(self.TILE_SIZE, 0))
+	elseif direction == Enumerations.DIRECTIONS.RIGHT then
+		mapAction = cc.MoveBy:create(HeroSprite.RUN_DURATION * 2, ccp(-self.TILE_SIZE, 0))
+	end
+
+	local sequence = {}
+	table.insert(sequence, cc.Spawn:create(
+			cc.TargetedAction:create(self.hero, heroAction), 
+			mapAction
+			))
+	if callback then
+		table.insert(sequence, cc.CallFunc:create(callback))
+	end
+	table.insert(sequence, cc.CallFunc:create(MakeScriptHandler(self, self.onRunningEnd)))
+	local action = cc.Sequence:create(sequence)
+
+	self.isRunning = true
+	self:runAction(action)
+end
+
+function TMXMapLayer:onRunningEnd()
+	self.isRunning = false
 end
 
 function TMXMapLayer:heroWalkWithInstructions(sender, direction)
@@ -413,4 +471,8 @@ end
 
 function TMXMapLayer:isHeroMoving()
 	return self.isMoving
+end
+
+function TMXMapLayer:isHeroRunning()
+	return self.isRunning
 end

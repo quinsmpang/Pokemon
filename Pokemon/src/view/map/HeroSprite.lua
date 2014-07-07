@@ -6,6 +6,7 @@
 
 class("HeroSprite", psSprite)
 
+-- walk actions
 HeroSprite.walkUpWithLeftStepAction = nil
 HeroSprite.walkUpWithRightStepAction = nil
 HeroSprite.walkDownWithLeftStepAction = nil
@@ -14,10 +15,15 @@ HeroSprite.walkLeftWithLeftStepAction = nil
 HeroSprite.walkLeftWithRightStepAction = nil
 HeroSprite.walkRightWithLeftStepAction = nil
 HeroSprite.walkRightWithRightStepAction = nil
-HeroSprite.runUpAction = nil
-HeroSprite.runDownAction = nil
-HeroSprite.runLeftAction = nil
-HeroSprite.runRightAction = nil
+-- run actions
+HeroSprite.runUpWithLeftStepAction = nil
+HeroSprite.runUpWithRightStepAction = nil
+HeroSprite.runDownWithLeftStepAction = nil
+HeroSprite.runDownWithRightStepAction = nil
+HeroSprite.runLeftWithLeftStepAction = nil
+HeroSprite.runLeftWithRightStepAction = nil
+HeroSprite.runRightWithLeftStepAction = nil
+HeroSprite.runRightWithRightStepAction = nil
 
 HeroSprite.isLeftStep = nil		-- 是否是左脚起步
 
@@ -51,6 +57,23 @@ function HeroSprite:init()
 	self.walkRightWithLeftStepAction:retain()
 	self.walkRightWithRightStepAction = self:createWalkStepAction(Enumerations.DIRECTIONS.RIGHT, false)
 	self.walkRightWithRightStepAction:retain()
+
+	self.runUpWithLeftStepAction = self:createRunStepAction(Enumerations.DIRECTIONS.UP, true)
+	self.runUpWithLeftStepAction:retain()
+	self.runUpWithRightStepAction = self:createRunStepAction(Enumerations.DIRECTIONS.UP, false)
+	self.runUpWithRightStepAction:retain()
+	self.runDownWithLeftStepAction = self:createRunStepAction(Enumerations.DIRECTIONS.DOWN, true)
+	self.runDownWithLeftStepAction:retain()
+	self.runDownWithRightStepAction = self:createRunStepAction(Enumerations.DIRECTIONS.DOWN, false)
+	self.runDownWithRightStepAction:retain()
+	self.runLeftWithLeftStepAction = self:createRunStepAction(Enumerations.DIRECTIONS.LEFT, true)
+	self.runLeftWithLeftStepAction:retain()
+	self.runLeftWithRightStepAction = self:createRunStepAction(Enumerations.DIRECTIONS.LEFT, false)
+	self.runLeftWithRightStepAction:retain()
+	self.runRightWithLeftStepAction = self:createRunStepAction(Enumerations.DIRECTIONS.RIGHT, true)
+	self.runRightWithLeftStepAction:retain()
+	self.runRightWithRightStepAction = self:createRunStepAction(Enumerations.DIRECTIONS.RIGHT, false)
+	self.runRightWithRightStepAction:retain()
 
 	self.isLeftStep = true
 
@@ -99,6 +122,48 @@ function HeroSprite:createWalkStepAction(direction, isLeftStep, shouldMove)
 	end
 end
 
+function HeroSprite:createRunStepAction(direction, isLeftStep, shouldMove)
+	if shouldMove == nil then
+		shouldMove = true
+	end
+
+	local frames = {}
+	local frameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_run_"
+	local dirStr, dirVec = nil, nil
+	if direction == Enumerations.DIRECTIONS.UP then
+		dirStr = "up"
+		dirVec = ccp(0, 32)
+	elseif direction == Enumerations.DIRECTIONS.DOWN then
+		dirStr = "down"
+		dirVec = ccp(0, -32)
+	elseif direction == Enumerations.DIRECTIONS.LEFT then
+		dirStr = "left"
+		dirVec = ccp(-32, 0)
+	elseif direction == Enumerations.DIRECTIONS.RIGHT then
+		dirStr = "right"
+		dirVec = ccp(32, 0)
+	else
+		assert(false, "Unavailable direction")
+	end
+	frameName = frameName .. dirStr
+
+	if isLeftStep then
+		table.insert(frames, cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName .. 2 .. ".png"))
+	else
+		table.insert(frames, cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName .. 3 .. ".png"))
+	end
+	table.insert(frames, cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName .. 1 .. ".png"))
+	local animation = cc.Animation:createWithSpriteFrames(frames, self.RUN_DURATION)
+	if shouldMove then
+		return cc.Spawn:create(
+			cc.Animate:create(animation),
+			cc.MoveBy:create(self.RUN_DURATION * 2, dirVec)
+			)
+	else
+		return cc.Animate:create(animation)
+	end
+end
+
 function HeroSprite:onNodeEvent(event)
 	if event == "exit" then
 		-- release actions
@@ -110,6 +175,15 @@ function HeroSprite:onNodeEvent(event)
 		self.walkLeftWithRightStepAction:release()
 		self.walkRightWithLeftStepAction:release()
 		self.walkRightWithRightStepAction:release()
+
+		self.runUpWithLeftStepAction:release()
+		self.runUpWithRightStepAction:release()
+		self.runDownWithLeftStepAction:release()
+		self.runDownWithRightStepAction:release()
+		self.runLeftWithLeftStepAction:release()
+		self.runLeftWithRightStepAction:release()
+		self.runRightWithLeftStepAction:release()
+		self.runRightWithRightStepAction:release()
 	end
 end
 
@@ -138,6 +212,40 @@ function HeroSprite:getWalkAction(direction)
 			beginAction = self.walkRightWithLeftStepAction
 		else
 			beginAction = self.walkRightWithRightStepAction
+		end
+	end
+
+	return cc.Sequence:create(
+		beginAction,
+		cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnded))
+		)
+end
+
+function HeroSprite:getRunAction(direction)
+	local beginAction = nil
+	if direction == Enumerations.DIRECTIONS.UP then
+		if self.isLeftStep then
+			beginAction = self.runUpWithLeftStepAction
+		else
+			beginAction = self.runUpWithRightStepAction
+		end
+	elseif direction == Enumerations.DIRECTIONS.DOWN then
+		if self.isLeftStep then
+			beginAction = self.runDownWithLeftStepAction
+		else
+			beginAction = self.runDownWithRightStepAction
+		end
+	elseif direction == Enumerations.DIRECTIONS.LEFT then
+		if self.isLeftStep then
+			beginAction = self.runLeftWithLeftStepAction
+		else
+			beginAction = self.runLeftWithRightStepAction
+		end
+	elseif direction == Enumerations.DIRECTIONS.RIGHT then
+		if self.isLeftStep then
+			beginAction = self.runRightWithLeftStepAction
+		else
+			beginAction = self.runRightWithRightStepAction
 		end
 	end
 

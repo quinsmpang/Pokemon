@@ -50,7 +50,7 @@ function MapMenuLayer:init()
 	listMenu:reloadData()
 	listMenu:ignoreAnchorPointForPosition(false)
 	listMenu:setAnchorPoint(0.5, 1)
-	listMenu:setPosition(self.back:getContentSize().width * 0.5, self.back:getContentSize().height * 0.97)
+	listMenu:setPosition(self.back:getContentSize().width * 0.5, self.back:getContentSize().height * 0.95)
 
 	self.back:addChild(listMenu)
 
