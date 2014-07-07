@@ -246,7 +246,6 @@ namespace framework
 		if (!_recycledItems->empty())
 		{
 			pItem = _recycledItems->at(_recycledItems->size() - 1);
-			pItem->removeAllChildrenWithCleanup(true);
 			pItem->retain();
 			_recycledItems->erase(_recycledItems->size() - 1);
 			pItem->autorelease();

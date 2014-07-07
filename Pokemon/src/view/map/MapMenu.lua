@@ -98,6 +98,24 @@ end
 
 -- ListMenu delegate
 function MapMenu:itemSelected(menu, item)
+	local itemIndex = item:getIndex()
+	if itemIndex == 0 then
+		--图鉴
+	elseif itemIndex == 1 then
+		--精灵
+	elseif itemIndex == 2 then
+		--背包
+	elseif itemIndex == 3 then
+		--通讯器
+	elseif itemIndex == 4 then
+		--玩家
+	elseif itemIndex == 5 then
+		--记录
+	elseif itemIndex == 6 then
+		--设置
+	elseif itemIndex == 7 then
+		--退出
+	end
 end
 
 function MapMenu:itemFocused(menu, item)
@@ -111,5 +129,5 @@ function MapMenu:itemBlurred(menu, item)
 end
 
 function MapMenu:itemWillRecycle(menu, item)
-	
+	item:removeAllChildrenWithCleanup(true)
 end
