@@ -27,6 +27,7 @@ MapMenu.ITEM_STRINGS = {
 	"设置",
 	"退出",
 }
+MapMenu.LABEL_TAG = 998
 MapMenu.ARROW_TAG = 999
 
 MapMenu.__create = psListMenu.create
@@ -64,29 +65,35 @@ function MapMenu:itemAtIndex(menu, index)
 	local item = menu:dequeueItem()
 	if not item then
 		item = ListMenuItem:create()
+
+		local screenSize = cc.Director:getInstance():getWinSize()
+		-- label
+		local label = cc.Label:createWithTTF(self.ITEM_STRINGS[index + 1], GameConfig.DEFAULT_FONT_PATH, 20)
+		label:setDimensions(screenSize.width * 0.1, screenSize.height * 0.08)
+		label:setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT)
+		label:setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+		label:setColor(ccc3(0, 0, 0))
+		label:setAnchorPoint(0, 0.5)
+		label:setPosition(screenSize.width * 0.065, screenSize.height * 0.04)
+		label:setTag(self.LABEL_TAG)
+		item:addChild(label)
+		-- icon
+		local icon = cc.Sprite:createWithSpriteFrameName(self.ICON_PATHS[index + 1])
+		icon:setAnchorPoint(1, 0.5)
+		icon:setPosition(screenSize.width * 0.06, screenSize.height * 0.04)
+		item:addChild(icon)
+		-- arrow
+		local arrow = cc.Sprite:createWithSpriteFrameName("images/map/menu_cursor.png")
+		arrow:setAnchorPoint(1, 0.5)
+		arrow:setPosition(screenSize.width * 0.035, screenSize.height * 0.04)
+		arrow:setTag(self.ARROW_TAG)
+		arrow:setVisible(false)
+		item:addChild(arrow)
+	else
+		local label = item:getChildByTag(self.LABEL_TAG)
+		tolua.cast(label, "cc.Label")
+		label:setString(self.ITEM_STRINGS[index + 1])
 	end
-	local screenSize = cc.Director:getInstance():getWinSize()
-	-- label
-	local label = cc.Label:createWithTTF(self.ITEM_STRINGS[index + 1], GameConfig.DEFAULT_FONT_PATH, 20)
-	label:setDimensions(screenSize.width * 0.1, screenSize.height * 0.08)
-	label:setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT)
-	label:setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-	label:setColor(ccc3(0, 0, 0))
-	label:setAnchorPoint(0, 0.5)
-	label:setPosition(screenSize.width * 0.065, screenSize.height * 0.04)
-	item:addChild(label)
-	-- icon
-	local icon = cc.Sprite:createWithSpriteFrameName(self.ICON_PATHS[index + 1])
-	icon:setAnchorPoint(1, 0.5)
-	icon:setPosition(screenSize.width * 0.06, screenSize.height * 0.04)
-	item:addChild(icon)
-	-- arrow
-	local arrow = cc.Sprite:createWithSpriteFrameName("images/map/menu_cursor.png")
-	arrow:setAnchorPoint(1, 0.5)
-	arrow:setPosition(screenSize.width * 0.035, screenSize.height * 0.04)
-	arrow:setTag(self.ARROW_TAG)
-	arrow:setVisible(false)
-	item:addChild(arrow)
 
 	return item
 end
@@ -129,5 +136,5 @@ function MapMenu:itemBlurred(menu, item)
 end
 
 function MapMenu:itemWillRecycle(menu, item)
-	item:removeAllChildrenWithCleanup(true)
+	--item:removeAllChildrenWithCleanup(true)
 end
