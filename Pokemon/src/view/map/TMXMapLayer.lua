@@ -10,6 +10,8 @@ require "src/view/map/HeroSprite"
 require "src/view/map/NpcSprite"
 
 TMXMapLayer.mapInfo = nil 		-- MapInfo model
+TMXMapLayer.width = nil
+TMXMapLayer.height = nil
 
 -- ui
 TMXMapLayer.mask = nil 			-- 遮罩层用来实现Fade效果
@@ -64,6 +66,10 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 	local screenSize = cc.Director:getInstance():getWinSize()
 
 	local map = EncryptedTMXTiledMap:create(mapInfo.path)
+
+	self.width = map:getMapSize().width
+	self.height = map:getMapSize().height
+
 	map:setAnchorPoint(0.5, 0.5)
 	map:setPosition(screenSize.width * 0.5, screenSize.height * 0.5)
 	self:addChild(map, self.ZORDER.MAIN)
@@ -81,44 +87,6 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 	map:addChild(self.playerLayer, self.ZORDER.PLAYER)
 	self.npcLayer = cc.Layer:create()
 	map:addChild(self.npcLayer, self.ZORDER.PLAYER)
-
-	-- 如果当前是非活动状态，说明是剧情载入，则显示在剧情设定位置
-	log("Map Initialization: Loading hero")
-	DataCenter.currentPlayerData.currentMapId = mapInfo.id
-	if DataCenter.currentPlayerData.currentStep ~= 0 then
-		local heroObjectGroup = map:getObjectGroup("heroObjects")
-		local heroObjects = heroObjectGroup:getObjects()
-		for _, heroObj in ipairs(heroObjects) do
-			if tonumber(heroObj["step"]) == DataCenter.currentPlayerData.currentStep then
-				-- 如果有性别区分的话
-				local shouldSkip = false
-				if heroObj["gender"] then
-					local gender = tonumber(heroObj["gender"])
-					if gender ~= DataCenter.currentPlayerData.gender then
-						-- 性别不同则跳过
-						shouldSkip = true
-					end
-				end
-				if not shouldSkip then
-					DataCenter.currentPlayerData.currentDirection = tonumber(heroObj["direction"])
-					local hero = HeroSprite:createWithModel(heroObj)
-					local pos = ccp(tonumber(heroObj["x"]), tonumber(heroObj["y"]))
-					DataCenter.currentPlayerData.currentPosition = ccp(tonumber(heroObj["x"]) / self.TILE_SIZE, tonumber(heroObj["y"]) / self.TILE_SIZE)
-					hero:setAnchorPoint(0, 0)
-					hero:setPosition(pos)
-					self.playerLayer:addChild(hero)
-					self.hero = hero
-					break
-				end
-			end
-		end
-	else	-- 说明是读取存档载入，直接显示在存档记录的位置
-		local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
-		local hero = cc.Sprite:createWithSpriteFrameName(heroFrameName)
-		hero:setAnchorPoint(0, 0)
-		hero:setPosition(DataCenter.currentPlayerData.currentPosition.x * self.TILE_SIZE, DataCenter.currentPlayerData.currentPosition.y * self.TILE_SIZE)
-		self.playerLayer:addChild(hero)
-	end
 
 	-- 判断地图是否拥有npc
 	log("Map Initialization: Loading npc")
@@ -164,6 +132,59 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 			local entranceModel = Entrance:create(entranceObj)
 			table.insert(self.entranceList, entranceModel)
 		end
+	end
+
+	-- 如果当前是非活动状态，说明是剧情载入，则显示在剧情设定位置
+	log("Map Initialization: Loading hero")
+	DataCenter.currentPlayerData.currentMapId = mapInfo.id
+	if DataCenter.currentPlayerData.currentStep ~= 0 then
+		local heroObjectGroup = map:getObjectGroup("heroObjects")
+		local heroObjects = heroObjectGroup:getObjects()
+		for _, heroObj in ipairs(heroObjects) do
+			if tonumber(heroObj["step"]) == DataCenter.currentPlayerData.currentStep then
+				-- 如果有性别区分的话
+				local shouldSkip = false
+				if heroObj["gender"] then
+					local gender = tonumber(heroObj["gender"])
+					if gender ~= DataCenter.currentPlayerData.gender then
+						-- 性别不同则跳过
+						shouldSkip = true
+					end
+				end
+				if not shouldSkip then
+					DataCenter.currentPlayerData.currentDirection = tonumber(heroObj["direction"])
+					local hero = HeroSprite:createWithModel(heroObj)
+					local pos = ccp(tonumber(heroObj["x"]), tonumber(heroObj["y"]))
+					DataCenter.currentPlayerData:updatePosition(ccp(tonumber(heroObj["x"]) / self.TILE_SIZE, tonumber(heroObj["y"]) / self.TILE_SIZE))
+					hero:setAnchorPoint(0, 0)
+					hero:setPosition(pos)
+					self.playerLayer:addChild(hero)
+					self.hero = hero
+					break
+				end
+			end
+		end
+	else
+		local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
+		local hero = HeroSprite:createWithSpriteFrameName(heroFrameName)
+		self.hero = hero
+		hero:setAnchorPoint(0, 0)
+		-- 通过入口切换
+		if MapStateController:getEntranceMapId() then
+			for _, entrance in ipairs(self.entranceList) do
+				if entrance.relatedMapId == MapStateController:getEntranceMapId() then
+					local entrancePos = entrance.position
+					DataCenter.currentPlayerData:updatePosition(entrancePos)
+					hero:setPosition(entrancePos.x * self.TILE_SIZE, entrancePos.y * self.TILE_SIZE)
+					break
+				end
+			end
+			MapStateController:setEntranceMapId(nil)
+		else
+			-- 说明是读取存档载入，直接显示在存档记录的位置
+			hero:setPosition(DataCenter.currentPlayerData.currentPosition.x * self.TILE_SIZE, DataCenter.currentPlayerData.currentPosition.y * self.TILE_SIZE)
+		end
+		self.playerLayer:addChild(hero)
 	end
 
 	self:updatePlayerPosition()
@@ -443,6 +464,23 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 		end
 	end
 
+	-- 入口检测
+	for _, entrance in ipairs(self.entranceList) do
+		if entrance.isEnabled then
+			local currentPosition = DataCenter.currentPlayerData.currentPosition
+			local entranceRect = CCRectMake(entrance.position.x, entrance.position.y, entrance.width - 1, entrance.height - 1)
+			if (ContainsPoint(entranceRect, nextPosition) and DataCenter.currentPlayerData.currentDirection == entrance.direction) 
+				or (ContainsPoint(entranceRect, currentPosition) and DataCenter.currentPlayerData.currentDirection == entrance.direction) then
+				log("到达入口, 当前地图[" .. self.mapInfo.id .. "] 关联地图[" .. entrance.relatedMapId .. "]")
+				MapStateController:setEntranceMapId(self.mapInfo.id)
+				Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId)
+				return true
+			end
+		else
+			return true
+		end
+	end
+
 	-- 障碍物碰撞
 	for _, obstacle in ipairs(self.obstacleList) do
 		local obstacleRect = CCRectMake(obstacle.position.x, obstacle.position.y, obstacle.width - 1, obstacle.height - 1)
@@ -452,21 +490,13 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 		end
 	end
 
-	return false
-end
-
--- 检测移动后是否在入口或出口处
-function TMXMapLayer:checkEntrance()
-	local curPos = DataCenter.currentPlayerData.currentPosition
-
-	for _, entrance in ipairs(self.entranceList) do
-		if PositionEquals(entrance.position, curPos) then
-			-- 切换地图
-			DataCenter.currentPlayerData.currentMapId = entrance.relatedMapId
-			Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId)
-			break
-		end
+	-- 边界碰撞
+	if nextPosition.x < 0 or nextPosition.x >= self.width or nextPosition.y < 0 or nextPosition.y >= self.height then
+		log("边界碰撞")
+		return true
 	end
+
+	return false
 end
 
 function TMXMapLayer:isHeroMoving()

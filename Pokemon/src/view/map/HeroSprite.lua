@@ -31,6 +31,15 @@ HeroSprite.isLeftStep = nil		-- 是否是左脚起步
 HeroSprite.WALK_DURATION = 0.25
 HeroSprite.RUN_DURATION = 0.1
 
+HeroSprite.__createWithSpriteFrameName = psSprite.createWithSpriteFrameName
+
+function HeroSprite:createWithSpriteFrameName(...)
+	local hero = HeroSprite:__createWithSpriteFrameName(...)
+	hero:init()
+
+	return hero
+end
+
 function HeroSprite:createWithModel(heroObj)
 	local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
 	local hero = HeroSprite:createWithSpriteFrameName(heroFrameName)

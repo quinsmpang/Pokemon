@@ -22,6 +22,8 @@ function MapInfo:updateFromDB()
 	local data = GameDBHelper:queryMapById(self.id)
 	if data then
 		self:updateWithData(data)
+
+		self.id = tonumber(data["id"])
 	else
 		log("MapInfo:updateFromDB failed, id [" .. self.id .. "] does not exist.")
 	end

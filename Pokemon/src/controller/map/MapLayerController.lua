@@ -159,9 +159,6 @@ function MapLayerController:turnBackStandState()
 end
 
 function MapLayerController:switchMap(newMapId)
-	-- 记录上一个状态
-	local lastState = MapStateController:getCurrentState()
-	MapStateController:setCurrentState(Enumerations.MAP_STATE.LOADING)
 	local coreLayer = self:getScene():getCoreLayer()
 
 	if self.currentMap and self.currentMap.mapInfo.id == newMapId then
@@ -174,7 +171,7 @@ function MapLayerController:switchMap(newMapId)
 			coreLayer:popLayer()
 		end
 
-		local newMapInfo = GameDBHelper:queryMapById(newMapId)
+		local newMapInfo = MapInfo:create(newMapId)
 		local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
 		
 		self.currentMap = newMap
@@ -182,8 +179,6 @@ function MapLayerController:switchMap(newMapId)
 		CallFunctionAsync(coreLayer, function() 
 				coreLayer:pushLayer(newMap) 
 				newMap:release()
-				-- 还原上一个状态
-				MapStateController:setCurrentState(lastState)
 			end, 0.25, newMap)
 	end
 	--coreLayer:pushLayer(newMap)

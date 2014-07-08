@@ -109,11 +109,21 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
+  <object name="ob10" x="288" y="32" width="32" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="entranceObjects" width="10" height="9">
   <object name="entrance1" x="288" y="64" width="32" height="32">
    <properties>
-    <property name="direction" value="4"/>
+    <property name="direction" value="2"/>
     <property name="enabled" value="1"/>
     <property name="message" value=""/>
     <property name="relatedMapId" value="2"/>
