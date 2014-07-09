@@ -42,10 +42,10 @@ end
 
 function DialogLayerController:unload()
 	log("DialogLayerController:unload")
-	self:cleanResources()
 	self:removeObservers()
 	self.root:getEventDispatcher():removeEventListener(self.touchEventListener)
 	self.root:removeFromParent()
+	self:cleanResources()
 end
 
 function DialogLayerController:loadResources()
@@ -169,8 +169,9 @@ function DialogLayerController:generateNextDialog()
 			if tonumber(self.currentDialogModel.actionId) == -1 then
 				DataCenter.currentPlayerData:enterFreedom()
 				DataCenter.currentPlayerData.lastDialogId = self.currentDialogId
-				MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
+				self.root:setVisible(false)
 				self:getScene():unloadViewController(self)
+				MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
 				return
 			else
 				local actionModel = ActionInfo:create(self.currentDialogModel.actionId)

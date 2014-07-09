@@ -212,6 +212,12 @@ function TMXMapLayer:heroWalk(direction, callback)
 
 	DataCenter.currentPlayerData.currentDirection = direction
 
+	-- 检测当前位置是否是入口
+	if self:checkEntrance(DataCenter.currentPlayerData.currentPosition) then
+		self.hero:changeDirection(direction)
+		return
+	end
+
 	-- 验证下个位置
 	if not self:validateHeroNextPosition(direction) then
 		log("Hero walk: Next position is invalid.")
@@ -265,6 +271,12 @@ function TMXMapLayer:heroRun(direction, callback)
 	log("TMXMapLayer:heroRun [" .. direction .. "]")
 
 	DataCenter.currentPlayerData.currentDirection = direction
+
+	-- 检测当前位置是否是入口
+	if self:checkEntrance(DataCenter.currentPlayerData.currentPosition) then
+		self.hero:changeDirection(direction)
+		return
+	end
 	
 	-- 验证下个位置
 	if not self:validateHeroNextPosition(direction) then
@@ -444,6 +456,23 @@ function TMXMapLayer:validateHeroNextPosition(direction)
 	return true
 end
 
+-- 入口检测
+function TMXMapLayer:checkEntrance(position)
+	for _, entrance in ipairs(self.entranceList) do
+		if entrance.isEnabled then
+			local currentPosition = DataCenter.currentPlayerData.currentPosition
+			local entranceRect = CCRectMake(entrance.position.x, entrance.position.y, entrance.width - 1, entrance.height - 1)
+			if ContainsPoint(entranceRect, position) and DataCenter.currentPlayerData.currentDirection == entrance.direction then
+				log("到达入口, 当前地图[" .. self.mapInfo.id .. "] 关联地图[" .. entrance.relatedMapId .. "]")
+				MapStateController:setEntranceMapId(self.mapInfo.id)
+				Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId)
+				return true
+			end
+		end
+	end
+	return false
+end
+
 -- 检测移动过程中的碰撞
 function TMXMapLayer:checkCollision(nextPosition, isHero)
 	if not isHero then
@@ -460,23 +489,6 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 		local npcPos = npc.model.position
 		if PositionEquals(npcPos, nextPosition) then
 			log("与npc发生碰撞")
-			return true
-		end
-	end
-
-	-- 入口检测
-	for _, entrance in ipairs(self.entranceList) do
-		if entrance.isEnabled then
-			local currentPosition = DataCenter.currentPlayerData.currentPosition
-			local entranceRect = CCRectMake(entrance.position.x, entrance.position.y, entrance.width - 1, entrance.height - 1)
-			if (ContainsPoint(entranceRect, nextPosition) and DataCenter.currentPlayerData.currentDirection == entrance.direction) 
-				or (ContainsPoint(entranceRect, currentPosition) and DataCenter.currentPlayerData.currentDirection == entrance.direction) then
-				log("到达入口, 当前地图[" .. self.mapInfo.id .. "] 关联地图[" .. entrance.relatedMapId .. "]")
-				MapStateController:setEntranceMapId(self.mapInfo.id)
-				Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId)
-				return true
-			end
-		else
 			return true
 		end
 	end

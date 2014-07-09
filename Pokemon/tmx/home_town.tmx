@@ -248,7 +248,7 @@
  </objectgroup>
  <objectgroup name="npcObjects" width="45" height="25"/>
  <objectgroup name="entranceObjects" width="45" height="25">
-  <object name="entrance1" x="544" y="384" width="32" height="32">
+  <object name="entrance1" x="544" y="416" width="32" height="32">
    <properties>
     <property name="direction" value="1"/>
     <property name="enabled" value="1"/>
@@ -256,7 +256,7 @@
     <property name="relatedMapId" value="3"/>
    </properties>
   </object>
-  <object name="entrance2" x="800" y="384" width="32" height="32">
+  <object name="entrance2" x="800" y="416" width="32" height="32">
    <properties>
     <property name="direction" value="1"/>
     <property name="enabled" value="1"/>
@@ -264,7 +264,7 @@
     <property name="relatedMapId" value="5"/>
    </properties>
   </object>
-  <object name="entrance3" x="544" y="640" width="32" height="32">
+  <object name="entrance3" x="544" y="672" width="32" height="32">
    <properties>
     <property name="direction" value="1"/>
     <property name="enabled" value="1"/>
@@ -272,7 +272,7 @@
     <property name="relatedMapId" value="7"/>
    </properties>
   </object>
-  <object name="entrance4" x="864" y="608" width="32" height="32">
+  <object name="entrance4" x="864" y="640" width="32" height="32">
    <properties>
     <property name="direction" value="1"/>
     <property name="enabled" value="1"/>

@@ -118,6 +118,9 @@ function MapLayerController:onKeyboardEvent(keyCode, eventType, pressedKeys)
 				end
 			end
 			self.isDirectionKeyPressed = hasDirectionKey
+			if not hasDirectionKey then
+				self.currentMap.hero:changeDirection(DataCenter.currentPlayerData.currentDirection)
+			end
 		elseif keyCode == GameSettings.cancelKey then
 			self.isCancelKeyPressed = false
 		end
@@ -152,9 +155,10 @@ end
 -- 跑步完后 将状态设回站立
 function MapLayerController:turnBackStandState()
 	if not self.isCancelKeyPressed or not self.isDirectionKeyPressed then
-		local frameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
-		local frame = cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName)
-		self.currentMap.hero:setSpriteFrame(frame)
+		self.currentMap.hero:changeDirection(DataCenter.currentPlayerData.currentDirection)
+		-- local frameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
+		-- local frame = cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName)
+		-- self.currentMap.hero:setSpriteFrame(frame)
 	end
 end
 
