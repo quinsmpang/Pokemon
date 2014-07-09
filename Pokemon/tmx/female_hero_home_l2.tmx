@@ -5,21 +5,38 @@
  </tileset>
  <layer name="main" width="10" height="9">
   <data encoding="base64" compression="zlib">
-   eJwTZmBgEEbDFlCMLCaNBcPUIYsxYsFCQCyCRZwZDUsBsQyaPLJ6JixizEhinFDMhcVsZHW45GipDgCJ0QNb
+   eJwTZmBgECYCSxOJGUnAzETg4aIOAJdSAn8=
   </data>
  </layer>
  <layer name="items" width="10" height="9">
   <data encoding="base64" compression="zlib">
-   eJxjYIAAdSDWYEAFtkBsB2UvAeKlQKwPxAZAvAxJnSsQuwFxEBCvAeK1SHLrkNi+QOwHxFEM2MFGIN6EJtYDxL1A3IckthOId+EwgxhwE4gLgbgIylcEYiUgVsaithKIq6BsQyA2AmJjJPmTaOotgdgKiK3R1AAA3pwRWg==
+   eJyVzj0ORFAUhuG7GDMUwyiwFZRiupmOzWAVfppBqVJbkFc0J0HkfslT3C8n5x6l9oSIYMJSx6T4iPcbLmo0aNHhix9iMTvhjx4DRmTIkZz8tWW56HVi4IGn6AqUqET3gg3nZp8HH4HmHTNWEjIQFg==
   </data>
  </layer>
  <layer name="tops" width="10" height="9">
   <data encoding="base64" compression="zlib">
-   eJxjYBgY0ALErUDcRmVzM4E4iwrmHKSSGhgAAEpuA+U=
+   eJxjYBgF2MBCIF4ExIvxqDkExCuBeBUQryZgHgD6sASn
   </data>
  </layer>
+ <objectgroup name="heroObjects" width="10" height="9">
+  <object name="hero1" x="64" y="224" width="32" height="32">
+   <properties>
+    <property name="direction" value="4"/>
+    <property name="step" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup name="obstacleObjects" width="10" height="9">
-  <object name="ob1" x="224" y="64" width="64" height="32">
+  <object name="ob1" x="288" y="256" width="32" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob2" x="32" y="192" width="32" height="64">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -29,7 +46,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob2" x="160" y="96" width="64" height="64">
+  <object name="ob3" x="160" y="64" width="160" height="32">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -39,7 +56,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob3" x="288" y="256" width="32" height="32">
+  <object name="ob4" x="64" y="32" width="32" height="32">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -49,7 +66,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob4" x="0" y="256" width="32" height="32">
+  <object name="ob5" x="128" y="32" width="32" height="32">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -59,7 +76,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob5" x="64" y="192" width="64" height="64">
+  <object name="ob6" x="0" y="96" width="64" height="32">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -69,83 +86,36 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob6" x="0" y="128" width="96" height="32">
+  <object name="rob1" x="96" y="32" width="32" height="32">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
     <property name="allowRight" value="0"/>
     <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob7" x="0" y="64" width="64" height="32">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob8" x="64" y="32" width="64" height="32">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob9" x="128" y="64" width="32" height="32">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob10" x="288" y="32" width="32" height="32">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
+    <property name="responseId" value="1"/>
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="entranceObjects" width="10" height="9">
-  <object name="entrance1" x="288" y="64" width="32" height="32">
+  <object name="entrance1" x="64" y="64" width="32" height="32">
    <properties>
+    <property name="action" value="2"/>
     <property name="direction" value="2"/>
     <property name="enabled" value="1"/>
     <property name="message" value=""/>
-    <property name="relatedMapId" value="2"/>
-   </properties>
-  </object>
-  <object name="entrance2" x="160" y="256" width="32" height="32">
-   <properties>
-    <property name="direction" value="3"/>
-    <property name="enabled" value="1"/>
-    <property name="message" value=""/>
-    <property name="relatedMapId" value="4"/>
+    <property name="relatedMapId" value="5"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="npcObjects" width="10" height="9">
-  <object name="npc1" x="32" y="192" width="32" height="32">
+  <object name="npc1" x="64" y="160" width="32" height="32">
    <properties>
-    <property name="direction" value="4"/>
+    <property name="direction" value="3"/>
     <property name="id" value="1"/>
     <property name="npcId" value="2"/>
-    <property name="responseId" value="1"/>
-    <property name="step" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="step" value="1"/>
    </properties>
   </object>
  </objectgroup>

@@ -169,7 +169,6 @@ function DialogLayerController:generateNextDialog()
 			if tonumber(self.currentDialogModel.actionId) == -1 then
 				DataCenter.currentPlayerData:enterFreedom()
 				DataCenter.currentPlayerData.lastDialogId = self.currentDialogId
-				self.root:setVisible(false)
 				self:getScene():unloadViewController(self)
 				MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
 				return

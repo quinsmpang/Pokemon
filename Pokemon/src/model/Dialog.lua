@@ -45,7 +45,12 @@ function Dialog:updateFromDB()
 		end
 		self.choices = string.split(data.choices, ";")
 		if data.actionId ~= DBNULL then
-			self.actionId = tonumber(data.actionId)
+			local ids = string.split(data.actionId, "|")
+			if #ids == 1 then
+				self.actionId = tonumber(data.actionId)
+			else
+				self.actionId = DataCenter.currentPlayerData.gender == Enumerations.GENDER.MALE and tonumber(ids[1]) or tonumber(ids[2])
+			end
 		end
 	else
 		log("Dialog:updateFromDB failed, id [" .. self.id .. "] does not exist.")
