@@ -11,6 +11,8 @@ require "src/view/map/MapMenuLayer"
 MenuLayerController.root = nil
 MenuLayerController.mapMenu = nil		-- 菜单
 
+MenuLayerController.isMenuOpen = nil
+
 MenuLayerController.resources = {
 }
 
@@ -40,11 +42,13 @@ end
 function MenuLayerController:addObservers()
 	log("MenuLayerController:addObservers")
 	Notifier:addObserver(NotifyEvents.MapView.MapKeyboardResponse, self, self.onKeyboardEvent)
+	Notifier:addObserver(NotifyEvents.MapView.MenuItemSelected, self, self.onMenuItemSelected)
 end
 
 function MenuLayerController:removeObservers()
 	log("MenuLayerController:removeObservers")
 	Notifier:removeObserver(NotifyEvents.MapView.MapKeyboardResponse, self)
+	Notifier:removeObserver(NotifyEvents.MapView.MenuItemSelected, self)
 end
 
 function MenuLayerController:renderView()
@@ -52,6 +56,7 @@ function MenuLayerController:renderView()
 
 	local screenSize = cc.Director:getInstance():getWinSize()
 
+	self.isMenuOpen = false
 	self.root = cc.Layer:create()
 
 	-- pokemon ball
@@ -60,8 +65,8 @@ function MenuLayerController:renderView()
 		cc.Sprite:createWithSpriteFrameName("images/map/pokemon_ball_selected.png")
 		)
 	ballItem:registerScriptTapHandler(MakeScriptHandler(self, self.onBallClick))
-	ballItem:setAnchorPoint(ccp(1, 1))
-	ballItem:setPosition(screenSize.width - screenSize.height * 0.05 , screenSize.height * 0.95)
+	-- ballItem:setAnchorPoint(ccp(1, 1))
+	ballItem:setPosition(screenSize.width - screenSize.height * 0.1 , screenSize.height * 0.9)
 	ballItem:setOpacity(0)
 
 	local menu = cc.Menu:create(ballItem)
@@ -86,7 +91,9 @@ function MenuLayerController:onKeyboardEvent(keyCode, eventType, pressedKeys)
 	log("MenuLayerController:onKeyboardEvent, eventType: [" .. eventType .. "]")
 	if eventType == Enumerations.KEYBOARD_STATE.PRESSED then
 		if keyCode == GameSettings.startKey then
-			self:showMenu()
+			if MapStateController:getCurrentState() == Enumerations.MAP_STATE.FREEDOM then
+				self:showMenu()
+			end
 		end
 	end
 end
@@ -95,4 +102,26 @@ function MenuLayerController:showMenu()
 	MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
 	local mapMenu = MapMenuLayer:create()
 	self.root:addChild(mapMenu)
+	self.mapMenu = mapMenu
+end
+
+function MenuLayerController:onMenuItemSelected(itemIndex)
+	if itemIndex == 0 then
+		--图鉴
+	elseif itemIndex == 1 then
+		--精灵
+	elseif itemIndex == 2 then
+		--背包
+	elseif itemIndex == 3 then
+		--通讯器
+	elseif itemIndex == 4 then
+		--玩家
+	elseif itemIndex == 5 then
+		--记录
+	elseif itemIndex == 6 then
+		--设置
+	elseif itemIndex == 7 then
+		--退出
+		self.mapMenu:exitMenu()
+	end
 end

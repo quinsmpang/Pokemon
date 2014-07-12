@@ -10,6 +10,7 @@ require "src/view/map/MapMenu"
 
 MapMenuLayer.back = nil 			-- 背景
 
+MapMenuLayer.keyboardListener = nil
 MapMenuLayer.enableClick = nil
 
 MapMenuLayer.__create = psModalLayer.create
@@ -32,8 +33,8 @@ function MapMenuLayer:init()
 		cc.Sprite:createWithSpriteFrameName("images/map/pokemon_ball_selected.png")
 		)
 	ballItem:registerScriptTapHandler(MakeScriptHandler(self, self.onBallClick))
-	ballItem:setAnchorPoint(ccp(1, 1))
-	ballItem:setPosition(screenSize.width - screenSize.height * 0.05 , screenSize.height * 0.95)
+	-- ballItem:setAnchorPoint(ccp(1, 1))
+	ballItem:setPosition(screenSize.width - screenSize.height * 0.1 , screenSize.height * 0.9)
 
 	local menu = cc.Menu:create(ballItem)
 	menu:setPosition(0, 0)
@@ -55,6 +56,16 @@ function MapMenuLayer:init()
 	self.back:addChild(listMenu)
 
 	self.back:setScaleY(0)
+
+	-- 注册事件
+	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+		local kbdListener = cc.EventListenerKeyboard:create()
+		kbdListener:registerScriptHandler(MakeScriptHandler(self, self.onKeyboardPressed), cc.Handler.EVENT_KEYBOARD_PRESSED)
+		self.keyboardListener = kbdListener
+		self:getEventDispatcher():addEventListenerWithSceneGraphPriority(kbdListener, self)
+
+		self:registerScriptHandler(MakeScriptHandler(self, self.onSceneEvent))
+	end
 end
 
 function MapMenuLayer:onComeIn()
@@ -68,19 +79,36 @@ function MapMenuLayer:onComeInEnd()
 	self.enableClick = true
 end
 
+function MapMenuLayer:onSceneEvent(event)
+	if event == "exit" then
+		-- 移除监听
+		self:getEventDispatcher():removeEventListener(self.keyboardListener)
+	end
+end
+
 function MapMenuLayer:onBallClick()
 	if not self.enableClick then
 		return
 	end
-	MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
 	self:exitMenu()
+end
+
+function MapMenuLayer:onKeyboardPressed(keyCode)
+	if keyCode == GameSettings.startKey and self.enableClick then
+		self:exitMenu()
+	end
 end
 
 function MapMenuLayer:exitMenu()
 	self.enableClick = false
 	local quitAction = cc.Sequence:create(
 		cc.TargetedAction:create(self.back, cc.ScaleTo:create(0.1, 1, 0)),
-		cc.RemoveSelf:create()
+		cc.RemoveSelf:create(),
+		cc.CallFunc:create(MakeScriptHandler(self, self.onChangeState))
 		)
 	self:runAction(quitAction)
+end
+
+function MapMenuLayer:onChangeState()
+	MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
 end

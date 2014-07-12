@@ -47,9 +47,9 @@ function MessageTip:init(message, callback)
 		kbdListener:registerScriptHandler(MakeScriptHandler(self, self.onKeyboardPressed), cc.Handler.EVENT_KEYBOARD_PRESSED)
 		self.keyboardListener = kbdListener
 		self:getEventDispatcher():addEventListenerWithSceneGraphPriority(kbdListener, self)
-	end
 
-	self:registerScriptHandler(MakeScriptHandler(self, self.onSceneEvent))
+		self:registerScriptHandler(MakeScriptHandler(self, self.onSceneEvent))
+	end
 end
 
 function MessageTip:pop()
@@ -60,7 +60,6 @@ end
 function MessageTip:onSceneEvent(event)
 	if event == "exit" then
 		-- 移除监听
-		self:getEventDispatcher():removeEventListener(self.touchListener)
 		self:getEventDispatcher():removeEventListener(self.keyboardListener)
 	end
 end

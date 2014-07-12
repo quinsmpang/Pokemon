@@ -25,3 +25,5 @@ NotifyEvents.MapView.ActionInstructionsEnded = "NotifyEvents.MapView.ActionInstr
 NotifyEvents.MapView.SwitchMap = "NotifyEvents.MapView.SwitchMap"
 -- 地图状态变更 MapStateController通知，MapLayerController, DialogLayerController, MenuLayerController接收
 NotifyEvents.MapView.MapStateChanged = "NotifyEvents.MapView.MapStateChanged"
+-- 菜单项被选中 MapMenu通知, MenuLayerController接收
+NotifyEvents.MapView.MenuItemSelected = "NotifyEvents.MapView.MenuItemSelected"
