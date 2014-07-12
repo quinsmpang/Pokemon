@@ -6,8 +6,6 @@
 
 class("DialogLayerController", psViewController)
 
-require "src/controller/map/ActionController"
-
 DialogLayerController.resources = {
 }
 
@@ -22,6 +20,9 @@ DialogLayerController.touchEventListener = nil
 DialogLayerController.currentDialogId = nil		-- current dialog id
 DialogLayerController.currentDialogModel = nil
 DialogLayerController.isDialogInProcess = nil	-- whether the dialog is in progress
+DialogLayerController.responseDialogs = nil		-- 响应的对话内容
+DialogLayerController.currentResponseModel = nil	-- 当前的Response model
+DialogLayerController.currentResponseIndex = nil	-- 当前响应到的index
 
 -- const values
 DialogLayerController.DIALOG_TEXT_FONT_SIZE = 18
@@ -62,12 +63,14 @@ function DialogLayerController:addObservers()
 	log("DialogLayerController:addObservers")
 	Notifier:addObserver(NotifyEvents.MapView.ActionEnded, self, self.onActionEnded)
 	Notifier:addObserver(NotifyEvents.MapView.DialogKeyboardResponse, self, self.onKeyboardEvent)
+	Notifier:addObserver(NotifyEvents.MapView.ResponseBegan, self, self.onResponseBegan)
 end
 
 function DialogLayerController:removeObservers()
 	log("DialogLayerController:removeObservers")
 	Notifier:removeObserver(NotifyEvents.MapView.ActionEnded, self)
 	Notifier:removeObserver(NotifyEvents.MapView.DialogKeyboardResponse, self)
+	Notifier:removeObserver(NotifyEvents.MapView.ResponseBegan, self)
 end
 
 function DialogLayerController:renderView()
@@ -154,11 +157,33 @@ function DialogLayerController:handleDialogDisplay()
 	if self.isDialogInProcess then
 		self.isDialogInProcess = false
 		self.root:stopAllActions()
-		self.dialogLabel:setString(self.currentDialogModel.speaker .. ": " .. self.currentDialogModel:getCorrectDialog())
+		if ResponseController.isUnderResponse then
+			local dialog = self.responseDialogs[self.currentResponseIndex]
+			if self.currentResponseModel.speaker ~= DBNULL then
+				dialog = self.currentResponseModel.speaker .. ": " .. dialog
+			end
+			self.dialogLabel:setString(dialog)
+		else
+			self.dialogLabel:setString(self.currentDialogModel.speaker .. ": " .. self.currentDialogModel:getCorrectDialog())
+		end
 		self.dialogIndice:setVisible(true)
 	else
 		GameVolumeHelper:playBtnClickSound()
-		self:generateNextDialog()
+
+		if ResponseController.isUnderResponse then
+			if self.currentResponseIndex >= #self.responseDialogs then
+				self.currentResponse = nil
+				self.responseDialogs = nil
+				self.root:setVisible(false)
+				DataCenter.currentPlayerData:enterFreedom(false)
+				ResponseController.isUnderResponse = false
+			else
+				self.root:setVisible(true)
+				self:generateNextResponse()
+			end
+		else
+			self:generateNextDialog()
+		end
 	end
 end
 
@@ -170,11 +195,10 @@ function DialogLayerController:generateNextDialog()
 		if self.currentDialogModel.actionId ~= DBNULL then
 			-- 如果action是-1，则进入自由活动
 			if tonumber(self.currentDialogModel.actionId) == -1 then
-				DataCenter.currentPlayerData:enterFreedom()
 				DataCenter.currentPlayerData.lastDialogId = self.currentDialogId
 				-- self:getScene():unloadViewController(self)  -- 还是觉得不要Unload, 应该只是隐藏
 				self.root:setVisible(false)
-				MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
+				DataCenter.currentPlayerData:enterFreedom()
 				return
 			else
 				MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
@@ -201,6 +225,19 @@ function DialogLayerController:generateNextDialog()
 	self:showTextOneByOne(substrings, 1)
 end
 
+function DialogLayerController:generateNextResponse()
+	log("DialogLayerController:generateNextResponse")
+	log("current response index: " .. self.currentResponseIndex)
+
+	self.dialogIndice:setVisible(false)
+	self.currentResponseIndex = self.currentResponseIndex + 1
+	local currentResponse = self.responseDialogs[self.currentResponseIndex]
+	local substrings = GenerateAllUTF8Substrings(currentResponse)
+
+	self.isDialogInProcess = true
+	self:showTextOneByOne(substrings, 1)
+end
+
 function DialogLayerController:showTextOneByOne(substrings, index)
 	if not self.isDialogInProcess then
 		return
@@ -211,7 +248,15 @@ function DialogLayerController:showTextOneByOne(substrings, index)
 		self.isDialogInProcess = false
 		return
 	end
-	self.dialogLabel:setString(self.currentDialogModel.speaker .. ": " .. substrings[index])
+	if ResponseController.isUnderResponse then
+		local dialog = substrings[index]
+		if self.currentResponseModel.speaker ~= DBNULL then
+			dialog = self.currentResponseModel.speaker .. ": " .. dialog
+		end
+		self.dialogLabel:setString(dialog)
+	else
+		self.dialogLabel:setString(self.currentDialogModel.speaker .. ": " .. substrings[index])
+	end
 	--[[ there is an issue, cc.CallFunc passes an default parameter which is the caller to the callback function
 	so use callfunc here would cause error!]]
 	-- local action = cc.Sequence:create(
@@ -224,4 +269,30 @@ end
 
 function DialogLayerController:onActionEnded()
 	self:generateNextDialog()
+end
+
+-------------------------- Response 处理函数 --------------------------
+function DialogLayerController:response_Speak(params)
+	self.responseDialogs = string.split(params, ";")
+	self.currentResponseIndex = 0
+	self:handleDialogDisplay()
+end
+
+function DialogLayerController:response_SpeakWithRest(params)
+	-- temp
+	self:response_Speak(params)
+end
+
+function DialogLayerController:response_ShowLayer(params)
+	
+end
+
+-------------------------- Response 相关回调函数 --------------------------
+function DialogLayerController:onResponseBegan(responseModel)
+	log("MapLayerController:onResponseBegan", responseModel.handler)
+	self.currentResponseModel = responseModel
+	local responseHandler = responseModel.handler
+	local handler = self["response_" .. responseHandler]
+	assert(type(handler) == "function", "Unimplemented response handler in ResponseController.")
+	handler(self, responseModel.params)
 end

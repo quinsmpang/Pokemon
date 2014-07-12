@@ -108,6 +108,13 @@ function MapLayerController:onKeyboardEvent(keyCode, eventType, pressedKeys)
 
 			-- scheduler is not friendly.
 			--self.walkSchedulerEntry = cc.Director:getInstance():getScheduler():scheduleScriptFunc(MakeScriptHandler(self, self.onWalkSchedule, nextDir), HeroSprite.WALK_DURATION * 2, false)
+		elseif keyCode == GameSettings.confirmKey then
+			if self.currentMap then
+				local response = self.currentMap:checkResponse()
+				if response then
+					ResponseController:processResponse(response)
+				end
+			end
 		elseif keyCode == GameSettings.cancelKey then
 			self.isCancelKeyPressed = true
 		end

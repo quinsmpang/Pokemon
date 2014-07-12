@@ -42,3 +42,12 @@ Enumerations.KEYBOARD_STATE = {
 	RELEASED = 2,
 	LONGPRESSED = 3,
 }
+
+-- 响应类型
+Enumerations.RESPONSE_TYPE = {
+	NORMAL = 0,
+	QUESTION = 1,
+	BRANCH = 2,
+	RECOVER = 3,
+	LAYER = 4,
+}

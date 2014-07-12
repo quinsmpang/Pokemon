@@ -31,6 +31,7 @@ function Dialog:updateFromDB()
 	if data then
 		self:updateWithData(data)
 
+		self.id = tonumber(data.id)
 		self.relatedStep = tonumber(data.relatedStep)
 		self.mapId = tonumber(data.mapId)
 		if data.params ~= DBNULL then

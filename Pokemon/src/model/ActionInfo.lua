@@ -27,6 +27,7 @@ function ActionInfo:updateFromDB()
 	if data then
 		self:updateWithData(data)
 
+		self.id = tonumber(data.id)
 		self.actionType = tonumber(data.actionType)
 	else
 		log("ActionInfo:updateFromDB failed, id [" .. self.id .. "] does not exist.")

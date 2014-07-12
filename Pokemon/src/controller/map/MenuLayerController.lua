@@ -108,6 +108,9 @@ end
 function MenuLayerController:onMenuItemSelected(itemIndex)
 	if itemIndex == 0 then
 		--图鉴
+		if DEBUG then
+			log("@@@@@@@@", DataCenter.currentPlayerData.lastStep)
+		end
 	elseif itemIndex == 1 then
 		--精灵
 	elseif itemIndex == 2 then

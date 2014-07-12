@@ -565,6 +565,28 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 	return false
 end
 
+function TMXMapLayer:checkResponse()
+	local nextPos = self.hero:getNextPosition(DataCenter.currentPlayerData.currentDirection)
+	-- 遍历npc
+	for _, npc in ipairs(self.npcList) do
+		if PositionEquals(npc.model.position, nextPos) and npc.responseId ~= -1 then
+			-- 修改npc方向
+			npc:updateDirection((DataCenter.currentPlayerData.currentDirection - 1 + 2) % 4 + 1)
+			local response = Response:create(npc.model.responseId)
+			return response
+		end
+	end
+
+	for _, obstacle in ipairs(self.obstacleList) do
+		if PositionEquals(obstacle.position, nextPos) and obstacle.responseId ~= -1 then
+			local response = Response:create(obstacle.responseId)
+			return response
+		end
+	end
+
+	return nil
+end
+
 function TMXMapLayer:isHeroMoving()
 	return self.isMoving
 end

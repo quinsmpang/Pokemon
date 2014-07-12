@@ -51,3 +51,13 @@ function GameDBHelper:queryActionInfoById(id)
 	end
 	return nil
 end
+
+------------------------ response_info ------------------------
+function GameDBHelper:queryResponseById(id)
+	local data = self.db:selectTableByConditionWithOneValue(GameConfig.RESPONSE_TABLE, "id", tostring(id))
+
+	if data then
+		return data[1]
+	end
+	return nil
+end

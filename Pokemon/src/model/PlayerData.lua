@@ -71,10 +71,16 @@ function PlayerData:updatePosition(position)
 end
 
 -- 进入自由活动
-function PlayerData:enterFreedom()
+function PlayerData:enterFreedom(bUpdateStep)
+	if bUpdateStep == nil then
+		bUpdateStep = true
+	end
 	log("PlayerData:enterFreedom", self.currentStep)
-	self.lastStep = self.currentStep
-	self.currentStep = 0
+	if bUpdateStep then
+		self.lastStep = self.currentStep
+		self.currentStep = 0
+	end
+	MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
 end
 
 function PlayerData:setStep(step)

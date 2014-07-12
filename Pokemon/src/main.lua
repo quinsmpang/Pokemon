@@ -72,6 +72,7 @@ function GameLauncher:loadPublicModules()
     require "src/model/NPC"
     require "src/model/ActionInfo"
     require "src/model/Trigger"
+    require "src/model/Response"
 
     -- public data or utils
     require "src/utils/GameConfig"
