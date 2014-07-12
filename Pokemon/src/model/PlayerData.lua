@@ -72,6 +72,11 @@ end
 
 -- 进入自由活动
 function PlayerData:enterFreedom()
+	log("PlayerData:enterFreedom", self.currentStep)
 	self.lastStep = self.currentStep
 	self.currentStep = 0
+end
+
+function PlayerData:setStep(step)
+	self.step = step
 end

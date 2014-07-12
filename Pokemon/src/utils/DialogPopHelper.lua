@@ -17,10 +17,12 @@ DialogWindow.cancelScript = nil	--取消按钮回调
 
 DialogWindow.enableClick = nil
 
-function DialogWindow:createOne()
+DialogWindow.__create = psModalLayer.create
+
+function DialogWindow:create()
 	local screenSize = cc.Director:getInstance():getWinSize()
 
-	local dialog = DialogWindow:create()
+	local dialog = DialogWindow:__create()
 
 	dialog:setOpacity(0)
 	dialog.enableClick = false
@@ -116,7 +118,7 @@ DialogPopHelper.DEFAULT_WINDOW_SIZE = CCSizeMake(300, 200)
 DialogPopHelper.DEFAULT_LABEL_DIMENSIONS = CCSizeMake(250, 120)
 
 function DialogPopHelper:quickPop(content, okScript, cancelScript)
-	local dialog = DialogWindow:createOne()
+	local dialog = DialogWindow:create()
 	dialog.window:setPreferredSize(self.DEFAULT_WINDOW_SIZE)
 	local winSize = self.DEFAULT_WINDOW_SIZE
 	dialog.textLabel:setString(content)
@@ -133,7 +135,7 @@ function DialogPopHelper:quickPop(content, okScript, cancelScript)
 end
 
 function DialogPopHelper:popQuestionWindow(windowSize, content, okScript, cancelScript)
-	local dialog = DialogWindow:createOne()
+	local dialog = DialogWindow:create()
 	dialog.window:setPreferredSize(windowSize)
 	dialog.textLabel:setString(content)
 	dialog.textLabel:setDimensions(windowSize.width - 50, windowSize.height - 80)
@@ -149,7 +151,7 @@ function DialogPopHelper:popQuestionWindow(windowSize, content, okScript, cancel
 end
 
 function DialogPopHelper:popMessageWindow(windowSize, content, okScript)
-	local dialog = DialogWindow:createOne()
+	local dialog = DialogWindow:create()
 	dialog.window:setPreferredSize(windowSize)
 	dialog.textLabel:setString(content)
 	dialog.textLabel:setDimensions(windowSize.width - 50, windowSize.height - 80)

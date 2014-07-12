@@ -118,12 +118,15 @@ function DialogLayerController:renderView()
 	self.root:addChild(dialogIndice)
 
 	self.isDialogInProcess = false
-	self.currentDialogId = self.currentDialogId or 0
+	self.currentDialogId = DataCenter.currentPlayerData.lastDialogId ~= DBNULL and DataCenter.currentPlayerData.lastDialogId or 0
 
-	--coreLayer:pushLayer(self.root)
+	self.root:setVisible(false)
 	self:getScene():addChild(self.root)
 
-	self:generateNextDialog()
+	-- 如果是新游戏则自动开始剧情
+	if self.currentDialogId == 0 then
+		self:generateNextDialog()
+	end
 	--CallFunctionAsync(self, self.generateNextDialog, 2.5)
 end
 
@@ -169,12 +172,14 @@ function DialogLayerController:generateNextDialog()
 			if tonumber(self.currentDialogModel.actionId) == -1 then
 				DataCenter.currentPlayerData:enterFreedom()
 				DataCenter.currentPlayerData.lastDialogId = self.currentDialogId
-				self:getScene():unloadViewController(self)
+				-- self:getScene():unloadViewController(self)  -- 还是觉得不要Unload, 应该只是隐藏
+				self.root:setVisible(false)
 				MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
 				return
 			else
+				MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
+
 				local actionModel = ActionInfo:create(self.currentDialogModel.actionId)
-				ActionController.isUnderAction = true
 				self.root:setVisible(false)
 				ActionController:processAction(actionModel)
 				return

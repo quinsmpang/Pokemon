@@ -105,7 +105,7 @@ end
 
 -- ListMenu delegate
 function MapMenu:itemSelected(menu, item)
-	local itemIndex = item:getIndex()
+	local itemIndex = item:getShowIndex()
 	if itemIndex == 0 then
 		--图鉴
 	elseif itemIndex == 1 then

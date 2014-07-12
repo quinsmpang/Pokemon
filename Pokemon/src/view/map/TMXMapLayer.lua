@@ -25,6 +25,7 @@ TMXMapLayer.npcList = nil 		-- NPC sprite集合
 -- logic
 TMXMapLayer.obstacleList = nil		-- 障碍物(Obstacle model)集合
 TMXMapLayer.entranceList = nil		-- 入口出口(Entrance model)集合
+TMXMapLayer.triggerList = nil 		-- 剧情触发点(Trigger model)集合
 TMXMapLayer.instructions = nil 		-- 行走指令队列，一般在剧情中的行走才需要用到
 TMXMapLayer.isMoving = nil 			-- 是否在行走，自由行走的时候需要用到
 TMXMapLayer.isRunning = nil 		-- 是否在跑
@@ -134,6 +135,19 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 		end
 	end
 
+	-- 设置剧情触发点
+	log("Map Initialization: Loading triggers")
+	self.triggerList = {}
+	local triggerObjectGroup = map:getObjectGroup("triggerObjects")
+	if triggerObjectGroup then
+		-- 遍历放到触发点table中
+		local triggerObjects = triggerObjectGroup:getObjects()
+		for _, triggerObj in ipairs(triggerObjects) do
+			local triggerModel = Trigger:create(triggerObj)
+			table.insert(self.triggerList, triggerModel)
+		end
+	end
+
 	-- 如果当前是非活动状态，说明是剧情载入，则显示在剧情设定位置
 	log("Map Initialization: Loading hero")
 	DataCenter.currentPlayerData.currentMapId = mapInfo.id
@@ -212,6 +226,13 @@ function TMXMapLayer:heroWalk(direction, callback)
 
 	DataCenter.currentPlayerData.currentDirection = direction
 
+	-- 检测当前位置是否有剧情触发
+	local trigger = self:checkTrigger(DataCenter.currentPlayerData.currentPosition)
+	if trigger then
+		self:continueStory(trigger)
+		return
+	end
+
 	-- 检测当前位置是否是入口
 	if self:checkEntrance(DataCenter.currentPlayerData.currentPosition) then
 		self.hero:changeDirection(direction)
@@ -271,6 +292,13 @@ function TMXMapLayer:heroRun(direction, callback)
 	log("TMXMapLayer:heroRun [" .. direction .. "]")
 
 	DataCenter.currentPlayerData.currentDirection = direction
+
+	-- 检测当前位置是否有剧情触发
+	local trigger = self:checkTrigger(DataCenter.currentPlayerData.currentPosition)
+	if trigger then
+		self:continueStory(trigger)
+		return
+	end
 
 	-- 检测当前位置是否是入口
 	if self:checkEntrance(DataCenter.currentPlayerData.currentPosition) then
@@ -454,6 +482,32 @@ function TMXMapLayer:validateHeroNextPosition(direction)
 	end
 	DataCenter.currentPlayerData:updatePosition(nextPos)
 	return true
+end
+
+-- 剧情触发点检测
+function TMXMapLayer:checkTrigger(position)
+	for _, trigger in ipairs(self.triggerList) do
+		if PositionEquals(position, trigger.position) and DataCenter.currentPlayerData.lastStep == trigger.lastStep then
+			return trigger
+		end
+	end
+	return nil
+end
+
+function TMXMapLayer:continueStory(trigger)
+	log("进入剧情触发点")
+	MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
+	local actionId = trigger.action
+	-- 如果有对应的action需要执行 则执行
+	if actionId ~= DBNULL then
+		-- 更新step
+		DataCenter.currentPlayerData:setStep(trigger.step)
+		local action = ActionInfo:create(actionId)
+		ActionController:processAction(action)
+	else
+		-- 这里模拟一个空action结束，为了让DialogLayerController去generateNextDialog
+		Notifier:notify(NotifyEvents.MapView.ActionEnded)
+	end
 end
 
 -- 入口检测

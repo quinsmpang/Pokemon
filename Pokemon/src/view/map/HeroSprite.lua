@@ -312,6 +312,7 @@ function HeroSprite:changeDirection(newDirection)
 		return
 	end
 
+	DataCenter.currentPlayerData.currentDirection = newDirection
 	local newFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. directionStr .. "1.png"
 	local newFrame = cc.SpriteFrameCache:getInstance():getSpriteFrame(newFrameName)
 	self:setSpriteFrame(newFrame)

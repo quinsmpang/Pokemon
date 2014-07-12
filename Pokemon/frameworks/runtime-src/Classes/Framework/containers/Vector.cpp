@@ -16,6 +16,7 @@ namespace framework
 
 	Vector::~Vector()
 	{
+		this->clear();
 		if (this->_container)
 		{
 			delete this->_container;
@@ -36,21 +37,28 @@ namespace framework
 
 	void Vector::addString(const string &str)
 	{
+		auto refStr = RefString::create(str.c_str());
+		refStr->retain();
 		this->_container->push_back(RefString::create(str.c_str()));
 	}
 
 	void Vector::addInteger(const int &num)
 	{
-		this->_container->push_back(RefInteger::create(num));
+		auto refNum = RefInteger::create(num);
+		refNum->retain();
+		this->_container->push_back(refNum);
 	}
 
 	void Vector::addDouble(const float &num)
 	{
-		this->_container->push_back(RefDouble::create(num));
+		auto refNum = RefDouble::create(num);
+		refNum->retain();
+		this->_container->push_back(refNum);
 	}
 
 	void Vector::addObject(Ref *obj)
 	{
+		obj->retain();
 		this->_container->push_back(obj);
 	}
 
@@ -60,6 +68,7 @@ namespace framework
 		{
 			if (*iter == obj)
 			{
+				obj->release();
 				this->_container->erase(iter);
 				break;
 			}
@@ -72,6 +81,7 @@ namespace framework
 
 		auto iter = this->_container->cbegin();
 		iter += index;
+		(*iter)->release();
 		this->_container->erase(iter);
 	}
 
@@ -86,11 +96,17 @@ namespace framework
 	{
 		CCASSERT(index >= 0 && index < this->_container->size(), "index is out of bound");
 
+		this->_container->at(index)->release();
+		obj->retain();
 		this->_container->at(index) = obj;
 	}
 
 	void Vector::clear()
 	{
+		for (auto iter = this->_container->cbegin(); iter != this->_container->cend(); ++iter)
+		{
+			(*iter)->release();
+		}
 		this->_container->clear();
 	}
 

@@ -154,7 +154,7 @@ function MainViewController:readyToEnterMainMenu()
 
 	-- check if there is save directory
 	if not IOUtils:getInstance():directoryExists("save") then
-		IOUtils:getInstance():createDirectory("save")
+		-- IOUtils:getInstance():createDirectory("save")
 	end
 end
 

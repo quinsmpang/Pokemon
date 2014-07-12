@@ -48,10 +48,8 @@ function MapViewScene:init()
 	
 	local mapLayerController = MapLayerController:create()
 	self:loadViewController(mapLayerController)
-	if DataCenter.currentPlayerData.currentStep ~= 0 then
-		local dialogLayerController = DialogLayerController:create()
-		self:loadViewController(dialogLayerController)
-	end
+	local dialogLayerController = DialogLayerController:create()
+	self:loadViewController(dialogLayerController)
 end
 
 function MapViewScene:newData(gender)

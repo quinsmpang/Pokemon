@@ -10,6 +10,7 @@ ActionController.isUnderAction = false		-- 是否正在处理action
 
 function ActionController:processAction(actionModel)
 	log("ActionController:processAction", actionModel.handler, actionModel.params)
+	self.isUnderAction = true
 	local actionHandler = actionModel.handler
 	local handler = self["action_" .. actionHandler]
 	assert(type(handler) == "function", "Unimplemented action handler in ActionController.")
@@ -34,4 +35,12 @@ end
 function ActionController:action_SwitchMap(params)
 	local mapId = tonumber(params)
 	DataCenter.currentPlayerData.currentMapId = mapId
+end
+
+function ActionController:action_Walk(params)
+
+end
+
+function ActionController:action_PopMessage(params)
+	
 end

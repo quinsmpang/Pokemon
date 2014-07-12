@@ -23,6 +23,7 @@ end
 
 function MenuLayerController:unload()
 	log("MenuLayerController:unload")
+	self.root:removeFromParent()
 	self:cleanResources()
 	self:removeObservers()
 end
@@ -38,10 +39,12 @@ end
 
 function MenuLayerController:addObservers()
 	log("MenuLayerController:addObservers")
+	Notifier:addObserver(NotifyEvents.MapView.MapKeyboardResponse, self, self.onKeyboardEvent)
 end
 
 function MenuLayerController:removeObservers()
 	log("MenuLayerController:removeObservers")
+	Notifier:removeObserver(NotifyEvents.MapView.MapKeyboardResponse, self)
 end
 
 function MenuLayerController:renderView()
@@ -76,11 +79,20 @@ end
 
 function MenuLayerController:onBallClick()
 	log("MenuLayerController:onBallClick")
-	MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
 	self:showMenu()
 end
 
+function MenuLayerController:onKeyboardEvent(keyCode, eventType, pressedKeys)
+	log("MenuLayerController:onKeyboardEvent, eventType: [" .. eventType .. "]")
+	if eventType == Enumerations.KEYBOARD_STATE.PRESSED then
+		if keyCode == GameSettings.startKey then
+			self:showMenu()
+		end
+	end
+end
+
 function MenuLayerController:showMenu()
+	MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
 	local mapMenu = MapMenuLayer:create()
 	self.root:addChild(mapMenu)
 end

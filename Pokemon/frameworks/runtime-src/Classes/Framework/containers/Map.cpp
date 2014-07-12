@@ -16,6 +16,7 @@ namespace framework
 
 	Map::~Map()
 	{
+		this->clear();
 		if (this->_container)
 		{
 			delete this->_container;
@@ -53,31 +54,50 @@ namespace framework
 
 	void Map::setStringForKey(const string &value, const string &key)
 	{
-		(*(this->_container))[key] = RefString::create(value.c_str());
+		auto refStr = RefString::create(value.c_str());
+		refStr->retain();
+		(*(this->_container))[key] = refStr;
 	}
 
 	void Map::setIntegerForKey(const int &value, const string &key)
 	{
-		(*(this->_container))[key] = RefInteger::create(value);
+		auto refNum = RefInteger::create(value);
+		refNum->retain();
+		(*(this->_container))[key] = refNum;
 	}
 
 	void Map::setDoubleForKey(const float &value, const string &key)
 	{
-		(*(this->_container))[key] = RefDouble::create(value);
+		auto refNum = RefDouble::create(value);
+		refNum->retain();
+		(*(this->_container))[key] = refNum;
 	}
 
 	void Map::setObjectForKey(Ref *obj, const string &key)
 	{
+		if ((*(this->_container))[key])
+		{
+			(*(this->_container))[key]->release();
+		}
+		obj->retain();
 		(*(this->_container))[key] = obj;
 	}
 
 	void Map::removeObjectForKey(const string &key)
 	{
+		if ((*(this->_container))[key])
+		{
+			(*(this->_container))[key]->release();
+		}
 		this->_container->erase(key);
 	}
 
 	void Map::clear()
 	{
+		for (auto iter = this->_container->cbegin(); iter != this->_container->cend(); ++iter)
+		{
+			iter->second->release();
+		}
 		this->_container->clear();
 	}
 
