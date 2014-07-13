@@ -145,6 +145,7 @@
     <property name="id" value="1"/>
     <property name="npcId" value="2"/>
     <property name="responseId" value="1"/>
+    <property name="specialResponseId" value="1,7"/>
     <property name="step" value="0"/>
    </properties>
   </object>

@@ -16,6 +16,7 @@ MapLayerController.menuLayerController = nil 	-- 当前的menu controller
 -- logic
 MapLayerController.isDirectionKeyPressed = nil
 MapLayerController.isCancelKeyPressed = nil
+MapLayerController.isEnabled = nil
 MapLayerController.nextDirection = nil
 
 -- const
@@ -68,6 +69,7 @@ end
 function MapLayerController:renderView()
 	self.isDirectionKeyPressed = false
 	self.isCancelKeyPressed = false
+	self.isEnabled = true
 
 	local coreLayer = self:getScene():getCoreLayer()
 
@@ -83,6 +85,9 @@ function MapLayerController:renderView()
 end
 
 function MapLayerController:onKeyboardEvent(keyCode, eventType, pressedKeys)
+	if not self.isEnabled then
+		return
+	end
 	log("MapLayerController:onKeyboardEvent, eventType: [" .. eventType .. "]")
 	if eventType == Enumerations.KEYBOARD_STATE.PRESSED then
 		-- 方向键处理
@@ -174,6 +179,7 @@ function MapLayerController:turnBackStandState()
 end
 
 function MapLayerController:switchMap(newMapId)
+	self.isEnabled = false
 	local coreLayer = self:getScene():getCoreLayer()
 
 	if self.currentMap and self.currentMap.mapInfo.id == newMapId then
@@ -183,25 +189,32 @@ function MapLayerController:switchMap(newMapId)
 		DataCenter.currentPlayerData.currentMapId = newMapId
 
 		if self.currentMap then
+			-- self.currentMap:setVisible(false)
 			coreLayer:popLayer()
 		end
 
-		local newMapInfo = MapInfo:create(newMapId)
-		local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
-		
-		self.currentMap = newMap
-		self.currentMap:retain()
-		CallFunctionAsync(coreLayer, function() 
-				coreLayer:pushLayer(newMap) 
-				newMap:release()
-				-- 检测当前位置是否有剧情触发
-				local trigger = newMap:checkTrigger(DataCenter.currentPlayerData.currentPosition)
-				if trigger then
-					newMap:continueStory(trigger)
-				end
-			end, 0.25)
+		CallFunctionAsync(self, self.switchMapCallFunc, 0.25, newMapId)
 	end
 	--coreLayer:pushLayer(newMap)
+end
+function MapLayerController:switchMapCallFunc(newMapId)
+	local coreLayer = self:getScene():getCoreLayer()
+
+	local newMapInfo = MapInfo:create(newMapId)
+	local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
+		
+	self.currentMap = newMap
+	self.currentMap:retain()
+	CallFunctionAsync(coreLayer, function() 
+			coreLayer:pushLayer(newMap) 
+			newMap:release()
+			-- 检测当前位置是否有剧情触发
+			local trigger = newMap:checkTrigger(DataCenter.currentPlayerData.currentPosition)
+			if trigger then
+				newMap:continueStory(trigger)
+			end
+		end, 0.25)
+	self.isEnabled = true
 end
 
 function MapLayerController:onMapStateChanged(oldState, newState)

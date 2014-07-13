@@ -47,10 +47,10 @@ function TMXMapLayer:createWithMapInfo(mapInfo)
 	self.mask:setCascadeOpacityEnabled(true)
 	self.mask:retain()
 	local mapLayer = TMXMapLayer:createWithTransitions(
-		cc.TargetedAction:create(self.mask, cc.FadeOut:create(0.25)),
-		cc.TargetedAction:create(self.mask, cc.FadeOut:create(0.25)),
-		cc.TargetedAction:create(self.mask, cc.FadeIn:create(0.25)),
-		cc.TargetedAction:create(self.mask, cc.FadeIn:create(0.25))
+		cc.TargetedAction:create(self.mask, cc.FadeOut:create(0.15)),
+		cc.TargetedAction:create(self.mask, cc.FadeOut:create(0.15)),
+		cc.TargetedAction:create(self.mask, cc.FadeIn:create(0.15)),
+		cc.TargetedAction:create(self.mask, cc.FadeIn:create(0.15))
 		)
 	-- local mapLayer = TMXMapLayer:create()
 
@@ -572,8 +572,16 @@ function TMXMapLayer:checkResponse()
 		if PositionEquals(npc.model.position, nextPos) and npc.responseId ~= -1 then
 			-- 修改npc方向
 			npc:updateDirection((DataCenter.currentPlayerData.currentDirection - 1 + 2) % 4 + 1)
-			local response = Response:create(npc.model.responseId)
-			return response
+			-- 判断是否和性别相关
+			if npc.model.specialResponseId ~= DBNULL then
+				local params = string.split(npc.model.specialResponseId, ",")	-- { gender, responseId }
+				local gender = tonumber(params[1])
+				local responseId = tonumber(params[2])
+				if gender ~= DataCenter.currentPlayerData.gender then
+					return Response:create(responseId)
+				end
+			end
+			return Response:create(npc.model.responseId)
 		end
 	end
 
