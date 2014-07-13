@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="9" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="room_common" tilewidth="32" tileheight="32">
+  <image source="images/terrains/room_common.png" width="256" height="896"/>
+ </tileset>
+ <layer name="main" width="10" height="9">
+  <data encoding="base64" compression="zlib">
+   eJwTYmBgECaARYBYCoilCWAZIGYexVgxALISAp8=
+  </data>
+ </layer>
+ <layer name="items" width="10" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYIAAdSDWYMANlgDxUiDWB2IDIN4IxJuwqFsDxGuR+DuBeBcSfxYeO5DBIihdCMRFQHyZgPpKIK4C4itEmk9NYAnEVkBsjUcNAJ7+C44=
+  </data>
+ </layer>
+ <layer name="tops" width="10" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAfmAmlZwNxJhBn4VC3EEovJmDeSiBeBcSrKXcazQEARgQFSg==
+  </data>
+ </layer>
+ <objectgroup name="obstacleObjects" width="10" height="9">
+  <object name="ob1" x="0" y="128" width="64" height="64">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob2" x="0" y="64" width="64" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob3" x="64" y="32" width="64" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob4" x="128" y="64" width="64" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob5" x="192" y="32" width="128" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob6" x="256" y="64" width="32" height="64">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="npcObjects" width="10" height="9">
+  <object name="npc1" x="192" y="128" width="32" height="32">
+   <properties>
+    <property name="direction" value="3"/>
+    <property name="id" value="1"/>
+    <property name="npcId" value="4"/>
+    <property name="responseId" value="4"/>
+    <property name="step" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="entranceObjects" width="10" height="9">
+  <object name="entrance1" x="64" y="256" width="32" height="32">
+   <properties>
+    <property name="direction" value="3"/>
+    <property name="enabled" value="1"/>
+    <property name="message" value=""/>
+    <property name="relatedMapId" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

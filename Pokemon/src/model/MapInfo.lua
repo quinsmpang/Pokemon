@@ -8,6 +8,9 @@ luaClass("MapInfo", psModel)
 
 MapInfo.id = DBNULL		-- id
 MapInfo.path = DBNULL	-- 地图路径
+MapInfo.name = DBNULL	-- 地图名称
+MapInfo.bgMusic = DBNULL	-- 背景音乐
+MapInfo.specialBgMusic = DBNULL	-- 特殊剧情下的背景音乐
 
 function MapInfo:create(id)
 	local model = MapInfo:new()

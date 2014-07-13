@@ -496,7 +496,7 @@ end
 
 function TMXMapLayer:continueStory(trigger)
 	log("进入剧情触发点")
-	MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
+	DataCenter.currentPlayerData:enterStory()
 	local actionId = trigger.action
 	-- 如果有对应的action需要执行 则执行
 	if actionId ~= DBNULL then

@@ -28,5 +28,6 @@ function ResponseController:response_SpeakWithRest(params)
 end
 
 function ResponseController:response_ShowLayer(params)
-	
+	-- temp
+	self.isUnderResponse = false
 end

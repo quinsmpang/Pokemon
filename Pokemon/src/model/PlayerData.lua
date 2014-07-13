@@ -78,9 +78,16 @@ function PlayerData:enterFreedom(bUpdateStep)
 	log("PlayerData:enterFreedom", self.currentStep)
 	if bUpdateStep then
 		self.lastStep = self.currentStep
-		self.currentStep = 0
 	end
+	self.currentStep = 0
 	MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
+end
+
+-- 进入剧情
+function PlayerData:enterStory()
+	log("PlayerData:enterStory", self.lastStep)
+	self.currentStep = self.lastStep + 1
+	MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
 end
 
 function PlayerData:setStep(step)

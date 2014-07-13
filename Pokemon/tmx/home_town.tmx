@@ -171,7 +171,7 @@
     <property name="allowLeft" value="0"/>
     <property name="allowRight" value="0"/>
     <property name="allowUp" value="0"/>
-    <property name="responseId" value="1"/>
+    <property name="responseId" value="6"/>
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
@@ -231,7 +231,7 @@
     <property name="allowLeft" value="0"/>
     <property name="allowRight" value="0"/>
     <property name="allowUp" value="0"/>
-    <property name="responseId" value="2"/>
+    <property name="responseId" value="5"/>
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>

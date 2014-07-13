@@ -219,7 +219,6 @@ function DialogLayerController:generateNextDialog()
 	local currentDialog = Dialog:create(self.currentDialogId)
 	local substrings = GenerateAllUTF8Substrings(currentDialog:getCorrectDialog())
 	self.currentDialogModel = currentDialog
-	DataCenter.currentPlayerData.step = currentDialog.relatedStep
 
 	self.isDialogInProcess = true
 	self:showTextOneByOne(substrings, 1)
