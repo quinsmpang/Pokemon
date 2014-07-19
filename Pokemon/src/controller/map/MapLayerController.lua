@@ -8,6 +8,7 @@ class("MapLayerController", psViewController)
 
 require "src/view/map/TMXMapLayer"
 require "src/view/map/MessageTip"
+require "src/view/map/MapNameBoard"
 
 MapLayerController.currentMap = nil		-- 当前地图层
 
@@ -214,6 +215,14 @@ function MapLayerController:switchMapCallFunc(newMapId)
 				newMap:continueStory(trigger)
 			end
 			self.isEnabled = true
+			-- 显示地图名
+			if newMapInfo.name ~= DBNULL then
+				log("Map name: ", newMapInfo.name)
+				local board = MapNameBoard:create(newMapInfo.name)
+				board:setAnchorPoint(0, 0)
+				board:setPosition(0, cc.Director:getInstance():getWinSize().height)
+				coreLayer:addChild(board)
+			end
 		end, 0.25)
 end
 
