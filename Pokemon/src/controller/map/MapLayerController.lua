@@ -213,8 +213,8 @@ function MapLayerController:switchMapCallFunc(newMapId)
 			if trigger then
 				newMap:continueStory(trigger)
 			end
+			self.isEnabled = true
 		end, 0.25)
-	self.isEnabled = true
 end
 
 function MapLayerController:onMapStateChanged(oldState, newState)

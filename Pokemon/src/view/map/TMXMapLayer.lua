@@ -23,6 +23,7 @@ TMXMapLayer.hero = nil 			-- 玩家精灵
 TMXMapLayer.npcList = nil 		-- NPC sprite集合
 
 -- logic
+TMXMapLayer.tiles = nil 			-- 二维数组
 TMXMapLayer.obstacleList = nil		-- 障碍物(Obstacle model)集合
 TMXMapLayer.entranceList = nil		-- 入口出口(Entrance model)集合
 TMXMapLayer.triggerList = nil 		-- 剧情触发点(Trigger model)集合
@@ -89,6 +90,7 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 	self.npcLayer = cc.Layer:create()
 	map:addChild(self.npcLayer, self.ZORDER.PLAYER)
 
+	self.tiles = {}
 	-- 判断地图是否拥有npc
 	log("Map Initialization: Loading npc")
 	self.npcList = {}
@@ -99,6 +101,11 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 		for _, npcObj in ipairs(npcObjects) do
 			if tonumber(npcObj["step"]) == DataCenter.currentPlayerData.currentStep or tonumber(npcObj["step"]) == 0 then
 				local npcModel = NPC:create(npcObj)
+				for i = 0, npcModel.width - 1 do
+					for j = 0, npcModel.height - 1 do
+						self.tiles[npcModel.position.x + i .. "," .. npcModel.position.y + j] = npcModel
+					end
+				end
 				local npc = NpcSprite:createWithModel(npcModel)
 				local npcPos = ccp(tonumber(npcObj["x"]), tonumber(npcObj["y"]))
 				npc:setAnchorPoint(0, 0)
@@ -119,6 +126,11 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 		for _, obstacleObj in ipairs(obstacleObjects) do
 			local obstacleModel = Obstacle:create(obstacleObj)
 			table.insert(self.obstacleList, obstacleModel)
+			for i = 0, obstacleModel.width - 1 do
+				for j = 0, obstacleModel.height - 1 do
+					self.tiles[obstacleModel.position.x + i .. "," .. obstacleModel.position.y + j] = obstacleModel
+				end
+			end
 		end
 	end
 
@@ -132,6 +144,11 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 		for _, entranceObj in ipairs(entranceObjects) do
 			local entranceModel = Entrance:create(entranceObj)
 			table.insert(self.entranceList, entranceModel)
+			for i = 0, entranceModel.width - 1 do
+				for j = 0, entranceModel.height - 1 do
+					self.tiles[entranceModel.position.x + i .. "," .. entranceModel.position.y + j] = entranceModel
+				end
+			end
 		end
 	end
 
@@ -224,30 +241,7 @@ function TMXMapLayer:heroWalk(direction, callback)
 
 	log("TMXMapLayer:heroWalk [" .. direction .. "]")
 
-	DataCenter.currentPlayerData.currentDirection = direction
-
-	-- 检测当前位置是否有剧情触发
-	local trigger = self:checkTrigger(DataCenter.currentPlayerData.currentPosition)
-	if trigger then
-		self:continueStory(trigger)
-		return
-	end
-
-	-- 检测当前位置是否是入口
-	if self:checkEntrance(DataCenter.currentPlayerData.currentPosition) then
-		self.hero:changeDirection(direction)
-		return
-	end
-
-	-- 验证下个位置
-	if not self:validateHeroNextPosition(direction) then
-		log("Hero walk: Next position is invalid.")
-		local collisionAction = cc.Sequence:create(
-			self.hero:getWalkActionWithoutMoving(direction),
-			cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnd))
-			)
-		self.isMoving = true
-		self.hero:runAction(collisionAction)
+	if not self:validateLocation(direction) then
 		return
 	end
 
@@ -291,30 +285,7 @@ function TMXMapLayer:heroRun(direction, callback)
 
 	log("TMXMapLayer:heroRun [" .. direction .. "]")
 
-	DataCenter.currentPlayerData.currentDirection = direction
-
-	-- 检测当前位置是否有剧情触发
-	local trigger = self:checkTrigger(DataCenter.currentPlayerData.currentPosition)
-	if trigger then
-		self:continueStory(trigger)
-		return
-	end
-
-	-- 检测当前位置是否是入口
-	if self:checkEntrance(DataCenter.currentPlayerData.currentPosition) then
-		self.hero:changeDirection(direction)
-		return
-	end
-	
-	-- 验证下个位置
-	if not self:validateHeroNextPosition(direction) then
-		log("Hero walk: Next position is invalid.")
-		local collisionAction = cc.Sequence:create(
-			self.hero:getWalkActionWithoutMoving(direction),
-			cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnd))
-			)
-		self.isMoving = true
-		self.hero:runAction(collisionAction)
+	if not self:validateLocation(direction) then
 		return
 	end
 
@@ -349,6 +320,31 @@ end
 
 function TMXMapLayer:onRunningEnd()
 	self.isRunning = false
+end
+
+function TMXMapLayer:validateLocation(direction)
+	DataCenter.currentPlayerData.currentDirection = direction
+
+	-- 检测当前位置是否是入口
+	if self:checkEntrance(DataCenter.currentPlayerData.currentPosition) then
+		self.hero:changeDirection(direction)
+		return false
+	end
+	
+	-- 验证下个位置
+	if not self:validateHeroNextPosition(direction) then
+		log("Hero walk: Next position is invalid.")
+		local collisionAction = cc.Sequence:create(
+			self.hero:getWalkActionWithoutMoving(direction),
+			cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnd))
+			)
+		self.isMoving = true
+		self.hero:runAction(collisionAction)
+		return false
+	end
+
+	DataCenter.currentPlayerData.currentDirection = direction
+	return true
 end
 
 function TMXMapLayer:heroWalkWithInstructions(sender, direction)
@@ -512,16 +508,13 @@ end
 
 -- 入口检测
 function TMXMapLayer:checkEntrance(position)
-	for _, entrance in ipairs(self.entranceList) do
-		if entrance.isEnabled then
-			local currentPosition = DataCenter.currentPlayerData.currentPosition
-			local entranceRect = CCRectMake(entrance.position.x, entrance.position.y, entrance.width - 1, entrance.height - 1)
-			if ContainsPoint(entranceRect, position) and DataCenter.currentPlayerData.currentDirection == entrance.direction then
-				log("到达入口, 当前地图[" .. self.mapInfo.id .. "] 关联地图[" .. entrance.relatedMapId .. "]")
-				MapStateController:setEntranceMapId(self.mapInfo.id)
-				Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId)
-				return true
-			end
+	local entrance = self.tiles[position.x .. "," .. position.y]
+	if entrance and entrance.__className == "Entrance" then
+		if entrance.isEnabled and DataCenter.currentPlayerData.currentDirection == entrance.direction then
+			log("到达入口, 当前地图[" .. self.mapInfo.id .. "] 关联地图[" .. entrance.relatedMapId .. "]")
+			MapStateController:setEntranceMapId(self.mapInfo.id)
+			Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId)
+			return true
 		end
 	end
 	return false
@@ -539,21 +532,17 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 	end
 
 	-- npc碰撞
-	for _, npc in ipairs(self.npcList) do
-		local npcPos = npc.model.position
-		if PositionEquals(npcPos, nextPosition) then
-			log("与npc发生碰撞")
-			return true
-		end
+	local npc = self.tiles[nextPosition.x .. "," .. nextPosition.y]
+	if npc and npc.__className == "NPC" then
+		log("与npc发生碰撞", npc.id)
+		return true
 	end
 
 	-- 障碍物碰撞
-	for _, obstacle in ipairs(self.obstacleList) do
-		local obstacleRect = CCRectMake(obstacle.position.x, obstacle.position.y, obstacle.width - 1, obstacle.height - 1)
-		if ContainsPoint(obstacleRect, nextPosition) then
-			log("与障碍物发生碰撞")
-			return true
-		end
+	local obstacle = self.tiles[nextPosition.x .. "," .. nextPosition.y]
+	if obstacle and obstacle.__className == "Obstacle" then
+		log("与障碍物发生碰撞", obstacle.id)
+		return true
 	end
 
 	-- 边界碰撞
@@ -567,29 +556,29 @@ end
 
 function TMXMapLayer:checkResponse()
 	local nextPos = self.hero:getNextPosition(DataCenter.currentPlayerData.currentDirection)
-	-- 遍历npc
-	for _, npc in ipairs(self.npcList) do
-		if PositionEquals(npc.model.position, nextPos) and npc.responseId ~= -1 then
-			-- 修改npc方向
-			npc:updateDirection((DataCenter.currentPlayerData.currentDirection - 1 + 2) % 4 + 1)
-			-- 判断是否和性别相关
-			if npc.model.specialResponseId ~= DBNULL then
-				local params = string.split(npc.model.specialResponseId, ",")	-- { gender, responseId }
-				local gender = tonumber(params[1])
-				local responseId = tonumber(params[2])
-				if gender ~= DataCenter.currentPlayerData.gender then
-					return Response:create(responseId)
-				end
+
+	-- npc
+	local npc = self.tiles[nextPos.x .. "," .. nextPos.y]
+	if npc and npc.__className == "NPC" and npc.responseId ~= -1 then
+		-- 修改npc方向
+		npc:updateDirection((DataCenter.currentPlayerData.currentDirection - 1 + 2) % 4 + 1)
+		-- 判断是否和性别相关
+		if npc.model.specialResponseId ~= DBNULL then
+			local params = string.split(npc.model.specialResponseId, ",")	-- { gender, responseId }
+			local gender = tonumber(params[1])
+			local responseId = tonumber(params[2])
+			if gender ~= DataCenter.currentPlayerData.gender then
+				return Response:create(responseId)
 			end
-			return Response:create(npc.model.responseId)
 		end
+		return Response:create(npc.model.responseId)
 	end
 
-	for _, obstacle in ipairs(self.obstacleList) do
-		if PositionEquals(obstacle.position, nextPos) and obstacle.responseId ~= -1 then
-			local response = Response:create(obstacle.responseId)
-			return response
-		end
+	-- 障碍物
+	local obstacle = self.tiles[nextPos.x .. "," .. nextPos.y]
+	if obstacle and obstacle.__className == "Obstacle" and obstacle.responseId ~= -1 then
+		local response = Response:create(obstacle.responseId)
+		return response
 	end
 
 	return nil

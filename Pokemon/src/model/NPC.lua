@@ -9,6 +9,8 @@ luaClass("NPC", psModel)
 NPC.id = DBNULL
 NPC.position = DBNULL			-- npc位置
 NPC.direction = DBNULL			-- npc方向
+NPC.width = DBNULL
+NPC.height = DBNULL
 NPC.npcId = DBNULL				-- 对应的npc model id
 NPC.responseId = DBNULL			-- 响应的id
 NPC.specialResponseId = DBNULL	-- 性别影响的响应id
@@ -31,6 +33,8 @@ function NPC:initWithInfo(npcInfo)
 	self.id = tonumber(npcInfo["id"])
 	self.position = ccp(tonumber(npcInfo["x"]) / 32, tonumber(npcInfo["y"]) / 32)
 	self.direction = tonumber(npcInfo["direction"])
+	self.width = tonumber(npcInfo["width"] / 32)
+	self.height = tonumber(npcInfo["height"] / 32)
 	self.npcId = tonumber(npcInfo["npcId"])
 	self.responseId = tonumber(npcInfo["responseId"])
 	if npcInfo["specialResponseId"] then
