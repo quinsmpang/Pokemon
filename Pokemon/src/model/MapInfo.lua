@@ -39,3 +39,12 @@ function MapInfo:updateFromDB()
 		log("MapInfo:updateFromDB failed, id [" .. self.id .. "] does not exist.")
 	end
 end
+
+function MapInfo:getConcatMapInfo(direction)
+	if #self.concats > 0 then
+		local mapId = self.concats[direction]
+		local mapInfo = MapInfo:create(mapId)
+		return mapInfo
+	end
+	return nil
+end
