@@ -7,11 +7,11 @@
             <key>images/map/dialog_indice.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{0,114},{20,8}}</string>
+                <string>{{115,0},{20,8}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{20,8}}</string>
                 <key>sourceSize</key>
@@ -20,7 +20,7 @@
             <key>images/map/icon_back.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{80,0},{16,16}}</string>
+                <string>{{81,130},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>images/map/icon_bag.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{64,0},{16,16}}</string>
+                <string>{{65,130},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>images/map/icon_collection.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{48,102},{16,16}}</string>
+                <string>{{97,116},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>images/map/icon_contact.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{48,86},{16,16}}</string>
+                <string>{{81,114},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>images/map/icon_info.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{48,70},{16,16}}</string>
+                <string>{{65,114},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>images/map/icon_pokemon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{32,102},{16,16}}</string>
+                <string>{{97,100},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>images/map/icon_record.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{32,86},{16,16}}</string>
+                <string>{{97,84},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>images/map/icon_setting.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{32,70},{16,16}}</string>
+                <string>{{97,68},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -121,14 +121,27 @@
                 <key>sourceSize</key>
                 <string>{16,16}</string>
             </dict>
-            <key>images/map/menu_cursor.png</key>
+            <key>images/map/map_name_back.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{32,50},{18,20}}</string>
+                <string>{{0,0},{170,65}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{170,65}}</string>
+                <key>sourceSize</key>
+                <string>{170,65}</string>
+            </dict>
+            <key>images/map/menu_cursor.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{97,50},{18,20}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{18,20}}</string>
                 <key>sourceSize</key>
@@ -137,7 +150,7 @@
             <key>images/map/message_tip.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{0,0},{50,50}}</string>
+                <string>{{65,0},{50,50}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,7 +163,7 @@
             <key>images/map/pokemon_ball_normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{0,82},{32,32}}</string>
+                <string>{{65,82},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -163,7 +176,7 @@
             <key>images/map/pokemon_ball_selected.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{0,50},{32,32}}</string>
+                <string>{{65,50},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -181,9 +194,9 @@
             <key>realTextureFileName</key>
             <string>map.pvr.ccz</string>
             <key>size</key>
-            <string>{128,128}</string>
+            <string>{128,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:aea17885a60efeac5663fe2b2cbc0ce2:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:091390de3584fd6518f6effeadf8f600:1/1$</string>
             <key>textureFileName</key>
             <string>map.pvr.ccz</string>
         </dict>

@@ -100,12 +100,7 @@
  </layer>
  <layer name="items" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo4B6QAoN90ExPoAuT4weagJ0Nw8FMOrmUTAKBhbQs4waBZSDoRhfQ9HNAwXQ65ehUNeMunkUjAIICB5oB4yCYQcAypUIhg==
-  </data>
- </layer>
- <layer name="tops" width="45" height="24">
-  <data encoding="base64" compression="zlib">
-   eJzt1CEOACAMA8D9kX/xZgxiBreEwO6S+po2Au4bKQDUq/pXPw19vLh3nTmZO/xtAblfA7U=
+   eJxjYBgFo4B6QAoN90ExPgCSD0bCxOihJkB381AAo24eBaNgYAFyuTUKBj+gZ51CLTAU3TxQAL1+GQp1zaibBz8YiuX7qJsJ2zUUw2gUkAYAZNULcQ==
   </data>
  </layer>
  <objectgroup name="obstacleObjects" width="45" height="24">
