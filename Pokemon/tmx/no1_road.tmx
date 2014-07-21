@@ -196,4 +196,22 @@
   </object>
  </objectgroup>
  <objectgroup name="npcObjects" width="45" height="24"/>
+ <objectgroup name="entranceObjects" width="45" height="24">
+  <object name="entrance1" x="928" y="736" width="96" height="32">
+   <properties>
+    <property name="direction" value="3"/>
+    <property name="enabled" value="1"/>
+    <property name="message" value=""/>
+    <property name="relatedMapId" value="4"/>
+   </properties>
+  </object>
+  <object name="entrance2" x="672" y="0" width="96" height="32">
+   <properties>
+    <property name="direction" value="1"/>
+    <property name="enabled" value="1"/>
+    <property name="message" value=""/>
+    <property name="relatedMapId" value="10"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

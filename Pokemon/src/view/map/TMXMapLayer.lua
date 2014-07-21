@@ -15,6 +15,7 @@ TMXMapLayer.height = nil
 
 -- ui
 TMXMapLayer.mask = nil 			-- 遮罩层用来实现Fade效果
+TMXMapLayer.map = nil 			-- map root layer
 TMXMapLayer.playerLayer = nil	-- player layer
 TMXMapLayer.npcLayer = nil		-- npc layer
 TMXMapLayer.main = nil			-- main layer
@@ -68,6 +69,7 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 	local screenSize = cc.Director:getInstance():getWinSize()
 
 	local map = EncryptedTMXTiledMap:create(mapInfo.path)
+	self.map = map
 
 	self.width = map:getMapSize().width
 	self.height = map:getMapSize().height
@@ -226,15 +228,33 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 	end
 end
 
--- 玩家需要显示在地图中间
+-- 玩家需要显示在地图的合适位置、室内则是正中央，室外需要保证地图不会越界
 function TMXMapLayer:updatePlayerPosition()
-	local heroLocalPos = ccp(self.hero:getPosition())
 	local heroWorldPos = self.hero:convertToWorldSpace(POINT_ZERO)
 	local diffX = self.PLAYER_POS.x - heroWorldPos.x
 	local diffY = self.PLAYER_POS.y - heroWorldPos.y
 
 	local curPos = ccp(self:getPosition())
-	self:setPosition(curPos.x + diffX, curPos.y + diffY)
+	if self.mapInfo:isInRoom() then
+		self:setPosition(curPos.x + diffX, curPos.y + diffY)
+	else
+		local deltaX, deltaY = 0, 0
+		local winSize = cc.Director:getInstance():getWinSize()
+		local mapWorldPos = self.map:convertToWorldSpace(POINT_ZERO)
+		-- 上下边界(只可能一边越界)
+		if mapWorldPos.y + self.map:getContentSize().height * 0.5 < winSize.height then
+			deltaY = winSize.height - (mapWorldPos.y + self.map:getContentSize().height * 0.5)
+		elseif mapWorldPos.y - self.map:getContentSize().height * 0.5 > 0 then
+			deltaY = self.map:getContentSize().height * 0.5 - mapWorldPos.y
+		end
+		-- 左右边界(只可能一边越界)
+		if mapWorldPos.x + self.map:getContentSize().width * 0.5 < winSize.width then
+			deltaX = winSize.width - (mapWorldPos.x + self.map:getContentSize().width * 0.5)
+		elseif mapWorldPos.x - self.map:getContentSize().width * 0.5 > 0 then
+			deltaX = self.map:getContentSize().width * 0.5 - mapWorldPos.x
+		end
+		self:setPosition(curPos.x + diffX + deltaX, curPos.y + diffY + deltaY)
+	end
 end
 
 function TMXMapLayer:heroWalk(direction, callback)
