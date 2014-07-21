@@ -30,6 +30,7 @@ TMXMapLayer.triggerList = nil 		-- 剧情触发点(Trigger model)集合
 TMXMapLayer.instructions = nil 		-- 行走指令队列，一般在剧情中的行走才需要用到
 TMXMapLayer.isMoving = nil 			-- 是否在行走，自由行走的时候需要用到
 TMXMapLayer.isRunning = nil 		-- 是否在跑
+TMXMapLayer.upConcat = nil
 
 -- const
 TMXMapLayer.PLAYER_POS = ccp(384, 224)
@@ -219,8 +220,10 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 	end
 
 	self:updatePlayerPosition()
-	self:addChild(self.mask, self.ZORDER.MASK)
-	self.mask:release()
+	if self.mask then
+		self:addChild(self.mask, self.ZORDER.MASK)
+		self.mask:release()
+	end
 end
 
 -- 玩家需要显示在地图中间
@@ -344,10 +347,6 @@ function TMXMapLayer:validateLocation(direction)
 	end
 
 	DataCenter.currentPlayerData.currentDirection = direction
-
-	-- 连接地图
-	self:connectMap()
-	if self:getPosition().y + self:getContentSize().height * 0.5
 
 	return true
 end
