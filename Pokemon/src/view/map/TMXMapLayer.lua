@@ -44,17 +44,16 @@ TMXMapLayer.ZORDER = {
 -- treat as static method
 function TMXMapLayer:createWithMapInfo(mapInfo)
 	-- 本身无法修改opacity, 只好借助一个遮罩层来模拟FadeIn和FadeOut的效果
-	self.mask = cc.LayerColor:create(ccc4(0, 0, 0, 255))
-	self.mask:setCascadeOpacityEnabled(true)
-	self.mask:retain()
+	local mask = cc.LayerColor:create(ccc4(0, 0, 0, 255))
+	mask:setCascadeOpacityEnabled(true)
+	mask:retain()
 	local mapLayer = TMXMapLayer:createWithTransitions(
-		cc.TargetedAction:create(self.mask, cc.FadeOut:create(0.15)),
-		cc.TargetedAction:create(self.mask, cc.FadeOut:create(0.15)),
-		cc.TargetedAction:create(self.mask, cc.FadeIn:create(0.15)),
-		cc.TargetedAction:create(self.mask, cc.FadeIn:create(0.15))
+		cc.TargetedAction:create(mask, cc.FadeOut:create(0.15)),
+		cc.TargetedAction:create(mask, cc.FadeOut:create(0.15)),
+		cc.TargetedAction:create(mask, cc.FadeIn:create(0.15)),
+		cc.TargetedAction:create(mask, cc.FadeIn:create(0.15))
 		)
-	-- local mapLayer = TMXMapLayer:create()
-
+	mapLayer.mask = mask
 	mapLayer:initWithMapInfo(mapInfo)
 
 	return mapLayer
@@ -112,6 +111,7 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 				npc:setPosition(npcPos)
 				table.insert(self.npcList, npc)
 				self.npcLayer:addChild(npc)
+				npcModel.__sprite = npc
 			end
 		end
 	end
@@ -344,6 +344,11 @@ function TMXMapLayer:validateLocation(direction)
 	end
 
 	DataCenter.currentPlayerData.currentDirection = direction
+
+	-- 连接地图
+	self:connectMap()
+	if self:getPosition().y + self:getContentSize().height * 0.5
+
 	return true
 end
 
@@ -546,9 +551,12 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 	end
 
 	-- 边界碰撞
-	if nextPosition.x < 0 or nextPosition.x >= self.width or nextPosition.y < 0 or nextPosition.y >= self.height then
-		log("边界碰撞")
-		return true
+	-- 没有名字的地图一定是不需要连接的。所以才需要进行碰撞检测
+	if self.mapInfo.name == DBNULL then
+		if nextPosition.x < 0 or nextPosition.x >= self.width or nextPosition.y < 0 or nextPosition.y >= self.height then
+			log("边界碰撞")
+			return true
+		end
 	end
 
 	return false
@@ -561,17 +569,17 @@ function TMXMapLayer:checkResponse()
 	local npc = self.tiles[nextPos.x .. "," .. nextPos.y]
 	if npc and npc.__className == "NPC" and npc.responseId ~= -1 then
 		-- 修改npc方向
-		npc:updateDirection((DataCenter.currentPlayerData.currentDirection - 1 + 2) % 4 + 1)
+		npc.__sprite:updateDirection((DataCenter.currentPlayerData.currentDirection - 1 + 2) % 4 + 1)
 		-- 判断是否和性别相关
-		if npc.model.specialResponseId ~= DBNULL then
-			local params = string.split(npc.model.specialResponseId, ",")	-- { gender, responseId }
+		if npc.specialResponseId ~= DBNULL then
+			local params = string.split(npc.specialResponseId, ",")	-- { gender, responseId }
 			local gender = tonumber(params[1])
 			local responseId = tonumber(params[2])
 			if gender ~= DataCenter.currentPlayerData.gender then
 				return Response:create(responseId)
 			end
 		end
-		return Response:create(npc.model.responseId)
+		return Response:create(npc.responseId)
 	end
 
 	-- 障碍物
