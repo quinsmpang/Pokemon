@@ -31,7 +31,6 @@
   <object name="entrance1" x="192" y="384" width="32" height="32">
    <properties>
     <property name="direction" value="3"/>
-    <property name="enabled" value="1"/>
     <property name="message" value=""/>
     <property name="relatedMapId" value="99"/>
    </properties>

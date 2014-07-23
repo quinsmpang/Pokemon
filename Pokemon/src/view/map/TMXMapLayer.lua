@@ -524,11 +524,17 @@ end
 function TMXMapLayer:checkEntrance(position)
 	local entrance = self.tiles[position.x .. "," .. position.y]
 	if entrance and entrance.__className == "Entrance" then
-		if entrance.isEnabled and DataCenter.currentPlayerData.currentDirection == entrance.direction then
-			log("到达入口, 当前地图[" .. self.mapInfo.id .. "] 关联地图[" .. entrance.relatedMapId .. "]")
-			MapStateController:setEntranceMapId(self.mapInfo.id)
-			Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId)
-			return true
+		if DataCenter.currentPlayerData.currentDirection == entrance.direction then
+			if entrance:isEnabled() then
+				log("到达入口, 当前地图[" .. self.mapInfo.id .. "] 关联地图[" .. entrance.relatedMapId .. "]")
+				MapStateController:setEntranceMapId(self.mapInfo.id)
+				Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId)
+				return true
+			else
+				local response = Response:simulate(DBNULL, entrance.message)
+				ResponseController:processResponse(response)
+				return true
+			end
 		end
 	end
 	return false

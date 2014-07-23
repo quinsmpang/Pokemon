@@ -10,7 +10,8 @@ Entrance.position = DBNULL		-- 入口位置
 Entrance.width = DBNULL			-- 宽度
 Entrance.height = DBNULL		-- 高度
 Entrance.direction = DBNULL		-- 出口方向
-Entrance.isEnabled = DBNULL		-- 是否可用
+Entrance.conditionId = DBNULL 	-- 可用条件
+Entrance.conditionParam = DBNULL	-- 条件参数
 Entrance.message = DBNULL		-- 不可用状态下显示的消息
 Entrance.relatedMapId = DBNULL	-- 相连的地图id
 
@@ -30,7 +31,24 @@ function Entrance:initWithInfo(entranceInfo)
 	self.width = entranceInfo["width"] / 32
 	self.height = entranceInfo["height"] / 32
 	self.direction = tonumber(entranceInfo["direction"])
-	self.isEnabled = tonumber(entranceInfo["enabled"]) == 1
+	if entranceInfo["conditionId"] then
+		self.conditionId = tonumber(entranceInfo["conditionId"])
+		self.conditionParam = entranceInfo["conditionParam"]
+	end
 	self.message = entranceInfo["message"]
 	self.relatedMapId = tonumber(entranceInfo["relatedMapId"])
+end
+
+function Entrance:isEnabled()
+	if self.conditionId == DBNULL then
+		return true
+	end
+	return self:checkCondition()
+end
+
+function Entrance:checkCondition()
+	if self.conditionId == 1 then
+		return DataCenter.currentPlayerData.lastStep >= tonumber(self.conditionParam)
+	end
+	return true
 end

@@ -20,6 +20,18 @@ function Response:create(id)
 	return model
 end
 
+function Response:simulate(speaker, content)
+	local model = Response:new()
+	model.id = -1
+	model.speaker = speaker
+	model.type = 0
+	model.handler = "Speak"
+	model.params = content
+	model.updateFlag = false
+
+	return model
+end
+
 function Response:updateFromDB()
 	log("Response:updateFromDB")
 	local data = GameDBHelper:queryResponseById(self.id)
