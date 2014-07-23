@@ -230,30 +230,32 @@ end
 
 -- 玩家需要显示在地图的合适位置、室内则是正中央，室外需要保证地图不会越界
 function TMXMapLayer:updatePlayerPosition()
+	local winSize = cc.Director:getInstance():getWinSize()
 	local heroWorldPos = self.hero:convertToWorldSpace(POINT_ZERO)
 	local diffX = self.PLAYER_POS.x - heroWorldPos.x
 	local diffY = self.PLAYER_POS.y - heroWorldPos.y
 
 	local curPos = ccp(self:getPosition())
-	if self.mapInfo:isInRoom() then
+	self:setPosition(curPos.x + diffX, curPos.y + diffY)
+	if not self.mapInfo:isInRoom() then
+		curPos = ccp(self:getPosition())
+		diffX = 0
+		diffY = 0
+		if curPos.y + self:getContentSize().height * 0.5 + self.map:getContentSize().height * 0.5 < winSize.height then
+			--上面越界
+			diffY = winSize.height - (curPos.y + self:getContentSize().height * 0.5 + self.map:getContentSize().height * 0.5)
+		elseif curPos.y + self:getContentSize().height * 0.5 - self.map:getContentSize().height * 0.5 > 0 then
+			--下面越界
+			diffY = -(curPos.y + self:getContentSize().height * 0.5 - self.map:getContentSize().height * 0.5)
+		end
+		if curPos.x + self:getContentSize().width * 0.5 + self.map:getContentSize().width * 0.5 < winSize.width then
+			--右边越界
+			diffX = winSize.width - (curPos.x + self:getContentSize().width * 0.5 + self.map:getContentSize().width * 0.5)
+		elseif curPos.x + self:getContentSize().width * 0.5 - self.map:getContentSize().width * 0.5 > 0 then
+			--左边越界
+			diffX = -(curPos.x + self:getContentSize().width * 0.5 - self.map:getContentSize().width * 0.5)
+		end
 		self:setPosition(curPos.x + diffX, curPos.y + diffY)
-	else
-		local deltaX, deltaY = 0, 0
-		local winSize = cc.Director:getInstance():getWinSize()
-		local mapWorldPos = self.map:convertToWorldSpace(POINT_ZERO)
-		-- 上下边界(只可能一边越界)
-		if mapWorldPos.y + self.map:getContentSize().height * 0.5 < winSize.height then
-			deltaY = winSize.height - (mapWorldPos.y + self.map:getContentSize().height * 0.5)
-		elseif mapWorldPos.y - self.map:getContentSize().height * 0.5 > 0 then
-			deltaY = self.map:getContentSize().height * 0.5 - mapWorldPos.y
-		end
-		-- 左右边界(只可能一边越界)
-		if mapWorldPos.x + self.map:getContentSize().width * 0.5 < winSize.width then
-			deltaX = winSize.width - (mapWorldPos.x + self.map:getContentSize().width * 0.5)
-		elseif mapWorldPos.x - self.map:getContentSize().width * 0.5 > 0 then
-			deltaX = self.map:getContentSize().width * 0.5 - mapWorldPos.x
-		end
-		self:setPosition(curPos.x + diffX + deltaX, curPos.y + diffY + deltaY)
 	end
 end
 
@@ -270,23 +272,17 @@ function TMXMapLayer:heroWalk(direction, callback)
 
 	local heroAction = self.hero:getWalkAction(direction)
 
-	-- 地图是反方向移动
-	local mapAction = nil
-	if direction == Enumerations.DIRECTIONS.UP then
-		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(0, -self.TILE_SIZE))
-	elseif direction == Enumerations.DIRECTIONS.DOWN then
-		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(0, self.TILE_SIZE))
-	elseif direction == Enumerations.DIRECTIONS.LEFT then
-		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(self.TILE_SIZE, 0))
-	elseif direction == Enumerations.DIRECTIONS.RIGHT then
-		mapAction = cc.MoveBy:create(HeroSprite.WALK_DURATION * 2, ccp(-self.TILE_SIZE, 0))
-	end
+	local mapAction = self:getMapAction(direction, true)
 
 	local sequence = {}
-	table.insert(sequence, cc.Spawn:create(
-			cc.TargetedAction:create(self.hero, heroAction), 
-			mapAction
-			))
+	if mapAction then
+		table.insert(sequence, cc.Spawn:create(
+				cc.TargetedAction:create(self.hero, heroAction), 
+				mapAction
+				))
+	else
+		table.insert(sequence, cc.TargetedAction:create(self.hero, heroAction))
+	end
 	if callback then
 		table.insert(sequence, cc.CallFunc:create(callback))
 	end
@@ -314,23 +310,17 @@ function TMXMapLayer:heroRun(direction, callback)
 
 	local heroAction = self.hero:getRunAction(direction)
 
-	--地图反向运动
-	local mapAction = nil
-	if direction == Enumerations.DIRECTIONS.UP then
-		mapAction = cc.MoveBy:create(HeroSprite.RUN_DURATION * 2, ccp(0, -self.TILE_SIZE))
-	elseif direction == Enumerations.DIRECTIONS.DOWN then
-		mapAction = cc.MoveBy:create(HeroSprite.RUN_DURATION * 2, ccp(0, self.TILE_SIZE))
-	elseif direction == Enumerations.DIRECTIONS.LEFT then
-		mapAction = cc.MoveBy:create(HeroSprite.RUN_DURATION * 2, ccp(self.TILE_SIZE, 0))
-	elseif direction == Enumerations.DIRECTIONS.RIGHT then
-		mapAction = cc.MoveBy:create(HeroSprite.RUN_DURATION * 2, ccp(-self.TILE_SIZE, 0))
-	end
+	local mapAction = self:getMapAction(direction, false)
 
 	local sequence = {}
-	table.insert(sequence, cc.Spawn:create(
-			cc.TargetedAction:create(self.hero, heroAction), 
-			mapAction
-			))
+	if mapAction then
+		table.insert(sequence, cc.Spawn:create(
+				cc.TargetedAction:create(self.hero, heroAction), 
+				mapAction
+				))
+	else
+		table.insert(sequence, cc.TargetedAction:create(self.hero, heroAction))
+	end
 	if callback then
 		table.insert(sequence, cc.CallFunc:create(callback))
 	end
@@ -617,4 +607,63 @@ end
 
 function TMXMapLayer:isHeroRunning()
 	return self.isRunning
+end
+
+function TMXMapLayer:willMapOutOfBound(direction)
+	-- 室内不考虑越界
+	if self.mapInfo:isInRoom() then
+		log("Map is in room.")
+		return false
+	end
+
+	local deltaX, deltaY = 0, 0
+	local winSize = cc.Director:getInstance():getWinSize()
+	local curPos = ccp(self:getPosition())
+
+	if direction == Enumerations.DIRECTIONS.UP then
+		return curPos.y + self:getContentSize().height * 0.5 + self.map:getContentSize().height * 0.5 <= winSize.height
+	elseif direction == Enumerations.DIRECTIONS.DOWN then
+		return curPos.y + self:getContentSize().height * 0.5 - self.map:getContentSize().height * 0.5 >= 0
+	elseif direction == Enumerations.DIRECTIONS.LEFT then
+		return curPos.x + self:getContentSize().width * 0.5 - self.map:getContentSize().width * 0.5 >= 0
+	elseif direction == Enumerations.DIRECTIONS.RIGHT then
+		return curPos.x + self:getContentSize().width * 0.5 + self.map:getContentSize().width * 0.5 <= winSize.width 
+	else
+		assert(false, "Invalid direction")
+	end
+	return false
+end
+
+function TMXMapLayer:getMapAction(direction, isWalking)
+	local shouldMapMove = true
+	-- 如果地图即将越界或者玩家不在中心点。。则地图不动
+	local heroWorldPos = self.hero:convertToWorldSpace(POINT_ZERO)
+	if self:willMapOutOfBound(direction) then
+		shouldMapMove = false
+	elseif direction == Enumerations.DIRECTIONS.UP or direction == Enumerations.DIRECTIONS.DOWN then
+		shouldMapMove = heroWorldPos.y == self.PLAYER_POS.y
+	elseif direction == Enumerations.DIRECTIONS.LEFT or direction == Enumerations.DIRECTIONS.RIGHT then
+		shouldMapMove = heroWorldPos.x == self.PLAYER_POS.x
+	end
+
+	-- 地图是反方向移动
+	local duration = nil
+	if isWalking then
+		duration = HeroSprite.WALK_DURATION * 2
+	else
+		duration = HeroSprite.RUN_DURATION * 2
+	end
+	local mapAction = nil
+	if shouldMapMove then
+		if direction == Enumerations.DIRECTIONS.UP then
+			mapAction = cc.MoveBy:create(duration, ccp(0, -self.TILE_SIZE))
+		elseif direction == Enumerations.DIRECTIONS.DOWN then
+			mapAction = cc.MoveBy:create(duration, ccp(0, self.TILE_SIZE))
+		elseif direction == Enumerations.DIRECTIONS.LEFT then
+			mapAction = cc.MoveBy:create(duration, ccp(self.TILE_SIZE, 0))
+		elseif direction == Enumerations.DIRECTIONS.RIGHT then
+			mapAction = cc.MoveBy:create(duration, ccp(-self.TILE_SIZE, 0))
+		end
+	end
+	return mapAction
 end
