@@ -1,4 +1,5 @@
 #include "ListMenu.h"
+#include "ListMenuItem.h"
 #include "../lua/LuaUtils.h"
 
 using namespace cocos2d;

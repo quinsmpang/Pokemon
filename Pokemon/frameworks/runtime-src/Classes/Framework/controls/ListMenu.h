@@ -8,10 +8,10 @@ Date: 7/5/2014
 #define __CONTROLS_LISTMENU__
 
 #include "cocos2d.h"
-#include "ListMenuItem.h"
 
 namespace framework
 {
+	class ListMenuItem;
 	class ListMenu;
 
 	class ListMenuDelegate

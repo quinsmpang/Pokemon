@@ -105,26 +105,31 @@ function MenuLayerController:showMenu()
 	self.mapMenu = mapMenu
 end
 
-function MenuLayerController:onMenuItemSelected(itemIndex)
-	if itemIndex == 0 then
-		--图鉴
-		if DEBUG then
-			log("@@@@@@@@", DataCenter.currentPlayerData.lastStep)
+function MenuLayerController:onMenuItemSelected(item)
+	if item.__isEnabled then
+		local itemIndex = item:getShowIndex()
+		if itemIndex == 0 then
+			--图鉴
+			if DEBUG then
+				log("@@@@@@@@", DataCenter.currentPlayerData.lastStep)
+			end
+		elseif itemIndex == 1 then
+			--精灵
+		elseif itemIndex == 2 then
+			--背包
+		elseif itemIndex == 3 then
+			--通讯器
+		elseif itemIndex == 4 then
+			--玩家
+		elseif itemIndex == 5 then
+			--记录
+		elseif itemIndex == 6 then
+			--设置
+		elseif itemIndex == 7 then
+			--退出
+			self.mapMenu:exitMenu()
 		end
-	elseif itemIndex == 1 then
-		--精灵
-	elseif itemIndex == 2 then
-		--背包
-	elseif itemIndex == 3 then
-		--通讯器
-	elseif itemIndex == 4 then
-		--玩家
-	elseif itemIndex == 5 then
-		--记录
-	elseif itemIndex == 6 then
-		--设置
-	elseif itemIndex == 7 then
-		--退出
-		self.mapMenu:exitMenu()
+	else
+		GameVolumeHelper:playUnableSound()
 	end
 end

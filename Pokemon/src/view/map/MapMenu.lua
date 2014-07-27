@@ -27,6 +27,10 @@ MapMenu.ITEM_STRINGS = {
 	"设置",
 	"退出",
 }
+MapMenu.SKIP_COLLECTION_STEP = 10
+MapMenu.SKIP_PETS_STEP = 2
+MapMenu.SKIP_CONTACT_STEP = 11
+
 MapMenu.LABEL_TAG = 998
 MapMenu.ARROW_TAG = 999
 
@@ -95,6 +99,27 @@ function MapMenu:itemAtIndex(menu, index)
 		label:setString(self.ITEM_STRINGS[index + 1])
 	end
 
+	item.__isEnabled = true
+	-- 是否可用
+	if DataCenter.currentPlayerData.lastStep < self.SKIP_PETS_STEP then
+		if index == 0 or index == 1 or index == 3 then
+			item.__isEnabled = false
+		end
+	elseif DataCenter.currentPlayerData.lastStep < self.SKIP_COLLECTION_STEP then
+		if index == 0 or index == 3 then
+			item.__isEnabled = false
+		end
+	elseif DataSource.currentPlayerData.lastStep < self.SKIP_CONTACT_STEP then
+		if index == 3 then
+			item.__isEnabled = false
+		end
+	end
+	if not item.__isEnabled then
+		local label = item:getChildByTag(self.LABEL_TAG)
+		tolua.cast(label, "cc.Label")
+		label:setColor(ccc3(200, 200, 200))
+	end
+
 	return item
 end
 
@@ -105,8 +130,8 @@ end
 
 -- ListMenu delegate
 function MapMenu:itemSelected(menu, item)
-	local itemIndex = item:getShowIndex()
-	Notifier:notify(NotifyEvents.MapView.MenuItemSelected, itemIndex)
+	-- local itemIndex = item:getShowIndex()
+	Notifier:notify(NotifyEvents.MapView.MenuItemSelected, item)
 end
 
 function MapMenu:itemFocused(menu, item)
