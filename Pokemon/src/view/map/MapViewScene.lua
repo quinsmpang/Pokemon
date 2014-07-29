@@ -10,6 +10,7 @@ require "src/controller/map/MenuLayerController"
 require "src/controller/map/MapStateController"
 require "src/controller/map/ActionController"
 require "src/controller/map/ResponseController"
+require "src/controller/map/EventController"
 require "src/view/map/MapCoreLayer"
 
 class("MapViewScene", psGameScene)

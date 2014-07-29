@@ -61,3 +61,23 @@ function GameDBHelper:queryResponseById(id)
 	end
 	return nil
 end
+
+------------------------ pet_info ------------------------
+function GameDBHelper:queryPetById(id)
+	local data = self.db:selectTableByConditionWithOneValue(GameConfig.PET_TABLE, "id", tostring(id))
+
+	if data then
+		return data[1]
+	end
+	return nil
+end
+
+------------------------ event_info ------------------------j
+function GameDBHelper:queryEventById(id)
+	local data = self.db:selectTableByConditionWithOneValue(GameConfig.EVENT_TABLE, "id", tostring(id))
+
+	if data then
+		return data[1]
+	end
+	return nil
+end

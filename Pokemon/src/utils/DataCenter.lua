@@ -7,5 +7,9 @@
 DataCenter = {}
 
 DataCenter.currentPlayerData = nil		-- 当前玩家数据(PlayerData)
-DataCenter.currentPetData = nil		-- 当前拥有的宠物数据({Pet})
 DataCenter.currentBagData = nil		-- 当前背包数据({Item})
+DataCenter.computerData = nil	-- 电脑宠物布局信息(ComputerData)
+
+function DataCenter:addNewPokemon(pet)
+	
+end

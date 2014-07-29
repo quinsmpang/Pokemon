@@ -51,3 +51,8 @@ Enumerations.RESPONSE_TYPE = {
 	RECOVER = 3,
 	LAYER = 4,
 }
+
+-- 事件类型
+Enumerations.EVENT_TYPE = {
+	GAIN_NEW_PET = 1,	-- 获得新宠物
+}

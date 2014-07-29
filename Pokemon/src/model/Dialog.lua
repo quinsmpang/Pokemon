@@ -16,6 +16,7 @@ Dialog.params = DBNULL		--对话参数
 Dialog.isQuestion = DBNULL	--是否是问题
 Dialog.choices = DBNULL		--回答选项
 Dialog.actionId = DBNULL	--执行的动画id
+Dialog.eventId = DBNULL		--事件id
 
 function Dialog:create(id)
 	local model = Dialog:new()
@@ -53,6 +54,7 @@ function Dialog:updateFromDB()
 				self.actionId = DataCenter.currentPlayerData.gender == Enumerations.GENDER.MALE and tonumber(ids[1]) or tonumber(ids[2])
 			end
 		end
+		self.eventId = tonumber(data.eventId)
 	else
 		log("Dialog:updateFromDB failed, id [" .. self.id .. "] does not exist.")
 	end

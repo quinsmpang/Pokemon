@@ -89,6 +89,35 @@ function table.forEachAsHash(table, action)
 	end
 end
 
+-- select new table for the specified behaviors
+function table.select(table, selector)
+	if type(table) ~= "table" or type(selector) ~= "function" then
+		return
+	end
+
+	local newTable = {}
+	for _, v in ipairs(table) do
+		if selector(v) then
+			table.insert(newTable, v)
+		end
+	end
+	return newTable
+end
+
+-- cast every item of table to the specified item
+function table.cast(table, caster)
+	if type(table) ~= "table" or type(caster) ~= "function" then
+		return
+	end
+
+	local newTable = {}
+	for _, v in ipairs(table) do
+		local item = caster(v)
+		table.insert(newTable, item)
+	end
+	return newTable
+end
+
 -- whether the table contains the object which satisfies the condition
 function table.contains(table, selector, ...)
 	if type(table) ~= "table" then

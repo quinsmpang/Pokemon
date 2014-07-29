@@ -6,4 +6,3 @@
 
 class("GameRecordsLayer", psModalLayer)
 
-GameRecordsLayer.
