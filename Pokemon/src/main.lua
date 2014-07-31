@@ -75,6 +75,7 @@ function GameLauncher:loadPublicModules()
     require "src/model/Response"
     require "src/model/EventInfo"
     require "src/model/PetInfo"
+    require "src/model/Pokemon"
 
     -- public data or utils
     require "src/utils/GameConfig"

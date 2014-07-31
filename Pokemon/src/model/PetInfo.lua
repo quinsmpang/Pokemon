@@ -54,3 +54,16 @@ function PetInfo:updateFromDB()
 		log("PetInfo:updateFromDB failed, id [" .. self.id .. "] does not exist.")
 	end
 end
+
+function PetInfo:generateRandomSpeciality()
+	if #self.speciality == 1 then
+		return self.speciality[1]
+	end
+
+	local hiddenSpeciality = self.speciality[#self.speciality]
+	if FallInRandom(1, 20) then
+		return hiddenSpeciality
+	else
+		return self.speciality[math.random(1, #self.speciality - 1)]
+	end
+end
