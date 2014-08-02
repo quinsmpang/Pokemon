@@ -6,13 +6,16 @@
 
 class("MessageTip", psModalLayer)
 
+MessageTip.window = nil
 MessageTip.message = nil 		-- 消息内容
 MessageTip.callback = nil 		-- 点击后的回调
 MessageTip.touchListener = nil
 MessageTip.keyboardListener = nil
+MessageTip.enableClick = nil
 
 MessageTip.FONT_SIZE = 18
 MessageTip.FONT_COLOR = ccc3(255, 0, 0)
+MessageTip.DELAY_TIME = 2
 
 MessageTip.__create = psModalLayer.create
 
@@ -23,6 +26,7 @@ function MessageTip:create(message, callback)
 end
 
 function MessageTip:init(message, callback)
+	self.enableClick = false
 	self.message = message
 	self.callback = callback
 
@@ -35,6 +39,8 @@ function MessageTip:init(message, callback)
 	local border = cc.Scale9Sprite:createWithSpriteFrameName("images/map/message_tip.png", CCRectMake(20, 20, 10, 10))
 	border:setPreferredSize(suitableSize)
 	border:setPosition(winSize.width * 0.5, winSize.height * 0.65)
+	border:setScale(0)
+	self.window = border
 
 	label:setPosition(border:getContentSize().width * 0.5, border:getContentSize().height * 0.5)
 	border:addChild(label)
@@ -58,14 +64,31 @@ function MessageTip:pop()
 end
 
 function MessageTip:onSceneEvent(event)
-	if event == "exit" then
+	if event == "enter" then
+		local delayAction = cc.Sequence:create(
+			cc.DelayTime:create(self.DELAY_TIME),
+			cc.CallFunc:create(MakeScriptHandler(self, self.onEnterEnd))
+			)
+		self:runAction(delayAction)
+
+		local enterAction = cc.Sequence:create(
+			cc.EaseIn:create(cc.ScaleTo:create(0.15, 1.1), 2),
+			cc.ScaleTo:create(0.03, 1)
+			)
+		self.window:runAction(enterAction)
+	elseif event == "exit" then
 		-- 移除监听
 		self:getEventDispatcher():removeEventListener(self.keyboardListener)
 	end
 end
+function MessageTip:onEnterEnd()
+	self.enableClick = true
+end
 
 function MessageTip:onModalTouchBegan(x, y)
-	self:exit()
+	if self.enableClick then
+		self:exit()
+	end
 end
 
 function MessageTip:onKeyboardPressed(keyCode)

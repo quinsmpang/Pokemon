@@ -191,7 +191,7 @@ function DialogLayerController:generateNextDialog()
 	log("DialogLayerController:generateNextDialog")
 	log("current dialog id: " .. self.currentDialogId)
 	-- 处理event
-	if self.currentDialogModel and
+	if self.currentDialogModel then
 		if self.currentDialogModel.eventId ~= DBNULL then
 			local eventModel = EventInfo:create(self.currentDialogModel.eventId)
 			EventController:processEvent(eventModel)
