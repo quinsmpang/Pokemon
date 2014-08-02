@@ -7,6 +7,7 @@
 #include "Framework/lua/lua_framework_auto.hpp"
 #include "Framework/lua/lua_framework_manual.hpp"
 #include "version.h"
+#include "Framework/utils/ImageUtils.h"
 
 using namespace CocosDenshion;
 
@@ -41,6 +42,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
+
+	auto frames = framework::ImageUtils::getInstance()->getGifFrames("001.gif");
 
 	// set pvr.ccz encryption key 33b495bcb090291ccb5aaa689a516406
 	ZipUtils::setPvrEncryptionKey(0x33b495bc, 0xb090291c, 0xcb5aaa68, 0x9a516406);

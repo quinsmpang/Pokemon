@@ -160,6 +160,9 @@
     <ClInclude Include="..\Classes\Framework\lua\LuaEngineEx.h">
       <Filter>Classes\psframework\lua</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\utils\ImageUtils.h">
+      <Filter>Classes\psframework\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -264,6 +267,9 @@
     <ClCompile Include="..\Classes\Framework\lua\LuaEngineEx.cpp">
       <Filter>Classes\psframework\lua</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Framework\utils\ImageUtils.cpp">
+      <Filter>Classes\psframework\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -272,5 +278,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\game.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FreeImage.dll" />
   </ItemGroup>
 </Project>
