@@ -1,3 +1,5 @@
+#pragma comment(lib, "FreeImage.lib")
+
 #include "ImageUtils.h"
 #include "FreeImage.h"
 #include "2d/platform/CCFileUtils.h"
