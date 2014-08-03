@@ -164,6 +164,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\Framework\base\BinaryData.h" />
+    <ClInclude Include="..\Classes\Framework\base\Macros.h" />
     <ClInclude Include="..\Classes\Framework\base\RefBoolean.h" />
     <ClInclude Include="..\Classes\Framework\base\RefDouble.h" />
     <ClInclude Include="..\Classes\Framework\base\RefInteger.h" />
@@ -199,12 +201,16 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\utils\ScriptCCBReader.h" />
     <ClInclude Include="..\Classes\Framework\utils\RecordHelper.h" />
     <ClInclude Include="..\Classes\Framework\utils\UUIDGenerator.h" />
+    <ClInclude Include="..\Classes\Framework\utils\ZipHelper.h" />
+    <ClInclude Include="..\Classes\Framework\utils\ziplib\unzip.h" />
+    <ClInclude Include="..\Classes\Framework\utils\ziplib\zip.h" />
     <ClInclude Include="..\Classes\Framework\version.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\Framework\base\BinaryData.cpp" />
     <ClCompile Include="..\Classes\Framework\base\RefBoolean.cpp" />
     <ClCompile Include="..\Classes\Framework\base\RefDouble.cpp" />
     <ClCompile Include="..\Classes\Framework\base\RefInteger.cpp" />
@@ -238,6 +244,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\utils\ScriptCCBReader.cpp" />
     <ClCompile Include="..\Classes\Framework\utils\RecordHelper.cpp" />
     <ClCompile Include="..\Classes\Framework\utils\UUIDGenerator.cpp" />
+    <ClCompile Include="..\Classes\Framework\utils\ZipHelper.cpp" />
+    <ClCompile Include="..\Classes\Framework\utils\ziplib\unzip.cpp" />
+    <ClCompile Include="..\Classes\Framework\utils\ziplib\zip.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -68,17 +68,17 @@ namespace framework
 						const int len = width * height * bpp / 8;
 						const int bytes = bpp / 8;
 						char *ptrBegin = data, *ptrEnd = data + (height - 1) * width * bytes;
-						shared_ptr<char> buffer(new char[width * bytes]);
-						memset(buffer.get(), 0, width * bytes);
+						char *buffer = new char[width * bytes];
+						memset(buffer, 0, width * bytes);
 						for (int h = 0; h < height; h++)
 						{
 							if (ptrBegin >= ptrEnd)
 							{
 								break;
 							}
-							memcpy(buffer.get(), ptrBegin, width * bytes);
+							memcpy(buffer, ptrBegin, width * bytes);
 							memcpy(ptrBegin, ptrEnd, width * bytes);
-							memcpy(ptrEnd, buffer.get(), width * bytes);
+							memcpy(ptrEnd, buffer, width * bytes);
 
 							ptrBegin += width * bytes;
 							ptrEnd -= width * bytes;
@@ -88,6 +88,7 @@ namespace framework
 						pTexture->initWithData(data, len, Texture2D::PixelFormat::BGRA8888, width, height, Size(width, height));
 						pTexture->autorelease();
 						frames->addObject(pTexture);
+						delete [] buffer;
 						FreeImage_UnlockPage(fiBmps, pBmp, false); 
 					}
 					else

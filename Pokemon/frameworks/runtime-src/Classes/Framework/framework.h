@@ -5,6 +5,7 @@
 #include "base/RefInteger.h"
 #include "base/RefDouble.h"
 #include "base/RefBoolean.h"
+#include "base/BinaryData.h"
 
 #include "containers/Queue.h"
 #include "containers/Stack.h"
@@ -37,5 +38,6 @@
 #include "utils/IOUtils.h"
 #include "utils/RecordHelper.h"
 #include "utils/ImageUtils.h"
+#include "utils/ZipHelper.h"
 
 #endif

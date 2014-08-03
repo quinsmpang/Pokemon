@@ -557,6 +557,202 @@ int lua_register_psframework_RefBoolean(lua_State* tolua_S)
     return 1;
 }
 
+int lua_psframework_BinaryData_getSize(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::BinaryData* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.BinaryData",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::BinaryData*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_BinaryData_getSize'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        unsigned long ret = cobj->getSize();
+        tolua_pushnumber(tolua_S,(lua_Number)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getSize",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_BinaryData_getSize'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_BinaryData_init(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::BinaryData* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.BinaryData",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::BinaryData*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_BinaryData_init'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        unsigned char* arg0;
+        unsigned long arg1;
+
+        #pragma warning NO CONVERSION TO NATIVE FOR unsigned char*;
+
+        ok &= luaval_to_ulong(tolua_S, 3, &arg1);
+        if(!ok)
+            return 0;
+        bool ret = cobj->init(arg0, arg1);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "init",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_BinaryData_init'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_BinaryData_getData(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::BinaryData* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.BinaryData",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::BinaryData*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_BinaryData_getData'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        unsigned char* ret = cobj->getData();
+        #pragma warning NO CONVERSION FROM NATIVE FOR unsigned char*;
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getData",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_BinaryData_getData'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_BinaryData_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.BinaryData",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 2)
+    {
+        unsigned char* arg0;
+        unsigned long arg1;
+        #pragma warning NO CONVERSION TO NATIVE FOR unsigned char*;
+        ok &= luaval_to_ulong(tolua_S, 3, &arg1);
+        if(!ok)
+            return 0;
+        framework::BinaryData* ret = framework::BinaryData::create(arg0, arg1);
+        object_to_luaval<framework::BinaryData>(tolua_S, "pf.BinaryData",(framework::BinaryData*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 2);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_BinaryData_create'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_BinaryData_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (BinaryData)");
+    return 0;
+}
+
+int lua_register_psframework_BinaryData(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.BinaryData");
+    tolua_cclass(tolua_S,"BinaryData","pf.BinaryData","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"BinaryData");
+        tolua_function(tolua_S,"getSize",lua_psframework_BinaryData_getSize);
+        tolua_function(tolua_S,"init",lua_psframework_BinaryData_init);
+        tolua_function(tolua_S,"getData",lua_psframework_BinaryData_getData);
+        tolua_function(tolua_S,"create", lua_psframework_BinaryData_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::BinaryData).name();
+    g_luaType[typeName] = "pf.BinaryData";
+    g_typeCast["BinaryData"] = "pf.BinaryData";
+    return 1;
+}
+
 int lua_psframework_Queue_getLength(lua_State* tolua_S)
 {
     int argc = 0;
@@ -8023,6 +8219,319 @@ int lua_register_psframework_ImageUtils(lua_State* tolua_S)
     g_typeCast["ImageUtils"] = "pf.ImageUtils";
     return 1;
 }
+
+int lua_psframework_ZipHelper_zipOneFile(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ZipHelper* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ZipHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ZipHelper*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ZipHelper_zipOneFile'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 4) 
+    {
+        std::string arg0;
+        std::string arg1;
+        unsigned char* arg2;
+        unsigned long arg3;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+
+        #pragma warning NO CONVERSION TO NATIVE FOR unsigned char*;
+
+        ok &= luaval_to_ulong(tolua_S, 5, &arg3);
+        if(!ok)
+            return 0;
+        bool ret = cobj->zipOneFile(arg0, arg1, arg2, arg3);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    if (argc == 5) 
+    {
+        std::string arg0;
+        std::string arg1;
+        unsigned char* arg2;
+        unsigned long arg3;
+        bool arg4;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+
+        #pragma warning NO CONVERSION TO NATIVE FOR unsigned char*;
+
+        ok &= luaval_to_ulong(tolua_S, 5, &arg3);
+
+        ok &= luaval_to_boolean(tolua_S, 6,&arg4);
+        if(!ok)
+            return 0;
+        bool ret = cobj->zipOneFile(arg0, arg1, arg2, arg3, arg4);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    if (argc == 6) 
+    {
+        std::string arg0;
+        std::string arg1;
+        unsigned char* arg2;
+        unsigned long arg3;
+        bool arg4;
+        std::string arg5;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+
+        #pragma warning NO CONVERSION TO NATIVE FOR unsigned char*;
+
+        ok &= luaval_to_ulong(tolua_S, 5, &arg3);
+
+        ok &= luaval_to_boolean(tolua_S, 6,&arg4);
+
+        ok &= luaval_to_std_string(tolua_S, 7,&arg5);
+        if(!ok)
+            return 0;
+        bool ret = cobj->zipOneFile(arg0, arg1, arg2, arg3, arg4, arg5);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "zipOneFile",argc, 4);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ZipHelper_zipOneFile'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ZipHelper_getFileDataInZip(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ZipHelper* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ZipHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ZipHelper*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ZipHelper_getFileDataInZip'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        std::string arg0;
+        std::string arg1;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        framework::BinaryData* ret = cobj->getFileDataInZip(arg0, arg1);
+        object_to_luaval<framework::BinaryData>(tolua_S, "pf.BinaryData",(framework::BinaryData*)ret);
+        return 1;
+    }
+    if (argc == 3) 
+    {
+        std::string arg0;
+        std::string arg1;
+        std::string arg2;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+
+        ok &= luaval_to_std_string(tolua_S, 4,&arg2);
+        if(!ok)
+            return 0;
+        framework::BinaryData* ret = cobj->getFileDataInZip(arg0, arg1, arg2);
+        object_to_luaval<framework::BinaryData>(tolua_S, "pf.BinaryData",(framework::BinaryData*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getFileDataInZip",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ZipHelper_getFileDataInZip'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ZipHelper_zipMultipleFiles(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ZipHelper* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ZipHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ZipHelper*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ZipHelper_zipMultipleFiles'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        std::string arg0;
+        framework::Map* arg1;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_object<framework::Map>(tolua_S, 3, "pf.Map",&arg1);
+        if(!ok)
+            return 0;
+        bool ret = cobj->zipMultipleFiles(arg0, arg1);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    if (argc == 3) 
+    {
+        std::string arg0;
+        framework::Map* arg1;
+        bool arg2;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_object<framework::Map>(tolua_S, 3, "pf.Map",&arg1);
+
+        ok &= luaval_to_boolean(tolua_S, 4,&arg2);
+        if(!ok)
+            return 0;
+        bool ret = cobj->zipMultipleFiles(arg0, arg1, arg2);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    if (argc == 4) 
+    {
+        std::string arg0;
+        framework::Map* arg1;
+        bool arg2;
+        std::string arg3;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_object<framework::Map>(tolua_S, 3, "pf.Map",&arg1);
+
+        ok &= luaval_to_boolean(tolua_S, 4,&arg2);
+
+        ok &= luaval_to_std_string(tolua_S, 5,&arg3);
+        if(!ok)
+            return 0;
+        bool ret = cobj->zipMultipleFiles(arg0, arg1, arg2, arg3);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "zipMultipleFiles",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ZipHelper_zipMultipleFiles'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ZipHelper_getInstance(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.ZipHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+            return 0;
+        framework::ZipHelper* ret = framework::ZipHelper::getInstance();
+        object_to_luaval<framework::ZipHelper>(tolua_S, "pf.ZipHelper",(framework::ZipHelper*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "getInstance",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ZipHelper_getInstance'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_ZipHelper_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (ZipHelper)");
+    return 0;
+}
+
+int lua_register_psframework_ZipHelper(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.ZipHelper");
+    tolua_cclass(tolua_S,"ZipHelper","pf.ZipHelper","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"ZipHelper");
+        tolua_function(tolua_S,"zipOneFile",lua_psframework_ZipHelper_zipOneFile);
+        tolua_function(tolua_S,"getFileDataInZip",lua_psframework_ZipHelper_getFileDataInZip);
+        tolua_function(tolua_S,"zipMultipleFiles",lua_psframework_ZipHelper_zipMultipleFiles);
+        tolua_function(tolua_S,"getInstance", lua_psframework_ZipHelper_getInstance);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::ZipHelper).name();
+    g_luaType[typeName] = "pf.ZipHelper";
+    g_typeCast["ZipHelper"] = "pf.ZipHelper";
+    return 1;
+}
 TOLUA_API int register_all_psframework(lua_State* tolua_S)
 {
 	tolua_open(tolua_S);
@@ -8030,6 +8539,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	tolua_module(tolua_S,nullptr,0);
 	tolua_beginmodule(tolua_S,nullptr);
 
+	lua_register_psframework_ZipHelper(tolua_S);
 	lua_register_psframework_ViewController(tolua_S);
 	lua_register_psframework_EncryptedTMXTiledMap(tolua_S);
 	lua_register_psframework_RecordHelper(tolua_S);
@@ -8038,6 +8548,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_ListMenu(tolua_S);
 	lua_register_psframework_Map(tolua_S);
 	lua_register_psframework_TableViewEx(tolua_S);
+	lua_register_psframework_BinaryData(tolua_S);
 	lua_register_psframework_RefBoolean(tolua_S);
 	lua_register_psframework_Stack(tolua_S);
 	lua_register_psframework_GameScene(tolua_S);
