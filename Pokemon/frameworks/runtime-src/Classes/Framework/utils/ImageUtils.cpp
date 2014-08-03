@@ -1,6 +1,8 @@
 #include "ImageUtils.h"
 #include "FreeImage.h"
 #include "2d/platform/CCFileUtils.h"
+#include "base/CCVector.h"
+#include <memory>
 
 using namespace cocos2d;
 using namespace std;
@@ -28,19 +30,26 @@ namespace framework
 		//FreeImage_DeInitialise();
 	}
 
-	Vector *ImageUtils::getGifFrames(std::string imagePath)
+	framework::Vector *ImageUtils::getGifFrames(const std::string &imagePath)
+	{
+		Data data = FileUtils::getInstance()->getDataFromFile(FileUtils::getInstance()->fullPathForFilename(imagePath));
+
+		return this->getGifFrames(data.getBytes(), data.getSize());
+	}
+
+	framework::Vector *ImageUtils::getGifFrames(unsigned char *imageData, ssize_t dataSize)
 	{
 		Vector *frames = Vector::create();
 
-		Data data = FileUtils::getInstance()->getDataFromFile(imagePath);
-		FIMEMORY *pData = FreeImage_OpenMemory(data.getBytes(), data.getSize());
+		FIMEMORY *pData = FreeImage_OpenMemory(imageData, dataSize);
 
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
+		//fif = FreeImage_GetFileType(imagePath.c_str());
 		fif = FreeImage_GetFileTypeFromMemory(pData);
 
 		if (fif == FIF_GIF)
 		{
-			FIMULTIBITMAP *fiBmps = FreeImage_LoadMultiBitmapFromMemory(fif, pData, GIF_DEFAULT);
+			FIMULTIBITMAP *fiBmps = FreeImage_LoadMultiBitmapFromMemory(fif, pData, GIF_PLAYBACK);
 			if (fiBmps)
 			{
 				int frameCount = FreeImage_GetPageCount(fiBmps);
@@ -49,14 +58,35 @@ namespace framework
 					FIBITMAP *pBmp = FreeImage_LockPage(fiBmps, i);
 					if (pBmp)
 					{
-						int width = FreeImage_GetWidth(pBmp);
-						int height = FreeImage_GetHeight(pBmp);
-						Image *pImg = new Image();
-						pImg->initWithImageData((const unsigned char*)pBmp->data, width * height);
+						const int width = FreeImage_GetWidth(pBmp);
+						const int height = FreeImage_GetHeight(pBmp);
+						const int bpp = FreeImage_GetBPP(pBmp);
+						char *data = (char*)FreeImage_GetBits(pBmp);
+						// Í¼ÏñÊÇµßµ¹µÄ
+						const int len = width * height * bpp / 8;
+						const int bytes = bpp / 8;
+						char *ptrBegin = data, *ptrEnd = data + (height - 1) * width * bytes;
+						shared_ptr<char> buffer(new char[width * bytes]);
+						memset(buffer.get(), 0, width * bytes);
+						for (int h = 0; h < height; h++)
+						{
+							if (ptrBegin >= ptrEnd)
+							{
+								break;
+							}
+							memcpy(buffer.get(), ptrBegin, width * bytes);
+							memcpy(ptrBegin, ptrEnd, width * bytes);
+							memcpy(ptrEnd, buffer.get(), width * bytes);
+
+							ptrBegin += width * bytes;
+							ptrEnd -= width * bytes;
+						}
+
 						Texture2D *pTexture = new Texture2D();
-						pTexture->initWithImage(pImg);
-						pImg->release();
+						pTexture->initWithData(data, len, Texture2D::PixelFormat::BGRA8888, width, height, Size(width, height));
+						pTexture->autorelease();
 						frames->addObject(pTexture);
+						FreeImage_UnlockPage(fiBmps, pBmp, false); 
 					}
 					else
 					{
@@ -64,15 +94,33 @@ namespace framework
 					}
 				}
 			}
+			FreeImage_CloseMemory(pData);
+			FreeImage_CloseMultiBitmap(fiBmps);
 		}
 
 		return frames;
 	}
 
-	Vector *ImageUtils::getGifTimelines(std::string imagePath)
+	Animate *ImageUtils::createAnimationByGifImage(const std::string &imagePath, float timeline)
 	{
-		Vector *timelines = Vector::create();
+		Vector *frames = this->getGifFrames(imagePath);
+		return this->createAnimationByFrames(frames, timeline);
+	}
 
-		return timelines;
+	Animate *ImageUtils::createAnimationByFrames(Vector *frames, float timeline)
+	{
+		cocos2d::Vector<SpriteFrame*> vFrames;
+		
+		Texture2D *pTexture = nullptr;
+		for (int i = 0; i < frames->getLength(); i++)
+		{
+			pTexture = static_cast<Texture2D*>(frames->objectAt(i));
+			vFrames.pushBack(SpriteFrame::createWithTexture(pTexture, Rect(0, 0, pTexture->getContentSize().width, pTexture->getContentSize().height)));
+		}
+
+		auto pAnimation = Animation::createWithSpriteFrames(vFrames, timeline);
+		auto pAnimate = Animate::create(pAnimation);
+
+		return pAnimate;
 	}
 }

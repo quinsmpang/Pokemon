@@ -7,13 +7,14 @@ v1.00	Add cocos2d-x lua based essential components to the framework
 v1.01		Add some UI and utilities for the project
 v1.02	Add some encrytion mechanism to the framework
 v1.03	Add ListMenu to the framework
+v1.04	Add ImageUtils to deal with gif images
 ***********************************************/
 
 #include <iostream>
 #include "tolua_fix.h"
 
-static const char *VERSION = "v1.03";
-static float VERSION_NUM = 1.03;
+static const char *VERSION = "v1.04";
+static float VERSION_NUM = 1.04;
 
 void printVersion()
 {

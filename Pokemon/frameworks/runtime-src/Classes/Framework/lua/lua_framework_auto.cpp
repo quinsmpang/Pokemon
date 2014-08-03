@@ -7810,6 +7810,219 @@ int lua_register_psframework_RecordHelper(lua_State* tolua_S)
     g_typeCast["RecordHelper"] = "pf.RecordHelper";
     return 1;
 }
+
+int lua_psframework_ImageUtils_createAnimationByGifImage(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ImageUtils* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ImageUtils",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ImageUtils*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ImageUtils_createAnimationByGifImage'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        std::string arg0;
+        double arg1;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+        ok &= luaval_to_number(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        cocos2d::Animate* ret = cobj->createAnimationByGifImage(arg0, arg1);
+        object_to_luaval<cocos2d::Animate>(tolua_S, "cc.Animate",(cocos2d::Animate*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "createAnimationByGifImage",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ImageUtils_createAnimationByGifImage'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ImageUtils_getGifFrames(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ImageUtils* cobj = nullptr;
+    bool ok  = true;
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ImageUtils",0,&tolua_err)) goto tolua_lerror;
+#endif
+    cobj = (framework::ImageUtils*)tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+    if (!cobj)
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ImageUtils_getGifFrames'", nullptr);
+        return 0;
+    }
+#endif
+    argc = lua_gettop(tolua_S)-1;
+    do{
+        if (argc == 2) {
+            unsigned char* arg0;
+            #pragma warning NO CONVERSION TO NATIVE FOR unsigned char*;
+
+            if (!ok) { break; }
+            ssize_t arg1;
+            ok &= luaval_to_ssize(tolua_S, 3, &arg1);
+
+            if (!ok) { break; }
+            framework::Vector* ret = cobj->getGifFrames(arg0, arg1);
+            object_to_luaval<framework::Vector>(tolua_S, "pf.Vector",(framework::Vector*)ret);
+            return 1;
+        }
+    }while(0);
+    ok  = true;
+    do{
+        if (argc == 1) {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+
+            if (!ok) { break; }
+            framework::Vector* ret = cobj->getGifFrames(arg0);
+            object_to_luaval<framework::Vector>(tolua_S, "pf.Vector",(framework::Vector*)ret);
+            return 1;
+        }
+    }while(0);
+    ok  = true;
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getGifFrames",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ImageUtils_getGifFrames'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ImageUtils_createAnimationByFrames(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ImageUtils* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ImageUtils",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ImageUtils*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ImageUtils_createAnimationByFrames'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        framework::Vector* arg0;
+        double arg1;
+
+        ok &= luaval_to_object<framework::Vector>(tolua_S, 2, "pf.Vector",&arg0);
+
+        ok &= luaval_to_number(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        cocos2d::Animate* ret = cobj->createAnimationByFrames(arg0, arg1);
+        object_to_luaval<cocos2d::Animate>(tolua_S, "cc.Animate",(cocos2d::Animate*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "createAnimationByFrames",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ImageUtils_createAnimationByFrames'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ImageUtils_getInstance(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.ImageUtils",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+            return 0;
+        framework::ImageUtils* ret = framework::ImageUtils::getInstance();
+        object_to_luaval<framework::ImageUtils>(tolua_S, "pf.ImageUtils",(framework::ImageUtils*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "getInstance",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ImageUtils_getInstance'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_ImageUtils_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (ImageUtils)");
+    return 0;
+}
+
+int lua_register_psframework_ImageUtils(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.ImageUtils");
+    tolua_cclass(tolua_S,"ImageUtils","pf.ImageUtils","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"ImageUtils");
+        tolua_function(tolua_S,"createAnimationByGifImage",lua_psframework_ImageUtils_createAnimationByGifImage);
+        tolua_function(tolua_S,"getGifFrames",lua_psframework_ImageUtils_getGifFrames);
+        tolua_function(tolua_S,"createAnimationByFrames",lua_psframework_ImageUtils_createAnimationByFrames);
+        tolua_function(tolua_S,"getInstance", lua_psframework_ImageUtils_getInstance);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::ImageUtils).name();
+    g_luaType[typeName] = "pf.ImageUtils";
+    g_typeCast["ImageUtils"] = "pf.ImageUtils";
+    return 1;
+}
 TOLUA_API int register_all_psframework(lua_State* tolua_S)
 {
 	tolua_open(tolua_S);
@@ -7829,6 +8042,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_Stack(tolua_S);
 	lua_register_psframework_GameScene(tolua_S);
 	lua_register_psframework_ScriptCCBReader(tolua_S);
+	lua_register_psframework_ImageUtils(tolua_S);
 	lua_register_psframework_EncryptedTMXLayer(tolua_S);
 	lua_register_psframework_Queue(tolua_S);
 	lua_register_psframework_SqliteDb(tolua_S);
