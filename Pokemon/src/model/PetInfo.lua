@@ -13,6 +13,7 @@ PetInfo.speciality = DBNULL	-- 特性
 PetInfo.type = DBNULL	-- 类型
 PetInfo.height = DBNULL	-- 高
 PetInfo.weight = DBNULL	-- 重量
+PetInfo.racial = DBNULL	-- 种族值
 PetInfo.description = DBNULL	-- 宠物描述
 PetInfo.hardValue = DBNULL		-- 努力值
 PetInfo.evolution = DBNULL		-- 进化信息
@@ -43,6 +44,7 @@ function PetInfo:updateFromDB()
 		self.speciality = table.cast(specialities, function(item) return tonumber(item) end)
 		self.height = tonumber(data.height)
 		self.weight = tonumber(data.weight)
+		self.racial = string.split(data.racial, ",")
 		local hardValues = string.split(data.hardValue, ";")
 		self.hardValue = {}
 		for _, v in ipairs(hardValues) do
