@@ -57,6 +57,27 @@ Enumerations.EVENT_TYPE = {
 	GAIN_NEW_PET = 1,	-- 获得新宠物
 }
 
+-- 属性
+Enumerations.PROPERTIES = {
+	NORMAL = 1,		-- 普通
+	WRESTLE = 2,	-- 格斗
+	FLY = 3,		-- 飞行
+	POISON = 4,		-- 毒
+	GROUND = 5,		-- 地
+	STONE = 6,		-- 岩
+	INSECT = 7,		-- 虫
+	GHOST = 8,		-- 鬼
+	STEEL = 9,		-- 钢
+	FIRE = 10,		-- 火
+	WATER = 11, 	-- 水
+	GRASS = 12,		-- 草
+	ELECTRICITY = 13,	-- 电
+	SUPER = 14, 	-- 超能
+	ICE = 15,		-- 冰
+	DRAGON = 16,	-- 龙
+	EVIL = 17,		-- 恶
+}
+
 -- 宠物状态
 Enumerations.POKEMON_STATUS = {
 	NORMAL = 0,		-- 正常
@@ -65,6 +86,7 @@ Enumerations.POKEMON_STATUS = {
 	PALSY = 3,		-- 麻痹
 	BURNED = 4,		-- 烧伤
 	FROZEN = 5,		-- 冰冻
+	DEAD = 6，		-- 濒死
 }
 
 -- 宠物性格
@@ -94,4 +116,13 @@ Enumerations.POKEMON_PERSONALITY = {
 	GENTLE = 22,	-- 温顺
 	SASSY = 23,		-- 狂妄
 	CAREFUL = 24,	-- 慎重
+}
+
+-- 战斗状态
+Enumerations.BATTLE_STATUS = {
+	CONFUSED = 1,		-- 混乱
+	SCARED = 2,			-- 害怕
+	ATTRACTED = 3,		-- 着迷
+	BOUND = 4,			-- 束缚
+	TIRED = 5,			-- 无法动弹
 }

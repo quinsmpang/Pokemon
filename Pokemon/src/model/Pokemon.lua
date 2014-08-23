@@ -38,16 +38,18 @@ Pokemon.exp = DBNULL	-- 当前经验值
 Pokemon.maxExp = DBNULL	-- 下级所需经验值
 Pokemon.personality = DBNULL	-- 性格
 Pokemon.status = DBNULL	-- 状态
+Pokemon.ballId = DBNULL	-- 精灵球
 
 Pokemon.model = DBNULL
 
-function Pokemon:create(id, level)
+function Pokemon:create(id, level, ballId)
 	local pokemon = Pokemon:new()
 	pokemon:initRandom(id, level)
 	return pokemon
 end
 
-function Pokemon:initRandom(id, level)
+function Pokemon:initRandom(id, level, ballId)
+	ballId = ballId or 1
 	self.model = GameDBHelper:queryPetById(id)
 
 	self.id = id
@@ -57,6 +59,7 @@ function Pokemon:initRandom(id, level)
 	self.personality = math.random(0, 24)
 	self.status = Enumerations.POKEMON_STATUS.NORMAL
 	self.isShining = FallInRandom(1, 65536)
+	self.ballId = ballId
 
 	self:initRandomValues()
 	self:initSkills()
