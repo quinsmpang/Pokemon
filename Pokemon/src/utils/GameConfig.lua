@@ -12,6 +12,8 @@ GameConfig.DEFAULT_FONT_PATH = "fonts/DFPYuanW7-GB.ttf"
 GameConfig.GAME_DB_PATH = "res/icon.jpg"
 -- config path
 GameConfig.CONFIG_PATH = "res/icon_small.jpg"
+-- zip password
+GameConfig.ZIP_PASSWORD = "7ujm,lp-"
 
 -- db tables
 GameConfig.DIALOG_TABLE = "dialog_info"
