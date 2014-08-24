@@ -98,7 +98,7 @@ function table.select(table, selector)
 	local newTable = {}
 	for _, v in ipairs(table) do
 		if selector(v) then
-			table.insert(newTable, v)
+			_G["table"].insert(newTable, v)
 		end
 	end
 	return newTable
@@ -113,7 +113,7 @@ function table.cast(table, caster)
 	local newTable = {}
 	for _, v in ipairs(table) do
 		local item = caster(v)
-		table.insert(newTable, item)
+		_G["table"].insert(newTable, item)
 	end
 	return newTable
 end

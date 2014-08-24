@@ -12,6 +12,7 @@ DataCenter.currentBagData = nil		-- 当前背包数据({Item})
 DataCenter.computerData = nil	-- 电脑宠物布局信息(ComputerData)
 
 function DataCenter:addNewPokemon(pokemon)
+	log("DataCenter:addNewPokemon")
 	if not self.carriedPokemons then
 		self.carriedPokemons = {}
 	end

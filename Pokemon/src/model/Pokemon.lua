@@ -50,7 +50,7 @@ end
 
 function Pokemon:initRandom(id, level, ballId)
 	ballId = ballId or 1
-	self.model = GameDBHelper:queryPetById(id)
+	self.model = PetInfo:create(id)
 
 	self.id = id
 	self.level = level

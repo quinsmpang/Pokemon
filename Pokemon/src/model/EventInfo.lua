@@ -9,6 +9,7 @@ luaClass("EventInfo", psModel)
 EventInfo.id = DBNULL
 EventInfo.eventType = DBNULL	-- 事件类型
 EventInfo.eventParams = DBNULL	-- 事件参数
+EventInfo.handler = DBNULL		-- 处理函数
 
 function EventInfo:create(id)
 	local model = EventInfo:new()
@@ -21,7 +22,7 @@ end
 function EventInfo:updateFromDB()
 	log("EventInfo:updateFromDB")
 
-	local data = GameDBHelper:queryPetById(self.id)
+	local data = GameDBHelper:queryEventById(self.id)
 	if data then
 		self:updateWithData(data)
 

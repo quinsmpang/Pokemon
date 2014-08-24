@@ -86,7 +86,7 @@ Enumerations.POKEMON_STATUS = {
 	PALSY = 3,		-- 麻痹
 	BURNED = 4,		-- 烧伤
 	FROZEN = 5,		-- 冰冻
-	DEAD = 6，		-- 濒死
+	DEAD = 6,		-- 濒死
 }
 
 -- 宠物性格

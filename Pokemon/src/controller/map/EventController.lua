@@ -7,10 +7,10 @@
 EventController = {}
 
 function EventController:processEvent(eventModel)
-	log("EventController:processEvent", eventModel.eventType, eventModel.eventParams)
+	log("EventController:processEvent", eventModel.eventType, eventModel.eventParams, eventModel.handler)
 	local eventHandler = self["event_" .. eventModel.handler]
-	assert(type(handler) == "function", "Unimplemented event handler in EventController.")
-	handler(self, eventHandler.eventParams)
+	assert(type(eventHandler) == "function", "Unimplemented event handler in EventController.")
+	eventHandler(self, eventModel.eventParams)
 end
 
 -------------------------- Event 处理函数 --------------------------
