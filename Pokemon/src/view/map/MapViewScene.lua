@@ -12,6 +12,7 @@ require "src/controller/map/ActionController"
 require "src/controller/map/ResponseController"
 require "src/controller/map/EventController"
 require "src/view/map/MapCoreLayer"
+require "src/controller/pokemon/PokemonViewController"
 
 class("MapViewScene", psGameScene)
 

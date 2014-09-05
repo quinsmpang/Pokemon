@@ -36,14 +36,16 @@ namespace framework
 	{
 		Data data = FileUtils::getInstance()->getDataFromFile(FileUtils::getInstance()->fullPathForFilename(imagePath));
 
-		return this->getGifFrames(data.getBytes(), data.getSize());
+		BinaryData *pData = BinaryData::create(data.getBytes(), data.getSize());
+
+		return this->getGifFrames(pData);
 	}
 
-	framework::Vector *ImageUtils::getGifFrames(unsigned char *imageData, ssize_t dataSize)
+	framework::Vector *ImageUtils::getGifFrames(BinaryData *imageData)
 	{
 		Vector *frames = Vector::create();
 
-		FIMEMORY *pData = FreeImage_OpenMemory(imageData, dataSize);
+		FIMEMORY *pData = FreeImage_OpenMemory(imageData->getData(), imageData->getSize());
 
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 		//fif = FreeImage_GetFileType(imagePath.c_str());

@@ -11,6 +11,7 @@ Date: 8/2/2014
 #include "2d/platform/CCImage.h"
 #include "2d/CCActionInterval.h"
 #include "../containers/Vector.h"
+#include "../base/BinaryData.h"
 
 namespace framework
 {
@@ -20,7 +21,7 @@ namespace framework
 		static ImageUtils *getInstance();
 
 		Vector *getGifFrames(const std::string &imagePath);
-		Vector *getGifFrames(unsigned char *imageData, ssize_t dataSize);
+		Vector *getGifFrames(BinaryData *imageData);
 		cocos2d::Animate *createAnimationByGifImage(const std::string &imagePath, float timeline);
 		cocos2d::Animate *createAnimationByFrames(Vector *frames, float timeline);
 

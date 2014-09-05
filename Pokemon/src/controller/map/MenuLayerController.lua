@@ -13,6 +13,8 @@ MenuLayerController.mapMenu = nil		-- 菜单
 
 MenuLayerController.isMenuOpen = nil
 
+MenuLayerController.topViewController = nil		-- record the view controller(Pokemon, Collection, etc..)
+
 MenuLayerController.resources = {
 }
 
@@ -115,14 +117,8 @@ function MenuLayerController:onMenuItemSelected(item)
 			end
 		elseif itemIndex == 1 then
 			--精灵
-			if DEBUG then
-				for _, pokemon in ipairs(DataCenter.carriedPokemons) do
-					log(string.format("id: %d, level: %d, basicData: %d;%d;%d;%d;%d;%d, speciality: %d, entityValues: %d;%d;%d;%d;%d;%d, isShining: %d, personality: %d",
-						pokemon.id, pokemon.level, pokemon.basicData.hp, pokemon.basicData.physicalAttack, pokemon.basicData.physicalDefense, pokemon.basicData.specialAttack,
-						pokemon.basicData.specialDefense, pokemon.basicData.agility, pokemon.speciality, pokemon.entityValues[1], pokemon.entityValues[2], pokemon.entityValues[3], pokemon.entityValues[4],
-						pokemon.entityValues[5], pokemon.entityValues[6], pokemon.isShining, pokemon.personality))
-				end
-			end
+			local pokemonViewController = PokemonViewController:create()
+			self:getScene():loadViewController(pokemonViewController)
 		elseif itemIndex == 2 then
 			--背包
 		elseif itemIndex == 3 then

@@ -46,8 +46,11 @@ namespace framework
 		unsigned char *pData = (unsigned char*)malloc(dataSize);
 		UnzipItem(hZip, index, pData, dataSize);
 		CloseZip(hZip);
+		
+		auto binaryData = BinaryData::create(pData, dataSize);
+		//binaryData->retain();
 
-		return BinaryData::create(pData, dataSize);
+		return binaryData;
 	}
 
 	bool ZipHelper::zipOneFile(const std::string &zipFile, const std::string &targetFile, unsigned char *data, unsigned long size, bool overwrite, const std::string &password)

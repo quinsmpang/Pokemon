@@ -92,7 +92,7 @@ function MessageTip:onModalTouchBegan(x, y)
 end
 
 function MessageTip:onKeyboardPressed(keyCode)
-	if keyCode == GameSettings.confirmKey or keyCode == GameSettings.cancelKey then
+	if self.enableClick and (keyCode == GameSettings.confirmKey or keyCode == GameSettings.cancelKey) then
 		self:exit()
 	end
 end

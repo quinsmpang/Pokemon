@@ -17,13 +17,15 @@ namespace framework
 	public:
 		static BinaryData *create(unsigned char *data, unsigned long size);
 
+		virtual ~BinaryData();
+
 		bool init(unsigned char *data, unsigned long size);
 
 		unsigned char *getData() const;
 		unsigned long getSize() const;
 
 	private:
-		std::shared_ptr<unsigned char> _data;
+		unsigned char *_data;
 		unsigned long _size;
 	};
 }

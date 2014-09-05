@@ -17,9 +17,17 @@ namespace framework
 		return nullptr;
 	}
 
+	BinaryData::~BinaryData()
+	{
+		if (_data)
+		{
+			delete _data;
+		}
+	}
+
 	bool BinaryData::init(unsigned char *data, unsigned long size)
 	{
-		this->_data = shared_ptr<unsigned char>(data);
+		this->_data = data;
 		this->_size = size;
 
 		return true;
@@ -27,7 +35,7 @@ namespace framework
 
 	unsigned char *BinaryData::getData() const
 	{
-		return _data.get();
+		return _data;
 	}
 
 	unsigned long BinaryData::getSize() const

@@ -8079,16 +8079,12 @@ int lua_psframework_ImageUtils_getGifFrames(lua_State* tolua_S)
 #endif
     argc = lua_gettop(tolua_S)-1;
     do{
-        if (argc == 2) {
-            unsigned char* arg0;
-            #pragma warning NO CONVERSION TO NATIVE FOR unsigned char*;
+        if (argc == 1) {
+            framework::BinaryData* arg0;
+            ok &= luaval_to_object<framework::BinaryData>(tolua_S, 2, "pf.BinaryData",&arg0);
 
             if (!ok) { break; }
-            ssize_t arg1;
-            ok &= luaval_to_ssize(tolua_S, 3, &arg1);
-
-            if (!ok) { break; }
-            framework::Vector* ret = cobj->getGifFrames(arg0, arg1);
+            framework::Vector* ret = cobj->getGifFrames(arg0);
             object_to_luaval<framework::Vector>(tolua_S, "pf.Vector",(framework::Vector*)ret);
             return 1;
         }

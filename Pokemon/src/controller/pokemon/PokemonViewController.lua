@@ -6,23 +6,11 @@
 
 class("PokemonViewController", psViewController)
 
+PokemonViewController.root = nil
+
 PokemonViewController.resources = {
 	"images/pokemon.plist",
 	"images/pokemon.pvr.ccz",
-	"images/pokemons1.plist",
-	"images/pokemons1.pvr.ccz",
-	"images/pokemons2.plist",
-	"images/pokemons2.pvr.ccz",
-	"images/pokemons3.plist",
-	"images/pokemons3.pvr.ccz",
-	"images/pokemons4.plist",
-	"images/pokemons4.pvr.ccz",
-	"images/pokemons5.plist",
-	"images/pokemons5.pvr.ccz",
-	"images/pokemons6.plist",
-	"images/pokemons6.pvr.ccz",
-	"images/pokemons7.plist",
-	"images/pokemons7.pvr.ccz",
 }
 
 function PokemonViewController:load()
@@ -66,4 +54,24 @@ function PokemonViewController:removeObservers()
 end
 
 function PokemonViewController:renderView()
+	local coreLayer = self:getScene():getCoreLayer()
+
+	self.root = ModalLayer:create()
+	self:getScene():addChild(self.root)
+
+	local data = ZipHelper:getInstance():getFileDataInZip("images/pokemon_gif.rc", "493.gif", GameConfig.ZIP_PASSWORD)
+	local frames = ImageUtils:getInstance():getGifFrames(data)
+	-- local icon = frames:objectAt(0)
+	-- tolua.cast(icon, "cc.Texture2D")
+
+	-- local sp = cc.Sprite:createWithTexture(icon)
+	-- sp:setPosition(100, 100)
+	-- self.root:addChild(sp)
+
+	local animate = ImageUtils:getInstance():createAnimationByFrames(frames, 0.1)
+	local action = cc.RepeatForever:create(animate)
+	local sp = cc.Sprite:create()
+	sp:setPosition(100, 100)
+	self.root:addChild(sp)
+	sp:runAction(action)
 end
