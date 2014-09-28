@@ -11,15 +11,14 @@ Observer.callback = nil		-- callback
 Observer.params = nil		-- params, a table
 
 function Observer:call(...)
+	local exactParams = {}
+	table.deepCopy(exactParams, self.params)
 	local args = {...}
-	if #args > 0 then
-		for _, param in ipairs(self.params) do
-			table.insert(args, param)
-		end
-		self.params = args
+	for _, arg in ipairs(args) do
+		table.insert(exactParams, arg)
 	end
 	if self.callback then
-		self.callback(self.sender, unpack(self.params))
+		self.callback(self.sender, unpack(exactParams))
 	end
 end
 
