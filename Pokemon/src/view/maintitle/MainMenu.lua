@@ -8,7 +8,6 @@ require "src/view/map/MapViewScene"
 require "src/view/maintitle/SettingsLayer"
 require "src/view/maintitle/KeysetLayer"
 require "src/view/maintitle/GenderChooseLayer"
-require "src/view/collection/CollectionScene"
 
 class("MainMenu", psLayer)
 
@@ -152,8 +151,12 @@ function MainMenu:onBtnLoadGameClicked()
 	log("MainMenu:onBtnLoadGameClicked")
 	GameVolumeHelper:playBtnClickSound()
 
-	local collectionScene = CollectionScene:create()
-	cc.Director:getInstance():replaceScene(cc.TransitionFade:create(2, collectionScene, ccc3(0, 0, 0)))
+	-- require "src/controller/pokemon/PokemonViewController"
+
+	-- local pokemonViewController = PokemonViewController:create()
+	-- local curScene = cc.Director:getInstance():getRunningScene()
+	-- tolua.cast(curScene, "ps.GameScene")
+	-- curScene:loadViewController(pokemonViewController)
 end
 
 function MainMenu:onBtnSettingsClicked()

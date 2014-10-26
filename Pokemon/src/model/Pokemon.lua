@@ -37,6 +37,8 @@ Pokemon.isShining = DBNULL	-- 是否是闪光
 Pokemon.exp = DBNULL	-- 当前经验值
 Pokemon.maxExp = DBNULL	-- 下级所需经验值
 Pokemon.personality = DBNULL	-- 性格
+Pokemon.gender = DBNULL		-- 性别
+Pokemon.currentHp = DBNULL	-- 当前hp
 Pokemon.status = DBNULL	-- 状态
 Pokemon.ballId = DBNULL	-- 精灵球
 
@@ -44,7 +46,7 @@ Pokemon.model = DBNULL
 
 function Pokemon:create(id, level, ballId)
 	local pokemon = Pokemon:new()
-	pokemon:initRandom(id, level)
+	pokemon:initRandom(id, level, ballId)
 	return pokemon
 end
 
@@ -57,6 +59,7 @@ function Pokemon:initRandom(id, level, ballId)
 	self.speciality = self.model:generateRandomSpeciality()
 	self.hardValues = { 0, 0, 0, 0, 0, 0 }
 	self.personality = math.random(0, 24)
+	self.gender = math.random(0, 1)
 	self.status = Enumerations.POKEMON_STATUS.NORMAL
 	self.isShining = FallInRandom(1, 65536)
 	self.ballId = ballId
@@ -84,12 +87,15 @@ function Pokemon:recalculateBasicData()
 	local racialValues = self.model.racial
 	local personalityConst = self:getPersonalityConst()
 
-	self.basicData.hp = math.floor((racialValues[1] * 2 + self.entityValues[1] + self.hardValues[1] * 0.25) * self.level * 0.1 + self.level + 10)
-	self.basicData.physicalAttack = math.floor((racialValues[2] * 2 + self.entityValues[2] + self.hardValues[2] * 0.25) * self.level * 0.1 + 5) * personalityConst[1]
-	self.basicData.physicalDefense = math.floor((racialValues[3] * 2 + self.entityValues[3] + self.hardValues[3] * 0.25) * self.level * 0.1 + 5) * personalityConst[2]
-	self.basicData.specialAttack = math.floor((racialValues[4] * 2 + self.entityValues[4] + self.hardValues[4] * 0.25) * self.level * 0.1 + 5) * personalityConst[3]
-	self.basicData.specialDefense = math.floor((racialValues[5] * 2 + self.entityValues[5] + self.hardValues[5] * 0.25) * self.level * 0.1 + 5) * personalityConst[4]
-	self.basicData.agility = math.floor((racialValues[6] * 2 + self.entityValues[6] + self.hardValues[6] * 0.25) * self.level * 0.1 + 5) * personalityConst[5]
+	self.basicData.hp = math.floor((racialValues[1] * 2 + self.entityValues[1] + self.hardValues[1] * 0.25) * self.level * 0.01 + self.level + 10)
+	self.basicData.physicalAttack = math.floor(((racialValues[2] * 2 + self.entityValues[2] + self.hardValues[2] * 0.25) * self.level * 0.01 + 5) * personalityConst[1])
+	self.basicData.physicalDefense = math.floor(((racialValues[3] * 2 + self.entityValues[3] + self.hardValues[3] * 0.25) * self.level * 0.01 + 5) * personalityConst[2])
+	self.basicData.specialAttack = math.floor(((racialValues[4] * 2 + self.entityValues[4] + self.hardValues[4] * 0.25) * self.level * 0.01 + 5) * personalityConst[3])
+	self.basicData.specialDefense = math.floor(((racialValues[5] * 2 + self.entityValues[5] + self.hardValues[5] * 0.25) * self.level * 0.01 + 5) * personalityConst[4])
+	self.basicData.agility = math.floor(((racialValues[6] * 2 + self.entityValues[6] + self.hardValues[6] * 0.25) * self.level * 0.01 + 5) * personalityConst[5])
+
+	-- hp默认满血
+	self.currentHp = self.basicData.hp
 end
 
 function Pokemon:initSkills()

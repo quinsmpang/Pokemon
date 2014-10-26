@@ -105,35 +105,45 @@ function MenuLayerController:showMenu()
 	local mapMenu = MapMenuLayer:create()
 	self.root:addChild(mapMenu)
 	self.mapMenu = mapMenu
+
+	self.isMenuOpen = true
 end
 
 function MenuLayerController:onMenuItemSelected(item)
-	if item.__isEnabled then
-		local itemIndex = item:getShowIndex()
-		if itemIndex == 0 then
-			--图鉴
-			if DEBUG then
-				log("@@@@@@@@", DataCenter.currentPlayerData.lastStep)
+	if self.isMenuOpen then
+		if item.__isEnabled then
+			local itemIndex = item:getShowIndex()
+			if itemIndex == 0 then
+				--图鉴
+				if DEBUG then
+					log("@@@@@@@@", DataCenter.currentPlayerData.lastStep)
+				end
+			elseif itemIndex == 1 then
+				--精灵
+				MapStateController:setCurrentState(Enumerations.MAP_STATE.INFO)
+
+				require "src/controller/pokemon/PokemonViewController"
+
+				local pokemonViewController = PokemonViewController:create()
+				self:getScene():loadViewController(pokemonViewController)
+			elseif itemIndex == 2 then
+				--背包
+			elseif itemIndex == 3 then
+				--通讯器
+			elseif itemIndex == 4 then
+				--玩家
+			elseif itemIndex == 5 then
+				--记录
+			elseif itemIndex == 6 then
+				--设置
+			elseif itemIndex == 7 then
+				--退出
+				self.mapMenu:exitMenu()
+
+				self.isMenuOpen = false
 			end
-		elseif itemIndex == 1 then
-			--精灵
-			local pokemonViewController = PokemonViewController:create()
-			self:getScene():loadViewController(pokemonViewController)
-		elseif itemIndex == 2 then
-			--背包
-		elseif itemIndex == 3 then
-			--通讯器
-		elseif itemIndex == 4 then
-			--玩家
-		elseif itemIndex == 5 then
-			--记录
-		elseif itemIndex == 6 then
-			--设置
-		elseif itemIndex == 7 then
-			--退出
-			self.mapMenu:exitMenu()
+		else
+			GameVolumeHelper:playUnableSound()
 		end
-	else
-		GameVolumeHelper:playUnableSound()
 	end
 end

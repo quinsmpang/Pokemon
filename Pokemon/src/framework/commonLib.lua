@@ -107,6 +107,7 @@ end
 -- add frames to the cache
 function LoadSpriteFrames(frames)
 	for i = 1, #frames, 2 do
+		log(string.format("Load sprite frame: %s", frames[i]))
 		cc.SpriteFrameCache:getInstance():addSpriteFrames(frames[i], frames[i + 1])
 	end
 end
@@ -114,6 +115,7 @@ end
 -- remove frames
 function RemoveSpriteFrames(frames)	
 	for i = 1, #frames, 2 do
+		log(string.format("Remove sprite frame: %s", frames[i]))
 		cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile(frames[i])
 		cc.SpriteFrameCache:getInstance():removeSpriteFramesFromTexture(frames[i + 1])
 	end

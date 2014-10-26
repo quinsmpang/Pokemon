@@ -34,6 +34,7 @@ Enumerations.MAP_STATE = {
 	DIALOG = 2,		-- 对话状态
 	MENU = 3,		-- 菜单状态
 	LOADING = 4,	-- 读取状态
+	INFO = 5,		-- 查看信息状态
 }
 
 -- 键盘状态

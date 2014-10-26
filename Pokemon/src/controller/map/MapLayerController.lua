@@ -227,12 +227,22 @@ function MapLayerController:switchMapCallFunc(newMapId)
 end
 
 function MapLayerController:onMapStateChanged(oldState, newState)
-	if oldState ~= Enumerations.MAP_STATE.MENU and newState == Enumerations.MAP_STATE.FREEDOM then
+	if oldState == Enumerations.MAP_STATE.INFO and newState == Enumerations.MAP_STATE.MENU then
+		if self.menuLayerController then
+			self:getScene():addChild(self.menuLayerController.root)
+			self.menuLayerController.root:release()
+		end
+	elseif oldState ~= Enumerations.MAP_STATE.MENU and newState == Enumerations.MAP_STATE.FREEDOM then
 		self.menuLayerController = MenuLayerController:create()
 		self:getScene():loadViewController(self.menuLayerController)
 	elseif newState == Enumerations.MAP_STATE.DIALOG then
 		if self.menuLayerController then
 			self:getScene():unloadViewController(self.menuLayerController)
+		end
+	elseif newState == Enumerations.MAP_STATE.INFO then
+		if self.menuLayerController then
+			self.menuLayerController.root:retain()
+			self:getScene():removeChild(self.menuLayerController.root, false)
 		end
 	end
 end
