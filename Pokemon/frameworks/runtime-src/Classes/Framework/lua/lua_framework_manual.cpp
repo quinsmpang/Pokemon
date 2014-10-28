@@ -386,9 +386,123 @@ static void register_framework_ListMenu_manual(lua_State *L)
     lua_pop(L, 1);
 }
 
+/**********************************
+Win32EventListenerKeyboard extend
+**********************************/
+static int lua_psframework_Win32EventListenerKeyboard_unregisterScriptWin32Handler(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Win32EventListenerKeyboard* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Win32EventListenerKeyboard",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Win32EventListenerKeyboard*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Win32EventListenerKeyboard_unregisterScriptWin32Handler'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        cobj->unregisterScriptWin32Handler(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "unregisterScriptWin32Handler",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Win32EventListenerKeyboard_unregisterScriptWin32Handler'.",&tolua_err);
+#endif
+
+    return 0;
+}
+static int lua_psframework_Win32EventListenerKeyboard_registerScriptWin32Handler(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Win32EventListenerKeyboard* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Win32EventListenerKeyboard",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Win32EventListenerKeyboard*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Win32EventListenerKeyboard_registerScriptWin32Handler'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        LUA_FUNCTION arg0 = toluafix_ref_function(tolua_S,2,0);;
+        int arg1;
+
+        ok &= luaval_to_int32(tolua_S, 3,(int *)&arg1);
+        if(!ok)
+            return 0;
+        cobj->registerScriptWin32Handler(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "registerScriptWin32Handler",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Win32EventListenerKeyboard_registerScriptWin32Handler'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static void extendWin32EventListenerKeyboard(lua_State* tolua_S)
+{
+    lua_pushstring(tolua_S,"pf.Win32EventListenerKeyboard");
+    lua_rawget(tolua_S,LUA_REGISTRYINDEX);
+    if (lua_istable(tolua_S,-1))
+    {
+        lua_pushstring(tolua_S,"registerScriptWin32Handler");
+        lua_pushcfunction(tolua_S,lua_psframework_Win32EventListenerKeyboard_registerScriptWin32Handler);
+        lua_rawset(tolua_S,-3);
+        lua_pushstring(tolua_S,"unregisterScriptWin32Handler");
+        lua_pushcfunction(tolua_S,lua_psframework_Win32EventListenerKeyboard_unregisterScriptWin32Handler);
+        lua_rawset(tolua_S, -3);
+    }
+    lua_pop(tolua_S, 1);
+}
+
 int register_all_psframework_manual(lua_State* tolua_S)
 {
 	register_framework_ListMenu_manual(tolua_S);
+	extendWin32EventListenerKeyboard(tolua_S);
 
 	return 0;
 }

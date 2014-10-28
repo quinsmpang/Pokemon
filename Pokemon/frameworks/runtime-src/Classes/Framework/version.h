@@ -9,13 +9,14 @@ v1.02	Add some encrytion mechanism to the framework
 v1.03	Add ListMenu to the framework
 v1.04	Add ImageUtils to deal with gif images
 v1.05	Add ZipHelper to handle zip compression
+v1.06	Add win32 keyboard support into the framework
 ***********************************************/
 
 #include <iostream>
 #include "tolua_fix.h"
 
-static const char *VERSION = "v1.05";
-static float VERSION_NUM = 1.05;
+static const char *VERSION = "v1.06";
+static float VERSION_NUM = 1.06;
 
 void printVersion()
 {

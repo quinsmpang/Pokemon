@@ -46,6 +46,11 @@ function GameLauncher:init()
     _G["TARGET_PLATFORM"] = cc.Application:getInstance():getTargetPlatform()
     log("Current Platform: ", TARGET_PLATFORM)
 
+    -- enable keyboard extensions when at win32 platform
+    if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+        KeyboardHelper:getInstance():hookOn()
+    end
+
     -- set random seed
     math.randomseed(tostring(os.time()):reverse():sub(1, 6))
 

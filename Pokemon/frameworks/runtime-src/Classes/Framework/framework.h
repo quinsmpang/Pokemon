@@ -40,4 +40,10 @@
 #include "utils/ImageUtils.h"
 #include "utils/ZipHelper.h"
 
+#include "win32/Win32EventArgs.h"
+#include "win32/Win32EventListener.h"
+#include "win32/Win32EventListenerKeyboard.h"
+#include "win32/Win32Notifier.h"
+#include "win32/KeyboardHelper.h"
+
 #endif

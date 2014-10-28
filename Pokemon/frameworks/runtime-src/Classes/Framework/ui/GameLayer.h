@@ -11,6 +11,7 @@ Date: 4/20/2014
 
 namespace framework
 {
+	class Win32EventListener;
 
 	class GameLayer : public cocos2d::Layer
 	{

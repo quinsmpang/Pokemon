@@ -205,6 +205,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\utils\ziplib\unzip.h" />
     <ClInclude Include="..\Classes\Framework\utils\ziplib\zip.h" />
     <ClInclude Include="..\Classes\Framework\version.h" />
+    <ClInclude Include="..\Classes\Framework\win32\KeyboardHelper.h" />
+    <ClInclude Include="..\Classes\Framework\win32\Win32EventArgs.h" />
+    <ClInclude Include="..\Classes\Framework\win32\Win32EventListener.h" />
+    <ClInclude Include="..\Classes\Framework\win32\Win32EventListenerKeyboard.h" />
+    <ClInclude Include="..\Classes\Framework\win32\Win32Notifier.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -247,6 +252,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\utils\ZipHelper.cpp" />
     <ClCompile Include="..\Classes\Framework\utils\ziplib\unzip.cpp" />
     <ClCompile Include="..\Classes\Framework\utils\ziplib\zip.cpp" />
+    <ClCompile Include="..\Classes\Framework\win32\KeyboardHelper.cpp" />
+    <ClCompile Include="..\Classes\Framework\win32\Win32EventArgs.cpp" />
+    <ClCompile Include="..\Classes\Framework\win32\Win32EventListener.cpp" />
+    <ClCompile Include="..\Classes\Framework\win32\Win32EventListenerKeyboard.cpp" />
+    <ClCompile Include="..\Classes\Framework\win32\Win32Notifier.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

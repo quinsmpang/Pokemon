@@ -8,6 +8,7 @@
 #include "Framework/lua/lua_framework_manual.hpp"
 #include "version.h"
 #include "Framework/utils/ImageUtils.h"
+#include "Framework/win32/KeyboardHelper.h"
 
 using namespace CocosDenshion;
 

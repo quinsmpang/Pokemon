@@ -8528,6 +8528,554 @@ int lua_register_psframework_ZipHelper(lua_State* tolua_S)
     g_typeCast["ZipHelper"] = "pf.ZipHelper";
     return 1;
 }
+
+int lua_psframework_Win32EventListener_setEnabled(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Win32EventListener* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Win32EventListener",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Win32EventListener*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Win32EventListener_setEnabled'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        bool arg0;
+
+        ok &= luaval_to_boolean(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj->setEnabled(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setEnabled",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Win32EventListener_setEnabled'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Win32EventListener_isEnabled(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Win32EventListener* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Win32EventListener",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Win32EventListener*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Win32EventListener_isEnabled'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        bool ret = cobj->isEnabled();
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isEnabled",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Win32EventListener_isEnabled'.",&tolua_err);
+#endif
+
+    return 0;
+}
+static int lua_psframework_Win32EventListener_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (Win32EventListener)");
+    return 0;
+}
+
+int lua_register_psframework_Win32EventListener(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.Win32EventListener");
+    tolua_cclass(tolua_S,"Win32EventListener","pf.Win32EventListener","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"Win32EventListener");
+        tolua_function(tolua_S,"setEnabled",lua_psframework_Win32EventListener_setEnabled);
+        tolua_function(tolua_S,"isEnabled",lua_psframework_Win32EventListener_isEnabled);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::Win32EventListener).name();
+    g_luaType[typeName] = "pf.Win32EventListener";
+    g_typeCast["Win32EventListener"] = "pf.Win32EventListener";
+    return 1;
+}
+
+int lua_psframework_Win32EventListenerKeyboard_createWithTarget(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.Win32EventListenerKeyboard",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 1)
+    {
+        cocos2d::Node* arg0;
+        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
+        if(!ok)
+            return 0;
+        framework::Win32EventListenerKeyboard* ret = framework::Win32EventListenerKeyboard::createWithTarget(arg0);
+        object_to_luaval<framework::Win32EventListenerKeyboard>(tolua_S, "pf.Win32EventListenerKeyboard",(framework::Win32EventListenerKeyboard*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "createWithTarget",argc, 1);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Win32EventListenerKeyboard_createWithTarget'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_Win32EventListenerKeyboard_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (Win32EventListenerKeyboard)");
+    return 0;
+}
+
+int lua_register_psframework_Win32EventListenerKeyboard(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.Win32EventListenerKeyboard");
+    tolua_cclass(tolua_S,"Win32EventListenerKeyboard","pf.Win32EventListenerKeyboard","pf.Win32EventListener",nullptr);
+
+    tolua_beginmodule(tolua_S,"Win32EventListenerKeyboard");
+        tolua_function(tolua_S,"createWithTarget", lua_psframework_Win32EventListenerKeyboard_createWithTarget);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::Win32EventListenerKeyboard).name();
+    g_luaType[typeName] = "pf.Win32EventListenerKeyboard";
+    g_typeCast["Win32EventListenerKeyboard"] = "pf.Win32EventListenerKeyboard";
+    return 1;
+}
+
+int lua_psframework_Win32Notifier_removeEventListener(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Win32Notifier* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Win32Notifier",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Win32Notifier*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Win32Notifier_removeEventListener'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        framework::Win32EventListener* arg0;
+
+        ok &= luaval_to_object<framework::Win32EventListener>(tolua_S, 2, "pf.Win32EventListener",&arg0);
+        if(!ok)
+            return 0;
+        cobj->removeEventListener(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeEventListener",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Win32Notifier_removeEventListener'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Win32Notifier_notify(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Win32Notifier* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Win32Notifier",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Win32Notifier*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Win32Notifier_notify'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        framework::Win32EventListener::Win32EventListenerType arg0;
+        framework::Win32EventArgs* arg1;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+
+        ok &= luaval_to_object<framework::Win32EventArgs>(tolua_S, 3, "pf.Win32EventArgs",&arg1);
+        if(!ok)
+            return 0;
+        cobj->notify(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "notify",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Win32Notifier_notify'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Win32Notifier_addEventListener(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Win32Notifier* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Win32Notifier",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Win32Notifier*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Win32Notifier_addEventListener'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        framework::Win32EventListener* arg0;
+
+        ok &= luaval_to_object<framework::Win32EventListener>(tolua_S, 2, "pf.Win32EventListener",&arg0);
+        if(!ok)
+            return 0;
+        cobj->addEventListener(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "addEventListener",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Win32Notifier_addEventListener'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Win32Notifier_getInstance(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.Win32Notifier",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+            return 0;
+        framework::Win32Notifier* ret = framework::Win32Notifier::getInstance();
+        object_to_luaval<framework::Win32Notifier>(tolua_S, "pf.Win32Notifier",(framework::Win32Notifier*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "getInstance",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Win32Notifier_getInstance'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_Win32Notifier_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (Win32Notifier)");
+    return 0;
+}
+
+int lua_register_psframework_Win32Notifier(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.Win32Notifier");
+    tolua_cclass(tolua_S,"Win32Notifier","pf.Win32Notifier","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"Win32Notifier");
+        tolua_function(tolua_S,"removeEventListener",lua_psframework_Win32Notifier_removeEventListener);
+        tolua_function(tolua_S,"notify",lua_psframework_Win32Notifier_notify);
+        tolua_function(tolua_S,"addEventListener",lua_psframework_Win32Notifier_addEventListener);
+        tolua_function(tolua_S,"getInstance", lua_psframework_Win32Notifier_getInstance);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::Win32Notifier).name();
+    g_luaType[typeName] = "pf.Win32Notifier";
+    g_typeCast["Win32Notifier"] = "pf.Win32Notifier";
+    return 1;
+}
+
+int lua_psframework_KeyboardHelper_hookOn(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::KeyboardHelper* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.KeyboardHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::KeyboardHelper*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_KeyboardHelper_hookOn'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        bool ret = cobj->hookOn();
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "hookOn",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_KeyboardHelper_hookOn'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_KeyboardHelper_isKeyPressed(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::KeyboardHelper* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.KeyboardHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::KeyboardHelper*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_KeyboardHelper_isKeyPressed'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        bool ret = cobj->isKeyPressed(arg0);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isKeyPressed",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_KeyboardHelper_isKeyPressed'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_KeyboardHelper_hookOff(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::KeyboardHelper* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.KeyboardHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::KeyboardHelper*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_KeyboardHelper_hookOff'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        bool ret = cobj->hookOff();
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "hookOff",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_KeyboardHelper_hookOff'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_KeyboardHelper_getInstance(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.KeyboardHelper",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+            return 0;
+        framework::KeyboardHelper* ret = framework::KeyboardHelper::getInstance();
+        object_to_luaval<framework::KeyboardHelper>(tolua_S, "pf.KeyboardHelper",(framework::KeyboardHelper*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "getInstance",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_KeyboardHelper_getInstance'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_KeyboardHelper_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (KeyboardHelper)");
+    return 0;
+}
+
+int lua_register_psframework_KeyboardHelper(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.KeyboardHelper");
+    tolua_cclass(tolua_S,"KeyboardHelper","pf.KeyboardHelper","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"KeyboardHelper");
+        tolua_function(tolua_S,"hookOn",lua_psframework_KeyboardHelper_hookOn);
+        tolua_function(tolua_S,"isKeyPressed",lua_psframework_KeyboardHelper_isKeyPressed);
+        tolua_function(tolua_S,"hookOff",lua_psframework_KeyboardHelper_hookOff);
+        tolua_function(tolua_S,"getInstance", lua_psframework_KeyboardHelper_getInstance);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::KeyboardHelper).name();
+    g_luaType[typeName] = "pf.KeyboardHelper";
+    g_typeCast["KeyboardHelper"] = "pf.KeyboardHelper";
+    return 1;
+}
 TOLUA_API int register_all_psframework(lua_State* tolua_S)
 {
 	tolua_open(tolua_S);
@@ -8543,19 +9091,23 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_RefInteger(tolua_S);
 	lua_register_psframework_ListMenu(tolua_S);
 	lua_register_psframework_Map(tolua_S);
+	lua_register_psframework_KeyboardHelper(tolua_S);
 	lua_register_psframework_TableViewEx(tolua_S);
 	lua_register_psframework_BinaryData(tolua_S);
 	lua_register_psframework_RefBoolean(tolua_S);
 	lua_register_psframework_Stack(tolua_S);
 	lua_register_psframework_GameScene(tolua_S);
+	lua_register_psframework_Win32EventListener(tolua_S);
 	lua_register_psframework_ScriptCCBReader(tolua_S);
 	lua_register_psframework_ImageUtils(tolua_S);
+	lua_register_psframework_Win32Notifier(tolua_S);
 	lua_register_psframework_EncryptedTMXLayer(tolua_S);
 	lua_register_psframework_Queue(tolua_S);
 	lua_register_psframework_SqliteDb(tolua_S);
 	lua_register_psframework_Vector(tolua_S);
 	lua_register_psframework_GameLayer(tolua_S);
 	lua_register_psframework_CoreLayer(tolua_S);
+	lua_register_psframework_Win32EventListenerKeyboard(tolua_S);
 	lua_register_psframework_IOUtils(tolua_S);
 	lua_register_psframework_MaskLayer(tolua_S);
 	lua_register_psframework_RefDouble(tolua_S);

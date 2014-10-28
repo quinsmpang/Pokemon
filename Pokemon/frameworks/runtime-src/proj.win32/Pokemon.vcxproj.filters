@@ -49,6 +49,9 @@
     <Filter Include="Classes\psframework\utils\ziplib">
       <UniqueIdentifier>{fa6ae9c6-3cbf-40b0-ad24-d1fd9cc4bd70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\psframework\win32">
+      <UniqueIdentifier>{6f29fe04-8c0c-4476-aca1-d430fecf684b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -181,6 +184,21 @@
     <ClInclude Include="..\Classes\Framework\base\BinaryData.h">
       <Filter>Classes\psframework\base</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\win32\KeyboardHelper.h">
+      <Filter>Classes\psframework\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\win32\Win32EventListenerKeyboard.h">
+      <Filter>Classes\psframework\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\win32\Win32EventListener.h">
+      <Filter>Classes\psframework\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\win32\Win32EventArgs.h">
+      <Filter>Classes\psframework\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\win32\Win32Notifier.h">
+      <Filter>Classes\psframework\win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -299,6 +317,21 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\base\BinaryData.cpp">
       <Filter>Classes\psframework\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\win32\KeyboardHelper.cpp">
+      <Filter>Classes\psframework\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\win32\Win32EventListenerKeyboard.cpp">
+      <Filter>Classes\psframework\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\win32\Win32EventListener.cpp">
+      <Filter>Classes\psframework\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\win32\Win32EventArgs.cpp">
+      <Filter>Classes\psframework\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\win32\Win32Notifier.cpp">
+      <Filter>Classes\psframework\win32</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
