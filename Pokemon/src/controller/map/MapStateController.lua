@@ -4,6 +4,7 @@
 	Date: 06/30/2014
 ]]
 
+--[[ DEPRECATED ]]
 MapStateController = {}
 
 MapStateController.currentState = nil	-- 当前地图状态

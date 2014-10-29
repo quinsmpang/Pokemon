@@ -4,6 +4,7 @@
 	Date: 06/30/2014
 ]]
 
+--[[ DEPRECATED ]]
 class("MapCoreLayer", psCoreLayer)
 
 MapCoreLayer.pressedKeys = nil

@@ -13,7 +13,7 @@ PlayerData.currentMapId = DBNULL	-- 所在地图的id
 PlayerData.currentPosition = DBNULL	-- 所在位置的坐标
 PlayerData.currentDirection	= DBNULL	-- 当前面朝的方向
 PlayerData.lastStep = DBNULL		-- 剧情发生到的step
-PlayerData.currentStep = DBNULL	-- 当前正在发生的剧情step
+PlayerData.currentStep = DBNULL	-- 当前正在发生的剧情step, 0表示自由活动
 PlayerData.lastDialogId = DBNULL	-- 当前执行到的对话id
 
 -- const
@@ -80,14 +80,12 @@ function PlayerData:enterFreedom(bUpdateStep)
 		self.lastStep = self.currentStep
 	end
 	self.currentStep = 0
-	MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
 end
 
 -- 进入剧情
 function PlayerData:enterStory()
 	log("PlayerData:enterStory", self.lastStep)
 	self.currentStep = self.lastStep + 1
-	MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
 end
 
 function PlayerData:setStep(step)

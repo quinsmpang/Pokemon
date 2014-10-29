@@ -12,6 +12,7 @@ KeysetLayer.btnConfirm = nil	--确定按钮
 KeysetLayer.btnCancel = nil		--取消按钮
 KeysetLayer.panelList = nil		--所有按键Panel的集合
 
+KeysetLayer.kbdListener = nil
 KeysetLayer.isWaitingForKey = nil		--是否正在等待用户按键
 KeysetLayer.availableKeys = nil
 KeysetLayer.enableClick = nil		--是否允许用户点击
@@ -79,12 +80,21 @@ function KeysetLayer:initUI()
 	self.btnCancel:registerControlEventHandler(MakeScriptHandler(self, self.onBtnCancelClick), cc.Handler.CONTROL_TOUCH_UP_INSIDE)
 	self.border:addChild(self.btnCancel)
 
-	-- register keyboard event
 	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
-		local kbdListener = cc.EventListenerKeyboard:create()
-		kbdListener:registerScriptHandler(MakeScriptHandler(self, self.onKeyboardPressed), cc.Handler.EVENT_KEYBOARD_PRESSED)
+		self:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
+	end
+end
 
-		self.window:getEventDispatcher():addEventListenerWithSceneGraphPriority(kbdListener, self.window)
+function KeysetLayer:onNodeEvent(event)
+	if event == "enter" then
+		local kbdListener = Win32EventListenerKeyboard:createWithTarget(self)
+		kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
+		Win32Notifier:getInstance():addEventListener(kbdListener)
+		self.kbdListener = kbdListener
+	elseif event == "exit" then
+		if self.kbdListener then
+			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
+		end
 	end
 end
 
@@ -95,57 +105,57 @@ function KeysetLayer:setAvailableKeys()
 	end
 
 	self.availableKeys = {}
-	self.availableKeys[cc.KeyCode.KEY_RETURN] = "ENTER"
-	self.availableKeys[cc.KeyCode.KEY_CTRL] = "CTRL"
-	self.availableKeys[cc.KeyCode.KEY_ALT] = "ALT"
-	self.availableKeys[cc.KeyCode.KEY_INSERT] = "INSERT"
-	self.availableKeys[cc.KeyCode.KEY_HOME] = "HOME"
-	self.availableKeys[cc.KeyCode.KEY_PG_UP] = "PGUP"
-	self.availableKeys[cc.KeyCode.KEY_DELETE] = "DELETE"
-	self.availableKeys[cc.KeyCode.KEY_END] = "END"
-	self.availableKeys[cc.KeyCode.KEY_PG_DOWN] = "PGDOWN"
-	self.availableKeys[cc.KeyCode.KEY_LEFT_ARROW] = "←"
-	self.availableKeys[cc.KeyCode.KEY_RIGHT_ARROW] = "→"
-	self.availableKeys[cc.KeyCode.KEY_UP_ARROW] = "↑"
-	self.availableKeys[cc.KeyCode.KEY_DOWN_ARROW] = "↓"
-	self.availableKeys[cc.KeyCode.KEY_KP_MINUS] = "-"
-	self.availableKeys[cc.KeyCode.KEY_KP_PLUS] = "+"
-	self.availableKeys[cc.KeyCode.KEY_KP_MULTIPLY] = "*"
-	self.availableKeys[cc.KeyCode.KEY_KP_DIVIDE] = "/"
-	self.availableKeys[cc.KeyCode.KEY_KP_ENTER] = "ENTER"
-	for i = cc.KeyCode.KEY_KP_DELETE, cc.KeyCode.KEY_KP_PG_UP do
-		self.availableKeys[i] = string.sub(tmpDict[i], 8, #tmpDict[i])
+	self.availableKeys[pf.Win32KeyCode.VK_RETURN] = "ENTER"
+	self.availableKeys[pf.Win32KeyCode.VK_LMENU] = "LALT"
+	self.availableKeys[pf.Win32KeyCode.VK_RMENU] = "RALT"
+	self.availableKeys[pf.Win32KeyCode.VK_INSERT] = "INSERT"
+	self.availableKeys[pf.Win32KeyCode.VK_HOME] = "HOME"
+	self.availableKeys[pf.Win32KeyCode.VK_SELECT] = "SELECT"
+	self.availableKeys[pf.Win32KeyCode.VK_PGUP] = "PG_UP"
+	self.availableKeys[pf.Win32KeyCode.VK_PGDOWN] = "PG_DOWN"
+	self.availableKeys[pf.Win32KeyCode.VK_DELETE] = "DELETE"
+	self.availableKeys[pf.Win32KeyCode.VK_END] = "END"
+	self.availableKeys[pf.Win32KeyCode.VK_LEFT] = "←"
+	self.availableKeys[pf.Win32KeyCode.VK_RIGHT] = "→"
+	self.availableKeys[pf.Win32KeyCode.VK_UP] = "↑"
+	self.availableKeys[pf.Win32KeyCode.VK_DOWN] = "↓"
+	self.availableKeys[pf.Win32KeyCode.VK_SPACE] = "SPACE"
+	self.availableKeys[pf.Win32KeyCode.VK_MINUS] = "-"
+	self.availableKeys[pf.Win32KeyCode.VK_EQUAL] = "="
+	-- keypad numbers
+	for i = 0x60, 0x69 do
+		self.availableKeys[i] = "N-" .. (i - 0x60)
 	end
-	self.availableKeys[cc.KeyCode.KEY_SPACE] = "空格"
+	-- numbers
 	for i = 48, 57 do
 		self.availableKeys[i] = tostring(i - 48)
 	end
-	self.availableKeys[97] = "A"
-	self.availableKeys[98] = "B"
-	self.availableKeys[99] = "C"
-	self.availableKeys[100] = "D"
-	self.availableKeys[101] = "E"
-	self.availableKeys[102] = "F"
-	self.availableKeys[103] = "G"
-	self.availableKeys[104] = "H"
-	self.availableKeys[105] = "I"
-	self.availableKeys[106] = "J"
-	self.availableKeys[107] = "K"
-	self.availableKeys[108] = "L"
-	self.availableKeys[109] = "M"
-	self.availableKeys[110] = "N"
-	self.availableKeys[111] = "O"
-	self.availableKeys[112] = "P"
-	self.availableKeys[113] = "Q"
-	self.availableKeys[114] = "R"
-	self.availableKeys[115] = "S"
-	self.availableKeys[116] = "T"
-	self.availableKeys[117] = "U"
-	self.availableKeys[118] = "V"
-	self.availableKeys[119] = "W"
-	self.availableKeys[120] = "X"
-	self.availableKeys[121] = "Y"
-	self.availableKeys[122] = "Z"
+	self.availableKeys[65] = "A"
+	self.availableKeys[66] = "B"
+	self.availableKeys[67] = "C"
+	self.availableKeys[68] = "D"
+	self.availableKeys[69] = "E"
+	self.availableKeys[70]= "F"
+	self.availableKeys[71]= "G"
+	self.availableKeys[72] = "H"
+	self.availableKeys[73] = "I"
+	self.availableKeys[74] = "J"
+	self.availableKeys[75] = "K"
+	self.availableKeys[76] = "L"
+	self.availableKeys[77] = "M"
+	self.availableKeys[78] = "N"
+	self.availableKeys[79] = "O"
+	self.availableKeys[80] = "P"
+	self.availableKeys[81] = "Q"
+	self.availableKeys[82] = "R"
+	self.availableKeys[83] = "S"
+	self.availableKeys[84] = "T"
+	self.availableKeys[85] = "U"
+	self.availableKeys[86] = "V"
+	self.availableKeys[87] = "W"
+	self.availableKeys[88] = "X"
+	self.availableKeys[89] = "Y"
+	self.availableKeys[90] = "Z"
 	self.availableKeys[160] = "LSHIFT"
 	self.availableKeys[161] = "RSHIFT"
 	self.availableKeys[162] = "LCTRL"
@@ -258,11 +268,11 @@ function KeysetLayer:close()
 	self.window:runAction(quitAction)
 end
 
-function KeysetLayer:onKeyboardPressed(keyCode, event)
+function KeysetLayer:onKeyboardPressed(keyCode)
 	if not self.isWaitingForKey then
 		return
 	end
-	log("KeysetLayer:onKeyboardPressed", keyCode)
+	log(string.format("KeysetLayer:onKeyboardPressed: %x", keyCode))
 
 	if self.availableKeys[keyCode] then
 		self:handleNewKey(keyCode)

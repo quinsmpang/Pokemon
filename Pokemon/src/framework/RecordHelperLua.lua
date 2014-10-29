@@ -35,8 +35,9 @@ function RecordHelperLua:recordTable(filePath, table)
 				content = content .. ";"
 			end
 			content = content .. k .. "|" .. v
+			
+			index = index + 1
 		end
-		index = index + 1
 	end
 
 	log(string.format("Save record content: %s", content))

@@ -17,18 +17,22 @@ namespace framework
 	}
 
 	void Win32Notifier::removeEventListener(Win32EventListener *listener)
-	{
+	{ 
 		CCASSERT(listener, "param can't be null");
 		auto listenerType = (int)listener->_type;
 		if (this->_listenerMap.find(listenerType) != _listenerMap.end())
 		{
-			auto listeners = _listenerMap[listenerType];
-			for (auto iter = listeners.begin(); iter != listeners.end(); ++iter)
+			auto &listeners = _listenerMap[listenerType];
+			for (auto iter = listeners.begin(); iter != listeners.end(); )
 			{
 				if (listener == *iter)
 				{
-					listeners.remove(*iter);
+					iter = listeners.erase(iter);
 					listener->release();
+				}
+				else
+				{
+					++iter;
 				}
 			}
 		}
@@ -39,26 +43,29 @@ namespace framework
 		int nType = (int)type;
 		if (this->_listenerMap.find(nType) != _listenerMap.end())
 		{
-			auto listeners = _listenerMap[nType];
+			auto &listeners = _listenerMap[nType];
 			// with scene graph priority
 			Win32EventListener *pTargetListener = nullptr;
 			for (auto iter = listeners.begin(); iter != listeners.end(); ++iter)
 			{
 				auto listener = *iter;
-				if (!pTargetListener)
+				if (listener->isEnabled())
 				{
-					pTargetListener = listener;
-				}
-				else
-				{
-					if (listener->_target->getPositionZ() >= pTargetListener->_target->getPositionZ())
+					if (!pTargetListener)
 					{
 						pTargetListener = listener;
+					}
+					else
+					{
+						if (listener->_target->getPositionZ() >= pTargetListener->_target->getPositionZ())
+						{
+							pTargetListener = listener;
+						}
 					}
 				}
 			}
 
-			if (pTargetListener)
+			if (pTargetListener && pTargetListener->_callback)
 			{
 				pTargetListener->_callback(pTargetListener->_target, args);
 			}

@@ -48,7 +48,12 @@ function GameLauncher:init()
 
     -- enable keyboard extensions when at win32 platform
     if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
-        KeyboardHelper:getInstance():hookOn()
+        local res = KeyboardHelper:getInstance():hookOn()
+        if res then
+            log("Hook success")
+        else
+            log("Hook failed")
+        end
     end
 
     -- set random seed

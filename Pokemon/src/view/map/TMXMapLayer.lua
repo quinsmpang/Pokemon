@@ -24,7 +24,6 @@ TMXMapLayer.hero = nil 			-- 玩家精灵
 TMXMapLayer.npcList = nil 		-- NPC sprite集合
 
 -- logic
-TMXMapLayer.tiles = nil 			-- 二维数组
 TMXMapLayer.obstacleList = nil		-- 障碍物(Obstacle model)集合
 TMXMapLayer.entranceList = nil		-- 入口出口(Entrance model)集合
 TMXMapLayer.triggerList = nil 		-- 剧情触发点(Trigger model)集合
@@ -92,7 +91,6 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 	self.npcLayer = cc.Layer:create()
 	map:addChild(self.npcLayer, self.ZORDER.PLAYER)
 
-	self.tiles = {}
 	-- 判断地图是否拥有npc
 	log("Map Initialization: Loading npc")
 	self.npcList = {}
@@ -103,18 +101,16 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 		for _, npcObj in ipairs(npcObjects) do
 			if tonumber(npcObj["step"]) == DataCenter.currentPlayerData.currentStep or tonumber(npcObj["step"]) == 0 then
 				local npcModel = NPC:create(npcObj)
-				for i = 0, npcModel.width - 1 do
-					for j = 0, npcModel.height - 1 do
-						self.tiles[npcModel.position.x + i .. "," .. npcModel.position.y + j] = npcModel
-					end
-				end
 				local npc = NpcSprite:createWithModel(npcModel)
 				local npcPos = ccp(tonumber(npcObj["x"]), tonumber(npcObj["y"]))
 				npc:setAnchorPoint(0, 0)
 				npc:setPosition(npcPos)
-				table.insert(self.npcList, npc)
 				self.npcLayer:addChild(npc)
-				npcModel.__sprite = npc
+				for i = 0, npcModel.width - 1 do
+					for j = 0, npcModel.height - 1 do
+						self.npcList[npcModel.position.x + i .. "," .. npcModel.position.y + j] = npc
+					end
+				end
 			end
 		end
 	end
@@ -128,10 +124,9 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 		local obstacleObjects = obstacleObejctGroup:getObjects()
 		for _, obstacleObj in ipairs(obstacleObjects) do
 			local obstacleModel = Obstacle:create(obstacleObj)
-			table.insert(self.obstacleList, obstacleModel)
 			for i = 0, obstacleModel.width - 1 do
 				for j = 0, obstacleModel.height - 1 do
-					self.tiles[obstacleModel.position.x + i .. "," .. obstacleModel.position.y + j] = obstacleModel
+					self.obstacleList[obstacleModel.position.x + i .. "," .. obstacleModel.position.y + j] = obstacleModel
 				end
 			end
 		end
@@ -146,10 +141,9 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 		local entranceObjects = entranceObjectGroup:getObjects()
 		for _, entranceObj in ipairs(entranceObjects) do
 			local entranceModel = Entrance:create(entranceObj)
-			table.insert(self.entranceList, entranceModel)
 			for i = 0, entranceModel.width - 1 do
 				for j = 0, entranceModel.height - 1 do
-					self.tiles[entranceModel.position.x + i .. "," .. entranceModel.position.y + j] = entranceModel
+					self.entranceList[entranceModel.position.x + i .. "," .. entranceModel.position.y + j] = entranceModel
 				end
 			end
 		end
@@ -164,13 +158,17 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 		local triggerObjects = triggerObjectGroup:getObjects()
 		for _, triggerObj in ipairs(triggerObjects) do
 			local triggerModel = Trigger:create(triggerObj)
-			table.insert(self.triggerList, triggerModel)
+			for i = 0, triggerModel.width - 1 do
+				for j = 0, triggerModel.height - 1 do
+					self.triggerList[triggerModel.position.x + i .. "," .. triggerModel.position.y + j] = triggerModel
+				end
+			end
 		end
 	end
 
-	-- 如果当前是非活动状态，说明是剧情载入，则显示在剧情设定位置
 	log("Map Initialization: Loading hero")
 	DataCenter.currentPlayerData.currentMapId = mapInfo.id
+	-- 如果当前是非活动状态，说明是剧情载入，则显示在剧情设定位置
 	if DataCenter.currentPlayerData.currentStep ~= 0 then
 		local heroObjectGroup = map:getObjectGroup("heroObjects")
 		local heroObjects = heroObjectGroup:getObjects()
@@ -199,26 +197,26 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 			end
 		end
 	else
-		local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
-		local hero = HeroSprite:createWithSpriteFrameName(heroFrameName)
-		self.hero = hero
-		hero:setAnchorPoint(0, 0)
-		-- 通过入口切换
-		if MapStateController:getEntranceMapId() then
-			for _, entrance in ipairs(self.entranceList) do
-				if entrance.relatedMapId == MapStateController:getEntranceMapId() then
-					local entrancePos = entrance.position
-					DataCenter.currentPlayerData:updatePosition(entrancePos)
-					hero:setPosition(entrancePos.x * self.TILE_SIZE, entrancePos.y * self.TILE_SIZE)
-					break
-				end
-			end
-			MapStateController:setEntranceMapId(nil)
-		else
-			-- 说明是读取存档载入，直接显示在存档记录的位置
-			hero:setPosition(DataCenter.currentPlayerData.currentPosition.x * self.TILE_SIZE, DataCenter.currentPlayerData.currentPosition.y * self.TILE_SIZE)
-		end
-		self.playerLayer:addChild(hero)
+		-- local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
+		-- local hero = HeroSprite:createWithSpriteFrameName(heroFrameName)
+		-- self.hero = hero
+		-- hero:setAnchorPoint(0, 0)
+		-- -- 通过入口切换
+		-- if MapStateController:getEntranceMapId() then
+		-- 	for _, entrance in ipairs(self.entranceList) do
+		-- 		if entrance.relatedMapId == MapStateController:getEntranceMapId() then
+		-- 			local entrancePos = entrance.position
+		-- 			DataCenter.currentPlayerData:updatePosition(entrancePos)
+		-- 			hero:setPosition(entrancePos.x * self.TILE_SIZE, entrancePos.y * self.TILE_SIZE)
+		-- 			break
+		-- 		end
+		-- 	end
+		-- 	MapStateController:setEntranceMapId(nil)
+		-- else
+		-- 	-- 说明是读取存档载入，直接显示在存档记录的位置
+		-- 	hero:setPosition(DataCenter.currentPlayerData.currentPosition.x * self.TILE_SIZE, DataCenter.currentPlayerData.currentPosition.y * self.TILE_SIZE)
+		-- end
+		-- self.playerLayer:addChild(hero)
 	end
 
 	self:updatePlayerPosition()

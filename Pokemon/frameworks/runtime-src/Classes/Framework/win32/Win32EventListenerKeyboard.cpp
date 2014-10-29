@@ -25,44 +25,41 @@ namespace framework
 	bool Win32EventListenerKeyboard::initWithTarget(Node *target)
 	{
 		auto callback = [this](Node *sender, Win32EventArgs* args) {
-			if (this->_isEnabled) 
-			{
-				void *pParams = args->getParams();
-				int keyCode = *((int*)pParams);		// The first param is keycode
-				int keyState = *((int*)pParams + 1);		// The second param is key state
+			void *pParams = args->getParams();
+			int keyCode = *((int*)pParams);		// The first param is keycode
+			int keyState = *((int*)pParams + 1);		// The second param is key state
 
-				if (keyState == 1)
+			if (keyState == 1)
+			{
+				// key down
+				if (this->onWin32KeyDown)
 				{
-					// key down
-					if (this->onWin32KeyDown)
-					{
-						this->onWin32KeyDown(keyCode);
-					}
-					// script support
-#if CC_ENABLE_SCRIPT_BINDING
-					if (_scriptType == kScriptTypeLua && _keyDownScriptHandler > 0)
-					{
-						tolua_pushnumber(LuaEngine::getInstance()->getLuaStack()->getLuaState(), keyCode);
-						LuaEngine::getInstance()->getLuaStack()->executeFunctionByHandler(_keyDownScriptHandler, 1);
-					}
-#endif
+					this->onWin32KeyDown(keyCode);
 				}
-				else if (keyState == 2)
+				// script support
+#if CC_ENABLE_SCRIPT_BINDING
+				if (_scriptType == kScriptTypeLua && _keyDownScriptHandler > 0)
 				{
-					// key up
-					if (this->onWin32KeyUp)
-					{
-						this->onWin32KeyUp(keyCode);
-					}
-					// script support
-#if CC_ENABLE_SCRIPT_BINDING
-					if (_scriptType == kScriptTypeLua && _keyUpScriptHandler > 0)
-					{
-						tolua_pushnumber(LuaEngine::getInstance()->getLuaStack()->getLuaState(), keyCode);
-						LuaEngine::getInstance()->getLuaStack()->executeFunctionByHandler(_keyUpScriptHandler, 1);
-					}
-#endif
+					tolua_pushnumber(LuaEngine::getInstance()->getLuaStack()->getLuaState(), keyCode);
+					LuaEngine::getInstance()->getLuaStack()->executeFunctionByHandler(_keyDownScriptHandler, 1);
 				}
+#endif
+			}
+			else if (keyState == 2)
+			{
+				// key up
+				if (this->onWin32KeyUp)
+				{
+					this->onWin32KeyUp(keyCode);
+				}
+				// script support
+#if CC_ENABLE_SCRIPT_BINDING
+				if (_scriptType == kScriptTypeLua && _keyUpScriptHandler > 0)
+				{
+					tolua_pushnumber(LuaEngine::getInstance()->getLuaStack()->getLuaState(), keyCode);
+					LuaEngine::getInstance()->getLuaStack()->executeFunctionByHandler(_keyUpScriptHandler, 1);
+				}
+#endif
 			}
 		};
 

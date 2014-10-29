@@ -10,9 +10,8 @@ require "src/view/map/TMXMapLayer"
 require "src/view/map/MessageTip"
 require "src/view/map/MapNameBoard"
 
+MapLayerController.root = nil
 MapLayerController.currentMap = nil		-- 当前地图层
-
-MapLayerController.menuLayerController = nil 	-- 当前的menu controller
 
 -- logic
 MapLayerController.isDirectionKeyPressed = nil
@@ -54,8 +53,6 @@ function MapLayerController:addObservers()
 	log("MapLayerController:addObservers")
 	Notifier:addObserver(NotifyEvents.MapView.ActionBegan, self, self.onActionBegan)
 	Notifier:addObserver(NotifyEvents.MapView.SwitchMap, self, self.switchMap)
-	Notifier:addObserver(NotifyEvents.MapView.MapKeyboardResponse, self, self.onKeyboardEvent)
-	Notifier:addObserver(NotifyEvents.MapView.MapStateChanged, self, self.onMapStateChanged)
 end
 
 function MapLayerController:removeObservers()
@@ -63,8 +60,6 @@ function MapLayerController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.MapView.ActionBegan, self)
 	Notifier:removeObserver(NotifyEvents.MapView.SwitchMap, self)
 	Notifier:removeObserver(NotifyEvents.MapView.ActionInstructionsEnded, self)
-	Notifier:removeObserver(NotifyEvents.MapView.MapKeyboardResponse, self)
-	Notifier:removeObserver(NotifyEvents.MapView.MapStateChanged, self)
 end
 
 function MapLayerController:renderView()
@@ -73,6 +68,10 @@ function MapLayerController:renderView()
 	self.isEnabled = true
 
 	local coreLayer = self:getScene():getCoreLayer()
+
+	self.root = cc.Layer:create()
+	self.root:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
+	coreLayer:addChild(self.root)
 
 	local screenSize = cc.Director:getInstance():getWinSize()
 
@@ -83,6 +82,28 @@ function MapLayerController:renderView()
 	self.currentMap = map
 
 	coreLayer:pushLayer(map)
+end
+
+function MapLayerController:onNodeEvent(event)
+	if event == "enter" then
+		local kbdListener = Win32EventListenerKeyboard:createWithTarget(self.root)
+		kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
+		kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardReleased), pf.Handler.WIN32_KEYBOARD_UP)
+		Win32Notifier:getInstance():addEventListener(kbdListener)
+		self.kbdListener = kbdListener
+	elseif event == "exit" then
+		if self.kbdListener then
+			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
+		end
+	end
+end
+
+function MapLayerController:onKeyboardPressed(keyCode)
+	log("!!!")
+end
+
+function MapLayerController:onKeyboardReleased(keyCode)
+	log("@@@")
 end
 
 function MapLayerController:onKeyboardEvent(keyCode, eventType, pressedKeys)

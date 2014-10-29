@@ -9,12 +9,6 @@ NotifyEvents = {}
 -- 地图事件
 NotifyEvents.MapView = NotifyEvents.MapView or {}
 
--- 响应MapLayerController的键盘事件	MapCoreLayer通知, MapLayerController接收
-NotifyEvents.MapView.MapKeyboardResponse = "NotifyEvents.MapView.MapKeyboardResponse"
--- 响应DialogLayerController的键盘事件	MapCoreLayer通知, DialogLayerController接收
-NotifyEvents.MapView.DialogKeyboardResponse = "NotifyEvents.MapView.DialogKeyboardResponse"
--- 响应MenuLayerController的键盘事件	MapCoreLayer通知, MenuLayerController接收
-NotifyEvents.MapView.MenuKeyboardResponse = "NotifyEvents.MapView.MenuKeyboardResponse"
 -- 开始处理Action  ActionController通知, MapLayerController接收
 NotifyEvents.MapView.ActionBegan = "NotifyEvents.MapView.ActionBegan"
 -- Action处理完毕  MapLayerController通知，DialogLayerController接收
@@ -23,8 +17,6 @@ NotifyEvents.MapView.ActionEnded = "NotifyEvents.MapView.ActionEnded"
 NotifyEvents.MapView.ActionInstructionsEnded = "NotifyEvents.MapView.ActionInstructionsEnded"
 -- 切换地图	TMXMapLayer通知，MapLayerController接收
 NotifyEvents.MapView.SwitchMap = "NotifyEvents.MapView.SwitchMap"
--- 地图状态变更 MapStateController通知，MapLayerController, DialogLayerController, MenuLayerController接收
-NotifyEvents.MapView.MapStateChanged = "NotifyEvents.MapView.MapStateChanged"
 -- 菜单项被选中 MapMenu通知, MenuLayerController接收
 NotifyEvents.MapView.MenuItemSelected = "NotifyEvents.MapView.MenuItemSelected"
 -- 开始处理Response  ResponseController通知, DialogLayerController, MapLayerController, MenuLayerController接收

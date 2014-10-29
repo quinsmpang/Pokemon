@@ -96,7 +96,7 @@ function table.select(table, selector)
 	end
 
 	local newTable = {}
-	for _, v in ipairs(table) do
+	for _, v in pairs(table) do
 		if selector(v) then
 			_G["table"].insert(newTable, v)
 		end
@@ -111,7 +111,7 @@ function table.cast(table, caster)
 	end
 
 	local newTable = {}
-	for _, v in ipairs(table) do
+	for _, v in pairs(table) do
 		local item = caster(v)
 		_G["table"].insert(newTable, item)
 	end
@@ -124,7 +124,7 @@ function table.contains(table, selector, ...)
 		return false
 	end
 
-	for _, v in ipairs(table) do
+	for _, v in pairs(table) do
 		if selector(v, unpack{...}) then
 			return true
 		end
@@ -138,7 +138,7 @@ function table.find(table, selector, ...)
 		return false
 	end
 
-	for _, v in ipairs(table) do
+	for _, v in pairs(table) do
 		if selector(v, unpack{...}) then
 			return v
 		end

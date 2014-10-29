@@ -28,22 +28,6 @@ Enumerations.ACTION_TYPE = {
 	FADEOUTIN = 4,		-- 立即更换地图
 }
 
--- 地图状态
-Enumerations.MAP_STATE = {
-	FREEDOM = 1,	-- 自由活动状态
-	DIALOG = 2,		-- 对话状态
-	MENU = 3,		-- 菜单状态
-	LOADING = 4,	-- 读取状态
-	INFO = 5,		-- 查看信息状态
-}
-
--- 键盘状态
-Enumerations.KEYBOARD_STATE = {
-	PRESSED = 1,
-	RELEASED = 2,
-	LONGPRESSED = 3,
-}
-
 -- 响应类型
 Enumerations.RESPONSE_TYPE = {
 	NORMAL = 0,

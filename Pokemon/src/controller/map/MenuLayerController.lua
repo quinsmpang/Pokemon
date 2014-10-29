@@ -4,6 +4,7 @@
 	Date: 07/04/2014
 ]]
 
+--[[ DEPRECATED ]]
 class("MenuLayerController", psViewController)
 
 require "src/view/map/MapMenuLayer"
@@ -43,13 +44,11 @@ end
 
 function MenuLayerController:addObservers()
 	log("MenuLayerController:addObservers")
-	Notifier:addObserver(NotifyEvents.MapView.MapKeyboardResponse, self, self.onKeyboardEvent)
 	Notifier:addObserver(NotifyEvents.MapView.MenuItemSelected, self, self.onMenuItemSelected)
 end
 
 function MenuLayerController:removeObservers()
 	log("MenuLayerController:removeObservers")
-	Notifier:removeObserver(NotifyEvents.MapView.MapKeyboardResponse, self)
 	Notifier:removeObserver(NotifyEvents.MapView.MenuItemSelected, self)
 end
 

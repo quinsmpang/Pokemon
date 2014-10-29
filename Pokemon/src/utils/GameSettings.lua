@@ -30,13 +30,13 @@ function GameSettings:loadSettings()
 		self.effectVolume = 0.5
 
 		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
-			self.upKey = cc.KeyCode.KEY_UP_ARROW
-			self.downKey = cc.KeyCode.KEY_DOWN_ARROW
-			self.leftKey = cc.KeyCode.KEY_LEFT_ARROW
-			self.rightKey = cc.KeyCode.KEY_RIGHT_ARROW
-			self.confirmKey = 99		-- c
-			self.cancelKey = 118		-- V
-			self.startKey = cc.KeyCode.KEY_KP_ENTER
+			self.upKey = pf.Win32KeyCode.VK_UP
+			self.downKey = pf.Win32KeyCode.VK_DOWN
+			self.leftKey = pf.Win32KeyCode.VK_LEFT
+			self.rightKey = pf.Win32KeyCode.VK_RIGHT
+			self.confirmKey = pf.Win32KeyCode.VK_C
+			self.cancelKey = pf.Win32KeyCode.VK_V
+			self.startKey = pf.Win32KeyCode.VK_RETURN
 		end
 	else
 		log("config file found, load settings.")
