@@ -15,34 +15,26 @@ namespace framework
 	{
 		if (nCode == HC_ACTION)
 		{
-			KBDLLHOOKSTRUCT *pKbdInfo = (KBDLLHOOKSTRUCT*)lParam;
-			int vkCode = pKbdInfo->vkCode;
-			DWORD keyState = wParam;
-			if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
-			{
-				// key down
-				//cout << vkCode << " key down" << endl;
-				if (vkCode != g_lastKeyCode)
-				{
-					int *keyData = new int[2];
-					keyData[0] = vkCode;
-					keyData[1] = 1;
-					Win32Notifier::getInstance()->notify(Win32EventListener::Win32EventListenerType::KEYBOARD, new Win32EventArgs(keyData));
+			int vkCode = (int)wParam;
 
-					g_lastKeyCode = vkCode;
-				}
-			}
-			else if (wParam == WM_KEYUP || wParam == WM_SYSKEYUP)
+			// the 31th bit indicates the key state
+			if (lParam & 0x80000000)
 			{
-				// key up
-				//cout << vkCode << " key up" << endl;
+				// the key is released
 				int *keyData = new int[2];
 				keyData[0] = vkCode;
 				keyData[1] = 2;
 				Win32Notifier::getInstance()->notify(Win32EventListener::Win32EventListenerType::KEYBOARD, new Win32EventArgs(keyData));
+			}
+			else
+			{
+				// the key is pressed
+				int *keyData = new int[2];
+				keyData[0] = vkCode;
+				keyData[1] = 1;
+				Win32Notifier::getInstance()->notify(Win32EventListener::Win32EventListenerType::KEYBOARD, new Win32EventArgs(keyData));
 
-				// reset
-				g_lastKeyCode = 0;
+				g_lastKeyCode = vkCode;
 			}
 
 			return CallNextHookEx(g_hHook, nCode, wParam, lParam);
@@ -59,9 +51,6 @@ namespace framework
 		// get current application handle
 		// HINSTANCE instance = GetModuleHandle(nullptr);
 		// CCASSERT(instance, "Invalid application handle");
-		HWND hwnd = GetActiveWindow();
-		DWORD processId;
-		DWORD threadId = GetWindowThreadProcessId(hwnd, &processId);
 
 		// the hook is already installed
 		if (g_hHook != INVALID_HOOK)
@@ -70,11 +59,16 @@ namespace framework
 		}
 
 		// g_hHook = SetWindowsHookEx(WH_KEYBOARD_LL, DefaultKeyboardProc, instance, NULL);
-		g_hHook = SetWindowsHookEx(WH_KEYBOARD_LL, DefaultKeyboardProc, NULL, threadId);
+		// low-level keyboard hook can only be set to global, so use normal keyboard hook here.
+		g_hHook = SetWindowsHookEx(WH_KEYBOARD, DefaultKeyboardProc, NULL, GetCurrentThreadId());
 
 		// install failed
 		if (g_hHook == INVALID_HOOK)
 		{
+			DWORD error = GetLastError();
+			LPVOID pBuffer = NULL;
+			FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)&pBuffer, 0, NULL);
+			MessageBoxW( NULL, (LPCTSTR)pBuffer, L"Error", MB_OK | MB_ICONINFORMATION );
 			return false;
 		}
 

@@ -106,8 +106,6 @@ function KeysetLayer:setAvailableKeys()
 
 	self.availableKeys = {}
 	self.availableKeys[pf.Win32KeyCode.VK_RETURN] = "ENTER"
-	self.availableKeys[pf.Win32KeyCode.VK_LMENU] = "LALT"
-	self.availableKeys[pf.Win32KeyCode.VK_RMENU] = "RALT"
 	self.availableKeys[pf.Win32KeyCode.VK_INSERT] = "INSERT"
 	self.availableKeys[pf.Win32KeyCode.VK_HOME] = "HOME"
 	self.availableKeys[pf.Win32KeyCode.VK_SELECT] = "SELECT"
@@ -156,10 +154,9 @@ function KeysetLayer:setAvailableKeys()
 	self.availableKeys[88] = "X"
 	self.availableKeys[89] = "Y"
 	self.availableKeys[90] = "Z"
-	self.availableKeys[160] = "LSHIFT"
-	self.availableKeys[161] = "RSHIFT"
-	self.availableKeys[162] = "LCTRL"
-	self.availableKeys[163] = "RCTRL"
+	self.availableKeys[pf.Win32KeyCode.VK_CONTROL] = "CTRL"
+	self.availableKeys[pf.Win32KeyCode.VK_SHIFT] = "SHIFT"
+	self.availableKeys[pf.Win32KeyCode.VK_ALT] = "ALT"
 end
 
 function KeysetLayer:setKeyString(index, panel)

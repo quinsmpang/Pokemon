@@ -99,7 +99,39 @@ function MapLayerController:onNodeEvent(event)
 end
 
 function MapLayerController:onKeyboardPressed(keyCode)
-	log("!!!")
+	-- 方向键处理
+	if keyCode == GameSettings.upKey or keyCode == GameSettings.downKey or keyCode == GameSettings.leftKey or keyCode == GameSettings.rightKey then
+		self.isDirectionKeyPressed = true
+
+		local nextDir = nil
+		if keyCode == GameSettings.upKey then
+			nextDir = Enumerations.DIRECTIONS.UP
+		elseif keyCode == GameSettings.downKey then
+			nextDir = Enumerations.DIRECTIONS.DOWN
+		elseif keyCode == GameSettings.leftKey then
+			nextDir = Enumerations.DIRECTIONS.LEFT
+		elseif keyCode == GameSettings.rightKey then
+			nextDir = Enumerations.DIRECTIONS.RIGHT
+		else
+			return
+		end
+
+		self.nextDirection = nextDir
+
+		self:handleDirectionEvents()
+
+		-- scheduler is not friendly.
+		--self.walkSchedulerEntry = cc.Director:getInstance():getScheduler():scheduleScriptFunc(MakeScriptHandler(self, self.onWalkSchedule, nextDir), HeroSprite.WALK_DURATION * 2, false)
+	elseif keyCode == GameSettings.confirmKey then
+		if self.currentMap then
+			local response = self.currentMap:checkResponse()
+			if response then
+				ResponseController:processResponse(response)
+			end
+		end
+	elseif keyCode == GameSettings.cancelKey then
+		self.isCancelKeyPressed = true
+	end
 end
 
 function MapLayerController:onKeyboardReleased(keyCode)
