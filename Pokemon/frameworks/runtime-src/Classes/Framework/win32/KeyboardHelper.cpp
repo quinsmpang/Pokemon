@@ -57,8 +57,11 @@ namespace framework
 	bool KeyboardHelper::hookOn()
 	{
 		// get current application handle
-		HINSTANCE instance = GetModuleHandle(nullptr);
-		CCASSERT(instance, "Invalid application handle");
+		// HINSTANCE instance = GetModuleHandle(nullptr);
+		// CCASSERT(instance, "Invalid application handle");
+		HWND hwnd = GetActiveWindow();
+		DWORD processId;
+		DWORD threadId = GetWindowThreadProcessId(hwnd, &processId);
 
 		// the hook is already installed
 		if (g_hHook != INVALID_HOOK)
@@ -66,7 +69,8 @@ namespace framework
 			return false;
 		}
 
-		g_hHook = SetWindowsHookEx(WH_KEYBOARD_LL, DefaultKeyboardProc, instance, NULL);
+		// g_hHook = SetWindowsHookEx(WH_KEYBOARD_LL, DefaultKeyboardProc, instance, NULL);
+		g_hHook = SetWindowsHookEx(WH_KEYBOARD_LL, DefaultKeyboardProc, NULL, threadId);
 
 		// install failed
 		if (g_hHook == INVALID_HOOK)
