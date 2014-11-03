@@ -296,7 +296,10 @@ function HeroSprite:getNextPosition(direction)
 end
 
 function HeroSprite:changeDirection(newDirection)
-	log("Hero change direction to [" .. (newDirection or "nil") .. "]")
+	if DataCenter.currentPlayerData.currentDirection == newDirection then
+		return
+	end
+	-- log("Hero change direction to [" .. (newDirection or "nil") .. "]")
 
 	local directionStr = nil
 	if newDirection == Enumerations.DIRECTIONS.UP then

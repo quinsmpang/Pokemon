@@ -146,6 +146,41 @@ function table.find(table, selector, ...)
 	return nil
 end
 
+-- remove the object which satisfied the condition
+function table.erase(table, selector, ...)
+	if type(table) ~= "table" then
+		return false
+	end
+
+	for i, v in ipairs(table) do
+		if selector(v, unpack{...}) then
+			_G["table"].remove(table, i)
+			return true
+		end
+	end
+	return false
+end
+
+-- log table
+function table.dump(table)   
+    function dump(data, prefix)
+		local str = tostring(data)
+		local prefix_next = prefix .. "\t"
+		str = str .. "\n" .. prefix .. "{"
+		for k, v in pairs(data) do
+			str = str .. "\n" .. prefix_next .. k .. " = "
+			if type(v) == "table" then
+				str = str .. dump(v, prefix_next)
+			else
+				str = str .. tostring(v)
+			end
+		end
+		str = str .. "\n" .. prefix .. "}"
+		return str
+	end
+	print(dump(table, ""))
+end  
+
 -- split string from the specified character
 function string.split(str, splitChar)
 	local resultTable = {}

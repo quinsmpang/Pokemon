@@ -9,6 +9,8 @@ NotifyEvents = {}
 -- 地图事件
 NotifyEvents.MapView = NotifyEvents.MapView or {}
 
+-- 处理地图状态	TMXMapLayer通知, MapLayerController观察
+NotifyEvents.MapView.MapUpdate = "NotifyEvents.MapView.MapUpdate"
 -- 开始处理Action  ActionController通知, MapLayerController接收
 NotifyEvents.MapView.ActionBegan = "NotifyEvents.MapView.ActionBegan"
 -- Action处理完毕  MapLayerController通知，DialogLayerController接收

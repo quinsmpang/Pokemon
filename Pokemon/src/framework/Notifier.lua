@@ -59,7 +59,7 @@ function Notifier:removeObserver(event, sender)
 end
 
 function Notifier:notify(event, ...)
-	log("Notifier:notify", event)
+	-- log("Notifier:notify", event)
 	for k, v in pairs(self.observerMap) do
 		if k == event then
 			for _, observer in ipairs(v) do

@@ -14,10 +14,9 @@ MapLayerController.root = nil
 MapLayerController.currentMap = nil		-- 当前地图层
 
 -- logic
-MapLayerController.isDirectionKeyPressed = nil
-MapLayerController.isCancelKeyPressed = nil
-MapLayerController.isEnabled = nil
+MapLayerController.pressedDirectionKeys = nil
 MapLayerController.nextDirection = nil
+MapLayerController.playerState = nil
 
 -- const
 MapLayerController.KEYBOARD_DT = 0.25
@@ -25,6 +24,13 @@ MapLayerController.KEYBOARD_DT = 0.25
 MapLayerController.resources = {
 	"images/characters.plist", 
 	"images/characters.pvr.ccz",
+}
+
+local PLAYER_STATE = {
+	STANDING = 0,	-- 站立状态
+	WALKING = 1,	-- 行走
+	RUNNING = 2,	-- 跑步
+	BYCICLE = 3,	-- 自行车 
 }
 
 function MapLayerController:load()
@@ -53,19 +59,19 @@ function MapLayerController:addObservers()
 	log("MapLayerController:addObservers")
 	Notifier:addObserver(NotifyEvents.MapView.ActionBegan, self, self.onActionBegan)
 	Notifier:addObserver(NotifyEvents.MapView.SwitchMap, self, self.switchMap)
+	Notifier:addObserver(NotifyEvents.MapView.MapUpdate, self, self.onMapUpdate)
 end
 
 function MapLayerController:removeObservers()
 	log("MapLayerController:removeObservers")
 	Notifier:removeObserver(NotifyEvents.MapView.ActionBegan, self)
 	Notifier:removeObserver(NotifyEvents.MapView.SwitchMap, self)
+	Notifier:removeObserver(NotifyEvents.MapView.MapUpdate, self)
 	Notifier:removeObserver(NotifyEvents.MapView.ActionInstructionsEnded, self)
 end
 
 function MapLayerController:renderView()
-	self.isDirectionKeyPressed = false
-	self.isCancelKeyPressed = false
-	self.isEnabled = true
+	self.pressedDirectionKeys = {}
 
 	local coreLayer = self:getScene():getCoreLayer()
 
@@ -82,6 +88,8 @@ function MapLayerController:renderView()
 	self.currentMap = map
 
 	coreLayer:pushLayer(map)
+
+	self.playerState = PLAYER_STATE.STANDING
 end
 
 function MapLayerController:onNodeEvent(event)
@@ -94,34 +102,49 @@ function MapLayerController:onNodeEvent(event)
 	elseif event == "exit" then
 		if self.kbdListener then
 			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
+			self.kbdListener = nil
 		end
 	end
 end
 
+-- used in TMXMapLayer's update scheduler
+function MapLayerController:onMapUpdate(dt)
+	if not self.currentMap then
+		return
+	end
+
+	if DataCenter.currentPlayerData.currentStep == 0 then
+		local hero = self.currentMap.hero
+		-- log("Current state: ", self.playerState)
+		if self.playerState == PLAYER_STATE.STANDING then
+			if self.nextDirection then
+				hero:changeDirection(self.nextDirection)
+				self.nextDirection = nil
+			end
+		elseif self.playerState == PLAYER_STATE.WALKING then
+			if self.nextDirection then
+				hero:changeDirection(self.nextDirection)
+				self.nextDirection = nil
+			else
+				self.currentMap:heroWalk(DataCenter.currentPlayerData.currentDirection)
+			end
+		elseif self.playerState == PLAYER_STATE.RUNNING then
+		elseif self.playerState == PLAYER_STATE.BYCICLE then
+		end
+		self:checkPlayerState()
+	end
+end
+
 function MapLayerController:onKeyboardPressed(keyCode)
+	if keyCode ~= GameSettings.upKey and keyCode ~= GameSettings.downKey and keyCode ~= GameSettings.leftKey and keyCode ~= GameSettings.rightKey
+		and keyCode ~= GameSettings.confirmKey and keyCode ~= GameSettings.cancelKey and keyCode ~= GameSettings.startKey then
+		return
+	end
+
 	-- 方向键处理
 	if keyCode == GameSettings.upKey or keyCode == GameSettings.downKey or keyCode == GameSettings.leftKey or keyCode == GameSettings.rightKey then
-		self.isDirectionKeyPressed = true
-
-		local nextDir = nil
-		if keyCode == GameSettings.upKey then
-			nextDir = Enumerations.DIRECTIONS.UP
-		elseif keyCode == GameSettings.downKey then
-			nextDir = Enumerations.DIRECTIONS.DOWN
-		elseif keyCode == GameSettings.leftKey then
-			nextDir = Enumerations.DIRECTIONS.LEFT
-		elseif keyCode == GameSettings.rightKey then
-			nextDir = Enumerations.DIRECTIONS.RIGHT
-		else
-			return
-		end
-
-		self.nextDirection = nextDir
-
-		self:handleDirectionEvents()
-
-		-- scheduler is not friendly.
-		--self.walkSchedulerEntry = cc.Director:getInstance():getScheduler():scheduleScriptFunc(MakeScriptHandler(self, self.onWalkSchedule, nextDir), HeroSprite.WALK_DURATION * 2, false)
+		self.nextDirection = self:getDirectionByKeyCode(keyCode)
+		table.insert(self.pressedDirectionKeys, keyCode)
 	elseif keyCode == GameSettings.confirmKey then
 		if self.currentMap then
 			local response = self.currentMap:checkResponse()
@@ -129,13 +152,51 @@ function MapLayerController:onKeyboardPressed(keyCode)
 				ResponseController:processResponse(response)
 			end
 		end
-	elseif keyCode == GameSettings.cancelKey then
-		self.isCancelKeyPressed = true
 	end
+	self:checkPlayerState()
 end
 
 function MapLayerController:onKeyboardReleased(keyCode)
-	log("@@@")
+	-- 方向键处理
+	if keyCode == GameSettings.upKey or keyCode == GameSettings.downKey or keyCode == GameSettings.leftKey or keyCode == GameSettings.rightKey then
+		table.erase(self.pressedDirectionKeys, function(key)
+			return key == keyCode
+		end, keyCode)
+		if #self.pressedDirectionKeys > 0 then
+			local latestKey = self.pressedDirectionKeys[#self.pressedDirectionKeys]
+			self.nextDirection = self:getDirectionByKeyCode(latestKey)
+		end
+	end
+	self:checkPlayerState()
+end
+
+function MapLayerController:checkPlayerState()
+	if #self.pressedDirectionKeys > 0 then
+		if KeyboardHelper:getInstance():isKeyPressed(GameSettings.cancelKey) then
+			self.playerState = PLAYER_STATE.RUNNING
+		else
+			self.playerState = PLAYER_STATE.WALKING
+		end
+	else
+		self.playerState = PLAYER_STATE.STANDING
+	end
+end
+
+function MapLayerController:getDirectionByKeyCode(keyCode)
+	local nextDir = nil
+	if keyCode == GameSettings.upKey then
+		nextDir = Enumerations.DIRECTIONS.UP
+	elseif keyCode == GameSettings.downKey then
+		nextDir = Enumerations.DIRECTIONS.DOWN
+	elseif keyCode == GameSettings.leftKey then
+		nextDir = Enumerations.DIRECTIONS.LEFT
+	elseif keyCode == GameSettings.rightKey then
+		nextDir = Enumerations.DIRECTIONS.RIGHT
+	else
+		assert(false, "Invalid direction")
+	end
+
+	return nextDir
 end
 
 function MapLayerController:onKeyboardEvent(keyCode, eventType, pressedKeys)
@@ -207,19 +268,23 @@ end
 
 function MapLayerController:handleDirectionEvents()
 	log("MapLayerController:handleDirectionEvents")
-	if self.isDirectionKeyPressed then
-		local hero = self.currentMap.hero
-		if self.isCancelKeyPressed then
-			self.currentMap:heroRun(self.nextDirection, MakeScriptHandler(self, self.turnBackStandState))
-		else
-			if not self.currentMap:isHeroMoving() and DataCenter.currentPlayerData.currentDirection ~= self.nextDirection then
-				hero:changeDirection(self.nextDirection)
-				DataCenter.currentPlayerData.currentDirection = self.nextDirection
-			else
-				self.currentMap:heroWalk(self.nextDirection)
-			end
-		end
+	if self.playerState == PLAYER_STATE.STANDING and DataCenter.currentPlayerData.currentDirection ~= self.nextDirection then
+		hero:changeDirection(self.nextDirection)
+	else
 	end
+	-- if self.isDirectionKeyPressed then
+	-- 	local hero = self.currentMap.hero
+	-- 	if self.isCancelKeyPressed then
+	-- 		self.currentMap:heroRun(self.nextDirection, MakeScriptHandler(self, self.turnBackStandState))
+	-- 	else
+	-- 		if not self.currentMap:isHeroMoving() and DataCenter.currentPlayerData.currentDirection ~= self.nextDirection then
+	-- 			hero:changeDirection(self.nextDirection)
+	-- 			DataCenter.currentPlayerData.currentDirection = self.nextDirection
+	-- 		else
+	-- 			self.currentMap:heroWalk(self.nextDirection)
+	-- 		end
+	-- 	end
+	-- end
 end
 
 -- 跑步完后 将状态设回站立

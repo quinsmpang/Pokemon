@@ -31,6 +31,7 @@ TMXMapLayer.instructions = nil 		-- 行走指令队列，一般在剧情中的�
 TMXMapLayer.isMoving = nil 			-- 是否在行走，自由行走的时候需要用到
 TMXMapLayer.isRunning = nil 		-- 是否在跑
 TMXMapLayer.upConcat = nil
+TMXMapLayer.scheduleHandle = nil 	-- 计时器句柄
 
 -- const
 TMXMapLayer.PLAYER_POS = ccp(384, 224)
@@ -220,9 +221,27 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 	end
 
 	self:updatePlayerPosition()
+	self:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
+
 	if self.mask then
 		self:addChild(self.mask, self.ZORDER.MASK)
 		self.mask:release()
+	end
+end
+
+function TMXMapLayer:onNodeEvent(event)
+	if event == "enter" then
+		self.scheduleHandle = cc.Director:getInstance():getScheduler():scheduleScriptFunc(MakeScriptHandler(self, self.onMapUpdate), 0.05, false)
+	elseif event == "exit" then
+		if self.scheduleHandle then
+			cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.scheduleHandle)
+		end
+	end
+end
+
+function TMXMapLayer:onMapUpdate(dt)
+	if DataCenter.currentPlayerData.currentStep == 0 then
+		Notifier:notify(NotifyEvents.MapView.MapUpdate)
 	end
 end
 
@@ -579,25 +598,25 @@ function TMXMapLayer:checkResponse()
 	local nextPos = self.hero:getNextPosition(DataCenter.currentPlayerData.currentDirection)
 
 	-- npc
-	local npc = self.tiles[nextPos.x .. "," .. nextPos.y]
-	if npc and npc.__className == "NPC" and npc.responseId ~= -1 then
+	local npc = self.npcList[nextPos.x .. "," .. nextPos.y]
+	if npc and npc.model.responseId ~= -1 then
 		-- 修改npc方向
-		npc.__sprite:updateDirection((DataCenter.currentPlayerData.currentDirection - 1 + 2) % 4 + 1)
+		npc:updateDirection((DataCenter.currentPlayerData.currentDirection - 1 + 2) % 4 + 1)
 		-- 判断是否和性别相关
-		if npc.specialResponseId ~= DBNULL then
-			local params = string.split(npc.specialResponseId, ",")	-- { gender, responseId }
+		if npc.model.specialResponseId ~= DBNULL then
+			local params = string.split(npc.model.specialResponseId, ",")	-- { gender, responseId }
 			local gender = tonumber(params[1])
 			local responseId = tonumber(params[2])
 			if gender ~= DataCenter.currentPlayerData.gender then
 				return Response:create(responseId)
 			end
 		end
-		return Response:create(npc.responseId)
+		return Response:create(npc.model.responseId)
 	end
 
 	-- 障碍物
-	local obstacle = self.tiles[nextPos.x .. "," .. nextPos.y]
-	if obstacle and obstacle.__className == "Obstacle" and obstacle.responseId ~= -1 then
+	local obstacle = self.obstacleList[nextPos.x .. "," .. nextPos.y]
+	if obstacle and obstacle.responseId ~= -1 then
 		local response = Response:create(obstacle.responseId)
 		return response
 	end

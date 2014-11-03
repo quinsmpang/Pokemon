@@ -2,13 +2,14 @@
 #include "Win32Notifier.h"
 #include "Win32EventArgs.h"
 #include <iostream>
+#include <list>
 
 using namespace std;
 
 namespace framework
 {
-	HHOOK g_hHook = INVALID_HOOK;	// handle of the hook
-	int g_lastKeyCode = 0;		// the last pressed key
+	static HHOOK g_hHook = INVALID_HOOK;	// handle of the hook
+	static list<int> g_pressedKeys;	// record pressed keys
 
 	// default hook callback function
 	LRESULT CALLBACK DefaultKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
@@ -25,16 +26,21 @@ namespace framework
 				keyData[0] = vkCode;
 				keyData[1] = 2;
 				Win32Notifier::getInstance()->notify(Win32EventListener::Win32EventListenerType::KEYBOARD, new Win32EventArgs(keyData));
+
+				g_pressedKeys.remove(vkCode);
 			}
 			else
 			{
 				// the key is pressed
-				int *keyData = new int[2];
-				keyData[0] = vkCode;
-				keyData[1] = 1;
-				Win32Notifier::getInstance()->notify(Win32EventListener::Win32EventListenerType::KEYBOARD, new Win32EventArgs(keyData));
+				if (g_pressedKeys.size() <= 0 || g_pressedKeys.back() != vkCode)
+				{
+					int *keyData = new int[2];
+					keyData[0] = vkCode;
+					keyData[1] = 1;
+					Win32Notifier::getInstance()->notify(Win32EventListener::Win32EventListenerType::KEYBOARD, new Win32EventArgs(keyData));
 
-				g_lastKeyCode = vkCode;
+					g_pressedKeys.push_back(vkCode);
+				}
 			}
 
 			return CallNextHookEx(g_hHook, nCode, wParam, lParam);
