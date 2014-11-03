@@ -539,8 +539,8 @@ end
 
 -- 入口检测
 function TMXMapLayer:checkEntrance(position)
-	local entrance = self.tiles[position.x .. "," .. position.y]
-	if entrance and entrance.__className == "Entrance" then
+	local entrance = self.entranceList[position.x .. "," .. position.y]
+	if entrance then
 		if DataCenter.currentPlayerData.currentDirection == entrance.direction then
 			if entrance:isEnabled() then
 				log("到达入口, 当前地图[" .. self.mapInfo.id .. "] 关联地图[" .. entrance.relatedMapId .. "]")
