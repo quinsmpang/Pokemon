@@ -164,6 +164,7 @@ end
 -- log table
 function table.dump(table)   
     function dump(data, prefix)
+    	prefix = prefix or ""
 		local str = tostring(data)
 		local prefix_next = prefix .. "\t"
 		str = str .. "\n" .. prefix .. "{"
@@ -178,7 +179,7 @@ function table.dump(table)
 		str = str .. "\n" .. prefix .. "}"
 		return str
 	end
-	print(dump(table, ""))
+	print(dump(table))
 end  
 
 -- split string from the specified character

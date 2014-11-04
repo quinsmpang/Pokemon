@@ -20,11 +20,11 @@ end
 
 -------------------------- Response 处理函数 --------------------------
 function ResponseController:response_Speak(params)
-	MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
+
 end
 
 function ResponseController:response_SpeakWithRest(params)
-	MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
+	
 end
 
 function ResponseController:response_ShowLayer(params)

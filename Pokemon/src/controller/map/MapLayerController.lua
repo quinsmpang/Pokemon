@@ -118,17 +118,26 @@ function MapLayerController:onMapUpdate(dt)
 		-- log("Current state: ", self.playerState)
 		if self.playerState == PLAYER_STATE.STANDING then
 			if self.nextDirection then
-				hero:changeDirection(self.nextDirection)
+				DataCenter.currentPlayerData.currentDirection = self.nextDirection
 				self.nextDirection = nil
+			end
+			if not self.currentMap.isMoving then
+				hero:changeDirection(DataCenter.currentPlayerData.currentDirection, true)
 			end
 		elseif self.playerState == PLAYER_STATE.WALKING then
 			if self.nextDirection then
-				hero:changeDirection(self.nextDirection)
+				DataCenter.currentPlayerData.currentDirection = self.nextDirection
 				self.nextDirection = nil
 			else
 				self.currentMap:heroWalk(DataCenter.currentPlayerData.currentDirection)
 			end
 		elseif self.playerState == PLAYER_STATE.RUNNING then
+			if self.nextDirection then
+				DataCenter.currentPlayerData.currentDirection = self.nextDirection
+				self.nextDirection = nil
+			else
+				self.currentMap:heroRun(DataCenter.currentPlayerData.currentDirection)
+			end
 		elseif self.playerState == PLAYER_STATE.BYCICLE then
 		end
 		self:checkPlayerState()
@@ -136,6 +145,10 @@ function MapLayerController:onMapUpdate(dt)
 end
 
 function MapLayerController:onKeyboardPressed(keyCode)
+	if not self.isEnabled then
+		return
+	end
+	-- log("MapLayerController:onKeyboardPressed", keyCode)
 	if keyCode ~= GameSettings.upKey and keyCode ~= GameSettings.downKey and keyCode ~= GameSettings.leftKey and keyCode ~= GameSettings.rightKey
 		and keyCode ~= GameSettings.confirmKey and keyCode ~= GameSettings.cancelKey and keyCode ~= GameSettings.startKey then
 		return
@@ -149,6 +162,9 @@ function MapLayerController:onKeyboardPressed(keyCode)
 		if self.currentMap then
 			local response = self.currentMap:checkResponse()
 			if response then
+				self.currentMap.hero:changeDirection(DataCenter.currentPlayerData.currentDirection, true)
+				self.nextDirection = nil
+				self.playerState = PLAYER_STATE.STANDING
 				ResponseController:processResponse(response)
 			end
 		end
@@ -199,106 +215,10 @@ function MapLayerController:getDirectionByKeyCode(keyCode)
 	return nextDir
 end
 
-function MapLayerController:onKeyboardEvent(keyCode, eventType, pressedKeys)
-	if not self.isEnabled then
-		return
-	end
-	log("MapLayerController:onKeyboardEvent, eventType: [" .. eventType .. "]")
-	if eventType == Enumerations.KEYBOARD_STATE.PRESSED then
-		-- 方向键处理
-		if keyCode == GameSettings.upKey or keyCode == GameSettings.downKey or keyCode == GameSettings.leftKey or keyCode == GameSettings.rightKey then
-			self.isDirectionKeyPressed = true
-
-			local nextDir = nil
-			if keyCode == GameSettings.upKey then
-				nextDir = Enumerations.DIRECTIONS.UP
-			elseif keyCode == GameSettings.downKey then
-				nextDir = Enumerations.DIRECTIONS.DOWN
-			elseif keyCode == GameSettings.leftKey then
-				nextDir = Enumerations.DIRECTIONS.LEFT
-			elseif keyCode == GameSettings.rightKey then
-				nextDir = Enumerations.DIRECTIONS.RIGHT
-			else
-				return
-			end
-
-			self.nextDirection = nextDir
-
-			self:handleDirectionEvents()
-
-			-- scheduler is not friendly.
-			--self.walkSchedulerEntry = cc.Director:getInstance():getScheduler():scheduleScriptFunc(MakeScriptHandler(self, self.onWalkSchedule, nextDir), HeroSprite.WALK_DURATION * 2, false)
-		elseif keyCode == GameSettings.confirmKey then
-			if self.currentMap then
-				local response = self.currentMap:checkResponse()
-				if response then
-					ResponseController:processResponse(response)
-				end
-			end
-		elseif keyCode == GameSettings.cancelKey then
-			self.isCancelKeyPressed = true
-		end
-	elseif eventType == Enumerations.KEYBOARD_STATE.RELEASED then
-		if keyCode == GameSettings.upKey or keyCode == GameSettings.downKey or keyCode == GameSettings.leftKey or keyCode == GameSettings.rightKey then
-			--cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.walkSchedulerEntry)
-			local hasDirectionKey = false
-			for _, pressedKey in ipairs(pressedKeys) do
-				if pressedKey == GameSettings.upKey or pressedKey == GameSettings.downKey or pressedKey == GameSettings.leftKey or pressedKey == GameSettings.rightKey then
-					hasDirectionKey = true
-					break
-				end
-			end
-			self.isDirectionKeyPressed = hasDirectionKey
-			if not hasDirectionKey then
-				self.currentMap.hero:changeDirection(DataCenter.currentPlayerData.currentDirection)
-			end
-		elseif keyCode == GameSettings.cancelKey then
-			self.isCancelKeyPressed = false
-		end
-	elseif eventType == Enumerations.KEYBOARD_STATE.LONGPRESSED then
-		if self.isDirectionKeyPressed then
-			if self.isCancelKeyPressed then
-				self.currentMap:heroRun(self.nextDirection, MakeScriptHandler(self, self.turnBackStandState))
-			else
-				self.currentMap:heroWalk(self.nextDirection)
-			end
-		end
-	end
-end
-
-function MapLayerController:handleDirectionEvents()
-	log("MapLayerController:handleDirectionEvents")
-	if self.playerState == PLAYER_STATE.STANDING and DataCenter.currentPlayerData.currentDirection ~= self.nextDirection then
-		hero:changeDirection(self.nextDirection)
-	else
-	end
-	-- if self.isDirectionKeyPressed then
-	-- 	local hero = self.currentMap.hero
-	-- 	if self.isCancelKeyPressed then
-	-- 		self.currentMap:heroRun(self.nextDirection, MakeScriptHandler(self, self.turnBackStandState))
-	-- 	else
-	-- 		if not self.currentMap:isHeroMoving() and DataCenter.currentPlayerData.currentDirection ~= self.nextDirection then
-	-- 			hero:changeDirection(self.nextDirection)
-	-- 			DataCenter.currentPlayerData.currentDirection = self.nextDirection
-	-- 		else
-	-- 			self.currentMap:heroWalk(self.nextDirection)
-	-- 		end
-	-- 	end
-	-- end
-end
-
--- 跑步完后 将状态设回站立
-function MapLayerController:turnBackStandState()
-	if not self.isCancelKeyPressed or not self.isDirectionKeyPressed then
-		self.currentMap.hero:changeDirection(DataCenter.currentPlayerData.currentDirection)
-		-- local frameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
-		-- local frame = cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName)
-		-- self.currentMap.hero:setSpriteFrame(frame)
-	end
-end
-
-function MapLayerController:switchMap(newMapId)
+function MapLayerController:switchMap(newMapId, lastMapId)
 	self.isEnabled = false
+	self.nextDirection = nil
+	self.playerState = PLAYER_STATE.STANDING
 	local coreLayer = self:getScene():getCoreLayer()
 
 	if self.currentMap and self.currentMap.mapInfo.id == newMapId then
@@ -312,15 +232,15 @@ function MapLayerController:switchMap(newMapId)
 			coreLayer:popLayer()
 		end
 
-		CallFunctionAsync(self, self.switchMapCallFunc, 0.25, newMapId)
+		CallFunctionAsync(self, self.switchMapCallFunc, 0.25, newMapId, lastMapId)
 	end
 	--coreLayer:pushLayer(newMap)
 end
-function MapLayerController:switchMapCallFunc(newMapId)
+function MapLayerController:switchMapCallFunc(newMapId, lastMapId)
 	local coreLayer = self:getScene():getCoreLayer()
 
 	local newMapInfo = MapInfo:create(newMapId)
-	local newMap = TMXMapLayer:createWithMapInfo(newMapInfo)
+	local newMap = TMXMapLayer:createWithMapInfo(newMapInfo, lastMapId)
 		
 	self.currentMap = newMap
 	self.currentMap:retain()
@@ -330,6 +250,8 @@ function MapLayerController:switchMapCallFunc(newMapId)
 			-- 检测当前位置是否有剧情触发
 			local trigger = newMap:checkTrigger(DataCenter.currentPlayerData.currentPosition)
 			if trigger then
+				self.nextDirection = nil
+				self.playerState = PLAYER_STATE.STANDING
 				newMap:continueStory(trigger)
 			end
 			self.isEnabled = true
@@ -342,27 +264,6 @@ function MapLayerController:switchMapCallFunc(newMapId)
 				coreLayer:addChild(board)
 			end
 		end, 0.25)
-end
-
-function MapLayerController:onMapStateChanged(oldState, newState)
-	if oldState == Enumerations.MAP_STATE.INFO and newState == Enumerations.MAP_STATE.MENU then
-		if self.menuLayerController then
-			self:getScene():addChild(self.menuLayerController.root)
-			self.menuLayerController.root:release()
-		end
-	elseif oldState ~= Enumerations.MAP_STATE.MENU and newState == Enumerations.MAP_STATE.FREEDOM then
-		self.menuLayerController = MenuLayerController:create()
-		self:getScene():loadViewController(self.menuLayerController)
-	elseif newState == Enumerations.MAP_STATE.DIALOG then
-		if self.menuLayerController then
-			self:getScene():unloadViewController(self.menuLayerController)
-		end
-	elseif newState == Enumerations.MAP_STATE.INFO then
-		if self.menuLayerController then
-			self.menuLayerController.root:retain()
-			self:getScene():removeChild(self.menuLayerController.root, false)
-		end
-	end
 end
 
 -------------------------- Action 处理函数 --------------------------

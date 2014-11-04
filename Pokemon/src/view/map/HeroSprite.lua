@@ -295,8 +295,8 @@ function HeroSprite:getNextPosition(direction)
 	return nextPos
 end
 
-function HeroSprite:changeDirection(newDirection)
-	if DataCenter.currentPlayerData.currentDirection == newDirection then
+function HeroSprite:changeDirection(newDirection, bForce)
+	if DataCenter.currentPlayerData.currentDirection == newDirection and not bForce then
 		return
 	end
 	-- log("Hero change direction to [" .. (newDirection or "nil") .. "]")

@@ -152,7 +152,7 @@ function DialogLayerController:setEnabled(isEnabled)
 end
 
 function DialogLayerController:onKeyboardPressed(keyCode)
-	log("DialogLayerController:onKeyboardPressed", keyCode)
+	-- log("DialogLayerController:onKeyboardPressed", keyCode)
 	if ActionController.isUnderAction then
 		return
 	end
@@ -201,6 +201,7 @@ function DialogLayerController:generateNextDialog()
 	end
 
 	-- 执行action处理 如果有的话
+	self:setEnabled(true)
 	if self.currentDialogModel and not ActionController.isUnderAction then
 		if self.currentDialogModel.actionId ~= DBNULL then
 			-- 如果action是-1，则进入自由活动
@@ -212,6 +213,7 @@ function DialogLayerController:generateNextDialog()
 				return
 			else
 				local actionModel = ActionInfo:create(self.currentDialogModel.actionId)
+				self:setEnabled(false)
 				ActionController:processAction(actionModel)
 				return
 			end
@@ -240,7 +242,7 @@ function DialogLayerController:generateNextResponse()
 		-- 普通对话完毕, 清空数据
 		self.currentResponse = nil
 		self.responseDialogs = nil
-		self.root:setVisible(false)
+		self:setEnabled(false)
 		DataCenter.currentPlayerData:enterFreedom(false)
 		ResponseController.isUnderResponse = false
 	else
@@ -292,6 +294,7 @@ end
 function DialogLayerController:response_Speak(params)
 	self.responseDialogs = string.split(params, ";")
 	self.currentResponseIndex = 0
+	self:setEnabled(true)
 	self:handleDialogDisplay()
 end
 

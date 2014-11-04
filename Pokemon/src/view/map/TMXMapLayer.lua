@@ -28,8 +28,7 @@ TMXMapLayer.obstacleList = nil		-- 障碍物(Obstacle model)集合
 TMXMapLayer.entranceList = nil		-- 入口出口(Entrance model)集合
 TMXMapLayer.triggerList = nil 		-- 剧情触发点(Trigger model)集合
 TMXMapLayer.instructions = nil 		-- 行走指令队列，一般在剧情中的行走才需要用到
-TMXMapLayer.isMoving = nil 			-- 是否在行走，自由行走的时候需要用到
-TMXMapLayer.isRunning = nil 		-- 是否在跑
+TMXMapLayer.isMoving = nil 			-- 是否在移动，自由行走的时候需要用到
 TMXMapLayer.upConcat = nil
 TMXMapLayer.scheduleHandle = nil 	-- 计时器句柄
 
@@ -44,7 +43,7 @@ TMXMapLayer.ZORDER = {
 }
 
 -- treat as static method
-function TMXMapLayer:createWithMapInfo(mapInfo)
+function TMXMapLayer:createWithMapInfo(mapInfo, lastMapId)
 	-- 本身无法修改opacity, 只好借助一个遮罩层来模拟FadeIn和FadeOut的效果
 	local mask = cc.LayerColor:create(ccc4(0, 0, 0, 255))
 	mask:setCascadeOpacityEnabled(true)
@@ -56,15 +55,14 @@ function TMXMapLayer:createWithMapInfo(mapInfo)
 		cc.TargetedAction:create(mask, cc.FadeIn:create(0.15))
 		)
 	mapLayer.mask = mask
-	mapLayer:initWithMapInfo(mapInfo)
+	mapLayer:initWithMapInfo(mapInfo, lastMapId)
 
 	return mapLayer
 end
 
-function TMXMapLayer:initWithMapInfo(mapInfo)
+function TMXMapLayer:initWithMapInfo(mapInfo, lastMapId)
 	self.mapInfo = mapInfo
 	self.isMoving = false
-	self.isRunning = false
 
 	local screenSize = cc.Director:getInstance():getWinSize()
 
@@ -198,26 +196,25 @@ function TMXMapLayer:initWithMapInfo(mapInfo)
 			end
 		end
 	else
-		-- local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
-		-- local hero = HeroSprite:createWithSpriteFrameName(heroFrameName)
-		-- self.hero = hero
-		-- hero:setAnchorPoint(0, 0)
-		-- -- 通过入口切换
-		-- if MapStateController:getEntranceMapId() then
-		-- 	for _, entrance in ipairs(self.entranceList) do
-		-- 		if entrance.relatedMapId == MapStateController:getEntranceMapId() then
-		-- 			local entrancePos = entrance.position
-		-- 			DataCenter.currentPlayerData:updatePosition(entrancePos)
-		-- 			hero:setPosition(entrancePos.x * self.TILE_SIZE, entrancePos.y * self.TILE_SIZE)
-		-- 			break
-		-- 		end
-		-- 	end
-		-- 	MapStateController:setEntranceMapId(nil)
-		-- else
-		-- 	-- 说明是读取存档载入，直接显示在存档记录的位置
-		-- 	hero:setPosition(DataCenter.currentPlayerData.currentPosition.x * self.TILE_SIZE, DataCenter.currentPlayerData.currentPosition.y * self.TILE_SIZE)
-		-- end
-		-- self.playerLayer:addChild(hero)
+		local heroFrameName = "images/characters/player_" .. DataCenter.currentPlayerData:getGenderString() .. "_walk_" .. DataCenter.currentPlayerData:getDirectionString() .. "1.png"
+		local hero = HeroSprite:createWithSpriteFrameName(heroFrameName)
+		self.hero = hero
+		hero:setAnchorPoint(0, 0)
+		-- 通过入口切换
+		if lastMapId then
+			for _, entrance in pairs(self.entranceList) do
+				if entrance.relatedMapId == lastMapId then
+					local entrancePos = entrance.position
+					DataCenter.currentPlayerData:updatePosition(entrancePos)
+					hero:setPosition(entrancePos.x * self.TILE_SIZE, entrancePos.y * self.TILE_SIZE)
+					break
+				end
+			end
+		else
+			-- 说明是读取存档载入，直接显示在存档记录的位置
+			hero:setPosition(DataCenter.currentPlayerData.currentPosition.x * self.TILE_SIZE, DataCenter.currentPlayerData.currentPosition.y * self.TILE_SIZE)
+		end
+		self.playerLayer:addChild(hero)
 	end
 
 	self:updatePlayerPosition()
@@ -282,6 +279,7 @@ function TMXMapLayer:heroWalk(direction, callback)
 	end
 
 	log("TMXMapLayer:heroWalk [" .. direction .. "]")
+	self.isMoving = true
 
 	if not self:validateLocation(direction) then
 		return
@@ -306,7 +304,6 @@ function TMXMapLayer:heroWalk(direction, callback)
 	table.insert(sequence, cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnd)))
 	local action = cc.Sequence:create(sequence)
 
-	self.isMoving = true
 	self:runAction(action)
 end
 
@@ -315,11 +312,12 @@ function TMXMapLayer:onMovingEnd()
 end
 
 function TMXMapLayer:heroRun(direction, callback)
-	if self.isRunning then
+	if self.isMoving then
 		return
 	end
 
 	log("TMXMapLayer:heroRun [" .. direction .. "]")
+	self.isMoving = true
 
 	if not self:validateLocation(direction) then
 		return
@@ -341,15 +339,10 @@ function TMXMapLayer:heroRun(direction, callback)
 	if callback then
 		table.insert(sequence, cc.CallFunc:create(callback))
 	end
-	table.insert(sequence, cc.CallFunc:create(MakeScriptHandler(self, self.onRunningEnd)))
+	table.insert(sequence, cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnd)))
 	local action = cc.Sequence:create(sequence)
 
-	self.isRunning = true
 	self:runAction(action)
-end
-
-function TMXMapLayer:onRunningEnd()
-	self.isRunning = false
 end
 
 function TMXMapLayer:validateLocation(direction)
@@ -379,7 +372,7 @@ function TMXMapLayer:validateLocation(direction)
 end
 
 function TMXMapLayer:heroWalkWithInstructions(sender, direction)
-	log("TMXMapLayer:heroWalkWithInstructions [" .. direction .. "]")
+	-- log("TMXMapLayer:heroWalkWithInstructions [" .. direction .. "]")
 
 	-- 设置hero移动后的位置
 	local nextPos = self.hero:getNextPosition(direction)
@@ -513,7 +506,7 @@ end
 
 -- 剧情触发点检测
 function TMXMapLayer:checkTrigger(position)
-	for _, trigger in ipairs(self.triggerList) do
+	for _, trigger in pairs(self.triggerList) do
 		if PositionEquals(position, trigger.position) and DataCenter.currentPlayerData.lastStep == trigger.lastStep then
 			return trigger
 		end
@@ -544,8 +537,8 @@ function TMXMapLayer:checkEntrance(position)
 		if DataCenter.currentPlayerData.currentDirection == entrance.direction then
 			if entrance:isEnabled() then
 				log("到达入口, 当前地图[" .. self.mapInfo.id .. "] 关联地图[" .. entrance.relatedMapId .. "]")
-				MapStateController:setEntranceMapId(self.mapInfo.id)
-				Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId)
+				-- MapStateController:setEntranceMapId(self.mapInfo.id)
+				Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId, self.mapInfo.id)
 				return true
 			else
 				local response = Response:simulate(DBNULL, entrance.message)
@@ -569,26 +562,23 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 	end
 
 	-- npc碰撞
-	local npc = self.tiles[nextPosition.x .. "," .. nextPosition.y]
-	if npc and npc.__className == "NPC" then
+	local npc = self.npcList[nextPosition.x .. "," .. nextPosition.y]
+	if npc then
 		log("与npc发生碰撞", npc.id)
 		return true
 	end
 
 	-- 障碍物碰撞
-	local obstacle = self.tiles[nextPosition.x .. "," .. nextPosition.y]
-	if obstacle and obstacle.__className == "Obstacle" then
+	local obstacle = self.obstacleList[nextPosition.x .. "," .. nextPosition.y]
+	if obstacle then
 		log("与障碍物发生碰撞", obstacle.id)
 		return true
 	end
 
 	-- 边界碰撞
-	-- 没有名字的地图一定是不需要连接的。所以才需要进行碰撞检测
-	if self.mapInfo.name == DBNULL then
-		if nextPosition.x < 0 or nextPosition.x >= self.width or nextPosition.y < 0 or nextPosition.y >= self.height then
-			log("边界碰撞")
-			return true
-		end
+	if nextPosition.x < 0 or nextPosition.x >= self.width or nextPosition.y < 0 or nextPosition.y >= self.height then
+		log("边界碰撞")
+		return true
 	end
 
 	return false

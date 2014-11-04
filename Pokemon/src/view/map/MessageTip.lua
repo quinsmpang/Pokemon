@@ -15,7 +15,7 @@ MessageTip.enableClick = nil
 
 MessageTip.FONT_SIZE = 18
 MessageTip.FONT_COLOR = ccc3(255, 0, 0)
-MessageTip.DELAY_TIME = 2
+MessageTip.DELAY_TIME = 1.5
 
 MessageTip.__create = psModalLayer.create
 
@@ -76,19 +76,22 @@ function MessageTip:onSceneEvent(event)
 			cc.ScaleTo:create(0.03, 1)
 			)
 		self.window:runAction(enterAction)
+
+		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+			local kbdListener = Win32EventListenerKeyboard:createWithTarget(self)
+			kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
+			Win32Notifier:getInstance():addEventListener(kbdListener)
+			self.kbdListener = kbdListener
+		end
 	elseif event == "exit" then
 		-- 移除监听
-		self:getEventDispatcher():removeEventListener(self.keyboardListener)
+		if self.kbdListener then
+			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
+		end
 	end
 end
 function MessageTip:onEnterEnd()
 	self.enableClick = true
-end
-
-function MessageTip:onModalTouchBegan(x, y)
-	if self.enableClick then
-		self:exit()
-	end
 end
 
 function MessageTip:onKeyboardPressed(keyCode)
