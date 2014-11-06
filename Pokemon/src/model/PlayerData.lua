@@ -13,7 +13,7 @@ PlayerData.currentMapId = DBNULL	-- 所在地图的id
 PlayerData.currentPosition = DBNULL	-- 所在位置的坐标
 PlayerData.currentDirection	= DBNULL	-- 当前面朝的方向
 PlayerData.lastStep = DBNULL		-- 剧情发生到的step
-PlayerData.currentStep = DBNULL	-- 当前正在发生的剧情step, 0表示自由活动
+PlayerData.currentStep = DBNULL		-- 当前正在发生的剧情step, 0表示自由活动
 PlayerData.lastDialogId = DBNULL	-- 当前执行到的对话id
 PlayerData.onBycicle = DBNULL		-- 是否在自行车上
 
@@ -74,7 +74,7 @@ end
 
 -- 进入自由活动
 function PlayerData:enterFreedom(bUpdateStep)
-	if bUpdateStep == nil then
+	if type(bUpdateStep) == "nil" then
 		bUpdateStep = true
 	end
 	log("PlayerData:enterFreedom", self.currentStep)
@@ -91,5 +91,5 @@ function PlayerData:enterStory()
 end
 
 function PlayerData:setStep(step)
-	self.step = step
+	self.currentStep = step
 end

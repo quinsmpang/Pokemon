@@ -60,6 +60,7 @@ function MapLayerController:addObservers()
 	Notifier:addObserver(NotifyEvents.MapView.ActionBegan, self, self.onActionBegan)
 	Notifier:addObserver(NotifyEvents.MapView.SwitchMap, self, self.switchMap)
 	Notifier:addObserver(NotifyEvents.MapView.MapUpdate, self, self.onMapUpdate)
+	Notifier:addObserver(NotifyEvents.MapView.ShowEntranceMessage, self, self.onShowEntranceMessage)
 end
 
 function MapLayerController:removeObservers()
@@ -67,6 +68,7 @@ function MapLayerController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.MapView.ActionBegan, self)
 	Notifier:removeObserver(NotifyEvents.MapView.SwitchMap, self)
 	Notifier:removeObserver(NotifyEvents.MapView.MapUpdate, self)
+	Notifier:removeObserver(NotifyEvents.MapView.ShowEntranceMessage, self)
 	Notifier:removeObserver(NotifyEvents.MapView.ActionInstructionsEnded, self)
 end
 
@@ -162,14 +164,20 @@ function MapLayerController:onKeyboardPressed(keyCode)
 		if self.currentMap then
 			local response = self.currentMap:checkResponse()
 			if response then
-				self.currentMap.hero:changeDirection(DataCenter.currentPlayerData.currentDirection, true)
-				self.nextDirection = nil
-				self.playerState = PLAYER_STATE.STANDING
+				self:resetHero()
 				ResponseController:processResponse(response)
 			end
 		end
 	end
 	self:checkPlayerState()
+end
+
+function MapLayerController:resetHero(direction)
+	direction = direction or DataCenter.currentPlayerData.currentDirection
+	self.playerState = PLAYER_STATE.STANDING
+	self.currentMap.hero:changeDirection(direction, true)
+	self.nextDirection = nil
+	self.pressedDirectionKeys = {}
 end
 
 function MapLayerController:onKeyboardReleased(keyCode)
@@ -264,6 +272,16 @@ function MapLayerController:switchMapCallFunc(newMapId, lastMapId)
 				coreLayer:addChild(board)
 			end
 		end, 0.25)
+end
+
+function MapLayerController:onShowEntranceMessage(message)
+	local reverseDirection = (DataCenter.currentPlayerData.currentDirection + 2) % 4
+	self.playerState = PLAYER_STATE.WALKING
+	self.currentMap:heroWalk(reverseDirection, function()
+			self:resetHero()
+			local response = Response:simulate(DBNULL, message)
+			ResponseController:processResponse(response)
+		end)
 end
 
 -------------------------- Action 处理函数 --------------------------

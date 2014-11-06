@@ -201,26 +201,23 @@ function DialogLayerController:generateNextDialog()
 	end
 
 	-- 执行action处理 如果有的话
-	self:setEnabled(true)
 	if self.currentDialogModel and not ActionController.isUnderAction then
 		if self.currentDialogModel.actionId ~= DBNULL then
 			-- 如果action是-1，则进入自由活动
 			self.root:setVisible(false)
+			self:setEnabled(false)
 			if tonumber(self.currentDialogModel.actionId) == -1 then
 				DataCenter.currentPlayerData.lastDialogId = self.currentDialogId
 				DataCenter.currentPlayerData:enterFreedom()
-				self:setEnabled(false)
-				return
 			else
 				local actionModel = ActionInfo:create(self.currentDialogModel.actionId)
-				self:setEnabled(false)
 				ActionController:processAction(actionModel)
-				return
 			end
+			return
 		end
 	else
 		ActionController.isUnderAction = false
-		self.root:setVisible(true)
+		self:setEnabled(true)
 	end
 
 	self.dialogIndice:setVisible(false)
@@ -246,7 +243,7 @@ function DialogLayerController:generateNextResponse()
 		DataCenter.currentPlayerData:enterFreedom(false)
 		ResponseController.isUnderResponse = false
 	else
-		self.root:setVisible(true)
+		self:setEnabled(true)
 		self.dialogIndice:setVisible(false)
 		self.currentResponseIndex = self.currentResponseIndex + 1
 		local currentResponse = self.responseDialogs[self.currentResponseIndex]

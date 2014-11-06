@@ -521,7 +521,7 @@ function TMXMapLayer:continueStory(trigger)
 	-- 如果有对应的action需要执行 则执行
 	if actionId ~= DBNULL then
 		-- 更新step
-		DataCenter.currentPlayerData:setStep(trigger.step)
+		-- DataCenter.currentPlayerData:setStep(trigger.step)
 		local action = ActionInfo:create(actionId)
 		ActionController:processAction(action)
 	else
@@ -539,12 +539,10 @@ function TMXMapLayer:checkEntrance(position)
 				log("到达入口, 当前地图[" .. self.mapInfo.id .. "] 关联地图[" .. entrance.relatedMapId .. "]")
 				-- MapStateController:setEntranceMapId(self.mapInfo.id)
 				Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId, self.mapInfo.id)
-				return true
 			else
-				local response = Response:simulate(DBNULL, entrance.message)
-				ResponseController:processResponse(response)
-				return true
+				Notifier:notify(NotifyEvents.MapView.ShowEntranceMessage, entrance.message)
 			end
+			return true
 		end
 	end
 	return false

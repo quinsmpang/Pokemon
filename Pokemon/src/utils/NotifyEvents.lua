@@ -11,17 +11,19 @@ NotifyEvents.MapView = NotifyEvents.MapView or {}
 
 -- 处理地图状态	TMXMapLayer通知, MapLayerController观察
 NotifyEvents.MapView.MapUpdate = "NotifyEvents.MapView.MapUpdate"
--- 开始处理Action  ActionController通知, MapLayerController接收
+-- 开始处理Action  ActionController通知, MapLayerController观察
 NotifyEvents.MapView.ActionBegan = "NotifyEvents.MapView.ActionBegan"
--- Action处理完毕  MapLayerController通知，DialogLayerController接收
+-- Action处理完毕  MapLayerController通知，DialogLayerController观察
 NotifyEvents.MapView.ActionEnded = "NotifyEvents.MapView.ActionEnded"
--- 指令处理完毕  TMXMapLayer通知，MapLayerController接收
+-- 指令处理完毕  TMXMapLayer通知，MapLayerController观察
 NotifyEvents.MapView.ActionInstructionsEnded = "NotifyEvents.MapView.ActionInstructionsEnded"
--- 切换地图	TMXMapLayer通知，MapLayerController接收
+-- 切换地图	TMXMapLayer通知，MapLayerController观察
 NotifyEvents.MapView.SwitchMap = "NotifyEvents.MapView.SwitchMap"
--- 菜单项被选中 MapMenu通知, MenuLayerController接收
+-- 显示入口消息	TMXMapLayer通知，MapLayerController观察
+NotifyEvents.MapView.ShowEntranceMessage = "NotifyEvents.MapView.ShowEntranceMessage"
+-- 菜单项被选中 MapMenu通知, MenuLayerController观察
 NotifyEvents.MapView.MenuItemSelected = "NotifyEvents.MapView.MenuItemSelected"
--- 开始处理Response  ResponseController通知, DialogLayerController, MapLayerController, MenuLayerController接收
+-- 开始处理Response  ResponseController通知, DialogLayerController, MapLayerController, MenuLayerController观察
 NotifyEvents.MapView.ResponseBegan = "NotifyEvents.MapView.ResponseBegan"
 
 -- 精灵界面事件
