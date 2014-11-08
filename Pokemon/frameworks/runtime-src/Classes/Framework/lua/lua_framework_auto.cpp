@@ -6765,6 +6765,52 @@ int lua_psframework_ListMenu_setResponseKeyCodes(lua_State* tolua_S)
 
     return 0;
 }
+int lua_psframework_ListMenu_onKeyReleased(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ListMenu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_onKeyReleased'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        cobj->onKeyReleased(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onKeyReleased",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_onKeyReleased'.",&tolua_err);
+#endif
+
+    return 0;
+}
 int lua_psframework_ListMenu_updateItemAtIndex(lua_State* tolua_S)
 {
     int argc = 0;
@@ -6990,6 +7036,52 @@ int lua_psframework_ListMenu_insertItemAtIndex(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_insertItemAtIndex'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ListMenu_onKeyPressed(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ListMenu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_onKeyPressed'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        cobj->onKeyPressed(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onKeyPressed",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_onKeyPressed'.",&tolua_err);
 #endif
 
     return 0;
@@ -7317,11 +7409,13 @@ int lua_register_psframework_ListMenu(lua_State* tolua_S)
     tolua_beginmodule(tolua_S,"ListMenu");
         tolua_function(tolua_S,"dequeueItem",lua_psframework_ListMenu_dequeueItem);
         tolua_function(tolua_S,"setResponseKeyCodes",lua_psframework_ListMenu_setResponseKeyCodes);
+        tolua_function(tolua_S,"onKeyReleased",lua_psframework_ListMenu_onKeyReleased);
         tolua_function(tolua_S,"updateItemAtIndex",lua_psframework_ListMenu_updateItemAtIndex);
         tolua_function(tolua_S,"initWithShowCount",lua_psframework_ListMenu_initWithShowCount);
         tolua_function(tolua_S,"setMenuEnabled",lua_psframework_ListMenu_setMenuEnabled);
         tolua_function(tolua_S,"getCurrentShowIndex",lua_psframework_ListMenu_getCurrentShowIndex);
         tolua_function(tolua_S,"insertItemAtIndex",lua_psframework_ListMenu_insertItemAtIndex);
+        tolua_function(tolua_S,"onKeyPressed",lua_psframework_ListMenu_onKeyPressed);
         tolua_function(tolua_S,"getItemAtIndex",lua_psframework_ListMenu_getItemAtIndex);
         tolua_function(tolua_S,"isMenuEnabled",lua_psframework_ListMenu_isMenuEnabled);
         tolua_function(tolua_S,"removeItemAtIndex",lua_psframework_ListMenu_removeItemAtIndex);
@@ -8619,6 +8713,96 @@ int lua_psframework_Win32EventListener_isEnabled(lua_State* tolua_S)
 
     return 0;
 }
+int lua_psframework_Win32EventListener_setEventsSwallowed(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Win32EventListener* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Win32EventListener",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Win32EventListener*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Win32EventListener_setEventsSwallowed'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        bool arg0;
+
+        ok &= luaval_to_boolean(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj->setEventsSwallowed(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setEventsSwallowed",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Win32EventListener_setEventsSwallowed'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Win32EventListener_isEventsSwallowed(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Win32EventListener* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Win32EventListener",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Win32EventListener*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Win32EventListener_isEventsSwallowed'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        bool ret = cobj->isEventsSwallowed();
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isEventsSwallowed",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Win32EventListener_isEventsSwallowed'.",&tolua_err);
+#endif
+
+    return 0;
+}
 static int lua_psframework_Win32EventListener_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Win32EventListener)");
@@ -8633,6 +8817,8 @@ int lua_register_psframework_Win32EventListener(lua_State* tolua_S)
     tolua_beginmodule(tolua_S,"Win32EventListener");
         tolua_function(tolua_S,"setEnabled",lua_psframework_Win32EventListener_setEnabled);
         tolua_function(tolua_S,"isEnabled",lua_psframework_Win32EventListener_isEnabled);
+        tolua_function(tolua_S,"setEventsSwallowed",lua_psframework_Win32EventListener_setEventsSwallowed);
+        tolua_function(tolua_S,"isEventsSwallowed",lua_psframework_Win32EventListener_isEventsSwallowed);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::Win32EventListener).name();
     g_luaType[typeName] = "pf.Win32EventListener";

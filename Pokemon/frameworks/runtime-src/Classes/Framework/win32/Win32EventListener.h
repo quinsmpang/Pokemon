@@ -20,6 +20,7 @@ namespace framework
 	class Win32EventListener : public cocos2d::Ref
 	{
 		friend class Win32Notifier;
+		friend std::greater<framework::Win32EventListener*>;
 	public:
 		enum class Win32EventListenerType
 		{
@@ -36,6 +37,16 @@ namespace framework
 		{
 			return this->_isEnabled;
 		}
+		
+		// whether to swallow the event, default true
+		inline void setEventsSwallowed(bool bSwallowed)
+		{
+			this->_swallowed = bSwallowed;
+		}
+		inline bool isEventsSwallowed() const
+		{
+			return this->_swallowed;
+		}
 
 	protected:
 		Win32EventListener();
@@ -43,6 +54,7 @@ namespace framework
 		bool init(Win32EventListenerType type, WIN32_LISTENER_ID listenerId, cocos2d::Node *target, const std::function<void(cocos2d::Node*, Win32EventArgs*)> &callback);
 
 		bool _isEnabled;
+		bool _swallowed;
 		Win32EventListenerType _type;
 		WIN32_LISTENER_ID _listenerId;
 		cocos2d::Node *_target;

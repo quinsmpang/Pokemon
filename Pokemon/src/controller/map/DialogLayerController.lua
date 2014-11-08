@@ -115,7 +115,7 @@ function DialogLayerController:renderView()
 	self.currentDialogId = DataCenter.currentPlayerData.lastDialogId ~= DBNULL and DataCenter.currentPlayerData.lastDialogId or 0
 
 	self.root:setVisible(false)
-	self:getScene():addChild(self.root)
+	coreLayer:addChild(self.root)
 
 	-- 如果是新游戏则自动开始剧情
 	if self.currentDialogId == 0 then
@@ -152,7 +152,7 @@ function DialogLayerController:setEnabled(isEnabled)
 end
 
 function DialogLayerController:onKeyboardPressed(keyCode)
-	-- log("DialogLayerController:onKeyboardPressed", keyCode)
+	log("DialogLayerController:onKeyboardPressed", keyCode)
 	if ActionController.isUnderAction then
 		return
 	end

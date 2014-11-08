@@ -1,6 +1,8 @@
 #include "ListMenu.h"
 #include "ListMenuItem.h"
 #include "../lua/LuaUtils.h"
+#include "../win32/Win32EventListenerKeyboard.h"
+#include "../win32/Win32Notifier.h"
 
 using namespace cocos2d;
 
@@ -64,17 +66,27 @@ namespace framework
 
 	void ListMenu::onEnter()
 	{
-		auto pKbdListener = EventListenerKeyboard::create();
+		auto pKbdListener = Win32EventListenerKeyboard::createWithTarget(this);
+		pKbdListener->onWin32KeyDown = std::bind(&ListMenu::onKeyPressed, this, std::placeholders::_1);
+		pKbdListener->onWin32KeyUp = std::bind(&ListMenu::onKeyReleased, this, std::placeholders::_1);
+		pKbdListener->setEventsSwallowed(false);
+		Win32Notifier::getInstance()->addEventListener(pKbdListener);
+		this->_kbdListener = pKbdListener;
+		/*auto pKbdListener = EventListenerKeyboard::create();
 		pKbdListener->onKeyPressed = CC_CALLBACK_2(ListMenu::onKeyPressed, this);
 		pKbdListener->onKeyReleased = CC_CALLBACK_2(ListMenu::onKeyReleased, this);
 
 		this->_eventDispatcher->addEventListenerWithFixedPriority(pKbdListener, -1);
-		this->_kbdListener = pKbdListener;
+		this->_kbdListener = pKbdListener;*/
 	}
 
 	void ListMenu::onExit()
 	{
-		this->_eventDispatcher->removeEventListener(_kbdListener);
+		if (this->_kbdListener)
+		{
+			Win32Notifier::getInstance()->removeEventListener(this->_kbdListener);
+		}
+		//this->_eventDispatcher->removeEventListener(_kbdListener);
 	}
 
 	void ListMenu::setResponseKeyCodes(int upKeyCode, int downKeyCode, int confirmKeyCode)
@@ -254,7 +266,7 @@ namespace framework
 		return pItem;
 	}
 
-	void ListMenu::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event)
+	void ListMenu::onKeyPressed(int keyCode)
 	{
 		if (!_isEnabled)
 		{
@@ -296,7 +308,7 @@ namespace framework
 		{
 			// params
 			Vector<Ref*> pParams(1);
-			pParams.pushBack(__Integer::create((int)keyCode));
+			pParams.pushBack(__Integer::create(keyCode));
 			// param types
 			Vector<Ref*> pTypes(1);
 			pTypes.pushBack(__String::create("__Integer"));
@@ -305,7 +317,7 @@ namespace framework
 #endif
 	}
 
-	void ListMenu::onKeyReleased(EventKeyboard::KeyCode keyCode, Event *event)
+	void ListMenu::onKeyReleased(int keyCode)
 	{
 		if (!_isEnabled)
 		{
@@ -323,7 +335,7 @@ namespace framework
 		{
 			// params
 			Vector<Ref*> pParams(1);
-			pParams.pushBack(__Integer::create((int)keyCode));
+			pParams.pushBack(__Integer::create(keyCode));
 			// param types
 			Vector<Ref*> pTypes(1);
 			pTypes.pushBack(__String::create("__Integer"));

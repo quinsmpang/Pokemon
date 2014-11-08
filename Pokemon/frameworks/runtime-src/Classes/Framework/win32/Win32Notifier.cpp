@@ -1,9 +1,28 @@
 #include "Win32Notifier.h"
+#include "Win32EventListenerKeyboard.h"
+#include <algorithm>
 
 using namespace cocos2d;
 
+namespace std
+{
+	template<>
+	struct greater<framework::Win32EventListener*>
+	{
+		bool operator()(framework::Win32EventListener*& _Left, framework::Win32EventListener*& _Right) const
+		{
+			return (_Left->_target->getPositionZ() > _Right->_target->getPositionZ());
+		}
+	};
+}
+
 namespace framework
 {
+	/*static bool sortListenerFunc(const Win32EventListener *el1, const Win32EventListener *el2)
+	{
+	return (*el1)._target->getPositionZ() > (*el2)._target->getPositionZ();
+	}*/
+
 	void Win32Notifier::addEventListener(Win32EventListener *listener)
 	{
 		CCASSERT(listener, "param can't be null");
@@ -44,30 +63,22 @@ namespace framework
 		if (this->_listenerMap.find(nType) != _listenerMap.end())
 		{
 			auto &listeners = _listenerMap[nType];
+			// sort listeners by zorder
+			listeners.sort(std::greater<Win32EventListener*>());	
+			//std::sort(listeners.begin(), listeners.end(), sortListenerFunc);	// list iterator is not a random iterator, so it doesn't support std::sort
 			// with scene graph priority
-			Win32EventListener *pTargetListener = nullptr;
 			for (auto iter = listeners.begin(); iter != listeners.end(); ++iter)
 			{
 				auto listener = *iter;
-				if (listener->isEnabled())
+				if (listener->isEnabled() && listener->_callback)
 				{
-					if (!pTargetListener)
+					listener->_callback(listener->_target, args);
+					// check whether to swallow the event
+					if (listener->isEventsSwallowed())
 					{
-						pTargetListener = listener;
-					}
-					else
-					{
-						if (listener->_target->getPositionZ() >= pTargetListener->_target->getPositionZ())
-						{
-							pTargetListener = listener;
-						}
+						break;
 					}
 				}
-			}
-
-			if (pTargetListener && pTargetListener->_callback)
-			{
-				pTargetListener->_callback(pTargetListener->_target, args);
 			}
 		}
 	}

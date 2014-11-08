@@ -131,9 +131,7 @@ end
 -- ListMenu delegate
 function MapMenu:itemSelected(menu, item)
 	-- local itemIndex = item:getShowIndex()
-	if MapStateController:getCurrentState() == Enumerations.MAP_STATE.MENU then
-		Notifier:notify(NotifyEvents.MapView.MenuItemSelected, item)
-	end
+	Notifier:notify(NotifyEvents.MapView.MenuItemSelected, item)
 end
 
 function MapMenu:itemFocused(menu, item)

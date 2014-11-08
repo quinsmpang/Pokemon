@@ -16,6 +16,11 @@
 -- @param #int int
         
 --------------------------------
+-- @function [parent=#ListMenu] onKeyReleased 
+-- @param self
+-- @param #int int
+        
+--------------------------------
 -- @function [parent=#ListMenu] updateItemAtIndex 
 -- @param self
 -- @param #long long
@@ -40,6 +45,11 @@
 -- @function [parent=#ListMenu] insertItemAtIndex 
 -- @param self
 -- @param #long long
+        
+--------------------------------
+-- @function [parent=#ListMenu] onKeyPressed 
+-- @param self
+-- @param #int int
         
 --------------------------------
 -- @function [parent=#ListMenu] getItemAtIndex 
@@ -78,24 +88,12 @@
 -- @return ListMenu#ListMenu ret (retunr value: pf.ListMenu)
 
 --------------------------------
--- @function [parent=#ListMenu] onKeyReleased 
--- @param self
--- @param #cc.EventKeyboard::KeyCode keycode
--- @param #cc.Event event
-        
---------------------------------
 -- @function [parent=#ListMenu] onEnter 
 -- @param self
         
 --------------------------------
 -- @function [parent=#ListMenu] onExit 
 -- @param self
-        
---------------------------------
--- @function [parent=#ListMenu] onKeyPressed 
--- @param self
--- @param #cc.EventKeyboard::KeyCode keycode
--- @param #cc.Event event
         
 --------------------------------
 -- @function [parent=#ListMenu] ListMenu 

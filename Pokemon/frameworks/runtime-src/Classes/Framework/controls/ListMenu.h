@@ -13,6 +13,7 @@ namespace framework
 {
 	class ListMenuItem;
 	class ListMenu;
+	class Win32EventListenerKeyboard;
 
 	class ListMenuDelegate
 	{
@@ -88,8 +89,10 @@ namespace framework
 		ListMenuItem *dequeueItem();
 
 		// keyboard events
-		virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) override;
-		virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) override;
+		virtual void onKeyPressed(int keyCode);
+		virtual void onKeyReleased(int keyCode);
+		//virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) override;
+		//virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) override;
 
 	protected:
 		static float LONG_PRESSED_DT;		// long pressed duration
@@ -109,7 +112,8 @@ namespace framework
 		bool _isEnabled;
 		ssize_t _topGlobalIndex;
 		ssize_t _currentShowIndex;
-		cocos2d::EventListenerKeyboard *_kbdListener;
+		//cocos2d::EventListenerKeyboard *_kbdListener;
+		Win32EventListenerKeyboard *_kbdListener;
 		int _pressedKey;
 	};
 }

@@ -13,6 +13,7 @@ require "src/view/map/MapMenuLayer"
 
 MapLayerController.root = nil
 MapLayerController.currentMap = nil		-- 当前地图层
+MapLayerController.mainMenu = nil		-- 主菜单
 
 -- logic
 MapLayerController.pressedDirectionKeys = nil
@@ -45,6 +46,9 @@ function MapLayerController:unload()
 	log("MapLayerController:unload")
 	self:cleanResources()
 	self:removeObservers()
+	if self.mainMenu then
+		self.mainMenu:release()
+	end
 end
 
 function MapLayerController:loadResources()
@@ -82,6 +86,7 @@ function MapLayerController:renderView()
 
 	self.root = cc.Layer:create()
 	self.root:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
+	self.root:setPositionZ(Enumerations.KEYBOARD_Z.MAP)
 	coreLayer:addChild(self.root)
 
 	local screenSize = cc.Director:getInstance():getWinSize()
@@ -96,8 +101,7 @@ function MapLayerController:renderView()
 
 	-- main menu
 	local mainMenu = MapMenuLayer:create()
-	coreLayer:addChild(mainMenu, 100)
-	mainMenu:setVisible(false)
+	mainMenu:retain()
 	self.mainMenu = mainMenu
 
 	self.playerState = PLAYER_STATE.STANDING
@@ -156,6 +160,7 @@ function MapLayerController:onMapUpdate(dt)
 end
 
 function MapLayerController:onKeyboardPressed(keyCode)
+	log("MapLayerController:onKeyboardPressed", keyCode)
 	if not self.isEnabled or not DataCenter.currentPlayerData:isFreedom() then
 		return
 	end
@@ -179,7 +184,7 @@ function MapLayerController:onKeyboardPressed(keyCode)
 		end
 	elseif keyCode == GameSettings.startKey then
 		-- 打开主菜单
-		self.mainMenu:setVisible(true)
+		self:getScene():getCoreLayer():addChild(self.mainMenu, 100)
 	end
 	self:checkPlayerState()
 end

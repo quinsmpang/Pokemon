@@ -6,6 +6,7 @@ namespace framework
 {
 	Win32EventListener::Win32EventListener()
 		: _isEnabled(true)
+		, _swallowed(true)
 		, _type()
 		, _listenerId()
 		, _target(nullptr)

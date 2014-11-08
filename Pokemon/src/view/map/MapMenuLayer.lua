@@ -58,7 +58,7 @@ end
 
 function MapMenuLayer:onSceneEvent(event)
 	if event == "enter" then
-		local kbdListener = Win32EventListenerKeyboard:createWithTarget(self.root)
+		local kbdListener = Win32EventListenerKeyboard:createWithTarget(self)
 		kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
 		Win32Notifier:getInstance():addEventListener(kbdListener)
 		self.kbdListener = kbdListener
@@ -81,5 +81,5 @@ function MapMenuLayer:onKeyboardPressed(keyCode)
 end
 
 function MapMenuLayer:exitMenu()
-	self:setVisible(false)
+	self:removeFromParent(false)
 end
