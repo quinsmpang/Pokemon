@@ -237,7 +237,7 @@ function TMXMapLayer:onNodeEvent(event)
 end
 
 function TMXMapLayer:onMapUpdate(dt)
-	if DataCenter.currentPlayerData.currentStep == 0 then
+	if DataCenter.currentPlayerData:isFreedom() then
 		Notifier:notify(NotifyEvents.MapView.MapUpdate)
 	end
 end
@@ -350,7 +350,7 @@ function TMXMapLayer:validateLocation(direction)
 
 	-- 检测当前位置是否是入口
 	if self:checkEntrance(DataCenter.currentPlayerData.currentPosition) then
-		self.hero:changeDirection(direction)
+		-- self.hero:changeDirection(direction)
 		return false
 	end
 	
@@ -361,7 +361,6 @@ function TMXMapLayer:validateLocation(direction)
 			self.hero:getWalkActionWithoutMoving(direction),
 			cc.CallFunc:create(MakeScriptHandler(self, self.onMovingEnd))
 			)
-		self.isMoving = true
 		self.hero:runAction(collisionAction)
 		return false
 	end
@@ -540,6 +539,7 @@ function TMXMapLayer:checkEntrance(position)
 				-- MapStateController:setEntranceMapId(self.mapInfo.id)
 				Notifier:notify(NotifyEvents.MapView.SwitchMap, entrance.relatedMapId, self.mapInfo.id)
 			else
+				self.isMoving = false
 				Notifier:notify(NotifyEvents.MapView.ShowEntranceMessage, entrance.message)
 			end
 			return true

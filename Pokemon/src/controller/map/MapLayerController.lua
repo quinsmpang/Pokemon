@@ -9,6 +9,7 @@ class("MapLayerController", psViewController)
 require "src/view/map/TMXMapLayer"
 require "src/view/map/MessageTip"
 require "src/view/map/MapNameBoard"
+require "src/view/map/MapMenuLayer"
 
 MapLayerController.root = nil
 MapLayerController.currentMap = nil		-- 当前地图层
@@ -61,6 +62,7 @@ function MapLayerController:addObservers()
 	Notifier:addObserver(NotifyEvents.MapView.SwitchMap, self, self.switchMap)
 	Notifier:addObserver(NotifyEvents.MapView.MapUpdate, self, self.onMapUpdate)
 	Notifier:addObserver(NotifyEvents.MapView.ShowEntranceMessage, self, self.onShowEntranceMessage)
+	Notifier:addObserver(NotifyEvents.MapView.MenuItemSelected, self, self.onMenuItemSelected)
 end
 
 function MapLayerController:removeObservers()
@@ -69,6 +71,7 @@ function MapLayerController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.MapView.SwitchMap, self)
 	Notifier:removeObserver(NotifyEvents.MapView.MapUpdate, self)
 	Notifier:removeObserver(NotifyEvents.MapView.ShowEntranceMessage, self)
+	Notifier:removeObserver(NotifyEvents.MapView.MenuItemSelected, self)
 	Notifier:removeObserver(NotifyEvents.MapView.ActionInstructionsEnded, self)
 end
 
@@ -90,6 +93,12 @@ function MapLayerController:renderView()
 	self.currentMap = map
 
 	coreLayer:pushLayer(map)
+
+	-- main menu
+	local mainMenu = MapMenuLayer:create()
+	coreLayer:addChild(mainMenu, 100)
+	mainMenu:setVisible(false)
+	self.mainMenu = mainMenu
 
 	self.playerState = PLAYER_STATE.STANDING
 end
@@ -115,7 +124,7 @@ function MapLayerController:onMapUpdate(dt)
 		return
 	end
 
-	if DataCenter.currentPlayerData.currentStep == 0 then
+	if DataCenter.currentPlayerData:isFreedom() then
 		local hero = self.currentMap.hero
 		-- log("Current state: ", self.playerState)
 		if self.playerState == PLAYER_STATE.STANDING then
@@ -147,7 +156,7 @@ function MapLayerController:onMapUpdate(dt)
 end
 
 function MapLayerController:onKeyboardPressed(keyCode)
-	if not self.isEnabled then
+	if not self.isEnabled or not DataCenter.currentPlayerData:isFreedom() then
 		return
 	end
 	-- log("MapLayerController:onKeyboardPressed", keyCode)
@@ -168,6 +177,9 @@ function MapLayerController:onKeyboardPressed(keyCode)
 				ResponseController:processResponse(response)
 			end
 		end
+	elseif keyCode == GameSettings.startKey then
+		-- 打开主菜单
+		self.mainMenu:setVisible(true)
 	end
 	self:checkPlayerState()
 end
@@ -276,12 +288,46 @@ end
 
 function MapLayerController:onShowEntranceMessage(message)
 	local reverseDirection = (DataCenter.currentPlayerData.currentDirection + 2) % 4
-	self.playerState = PLAYER_STATE.WALKING
+	self.playerState = PLAYER_STATE.STANDING
 	self.currentMap:heroWalk(reverseDirection, function()
 			self:resetHero()
 			local response = Response:simulate(DBNULL, message)
 			ResponseController:processResponse(response)
 		end)
+end
+
+function MapLayerController:onMenuItemSelected(item)
+	if item.__isEnabled then
+		GameVolumeHelper:playBtnClickSound()
+		local itemIndex = item:getShowIndex()
+		if itemIndex == 0 then
+			--图鉴
+		elseif itemIndex == 1 then
+			--精灵
+			require "src/controller/pokemon/PokemonViewController"
+
+			local pokemonViewController = PokemonViewController:create()
+			self:getScene():loadViewController(pokemonViewController)
+		elseif itemIndex == 2 then
+			--背包
+		elseif itemIndex == 3 then
+			--通讯器
+		elseif itemIndex == 4 then
+			--玩家
+			if DEBUG then
+				log("@@@@@@@@", DataCenter.currentPlayerData.lastStep)
+			end
+		elseif itemIndex == 5 then
+			--记录
+		elseif itemIndex == 6 then
+			--设置
+		elseif itemIndex == 7 then
+			--退出
+			self.mainMenu:exitMenu()
+		end
+	else
+		GameVolumeHelper:playUnableSound()
+	end
 end
 
 -------------------------- Action 处理函数 --------------------------

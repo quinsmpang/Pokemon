@@ -11,7 +11,6 @@ require "src/view/map/MapMenu"
 MapMenuLayer.back = nil 			-- 背景
 
 MapMenuLayer.keyboardListener = nil
-MapMenuLayer.enableClick = nil
 
 MapMenuLayer.__create = psModalLayer.create
 
@@ -24,9 +23,9 @@ end
 function MapMenuLayer:init()
 	local screenSize = cc.Director:getInstance():getWinSize()
 
-	self.enableClick = false
 	self:setOpacity(0.3 * 255)
 
+	--[[
 	-- we need a ball to mask the ball on the map layer.
 	local ballItem = cc.MenuItemSprite:create(
 		cc.Sprite:createWithSpriteFrameName("images/map/pokemon_ball_normal.png"),
@@ -39,6 +38,7 @@ function MapMenuLayer:init()
 	local menu = cc.Menu:create(ballItem)
 	menu:setPosition(0, 0)
 	self:addChild(menu)
+	]]
 
 	-- menu background
 	self.back = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_red.png", CCRectMake(20, 20, 60, 60))
@@ -54,61 +54,32 @@ function MapMenuLayer:init()
 	listMenu:setPosition(self.back:getContentSize().width * 0.5, self.back:getContentSize().height * 0.95)
 
 	self.back:addChild(listMenu)
-
-	self.back:setScaleY(0)
-
-	-- 注册事件
-	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
-		local kbdListener = cc.EventListenerKeyboard:create()
-		kbdListener:registerScriptHandler(MakeScriptHandler(self, self.onKeyboardPressed), cc.Handler.EVENT_KEYBOARD_PRESSED)
-		self.keyboardListener = kbdListener
-		self:getEventDispatcher():addEventListenerWithSceneGraphPriority(kbdListener, self)
-
-		self:registerScriptHandler(MakeScriptHandler(self, self.onSceneEvent))
-	end
-end
-
-function MapMenuLayer:onComeIn()
-	local enterAction = cc.Sequence:create(
-		cc.ScaleTo:create(0.1, 1),
-		cc.CallFunc:create(MakeScriptHandler(self, self.onComeInEnd))
-		)
-	self.back:runAction(enterAction)
-end
-function MapMenuLayer:onComeInEnd()
-	self.enableClick = true
 end
 
 function MapMenuLayer:onSceneEvent(event)
-	if event == "exit" then
-		-- 移除监听
-		self:getEventDispatcher():removeEventListener(self.keyboardListener)
+	if event == "enter" then
+		local kbdListener = Win32EventListenerKeyboard:createWithTarget(self.root)
+		kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
+		Win32Notifier:getInstance():addEventListener(kbdListener)
+		self.kbdListener = kbdListener
+	elseif event == "exit" then
+		if self.kbdListener then
+			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
+			self.kbdListener = nil
+		end
 	end
 end
 
 function MapMenuLayer:onBallClick()
-	if not self.enableClick then
-		return
-	end
 	self:exitMenu()
 end
 
 function MapMenuLayer:onKeyboardPressed(keyCode)
-	if keyCode == GameSettings.startKey and self.enableClick then
+	if keyCode == GameSettings.startKey then
 		self:exitMenu()
 	end
 end
 
 function MapMenuLayer:exitMenu()
-	self.enableClick = false
-	local quitAction = cc.Sequence:create(
-		cc.TargetedAction:create(self.back, cc.ScaleTo:create(0.1, 1, 0)),
-		cc.RemoveSelf:create(),
-		cc.CallFunc:create(MakeScriptHandler(self, self.onChangeState))
-		)
-	self:runAction(quitAction)
-end
-
-function MapMenuLayer:onChangeState()
-	MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
+	self:setVisible(false)
 end

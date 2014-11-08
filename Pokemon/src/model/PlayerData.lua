@@ -90,6 +90,10 @@ function PlayerData:enterStory()
 	self.currentStep = self.lastStep + 1
 end
 
+function PlayerData:isFreedom()
+	return self.currentStep == 0
+end
+
 function PlayerData:setStep(step)
 	self.currentStep = step
 end
