@@ -23,8 +23,10 @@ NotifyEvents.MapView.SwitchMap = "NotifyEvents.MapView.SwitchMap"
 NotifyEvents.MapView.ShowEntranceMessage = "NotifyEvents.MapView.ShowEntranceMessage"
 -- 菜单项被选中 MapMenu通知, MenuLayerController观察
 NotifyEvents.MapView.MenuItemSelected = "NotifyEvents.MapView.MenuItemSelected"
--- 开始处理Response  ResponseController通知, DialogLayerController, MapLayerController, MenuLayerController观察
+-- 开始处理Response  ResponseController通知, DialogLayerController, MapLayerController观察
 NotifyEvents.MapView.ResponseBegan = "NotifyEvents.MapView.ResponseBegan"
+-- 地图状态变更	MapStateController通知, MapLayerController, DialogLayerController观察
+NotifyEvents.MapView.MapStateChanged = "NotifyEvents.MapView.MapStateChanged"
 
 -- 精灵界面事件
 NotifyEvents.PokemonView = NotifyEvents.PokemonView or {}

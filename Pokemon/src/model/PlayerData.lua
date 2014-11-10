@@ -38,7 +38,7 @@ function PlayerData:initNewGameData(gender)
 	self.currentMapId = 1
 	self.currentPosition = ccp(6, 6)
 	self.currentDirection = Enumerations.DIRECTIONS.UP
-	self.lastStep = -1
+	self.lastStep = 0
 	self.currentStep = 1
 	self.onBycicle = false
 end
@@ -82,12 +82,14 @@ function PlayerData:enterFreedom(bUpdateStep)
 		self.lastStep = self.currentStep
 	end
 	self.currentStep = 0
+	-- MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
 end
 
 -- 进入剧情
-function PlayerData:enterStory()
+function PlayerData:enterStory(bUpdateStep)
 	log("PlayerData:enterStory", self.lastStep)
 	self.currentStep = self.lastStep + 1
+	-- MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
 end
 
 function PlayerData:isFreedom()

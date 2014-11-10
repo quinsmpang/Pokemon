@@ -46,9 +46,6 @@ function MapLayerController:unload()
 	log("MapLayerController:unload")
 	self:cleanResources()
 	self:removeObservers()
-	if self.mainMenu then
-		self.mainMenu:release()
-	end
 end
 
 function MapLayerController:loadResources()
@@ -67,6 +64,7 @@ function MapLayerController:addObservers()
 	Notifier:addObserver(NotifyEvents.MapView.MapUpdate, self, self.onMapUpdate)
 	Notifier:addObserver(NotifyEvents.MapView.ShowEntranceMessage, self, self.onShowEntranceMessage)
 	Notifier:addObserver(NotifyEvents.MapView.MenuItemSelected, self, self.onMenuItemSelected)
+	-- Notifier:addObserver(NotifyEvents.MapView.MapStateChanged, self, self.onMapStateChanged)
 end
 
 function MapLayerController:removeObservers()
@@ -76,6 +74,8 @@ function MapLayerController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.MapView.MapUpdate, self)
 	Notifier:removeObserver(NotifyEvents.MapView.ShowEntranceMessage, self)
 	Notifier:removeObserver(NotifyEvents.MapView.MenuItemSelected, self)
+	-- Notifier:removeObserver(NotifyEvents.MapView.MapStateChanged, self)
+
 	Notifier:removeObserver(NotifyEvents.MapView.ActionInstructionsEnded, self)
 end
 
@@ -86,7 +86,6 @@ function MapLayerController:renderView()
 
 	self.root = cc.Layer:create()
 	self.root:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
-	self.root:setPositionZ(Enumerations.KEYBOARD_Z.MAP)
 	coreLayer:addChild(self.root)
 
 	local screenSize = cc.Director:getInstance():getWinSize()
@@ -101,7 +100,8 @@ function MapLayerController:renderView()
 
 	-- main menu
 	local mainMenu = MapMenuLayer:create()
-	mainMenu:retain()
+	mainMenu:setVisible(false)
+	self:getScene():addChild(mainMenu)
 	self.mainMenu = mainMenu
 
 	self.playerState = PLAYER_STATE.STANDING
@@ -119,6 +119,21 @@ function MapLayerController:onNodeEvent(event)
 			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
 			self.kbdListener = nil
 		end
+	end
+end
+
+function MapLayerController:onMapStateChanged(oldState, newState)
+	if newState == Enumerations.MAP_STATE.FREEDOM then
+		self:setEnabled(true)
+	elseif newState ~= Enumerations.MAP_STATE.FREEDOM then
+		self:setEnabled(false)
+	end
+end
+
+function MapLayerController:setEnabled(isEnabled)
+	-- 控制键盘响应
+	if self.kbdListener then
+		self.kbdListener:setEnabled(isEnabled)
 	end
 end
 
@@ -161,7 +176,7 @@ end
 
 function MapLayerController:onKeyboardPressed(keyCode)
 	log("MapLayerController:onKeyboardPressed", keyCode)
-	if not self.isEnabled or not DataCenter.currentPlayerData:isFreedom() then
+	if not DataCenter.currentPlayerData:isFreedom() then
 		return
 	end
 	-- log("MapLayerController:onKeyboardPressed", keyCode)
@@ -184,7 +199,8 @@ function MapLayerController:onKeyboardPressed(keyCode)
 		end
 	elseif keyCode == GameSettings.startKey then
 		-- 打开主菜单
-		self:getScene():getCoreLayer():addChild(self.mainMenu, 100)
+		-- MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
+		self.mainMenu:setVisible(true)
 	end
 	self:checkPlayerState()
 end
@@ -241,7 +257,6 @@ function MapLayerController:getDirectionByKeyCode(keyCode)
 end
 
 function MapLayerController:switchMap(newMapId, lastMapId)
-	self.isEnabled = false
 	self.nextDirection = nil
 	self.playerState = PLAYER_STATE.STANDING
 	local coreLayer = self:getScene():getCoreLayer()
@@ -279,7 +294,6 @@ function MapLayerController:switchMapCallFunc(newMapId, lastMapId)
 				self.playerState = PLAYER_STATE.STANDING
 				newMap:continueStory(trigger)
 			end
-			self.isEnabled = true
 			-- 显示地图名
 			if newMapInfo.name ~= DBNULL then
 				log("Map name: ", newMapInfo.name)

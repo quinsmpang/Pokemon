@@ -60,12 +60,14 @@ function DialogLayerController:addObservers()
 	log("DialogLayerController:addObservers")
 	Notifier:addObserver(NotifyEvents.MapView.ActionEnded, self, self.onActionEnded)
 	Notifier:addObserver(NotifyEvents.MapView.ResponseBegan, self, self.onResponseBegan)
+	-- Notifier:addObserver(NotifyEvents.MapView.MapStateChanged, self, self.onMapStateChanged)
 end
 
 function DialogLayerController:removeObservers()
 	log("DialogLayerController:removeObservers")
 	Notifier:removeObserver(NotifyEvents.MapView.ActionEnded, self)
 	Notifier:removeObserver(NotifyEvents.MapView.ResponseBegan, self)
+	-- Notifier:removeObserver(NotifyEvents.MapView.MapStateChanged, self)
 end
 
 function DialogLayerController:renderView()
@@ -115,10 +117,11 @@ function DialogLayerController:renderView()
 	self.currentDialogId = DataCenter.currentPlayerData.lastDialogId ~= DBNULL and DataCenter.currentPlayerData.lastDialogId or 0
 
 	self.root:setVisible(false)
-	coreLayer:addChild(self.root)
+	self:getScene():addChild(self.root)
 
 	-- 如果是新游戏则自动开始剧情
 	if self.currentDialogId == 0 then
+		DataCenter.currentPlayerData:enterStory()
 		self:generateNextDialog()
 	end
 	--CallFunctionAsync(self, self.generateNextDialog, 2.5)
@@ -134,6 +137,14 @@ function DialogLayerController:onNodeEvent(event)
 		if self.kbdListener then
 			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
 		end
+	end
+end
+
+function DialogLayerController:onMapStateChanged(oldState, newState)
+	if newState == Enumerations.MAP_STATE.DIALOG then
+		self:setEnabled(true)
+	elseif newState ~= Enumerations.MAP_STATE.DIALOG then
+		self:setEnabled(false)
 	end
 end
 
@@ -205,7 +216,6 @@ function DialogLayerController:generateNextDialog()
 		if self.currentDialogModel.actionId ~= DBNULL then
 			-- 如果action是-1，则进入自由活动
 			self.root:setVisible(false)
-			self:setEnabled(false)
 			if tonumber(self.currentDialogModel.actionId) == -1 then
 				DataCenter.currentPlayerData.lastDialogId = self.currentDialogId
 				DataCenter.currentPlayerData:enterFreedom()
@@ -217,7 +227,8 @@ function DialogLayerController:generateNextDialog()
 		end
 	else
 		ActionController.isUnderAction = false
-		self:setEnabled(true)
+		self.root:setVisible(true)
+		-- MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
 	end
 
 	self.dialogIndice:setVisible(false)
@@ -239,11 +250,10 @@ function DialogLayerController:generateNextResponse()
 		-- 普通对话完毕, 清空数据
 		self.currentResponse = nil
 		self.responseDialogs = nil
-		self:setEnabled(false)
+		self.root:setVisible(false)
 		DataCenter.currentPlayerData:enterFreedom(false)
 		ResponseController.isUnderResponse = false
 	else
-		self:setEnabled(true)
 		self.dialogIndice:setVisible(false)
 		self.currentResponseIndex = self.currentResponseIndex + 1
 		local currentResponse = self.responseDialogs[self.currentResponseIndex]
@@ -291,7 +301,6 @@ end
 function DialogLayerController:response_Speak(params)
 	self.responseDialogs = string.split(params, ";")
 	self.currentResponseIndex = 0
-	self:setEnabled(true)
 	self:handleDialogDisplay()
 end
 

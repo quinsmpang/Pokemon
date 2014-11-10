@@ -54,6 +54,8 @@ function MapMenuLayer:init()
 	listMenu:setPosition(self.back:getContentSize().width * 0.5, self.back:getContentSize().height * 0.95)
 
 	self.back:addChild(listMenu)
+
+	-- self:registerScriptHandler(MakeScriptHandler(self, self.onSceneEvent))
 end
 
 function MapMenuLayer:onSceneEvent(event)
@@ -75,11 +77,13 @@ function MapMenuLayer:onBallClick()
 end
 
 function MapMenuLayer:onKeyboardPressed(keyCode)
+	log("MapMenuLayer:onKeyboardPressed")
 	if keyCode == GameSettings.startKey then
 		self:exitMenu()
 	end
 end
 
 function MapMenuLayer:exitMenu()
-	self:removeFromParent(false)
+	self:setVisible(false)
+	MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
 end

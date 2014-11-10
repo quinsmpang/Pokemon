@@ -28,6 +28,15 @@ Enumerations.ACTION_TYPE = {
 	FADEOUTIN = 4,		-- 立即更换地图
 }
 
+-- Map state
+Enumerations.MAP_STATE = {
+	FREEDOM = 1,
+	DIALOG = 2,
+	MENU = 3,
+	ACTION = 4,
+	POKEMON = 5,
+}
+
 -- 响应类型
 Enumerations.RESPONSE_TYPE = {
 	NORMAL = 0,

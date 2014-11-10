@@ -4,7 +4,6 @@
 	Date: 06/30/2014
 ]]
 
---[[ DEPRECATED ]]
 MapStateController = {}
 
 MapStateController.currentState = nil	-- 当前地图状态
@@ -24,14 +23,4 @@ function MapStateController:setCurrentState(state)
 	self.currentState = state
 
 	Notifier:notify(NotifyEvents.MapView.MapStateChanged, oldState, state)
-end
-
--- 标记入口切换
-function MapStateController:setEntranceMapId(entranceMapId)
-	log("MapStateController:setEntranceMapId", entranceMapId)
-	self.entranceMapId = entranceMapId
-end
-
-function MapStateController:getEntranceMapId()
-	return self.entranceMapId
 end

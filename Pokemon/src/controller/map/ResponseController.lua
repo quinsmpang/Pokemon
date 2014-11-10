@@ -11,6 +11,7 @@ ResponseController.isUnderResponse = false
 function ResponseController:processResponse(responseModel)
 	log("ResponseController:processResponse", responseModel.handler, responseModel.params)
 	self.isUnderResponse = true
+	-- MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
 	local responseHandler = responseModel.handler
 	local handler = self["response_" .. responseHandler]
 	assert(type(handler) == "function", "Unimplemented response handler in ResponseController.")

@@ -9,6 +9,7 @@ require "src/controller/map/DialogLayerController"
 require "src/controller/map/ActionController"
 require "src/controller/map/ResponseController"
 require "src/controller/map/EventController"
+require "src/controller/map/MapStateController"
 require "src/controller/pokemon/PokemonViewController"
 
 class("MapViewScene", psGameScene)
@@ -56,7 +57,6 @@ end
 function MapViewScene:newData(gender)
 	local newPlayer = PlayerData:create(gender)
 	DataCenter.currentPlayerData = newPlayer
-	-- MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
 end
 
 function MapViewScene:loadData(data)

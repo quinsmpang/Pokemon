@@ -6,12 +6,40 @@ using namespace cocos2d;
 
 namespace std
 {
+	static int calculateGlobalZOrder(Node *node)
+	{
+		auto rootNode = Director::getInstance()->getRunningScene();
+		if (rootNode)
+		{
+			int globalZ = 0;
+			Node *pCurrentNode = node;
+			if (!pCurrentNode->isVisible())
+			{
+				return -1;
+			}
+			Node *pParentNode = pCurrentNode->getParent();
+			while (pParentNode && pParentNode != rootNode)
+			{
+				if (!pParentNode->isVisible())
+				{
+					return -1;
+				}
+				globalZ += pCurrentNode->getLocalZOrder() + pParentNode->getChildren().getIndex(pCurrentNode);
+				++globalZ;	// local zorder may be 0, accumulate the zorder by 1 for each node.
+				pCurrentNode = pParentNode;
+				pParentNode = pCurrentNode->getParent();
+			}
+			return globalZ;
+		}
+		return -1;
+	}
+
 	template<>
 	struct greater<framework::Win32EventListener*>
 	{
 		bool operator()(framework::Win32EventListener*& _Left, framework::Win32EventListener*& _Right) const
 		{
-			return (_Left->_target->getPositionZ() > _Right->_target->getPositionZ());
+			return calculateGlobalZOrder(_Left->_target) < calculateGlobalZOrder(_Right->_target);
 		}
 	};
 }

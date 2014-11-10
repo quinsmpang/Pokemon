@@ -11,6 +11,7 @@ ActionController.isUnderAction = false		-- 是否正在处理action
 function ActionController:processAction(actionModel)
 	log("ActionController:processAction", actionModel.handler, actionModel.params)
 	self.isUnderAction = true
+	-- MapStateController:setCurrentState(Enumerations.MAP_STATE.ACTION)
 	local actionHandler = actionModel.handler
 	local handler = self["action_" .. actionHandler]
 	assert(type(handler) == "function", "Unimplemented action handler in ActionController.")
