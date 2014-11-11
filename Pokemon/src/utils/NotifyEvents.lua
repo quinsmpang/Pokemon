@@ -32,4 +32,4 @@ NotifyEvents.MapView.MapStateChanged = "NotifyEvents.MapView.MapStateChanged"
 NotifyEvents.PokemonView = NotifyEvents.PokemonView or {}
 
 -- 响应PokemonMainView的事件  PokemonMainView通知, PokmeonViewController观察
-NotifyEvents.PokemonView.BtnClick = "NotifyEvents.PokemonView.BtnClick"
+NotifyEvents.PokemonView.MainViewKeyResponsed = "NotifyEvents.PokemonView.MainViewKeyResponsed"

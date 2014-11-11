@@ -26,9 +26,9 @@ end
 function PokemonViewController:unload()
 	log("PokemonViewController:unload")
 	self:removeObservers()
-	local coreLayer = self:getScene():getCoreLayer()
-	coreLayer:popLayer()
 	self:cleanResources()
+
+	self.mainView:removeFromParent()
 end
 
 function PokemonViewController:loadResources()
@@ -43,25 +43,30 @@ end
 
 function PokemonViewController:addObservers()
 	log("PokemonViewController:addObservers")
-	Notifier:addObserver(NotifyEvents.PokemonView.BtnClick, self, self.onMainViewBtnClick)
+	Notifier:addObserver(NotifyEvents.PokemonView.MainViewKeyResponsed, self, self.onMainViewKeyResponsed)
 end
 
 function PokemonViewController:removeObservers()
 	log("PokemonViewController:removeObservers")
-	Notifier:removeObserver(NotifyEvents.PokemonView.BtnClick, self)
+	Notifier:removeObserver(NotifyEvents.PokemonView.MainViewKeyResponsed, self)
 end
 
 function PokemonViewController:renderView()
-	local coreLayer = self:getScene():getCoreLayer()
-
+	log("PokemonViewController:renderView")
 	local mainView = PokemonMainView:create()
-	coreLayer:pushLayer(mainView)
+	self:getScene():addChild(mainView)
 	self.mainView = mainView
 end
 
-function PokemonViewController:onMainViewBtnClick(tag, sender)
-	if tag == PokemonMainView.TAG.BTN_EXIT then
-		self:getScene():unloadViewController(self)
-		MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
+function PokemonViewController:onMainViewKeyResponsed(keyCode)
+	if keyCode == GameSettings.cancelKey then
+		local quitAction = cc.Sequence:create(
+			cc.FadeIn:create(0.15),
+			cc.CallFunc:create(MakeScriptHandler(self, self.onQuit))
+			)
+		self.mainView.mask:runAction(quitAction)
 	end
+end
+function PokemonViewController:onQuit()
+	self:getScene():unloadViewController(self)
 end

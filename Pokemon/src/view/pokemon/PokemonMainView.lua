@@ -49,10 +49,32 @@ function PokemonMainView:init()
 
 	self:showPokemons()
 
+	self:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
+
 	if self.mask then
 		self.root:addChild(self.mask, 999)
 		self.mask:release()
 	end
+end
+
+function PokemonMainView:onNodeEvent(event)
+	if event == "enter" then
+		self.mask:runAction(cc.FadeOut:create(0.15))
+
+		local kbdListener = Win32EventListenerKeyboard:createWithTarget(self.root)
+		kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
+		Win32Notifier:getInstance():addEventListener(kbdListener)
+		self.kbdListener = kbdListener
+	elseif event == "exit" then
+		if self.kbdListener then
+			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
+			self.kbdListener = nil
+		end
+	end
+end
+
+function PokemonMainView:onKeyboardPressed(keyCode)
+	Notifier:notify(NotifyEvents.PokemonView.MainViewKeyResponsed, keyCode)
 end
 
 function PokemonMainView:showPokemons()
@@ -172,8 +194,4 @@ function PokemonMainView:createPokemonCell(index)
 	end
 
 	return cell
-end
-
-function PokemonMainView:onBtnExitClick()
-	Notifier:notify(NotifyEvents.PokemonView.BtnClick, self.TAG.BTN_EXIT, self.btnExit)
 end

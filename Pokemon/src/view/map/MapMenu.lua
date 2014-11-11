@@ -99,26 +99,7 @@ function MapMenu:itemAtIndex(menu, index)
 		label:setString(self.ITEM_STRINGS[index + 1])
 	end
 
-	item.__isEnabled = true
-	-- 是否可用
-	if DataCenter.currentPlayerData.lastStep < self.SKIP_PETS_STEP then
-		if index == 0 or index == 1 or index == 3 then
-			item.__isEnabled = false
-		end
-	elseif DataCenter.currentPlayerData.lastStep < self.SKIP_COLLECTION_STEP then
-		if index == 0 or index == 3 then
-			item.__isEnabled = false
-		end
-	elseif DataSource.currentPlayerData.lastStep < self.SKIP_CONTACT_STEP then
-		if index == 3 then
-			item.__isEnabled = false
-		end
-	end
-	if not item.__isEnabled then
-		local label = item:getChildByTag(self.LABEL_TAG)
-		tolua.cast(label, "cc.Label")
-		label:setColor(ccc3(200, 200, 200))
-	end
+	self:validateItem(item, index)
 
 	return item
 end
@@ -146,4 +127,36 @@ end
 
 function MapMenu:itemWillRecycle(menu, item)
 	--item:removeAllChildrenWithCleanup(true)
+end
+
+function MapMenu:validateItem(item, index)
+	item.__isEnabled = true
+	if DataCenter.currentPlayerData.lastStep < self.SKIP_PETS_STEP then
+		if index == 0 or index == 1 or index == 3 then
+			item.__isEnabled = false
+		end
+	elseif DataCenter.currentPlayerData.lastStep < self.SKIP_COLLECTION_STEP then
+		if index == 0 or index == 3 then
+			item.__isEnabled = false
+		end
+	elseif DataSource.currentPlayerData.lastStep < self.SKIP_CONTACT_STEP then
+		if index == 3 then
+			item.__isEnabled = false
+		end
+	end
+
+	local label = item:getChildByTag(self.LABEL_TAG)
+	tolua.cast(label, "cc.Label")
+	if not item.__isEnabled then
+		label:setColor(ccc3(200, 200, 200))
+	else
+		label:setColor(ccc3(0, 0, 0))
+	end
+end
+
+function MapMenu:validateAllItems()
+	for i = 0, #self.ITEM_STRINGS - 1 do
+		local item = self:getItemAtIndex(i)
+		self:validateItem(item, i)
+	end
 end

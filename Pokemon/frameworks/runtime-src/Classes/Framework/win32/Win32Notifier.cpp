@@ -7,7 +7,31 @@ using namespace std;
 
 static std::unordered_map<int, std::vector<cocos2d::Node*> > g_globalZOrderNodeMap;		// save all node zorder
 static std::unordered_map<cocos2d::Node*, int> g_nodePriorityMap;		// node priority map
+static std::unordered_map<Node*, bool> g_listenerTargetMap;
 static int g_nodePriorityIndex;
+
+static bool isInScene(Node *node)
+{
+	Node *pCurrent = node;
+	if (!pCurrent->isVisible())
+	{
+		return false;
+	}
+	while (pCurrent->getParent())
+	{
+		pCurrent = pCurrent->getParent();
+		if (!pCurrent->isVisible())
+		{
+			return false;
+		}
+	}
+
+	if (pCurrent != Director::getInstance()->getRunningScene())
+	{
+		return false;
+	}
+	return true;
+}
 
 namespace std
 {
@@ -16,8 +40,15 @@ namespace std
 	{
 		bool operator()(framework::Win32EventListener*& _Left, framework::Win32EventListener*& _Right) const
 		{
-			// return calculateGlobalZOrder(_Left->_target) < calculateGlobalZOrder(_Right->_target);
-			return (g_nodePriorityMap[_Left->_target]) > (g_nodePriorityMap[_Right->_target])
+			if (isInScene(_Left->_target) && !isInScene(_Right->_target))
+			{
+				return true;
+			}
+			else if (!isInScene(_Left->_target) && isInScene(_Right->_target))
+			{
+				return false;
+			}
+			return (g_nodePriorityMap[_Left->_target]) > (g_nodePriorityMap[_Right->_target]);
 		}
 	};
 }
@@ -89,17 +120,16 @@ namespace framework
 		}
 	}
 
-	void Win32Notifier::sortAllListenersWithScenePriority(const std::list<Win32EventListener*> &listeners)
+	void Win32Notifier::sortAllListenersWithScenePriority(std::list<Win32EventListener*> &listeners)
 	{
 		// save listener target as hash
-		static std::unordered_map<Node*, bool> g_listenerTargetMap;
 		g_listenerTargetMap.clear();
 		for (auto &listener : listeners)
 		{
 			g_listenerTargetMap[listener->_target] = true;
 		}
 
-		auto rootNode = Director:getInstance()->getRunningScene();
+		auto rootNode = Director::getInstance()->getRunningScene();
 		if (rootNode) 
 		{
 			// reset
@@ -112,7 +142,7 @@ namespace framework
 		}
 	}
 
-	void visitTarget(cocos2d::Node *target, bool isRoot)
+	void Win32Notifier::visitTarget(cocos2d::Node *target, bool isRoot)
 	{
 		auto &children = target->getChildren();
 		int childrenCount = children.size();
@@ -158,26 +188,26 @@ namespace framework
 		if (isRoot)
 		{
 			std::vector<float> globalZOrders;
-	        globalZOrders.reserve(g_globalZOrderNodeMap.size());
-	        
-	        for (const auto &pair : g_globalZOrderNodeMap)
-	        {
-	            globalZOrders.push_back(pair.first);
-	        }
-	        
-	        std::sort(globalZOrders.begin(), globalZOrders.end(), [](const float a, const float b){
-	            return a < b;
-	        });
-	        
-	        for (const auto &globalZ : globalZOrders)
-	        {
-	            for (const auto &node : g_globalZOrderNodeMap[globalZ])
-	            {
-	                g_nodePriorityMap[node] = ++g_nodePriorityIndex;
-	            }
-	        }
-	        
-	        g_globalZOrderNodeMap.clear();
+			globalZOrders.reserve(g_globalZOrderNodeMap.size());
+
+			for (const auto &pair : g_globalZOrderNodeMap)
+			{
+				globalZOrders.push_back(pair.first);
+			}
+
+			std::sort(globalZOrders.begin(), globalZOrders.end(), [](const float a, const float b){
+				return a < b;
+			});
+
+			for (const auto &globalZ : globalZOrders)
+			{
+				for (const auto &node : g_globalZOrderNodeMap[globalZ])
+				{
+					g_nodePriorityMap[node] = ++g_nodePriorityIndex;
+				}
+			}
+
+			g_globalZOrderNodeMap.clear();
 		}
 	}
 }

@@ -46,9 +46,6 @@ function MapLayerController:unload()
 	log("MapLayerController:unload")
 	self:cleanResources()
 	self:removeObservers()
-	if self.mainMenu then
-		self.mainMenu:release()
-	end
 end
 
 function MapLayerController:loadResources()
@@ -67,7 +64,6 @@ function MapLayerController:addObservers()
 	Notifier:addObserver(NotifyEvents.MapView.MapUpdate, self, self.onMapUpdate)
 	Notifier:addObserver(NotifyEvents.MapView.ShowEntranceMessage, self, self.onShowEntranceMessage)
 	Notifier:addObserver(NotifyEvents.MapView.MenuItemSelected, self, self.onMenuItemSelected)
-	-- Notifier:addObserver(NotifyEvents.MapView.MapStateChanged, self, self.onMapStateChanged)
 end
 
 function MapLayerController:removeObservers()
@@ -77,7 +73,6 @@ function MapLayerController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.MapView.MapUpdate, self)
 	Notifier:removeObserver(NotifyEvents.MapView.ShowEntranceMessage, self)
 	Notifier:removeObserver(NotifyEvents.MapView.MenuItemSelected, self)
-	-- Notifier:removeObserver(NotifyEvents.MapView.MapStateChanged, self)
 
 	Notifier:removeObserver(NotifyEvents.MapView.ActionInstructionsEnded, self)
 end
@@ -103,7 +98,8 @@ function MapLayerController:renderView()
 
 	-- main menu
 	local mainMenu = MapMenuLayer:create()
-	mainMenu:retain()
+	self:getScene():addChild(mainMenu)
+	mainMenu:setVisible(false)
 	self.mainMenu = mainMenu
 
 	self.playerState = PLAYER_STATE.STANDING
@@ -121,14 +117,6 @@ function MapLayerController:onNodeEvent(event)
 			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
 			self.kbdListener = nil
 		end
-	end
-end
-
-function MapLayerController:onMapStateChanged(oldState, newState)
-	if newState == Enumerations.MAP_STATE.FREEDOM then
-		self:setEnabled(true)
-	elseif newState ~= Enumerations.MAP_STATE.FREEDOM then
-		self:setEnabled(false)
 	end
 end
 
@@ -201,7 +189,8 @@ function MapLayerController:onKeyboardPressed(keyCode)
 		end
 	elseif keyCode == GameSettings.startKey then
 		-- 打开主菜单
-		-- MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
+		MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
+		self.mainMenu:validateAllItems()
 		self.mainMenu:setVisible(true)
 	end
 	self:checkPlayerState()

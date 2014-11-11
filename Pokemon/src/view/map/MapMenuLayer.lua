@@ -37,6 +37,7 @@ function MapMenuLayer:init()
 	listMenu:ignoreAnchorPointForPosition(false)
 	listMenu:setAnchorPoint(0.5, 1)
 	listMenu:setPosition(self.back:getContentSize().width * 0.5, self.back:getContentSize().height * 0.95)
+	self.listMenu = listMenu
 
 	self.back:addChild(listMenu)
 
@@ -59,12 +60,16 @@ end
 
 function MapMenuLayer:onKeyboardPressed(keyCode)
 	log("MapMenuLayer:onKeyboardPressed")
-	if keyCode == GameSettings.startKey then
+	if keyCode == GameSettings.startKey or keyCode == GameSettings.cancelKey then
 		self:exitMenu()
 	end
 end
 
 function MapMenuLayer:exitMenu()
-	self:removeFromParent(false)
+	self:setVisible(false)
 	MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
+end
+
+function MapMenuLayer:validateAllItems()
+	self.listMenu:validateAllItems()
 end

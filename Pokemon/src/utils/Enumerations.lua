@@ -34,7 +34,6 @@ Enumerations.MAP_STATE = {
 	DIALOG = 2,
 	MENU = 3,
 	ACTION = 4,
-	POKEMON = 5,
 }
 
 -- 响应类型

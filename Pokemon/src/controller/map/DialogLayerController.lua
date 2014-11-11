@@ -203,14 +203,6 @@ end
 function DialogLayerController:generateNextDialog()
 	log("DialogLayerController:generateNextDialog")
 	log("current dialog id: " .. self.currentDialogId)
-	-- 处理event
-	if self.currentDialogModel then
-		if self.currentDialogModel.eventId ~= DBNULL then
-			local eventModel = EventInfo:create(self.currentDialogModel.eventId)
-			EventController:processEvent(eventModel)
-		end
-	end
-
 	-- 执行action处理 如果有的话
 	if self.currentDialogModel and not ActionController.isUnderAction then
 		if self.currentDialogModel.actionId ~= DBNULL then
@@ -222,6 +214,11 @@ function DialogLayerController:generateNextDialog()
 			else
 				local actionModel = ActionInfo:create(self.currentDialogModel.actionId)
 				ActionController:processAction(actionModel)
+				-- 处理event
+				if self.currentDialogModel.eventId ~= DBNULL then
+					local eventModel = EventInfo:create(self.currentDialogModel.eventId)
+					EventController:processEvent(eventModel)
+				end
 			end
 			return
 		end
@@ -254,6 +251,7 @@ function DialogLayerController:generateNextResponse()
 		DataCenter.currentPlayerData:enterFreedom(false)
 		ResponseController.isUnderResponse = false
 	else
+		self.root:setVisible(true)
 		self.dialogIndice:setVisible(false)
 		self.currentResponseIndex = self.currentResponseIndex + 1
 		local currentResponse = self.responseDialogs[self.currentResponseIndex]

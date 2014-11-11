@@ -31,7 +31,7 @@ end
 
 function MapViewScene:onExit()
 	log("MapViewScene:onExit")
-	self:cleanResources()
+	-- self:cleanResources()
 end
 
 function MapViewScene:loadResources()
@@ -43,15 +43,17 @@ function MapViewScene:cleanResources()
 end
 
 function MapViewScene:init()
-	local coreLayer = CoreLayer:create()
-	self:setCoreLayer(coreLayer)
+	if not self:getCoreLayer() then
+		local coreLayer = CoreLayer:create()
+		self:setCoreLayer(coreLayer)
 
-	GameDBHelper:openDB()
-	
-	local mapLayerController = MapLayerController:create()
-	self:loadViewController(mapLayerController)
-	local dialogLayerController = DialogLayerController:create()
-	self:loadViewController(dialogLayerController)
+		GameDBHelper:openDB()
+		
+		local mapLayerController = MapLayerController:create()
+		self:loadViewController(mapLayerController)
+		local dialogLayerController = DialogLayerController:create()
+		self:loadViewController(dialogLayerController)
+	end
 end
 
 function MapViewScene:newData(gender)
