@@ -12,6 +12,7 @@ Date: 10/28/2014
 #include "Win32EventListener.h"
 #include <unordered_map>
 #include <list>
+#include <vector>
 
 namespace framework
 {
@@ -24,6 +25,9 @@ namespace framework
 		void notify(Win32EventListener::Win32EventListenerType type, Win32EventArgs *args);
 
 	protected:
+		void sortAllListenersWithScenePriority(const std::list<Win32EventListener*> &listeners);
+		void visitTarget(cocos2d::Node *target, bool isRoot);
+
 		std::unordered_map<int, std::list<Win32EventListener*> > _listenerMap;
 	};
 }
