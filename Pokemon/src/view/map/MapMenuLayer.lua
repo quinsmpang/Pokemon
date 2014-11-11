@@ -23,22 +23,7 @@ end
 function MapMenuLayer:init()
 	local screenSize = cc.Director:getInstance():getWinSize()
 
-	self:setOpacity(0.3 * 255)
-
-	--[[
-	-- we need a ball to mask the ball on the map layer.
-	local ballItem = cc.MenuItemSprite:create(
-		cc.Sprite:createWithSpriteFrameName("images/map/pokemon_ball_normal.png"),
-		cc.Sprite:createWithSpriteFrameName("images/map/pokemon_ball_selected.png")
-		)
-	ballItem:registerScriptTapHandler(MakeScriptHandler(self, self.onBallClick))
-	-- ballItem:setAnchorPoint(ccp(1, 1))
-	ballItem:setPosition(screenSize.width - screenSize.height * 0.1 , screenSize.height * 0.9)
-
-	local menu = cc.Menu:create(ballItem)
-	menu:setPosition(0, 0)
-	self:addChild(menu)
-	]]
+	self:setOpacity(0.1 * 255)
 
 	-- menu background
 	self.back = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_red.png", CCRectMake(20, 20, 60, 60))
@@ -55,7 +40,7 @@ function MapMenuLayer:init()
 
 	self.back:addChild(listMenu)
 
-	-- self:registerScriptHandler(MakeScriptHandler(self, self.onSceneEvent))
+	self:registerScriptHandler(MakeScriptHandler(self, self.onSceneEvent))
 end
 
 function MapMenuLayer:onSceneEvent(event)
@@ -72,10 +57,6 @@ function MapMenuLayer:onSceneEvent(event)
 	end
 end
 
-function MapMenuLayer:onBallClick()
-	self:exitMenu()
-end
-
 function MapMenuLayer:onKeyboardPressed(keyCode)
 	log("MapMenuLayer:onKeyboardPressed")
 	if keyCode == GameSettings.startKey then
@@ -84,6 +65,6 @@ function MapMenuLayer:onKeyboardPressed(keyCode)
 end
 
 function MapMenuLayer:exitMenu()
-	self:setVisible(false)
+	self:removeFromParent(false)
 	MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
 end

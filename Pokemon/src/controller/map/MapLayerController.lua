@@ -46,6 +46,9 @@ function MapLayerController:unload()
 	log("MapLayerController:unload")
 	self:cleanResources()
 	self:removeObservers()
+	if self.mainMenu then
+		self.mainMenu:release()
+	end
 end
 
 function MapLayerController:loadResources()
@@ -100,8 +103,7 @@ function MapLayerController:renderView()
 
 	-- main menu
 	local mainMenu = MapMenuLayer:create()
-	mainMenu:setVisible(false)
-	self:getScene():addChild(mainMenu)
+	mainMenu:retain()
 	self.mainMenu = mainMenu
 
 	self.playerState = PLAYER_STATE.STANDING
