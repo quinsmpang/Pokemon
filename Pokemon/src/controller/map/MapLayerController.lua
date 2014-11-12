@@ -317,6 +317,8 @@ function MapLayerController:onMenuItemSelected(item)
 			require "src/controller/pokemon/PokemonViewController"
 
 			local pokemonViewController = PokemonViewController:create()
+			-- send enter type (view pokemon)
+			self:getScene():putIntAttribute(GameConfig.POKEMON_KEY, 1)
 			self:getScene():loadViewController(pokemonViewController)
 		elseif itemIndex == 2 then
 			--背包

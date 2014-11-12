@@ -6,18 +6,24 @@
 
 class("PokemonMainView", psGameLayer)
 
-PokemonMainView.ccb = nil
-PokemonMainView.btnExit = nil
+PokemonMainView.selection = nil		-- 选中框
+PokemonMainView.pokemonCells = nil
 
+PokemonMainView.enterType = nil		-- 界面用途
 PokemonMainView.pokemonList = nil	-- 深拷贝过来的精灵数据，需要重排序，濒死的要排在最后
+PokemonMainView.selectedIndex = nil
 
-PokemonMainView.TAG = {
-	BTN_EXIT = 1,
+PokemonMainView.SELECTION_ZORDER = 100
+
+PokemonMainView.ENTER_TYPE = {
+	VIEW_POKEMON = 1,	-- 查看精灵信息
+	USE_ITEM = 2,		-- 使用道具
+	CARRY_ITEM = 3,		-- 携带道具
 }
 
 PokemonMainView.__create = psGameLayer.create
 
-function PokemonMainView:create()
+function PokemonMainView:create(enterType)
 	-- 本身无法修改opacity, 只好借助一个遮罩层来模拟FadeIn和FadeOut的效果
 	local mask = cc.LayerColor:create(ccc4(0, 0, 0, 255))
 	mask:setCascadeOpacityEnabled(true)
@@ -29,25 +35,41 @@ function PokemonMainView:create()
 		cc.TargetedAction:create(mask, cc.FadeIn:create(0.15))
 		)
 	layer.mask = mask
-	layer:init()
+	layer:init(enterType)
 
 	return layer
 end
 
-function PokemonMainView:init()
+function PokemonMainView:init(enterType)
+	enterType = enterType or self.ENTER_TYPE.VIEW_POKEMON
+	self.enterType = enterType
+
 	local modalLayer = ModalLayer:create()
 	self:addChild(modalLayer)
 	self.root = modalLayer
 
-	self.ccb = ScriptCCBReader:readCCB("ccb/PokemonMainView.ccbi", self)
-	self.ccb:setPosition(0, 0)
-	self.root:addChild(self.ccb)
+	local winSize = cc.Director:getInstance():getWinSize()
 
-	self.btnExit = self.ccb:getChildByTag(self.TAG.BTN_EXIT)
-	tolua.cast(self.btnExit, "cc.ControlButton")
-	self.btnExit:registerControlEventHandler(MakeScriptHandler(self, self.onBtnExitClick), cc.Handler.CONTROL_TOUCH_UP_INSIDE)
+	local bg = cc.Sprite:createWithSpriteFrameName("images/pokemon/background.jpg")
+	bg:setPosition(winSize.width * 0.5, winSize.height * 0.5)
+	self.root:addChild(bg)
+
+	local spPokemon = cc.Sprite:createWithSpriteFrameName("images/pokemon/pokemon_title.png")
+	spPokemon:setPosition(winSize.width * 0.8, winSize.height * 0.9)
+	self.root:addChild(spPokemon)
+
+	local lblTip = cc.Label:createWithTTF("【按取消键返回】", GameConfig.DEFAULT_FONT_PATH, 14)
+	lblTip:setColor(COLOR3B_BLACK)
+	lblTip:setPosition(winSize.width * 0.12, winSize.height * 0.88)
+	self.root:addChild(lblTip)
 
 	self:showPokemons()
+
+	self.selection = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/select_border.png", CCRectMake(10, 10, 30, 30))
+	self.selection:setPreferredSize(CCSizeMake(winSize.width * 0.4, winSize.height * 0.18))
+	self.root:addChild(self.selection)
+
+	self:selectPokemon(1)
 
 	self:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
 
@@ -77,17 +99,43 @@ function PokemonMainView:onKeyboardPressed(keyCode)
 	Notifier:notify(NotifyEvents.PokemonView.MainViewKeyResponsed, keyCode)
 end
 
+function PokemonMainView:selectPokemon(index)
+	if index == self.selectedIndex then
+		return
+	end
+
+	local selectCell = self.pokemonCells[index]
+	if selectCell then
+		self.selection:setPosition(selectCell:getPosition())
+		self.selectedIndex = index
+	end
+end
+
+function PokemonMainView:shift(offset)
+	local newIndex = self.selectedIndex + offset
+	if newIndex < 1 then
+		newIndex = 1
+	elseif newIndex > #self.pokemonList then
+		newIndex = #self.pokemonList
+	end
+
+	self:selectPokemon(newIndex)
+end
+
 function PokemonMainView:showPokemons()
 	assert(type(DataCenter.carriedPokemons) == "table", "Invalid data")
 
 	self.pokemonList = {}
+	self.pokemonCells = {}
 	table.shallowCopy(self.pokemonList, DataCenter.carriedPokemons)
+	-- resort pokemon list, todo
 
 	local winSize = cc.Director:getInstance():getWinSize()
 	for i = 0, 5 do
 		local cell = self:createPokemonCell(i)
 		cell:setPosition(winSize.width * (i % 2 * 0.44 + 0.28), winSize.height * (0.7 - math.floor(i / 2) * 0.2))
 		self.root:addChild(cell)
+		table.insert(self.pokemonCells, cell)
 	end
 end
 

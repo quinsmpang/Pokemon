@@ -23,3 +23,6 @@ GameConfig.ACTION_TABLE = "action_info"
 GameConfig.RESPONSE_TABLE = "response_info"
 GameConfig.PET_TABLE = "pet_info"
 GameConfig.EVENT_TABLE = "event_info"
+
+-- scene attribute keys
+GameConfig.POKEMON_KEY = "scene_pokemon"

@@ -53,7 +53,11 @@ end
 
 function PokemonViewController:renderView()
 	log("PokemonViewController:renderView")
-	local mainView = PokemonMainView:create()
+	local enterType = self:getScene():getIntAttribute(GameConfig.POKEMON_KEY)
+	enterType = enterType or 1
+	log("Pokemon view enter type: " .. enterType)
+
+	local mainView = PokemonMainView:create(enterType)
 	self:getScene():addChild(mainView)
 	self.mainView = mainView
 end
@@ -65,6 +69,24 @@ function PokemonViewController:onMainViewKeyResponsed(keyCode)
 			cc.CallFunc:create(MakeScriptHandler(self, self.onQuit))
 			)
 		self.mainView.mask:runAction(quitAction)
+	elseif keyCode == GameSettings.upKey then
+		self.mainView:shift(-2)
+	elseif keyCode == GameSettings.downKey then
+		self.mainView:shift(2)
+	elseif keyCode == GameSettings.leftKey then
+		self.mainView:shift(-1)
+	elseif keyCode == GameSettings.rightKey then
+		self.mainView:shift(1)
+	elseif keyCode == GameSettings.confirmKey then
+		-- 弹出列表，根据enterType不同 会不同
+		local enterType = self:getScene():getIntAttribute(GameConfig.POKEMON_KEY)
+		if enterType == 1 then
+			-- 精灵查看
+		elseif enterType == 2 then
+			-- 使用道具
+		elseif enterType == 3 then
+			-- 携带道具
+		end
 	end
 end
 function PokemonViewController:onQuit()
