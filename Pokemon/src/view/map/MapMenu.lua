@@ -59,13 +59,11 @@ end
 
 -- DataSource interface
 function MapMenu:itemSizeForMenu(menu)
-	log("MapMenu:itemSizeForMenu")
 	local screenSize = cc.Director:getInstance():getWinSize()
 	return screenSize.width * 0.15, screenSize.height * 0.08
 end
 
 function MapMenu:itemAtIndex(menu, index)
-	log("MapMenu:itemAtIndex", index)
 	local item = menu:dequeueItem()
 	if not item then
 		item = ListMenuItem:create()
@@ -105,7 +103,6 @@ function MapMenu:itemAtIndex(menu, index)
 end
 
 function MapMenu:countOfItemInMenu(menu)
-	log("MapMenu:countOfItemInMenu", #self.ITEM_STRINGS)
 	return #self.ITEM_STRINGS
 end
 

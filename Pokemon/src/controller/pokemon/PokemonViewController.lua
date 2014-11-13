@@ -10,6 +10,13 @@ require "src/view/pokemon/PokemonMainView"
 
 PokemonViewController.mainView = nil
 
+PokemonViewController.LIST_STRS = {
+	"查看强度",
+	"交换位置",
+	"携带物品",
+	"返回",
+}
+
 PokemonViewController.resources = {
 	"images/pokemon.plist",
 	"images/pokemon.pvr.ccz",
@@ -82,6 +89,12 @@ function PokemonViewController:onMainViewKeyResponsed(keyCode)
 		local enterType = self:getScene():getIntAttribute(GameConfig.POKEMON_KEY)
 		if enterType == 1 then
 			-- 精灵查看
+			local list = CommonListMenu:create(self.LIST_STRS, CCSizeMake(175, 200))
+			list:setItemSelectedScript(MakeScriptHandler(self, self.onViewPokemonItemSelected))
+			list:setAnchorPoint(1, 0)
+			list:setPosition(cc.Director:getInstance():getWinSize().width, 0)
+			self.viewPokemonList = list
+			self:getScene():addChild(list)
 		elseif enterType == 2 then
 			-- 使用道具
 		elseif enterType == 3 then
@@ -91,4 +104,18 @@ function PokemonViewController:onMainViewKeyResponsed(keyCode)
 end
 function PokemonViewController:onQuit()
 	self:getScene():unloadViewController(self)
+end
+
+function PokemonViewController:onViewPokemonItemSelected(menu, item)
+	local index = item:getShowIndex()
+	log("PokemonViewController:onViewPokemonItemSelected", index)
+	if index == 0 then
+	elseif index == 1 then
+	elseif index == 2 then
+	elseif index == 3 then
+		-- you must remove the listener here, otherwise it may cause an invalid pointer of current listener
+		if self.viewPokemonList then
+			self.viewPokemonList:markExit(true)
+		end
+	end
 end

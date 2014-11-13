@@ -83,12 +83,14 @@ function PokemonMainView:onNodeEvent(event)
 	if event == "enter" then
 		self.mask:runAction(cc.FadeOut:create(0.15))
 
-		local kbdListener = Win32EventListenerKeyboard:createWithTarget(self.root)
-		kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
-		Win32Notifier:getInstance():addEventListener(kbdListener)
-		self.kbdListener = kbdListener
+		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+			local kbdListener = Win32EventListenerKeyboard:createWithTarget(self)
+			kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
+			Win32Notifier:getInstance():addEventListener(kbdListener)
+			self.kbdListener = kbdListener
+		end
 	elseif event == "exit" then
-		if self.kbdListener then
+		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS and self.kbdListener then
 			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
 			self.kbdListener = nil
 		end

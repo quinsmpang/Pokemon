@@ -58,6 +58,8 @@ namespace framework
 		{
 			this->_recycledItems = new Vector<ListMenuItem*>();
 			this->_showCount = showCount;
+			this->setAnchorPoint(Point(0.5, 0.5));
+			this->ignoreAnchorPointForPosition(false);
 
 			return true;
 		}
