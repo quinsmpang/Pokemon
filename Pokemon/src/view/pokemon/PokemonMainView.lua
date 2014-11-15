@@ -8,12 +8,15 @@ class("PokemonMainView", psGameLayer)
 
 PokemonMainView.selection = nil		-- 选中框
 PokemonMainView.pokemonCells = nil
+PokemonMainView.exchangeSelection = nil	-- 交换位置时用的选中框
 
 PokemonMainView.enterType = nil		-- 界面用途
 PokemonMainView.pokemonList = nil	-- 深拷贝过来的精灵数据，需要重排序，濒死的要排在最后
-PokemonMainView.selectedIndex = nil
+PokemonMainView.selectedIndex = nil	-- 当前选中index
+PokemonMainView.exchangeIndex = nil	-- 需要交换位置的index
 
 PokemonMainView.SELECTION_ZORDER = 100
+PokemonMainView.EXCHANGE_SELECTION_ZORDER = 101
 
 PokemonMainView.ENTER_TYPE = {
 	VIEW_POKEMON = 1,	-- 查看精灵信息
@@ -122,6 +125,25 @@ function PokemonMainView:shift(offset)
 	end
 
 	self:selectPokemon(newIndex)
+end
+
+function PokemonMainView:readyToExchangePosition()
+	local winSize = cc.Director:getInstance():getWinSize()
+	local exchangeBorder = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/select_border.png", CCRectMake(10, 10, 30, 30))
+	exchangeBorder:setPreferredSize(CCSizeMake(winSize.width * 0.4, winSize.height * 0.18))
+	exchangeBorder:setPosition(self:getSelectedCell():getPosition())
+	self:addChild(exchangeBorder, self.EXCHANGE_SELECTION_ZORDER)
+	self.exchangeSelection = exchangeBorder
+	self.exchangeIndex = self.selectedIndex
+end
+
+function PokemonMainView:exchangePokemonPosition()
+	Notifier:notify(NotifyEvents.PokemonView.ExchangePokemonPosition, self.exchangeIndex, self.selectedIndex)
+	-- animation
+end
+
+function PokemonMainView:getSelectedCell()
+	return self.pokemonCells[self.selectedIndex]
 end
 
 function PokemonMainView:showPokemons()

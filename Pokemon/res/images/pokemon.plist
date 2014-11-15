@@ -163,7 +163,7 @@
             <key>images/pokemon/icon_prop_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{908,298},{50,25}}</string>
+                <string>{{935,299},{50,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -176,7 +176,7 @@
             <key>images/pokemon/icon_prop_10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{935,247},{50,25}}</string>
+                <string>{{908,298},{50,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -189,7 +189,7 @@
             <key>images/pokemon/icon_prop_11.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{804,302},{50,25}}</string>
+                <string>{{856,275},{50,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -202,7 +202,7 @@
             <key>images/pokemon/icon_prop_12.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{856,277},{50,25}}</string>
+                <string>{{804,275},{50,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -215,7 +215,7 @@
             <key>images/pokemon/icon_prop_13.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{804,275},{50,25}}</string>
+                <string>{{856,248},{50,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -228,7 +228,7 @@
             <key>images/pokemon/icon_prop_14.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{856,250},{50,25}}</string>
+                <string>{{804,248},{50,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -241,11 +241,11 @@
             <key>images/pokemon/icon_prop_15.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{908,246},{50,25}}</string>
+                <string>{{962,288},{50,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{50,25}}</string>
                 <key>sourceSize</key>
@@ -254,7 +254,7 @@
             <key>images/pokemon/icon_prop_16.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{804,248},{50,25}}</string>
+                <string>{{962,261},{50,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -267,11 +267,11 @@
             <key>images/pokemon/icon_prop_17.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{856,223},{50,25}}</string>
+                <string>{{935,247},{50,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{50,25}}</string>
                 <key>sourceSize</key>
@@ -280,11 +280,11 @@
             <key>images/pokemon/icon_prop_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{856,196},{50,25}}</string>
+                <string>{{908,246},{50,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{50,25}}</string>
                 <key>sourceSize</key>
@@ -384,7 +384,7 @@
             <key>images/pokemon/icon_state_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{989,280},{25,25}}</string>
+                <string>{{831,302},{25,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -397,7 +397,7 @@
             <key>images/pokemon/icon_state_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{935,299},{25,25}}</string>
+                <string>{{804,302},{25,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -410,7 +410,7 @@
             <key>images/pokemon/icon_state_3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{962,280},{25,25}}</string>
+                <string>{{989,342},{25,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -423,7 +423,7 @@
             <key>images/pokemon/icon_state_4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{804,329},{25,25}}</string>
+                <string>{{962,342},{25,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -436,7 +436,7 @@
             <key>images/pokemon/icon_state_5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{856,304},{25,25}}</string>
+                <string>{{989,315},{25,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -449,7 +449,7 @@
             <key>images/pokemon/icon_state_6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{976,253},{25,25}}</string>
+                <string>{{962,315},{25,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -462,7 +462,7 @@
             <key>images/pokemon/menu_cursor.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1003,253},{15,17}}</string>
+                <string>{{858,302},{15,17}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -514,6 +514,19 @@
             <key>images/pokemon/select_border.png</key>
             <dict>
                 <key>frame</key>
+                <string>{{856,196},{50,50}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{50,50}}</string>
+                <key>sourceSize</key>
+                <string>{50,50}</string>
+            </dict>
+            <key>images/pokemon/select_border2.png</key>
+            <dict>
+                <key>frame</key>
                 <string>{{804,196},{50,50}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
@@ -560,7 +573,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5095f9cade74e02ba3b12221c371c7a4:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:c89cd8dce4b7bea2d87bcd7668238e3f:1/1$</string>
             <key>textureFileName</key>
             <string>pokemon.pvr.ccz</string>
         </dict>

@@ -17,8 +17,8 @@ PetInfo.racial = DBNULL	-- 种族值
 PetInfo.description = DBNULL	-- 宠物描述
 PetInfo.hardValue = DBNULL		-- 努力值
 PetInfo.evolution = DBNULL		-- 进化信息
-PetInfo.levelUpSkills = DBNULL	-- 升级学习的技能
-PetInfo.machineSkills = DBNULL	-- 机器学习的技能
+PetInfo.levelUpSkills = DBNULL	-- 升级学习的技能 { {lv, skillId}, {lv, skillId}, ... }
+PetInfo.machineSkills = DBNULL	-- 机器学习的技能 { skillId, skillId, ... }
 PetInfo.heredSkills = DBNULL	-- 遗传学习的技能
 PetInfo.fixedSkills = DBNULL	-- 定点学习的技能
 
@@ -51,6 +51,20 @@ function PetInfo:updateFromDB()
 			local pair = string.split(v, ",")
 			self.hardValue[tonumber(pair[1])] = tonumber(pair[2])
 		end
+		self.levelUpSkills = {}
+		local growSkills = string.split(data.levelUpSkills, ",")
+		for _, v in ipairs(growSkills) do
+			local t = string.split(v, ":")
+			for i, v in ipairs(t) do
+				t[i] = tonumber(v)
+			end
+			table.insert(self.levelUpSkills, t)
+		end
+		local machineSkills = string.split(data.machineSkills, ",")
+		for i, v in ipairs(machineSkills) do
+			machineSkills[i] = tonumber(v)
+		end
+		self.machineSkills = machineSkills
 		-- rest todo
 	else
 		log("PetInfo:updateFromDB failed, id [" .. self.id .. "] does not exist.")

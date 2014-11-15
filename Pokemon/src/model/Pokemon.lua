@@ -99,7 +99,30 @@ function Pokemon:recalculateBasicData()
 end
 
 function Pokemon:initSkills()
-	
+	-- 取最接近等级的4个技能
+	self.skills = {}
+	if self.model.levelUpSkills ~= DBNULL then
+		local index = -1
+		-- 搜索到最近的技能index
+		for i, v in ipairs(self.model.levelUpSkills) do
+			local lv = v[1]
+			if lv <= self.level then
+				index = i
+			else
+				break
+			end
+		end
+
+		if index > 0 then
+			local min = index - 3 < 1 and 1 or index - 3
+			local max = index
+
+			for i = min, max do
+				log("Init skill: ", self.model.levelUpSkills[i][2])
+				table.insert(self.skills, self.model.levelUpSkills[i][2])
+			end
+		end
+	end
 end
 
 function Pokemon:getPersonalityConst()
