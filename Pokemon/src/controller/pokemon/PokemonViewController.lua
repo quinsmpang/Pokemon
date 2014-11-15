@@ -77,11 +77,16 @@ end
 
 function PokemonViewController:onMainViewKeyResponsed(keyCode)
 	if keyCode == GameSettings.cancelKey then
-		local quitAction = cc.Sequence:create(
-			cc.FadeIn:create(0.15),
-			cc.CallFunc:create(MakeScriptHandler(self, self.onQuit))
-			)
-		self.mainView.mask:runAction(quitAction)
+		if self.inExchangeState then
+			self:endExchange()
+			self.mainView:cancelExchange()
+		else
+			local quitAction = cc.Sequence:create(
+				cc.FadeIn:create(0.15),
+				cc.CallFunc:create(MakeScriptHandler(self, self.onQuit))
+				)
+			self.mainView.mask:runAction(quitAction)
+		end
 	elseif keyCode == GameSettings.upKey then
 		self.mainView:shift(-2)
 	elseif keyCode == GameSettings.downKey then
@@ -98,6 +103,7 @@ function PokemonViewController:onMainViewKeyResponsed(keyCode)
 			if self.inExchangeState then
 				-- 交换位置
 				self.mainView:exchangePokemonPosition()
+				CallFunctionAsync(self, self.endExchange, 1)
 			else
 				-- 弹出列表
 				local list = CommonListMenu:create(self.LIST_STRS, CCSizeMake(175, 200))
@@ -116,6 +122,9 @@ function PokemonViewController:onMainViewKeyResponsed(keyCode)
 end
 function PokemonViewController:onQuit()
 	self:getScene():unloadViewController(self)
+end
+function PokemonViewController:endExchange()
+	self.inExchangeState = false
 end
 
 function PokemonViewController:onViewPokemonItemSelected(menu, item)

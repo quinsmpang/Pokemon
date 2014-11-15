@@ -335,6 +335,11 @@ function MapLayerController:onMenuItemSelected(item)
 			--记录
 		elseif itemIndex == 6 then
 			--设置
+			if DEBUG then
+				if DataCenter.carriedPokemons then
+					table.insert(DataCenter.carriedPokemons, DataCenter.carriedPokemons[1])
+				end
+			end
 		elseif itemIndex == 7 then
 			--退出
 			self.mainMenu:exitMenu()

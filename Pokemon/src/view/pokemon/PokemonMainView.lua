@@ -14,6 +14,7 @@ PokemonMainView.enterType = nil		-- 界面用途
 PokemonMainView.pokemonList = nil	-- 深拷贝过来的精灵数据，需要重排序，濒死的要排在最后
 PokemonMainView.selectedIndex = nil	-- 当前选中index
 PokemonMainView.exchangeIndex = nil	-- 需要交换位置的index
+PokemonMainView.inAction = nil		-- 是否正在播放动画
 
 PokemonMainView.SELECTION_ZORDER = 100
 PokemonMainView.EXCHANGE_SELECTION_ZORDER = 101
@@ -47,6 +48,8 @@ function PokemonMainView:init(enterType)
 	enterType = enterType or self.ENTER_TYPE.VIEW_POKEMON
 	self.enterType = enterType
 
+	self.inAction = false
+
 	local modalLayer = ModalLayer:create()
 	self:addChild(modalLayer)
 	self.root = modalLayer
@@ -70,7 +73,7 @@ function PokemonMainView:init(enterType)
 
 	self.selection = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/select_border.png", CCRectMake(10, 10, 30, 30))
 	self.selection:setPreferredSize(CCSizeMake(winSize.width * 0.4, winSize.height * 0.18))
-	self.root:addChild(self.selection)
+	self.root:addChild(self.selection, self.SELECTION_ZORDER)
 
 	self:selectPokemon(1)
 
@@ -101,6 +104,9 @@ function PokemonMainView:onNodeEvent(event)
 end
 
 function PokemonMainView:onKeyboardPressed(keyCode)
+	if self.inAction then
+		return
+	end
 	Notifier:notify(NotifyEvents.PokemonView.MainViewKeyResponsed, keyCode)
 end
 
@@ -129,17 +135,67 @@ end
 
 function PokemonMainView:readyToExchangePosition()
 	local winSize = cc.Director:getInstance():getWinSize()
-	local exchangeBorder = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/select_border.png", CCRectMake(10, 10, 30, 30))
+	local exchangeBorder = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/select_border2.png", CCRectMake(10, 10, 30, 30))
 	exchangeBorder:setPreferredSize(CCSizeMake(winSize.width * 0.4, winSize.height * 0.18))
 	exchangeBorder:setPosition(self:getSelectedCell():getPosition())
-	self:addChild(exchangeBorder, self.EXCHANGE_SELECTION_ZORDER)
+	self.root:addChild(exchangeBorder, self.EXCHANGE_SELECTION_ZORDER)
 	self.exchangeSelection = exchangeBorder
 	self.exchangeIndex = self.selectedIndex
 end
 
+function PokemonMainView:cancelExchange()
+	self.exchangeIndex = nil
+	if self.exchangeSelection then
+		self.exchangeSelection:removeFromParent()
+		self.exchangeSelection = nil
+	end
+end
+
 function PokemonMainView:exchangePokemonPosition()
-	Notifier:notify(NotifyEvents.PokemonView.ExchangePokemonPosition, self.exchangeIndex, self.selectedIndex)
-	-- animation
+	log("PokemonMainView:exchangePokemonPosition", self.exchangeIndex, self.selectedIndex)
+	if self.exchangeIndex ~= self.selectedIndex then
+		self.inAction = true
+		-- animation
+		local tmp = { self.exchangeIndex, self.selectedIndex }
+		local originPos = {}	-- 原始位置
+		local targetPos = {}	-- 目标位置
+		for _, index in ipairs(tmp) do
+			local cell = self.pokemonCells[index]
+			table.insert(originPos, ccp(cell:getPosition()))
+			if index % 2 == 1 then
+				-- 朝左
+				table.insert(targetPos, ccp(-cell:getContentSize().width * 0.51, cell:getPositionY()))
+			else
+				-- 朝右
+				table.insert(targetPos, ccp(cc.Director:getInstance():getWinSize().width + cell:getContentSize().width * 0.51, cell:getPositionY()))
+			end
+		end
+
+		local spawnAry = {}
+		for i, index in ipairs(tmp) do
+			local cell = self.pokemonCells[index]
+			local sequenceAry = {
+				cc.TargetedAction:create(cell, cc.MoveTo:create(0.5, targetPos[i])),
+				cc.CallFunc:create(function() cell:setPosition(targetPos[i % 2 + 1]) end),
+				cc.TargetedAction:create(cell, cc.MoveTo:create(0.5, originPos[i % 2 + 1]))
+			}
+			table.insert(spawnAry, cc.Sequence:create(sequenceAry))
+		end
+
+		self.selection:setVisible(false)
+		self:runAction(cc.Sequence:create(
+			cc.Spawn:create(spawnAry),
+			cc.CallFunc:create(MakeScriptHandler(self, self.endAction))
+			))
+
+		Notifier:notify(NotifyEvents.PokemonView.ExchangePokemonPosition, self.exchangeIndex, self.selectedIndex)
+		self.pokemonCells[self.exchangeIndex], self.pokemonCells[self.selectedIndex] = self.pokemonCells[self.selectedIndex], self.pokemonCells[self.exchangeIndex]
+	end
+	self:cancelExchange()
+end
+function PokemonMainView:endAction()
+	self.inAction = false
+	self.selection:setVisible(true)
 end
 
 function PokemonMainView:getSelectedCell()
