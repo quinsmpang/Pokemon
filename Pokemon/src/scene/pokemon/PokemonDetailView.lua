@@ -69,6 +69,7 @@ function PokemonDetailView:init(pokemon)
 	list:setPosition(0, winSize.height)
 	list:setCancelScript(MakeScriptHandler(self, self.quit))
 	self:addChild(list)
+	self.menu = list
 
 	local pokemonBg = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/back_gray.png", CCRectMake(10, 10, 31, 31))
 	pokemonBg:setPreferredSize(CCSizeMake(225, 325))
@@ -124,6 +125,18 @@ end
 function PokemonDetailView:onNodeEvent(event)
 	if event == "enter" then
 		self.mask:runAction(cc.FadeOut:create(0.15))
+
+		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+			local kbdListener = Win32EventListenerKeyboard:createWithTarget(self)
+			kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
+			Win32Notifier:getInstance():addEventListener(kbdListener)
+			self.kbdListener = kbdListener
+		end
+	elseif event == "exit" then
+		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS and self.kbdListener then
+			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
+			self.kbdListener = nil
+		end
 	end
 end
 
@@ -147,6 +160,7 @@ function PokemonDetailView:quit()
 	self.mask:runAction(quitAction)
 end
 function PokemonDetailView:onQuit()
+	self.menu:markExit(true)
 	self:removeFromParent()
 end
 
@@ -162,4 +176,8 @@ function PokemonDetailView:createCommonLabel(text, color)
 	lbl:setAnchorPoint(ccp(0, 1))
 	lbl:enableShadow()
 	return lbl
+end
+
+function PokemonDetailView:onKeyboardPressed(keyCode)
+	Notifier:notify(NotifyEvents.PokemonView.DetailViewKeyResponsed, keyCode)
 end

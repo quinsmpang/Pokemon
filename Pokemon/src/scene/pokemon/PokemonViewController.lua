@@ -57,6 +57,7 @@ function PokemonViewController:addObservers()
 	Notifier:addObserver(NotifyEvents.PokemonView.MainViewKeyResponsed, self, self.onMainViewKeyResponsed)
 	Notifier:addObserver(NotifyEvents.PokemonView.ExchangePokemonPosition, self, self.onExchangePokemonPosition)
 	Notifier:addObserver(NotifyEvents.PokemonView.DetailMenuItemSelected, self, self.onDetailMenuItemSelected)
+	Notifier:addObserver(NotifyEvents.PokemonView.DetailViewKeyResponsed, self, self.onDetailViewKeyResponsed)
 end
 
 function PokemonViewController:removeObservers()
@@ -64,6 +65,7 @@ function PokemonViewController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.PokemonView.MainViewKeyResponsed, self)
 	Notifier:removeObserver(NotifyEvents.PokemonView.ExchangePokemonPosition, self)
 	Notifier:removeObserver(NotifyEvents.PokemonView.DetailMenuItemSelected, self)
+	Notifier:removeObserver(NotifyEvents.PokemonView.DetailViewKeyResponsed, self)
 end
 
 function PokemonViewController:renderView()
@@ -177,4 +179,8 @@ function PokemonViewController:onDetailMenuItemSelected(menu, item)
 			self.detailView:quit()
 		end
 	end
+end
+
+function PokemonViewController:onDetailViewKeyResponsed(keyCode)
+	
 end
