@@ -4,13 +4,13 @@
 	Date: 05/18/2014
 ]]
 
-require "src/controller/map/MapLayerController"
-require "src/controller/map/DialogLayerController"
-require "src/controller/map/ActionController"
-require "src/controller/map/ResponseController"
-require "src/controller/map/EventController"
-require "src/controller/map/MapStateController"
-require "src/controller/pokemon/PokemonViewController"
+require "src/scene/map/MapLayerController"
+require "src/scene/map/DialogLayerController"
+require "src/scene/map/ActionController"
+require "src/scene/map/ResponseController"
+require "src/scene/map/EventController"
+require "src/scene/map/MapStateController"
+require "src/scene/pokemon/PokemonViewController"
 
 class("MapViewScene", psGameScene)
 

@@ -6,7 +6,7 @@
 
 class("GenderChooseLayer", psModalLayer)
 
-require "src/view/map/MapViewScene"
+require "src/scene/map/MapViewScene"
 
 GenderChooseLayer.window = nil		--背景窗口
 GenderChooseLayer.maleSprite = nil		--男性精灵

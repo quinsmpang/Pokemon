@@ -7,7 +7,7 @@
 --[[ DEPRECATED ]]
 class("MenuLayerController", psViewController)
 
-require "src/view/map/MapMenuLayer"
+require "src/scene/map/MapMenuLayer"
 
 MenuLayerController.root = nil
 MenuLayerController.mapMenu = nil		-- 菜单
@@ -121,7 +121,7 @@ function MenuLayerController:onMenuItemSelected(item)
 				--精灵
 				MapStateController:setCurrentState(Enumerations.MAP_STATE.INFO)
 
-				require "src/controller/pokemon/PokemonViewController"
+				require "src/scene/pokemon/PokemonViewController"
 
 				local pokemonViewController = PokemonViewController:create()
 				self:getScene():loadViewController(pokemonViewController)

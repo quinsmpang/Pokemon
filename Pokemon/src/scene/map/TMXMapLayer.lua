@@ -6,8 +6,8 @@
 
 class("TMXMapLayer", psGameLayer)
 
-require "src/view/map/HeroSprite"
-require "src/view/map/NpcSprite"
+require "src/scene/map/HeroSprite"
+require "src/scene/map/NpcSprite"
 
 TMXMapLayer.mapInfo = nil 		-- MapInfo model
 TMXMapLayer.width = nil

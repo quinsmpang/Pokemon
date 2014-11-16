@@ -6,8 +6,8 @@
 
 class("PokemonViewController", psViewController)
 
-require "src/view/pokemon/PokemonMainView"
-require "src/view/pokemon/PokemonDetailView"
+require "src/scene/pokemon/PokemonMainView"
+require "src/scene/pokemon/PokemonDetailView"
 
 PokemonViewController.mainView = nil
 

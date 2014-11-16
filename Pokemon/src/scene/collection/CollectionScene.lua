@@ -4,7 +4,7 @@
 	Date: 06/29/2014
 ]]
 
-require "src/controller/collection/CollectionViewController"
+require "src/scene/collection/CollectionViewController"
 
 class("CollectionScene", psGameScene)
 

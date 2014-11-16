@@ -4,10 +4,10 @@
 	Date: 05/17/2014
 ]]
 
-require "src/view/map/MapViewScene"
-require "src/view/maintitle/SettingsLayer"
-require "src/view/maintitle/KeysetLayer"
-require "src/view/maintitle/GenderChooseLayer"
+require "src/scene/map/MapViewScene"
+require "src/scene/maintitle/SettingsLayer"
+require "src/scene/maintitle/KeysetLayer"
+require "src/scene/maintitle/GenderChooseLayer"
 
 class("MainMenu", psLayer)
 

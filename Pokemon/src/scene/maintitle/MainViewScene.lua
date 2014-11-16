@@ -4,7 +4,7 @@
 	Date: 05/03/2014
 ]]
 
-require "src/controller/maintitle/MainViewController"
+require "src/scene/maintitle/MainViewController"
 
 class("MainViewScene", psGameScene)
 

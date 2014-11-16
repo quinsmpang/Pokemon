@@ -6,7 +6,7 @@
 
 class("MapMenuLayer", psModalLayer)
 
-require "src/view/map/MapMenu"
+require "src/scene/map/MapMenu"
 
 MapMenuLayer.back = nil 			-- 背景
 

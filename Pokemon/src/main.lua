@@ -108,7 +108,7 @@ function GameLauncher:loadPublicResources()
 end
 
 function GameLauncher:startGame()
-    require "src/view/maintitle/MainViewScene"
+    require "src/scene/maintitle/MainViewScene"
 
     local mainView = MainViewScene:create()
 

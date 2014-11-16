@@ -4,7 +4,7 @@
 	Date: 05/03/2014
 ]]
 
-require "src/view/maintitle/MainMenu"
+require "src/scene/maintitle/MainMenu"
 
 class("MainViewController", psViewController)
 

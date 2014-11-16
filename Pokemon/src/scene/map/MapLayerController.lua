@@ -6,10 +6,10 @@
 
 class("MapLayerController", psViewController)
 
-require "src/view/map/TMXMapLayer"
-require "src/view/map/MessageTip"
-require "src/view/map/MapNameBoard"
-require "src/view/map/MapMenuLayer"
+require "src/scene/map/TMXMapLayer"
+require "src/scene/map/MessageTip"
+require "src/scene/map/MapNameBoard"
+require "src/scene/map/MapMenuLayer"
 
 MapLayerController.root = nil
 MapLayerController.currentMap = nil		-- 当前地图层
@@ -316,7 +316,7 @@ function MapLayerController:onMenuItemSelected(item)
 			--图鉴
 		elseif itemIndex == 1 then
 			--精灵
-			require "src/controller/pokemon/PokemonViewController"
+			require "src/scene/pokemon/PokemonViewController"
 
 			local pokemonViewController = PokemonViewController:create()
 			-- send enter type (view pokemon)
