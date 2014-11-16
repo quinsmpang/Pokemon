@@ -13,6 +13,7 @@ CommonListMenu.stringList = nil		-- 内容列表
 CommonListMenu.borderSize = nil		-- 外框尺寸
 CommonListMenu.itemSelectedScript = nil
 CommonListMenu.toBeClosed = nil
+CommonListMenu.cancelScript = nil
 
 CommonListMenu.LABEL_TAG = 998
 CommonListMenu.ARROW_TAG = 999
@@ -69,6 +70,10 @@ function CommonListMenu:init(list, borderSize)
 	self:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
 end
 
+function CommonListMenu:setCancelScript(script)
+	self.cancelScript = script
+end
+
 function CommonListMenu:onNodeEvent(event)
 	if event == "enter" then
 		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
@@ -86,8 +91,14 @@ function CommonListMenu:onNodeEvent(event)
 end
 
 function CommonListMenu:onKeyboardPressed(keyCode)
-	if self.toBeClosed or keyCode == GameSettings.cancelKey then
+	if self.toBeClosed then
 		self:removeFromParent()
+	elseif keyCode == GameSettings.cancelKey then
+		if self.cancelScript then
+			self.cancelScript()
+		else
+			self:removeFromParent()
+		end
 	end
 end
 

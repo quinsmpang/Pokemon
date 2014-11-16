@@ -150,13 +150,6 @@ end
 function MainMenu:onBtnLoadGameClicked()
 	log("MainMenu:onBtnLoadGameClicked")
 	GameVolumeHelper:playBtnClickSound()
-
-	-- require "src/controller/pokemon/PokemonViewController"
-
-	-- local pokemonViewController = PokemonViewController:create()
-	-- local curScene = cc.Director:getInstance():getRunningScene()
-	-- tolua.cast(curScene, "ps.GameScene")
-	-- curScene:loadViewController(pokemonViewController)
 end
 
 function MainMenu:onBtnSettingsClicked()

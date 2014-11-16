@@ -8151,6 +8151,53 @@ int lua_psframework_ImageUtils_createAnimationByGifImage(lua_State* tolua_S)
 
     return 0;
 }
+int lua_psframework_ImageUtils_createSpriteWithBinaryData(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ImageUtils* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ImageUtils",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ImageUtils*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ImageUtils_createSpriteWithBinaryData'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        framework::BinaryData* arg0;
+
+        ok &= luaval_to_object<framework::BinaryData>(tolua_S, 2, "pf.BinaryData",&arg0);
+        if(!ok)
+            return 0;
+        cocos2d::Sprite* ret = cobj->createSpriteWithBinaryData(arg0);
+        object_to_luaval<cocos2d::Sprite>(tolua_S, "cc.Sprite",(cocos2d::Sprite*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "createSpriteWithBinaryData",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ImageUtils_createSpriteWithBinaryData'.",&tolua_err);
+#endif
+
+    return 0;
+}
 int lua_psframework_ImageUtils_getGifFrames(lua_State* tolua_S)
 {
     int argc = 0;
@@ -8300,6 +8347,7 @@ int lua_register_psframework_ImageUtils(lua_State* tolua_S)
 
     tolua_beginmodule(tolua_S,"ImageUtils");
         tolua_function(tolua_S,"createAnimationByGifImage",lua_psframework_ImageUtils_createAnimationByGifImage);
+        tolua_function(tolua_S,"createSpriteWithBinaryData",lua_psframework_ImageUtils_createSpriteWithBinaryData);
         tolua_function(tolua_S,"getGifFrames",lua_psframework_ImageUtils_getGifFrames);
         tolua_function(tolua_S,"createAnimationByFrames",lua_psframework_ImageUtils_createAnimationByFrames);
         tolua_function(tolua_S,"getInstance", lua_psframework_ImageUtils_getInstance);

@@ -133,6 +133,10 @@ function PokemonMainView:shift(offset)
 	self:selectPokemon(newIndex)
 end
 
+function PokemonMainView:getSelectedPokemon()
+	return self.pokemonList[self.selectedIndex]
+end
+
 function PokemonMainView:readyToExchangePosition()
 	local winSize = cc.Director:getInstance():getWinSize()
 	local exchangeBorder = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/select_border2.png", CCRectMake(10, 10, 30, 30))
@@ -205,10 +209,8 @@ end
 function PokemonMainView:showPokemons()
 	assert(type(DataCenter.carriedPokemons) == "table", "Invalid data")
 
-	self.pokemonList = {}
+	self.pokemonList = DataCenter.carriedPokemons
 	self.pokemonCells = {}
-	table.shallowCopy(self.pokemonList, DataCenter.carriedPokemons)
-	-- resort pokemon list, todo
 
 	local winSize = cc.Director:getInstance():getWinSize()
 	for i = 0, 5 do

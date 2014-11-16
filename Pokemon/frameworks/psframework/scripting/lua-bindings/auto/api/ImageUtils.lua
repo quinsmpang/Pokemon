@@ -11,6 +11,12 @@
 -- @return Animate#Animate ret (return value: cc.Animate)
         
 --------------------------------
+-- @function [parent=#ImageUtils] createSpriteWithBinaryData 
+-- @param self
+-- @param #pf.BinaryData binarydata
+-- @return Sprite#Sprite ret (return value: cc.Sprite)
+        
+--------------------------------
 -- overload function: getGifFrames(pf.BinaryData)
 --          
 -- overload function: getGifFrames(string)

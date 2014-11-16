@@ -25,6 +25,8 @@ namespace framework
 		cocos2d::Animate *createAnimationByGifImage(const std::string &imagePath, float timeline);
 		cocos2d::Animate *createAnimationByFrames(Vector *frames, float timeline);
 
+		cocos2d::Sprite *createSpriteWithBinaryData(BinaryData *imageData);
+
 	private:
 		static ImageUtils *_instance;
 		ImageUtils();

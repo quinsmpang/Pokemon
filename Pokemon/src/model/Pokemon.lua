@@ -42,18 +42,22 @@ Pokemon.currentHp = DBNULL	-- 当前hp
 Pokemon.status = DBNULL	-- 状态
 Pokemon.ballId = DBNULL	-- 精灵球
 Pokemon.capturePlace = DBNULL	-- 捕获地点
+Pokemon.isEgg = DBNULL	-- 是否是宠物蛋
 
 Pokemon.model = DBNULL
 
-function Pokemon:create(id, level, ballId, place)
+function Pokemon:create(id, level, ballId, place, isEgg)
 	local pokemon = Pokemon:new()
-	pokemon:initRandom(id, level, ballId, place)
+	pokemon:initRandom(id, level, ballId, place, isEgg)
 	return pokemon
 end
 
-function Pokemon:initRandom(id, level, ballId, place)
+function Pokemon:initRandom(id, level, ballId, place, isEgg)
 	ballId = ballId or 1
 	place = place or DataCenter.currentPlayerData.currentMapId
+	if isEgg == nil then
+		isEgg = false
+	end
 	self.model = PetInfo:create(id)
 
 	self.id = id
@@ -66,6 +70,7 @@ function Pokemon:initRandom(id, level, ballId, place)
 	self.isShining = FallInRandom(1, 65536)
 	self.ballId = ballId
 	self.capturePlace = place
+	self.isEgg = isEgg
 
 	self:initRandomValues()
 	self:initSkills()

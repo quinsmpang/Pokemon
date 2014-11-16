@@ -128,4 +128,15 @@ namespace framework
 
 		return pAnimate;
 	}
+
+	Sprite *ImageUtils::createSpriteWithBinaryData(BinaryData *imageData)
+	{
+		Image *pImg = new Image();
+		pImg->initWithImageData(imageData->getData(), imageData->getSize());
+		Texture2D *pTexture = new Texture2D();
+		pTexture->initWithImage(pImg);
+		Sprite *pSprite = Sprite::createWithTexture(pTexture);
+
+		return pSprite;
+	}
 }

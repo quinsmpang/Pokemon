@@ -7,6 +7,7 @@
 class("PokemonViewController", psViewController)
 
 require "src/view/pokemon/PokemonMainView"
+require "src/view/pokemon/PokemonDetailView"
 
 PokemonViewController.mainView = nil
 
@@ -131,6 +132,9 @@ function PokemonViewController:onViewPokemonItemSelected(menu, item)
 	local index = item:getShowIndex()
 	log("PokemonViewController:onViewPokemonItemSelected", index)
 	if index == 0 then
+		-- 查看强度
+		local detailView = PokemonDetailView:create(self.mainView:getSelectedPokemon())
+		self:getScene():addChild(detailView)
 	elseif index == 1 then
 		-- 交换位置
 		self.mainView:readyToExchangePosition()

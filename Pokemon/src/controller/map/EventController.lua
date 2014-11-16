@@ -20,7 +20,7 @@ function EventController:event_gainNewPokemon(params)
 	local pokemonId = data[1]
 	local level = data[2]
 	local place = data[3]
-	local pokemon = Pokemon:create(pokemonId, level, place)
+	local pokemon = Pokemon:create(pokemonId, level, nil, place)
 
 	DataCenter:addNewPokemon(pokemon)
 end

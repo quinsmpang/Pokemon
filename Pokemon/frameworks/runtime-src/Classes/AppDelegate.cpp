@@ -21,33 +21,37 @@ AppDelegate::AppDelegate()
 
 AppDelegate::~AppDelegate()
 {
-    SimpleAudioEngine::end();
+	SimpleAudioEngine::end();
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
-    // initialize director
-    auto director = Director::getInstance();
+	// initialize director
+	auto director = Director::getInstance();
 	auto glview = director->getOpenGLView();
 	if(!glview) {
 		glview = GLView::createWithRect("Pokemon Sunrise", Rect(0, 0, 800, 480));
 		director->setOpenGLView(glview);
 	}
 
-    glview->setDesignResolutionSize(800, 480, ResolutionPolicy::NO_BORDER);
+	glview->setDesignResolutionSize(800, 480, ResolutionPolicy::NO_BORDER);
 
 	FileUtils::getInstance()->addSearchPath("res");
 
-    // turn on display FPS
-    director->setDisplayStats(true);
+	// turn on display FPS
+	director->setDisplayStats(true);
 
-    // set FPS. the default value is 1.0/60 if you don't call this
-    director->setAnimationInterval(1.0 / 60);
+	// set FPS. the default value is 1.0/60 if you don't call this
+	director->setAnimationInterval(1.0 / 60);
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	bool res = framework::KeyboardHelper::getInstance()->hookOn();
 	if (!res)
 	{
+		DWORD error = GetLastError();
+		LPVOID pBuffer = NULL;
+		FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)&pBuffer, 0, NULL);
+		MessageBoxW( NULL, (LPCTSTR)pBuffer, L"Error", MB_OK | MB_ICONINFORMATION );
 		ExitProcess(-1);
 	}
 #endif
@@ -66,15 +70,15 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	pEngine->executeScriptFile("src/main.lua");
 
-    return true;
+	return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground()
 {
-    Director::getInstance()->stopAnimation();
+	Director::getInstance()->stopAnimation();
 
-    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+	SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	bool res = framework::KeyboardHelper::getInstance()->hookOn();
@@ -88,9 +92,9 @@ void AppDelegate::applicationDidEnterBackground()
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground()
 {
-    Director::getInstance()->startAnimation();
+	Director::getInstance()->startAnimation();
 
-    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+	SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	framework::KeyboardHelper::getInstance()->hookOff();
