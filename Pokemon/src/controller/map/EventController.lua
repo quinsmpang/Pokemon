@@ -19,7 +19,8 @@ function EventController:event_gainNewPokemon(params)
 	data = table.cast(data, function(item) return tonumber(item) end)
 	local pokemonId = data[1]
 	local level = data[2]
-	local pokemon = Pokemon:create(pokemonId, level)
+	local place = data[3]
+	local pokemon = Pokemon:create(pokemonId, level, place)
 
 	DataCenter:addNewPokemon(pokemon)
 end
