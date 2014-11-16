@@ -10,6 +10,7 @@ require "src/scene/pokemon/PokemonMainView"
 require "src/scene/pokemon/PokemonDetailView"
 
 PokemonViewController.mainView = nil
+PokemonViewController.detailView = nil
 
 PokemonViewController.inExchangeState = nil		-- 是否处于交换精灵的状态
 
@@ -55,12 +56,14 @@ function PokemonViewController:addObservers()
 	log("PokemonViewController:addObservers")
 	Notifier:addObserver(NotifyEvents.PokemonView.MainViewKeyResponsed, self, self.onMainViewKeyResponsed)
 	Notifier:addObserver(NotifyEvents.PokemonView.ExchangePokemonPosition, self, self.onExchangePokemonPosition)
+	Notifier:addObserver(NotifyEvents.PokemonView.DetailMenuItemSelected, self, self.onDetailMenuItemSelected)
 end
 
 function PokemonViewController:removeObservers()
 	log("PokemonViewController:removeObservers")
 	Notifier:removeObserver(NotifyEvents.PokemonView.MainViewKeyResponsed, self)
 	Notifier:removeObserver(NotifyEvents.PokemonView.ExchangePokemonPosition, self)
+	Notifier:removeObserver(NotifyEvents.PokemonView.DetailMenuItemSelected, self)
 end
 
 function PokemonViewController:renderView()
@@ -135,6 +138,7 @@ function PokemonViewController:onViewPokemonItemSelected(menu, item)
 		-- 查看强度
 		local detailView = PokemonDetailView:create(self.mainView:getSelectedPokemon())
 		self:getScene():addChild(detailView)
+		self.detailView = detailView
 	elseif index == 1 then
 		-- 交换位置
 		self.mainView:readyToExchangePosition()
@@ -154,4 +158,23 @@ end
 
 function PokemonViewController:onExchangePokemonPosition(index1, index2)
 	DataCenter.carriedPokemons[index1], DataCenter.carriedPokemons[index2] = DataCenter.carriedPokemons[index2], DataCenter.carriedPokemons[index1]
+end
+
+function PokemonViewController:onDetailMenuItemSelected(menu, item)
+	local index = item:getShowIndex()
+	log("PokemonViewController:onDetailMenuItemSelected", index)
+	if index == 0 then
+		-- 精灵资料
+	elseif index == 1 then
+		-- 能力信息
+	elseif index == 2 then
+		-- 技能信息
+	elseif index == 3 then
+		-- 种族信息
+	elseif index == 4 then
+		-- 返回
+		if self.detailView then
+			self.detailView:quit()
+		end
+	end
 end

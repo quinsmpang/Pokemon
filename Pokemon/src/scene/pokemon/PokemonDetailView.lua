@@ -6,7 +6,10 @@
 
 class("PokemonDetailView", psGameLayer)
 
+require "src/scene/pokemon/PokemonBasicViewAdapter"
+
 PokemonDetailView.relatedPokemon = nil
+PokemonDetailView.selectedIndex = nil
 
 PokemonDetailView.menu = nil		-- list menu
 PokemonDetailView.tab1 = nil
@@ -108,6 +111,8 @@ function PokemonDetailView:init(pokemon)
 	lblLv:setAnchorPoint(0, 0.5)
 	pokemonBg:addChild(lblLv)
 
+	self:select(1)
+
 	self:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
 
 	if self.mask then
@@ -122,6 +127,18 @@ function PokemonDetailView:onNodeEvent(event)
 	end
 end
 
+function PokemonDetailView:select(index)
+	if self.selectedIndex == index then
+		return
+	end
+
+	if index == 1 then
+		local adapter = PokemonBasicViewAdapter:new()
+		adapter:adapt(self)
+	end
+	self.selectedIndex = index
+end
+
 function PokemonDetailView:quit()
 	local quitAction = cc.Sequence:create(
 		cc.FadeIn:create(0.15),
@@ -134,7 +151,7 @@ function PokemonDetailView:onQuit()
 end
 
 function PokemonDetailView:onMenuItemSelected(menu, item)
-
+	Notifier:notify(NotifyEvents.PokemonView.DetailMenuItemSelected, menu, item)
 end
 
 function PokemonDetailView:createCommonLabel(text, color)
