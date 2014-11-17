@@ -41,6 +41,7 @@ Pokemon.gender = DBNULL		-- 性别
 Pokemon.currentHp = DBNULL	-- 当前hp
 Pokemon.status = DBNULL	-- 状态
 Pokemon.ballId = DBNULL	-- 精灵球
+Pokemon.captureLevel = DBNULL	-- 捕获等级
 Pokemon.capturePlace = DBNULL	-- 捕获地点
 Pokemon.isEgg = DBNULL	-- 是否是宠物蛋
 
@@ -69,6 +70,7 @@ function Pokemon:initRandom(id, level, ballId, place, isEgg)
 	self.status = Enumerations.POKEMON_STATUS.NORMAL
 	self.isShining = FallInRandom(1, 65536)
 	self.ballId = ballId
+	self.captureLevel = level
 	self.capturePlace = place
 	self.isEgg = isEgg
 

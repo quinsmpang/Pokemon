@@ -81,3 +81,23 @@ function GameDBHelper:queryEventById(id)
 	end
 	return nil
 end
+
+------------------------ skill_info ------------------------j
+function GameDBHelper:querySkillById(id)
+	local data = self.db:selectTableByConditionWithOneValue(GameConfig.SKILL_TABLE, "id", tostring(id))
+
+	if data then
+		return data[1]
+	end
+	return nil
+end
+
+------------------------ speciality_info ------------------------j
+function GameDBHelper:querySpecialityById(id)
+	local data = self.db:selectTableByConditionWithOneValue(GameConfig.SPECIALITY_TABLE, "id", tostring(id))
+
+	if data then
+		return data[1]
+	end
+	return nil
+end

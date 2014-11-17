@@ -57,7 +57,7 @@ function PokemonViewController:addObservers()
 	Notifier:addObserver(NotifyEvents.PokemonView.MainViewKeyResponsed, self, self.onMainViewKeyResponsed)
 	Notifier:addObserver(NotifyEvents.PokemonView.ExchangePokemonPosition, self, self.onExchangePokemonPosition)
 	Notifier:addObserver(NotifyEvents.PokemonView.DetailMenuItemSelected, self, self.onDetailMenuItemSelected)
-	Notifier:addObserver(NotifyEvents.PokemonView.DetailViewKeyResponsed, self, self.onDetailViewKeyResponsed)
+	Notifier:addObserver(NotifyEvents.PokemonView.DetailMenuItemChanged, self, self.onDetailMenuItemChanged)
 end
 
 function PokemonViewController:removeObservers()
@@ -65,7 +65,7 @@ function PokemonViewController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.PokemonView.MainViewKeyResponsed, self)
 	Notifier:removeObserver(NotifyEvents.PokemonView.ExchangePokemonPosition, self)
 	Notifier:removeObserver(NotifyEvents.PokemonView.DetailMenuItemSelected, self)
-	Notifier:removeObserver(NotifyEvents.PokemonView.DetailViewKeyResponsed, self)
+	Notifier:removeObserver(NotifyEvents.PokemonView.DetailMenuItemChanged, self)
 end
 
 function PokemonViewController:renderView()
@@ -165,22 +165,14 @@ end
 function PokemonViewController:onDetailMenuItemSelected(menu, item)
 	local index = item:getShowIndex()
 	log("PokemonViewController:onDetailMenuItemSelected", index)
-	if index == 0 then
-		-- 精灵资料
-	elseif index == 1 then
-		-- 能力信息
-	elseif index == 2 then
+	if index == 2 then
 		-- 技能信息
-	elseif index == 3 then
-		-- 种族信息
-	elseif index == 4 then
-		-- 返回
-		if self.detailView then
-			self.detailView:quit()
-		end
 	end
 end
 
-function PokemonViewController:onDetailViewKeyResponsed(keyCode)
-	
+function PokemonViewController:onDetailMenuItemChanged(oldIndex, newIndex)
+	log("PokemonViewController:onDetailMenuItemChanged", oldIndex, newIndex)
+	if self.detailView then
+		self.detailView:select(newIndex + 1)
+	end
 end

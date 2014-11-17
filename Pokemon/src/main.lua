@@ -14,20 +14,6 @@ DEBUG = true
 GameLauncher.publicResources = {
     "images/common.plist",
     "images/common.pvr.ccz",
-    -- "images/pokemons1.plist",
-    -- "images/pokemons1.pvr.ccz",
-    -- "images/pokemons2.plist",
-    -- "images/pokemons2.pvr.ccz",
-    -- "images/pokemons3.plist",
-    -- "images/pokemons3.pvr.ccz",
-    -- "images/pokemons4.plist",
-    -- "images/pokemons4.pvr.ccz",
-    -- "images/pokemons5.plist",
-    -- "images/pokemons5.pvr.ccz",
-    -- "images/pokemons6.plist",
-    -- "images/pokemons6.pvr.ccz",
-    -- "images/pokemons7.plist",
-    -- "images/pokemons7.pvr.ccz",
 }
 
 function GameLauncher:init()
@@ -90,6 +76,8 @@ function GameLauncher:loadPublicModules()
     require "src/model/EventInfo"
     require "src/model/PetInfo"
     require "src/model/Pokemon"
+    require "src/model/SkillInfo"
+    require "src/model/SpecialityInfo"
 
     -- public data or utils
     require "src/utils/GameConfig"

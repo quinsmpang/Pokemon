@@ -14,6 +14,7 @@ CommonListMenu.borderSize = nil		-- 外框尺寸
 CommonListMenu.itemSelectedScript = nil
 CommonListMenu.toBeClosed = nil
 CommonListMenu.cancelScript = nil
+CommonListMenu.itemChangedScript = nil	-- 选中项变化回调
 
 CommonListMenu.LABEL_TAG = 998
 CommonListMenu.ARROW_TAG = 999
@@ -57,6 +58,13 @@ function CommonListMenu:init(list, borderSize)
 	self.listMenu:setScriptDelegate()
 
 	self.listMenu:setResponseKeyCodes(GameSettings.upKey, GameSettings.downKey, GameSettings.confirmKey)
+
+	-- selected item change event
+	self.listMenu.onSelectedItemChanged = function(instance, oldIndex, newIndex)
+		if self.itemChangedScript then
+			self.itemChangedScript(oldIndex, newIndex)
+		end
+	end
 
 	self.listMenu:setPosition(bg:getContentSize().width * 0.5, bg:getContentSize().height * 0.5)
 	bg:addChild(self.listMenu)
@@ -105,6 +113,11 @@ end
 function CommonListMenu:setItemSelectedScript(script)
 	assert(type(script) == "function", "invalid param")
 	self.itemSelectedScript = script
+end
+
+function CommonListMenu:setItemChangedScript(script)
+	assert(type(script) == "function", "invalid param")
+	self.itemChangedScript = script
 end
 
 function CommonListMenu:markExit()

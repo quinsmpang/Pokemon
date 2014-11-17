@@ -419,6 +419,21 @@ namespace framework
 		// focus the current item
 		if (_delegate)
 		{
+#if CC_ENABLE_SCRIPT_BINDING
+			if (_scriptType == kScriptTypeLua)
+			{
+				int curIndex = _topGlobalIndex + _currentShowIndex;
+				// params
+				Vector<Ref*> pParams(1);
+				pParams.pushBack(__Integer::create(curIndex + 1));
+				pParams.pushBack(__Integer::create(curIndex));
+				// param types
+				Vector<Ref*> pTypes(1);
+				pTypes.pushBack(__String::create("__Integer"));
+				pTypes.pushBack(__String::create("__Integer"));
+				LuaUtils::getInstance()->executePeertableFunction(this, "onSelectedItemChanged", pParams, pTypes, false);
+			}
+#endif
 			_delegate->itemFocused(this, this->getItemAtIndex(_currentShowIndex));
 		}
 	}
@@ -468,6 +483,21 @@ namespace framework
 		// focus the current item
 		if (_delegate)
 		{
+#if CC_ENABLE_SCRIPT_BINDING
+			if (_scriptType == kScriptTypeLua)
+			{
+				int curIndex = _topGlobalIndex + _currentShowIndex;
+				// params
+				Vector<Ref*> pParams(1);
+				pParams.pushBack(__Integer::create(curIndex - 1));
+				pParams.pushBack(__Integer::create(curIndex));
+				// param types
+				Vector<Ref*> pTypes(1);
+				pTypes.pushBack(__String::create("__Integer"));
+				pTypes.pushBack(__String::create("__Integer"));
+				LuaUtils::getInstance()->executePeertableFunction(this, "onSelectedItemChanged", pParams, pTypes, false);
+			}
+#endif
 			_delegate->itemFocused(this, this->getItemAtIndex(_currentShowIndex));
 		}
 	}

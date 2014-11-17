@@ -37,5 +37,5 @@ NotifyEvents.PokemonView.MainViewKeyResponsed = "NotifyEvents.PokemonView.MainVi
 NotifyEvents.PokemonView.ExchangePokemonPosition = "NotifyEvents.PokemonView.ExchangePokemonPosition"
 -- PokemonDetailView菜单选中事件	PokemonDetailView通知, PokmeonViewController观察
 NotifyEvents.PokemonView.DetailMenuItemSelected = "NotifyEvents.PokemonView.DetailMenuItemSelected"
--- 响应PokemonDetailView事件	PokemonDetailView通知, PokmeonViewController观察
-NotifyEvents.PokemonView.DetailViewKeyResponsed = "NotifyEvents.PokemonView.DetailViewKeyResponsed"
+-- PokemonDetailView菜单变化选中项事件	PokemonDetailView通知, PokmeonViewController观察
+NotifyEvents.PokemonView.DetailMenuItemChanged = "NotifyEvents.PokemonView.DetailMenuItemChanged"

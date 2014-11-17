@@ -7,6 +7,7 @@
 class("PokemonDetailView", psGameLayer)
 
 require "src/scene/pokemon/PokemonBasicViewAdapter"
+require "src/scene/pokemon/PokemonAbilityViewAdapter"
 
 PokemonDetailView.relatedPokemon = nil
 PokemonDetailView.selectedIndex = nil
@@ -25,12 +26,13 @@ PokemonDetailView.lblContent2 = nil
 PokemonDetailView.border3 = nil
 PokemonDetailView.lblContent3 = nil
 
+PokemonDetailView.adapter = nil		-- 当前适配器
+
 PokemonDetailView.LIST_STRS = {
 	"精灵资料",
 	"能力信息",
 	"技能信息",
 	"种族信息",
-	"返回",
 }
 
 PokemonDetailView.__create = psGameLayer.create
@@ -63,9 +65,10 @@ function PokemonDetailView:init(pokemon)
 	bg:setPosition(winSize.width * 0.5, winSize.height * 0.5)
 	self:addChild(bg)
 
-	local list = CommonListMenu:create(self.LIST_STRS, CCSizeMake(175, 240))
+	local list = CommonListMenu:create(self.LIST_STRS, CCSizeMake(175, 200))
 	list:setAnchorPoint(0, 1)
 	list:setItemSelectedScript(MakeScriptHandler(self, self.onMenuItemSelected))
+	list:setItemChangedScript(MakeScriptHandler(self, self.onMenuItemChanged))
 	list:setPosition(0, winSize.height)
 	list:setCancelScript(MakeScriptHandler(self, self.quit))
 	self:addChild(list)
@@ -112,6 +115,12 @@ function PokemonDetailView:init(pokemon)
 	lblLv:setAnchorPoint(0, 0.5)
 	pokemonBg:addChild(lblLv)
 
+	local lblTip = cc.Label:createWithTTF("【按取消键返回】", GameConfig.DEFAULT_FONT_PATH, 14)
+	lblTip:setAnchorPoint(0, 0)
+	lblTip:setColor(COLOR3B_BLACK)
+	lblTip:setPosition(winSize.width * 0.02, winSize.height * 0.02)
+	self:addChild(lblTip)
+
 	self:select(1)
 
 	self:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
@@ -125,18 +134,6 @@ end
 function PokemonDetailView:onNodeEvent(event)
 	if event == "enter" then
 		self.mask:runAction(cc.FadeOut:create(0.15))
-
-		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
-			local kbdListener = Win32EventListenerKeyboard:createWithTarget(self)
-			kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
-			Win32Notifier:getInstance():addEventListener(kbdListener)
-			self.kbdListener = kbdListener
-		end
-	elseif event == "exit" then
-		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS and self.kbdListener then
-			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
-			self.kbdListener = nil
-		end
 	end
 end
 
@@ -147,6 +144,9 @@ function PokemonDetailView:select(index)
 
 	if index == 1 then
 		local adapter = PokemonBasicViewAdapter:new()
+		adapter:adapt(self)
+	elseif index == 2 then
+		local adapter = PokemonAbilityViewAdapter:new()
 		adapter:adapt(self)
 	end
 	self.selectedIndex = index
@@ -168,6 +168,10 @@ function PokemonDetailView:onMenuItemSelected(menu, item)
 	Notifier:notify(NotifyEvents.PokemonView.DetailMenuItemSelected, menu, item)
 end
 
+function PokemonDetailView:onMenuItemChanged(oldIndex, newIndex)
+	Notifier:notify(NotifyEvents.PokemonView.DetailMenuItemChanged, oldIndex, newIndex)
+end
+
 function PokemonDetailView:createCommonLabel(text, color)
 	color = color or COLOR3B_WHITE
 
@@ -176,8 +180,4 @@ function PokemonDetailView:createCommonLabel(text, color)
 	lbl:setAnchorPoint(ccp(0, 1))
 	lbl:enableShadow()
 	return lbl
-end
-
-function PokemonDetailView:onKeyboardPressed(keyCode)
-	Notifier:notify(NotifyEvents.PokemonView.DetailViewKeyResponsed, keyCode)
 end
