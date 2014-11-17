@@ -82,6 +82,14 @@ namespace framework
 			}
 		}
 #endif
+		if (needIntercept)
+		{
+			this->onEventIntercepted(pos.x, pos.y);
+		}
+		else
+		{
+			this->onEventPenetrated(pos.x, pos.y);
+		}
 
 		return true;
 	}
