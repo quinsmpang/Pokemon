@@ -23,6 +23,12 @@ function GameLauncher:init()
     collectgarbage("setstepmul", 5000)
     cc.FileUtils:getInstance():addSearchResolutionsOrder("src");
     cc.FileUtils:getInstance():addSearchResolutionsOrder("res");
+
+    -- reserve system modules
+    self.systemModules = {}
+    for k, v in pairs(package.loaded) do
+        self.systemModules[k] = v
+    end
     
     self:loadLuaFramework()
     self:loadPublicModules()
@@ -101,6 +107,17 @@ function GameLauncher:startGame()
     local mainView = MainViewScene:create()
 
     cc.Director:getInstance():runWithScene(mainView)
+end
+
+function GameLauncher:restart()
+    -- clean user modules
+    for k, v in pairs(package.loaded) do
+        if not self.systemModules[k] then
+            package.loaded[k] = nil
+        end
+    end
+    local mainPath = cc.FileUtils:getInstance():fullPathForFilename("src/main.lua")
+    dofile(mainPath)
 end
 
 function GameLauncher:launch()
