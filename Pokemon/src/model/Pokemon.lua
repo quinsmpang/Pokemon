@@ -155,6 +155,7 @@ function Pokemon:getPersonalityConst()
 	return const
 end
 
+-- 获取升级剩余经验值
 function Pokemon:getRestExp()
 	if self.level > 0 and self.level < 100 then
 		return self:getAllExp(self.level + 1) - self.exp

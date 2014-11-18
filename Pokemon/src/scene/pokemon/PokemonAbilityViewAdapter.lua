@@ -40,7 +40,8 @@ function PokemonAbilityViewAdapter:adapt(detailView)
 	layer:addChild(itemBorder)
 	local itemText = "无"
 	if pokemon.carriedItem ~= DBNULL then
-		-- 道具todo
+		local item = ItemInfo:create(pokemon.carriedItem)
+		itemText = item.name
 	end
 	local lblItem = cc.Label:createWithTTF(itemText, GameConfig.DEFAULT_FONT_PATH, 22)
 	lblItem:setAnchorPoint(0, 0.5)

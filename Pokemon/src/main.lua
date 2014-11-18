@@ -84,6 +84,7 @@ function GameLauncher:loadPublicModules()
     require "src/model/Pokemon"
     require "src/model/SkillInfo"
     require "src/model/SpecialityInfo"
+    require "src/model/ItemInfo"
 
     -- public data or utils
     require "src/utils/GameConfig"

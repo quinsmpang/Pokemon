@@ -25,6 +25,7 @@ GameConfig.PET_TABLE = "pet_info"
 GameConfig.EVENT_TABLE = "event_info"
 GameConfig.SKILL_TABLE = "skill_info"
 GameConfig.SPECIALITY_TABLE = "speciality_info"
+GameConfig.ITEM_TABLE = "item_info"
 
 -- scene attribute keys
 GameConfig.POKEMON_KEY = "scene_pokemon"

@@ -101,3 +101,13 @@ function GameDBHelper:querySpecialityById(id)
 	end
 	return nil
 end
+
+------------------------ item_info ------------------------j
+function GameDBHelper:queryItemById(id)
+	local data = self.db:selectTableByConditionWithOneValue(GameConfig.ITEM_TABLE, "id", tostring(id))
+
+	if data then
+		return data[1]
+	end
+	return nil
+end
