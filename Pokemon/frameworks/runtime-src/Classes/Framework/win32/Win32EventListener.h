@@ -12,7 +12,6 @@ Date: 10/28/2014
 
 namespace framework
 {
-	class GameLayer;
 	class Win32EventArgs;
 
 	typedef unsigned int WIN32_LISTENER_ID;

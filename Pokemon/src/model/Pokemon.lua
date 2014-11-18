@@ -35,25 +35,25 @@ Pokemon.hardValues = DBNULL	-- 努力值
 Pokemon.entityValues = DBNULL	-- 个体值
 Pokemon.isShining = DBNULL	-- 是否是闪光
 Pokemon.exp = DBNULL	-- 当前经验值
-Pokemon.maxExp = DBNULL	-- 下级所需经验值
 Pokemon.personality = DBNULL	-- 性格
 Pokemon.gender = DBNULL		-- 性别
 Pokemon.currentHp = DBNULL	-- 当前hp
 Pokemon.status = DBNULL	-- 状态
 Pokemon.ballId = DBNULL	-- 精灵球
+Pokemon.carriedItem = DBNULL	-- 
 Pokemon.captureLevel = DBNULL	-- 捕获等级
 Pokemon.capturePlace = DBNULL	-- 捕获地点
 Pokemon.isEgg = DBNULL	-- 是否是宠物蛋
 
 Pokemon.model = DBNULL
 
-function Pokemon:create(id, level, ballId, place, isEgg)
+function Pokemon:create(id, level, ballId, place, carriedItem, isEgg)
 	local pokemon = Pokemon:new()
-	pokemon:initRandom(id, level, ballId, place, isEgg)
+	pokemon:initRandom(id, level, ballId, place, carriedItem, isEgg)
 	return pokemon
 end
 
-function Pokemon:initRandom(id, level, ballId, place, isEgg)
+function Pokemon:initRandom(id, level, ballId, place, carriedItem, isEgg)
 	ballId = ballId or 1
 	place = place or DataCenter.currentPlayerData.currentMapId
 	if isEgg == nil then
@@ -68,11 +68,15 @@ function Pokemon:initRandom(id, level, ballId, place, isEgg)
 	self.personality = math.random(0, 24)
 	self.gender = math.random(0, 1)
 	self.status = Enumerations.POKEMON_STATUS.NORMAL
+	self.exp = self:getAllExp(self.level)
 	self.isShining = FallInRandom(1, 65536)
 	self.ballId = ballId
 	self.captureLevel = level
 	self.capturePlace = place
 	self.isEgg = isEgg
+	if carriedItem then
+		self.carriedItem = carriedItem
+	end
 
 	self:initRandomValues()
 	self:initSkills()
@@ -149,4 +153,25 @@ function Pokemon:getPersonalityConst()
 	const[minusIndex] = 0.9
 
 	return const
+end
+
+function Pokemon:getRestExp()
+	if self.level > 0 and self.level < 100 then
+		return self:getAllExp(self.level + 1) - self.exp
+	else
+		return 0
+	end
+end
+
+function Pokemon:getLevelUpExp(level)
+	-- 具体的到时候再配，先取标准经验表todo
+	return level * level * level
+end
+
+function Pokemon:getAllExp(level)
+	local sum = 0
+	for i = 2, level do
+		sum = sum + self:getLevelUpExp(i)
+	end
+	return sum
 end
