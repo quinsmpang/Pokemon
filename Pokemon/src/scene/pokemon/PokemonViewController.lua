@@ -167,6 +167,8 @@ function PokemonViewController:onDetailMenuItemSelected(menu, item)
 	log("PokemonViewController:onDetailMenuItemSelected", index)
 	if index == 2 then
 		-- 技能信息
+		local adapter = self.detailView.adapter
+		adapter:activate()
 	end
 end
 

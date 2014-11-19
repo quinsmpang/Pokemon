@@ -8,6 +8,7 @@ class("PokemonDetailView", psGameLayer)
 
 require "src/scene/pokemon/PokemonBasicViewAdapter"
 require "src/scene/pokemon/PokemonAbilityViewAdapter"
+require "src/scene/pokemon/PokemonSkillViewAdapter"
 
 PokemonDetailView.relatedPokemon = nil
 PokemonDetailView.selectedIndex = nil
@@ -147,6 +148,9 @@ function PokemonDetailView:select(index)
 		adapter:adapt(self)
 	elseif index == 2 then
 		local adapter = PokemonAbilityViewAdapter:new()
+		adapter:adapt(self)
+	elseif index == 3 then
+		local adapter = PokemonSkillViewAdapter:new()
 		adapter:adapt(self)
 	end
 	self.selectedIndex = index

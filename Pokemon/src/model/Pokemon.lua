@@ -44,6 +44,7 @@ Pokemon.carriedItem = DBNULL	--
 Pokemon.captureLevel = DBNULL	-- 捕获等级
 Pokemon.capturePlace = DBNULL	-- 捕获地点
 Pokemon.isEgg = DBNULL	-- 是否是宠物蛋
+Pokemon.familiarity = DBNULL	-- 亲密度
 
 Pokemon.model = DBNULL
 
@@ -74,6 +75,7 @@ function Pokemon:initRandom(id, level, ballId, place, carriedItem, isEgg)
 	self.captureLevel = level
 	self.capturePlace = place
 	self.isEgg = isEgg
+	self.familiarity = 80		-- 亲密度默认从80开始
 	if carriedItem then
 		self.carriedItem = carriedItem
 	end
@@ -132,8 +134,11 @@ function Pokemon:initSkills()
 			local max = index
 
 			for i = min, max do
-				log("Init skill: ", self.model.levelUpSkills[i][2])
-				table.insert(self.skills, self.model.levelUpSkills[i][2])
+				local skillId = self.model.levelUpSkills[i][2]
+				log("Init skill: ", skillId)
+				local skillModel = SkillInfo:create(skillId)
+				-- { skillId, skillPP, upValue }	one up value indicates 20% pp up.
+				table.insert(self.skills, { skillId, skillModel.pp, 0 })
 			end
 		end
 	end
@@ -175,4 +180,15 @@ function Pokemon:getAllExp(level)
 		sum = sum + self:getLevelUpExp(i)
 	end
 	return sum
+end
+
+function Pokemon:getSkillMaxPP(index)
+	if self.skills[index] then
+		local skillId = self.skills[index][1]
+		local skillModel = SkillInfo:create(skillId)
+		local originPP = skillModel.pp
+		local upValue = self.skills[index][3]
+		return math.floor(originPP * (1 + 0.2 * upValue))
+	end
+	return 0
 end
