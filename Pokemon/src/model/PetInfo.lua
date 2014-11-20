@@ -45,6 +45,7 @@ function PetInfo:updateFromDB()
 		self.height = tonumber(data.height)
 		self.weight = tonumber(data.weight)
 		self.racial = string.split(data.racial, ",")
+		self.racial = table.cast(self.racial, function(item) return tonumber(item) end)
 		local hardValues = string.split(data.hardValue, ";")
 		self.hardValue = {}
 		for _, v in ipairs(hardValues) do

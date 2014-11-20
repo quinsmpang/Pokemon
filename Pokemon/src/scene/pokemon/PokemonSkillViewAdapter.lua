@@ -17,8 +17,10 @@ PokemonSkillViewAdapter.effectBorder = nil
 PokemonSkillViewAdapter.lblPower = nil
 PokemonSkillViewAdapter.lblHitRate = nil
 
+PokemonSkillViewAdapter.relatedPokemon = nil
 PokemonSkillViewAdapter.skillModels = nil	-- Model list
 PokemonSkillViewAdapter.swapIndex = nil		
+PokemonSkillViewAdapter.inSwap = nil
 PokemonSkillViewAdapter.selectedIndex = nil
 
 -- const
@@ -33,8 +35,11 @@ function PokemonSkillViewAdapter:adapt(detailView)
 	end
 	detailView.adapter = self	
 
+	self.inSwap = false
+
 	local winSize = cc.Director:getInstance():getWinSize()
 	local pokemon = detailView.relatedPokemon
+	self.relatedPokemon = pokemon
 
 	local layer = cc.Layer:create()
 	detailView:addChild(layer)
@@ -180,6 +185,12 @@ function PokemonSkillViewAdapter:adapt(detailView)
 	self.selection:setPreferredSize(CCSizeMake(350, 32))
 	self.selection:setVisible(false)
 	skillBorder:addChild(self.selection, self.SELECTION_ZORDER)
+
+	self.swapSelection = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/select_border2.png", CCRectMake(10, 10, 30, 30))
+	self.swapSelection:setAnchorPoint(0.5, 1)
+	self.swapSelection:setPreferredSize(self.selection:getContentSize())
+	self.swapSelection:setVisible(false)
+	skillBorder:addChild(self.swapSelection, self.SWAP_SELECTION_ZORDER)
 end
 
 function PokemonSkillViewAdapter:remove()
@@ -211,6 +222,7 @@ function PokemonSkillViewAdapter:blur()
 end
 
 function PokemonSkillViewAdapter:onKeyboardPressed(keyCode)
+	log("PokemonSkillViewAdapter:onKeyboardPressed", keyCode)
 	if keyCode == GameSettings.cancelKey then
 		self:blur()
 	elseif keyCode == GameSettings.upKey then
@@ -219,6 +231,26 @@ function PokemonSkillViewAdapter:onKeyboardPressed(keyCode)
 		self:shiftDown()
 	elseif keyCode == GameSettings.confirmKey then
 		-- 交换位置
+		if not self.inSwap then
+			self.inSwap = true
+			self.swapSelection:setPosition(self.selection:getPosition())
+			self.swapSelection:setVisible(true)
+			self.swapIndex = self.selectedIndex
+		else
+			if self.swapIndex ~= self.selectedIndex then
+				-- swap
+				self.relatedPokemon.skills[self.swapIndex], self.relatedPokemon.skills[self.selectedIndex] = self.relatedPokemon.skills[self.selectedIndex], self.relatedPokemon.skills[self.swapIndex]
+				self.skillModels[self.swapIndex], self.skillModels[self.selectedIndex] = self.skillModels[self.selectedIndex], self.skillModels[self.swapIndex]
+				self.skillCells[self.swapIndex], self.skillCells[self.selectedIndex] = self.skillCells[self.selectedIndex], self.skillCells[self.swapIndex]
+				local tmp = ccp(self.skillCells[self.swapIndex]:getPosition())
+				self.skillCells[self.swapIndex]:setPosition(self.skillCells[self.selectedIndex]:getPosition())
+				self.skillCells[self.selectedIndex]:setPosition(tmp)
+				self:select(self.selectedIndex, true)
+			end
+			self.swapSelection:setVisible(false)
+			self.swapIndex = nil
+			self.inSwap = false
+		end
 	end
 end
 
@@ -236,8 +268,8 @@ function PokemonSkillViewAdapter:shiftDown()
 	self:select(self.selectedIndex + 1)
 end
 
-function PokemonSkillViewAdapter:select(index)
-	if self.selectedIndex == index then
+function PokemonSkillViewAdapter:select(index, refresh)
+	if not refresh and self.selectedIndex == index then
 		return
 	end
 
@@ -252,7 +284,7 @@ function PokemonSkillViewAdapter:select(index)
 	self.tabEffect:setPositionY(self.descriptionBorder:getPositionY() - self.descriptionBorder:getContentSize().height - 10)
 	self.effectBorder:setPositionY(self.tabEffect:getPositionY() - self.tabEffect:getContentSize().height - 10)
 	self.lblPower:setString(skillModel.attack == DBNULL and "-" or tostring(skillModel.attack))
-	self.lblHitRate:setString(tostring(skillModel.hitRate))
+	self.lblHitRate:setString(skillModel.hitRate == DBNULL and "-" or tostring(skillModel.hitRate))
 
 	self.selectedIndex = index
 end

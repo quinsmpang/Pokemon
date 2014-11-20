@@ -537,31 +537,18 @@
                 <key>sourceSize</key>
                 <string>{249,46}</string>
             </dict>
-            <key>images/pokemon/polygon6.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{522,484},{280,280}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{280,280}}</string>
-                <key>sourceSize</key>
-                <string>{280,280}</string>
-            </dict>
             <key>images/pokemon/polygon6withline.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{240,484},{280,280}}</string>
+                <string>{{2,484},{280,324}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{280,280}}</string>
+                <string>{{0,0},{280,324}}</string>
                 <key>sourceSize</key>
-                <string>{280,280}</string>
+                <string>{280,324}</string>
             </dict>
             <key>images/pokemon/select_border.png</key>
             <dict>
@@ -592,7 +579,7 @@
             <key>images/pokemon/selection_border.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,484},{236,297}}</string>
+                <string>{{284,484},{236,297}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -625,7 +612,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:543eb9025fe630e0449da1c7bf7da4ff:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:17f6158cbabdbe70e550e5b1fb5cfc5c:1/1$</string>
             <key>textureFileName</key>
             <string>pokemon.pvr.ccz</string>
         </dict>

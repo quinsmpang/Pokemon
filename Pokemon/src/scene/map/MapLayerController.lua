@@ -336,8 +336,11 @@ function MapLayerController:onMenuItemSelected(item)
 		elseif itemIndex == 6 then
 			--设置
 			if DEBUG then
-				if DataCenter.carriedPokemons then
-					table.insert(DataCenter.carriedPokemons, DataCenter.carriedPokemons[1])
+				local pokemon = Pokemon:create(math.random(1, 649), math.random(1, 100), math.random(1, 3), 10001)
+				if #DataCenter.carriedPokemons >= 6 then
+					DataCenter.carriedPokemons[6] = pokemon
+				else
+					DataCenter:addNewPokemon(pokemon)
 				end
 			end
 		elseif itemIndex == 7 then

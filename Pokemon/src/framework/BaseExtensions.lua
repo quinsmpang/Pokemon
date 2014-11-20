@@ -111,6 +111,11 @@ function ccc4(r, g, b, a)
 	return cc.c4b(r, g, b, a)
 end
 
+-- Color4F
+function ccc4f(r, g, b, a)
+	return cc.c4f(r, g, b, a)
+end
+
 -- Size
 function CCSizeMake(width, height)
 	return cc.size(width, height)
