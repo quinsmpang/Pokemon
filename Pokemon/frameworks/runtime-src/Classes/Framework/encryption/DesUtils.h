@@ -7,15 +7,14 @@ Date: 6/21/2014
 #ifndef __ENCRYPTION_DESUTILS__
 #define __ENCRYPTION_DESUTILS__
 
-#include "cocos2d.h"
+#include "../base/Macros.h"
 
 namespace framework
 {
-	class DesUtils : public cocos2d::Ref
+	class DesUtils
 	{
+		SINGLETON(DesUtils);
 	public:
-		static DesUtils *getInstance();
-
 		// key: 24-bit encryption key;  data: data to be encrypted;  inSize: data size;  outSize: data size after the encryption.
 		// Note: You have to delete the non-nil return value by yourself.  free(p);
 		unsigned char *encrypt(const char *key, unsigned char *data, int inSize, int *outSize);
@@ -24,8 +23,6 @@ namespace framework
 		unsigned char *decrypt(const char *key, unsigned char *data, int inSize, int *outSize);
 
 	private:
-		explicit DesUtils();
-
 		static DesUtils *_instance;
 	};
 }

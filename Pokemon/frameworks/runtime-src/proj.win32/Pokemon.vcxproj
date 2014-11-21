@@ -179,9 +179,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\controls\ListMenu.h" />
     <ClInclude Include="..\Classes\Framework\controls\ListMenuItem.h" />
     <ClInclude Include="..\Classes\Framework\controls\TableViewEx.h" />
+    <ClInclude Include="..\Classes\Framework\encryption\AesUtils.h" />
     <ClInclude Include="..\Classes\Framework\encryption\DesUtils.h" />
     <ClInclude Include="..\Classes\Framework\encryption\FileEncryptor.h" />
+    <ClInclude Include="..\Classes\Framework\encryption\libaes\aes.h" />
     <ClInclude Include="..\Classes\Framework\encryption\libdes\des.h" />
+    <ClInclude Include="..\Classes\Framework\format\SaveData.h" />
     <ClInclude Include="..\Classes\Framework\framework.h" />
     <ClInclude Include="..\Classes\Framework\lua\LuaEngineEx.h" />
     <ClInclude Include="..\Classes\Framework\lua\LuaUtils.h" />
@@ -229,9 +232,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\controls\ListMenu.cpp" />
     <ClCompile Include="..\Classes\Framework\controls\ListMenuItem.cpp" />
     <ClCompile Include="..\Classes\Framework\controls\TableViewEx.cpp" />
+    <ClCompile Include="..\Classes\Framework\encryption\AesUtils.cpp" />
     <ClCompile Include="..\Classes\Framework\encryption\DesUtils.cpp" />
     <ClCompile Include="..\Classes\Framework\encryption\FileEncryptor.cpp" />
+    <ClCompile Include="..\Classes\Framework\encryption\libaes\aes.cpp" />
     <ClCompile Include="..\Classes\Framework\encryption\libdes\des.cpp" />
+    <ClCompile Include="..\Classes\Framework\format\SaveData.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\LuaEngineEx.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_auto.cpp" />

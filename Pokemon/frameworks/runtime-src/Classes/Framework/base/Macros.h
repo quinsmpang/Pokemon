@@ -16,9 +16,7 @@ public:		\
 		return _instance;		\
 	}	\
 private:	\
-	__TYPE__()		\
-	{	\
-	}
+	__TYPE__()	;
 
 #define STDSTRING_TO_WCHAR(__STR__, __BUFFER__)		\
 for (int i = 0; i < __STR__.size(); i++)	\

@@ -60,6 +60,10 @@ namespace framework
 	return (*el1)._target->getPositionZ() > (*el2)._target->getPositionZ();
 	}*/
 
+	Win32Notifier::Win32Notifier()
+	{
+	}
+
 	void Win32Notifier::addEventListener(Win32EventListener *listener)
 	{
 		CCASSERT(listener, "param can't be null");

@@ -10,37 +10,46 @@ Date: 11/21/2014
 #include "cocos2d.h"
 #include <string>
 
-class SaveData : public cocos2d::Ref
+namespace framework
 {
-public:
-	static SaveData *createWithData(const std::string &data);
-
-	const std::string &getEncryptedData();
-	inline unsigned int getEncryptedDataLength()
+	class SaveData : public cocos2d::Ref
 	{
-		return this->_dataLength;
-	}
-	inline void setEncryptedDataLength(unsigned int length)
-	{
-		this->_dataLength = length;
-	}
-	inline float getVersion()
-	{
-		return this->_version;
-	}
-	inline void setVersion(float version)
-	{
-		this->_version = version;
-	}
+	public:
+		static SaveData *createWithData(const std::string &data);
 
-	bool saveToFile(const std::string &path);
+		explicit SaveData();
 
-private:
-	bool initWithData(const std::string &data);
+		inline const std::string &getData() const
+		{
+			return this->_data;
+		}
+		inline float getVersion() const
+		{
+			return this->_version;
+		}
+		inline void setVersion(float version)
+		{
+			this->_version = version;
+		}
+		inline const std::string &getPrefex() const
+		{
+			return this->_prefix;
+		}
+		inline void setPrefex(const std::string &prefix)
+		{
+			this->_prefix = prefix;
+		}
 
-	std::string _prefix;	// prefix
-	unsigned int _dataLength;	// encrypted data length
-	float _version;		// version
-};
+		bool serializeToFile(const std::string &path, const std::string &cipherKey);
+		static SaveData *desearialzeFromFile(const std::string &path, const std::string &cipherKey);
+
+	private:
+		bool initWithData(const std::string &data);
+
+		std::string _prefix;	// prefix
+		float _version;		// version
+		std::string _data;		// data
+	};
+}
 
 #endif

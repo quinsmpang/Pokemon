@@ -1,21 +1,9 @@
 #include "DesUtils.h"
 #include "libdes/des.h"
-
-using namespace cocos2d;
+#include <new>
 
 namespace framework
 {
-	DesUtils *DesUtils::_instance = nullptr;
-
-	DesUtils *DesUtils::getInstance()
-	{
-		if (!_instance)
-		{
-			_instance = new DesUtils();
-		}
-		return _instance;
-	}
-
 	DesUtils::DesUtils()
 	{
 	}

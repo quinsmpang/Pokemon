@@ -47,6 +47,10 @@ namespace framework
 		}
 	}
 
+	KeyboardHelper::KeyboardHelper()
+	{
+	}
+
 	bool KeyboardHelper::isKeyPressed(int keyCode)
 	{
 		return GetAsyncKeyState(keyCode) & 0x8000;

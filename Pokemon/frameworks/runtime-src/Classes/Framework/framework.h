@@ -46,4 +46,6 @@
 #include "win32/Win32Notifier.h"
 #include "win32/KeyboardHelper.h"
 
+#include "format/SaveData.h"
+
 #endif

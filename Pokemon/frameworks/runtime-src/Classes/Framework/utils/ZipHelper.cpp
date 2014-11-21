@@ -24,6 +24,10 @@ using namespace cocos2d;
 
 namespace framework
 {
+	ZipHelper::ZipHelper()
+	{
+	}
+
 	BinaryData *ZipHelper::getFileDataInZip(const std::string &zipFile, const std::string &targetFile, const std::string &password)
 	{
 		std::string zipFilePath = FileUtils::getInstance()->fullPathForFilename(zipFile);

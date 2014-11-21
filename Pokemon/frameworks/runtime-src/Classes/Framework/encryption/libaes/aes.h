@@ -1,44 +1,47 @@
-#ifndef AES_H_
-#define AES_H_
+#ifndef AES_H
+#define AES_H
+
+#include <string.h>
 
 class AES
 {
 public:
-    typedef unsigned char byte;
-    static const int KEY_SIZE = 16;    //    密钥长度为128位
-    static const int N_ROUND = 11;
-    byte plainText[160];    //    明文
-    byte state[16];    //    当前分组。
-    byte cipherKey[16];    //    密钥
-    byte roundKey[N_ROUND][16];    //轮密钥
-    byte cipherText[160];    //密文
-    byte SBox[16][16];    //    S盒
-    byte InvSBox[16][16];    //    逆S盒  
-    void EncryptionProcess();  
-    void DecryptionProcess();
-    void Round(const int& round);
-    void InvRound(const int& round);
-    void FinalRound();
-    void InvFinalRound();
-    void KeyExpansion();
-    void AddRoundKey(const int& round);  
-    void SubBytes();  
-    void InvSubBytes();
-    void ShiftRows();  
-    void InvShiftRows();
-    void MixColumns();  
-    void InvMixColumns();
-    void BuildSBox();
-    void BuildInvSBox();
-    void InitialState(const byte* text);
-    void InitialCipherText();  
-    void InitialplainText();      
-    byte GFMultplyByte(const byte& left, const byte& right);
-    const byte* GFMultplyBytesMatrix(const byte* left, const byte* right);
-public:  
-    AES();  
-    const byte* Cipher(const byte* text, const byte* key, const int& keySize);  
-    const byte* InVCipher(const byte* text, const byte* key, const int& keySize);
+	AES(unsigned char* key);
+	virtual ~AES();
+	unsigned char* Cipher(unsigned char* input);
+	unsigned char* InvCipher(unsigned char* input);
+	void* Cipher(void* input, int length=0);
+	void* InvCipher(void* input, int length);
+
+	void Cipher(char *input, char *output);
+	void InvCipher(char *inut, char *output);
+
+private:
+	unsigned char Sbox[256];
+	unsigned char InvSbox[256];
+	unsigned char w[11][4][4];
+
+	void KeyExpansion(unsigned char* key, unsigned char w[][4][4]);
+	unsigned char FFmul(unsigned char a, unsigned char b);
+
+	void SubBytes(unsigned char state[][4]);
+	void ShiftRows(unsigned char state[][4]);
+	void MixColumns(unsigned char state[][4]);
+	void AddRoundKey(unsigned char state[][4], unsigned char k[][4]);
+
+	void InvSubBytes(unsigned char state[][4]);
+	void InvShiftRows(unsigned char state[][4]);
+	void InvMixColumns(unsigned char state[][4]);
+
+	int strToHex(const char *ch, char *hex);
+	int hexToStr(const char *hex, char *ch);
+	int ascillToValue(const char ch);
+	char valueToHexCh(const int value);
+	int getUCharLen(const unsigned char *uch);
+	int strToUChar(const char *ch, unsigned char *uch);
+	int ucharToStr(const unsigned char *uch, char *ch);
+	int ucharToHex(const unsigned char *uch, char *hex);
+	int hexToUChar(const char *hex, unsigned char *uch);
 };
 
-#endif
+#endif // AES_H
