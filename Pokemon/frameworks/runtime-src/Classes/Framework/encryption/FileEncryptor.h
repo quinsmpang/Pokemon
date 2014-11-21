@@ -1,5 +1,5 @@
 /******************************
-Description: For file encryption
+Description: For file encryption, use DES cipher
 Author: M.Wan
 Date: 6/21/2014
 ******************************/

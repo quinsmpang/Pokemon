@@ -22,5 +22,10 @@ function EventController:event_gainNewPokemon(params)
 	local place = data[3]
 	local pokemon = Pokemon:create(pokemonId, level, nil, place)
 
-	DataCenter:addNewPokemon(pokemon)
+	local res = DataCenter:addNewPokemon(pokemon)
+	if res == true then
+		-- 送入电脑中 显示ui todo
+	elseif res == false then
+		-- 电脑也满了 todo
+	end
 end

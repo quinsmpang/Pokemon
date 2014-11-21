@@ -98,16 +98,19 @@ function TMXMapLayer:initWithMapInfo(mapInfo, lastMapId)
 		-- 遍历生成npc
 		local npcObjects = npcObjectGroup:getObjects()
 		for _, npcObj in ipairs(npcObjects) do
-			if tonumber(npcObj["step"]) == DataCenter.currentPlayerData.currentStep or tonumber(npcObj["step"]) == 0 then
-				local npcModel = NPC:create(npcObj)
-				local npc = NpcSprite:createWithModel(npcModel)
-				local npcPos = ccp(tonumber(npcObj["x"]), tonumber(npcObj["y"]))
-				npc:setAnchorPoint(0, 0)
-				npc:setPosition(npcPos)
-				self.npcLayer:addChild(npc)
-				for i = 0, npcModel.width - 1 do
-					for j = 0, npcModel.height - 1 do
-						self.npcList[npcModel.position.x + i .. "," .. npcModel.position.y + j] = npc
+			-- 关联地图id必须一致
+			if not npcObj["relatedMapId"] or tonumber(npcObj["relatedMapId"]) == mapInfo.id then
+				if tonumber(npcObj["step"]) == DataCenter.currentPlayerData.currentStep or tonumber(npcObj["step"]) == 0 then
+					local npcModel = NPC:create(npcObj)
+					local npc = NpcSprite:createWithModel(npcModel)
+					local npcPos = ccp(tonumber(npcObj["x"]), tonumber(npcObj["y"]))
+					npc:setAnchorPoint(0, 0)
+					npc:setPosition(npcPos)
+					self.npcLayer:addChild(npc)
+					for i = 0, npcModel.width - 1 do
+						for j = 0, npcModel.height - 1 do
+							self.npcList[npcModel.position.x + i .. "," .. npcModel.position.y + j] = npc
+						end
 					end
 				end
 			end

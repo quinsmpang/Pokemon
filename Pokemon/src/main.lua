@@ -96,6 +96,7 @@ function GameLauncher:loadPublicModules()
     require "src/utils/DataCenter"
     require "src/utils/DialogPopHelper"
     require "src/utils/CommonListMenu"
+    require "src/utils/GameSaveManager"
 end
 
 function GameLauncher:loadPublicResources()

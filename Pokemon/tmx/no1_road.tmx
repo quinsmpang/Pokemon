@@ -10,72 +10,72 @@
  </layer>
  <layer name="tree-3" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJztzrENACAMA8FkWmAPYElgFzxEUkT6k1z7zXI1N+va8OSjQFOtS9uFmo9ar/YKNQMAAAAAEOUDMxsFZQ==
+   eJztzrENACAMA8Fkd2APYCxgFzxEUkT6k1z7zXJNN1va9uSjQE2tXRuFmo9ar/YKNQMAAAAAEOUDaAgGEw==
   </data>
  </layer>
  <layer name="tree-2" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJztztEJACAMA9F2WnUPdUl1F7ODUijcg3znzGIUN6ta86DDD7pahzYTNS+1bu0kagYAAAAA4NUFB/sFZQ==
+   eJztztEJACAMA9F2d3UPdSx1F7ODUijcg3znzGJ0Nxva9KDDD4paq9YSNS+1bu0kagYAAAAA4NUFN3gGEw==
   </data>
  </layer>
  <layer name="tree-1" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJztztEJACAMA9F2WnUPdUl1FzODQqFwD/KdM4tV3KxqzYOPP3S1Dm0mal5q3dpJ1AwAAAAAwKsL3MwFZQ==
+   eJztztEJACAMA9F2d3UPdSx1FzODQqFwD/KdM4vV3Wxo04OPPxS1Vq0lal5q3dpJ1AwAAAAAwKsLBugGEw==
   </data>
  </layer>
  <layer name="tree0" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJztzsEJACAMxdB2WnUPdUl1F/8KeimFPMg9ZjGKm1XVPGjgQ9frUDPR89LrVifRMwAAAAAAry6xrAVl
+   eJztzsEJACAMxdB2d3UPdSx1F/8KeimFPMg9ZjG6mw01PWjgQ9FrVS3R89LrVifRMwAAAAAAry7WSQYT
   </data>
  </layer>
  <layer name="tree1" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlLsNgDAMRMNn18AewB7AHkAJ7AGswZVu40Tnxie9ztbZJ8uxCqEDPbBQVPgPqB3BZDSzxn9G7QJWo5k1/p5zujxnjlg5n+ACd+qAhfw1ez7gBV/qgIX8NXvWqG1AW+Ce/J458pw5YuWc++tkPyvn3F8n+1k55/462e/3zJHnzJHnzJHGf0PtDg6jmTX+PzdUYtQ=
+   eJztlDsOgDAMQ8vn6MA9CvcARso9gGvgsWvTyF38JG+JnFhRYhfCCm1QC6LBf0LtDC2NZrb4W/b0RDlzUM4cWDlfUILu0gGd/C17PtALfaUDOvlb9uxRO0Cjwz3pnjkoZw6snGt/Xd7Pyrn21+X9rJxrf13er3vmoJw5KGcOFv8dtQd0NprZ4v8DzK5kMA==
   </data>
  </layer>
  <layer name="tree2" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlNEJgEAMQ3vqruoe6h7qHuqnuoe6hgH/D1qOXsEG8ldI+igl+lQHogZuA2WRJL/DbA8PmTpL8kfMTvCcqbMk3znz5Zx1pMV5hw/45BZMlC/Z84Jv+OEWTJQv2bPAbAlXCe7J71lHzllHVjnHfqNVzrHfaJVz7Dda5Zw63/8GX85ZR3/hvGB2hbdMnTn5L9TLXbs=
+   eJztlMEJgEAMBHNq6Wofah/qU+1DbcMF3x4khFzADOwvsLnhCNHLkIhGZEpUBEl/i9kO6QvtLOkPz3zCsw3h+ZsN2ZGDu6BSv+SdJ3IhN3dBpX7JOyvM1kij8J/iP9sQnm3w6jl3G716zt1Gr55zt9GrZ+3+uBt8wrMNf/E8Y3ZB1kI7c/ofX1RfFw==
   </data>
  </layer>
  <layer name="tree3" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlEEOQEAMRTu4K+6Be+AeWOIeuIa/tdNm0nbRl/xdk995mZToS52IGqRNZIKkv8NsjwxGO0v6R8xOyGy0s6Q/PPMJzzpoed6RAzm5C2bql7zzQm7k4S6YqV/yzgKzJVJl+E/xn3UIzzp48cy5hV48c26hF8+cW+jFMwcvnjmEZx3Csw6S/gWzK7IZ7fyn/wU4bV27
+   eJztlEEOQEAMRTs4Ou6Be2CJe+Aa/tZC4jeTThd9yd81+Z2XSUXeDElkRKYkRdD0t5jtkL7Qzpr+8MwTnm0Iz99syI4c7IKZ+jXvPJELudkFM/Vr3llhtkaaDP8p/rMN4dkGL56ZW+jFM3MLvXhmbqEXzwxePDOEZxvCsw2a/hmzC7IW2vlP/wO4B18X
   </data>
  </layer>
  <layer name="tree4" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlFEOQEAMRLu4K+6Be+Ae+MQ9cA1zACTbrfank8xfk5m+NCV6VhmIKrgOLwM/i5PfYLaFO6POnPweswM8GnXm5DvneDlnHWlxXuEN3mMLCuVz9jzgE75iCwrlc/bMMJvDhcA9+T3ryDnryIpzyu+z4pzy+6w4p/w+v2cdOWcdOWcdcfInzM7wYtT5K/8GnABduw==
+   eJztlFEOQEAMRLs4Ou6Be+AT98A1zAGsZLur/ZmXzF+TmU6airwzBJERmkJk4Gc0/i1mO6h3yqzxZ8/psGcb2HOcDdqhIzVgIX/Nnid0QXdqwEL+mj0rzNZQU+CeeM82sGcbvHrO+X1ePef8Pq+ec34f79kG9mwDe7ZB4z9jdoFWp8xf/g8QyV8X
   </data>
  </layer>
  <layer name="tree5" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJztkk0OQEAUg8fPXXEP3AP3wBL3wDX0AELmZXQW+iXdNWlf85x7pkicK6EqeTF+hCW/hreB2kidLfkdvD00ROpsydfO/mhnDqydF2iFNt+CgfItd+7QAZ2+BQPlW+5M4c2gPMA/6Z85aGcO2pmDduagnTloZw5/2XmEd4LmSJ3v8i/cplii
+   eJztkksOQEAQRHtwdNwD98AS98A11AF8Mp1RFuolteukul/a7J4mmLVIFx4GX8LTX2K2QuqPdvb0y3M88sxBnq+ZkBlZYhdM1O+5c0U2ZI9dMFG/584MszlSJPgn/TMHeeYgzxzkmYM8c5BnDn/x3GN2QMaPdj7rPwBGj1n+
   </data>
  </layer>
  <layer name="tree6" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJztkkESQEAQA2fxV/wD/8A/cMQ/8A05Ou5OTWUPpqtyy1ayqRGJow4iDdSGyAfGaPI7eHtoyNRZkz/CO0Fzps6afN85Hd+ZA2vnHTqgM7WgUb7mnxd0Q09qQaN8zT8LeEuoMrgnv2cOvjMH35mD78zBd+bgO3P4y84LvCu0Zer8zX8BF4BYog==
+   eJztkkEOQEAMRTs4Ou6Be2CJe+Aa/tJGMm2azsJ/yd918jsvFcljSCIjMqXMB85Y+lvMdkhfaGdLPz3roecY6PmbDdmRQ7ugU7/lnydyIbd2Qad+yz8rzNZI43BPvOcY6DkGeo6BnmOg5xjoOYa/eJ4xuyBroZ3f/Q92eln+
   </data>
  </layer>
  <layer name="tree7" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt18ENQEAQheFZ9Lr0gdrQAo5ow2thXCZr/y/5j5u80yRr5pOTWa+G5HwYaNTWSc0Fbd619VBnQZuB2i1qVVv0EIdL3eqJHuLQ6C62quM+AgCAn+Lf/c0LY84NSw==
+   eJzt18ERQDAURdEf9Io+0AeaES1giTbcFv4qwjszd5mZt8okZj5jMJtoDs6DCXVs7WnIaPPG1p2OjDaL/N1CkdbUQxxOuuhOPcSh4F4sqdL9KCIiIh9V885pqM3ovfOGf/cDuVsN+Q==
   </data>
  </layer>
  <layer name="tree8" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt18ENQEAQheFZ9Io+UBtasI5ow2th9jJZ/i/5r5t3mmTNyvTJbFBjKnwgwKSts1oq2nxoa1ZnRZuBv1vVpvboIQ6XutUTPcSh0V1sVcd9BAAAH8W/2+cF+W8NSw==
+   eJzt18ERQDAURdEf9Io+0AeaQQtYog23hWTzJ7wzc7eZt8okZmnGYDbRHBIPcNCxtacho807Ww86M9os8ncLrbR5D4lw0U2P95AIBfdiSZXuRxEREfmomndOQ21G7x3Pf/cLSZsN+Q==
   </data>
  </layer>
  <layer name="tree9" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt18EJACAMBMGkWrUPtUm1F68EISAEduC+Yb8xiyluVrXmwUMfdbUObSZqXmrd2knUDAAAAACI4+9+cwH2zwgy
+   eJzt19ENgCAUQ9EyrboHsocwlrIL3eElkpfck/S36W+lmKdI3RklWPSj6q230xJtfr31c2aizQAAAACAuMM/8HSuRH9wx+9eQYsI4A==
   </data>
  </layer>
  <layer name="tree10" width="45" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt18EJACAMBMGkWrUPtUm1F68CPwZB2IH7hv3GLEZys6wVDzr4QFVr0/pHzUOtU1sfNQMAAAAA7vF3n221Rwgy
+   eJzt18EJACEQQ9GxWtc+1D7cLUvtxfSwgzDwH+Qaco2Zj5HMXuVLToUXVG1tSg+0eWrrUnagzQAAAACA/7J+4KOUQH/w5u8++oQI4A==
   </data>
  </layer>
  <layer name="tree11" width="45" height="24">
@@ -124,7 +124,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob4" x="1024" y="0" width="32" height="800">
+  <object name="ob4" x="1024" y="0" width="32" height="768">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -209,6 +209,20 @@
     <property name="direction" value="1"/>
     <property name="message" value=""/>
     <property name="relatedMapId" value="10"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="encounterObjects" width="45" height="24">
+  <object name="encounter1" x="512" y="480" width="224" height="96">
+   <properties>
+    <property name="pets" value="1:5,16:50,19:45"/>
+    <property name="type" value="1"/>
+   </properties>
+  </object>
+  <object name="encounter2" x="416" y="96" width="128" height="128">
+   <properties>
+    <property name="pets" value="1:5,16:50,19:45"/>
+    <property name="type" value="1"/>
    </properties>
   </object>
  </objectgroup>
