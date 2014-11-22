@@ -333,6 +333,9 @@ function MapLayerController:onMenuItemSelected(item)
 			end
 		elseif itemIndex == 5 then
 			--记录
+			require "src/scene/save/GameSaveManager"
+
+			GameSaveManager:saveTo(1)
 		elseif itemIndex == 6 then
 			--设置
 			if DEBUG then

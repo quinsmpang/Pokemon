@@ -12,20 +12,30 @@ namespace framework
 	unsigned char *AesUtils::encipher(unsigned char *data, const std::string &key, int *outSize)
 	{
 		AES aes((unsigned char*)key.c_str());
-		unsigned char *encryptedData = aes.Cipher(data);
+		char *encryptedData = new char[1024 * 1024];
+		aes.Cipher((char*)data, encryptedData);
+		*outSize = string(encryptedData).size();
+		/*for (int i = 0; i < 16; ++i)
+		{
+		encryptedData = aes.Cipher(encryptedData);
+		}*/
 		//printf("encipher: %s\n", encryptedData);
-		*outSize = string((const char*)encryptedData).size();
 
-		return encryptedData;
+		return (unsigned char*)encryptedData;
 	}
 
 	unsigned char *AesUtils::decipher(unsigned char *data, const std::string &key, int *outSize)
 	{
 		AES aes((unsigned char*)key.c_str());
-		unsigned char *decryptedData = (unsigned char*)aes.InvCipher(data);
+		char *decryptedData = new char[1024 * 1024];
+		aes.InvCipher((char*)data, decryptedData);
+		*outSize = string(decryptedData).size();
+		/*for (int i = 0; i < 16; ++i)
+		{
+		decryptedData = (unsigned char*)aes.InvCipher(decryptedData);
+		}*/
 		//printf("decipher: %s\n", decryptedData);
-		*outSize = string((const char*)decryptedData).size();
 
-		return decryptedData;
+		return (unsigned char*)decryptedData;
 	}
 }

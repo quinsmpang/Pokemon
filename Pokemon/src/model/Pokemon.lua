@@ -54,6 +54,13 @@ function Pokemon:create(id, level, ballId, place, carriedItem, isEgg)
 	return pokemon
 end
 
+function Pokemon:createWithLoadData(loadData)
+	local pokemon = Pokemon:new()
+	table.shallowCopy(pokemon, loadData)
+	pokemon.model = PetInfo:create(pokemon.id)
+	return pokemon
+end
+
 function Pokemon:initRandom(id, level, ballId, place, carriedItem, isEgg)
 	ballId = ballId or 1
 	place = place or DataCenter.currentPlayerData.currentMapId

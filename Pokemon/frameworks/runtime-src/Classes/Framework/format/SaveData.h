@@ -31,17 +31,17 @@ namespace framework
 		{
 			this->_version = version;
 		}
-		inline const std::string &getPrefex() const
+		inline const std::string &getPrefix() const
 		{
 			return this->_prefix;
 		}
-		inline void setPrefex(const std::string &prefix)
+		inline void setPrefix(const std::string &prefix)
 		{
 			this->_prefix = prefix;
 		}
 
 		bool serializeToFile(const std::string &path, const std::string &cipherKey);
-		static SaveData *desearialzeFromFile(const std::string &path, const std::string &cipherKey);
+		static SaveData *deserializeFromFile(const std::string &path, const std::string &cipherKey);
 
 	private:
 		bool initWithData(const std::string &data);

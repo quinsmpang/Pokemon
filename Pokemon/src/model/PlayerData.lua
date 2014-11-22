@@ -16,6 +16,7 @@ PlayerData.lastStep = DBNULL		-- 剧情发生到的step
 PlayerData.currentStep = DBNULL		-- 当前正在发生的剧情step, 0表示自由活动
 PlayerData.lastDialogId = DBNULL	-- 当前执行到的对话id
 PlayerData.onBycicle = DBNULL		-- 是否在自行车上
+PlayerData.beginTs = DBNULL			-- 游戏开始时间
 
 -- const
 local NAMES = {
@@ -26,6 +27,13 @@ local NAMES = {
 function PlayerData:create(gender)
 	local model = PlayerData:new()
 	model:initNewGameData(gender)
+
+	return model
+end
+
+function PlayerData:createWithLoadData(loadData)
+	local model = PlayerData:new()
+	table.shallowCopy(model, loadData)
 
 	return model
 end
@@ -41,6 +49,7 @@ function PlayerData:initNewGameData(gender)
 	self.lastStep = 0
 	self.currentStep = 1
 	self.onBycicle = false
+	self.beginTs = os.time()
 end
 
 function PlayerData:getGenderString()

@@ -163,7 +163,10 @@ end
 
 -- log table
 function table.dump(table)   
-    function dump(data, prefix)
+	if type(table) ~= "table" then
+		return false
+	end
+    local function dump(data, prefix)
     	prefix = prefix or ""
 		local str = tostring(data)
 		local prefix_next = prefix .. "\t"
@@ -180,7 +183,38 @@ function table.dump(table)
 		return str
 	end
 	print(dump(table))
-end  
+end
+
+-- serialze table
+function table.serialize(table)
+	if type(table) ~= "table" then
+		return false
+	end
+	local mark = {}
+	local assign = {}
+	local function serialize_table(t, parent)
+		mark[t] = parent
+		local tmp = {}
+		for k, v in pairs(t) do
+			if (type(v) == "number" or type(v) == "string" or type(v) == "table" or type(v) == "boolean") and not string.find(k, "__") then
+				local key = type(k) == "number" and "[" .. k .. "]" or k
+				if type(v) == "table" then
+					local dotKey = parent .. (type(k) == "number" and key or "." .. key)
+					if mark[v] then
+						_G["table"].insert(assign, dotKey .. "=" .. mark[v])
+					else
+						_G["table"].insert(tmp, key .. "=" .. serialize_table(v, dotKey))
+					end
+				else
+					_G["table"].insert(tmp, key .. "=" .. (type(v) == "string" and ("\"" .. v .. "\"") or tostring(v)))
+				end
+			end
+		end
+		return "{" .. _G["table"].concat(tmp, ",") .. "}"
+	end
+
+	return "do local ret = " .. serialize_table(table, "ret") .. _G["table"].concat(assign, " ") .. " return ret end"
+end
 
 -- split string from the specified character
 function string.split(str, splitChar)

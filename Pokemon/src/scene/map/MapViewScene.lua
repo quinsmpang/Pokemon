@@ -62,4 +62,18 @@ function MapViewScene:newData(gender)
 end
 
 function MapViewScene:loadData(data)
+	-- player data
+	local loadData = assert(loadstring(data[1]))()
+	local playerData = PlayerData:createWithLoadData(loadData)
+	DataCenter.currentPlayerData = playerData
+
+	if data[2] then
+		-- pokemons data
+		local pokemons = string.split(data[2], "|")
+		for _, pokemonData in ipairs(pokemons) do
+			loadData = assert(loadstring(pokemonData))()
+			local pokemon = Pokemon:createWithLoadData(loadData)
+			DataCenter:addNewPokemon(pokemon)
+		end
+	end
 end

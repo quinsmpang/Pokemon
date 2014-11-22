@@ -150,6 +150,11 @@ end
 function MainMenu:onBtnLoadGameClicked()
 	log("MainMenu:onBtnLoadGameClicked")
 	GameVolumeHelper:playBtnClickSound()
+	cc.SimpleAudioEngine:getInstance():stopMusic()
+	
+	require "src/scene/save/GameSaveManager"
+
+	GameSaveManager:load(1)
 end
 
 function MainMenu:onBtnSettingsClicked()

@@ -14,6 +14,8 @@ GameConfig.GAME_DB_PATH = "res/icon.jpg"
 GameConfig.CONFIG_PATH = "res/icon_small.jpg"
 -- zip password
 GameConfig.ZIP_PASSWORD = "7ujm,lp-"
+-- save password
+GameConfig.SAVE_PASSWORD = "7ujm<LP_QWER!@#$"
 
 -- db tables
 GameConfig.DIALOG_TABLE = "dialog_info"

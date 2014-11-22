@@ -11,6 +11,7 @@ DataCenter.carriedPokemons = nil	-- 当前携带的宠物({Pokemon})
 DataCenter.currentBagData = nil		-- 当前背包数据({Item})
 DataCenter.computerData = nil	-- 电脑宠物布局信息(ComputerData)
 DataCenter.currentComputerChannel = nil		-- 当前电脑频道(每个频道可以放30个精灵)
+DataCenter.collectionData = nil		-- 图鉴信息
 DataCenter.bonusCollection = nil	-- 获取过的地图道具
 
 function DataCenter:addNewPokemon(pokemon)

@@ -9311,7 +9311,7 @@ int lua_register_psframework_KeyboardHelper(lua_State* tolua_S)
     return 1;
 }
 
-int lua_psframework_SaveData_setPrefex(lua_State* tolua_S)
+int lua_psframework_SaveData_getPrefix(lua_State* tolua_S)
 {
     int argc = 0;
     framework::SaveData* cobj = nullptr;
@@ -9331,53 +9331,7 @@ int lua_psframework_SaveData_setPrefex(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_SaveData_setPrefex'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
-    {
-        std::string arg0;
-
-        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
-        if(!ok)
-            return 0;
-        cobj->setPrefex(arg0);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPrefex",argc, 1);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SaveData_setPrefex'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_SaveData_getPrefex(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::SaveData* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.SaveData",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::SaveData*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_SaveData_getPrefex'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_SaveData_getPrefix'", nullptr);
         return 0;
     }
 #endif
@@ -9387,16 +9341,16 @@ int lua_psframework_SaveData_getPrefex(lua_State* tolua_S)
     {
         if(!ok)
             return 0;
-        const std::string& ret = cobj->getPrefex();
+        const std::string& ret = cobj->getPrefix();
         tolua_pushcppstring(tolua_S,ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPrefex",argc, 0);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPrefix",argc, 0);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SaveData_getPrefex'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SaveData_getPrefix'.",&tolua_err);
 #endif
 
     return 0;
@@ -9539,6 +9493,52 @@ int lua_psframework_SaveData_getData(lua_State* tolua_S)
 
     return 0;
 }
+int lua_psframework_SaveData_setPrefix(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::SaveData* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.SaveData",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::SaveData*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_SaveData_setPrefix'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj->setPrefix(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPrefix",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SaveData_setPrefix'.",&tolua_err);
+#endif
+
+    return 0;
+}
 int lua_psframework_SaveData_setVersion(lua_State* tolua_S)
 {
     int argc = 0;
@@ -9585,41 +9585,6 @@ int lua_psframework_SaveData_setVersion(lua_State* tolua_S)
 
     return 0;
 }
-int lua_psframework_SaveData_desearialzeFromFile(lua_State* tolua_S)
-{
-    int argc = 0;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertable(tolua_S,1,"pf.SaveData",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    argc = lua_gettop(tolua_S) - 1;
-
-    if (argc == 2)
-    {
-        std::string arg0;
-        std::string arg1;
-        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
-        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
-        if(!ok)
-            return 0;
-        framework::SaveData* ret = framework::SaveData::desearialzeFromFile(arg0, arg1);
-        object_to_luaval<framework::SaveData>(tolua_S, "pf.SaveData",(framework::SaveData*)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "desearialzeFromFile",argc, 2);
-    return 0;
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SaveData_desearialzeFromFile'.",&tolua_err);
-#endif
-    return 0;
-}
 int lua_psframework_SaveData_createWithData(lua_State* tolua_S)
 {
     int argc = 0;
@@ -9650,6 +9615,41 @@ int lua_psframework_SaveData_createWithData(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_psframework_SaveData_createWithData'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_psframework_SaveData_deserializeFromFile(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.SaveData",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 2)
+    {
+        std::string arg0;
+        std::string arg1;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+        if(!ok)
+            return 0;
+        framework::SaveData* ret = framework::SaveData::deserializeFromFile(arg0, arg1);
+        object_to_luaval<framework::SaveData>(tolua_S, "pf.SaveData",(framework::SaveData*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "deserializeFromFile",argc, 2);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_SaveData_deserializeFromFile'.",&tolua_err);
 #endif
     return 0;
 }
@@ -9699,15 +9699,15 @@ int lua_register_psframework_SaveData(lua_State* tolua_S)
     tolua_cclass(tolua_S,"SaveData","pf.SaveData","cc.Ref",nullptr);
 
     tolua_beginmodule(tolua_S,"SaveData");
-        tolua_function(tolua_S,"setPrefex",lua_psframework_SaveData_setPrefex);
-        tolua_function(tolua_S,"getPrefex",lua_psframework_SaveData_getPrefex);
+        tolua_function(tolua_S,"getPrefix",lua_psframework_SaveData_getPrefix);
         tolua_function(tolua_S,"serializeToFile",lua_psframework_SaveData_serializeToFile);
         tolua_function(tolua_S,"getVersion",lua_psframework_SaveData_getVersion);
         tolua_function(tolua_S,"getData",lua_psframework_SaveData_getData);
+        tolua_function(tolua_S,"setPrefix",lua_psframework_SaveData_setPrefix);
         tolua_function(tolua_S,"setVersion",lua_psframework_SaveData_setVersion);
         tolua_function(tolua_S,"new",lua_psframework_SaveData_constructor);
-        tolua_function(tolua_S,"desearialzeFromFile", lua_psframework_SaveData_desearialzeFromFile);
         tolua_function(tolua_S,"createWithData", lua_psframework_SaveData_createWithData);
+        tolua_function(tolua_S,"deserializeFromFile", lua_psframework_SaveData_deserializeFromFile);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::SaveData).name();
     g_luaType[typeName] = "pf.SaveData";

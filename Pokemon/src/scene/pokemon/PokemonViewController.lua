@@ -149,6 +149,7 @@ function PokemonViewController:onViewPokemonItemSelected(menu, item)
 			self.viewPokemonList:markExit(true)
 		end
 	elseif index == 2 then
+		-- 携带物品
 	elseif index == 3 then
 		-- 返回
 		-- you must remove the listener here, otherwise it may cause an invalid pointer of current listener

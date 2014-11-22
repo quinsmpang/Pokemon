@@ -4,12 +4,7 @@
 -- @extend Ref
 
 --------------------------------
--- @function [parent=#SaveData] setPrefex 
--- @param self
--- @param #string str
-        
---------------------------------
--- @function [parent=#SaveData] getPrefex 
+-- @function [parent=#SaveData] getPrefix 
 -- @param self
 -- @return string#string ret (return value: string)
         
@@ -31,20 +26,25 @@
 -- @return string#string ret (return value: string)
         
 --------------------------------
+-- @function [parent=#SaveData] setPrefix 
+-- @param self
+-- @param #string str
+        
+--------------------------------
 -- @function [parent=#SaveData] setVersion 
 -- @param self
 -- @param #float float
         
 --------------------------------
--- @function [parent=#SaveData] desearialzeFromFile 
+-- @function [parent=#SaveData] createWithData 
 -- @param self
--- @param #string str
 -- @param #string str
 -- @return SaveData#SaveData ret (return value: pf.SaveData)
         
 --------------------------------
--- @function [parent=#SaveData] createWithData 
+-- @function [parent=#SaveData] deserializeFromFile 
 -- @param self
+-- @param #string str
 -- @param #string str
 -- @return SaveData#SaveData ret (return value: pf.SaveData)
         
