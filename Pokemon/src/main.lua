@@ -47,6 +47,9 @@ function GameLauncher:init()
     -- load game settings
     GameSettings:loadSettings()
 
+    -- load database
+    GameDBHelper:openDB()
+
     -- print current version
     log(string.format("framework version string: %s, number: %.2f\n", PSFrameworkVersionStr, PSFrameworkVersionNumber))
 end
@@ -65,6 +68,7 @@ function GameLauncher:loadLuaFramework()
     require "src/framework/psModel"
     require "src/framework/RecordHelperLua"
     require "src/framework/Containers"
+    require "src/framework/TimeSpan"
 end
 
 function GameLauncher:loadPublicModules()

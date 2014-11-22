@@ -34,7 +34,8 @@
 #include "controls/ListMenuItem.h"
 #include "controls/ListMenu.h"
 
-#include "utils/ScriptCCBReader.h"
+#include "editor/ScriptCCBReader.h"
+
 #include "utils/IOUtils.h"
 #include "utils/RecordHelper.h"
 #include "utils/ImageUtils.h"

@@ -150,11 +150,13 @@ end
 function MainMenu:onBtnLoadGameClicked()
 	log("MainMenu:onBtnLoadGameClicked")
 	GameVolumeHelper:playBtnClickSound()
-	cc.SimpleAudioEngine:getInstance():stopMusic()
-	
-	require "src/scene/save/GameSaveManager"
 
-	GameSaveManager:load(1)
+	require "src/scene/save/LoadGameLayerController"
+
+	local scene = cc.Director:getInstance():getRunningScene()
+	tolua.cast(scene, "pf.GameScene")
+	local loadLayerController = LoadGameLayerController:create()
+	scene:loadViewController(loadLayerController)
 end
 
 function MainMenu:onBtnSettingsClicked()

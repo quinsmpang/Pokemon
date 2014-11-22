@@ -56,3 +56,23 @@ function GameSaveManager:load(number)
 		err = true
 	end
 end
+
+function GameSaveManager:getBasicInfo(index)
+	local saveData = SaveData:deserializeFromFile("save/ps_save" .. index .. ".sav", GameConfig.SAVE_PASSWORD)
+	local data = string.split(saveData:getData(), ";")
+
+	local loadData = assert(loadstring(data[1]))()
+	local playerData = PlayerData:createWithLoadData(loadData)
+
+	local mapInfo = MapInfo:create(playerData.currentMapId)
+	local mapName = mapInfo.name
+
+	local ret = {
+		MapName = mapName,
+		GameTime = TimeSpan:create(playerData.gameTime):toString(),
+		Collection = tostring(0),
+		Brands = tostring(0),
+	}
+
+	return ret
+end

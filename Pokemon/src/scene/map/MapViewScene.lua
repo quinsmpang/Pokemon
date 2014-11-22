@@ -46,8 +46,6 @@ function MapViewScene:init()
 	if not self:getCoreLayer() then
 		local coreLayer = CoreLayer:create()
 		self:setCoreLayer(coreLayer)
-
-		GameDBHelper:openDB()
 		
 		local mapLayerController = MapLayerController:create()
 		self:loadViewController(mapLayerController)

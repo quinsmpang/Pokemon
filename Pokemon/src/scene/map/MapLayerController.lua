@@ -90,12 +90,12 @@ function MapLayerController:renderView()
 	local screenSize = cc.Director:getInstance():getWinSize()
 
 	local playerData = DataCenter.currentPlayerData
-	local mapInfo = MapInfo:create(playerData.currentMapId)
 
-	local map = TMXMapLayer:createWithMapInfo(mapInfo)
-	self.currentMap = map
-
-	coreLayer:pushLayer(map)
+	self:switchMap(playerData.currentMapId)
+	-- local mapInfo = MapInfo:create(playerData.currentMapId)
+	-- local map = TMXMapLayer:createWithMapInfo(mapInfo)
+	-- self.currentMap = map
+	-- coreLayer:pushLayer(map)
 
 	-- main menu
 	local mainMenu = MapMenuLayer:create()
