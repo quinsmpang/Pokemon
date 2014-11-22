@@ -20,7 +20,7 @@
             <key>images/common/border_aqua.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,206},{100,100}}</string>
+                <string>{{104,206},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,33 @@
             <key>images/common/border_aqua_transparent.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,308},{98,98}}</string>
+                <string>{{102,408},{98,98}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{1,1},{98,98}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>images/common/border_gray.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,206},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>images/common/border_gray_transparent.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{102,308},{98,98}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +111,7 @@
             <key>images/common/border_red_transparent.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{104,306},{98,98}}</string>
+                <string>{{2,408},{98,98}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +137,7 @@
             <key>images/common/border_yellow_transparent.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{104,206},{98,98}}</string>
+                <string>{{2,308},{98,98}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -157,7 +183,7 @@
             <key>size</key>
             <string>{256,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b395f5736cd20168a43f2d6a0140bd37:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:eb63d4b6fc97888b8484321d5696daea:1/1$</string>
             <key>textureFileName</key>
             <string>common.pvr.ccz</string>
         </dict>

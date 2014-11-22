@@ -235,6 +235,7 @@ function TMXMapLayer:onNodeEvent(event)
 	elseif event == "exit" then
 		if self.scheduleHandle then
 			cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.scheduleHandle)
+			self.scheduleHandle = nil
 		end
 	end
 end

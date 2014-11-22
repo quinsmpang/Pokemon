@@ -19,6 +19,7 @@ MapLayerController.mainMenu = nil		-- 主菜单
 MapLayerController.pressedDirectionKeys = nil
 MapLayerController.nextDirection = nil
 MapLayerController.playerState = nil
+MapLayerController.scheduleHandle = nil		-- 游戏时间计时器
 
 -- const
 MapLayerController.KEYBOARD_DT = 0.25
@@ -114,11 +115,18 @@ function MapLayerController:onNodeEvent(event)
 			Win32Notifier:getInstance():addEventListener(kbdListener)
 			self.kbdListener = kbdListener
 		end
+
+		self.scheduleHandle = cc.Director:getInstance():getScheduler():scheduleScriptFunc(MakeScriptHandler(self, self.onTimeTick), 1, false)
 	elseif event == "exit" then
 		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS and self.kbdListener then
 			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
 			self.kbdListener = nil
 		end
+
+		if self.scheduleHandle then
+  			cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.scheduleHandle)
+  			self.scheduleHandle = nil
+  		end
 	end
 end
 
@@ -353,6 +361,10 @@ function MapLayerController:onMenuItemSelected(item)
 	else
 		GameVolumeHelper:playUnableSound()
 	end
+end
+
+function MapLayerController:onTimeTick(dt)
+	DataCenter.currentPlayerData.gameTime = DataCenter.currentPlayerData.gameTime + 1
 end
 
 -------------------------- Action 处理函数 --------------------------

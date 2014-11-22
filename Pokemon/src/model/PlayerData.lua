@@ -16,7 +16,7 @@ PlayerData.lastStep = DBNULL		-- 剧情发生到的step
 PlayerData.currentStep = DBNULL		-- 当前正在发生的剧情step, 0表示自由活动
 PlayerData.lastDialogId = DBNULL	-- 当前执行到的对话id
 PlayerData.onBycicle = DBNULL		-- 是否在自行车上
-PlayerData.beginTs = DBNULL			-- 游戏开始时间
+PlayerData.gameTime = DBNULL		-- 游戏经历时间
 
 -- const
 local NAMES = {
@@ -49,7 +49,7 @@ function PlayerData:initNewGameData(gender)
 	self.lastStep = 0
 	self.currentStep = 1
 	self.onBycicle = false
-	self.beginTs = os.time()
+	self.gameTime = 0
 end
 
 function PlayerData:getGenderString()
