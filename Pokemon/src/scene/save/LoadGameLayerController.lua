@@ -9,6 +9,8 @@ class("LoadGameLayerController", psViewController)
 require "src/scene/save/GameSaveManager"
 
 LoadGameLayerController.dialog = nil
+LoadGameLayerController.enterType = nil
+LoadGameLayerController.infoList = nil
 
 function LoadGameLayerController:load()
 	log("LoadGameLayerController:load")
@@ -40,6 +42,8 @@ function LoadGameLayerController:renderView()
 	self.dialog:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
 	self:getScene():addChild(self.dialog)
 
+	self.enterType = self:getScene():getIntAttribute(GameConfig.MAINVIEW_KEY)
+
 	local winSize = cc.Director:getInstance():getWinSize()
 
 	local dialogBorder = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_red.png", CCRectMake(20, 20, 60, 60))
@@ -50,9 +54,12 @@ function LoadGameLayerController:renderView()
 	if not IOUtils:getInstance():directoryExists("save") then
 		IOUtils:getInstance():createDirectory("save")
 	end
+
 	local menu = cc.Menu:create()
 	menu:setPosition(0, 0)
 	dialogBorder:addChild(menu)
+
+	self.infoList = {}
 	for i = 1, 3 do
 		local bExist = IOUtils:getInstance():fileExists("save/ps_save" .. i .. ".sav")
 
@@ -69,6 +76,7 @@ function LoadGameLayerController:renderView()
 
 		if bExist then
 			local info = GameSaveManager:getBasicInfo(i)
+			self.infoList[i] = info
 
 			local node = cc.Node:create()
 			node:setPosition(41.67, 415 - (i - 1) % 3 * 130)
@@ -87,7 +95,9 @@ function LoadGameLayerController:renderView()
 			local btnLabel = cc.Label:createWithTTF("Empty", GameConfig.DEFAULT_FONT_PATH, 24)
 			btnLabel:setColor(COLOR3B_BLACK)
 			btnLabel:setPosition(btn:getContentSize().width * 0.5, btn:getContentSize().height * 0.5)
-			btn:setEnabled(false)
+			if self.enterType == 2 then
+				btn:setEnabled(false)
+			end
 			btn:addChild(btnLabel)
 		end
 	end
@@ -115,11 +125,32 @@ end
 
 function LoadGameLayerController:onBtnClick(tag)
 	log("LoadGameLayerController:onBtnClick", tag)
-	cc.SimpleAudioEngine:getInstance():stopMusic()
 
-	GameSaveManager:load(tag)
+	if self.enterType == 1 then
+		if self.infoList[tag] then
+			-- 弹出确认框
+			DialogPopHelper:popQuestionWindow(CCSizeMake(200, 150), "确认选择这个存档点吗？", MakeScriptHandler(self, self.onChoiceConfirm, tag), MakeScriptHandler(self, self.onChoiceCancel))
+		else
+			cc.SimpleAudioEngine:getInstance():stopMusic()
+			self:onChoiceConfirm(tag)
+		end
+	elseif self.enterType == 2 then
+		cc.SimpleAudioEngine:getInstance():stopMusic()
+
+		GameSaveManager:load(tag)
+	end
 end
 
 function LoadGameLayerController:onBtnBackClick(sender)
 	self:getScene():unloadViewController(self)
+end
+
+function LoadGameLayerController:onChoiceConfirm(index)
+	log("LoadGameLayerController:onChoiceConfirm", index)
+	DataCenter.relatedSaveIndex = index
+	Notifier:notify(NotifyEvents.SaveView.SaveSelected)
+	self:getScene():unloadViewController(self)
+end
+
+function LoadGameLayerController:onChoiceCancel()
 end

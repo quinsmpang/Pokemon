@@ -39,3 +39,9 @@ NotifyEvents.PokemonView.ExchangePokemonPosition = "NotifyEvents.PokemonView.Exc
 NotifyEvents.PokemonView.DetailMenuItemSelected = "NotifyEvents.PokemonView.DetailMenuItemSelected"
 -- PokemonDetailView菜单变化选中项事件	PokemonDetailView通知, PokmeonViewController观察
 NotifyEvents.PokemonView.DetailMenuItemChanged = "NotifyEvents.PokemonView.DetailMenuItemChanged"
+
+-- 保存界面事件
+NotifyEvents.SaveView = NotifyEvents.SaveView or {}
+
+-- 新游戏中，确认选择了对应存档点	LoadGameLayerController通知, MainMenu观察
+NotifyEvents.SaveView.SaveSelected = "NotifyEvents.SaveView.SaveSelected"

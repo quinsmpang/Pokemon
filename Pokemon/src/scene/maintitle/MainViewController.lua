@@ -33,12 +33,14 @@ MainViewController.TAG = {
 function MainViewController:load()
 	log("MainViewController:load")
 	self:loadResources()
+	self:addObservers()
 	self:renderView()
 end
 
 function MainViewController:unload()
 	log("MainViewController:unload")
 	self:cleanResources()
+	self:removeObservers()
 end
 
 function MainViewController:loadResources()
@@ -50,6 +52,14 @@ end
 function MainViewController:cleanResources()
 	log("MainViewController:cleanResources")
 	RemoveSpriteFrames(self.resources)
+end
+
+function MainViewController:addObservers()
+	Notifier:addObserver(NotifyEvents.SaveView.SaveSelected, self, self.onSaveSelected)
+end
+
+function MainViewController:removeObservers()
+	Notifier:removeObserver(NotifyEvents.SaveView.SaveSelected, self)
 end
 
 function MainViewController:renderView()
@@ -174,4 +184,10 @@ function MainViewController:enterMainMenu()
 end
 function MainViewController:runActionOver()
 	self.isRunningAction = false
+end
+
+function MainViewController:onSaveSelected()
+	log("MainViewController:onSaveSelected")
+
+	self.mainMenuView:showGenderWindow()
 end

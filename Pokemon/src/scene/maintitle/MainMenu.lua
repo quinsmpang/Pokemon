@@ -126,6 +126,14 @@ function MainMenu:showButtons()
 end
 
 function MainMenu:showGenderWindow()
+	local quitAction = cc.Sequence:create(
+		cc.FadeOut:create(1.5),
+		cc.DelayTime:create(0.5),
+		cc.CallFunc:create(MakeScriptHandler(self, self.showGenderWindowCallback))
+		)
+	self:runAction(quitAction)
+end
+function MainMenu:showGenderWindowCallback()
 	local genderChooseLayer = GenderChooseLayer:create()
 	genderChooseLayer:initUI()
 	self:addChild(genderChooseLayer)
@@ -135,14 +143,21 @@ end
 function MainMenu:onBtnNewGameClicked()
 	log("MainMenu:onBtnNewGameClicked")
 	GameVolumeHelper:playBtnClickSound()
-	cc.SimpleAudioEngine:getInstance():stopMusic()
 
-	local quitAction = cc.Sequence:create(
-		cc.FadeOut:create(1.5),
-		cc.DelayTime:create(0.5),
-		cc.CallFunc:create(MakeScriptHandler(self, self.showGenderWindow))
-		)
-	self:runAction(quitAction)
+	require "src/scene/save/LoadGameLayerController"
+
+	local scene = cc.Director:getInstance():getRunningScene()
+	tolua.cast(scene, "pf.GameScene")
+	scene:putIntAttribute(GameConfig.MAINVIEW_KEY, 1)
+	local loadLayerController = LoadGameLayerController:create()
+	scene:loadViewController(loadLayerController)
+
+	-- local quitAction = cc.Sequence:create(
+	-- 	cc.FadeOut:create(1.5),
+	-- 	cc.DelayTime:create(0.5),
+	-- 	cc.CallFunc:create(MakeScriptHandler(self, self.showGenderWindow))
+	-- 	)
+	-- self:runAction(quitAction)
 	-- local mapViewScene = MapViewScene:create()
 	-- cc.Director:getInstance():replaceScene(cc.TransitionFade:create(2, mapViewScene, ccc3(0, 0, 0)))
 end
@@ -155,6 +170,7 @@ function MainMenu:onBtnLoadGameClicked()
 
 	local scene = cc.Director:getInstance():getRunningScene()
 	tolua.cast(scene, "pf.GameScene")
+	scene:putIntAttribute(GameConfig.MAINVIEW_KEY, 2)
 	local loadLayerController = LoadGameLayerController:create()
 	scene:loadViewController(loadLayerController)
 end

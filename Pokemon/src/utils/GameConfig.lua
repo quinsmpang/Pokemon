@@ -30,4 +30,5 @@ GameConfig.SPECIALITY_TABLE = "speciality_info"
 GameConfig.ITEM_TABLE = "item_info"
 
 -- scene attribute keys
-GameConfig.POKEMON_KEY = "scene_pokemon"
+GameConfig.MAINVIEW_KEY = "scene_main_branch"
+GameConfig.POKEMON_KEY = "scene_pokemon_branch"

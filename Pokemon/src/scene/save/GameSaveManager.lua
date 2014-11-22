@@ -9,6 +9,7 @@ GameSaveManager = {}
 local PREFIX = "PS1X"
 
 function GameSaveManager:saveTo(number)
+	log("GameSaveManager:saveTo", number)
 	if not IOUtils:getInstance():directoryExists("save") then
 		IOUtils:getInstance():createDirectory("save")
 	end
@@ -36,6 +37,7 @@ function GameSaveManager:saveTo(number)
 end
 
 function GameSaveManager:load(number)
+	log("GameSaveManager:load", number)
 	if not IOUtils:getInstance():directoryExists("save") then
 		IOUtils:getInstance():createDirectory("save")
 	end
@@ -51,6 +53,7 @@ function GameSaveManager:load(number)
 
 		local mapScene = MapViewScene:create()
 		mapScene:loadData(data)
+		DataCenter.relatedSaveIndex = number
 		cc.Director:getInstance():replaceScene(cc.TransitionFade:create(2, mapScene))
 	else
 		err = true

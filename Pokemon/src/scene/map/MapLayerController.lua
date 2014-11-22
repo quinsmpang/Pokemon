@@ -343,7 +343,7 @@ function MapLayerController:onMenuItemSelected(item)
 			--记录
 			require "src/scene/save/GameSaveManager"
 
-			GameSaveManager:saveTo(1)
+			GameSaveManager:saveTo(DataCenter.relatedSaveIndex)
 		elseif itemIndex == 6 then
 			--设置
 			if DEBUG then
