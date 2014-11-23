@@ -1,90 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="50" height="28" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="45" height="25" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="buildings1" tilewidth="32" tileheight="32">
   <image source="images/terrains/buildings1.png" width="928" height="544"/>
  </tileset>
- <layer name="main" width="50" height="28">
+ <layer name="main" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJztzwEJADAMwLDZuH+jc3E6SCECOiP96R3ko8VHi48WHy0+Wny0+Gjx0eKjxUeLjxYfLQvHz23e
+   eJztw0ENAAAMA6GzUf9G52IvSFg1VVVVVV8fvkpt3g==
   </data>
  </layer>
- <layer name="tree1" width="50" height="28">
+ <layer name="tree1" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt1tENhDAMA9Bk2oM9OAaBPYA9gF3IDICNQX5SfxNVbpRGmHH8M6JPbI+p6s91FmCfoWqP4HusVX+rswP7MPJgYOTB4Dy0OA8tzkMLes+yoPes2Zs1NRvtB+bD+0OL89DiPLQ4j/N+ef/eeuK/2+W1d3AAevUiKQ==
+   eJztltENgCAMROm04h7iILiHuoe6izeCCccRk3tJf1vyaDhKpLSierKj/4E6SXMq+mydz3yh/416SHOKwDMbhWc29qzBnjXYswZmPqlg5pMxo8nY5fln++z3WYM9a7BnDfb8jSnacmHEv26Jtvt9AZPHIik=
   </data>
  </layer>
- <layer name="tree2" width="50" height="28">
+ <layer name="tree2" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt2MENgDAMQ1FnWmAPYCzoHoVd8AwtjVTpP8nXWL5GAvJcId1Oibl7qu8+zjt4R1YPAAAAAABAryWk1dmS/xh/9+6+czhn8o7W3g98Hg9J
+   eJzt17ERgDAMQ1ExbWCPJGMF9oDsgmYA7KP4706lLbeWpLFIu3M4kb7sOb3jcmbwzVk9AAAAAAD8SfEfvDpb8j/8prd6pjk9+eanvTeG5A9J
   </data>
  </layer>
- <layer name="tree3" width="50" height="28">
+ <layer name="tree3" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt2MENgDAMQ1FnWmAPYCzoHoVd8ApVaaRK/0m+xvI1EpDvCul2SszdU333cd7BO7J6AAAAAAAAei0hrc6W/Mf4u3f3ncM5k3e09n4B3g9J
+   eJzt17ERgDAMQ1FlWpI9gLEgewR2QR01R+JL8d+dSltuLb2OJJ1OTRqqZ0/zjsu5B98c1QMAAAAAwEwW/8HZKcH/8J/e1TObswff/LX3AQykD0k=
   </data>
  </layer>
- <layer name="tree4" width="50" height="28">
+ <layer name="tree4" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt2MENgDAMQ1FnWuge0LGAPVp2wSMgQYOQ/pN8jeVrJOA7W0i7c8S/e5rvduccvCOrBwAAAAAA4KkppNkpyX+Mt3sX31mdmrzjbu8Fh48PSQ==
+   eJzt17ENgDAMRFFn2oQ9CGMF9gB24fpQRIqxKP6Troqcc2uzXktmu3Kkl0dHnj2n/riU++Odo3oAAAAAAPiTrDu4KEvwPTzTu2qmKlvwzqO9D5JVD0k=
   </data>
  </layer>
- <layer name="tree5" width="50" height="28">
+ <layer name="tree5" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt2MENgDAMQ1FnWuge0LGAPVp2wRtwgAYh/Sf5GsvXSMD3tpB254h/9zTf7c45eEdWDwAAAAAAwFNTSLNTkv8Yb/cuvrM6NXnHXe8FDU8PSQ==
+   eJzt18ERgCAMRNFQLdiHWBbah9qL2wByIGY8/DezN8LmGrO+lsx25Ugvjxx49pz641Luj3eO6gEAAAAA4E+y7uCiLMH38EzvqpmqbME7j3ofGBUPSQ==
   </data>
  </layer>
- <layer name="tree6" width="50" height="28">
+ <layer name="tree6" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt2MENgDAMQ1FnWuge0LGAPVp2wQtwgkYg/Sf5GsvXSMB3bCHtzhH/7mm+251z8I6sHgAAAAAAgKemkGanJP8x3u5dfGd1avKOu94LkwAPSQ==
+   eJzt18ENgCAMheEyLbiHOBa4h7qLbwEiSbXx8H/Ju1FerzV71pJZV/Y08djhzZ5Df5zK9fHOUT0AAAAAAPxJ1h1clCX4Hvb0rpqpyha886j3Bp3GD0k=
   </data>
  </layer>
- <layer name="tree7" width="50" height="28">
+ <layer name="tree7" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt2LENgDAQQ1HftJA9IGMBeyTsgmtayAmk/yS3Z7k9CfieLaTdOeLfPc13u3MO3pHVAwAAAAAA8NQU0uyU5D/G272L76xOTd5x770AGMAPSQ==
+   eJzt18ERgCAMRNFQLdgHWBbah9KLe+YkqBkP/83sMdlcY3ZfDWabsoeBoQlv9hzacSrt45u9egAAAAAA+JOoPzgpi/M//KQ3a6Yoq/PNfe8FI4YPSQ==
   </data>
  </layer>
- <layer name="tree8" width="50" height="28">
+ <layer name="tree8" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt2MENgDAMQ1Fn2sIeLWMBe1B2wTsgaCP9J/kaJ9dIwLz2kA7njNw9l+d25/74jr96AAAAAAAA3iohLc6a/I9RvX9ztkF3PJ0sDHw=
+   eJzt19ENgCAMhOF2WmQPYCx1D2AXbgVNBEz+L7nHtvdas+dON7uU218ML7pTtaMp/ePOs+4AAAAAALCToD/4UOKP/uGkrlkpizoPwI4MfA==
   </data>
  </layer>
- <layer name="tree9" width="50" height="28">
+ <layer name="tree9" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt2MENwCAMQ1FnWto9gLFo92jZBe9QFYH0n+RrnFwjAetrIV3OHXv3PJ77Ov3nO2b1AAAAAAAAfJVCOpxz8z9G9v7FqZPvGDlUDHw=
+   eJzt18ENwCAMQ9Fk2pY9Wsai7AHsgmcoImql/yRfY19j9l5xs0epvnAkuKfpRlfG5s1RPQAAAAAAfMmhP/hU0o/+4UtbbyUHb55ctgx8
   </data>
  </layer>
- <layer name="tree10" width="50" height="28">
+ <layer name="tree10" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt2MENwCAMQ1Fn2tI9WsaC7tGyC74wAqhI/0m+xsk1ErCPElJ1nljTM8vr2Z/TJt8xegAAAAAAAP7uCCk55+a/jMv7305edEcHG+wK3Q==
+   eJzt17ENwCAQQ9FjWmCPwFjAHkl2iRt6JEgklP8kt2e3ZzavOLOqNLfg2EDPCqfuXMr98ubeAwAAAADAn3j9wkGJG/3Eh7YmJX+0+QE4Qwrd
   </data>
  </layer>
- <layer name="tree11" width="50" height="28">
+ <layer name="tree11" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt2MENgDAMBMFztYQ+IGUl6QPSS64HQMjSjrT/89cSkE8LqbsRfy955vL+283kdwAAAAAAALxlC6m4Pfm/5PD+09WP71jGiAel
+   eJzt18ENABAQRNFVLfpAWegDvZgiOGzyX/Kvm7mu2Ts9mA01w8Ojny1t3eo42gwAAAAAgBdR/3ZS2dHfXbS1qvZ58wXJxQel
   </data>
  </layer>
- <layer name="tree12" width="50" height="28">
+ <layer name="tree12" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt1cENgDAMQ9F0WmAPYA8YBAaBYcilC0ABy/pP6jm1rDYRAFwtJWItf9/iuS0z7AY56EMLfWihDy1HZjgNcgBv6PJt9Abvw+W/Yn9ooQ8t9KGFPu6pe3doPPPrPsacNeWZG8+sfVwHTh+7
+   eJxjYBgFtAQLGRkYFjEOtCtIA/uA7t0/xNw8Gs70AaPhTB8wGs70AbeB7r0zxNw8CkYBLpAOTMsZQyw9D8VyY7R8pg8YDWf6gNFwpg8YDWdUAKuvMqlsPi3DuQVobisQt1HZfFg4AwBivB+7
   </data>
  </layer>
- <layer name="tree13" width="50" height="28">
+ <layer name="tree13" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJztz9ENABAQRMFTLfpA3a4HEj5mkve/GwEAAAAA8KdaIlrWy+slZ0bun9m6/GMD9zUCzg==
+   eJztzsENABAQAMFTLfpA3a4ED+Ezk+x/IwAAAADeqCWiZb38Pjk38nVm6/LzBtpNAs4=
   </data>
  </layer>
- <layer name="items" width="50" height="28">
+ <layer name="items" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt1DdOBEEQheGZBO8TPAneJ3iugAk4BSbgFJiES2AusJhL4H2CJ8H7BP+ToVGXNOreYFjqSZ+0qn3qqU7a8zQazX/OaMBfTaLcQxPt7GAXe9h36AwEmNKDXvSh33JfKY94wjNeHDph7jGIIQxjxHJfKdm+5+UgF3m+fSfMPcYwjglMOu4dTAN7NaIJzcKOYTphMo0ZzGLO/hiNJuESwzwWsIilOJ9/gEMc4VjoLGMFq1gTOic4xRnODf+vYwOb2MK29cbmvOIN7/gQOhe4xBWuhc4nvn5+8J75hjftBre4wz0eHHY2JZ9vFqAQRcKbmsQ8GSlIFTrFzEtQijJDJ41ZOjKQiSyH99uUFs5rRRvahbPLmVegElVCp4N5J7rQbehUM6tBLepQH+d7aDSa6GfqF0008w0JykV6
+   eJzt1DdOA0EYxfHZhpwbkxsyGNOQuQKh4BSEglMQGi5BuICxuQSYHBoyDTk35P92yJpPWs0gW5bmST/Jmn0evWqUckllppJkQjJxs0t6sod9HODQojOaRJdBDGEYI4Z7/TzjBa94s+gE2TyGcUxg0nCvn2JPqRKUoswz7wTZPI0ZzGLOYnOYDe2IoEPYE6QTJAtYxBKWza9xcUl7olhBDHGsWtx1hGOc4FTorGEdCWwInTOc4wKXmu+b2MI2drBrvFipd3zgE19C5wrXuMGt0PnGj/+Dd8XTvC13uMcDHvFksTnE/eWoQKXwjmVxno0c5AqdKs6rUYNaTSePs3wUoBBFFm9mJ//tQjd6hHvqOK9HAxqFTi/nfejHgKbTxFkzWtCKNovNLi4u/5/5P1xSm19vjEV6
   </data>
  </layer>
- <layer name="tops" width="50" height="28">
+ <layer name="tops" width="45" height="25">
   <data encoding="base64" compression="zlib">
-   eJztzrsRgCAABFH6bwYhUkkUf225DRChY+C+mc0uuBAkSXrXSBPNVDo2kqR/WWilSltjE2mgRLmx2emgk65nL0qSJH3uBk0fDqs=
+   eJztzrsRgCAABFH6b0YxUkn8gLblNkAkAczsm9nsggtBUo9W2min9GMjSWrroJMuuiubiWaKtFQ2mQo99La9KEmSBvEBDksOqw==
   </data>
  </layer>
- <objectgroup name="obstacleObjects" width="50" height="28">
-  <object name="ob1" x="192" y="576" width="32" height="256">
+ <objectgroup name="obstacleObjects" width="45" height="25">
+  <object name="ob1" x="32" y="480" width="32" height="256">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -94,7 +94,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob2" x="224" y="832" width="768" height="32">
+  <object name="ob2" x="64" y="736" width="768" height="32">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -104,7 +104,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob3" x="1088" y="832" width="448" height="32">
+  <object name="ob3" x="928" y="736" width="448" height="32">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -114,7 +114,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob4" x="1536" y="512" width="32" height="320">
+  <object name="ob4" x="1376" y="416" width="32" height="320">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -124,7 +124,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob5" x="1536" y="160" width="32" height="256">
+  <object name="ob5" x="1376" y="64" width="32" height="256">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -134,7 +134,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob9" x="352" y="288" width="128" height="128">
+  <object name="ob9" x="192" y="192" width="128" height="128">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -144,7 +144,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob6" x="960" y="128" width="576" height="32">
+  <object name="ob6" x="800" y="32" width="576" height="32">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -154,7 +154,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob7" x="224" y="128" width="640" height="32">
+  <object name="ob7" x="64" y="32" width="640" height="32">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -164,7 +164,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob8" x="192" y="160" width="32" height="320">
+  <object name="ob8" x="32" y="64" width="32" height="320">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -174,7 +174,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob10" x="640" y="288" width="128" height="128">
+  <object name="ob10" x="480" y="192" width="128" height="128">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -184,7 +184,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob11" x="1216" y="288" width="128" height="128">
+  <object name="ob11" x="1056" y="192" width="128" height="128">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -194,7 +194,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob12" x="352" y="544" width="128" height="128">
+  <object name="ob12" x="192" y="448" width="128" height="128">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -204,7 +204,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob13" x="640" y="544" width="128" height="128">
+  <object name="ob13" x="480" y="448" width="128" height="128">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -214,7 +214,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob15" x="1184" y="512" width="160" height="160">
+  <object name="ob15" x="1024" y="416" width="160" height="160">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -224,7 +224,7 @@
     <property name="shouldBeCovered" value="0"/>
    </properties>
   </object>
-  <object name="ob14" x="928" y="544" width="128" height="128">
+  <object name="ob14" x="768" y="448" width="128" height="128">
    <properties>
     <property name="allowDown" value="0"/>
     <property name="allowLeft" value="0"/>
@@ -235,50 +235,50 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="npcObjects" width="50" height="28"/>
- <objectgroup name="entranceObjects" width="50" height="28">
-  <object name="entrance1" x="992" y="864" width="96" height="32">
+ <objectgroup name="npcObjects" width="45" height="25"/>
+ <objectgroup name="entranceObjects" width="45" height="25">
+  <object name="entrance1" x="832" y="768" width="96" height="32">
    <properties>
     <property name="direction" value="3"/>
     <property name="message" value=""/>
     <property name="relatedMapId" value="9"/>
    </properties>
   </object>
-  <object name="entrance5" x="384" y="416" width="32" height="32">
+  <object name="entrance5" x="224" y="320" width="32" height="32">
    <properties>
     <property name="direction" value="1"/>
     <property name="message" value=""/>
     <property name="relatedMapId" value="11"/>
    </properties>
   </object>
-  <object name="entrance3" x="160" y="480" width="32" height="96">
+  <object name="entrance3" x="0" y="384" width="32" height="96">
    <properties>
     <property name="conditionId" value="1"/>
     <property name="conditionParam" value="3"/>
     <property name="direction" value="2"/>
     <property name="message" value="先把博士交代给我的任务完成吧!"/>
-    <property name="relatedMapId" value="9"/>
+    <property name="relatedMapId" value="18"/>
    </properties>
   </object>
-  <object name="entrance2" x="864" y="96" width="96" height="32">
+  <object name="entrance2" x="704" y="0" width="96" height="32">
    <properties>
     <property name="conditionId" value="1"/>
     <property name="conditionParam" value="3"/>
     <property name="direction" value="1"/>
     <property name="message" value="先把博士交代给我的任务完成吧!"/>
-    <property name="relatedMapId" value="9"/>
+    <property name="relatedMapId" value="17"/>
    </properties>
   </object>
-  <object name="entrance4" x="1568" y="416" width="32" height="96">
+  <object name="entrance4" x="1408" y="320" width="32" height="96">
    <properties>
     <property name="conditionId" value="1"/>
     <property name="conditionParam" value="3"/>
     <property name="direction" value="4"/>
     <property name="message" value="先把博士交代给我的任务完成吧!"/>
-    <property name="relatedMapId" value="9"/>
+    <property name="relatedMapId" value="19"/>
    </properties>
   </object>
-  <object name="entrance6" x="672" y="416" width="32" height="32">
+  <object name="entrance6" x="512" y="320" width="32" height="32">
    <properties>
     <property name="conditionId" value="1"/>
     <property name="conditionParam" value="100"/>
@@ -287,35 +287,35 @@
     <property name="relatedMapId" value="100"/>
    </properties>
   </object>
-  <object name="entrance7" x="384" y="672" width="32" height="32">
+  <object name="entrance7" x="224" y="576" width="32" height="32">
    <properties>
     <property name="direction" value="1"/>
     <property name="message" value=""/>
     <property name="relatedMapId" value="12"/>
    </properties>
   </object>
-  <object name="entrance8" x="672" y="672" width="32" height="32">
+  <object name="entrance8" x="512" y="576" width="32" height="32">
    <properties>
     <property name="direction" value="1"/>
     <property name="message" value=""/>
     <property name="relatedMapId" value="13"/>
    </properties>
   </object>
-  <object name="entrance9" x="960" y="672" width="32" height="32">
+  <object name="entrance9" x="800" y="576" width="32" height="32">
    <properties>
     <property name="direction" value="1"/>
     <property name="message" value=""/>
     <property name="relatedMapId" value="14"/>
    </properties>
   </object>
-  <object name="entrance10" x="1248" y="672" width="32" height="32">
+  <object name="entrance10" x="1088" y="576" width="32" height="32">
    <properties>
     <property name="direction" value="1"/>
     <property name="message" value=""/>
     <property name="relatedMapId" value="15"/>
    </properties>
   </object>
-  <object name="entrance11" x="1248" y="416" width="32" height="32">
+  <object name="entrance11" x="1088" y="320" width="32" height="32">
    <properties>
     <property name="direction" value="1"/>
     <property name="message" value=""/>

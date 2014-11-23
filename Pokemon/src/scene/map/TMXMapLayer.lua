@@ -625,15 +625,18 @@ function TMXMapLayer:isHeroRunning()
 end
 
 function TMXMapLayer:willMapOutOfBound(direction)
+	log("TMXMapLayer:willMapOutOfBound", direction)
 	-- 室内不考虑越界
 	if self.mapInfo:isInRoom() then
 		log("Map is in room.")
 		return false
 	end
 
-	local deltaX, deltaY = 0, 0
 	local winSize = cc.Director:getInstance():getWinSize()
 	local curPos = ccp(self:getPosition())
+
+	log(string.format("curPos: %d, %d\tself:getContentSize(): %d, %d\tself.map:getContentSize(): %d, %d", curPos.x, curPos.y, self:getContentSize().width,
+		self:getContentSize().height, self.map:getContentSize().width, self.map:getContentSize().height))
 
 	if direction == Enumerations.DIRECTIONS.UP then
 		return curPos.y + self:getContentSize().height * 0.5 + self.map:getContentSize().height * 0.5 <= winSize.height

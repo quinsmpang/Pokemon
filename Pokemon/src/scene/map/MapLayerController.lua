@@ -66,6 +66,7 @@ function MapLayerController:addObservers()
 	Notifier:addObserver(NotifyEvents.MapView.MapUpdate, self, self.onMapUpdate)
 	Notifier:addObserver(NotifyEvents.MapView.ShowEntranceMessage, self, self.onShowEntranceMessage)
 	Notifier:addObserver(NotifyEvents.MapView.MenuItemSelected, self, self.onMenuItemSelected)
+	Notifier:addObserver(NotifyEvents.MapView.ShowMapMenu, self, self.onShowMapMenu)
 end
 
 function MapLayerController:removeObservers()
@@ -140,6 +141,14 @@ function MapLayerController:onMapUpdate(dt)
 		return
 	end
 
+	local newKeys = {}
+	for _, key in ipairs(self.pressedDirectionKeys) do
+		if KeyboardHelper:getInstance():isKeyPressed(key) then
+			table.insert(newKeys, key)
+		end
+	end
+	self.pressedDirectionKeys = newKeys
+	
 	if DataCenter.currentPlayerData:isFreedom() then
 		local hero = self.currentMap.hero
 		-- log("Current state: ", self.playerState)
@@ -338,6 +347,7 @@ function MapLayerController:onMenuItemSelected(item)
 			end
 		elseif itemIndex == 5 then
 			--记录
+			self.mainMenu:setVisible(false)
 			local saveLayer = SaveGameLayer:create()
 			self:getScene():addChild(saveLayer)
 		elseif itemIndex == 6 then
@@ -361,6 +371,11 @@ end
 
 function MapLayerController:onTimeTick(dt)
 	DataCenter.currentPlayerData.gameTime = DataCenter.currentPlayerData.gameTime + 1
+end
+
+function MapLayerController:onShowMapMenu()
+	self.mainMenu:validateAllItems()
+	self.mainMenu:setVisible(true)
 end
 
 -------------------------- Action 处理函数 --------------------------

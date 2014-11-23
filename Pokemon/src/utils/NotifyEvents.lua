@@ -27,6 +27,8 @@ NotifyEvents.MapView.MenuItemSelected = "NotifyEvents.MapView.MenuItemSelected"
 NotifyEvents.MapView.ResponseBegan = "NotifyEvents.MapView.ResponseBegan"
 -- 地图状态变更	MapStateController通知, MapLayerController, DialogLayerController观察
 NotifyEvents.MapView.MapStateChanged = "NotifyEvents.MapView.MapStateChanged"
+-- 显示菜单	SaveGameLayer通知, MapLayerController观察
+NotifyEvents.MapView.ShowMapMenu = "NotifyEvents.MapView.ShowMapMenu"
 
 -- 精灵界面事件
 NotifyEvents.PokemonView = NotifyEvents.PokemonView or {}

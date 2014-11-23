@@ -21,6 +21,10 @@ function TimeSpan:initWithSeconds(totalSeconds)
 	self:setTotalSeconds(totalSeconds)
 end
 
+function TimeSpan:getTotalSeconds()
+	return self.totalSeconds
+end
+
 function TimeSpan:setTotalSeconds(totalSeconds)
 	self.totalSeconds = totalSeconds
 
