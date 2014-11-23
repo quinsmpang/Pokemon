@@ -7,7 +7,7 @@
             <key>images/common/black_back.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{248,9},{5,5}}</string>
+                <string>{{9,505},{5,5}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>images/common/border_aqua.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{104,206},{100,100}}</string>
+                <string>{{206,403},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>images/common/border_aqua_transparent.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{102,408},{98,98}}</string>
+                <string>{{340,102},{98,98}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>images/common/border_gray.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,206},{100,100}}</string>
+                <string>{{206,301},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>images/common/border_gray_transparent.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{102,308},{98,98}}</string>
+                <string>{{240,102},{98,98}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>images/common/border_orange.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{104,104},{100,100}}</string>
+                <string>{{104,403},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>images/common/border_orange_transparent.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,104},{100,100}}</string>
+                <string>{{104,301},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>images/common/border_red.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{104,2},{100,100}}</string>
+                <string>{{2,403},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>images/common/border_red_transparent.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,408},{98,98}}</string>
+                <string>{{408,2},{98,98}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,7 +124,7 @@
             <key>images/common/border_yellow.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{100,100}}</string>
+                <string>{{2,301},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,7 +137,7 @@
             <key>images/common/border_yellow_transparent.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,308},{98,98}}</string>
+                <string>{{308,2},{98,98}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,7 +150,7 @@
             <key>images/common/btn_orange.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{206,2},{80,40}}</string>
+                <string>{{240,2},{80,40}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -160,10 +160,36 @@
                 <key>sourceSize</key>
                 <string>{80,40}</string>
             </dict>
+            <key>images/common/menu_cursor.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{282,2},{15,17}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{15,17}}</string>
+                <key>sourceSize</key>
+                <string>{15,17}</string>
+            </dict>
+            <key>images/common/selection_border.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{236,297}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{236,297}}</string>
+                <key>sourceSize</key>
+                <string>{236,297}</string>
+            </dict>
             <key>images/common/white_back.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{248,2},{5,5}}</string>
+                <string>{{2,505},{5,5}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -181,9 +207,9 @@
             <key>realTextureFileName</key>
             <string>common.pvr.ccz</string>
             <key>size</key>
-            <string>{256,512}</string>
+            <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:eb63d4b6fc97888b8484321d5696daea:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:9220c4065e2e2a81828bc8d3d115b9f4:1/1$</string>
             <key>textureFileName</key>
             <string>common.pvr.ccz</string>
         </dict>

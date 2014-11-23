@@ -43,5 +43,5 @@ NotifyEvents.PokemonView.DetailMenuItemChanged = "NotifyEvents.PokemonView.Detai
 -- 保存界面事件
 NotifyEvents.SaveView = NotifyEvents.SaveView or {}
 
--- 新游戏中，确认选择了对应存档点	LoadGameLayerController通知, MainMenu观察
+-- 新游戏中，确认选择了对应存档点	LoadGameLayerController通知, MainViewController观察
 NotifyEvents.SaveView.SaveSelected = "NotifyEvents.SaveView.SaveSelected"

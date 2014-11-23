@@ -26,7 +26,7 @@ namespace framework
 		}
 
 		this->setColor(Color3B(0, 0, 0));
-		this->setOpacity(200);
+		this->setOpacity(0);
 
 		auto pListener = EventListenerTouchOneByOne::create();
 		pListener->setSwallowTouches(true);

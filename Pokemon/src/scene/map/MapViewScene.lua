@@ -74,4 +74,10 @@ function MapViewScene:loadData(data)
 			DataCenter:addNewPokemon(pokemon)
 		end
 	end
+
+	if data[3] then
+		-- collection data
+		local collectionData = assert(loadstring(data[3]))()
+		DataCenter.collectionData = collectionData
+	end
 end

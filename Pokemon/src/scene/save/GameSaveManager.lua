@@ -27,6 +27,11 @@ function GameSaveManager:saveTo(number)
 			end
 		end
 	end
+	if DataCenter.collectionData then
+		data = data .. ";"
+		local collectionDataStr = table.serialize(DataCenter.collectionData)
+		data = data .. collectionDataStr
+	end
 
 	log("save data: ", data)
 	local saveData = SaveData:createWithData(data)
@@ -68,12 +73,18 @@ function GameSaveManager:getBasicInfo(index)
 	local playerData = PlayerData:createWithLoadData(loadData)
 
 	local mapInfo = MapInfo:create(playerData.currentMapId)
-	local mapName = mapInfo.name
+	local mapName = mapInfo.name == DBNULL and "室内" or mapInfo.name
+
+	local collections = 0
+	if data[3] then
+		local collectionData = assert(loadstring(data[3]))()
+		collections = table.getTotalCount(collectionData)
+	end
 
 	local ret = {
 		MapName = mapName,
 		GameTime = TimeSpan:create(playerData.gameTime):toString(),
-		Collection = tostring(0),
+		Collection = tostring(collections),
 		Brands = tostring(0),
 	}
 

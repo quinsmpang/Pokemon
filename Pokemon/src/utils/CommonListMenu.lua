@@ -39,7 +39,7 @@ function CommonListMenu:init(list, borderSize)
 	root:setOpacity(0)
 	self:addChild(root)
 
-	local bg = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/selection_border.png", CCRectMake(20, 20, 196, 257))
+	local bg = cc.Scale9Sprite:createWithSpriteFrameName("images/common/selection_border.png", CCRectMake(20, 20, 196, 257))
 	bg:setPreferredSize(borderSize)
 	bg:setAnchorPoint(0, 0)
 	bg:setPosition(0, 0)
@@ -110,6 +110,12 @@ function CommonListMenu:onKeyboardPressed(keyCode)
 	end
 end
 
+function CommonListMenu:setKeyEventsSwallowed(bSwallow)
+	if self.kbdListener then
+		self.kbdListener:setEventsSwallowed(bSwallow)
+	end
+end
+
 function CommonListMenu:setItemSelectedScript(script)
 	assert(type(script) == "function", "invalid param")
 	self.itemSelectedScript = script
@@ -148,7 +154,7 @@ function CommonListMenu:itemAtIndex(menu, index)
 		label:setTag(self.LABEL_TAG)
 		item:addChild(label)
 		-- arrow
-		local arrow = cc.Sprite:createWithSpriteFrameName("images/pokemon/menu_cursor.png")
+		local arrow = cc.Sprite:createWithSpriteFrameName("images/common/menu_cursor.png")
 		arrow:setAnchorPoint(1, 0.5)
 		arrow:setPosition(screenSize.width * 0.05, screenSize.height * 0.04)
 		arrow:setTag(self.ARROW_TAG)

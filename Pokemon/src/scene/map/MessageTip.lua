@@ -30,6 +30,8 @@ function MessageTip:init(message, callback)
 	self.message = message
 	self.callback = callback
 
+	self:setOpacity(100)
+
 	local winSize = cc.Director:getInstance():getWinSize()
 
 	local label = cc.Label:createWithTTF(message, GameConfig.DEFAULT_FONT_PATH, self.FONT_SIZE)

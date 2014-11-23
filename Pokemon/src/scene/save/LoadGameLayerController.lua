@@ -1,5 +1,5 @@
 --[[
-	Description: Game load game dialog
+	Description: Game load game dialog controller
 	Author: M.Wan
 	Date: 11/23/2014
 ]]

@@ -126,6 +126,8 @@ function MainMenu:showButtons()
 end
 
 function MainMenu:showGenderWindow()
+	cc.SimpleAudioEngine:getInstance():stopMusic()
+	
 	local quitAction = cc.Sequence:create(
 		cc.FadeOut:create(1.5),
 		cc.DelayTime:create(0.5),

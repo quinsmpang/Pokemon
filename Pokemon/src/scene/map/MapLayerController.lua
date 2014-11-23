@@ -10,6 +10,7 @@ require "src/scene/map/TMXMapLayer"
 require "src/scene/map/MessageTip"
 require "src/scene/map/MapNameBoard"
 require "src/scene/map/MapMenuLayer"
+require "src/scene/map/SaveGameLayer"
 
 MapLayerController.root = nil
 MapLayerController.currentMap = nil		-- 当前地图层
@@ -92,10 +93,6 @@ function MapLayerController:renderView()
 	local playerData = DataCenter.currentPlayerData
 
 	self:switchMap(playerData.currentMapId)
-	-- local mapInfo = MapInfo:create(playerData.currentMapId)
-	-- local map = TMXMapLayer:createWithMapInfo(mapInfo)
-	-- self.currentMap = map
-	-- coreLayer:pushLayer(map)
 
 	-- main menu
 	local mainMenu = MapMenuLayer:create()
@@ -341,9 +338,8 @@ function MapLayerController:onMenuItemSelected(item)
 			end
 		elseif itemIndex == 5 then
 			--记录
-			require "src/scene/save/GameSaveManager"
-
-			GameSaveManager:saveTo(DataCenter.relatedSaveIndex)
+			local saveLayer = SaveGameLayer:create()
+			self:getScene():addChild(saveLayer)
 		elseif itemIndex == 6 then
 			--设置
 			if DEBUG then
