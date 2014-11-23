@@ -235,7 +235,44 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="npcObjects" width="45" height="25"/>
+ <objectgroup name="npcObjects" width="45" height="25">
+  <object name="npc1" x="800" y="288" width="32" height="32">
+   <properties>
+    <property name="direction" value="1"/>
+    <property name="id" value="1"/>
+    <property name="npcId" value="9"/>
+    <property name="responseId" value="9"/>
+    <property name="step" value="0"/>
+   </properties>
+  </object>
+  <object name="npc2" x="1056" y="576" width="32" height="32">
+   <properties>
+    <property name="direction" value="3"/>
+    <property name="id" value="2"/>
+    <property name="npcId" value="11"/>
+    <property name="responseId" value="12"/>
+    <property name="step" value="0"/>
+   </properties>
+  </object>
+  <object name="npc3" x="1120" y="320" width="32" height="32">
+   <properties>
+    <property name="direction" value="3"/>
+    <property name="id" value="3"/>
+    <property name="npcId" value="10"/>
+    <property name="responseId" value="13"/>
+    <property name="step" value="0"/>
+   </properties>
+  </object>
+  <object name="npc4" x="384" y="384" width="32" height="32">
+   <properties>
+    <property name="direction" value="4"/>
+    <property name="id" value="4"/>
+    <property name="npcId" value="8"/>
+    <property name="responseId" value="14"/>
+    <property name="step" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup name="entranceObjects" width="45" height="25">
   <object name="entrance1" x="832" y="768" width="96" height="32">
    <properties>

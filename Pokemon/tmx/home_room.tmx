@@ -96,7 +96,6 @@
     <property name="direction" value="3"/>
     <property name="id" value="1"/>
     <property name="npcId" value="5"/>
-    <property name="relatedMapId" value="11"/>
     <property name="responseId" value="4"/>
     <property name="step" value="0"/>
    </properties>

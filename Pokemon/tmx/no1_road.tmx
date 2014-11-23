@@ -195,7 +195,26 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="npcObjects" width="45" height="24"/>
+ <objectgroup name="npcObjects" width="45" height="24">
+  <object name="npc1" x="800" y="544" width="32" height="32">
+   <properties>
+    <property name="direction" value="2"/>
+    <property name="id" value="1"/>
+    <property name="npcId" value="5"/>
+    <property name="responseId" value="10"/>
+    <property name="step" value="0"/>
+   </properties>
+  </object>
+  <object name="npc2" x="992" y="128" width="32" height="32">
+   <properties>
+    <property name="direction" value="1"/>
+    <property name="id" value="1"/>
+    <property name="npcId" value="6"/>
+    <property name="responseId" value="11"/>
+    <property name="step" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup name="entranceObjects" width="45" height="24">
   <object name="entrance1" x="928" y="736" width="96" height="32">
    <properties>
