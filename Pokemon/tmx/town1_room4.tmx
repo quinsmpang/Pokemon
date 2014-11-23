@@ -81,12 +81,12 @@
   </object>
  </objectgroup>
  <objectgroup name="npcObjects" width="10" height="9">
-  <object name="npc1" x="192" y="128" width="32" height="32">
+  <object name="npc1" x="64" y="128" width="32" height="32">
    <properties>
-    <property name="direction" value="3"/>
+    <property name="direction" value="2"/>
     <property name="id" value="1"/>
-    <property name="npcId" value="4"/>
-    <property name="responseId" value="4"/>
+    <property name="npcId" value="5"/>
+    <property name="responseId" value="17"/>
     <property name="step" value="0"/>
    </properties>
   </object>
@@ -96,7 +96,7 @@
    <properties>
     <property name="direction" value="3"/>
     <property name="message" value=""/>
-    <property name="relatedMapId" value="4"/>
+    <property name="relatedMapId" value="10"/>
    </properties>
   </object>
  </objectgroup>

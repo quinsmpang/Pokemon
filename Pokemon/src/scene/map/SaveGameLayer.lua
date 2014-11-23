@@ -172,7 +172,9 @@ function SaveGameLayer:onKeyboardPressed(keyCode)
 		return
 	end
 	if self.toBeClosed then
-		self.list:removeFromParent()
+		if self.list then
+			self.list:removeFromParent()
+		end
 		self:removeFromParent()
 	end
 end

@@ -86,7 +86,7 @@
     <property name="direction" value="3"/>
     <property name="id" value="1"/>
     <property name="npcId" value="4"/>
-    <property name="responseId" value="4"/>
+    <property name="responseId" value="15"/>
     <property name="step" value="0"/>
    </properties>
   </object>
@@ -96,7 +96,7 @@
    <properties>
     <property name="direction" value="3"/>
     <property name="message" value=""/>
-    <property name="relatedMapId" value="4"/>
+    <property name="relatedMapId" value="10"/>
    </properties>
   </object>
  </objectgroup>

@@ -43,7 +43,7 @@ function luaClass(className, super)
 	end
 
 	-- You can override this method to initialize.
-	function class:init()
+	function class:init(...)
 	end
 
 	_G[className] = class

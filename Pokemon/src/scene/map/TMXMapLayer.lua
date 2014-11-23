@@ -61,6 +61,7 @@ function TMXMapLayer:createWithMapInfo(mapInfo, lastMapId)
 end
 
 function TMXMapLayer:initWithMapInfo(mapInfo, lastMapId)
+	log("TMXMapLayer:initWithMapInfo", lastMapId)
 	self.mapInfo = mapInfo
 	self.isMoving = false
 
