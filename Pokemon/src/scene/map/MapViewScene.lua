@@ -60,24 +60,32 @@ function MapViewScene:newData(gender)
 end
 
 function MapViewScene:loadData(data)
-	-- player data
-	local loadData = assert(loadstring(data[1]))()
-	local playerData = PlayerData:createWithLoadData(loadData)
-	DataCenter.currentPlayerData = playerData
-
-	if data[2] then
-		-- pokemons data
-		local pokemons = string.split(data[2], "|")
-		for _, pokemonData in ipairs(pokemons) do
-			loadData = assert(loadstring(pokemonData))()
-			local pokemon = Pokemon:createWithLoadData(loadData)
-			DataCenter:addNewPokemon(pokemon)
+	for i = 1, #data, 2 do
+		if tonumber(data[i]) == 1 then
+			-- player data
+			local loadData = assert(loadstring(data[i + 1]))()
+			local playerData = PlayerData:createWithLoadData(loadData)
+			DataCenter.currentPlayerData = playerData
+		elseif tonumber(data[i]) == 2 then
+			-- pokemons data
+			local pokemons = string.split(data[i + 1], "|")
+			for _, pokemonData in ipairs(pokemons) do
+				loadData = assert(loadstring(pokemonData))()
+				local pokemon = Pokemon:createWithLoadData(loadData)
+				DataCenter:addNewPokemon(pokemon)
+			end
+		elseif tonumber(data[i]) == 3 then
+			-- collection data
+			local collectionData = assert(loadstring(data[i + 1]))()
+			DataCenter.collectionData = collectionData
+		elseif tonumber(data[i]) == 4 then
+			-- bag data
+			local bagData = assert(loadstring(data[i + 1]))()
+			DataCenter.currentBagData = bagData
+		elseif tonumber(data[i]) == 5 then
+			-- money
+			local money = tonumber(data[i + 1])
+			DataCenter.money = money
 		end
-	end
-
-	if data[3] then
-		-- collection data
-		local collectionData = assert(loadstring(data[3]))()
-		DataCenter.collectionData = collectionData
 	end
 end

@@ -14,11 +14,13 @@ function GameSaveManager:saveTo(number)
 		IOUtils:getInstance():createDirectory("save")
 	end
 	-- serialize DataCenter
-	local data = ""
+	local data = "1;"
+	-- 玩家信息
 	local playerDataStr = table.serialize(DataCenter.currentPlayerData.__model)
 	data = data .. playerDataStr
+	-- 携带精灵信息
 	if DataCenter.carriedPokemons then
-		data = data .. ";"
+		data = data .. ";2;"
 		for i, pokemon in ipairs(DataCenter.carriedPokemons) do
 			local str = table.serialize(pokemon.__model)
 			data = data .. str
@@ -27,10 +29,21 @@ function GameSaveManager:saveTo(number)
 			end
 		end
 	end
+	-- 图鉴信息
 	if DataCenter.collectionData then
-		data = data .. ";"
+		data = data .. ";3;"
 		local collectionDataStr = table.serialize(DataCenter.collectionData)
 		data = data .. collectionDataStr
+	end
+	-- 背包信息
+	if DataCenter.currentBagData then
+		data = data .. ";4;"
+		local bagDataStr = table.serialize(DataCenter.currentBagData)
+		data = data .. bagDataStr
+	end
+	-- 零用钱
+	if DataCenter.money then
+		data = data .. ";5;" .. DataCenter.money
 	end
 
 	log("save data: ", data)
@@ -69,15 +82,22 @@ function GameSaveManager:getBasicInfo(index)
 	local saveData = SaveData:deserializeFromFile("save/ps_save" .. index .. ".sav", GameConfig.SAVE_PASSWORD)
 	local data = string.split(saveData:getData(), ";")
 
-	local loadData = assert(loadstring(data[1]))()
+	local loadData = assert(loadstring(data[2]))()
 	local playerData = PlayerData:createWithLoadData(loadData)
 
 	local mapInfo = MapInfo:create(playerData.currentMapId)
 	local mapName = mapInfo.name == DBNULL and "室内" or mapInfo.name
 
+	local index = nil
+	for i = 1, #data, 2 do
+		if tonumber(data[i]) == 3 then
+			index = i + 1
+			break
+		end
+	end
 	local collections = 0
-	if data[3] then
-		local collectionData = assert(loadstring(data[3]))()
+	if index then
+		local collectionData = assert(loadstring(data[index]))()
 		collections = table.getTotalCount(collectionData)
 	end
 
@@ -85,7 +105,7 @@ function GameSaveManager:getBasicInfo(index)
 		MapName = mapName,
 		GameTime = TimeSpan:create(playerData.gameTime):toString(),
 		Collection = tostring(collections),
-		Brands = tostring(0),
+		Badges = tostring(0),
 	}
 
 	return ret

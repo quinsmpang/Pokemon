@@ -67,6 +67,7 @@ function MapLayerController:addObservers()
 	Notifier:addObserver(NotifyEvents.MapView.ShowEntranceMessage, self, self.onShowEntranceMessage)
 	Notifier:addObserver(NotifyEvents.MapView.MenuItemSelected, self, self.onMenuItemSelected)
 	Notifier:addObserver(NotifyEvents.MapView.ShowMapMenu, self, self.onShowMapMenu)
+	Notifier:addObserver(NotifyEvents.MapView.HeroMoved, self, self.onHeroMoved)
 end
 
 function MapLayerController:removeObservers()
@@ -76,6 +77,7 @@ function MapLayerController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.MapView.MapUpdate, self)
 	Notifier:removeObserver(NotifyEvents.MapView.ShowEntranceMessage, self)
 	Notifier:removeObserver(NotifyEvents.MapView.MenuItemSelected, self)
+	Notifier:removeObserver(NotifyEvents.MapView.HeroMoved, self)
 
 	Notifier:removeObserver(NotifyEvents.MapView.ActionInstructionsEnded, self)
 end
@@ -197,6 +199,14 @@ function MapLayerController:onKeyboardPressed(keyCode)
 		table.insert(self.pressedDirectionKeys, keyCode)
 	elseif keyCode == GameSettings.confirmKey then
 		if self.currentMap then
+			local trigger = self.currentMap:checkResponseTrigger()
+			if trigger then
+				self.nextDirection = nil
+				self.playerState = PLAYER_STATE.STANDING
+				self.currentMap:continueStory(trigger)
+				return
+			end
+
 			local response = self.currentMap:checkResponse()
 			if response then
 				self:resetHero()
@@ -320,6 +330,19 @@ function MapLayerController:onShowEntranceMessage(message)
 			local response = Response:simulate(DBNULL, message)
 			ResponseController:processResponse(response)
 		end)
+end
+
+function MapLayerController:onHeroMoved()
+	-- 亲密度增加todo
+	-- 检测当前位置是否有剧情触发
+	if self.currentMap then
+		local trigger = self.currentMap:checkTrigger(DataCenter.currentPlayerData.currentPosition)
+		if trigger then
+			self.nextDirection = nil
+			self.playerState = PLAYER_STATE.STANDING
+			self.currentMap:continueStory(trigger)
+		end
+	end
 end
 
 function MapLayerController:onMenuItemSelected(item)

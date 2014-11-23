@@ -15,6 +15,8 @@ Obstacle.allowUp = DBNULL			-- 是否允许从上面进入
 Obstacle.allowDown = DBNULL		--是否可以从下面进入
 Obstacle.shouldBeCovered = DBNULL	-- 进入后是否应该被遮盖
 Obstacle.responseId = DBNULL		-- 响应的事件id, -1表示不能响应
+Obstacle.relatedTriggerId = DBNULL	-- 触发剧情的trigger id
+Obstacle.relatedNpcId = DBNULL		-- 跨障碍物说话的npc id
 
 function Obstacle:create(obstacleInfo)
 	if type(obstacleInfo) ~= "table" then
@@ -37,6 +39,12 @@ function Obstacle:initWithInfo(obstacleInfo)
 	self.allowDown = tonumber(obstacleInfo["allowDown"]) == 1
 	self.shouldBeCovered = tonumber(obstacleInfo["shouldBeCovered"]) == 1
 	self.responseId = tonumber(obstacleInfo["responseId"])
+	if obstacleInfo["relatedTriggerId"] then
+		self.relatedTriggerId = tonumber(obstacleInfo["relatedTriggerId"])
+	end
+	if obstacleInfo["relatedNpcId"] then
+		self.relatedNpcId = tonumber(obstacleInfo["relatedNpcId"])
+	end
 end
 
 function Obstacle:canBeResponsed()

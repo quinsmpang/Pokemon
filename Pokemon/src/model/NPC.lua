@@ -15,6 +15,7 @@ NPC.npcId = DBNULL				-- 对应的npc model id
 NPC.responseId = DBNULL			-- 响应的id
 NPC.specialResponseId = DBNULL	-- 性别影响的响应id
 NPC.step = DBNULL				-- 对应的剧情step
+NPC.relatedTriggerId = DBNULL	-- 可能触发剧情，对应trigger id
 
 NPC.npcDbModel = DBNULL			-- 对应id的npc model
 
@@ -38,7 +39,10 @@ function NPC:initWithInfo(npcInfo)
 	self.npcId = tonumber(npcInfo["npcId"])
 	self.responseId = tonumber(npcInfo["responseId"])
 	if npcInfo["specialResponseId"] then
-		self.specialResponseId = npcInfo["specialResponseId"]
+		self.specialResponseId = tonumber(npcInfo["specialResponseId"])
+	end
+	if npcInfo["relatedTriggerId"] then
+		self.relatedTriggerId = tonumber(npcInfo["relatedTriggerId"])
 	end
 	self.step = tonumber(npcInfo["step"])
 

@@ -349,14 +349,14 @@
    <properties>
     <property name="direction" value="1"/>
     <property name="message" value=""/>
-    <property name="relatedMapId" value="15"/>
+    <property name="relatedMapId" value="16"/>
    </properties>
   </object>
   <object name="entrance11" x="1088" y="320" width="32" height="32">
    <properties>
     <property name="direction" value="1"/>
     <property name="message" value=""/>
-    <property name="relatedMapId" value="16"/>
+    <property name="relatedMapId" value="15"/>
    </properties>
   </object>
  </objectgroup>

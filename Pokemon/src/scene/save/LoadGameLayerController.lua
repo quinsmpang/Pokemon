@@ -83,7 +83,7 @@ function LoadGameLayerController:renderView()
 			dialogBorder:addChild(node)
 
 			local titleMap = { "地点", "时间", "图鉴", "徽章" }
-			local textMap = { "MapName", "GameTime", "Collection", "Brands" }
+			local textMap = { "MapName", "GameTime", "Collection", "Badges" }
 			for j = 1, 4 do
 				local lbl = cc.Label:createWithTTF(titleMap[j] .. ": " .. info[textMap[j]], GameConfig.DEFAULT_FONT_PATH, 24)
 				lbl:setAnchorPoint(0, 0.5)

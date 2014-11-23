@@ -6,6 +6,7 @@
 
 luaClass("Trigger", psModel)
 
+Trigger.id = DBNULL
 Trigger.position = DBNULL		-- 位置
 Trigger.width = DBNULL			-- 宽度
 Trigger.height = DBNULL			-- 高度
@@ -25,6 +26,7 @@ function Trigger:create(triggerInfo)
 end
 
 function Trigger:initWithInfo(triggerInfo)
+	self.id = tonumber(triggerInfo["id"])
 	self.position = ccp(tonumber(triggerInfo["x"]) / 32, tonumber(triggerInfo["y"]) / 32)
 	self.width = triggerInfo["width"] / 32
 	self.height = triggerInfo["height"] / 32

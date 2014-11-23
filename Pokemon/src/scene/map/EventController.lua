@@ -29,3 +29,12 @@ function EventController:event_gainNewPokemon(params)
 		-- 电脑也满了 todo
 	end
 end
+
+function EventController:event_gainNewItem(params)
+	local data = string.split(params, ",")
+	data = table.cast(data, function(item) return tonumber(item) end)
+	local itemId = data[1]
+	local num = data[2]
+
+	DataCenter:addNewItem(itemId, num)
+end

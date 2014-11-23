@@ -1,177 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="13" height="12" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="10" height="10" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="room_common" tilewidth="32" tileheight="32">
   <image source="images/terrains/room_common.png" width="256" height="1216"/>
  </tileset>
- <layer name="main" width="13" height="12">
+ <layer name="main" width="10" height="10">
   <data encoding="base64" compression="zlib">
-   eJzjZmBg4B7Fo5hOGAA7sAa1
+   eJxjYGBgeIKGcYE3aBgbeAXEH4nAIHWPiMAjTR0A+T1OqA==
   </data>
  </layer>
- <layer name="wall" width="13" height="12">
+ <layer name="items" width="10" height="10">
   <data encoding="base64" compression="zlib">
-   eJwTY2BgECcBSwCxHBDLk4AVGEbBKIAAAB3eAr8=
+   eJx7zIAJfgPxHyT6KRC/RpKXYGRgOAikmYE0CyOCfgsU+wzEV6FYASh2EqrnPhA/gLK/otmnwYhgfwPi71D2MyDWBcrpAbE+EBsgqfsHxP+h7HdY/EAqANn1HImNC4Dsek+mvZZAbAXE1njUAAD1xhuH
   </data>
  </layer>
- <layer name="items" width="13" height="12">
+ <layer name="tops" width="10" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYCAd1ANxAxAfAuLNQLwFKg5jI4vBQDsQdwDxKSDeDcR7oOIwNrLYUSA+gqb/DhL7LpS+h6bmMBD3A/EEJJoYMB2IZyDR1ATbgXgHlJ0PxAVINC6wH4gPQNnlQFyBROMCx4H4BAMkDOgFTmERswRiKyC2xiJ3EogBWFQg0Q==
+   eJxjYBgYoMrIwKAGxOqMA+SAQQoAf6kAdg==
   </data>
  </layer>
- <layer name="tops" width="13" height="12">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo4CB4RCJ6g+SaQ8Ae3gBhA==
-  </data>
- </layer>
- <objectgroup name="npcObjects" width="13" height="12">
-  <object name="npc1" x="192" y="128" width="32" height="32">
+ <objectgroup name="obstacleObjects" width="10" height="10">
+  <object name="ob1" x="0" y="128" width="64" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob2" x="96" y="64" width="32" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob3" x="64" y="128" width="32" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="relatedNpcId" value="1"/>
+    <property name="relatedTriggerId" value="1"/>
+    <property name="responseId" value="-101"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob4" x="96" y="128" width="32" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob5" x="96" y="96" width="32" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="relatedNpcId" value="1"/>
+    <property name="relatedTriggerId" value="1"/>
+    <property name="responseId" value="-101"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob6" x="128" y="64" width="32" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob7" x="160" y="32" width="128" height="32">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob8" x="288" y="64" width="32" height="96">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob9" x="288" y="192" width="32" height="64">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob11" x="192" y="64" width="64" height="96">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+  <object name="ob10" x="192" y="192" width="64" height="64">
+   <properties>
+    <property name="allowDown" value="0"/>
+    <property name="allowLeft" value="0"/>
+    <property name="allowRight" value="0"/>
+    <property name="allowUp" value="0"/>
+    <property name="responseId" value="-1"/>
+    <property name="shouldBeCovered" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="npcObjects" width="10" height="10">
+  <object name="npc1" x="64" y="96" width="32" height="32">
    <properties>
     <property name="direction" value="3"/>
     <property name="id" value="1"/>
-    <property name="npcId" value="3"/>
-    <property name="responseId" value="2"/>
+    <property name="npcId" value="12"/>
+    <property name="responseId" value="-101"/>
+    <property name="step" value="0"/>
+   </properties>
+  </object>
+  <object name="npc2" x="160" y="192" width="32" height="32">
+   <properties>
+    <property name="direction" value="4"/>
+    <property name="id" value="2"/>
+    <property name="npcId" value="8"/>
+    <property name="responseId" value="18"/>
     <property name="step" value="0"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="entranceObjects" width="13" height="12">
-  <object name="entrance1" x="192" y="352" width="32" height="32">
+ <objectgroup name="entranceObjects" width="10" height="10">
+  <object name="entrance1" x="64" y="288" width="32" height="32">
    <properties>
     <property name="direction" value="3"/>
     <property name="message" value=""/>
-    <property name="relatedMapId" value="4"/>
+    <property name="relatedMapId" value="10"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="obstacleObjects" width="13" height="12">
-  <object name="ob1" x="0" y="64" width="160" height="32">
+ <objectgroup name="triggerObjects" width="10" height="10">
+  <object name="trigger1" x="32" y="0" width="32" height="32">
    <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob2" x="192" y="64" width="128" height="32">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob3" x="352" y="64" width="32" height="32">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob4" x="384" y="96" width="32" height="32">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob5" x="0" y="128" width="128" height="64">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob6" x="0" y="224" width="128" height="64">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob7" x="320" y="192" width="64" height="96">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob8" x="384" y="256" width="32" height="32">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob9" x="0" y="352" width="32" height="32">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob10" x="384" y="352" width="32" height="32">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob11" x="160" y="32" width="32" height="32">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
-  <object name="ob12" x="320" y="32" width="32" height="32">
-   <properties>
-    <property name="allowDown" value="0"/>
-    <property name="allowLeft" value="0"/>
-    <property name="allowRight" value="0"/>
-    <property name="allowUp" value="0"/>
-    <property name="responseId" value="-1"/>
-    <property name="shouldBeCovered" value="0"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup name="triggerObjects" width="13" height="12">
-  <object name="trigger1" x="192" y="352" width="32" height="32">
-   <properties>
-    <property name="action" value="7"/>
     <property name="id" value="1"/>
-    <property name="lastStep" value="1"/>
-    <property name="step" value="2"/>
+    <property name="lastStep" value="2"/>
+    <property name="step" value="3"/>
    </properties>
   </object>
  </objectgroup>

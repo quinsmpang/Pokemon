@@ -9,6 +9,7 @@ DataCenter = {}
 DataCenter.currentPlayerData = nil		-- 当前玩家数据(PlayerData)
 DataCenter.carriedPokemons = nil	-- 当前携带的宠物({Pokemon})
 DataCenter.currentBagData = nil		-- 当前背包数据({Item})
+DataCenter.money = nil				-- 零用钱
 DataCenter.computerData = nil	-- 电脑宠物布局信息(ComputerData)
 DataCenter.currentComputerChannel = nil		-- 当前电脑频道(每个频道可以放30个精灵)
 DataCenter.collectionData = nil		-- 图鉴信息({[id]=true/false})
@@ -71,4 +72,20 @@ function DataCenter:addNewCollection(pokemonId, catched)
 		self.collectionData = {}
 	end
 	self.collectionData[pokemonId] = catched
+end
+
+function DataCenter:addNewItem(itemId, count)
+	log("DataCenter:addNewItem", itemId, count)
+	if not self.currentBagData then
+		self.currentBagData = {}
+	end
+	local subType = math.floor(itemId / 1000)
+	if not self.currentBagData[subType] then
+		self.currentBagData[subType] = {}
+	end
+	if not self.currentBagData[subType][itemId] then
+		self.currentBagData[subType][itemId] = count
+	else
+		self.currentBagData[subType][itemId] = self.currentBagData[subType][itemId] + count
+	end
 end

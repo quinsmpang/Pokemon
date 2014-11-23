@@ -311,6 +311,7 @@ end
 
 function TMXMapLayer:onMovingEnd()
 	self.isMoving = false
+	Notifier:notify()
 end
 
 function TMXMapLayer:heroRun(direction, callback)
@@ -585,11 +586,14 @@ function TMXMapLayer:checkCollision(nextPosition, isHero)
 end
 
 function TMXMapLayer:checkResponse()
+	log("TMXMapLayer:checkResponse")
 	local nextPos = self.hero:getNextPosition(DataCenter.currentPlayerData.currentDirection)
 
 	-- npc
 	local npc = self.npcList[nextPos.x .. "," .. nextPos.y]
-	if npc and npc.model.responseId ~= -1 then
+	if npc and npc.model.responseId < -100 then
+		-- 特殊情况优先处理
+	elseif npc and npc.model.responseId > 0 then
 		-- 修改npc方向
 		npc:updateDirection((DataCenter.currentPlayerData.currentDirection - 1 + 2) % 4 + 1)
 		-- 判断是否和性别相关
@@ -606,9 +610,48 @@ function TMXMapLayer:checkResponse()
 
 	-- 障碍物
 	local obstacle = self.obstacleList[nextPos.x .. "," .. nextPos.y]
-	if obstacle and obstacle.responseId ~= -1 then
+	if obstacle and obstacle.responseId < -100 then
+		-- 特殊情况优先处理
+	elseif obstacle and obstacle.responseId > 0 then
+		-- 如果响应到npc 需要计算npc方向
+		if obstacle.relatedNpcId ~= DBNULL then
+			self.observers = { obstacle.relatedNpcId }
+			self:updateObserversDirection(0)
+		end
 		local response = Response:create(obstacle.responseId)
 		return response
+	end
+
+	return nil
+end
+
+function TMXMapLayer:checkResponseTrigger()
+	log("TMXMapLayer:checkResponseTrigger")
+	local nextPos = self.hero:getNextPosition(DataCenter.currentPlayerData.currentDirection)
+
+	-- npc
+	local npc = self.npcList[nextPos.x .. "," .. nextPos.y]
+	if npc and npc.relatedTriggerId ~= DBNULL then
+		for _, trigger in pairs(self.triggerList) do
+			if trigger.id == npc.relatedTriggerId then
+				return trigger
+			end
+		end
+	end
+
+	-- obstacle
+	local obstacle = self.obstacleList[nextPos.x .. "," .. nextPos.y]
+	if obstacle and obstacle.relatedTriggerId ~= DBNULL then
+		for _, trigger in pairs(self.triggerList) do
+			if trigger.id == obstacle.relatedTriggerId then
+				-- 如果响应到npc 需要计算npc方向
+				if obstacle.relatedNpcId ~= DBNULL then
+					self.observers = { obstacle.relatedNpcId }
+					self:updateObserversDirection(0)
+				end
+				return trigger
+			end
+		end
 	end
 
 	return nil
