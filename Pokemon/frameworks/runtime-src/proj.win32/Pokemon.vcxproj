@@ -183,6 +183,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\controls\ListMenu.h" />
     <ClInclude Include="..\Classes\Framework\controls\ListMenuItem.h" />
     <ClInclude Include="..\Classes\Framework\controls\TableViewEx.h" />
+    <ClInclude Include="..\Classes\Framework\controls\TitleSwitch.h" />
     <ClInclude Include="..\Classes\Framework\editor\ScriptCCBReader.h" />
     <ClInclude Include="..\Classes\Framework\encryption\AesUtils.h" />
     <ClInclude Include="..\Classes\Framework\encryption\DesUtils.h" />
@@ -236,6 +237,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\controls\ListMenu.cpp" />
     <ClCompile Include="..\Classes\Framework\controls\ListMenuItem.cpp" />
     <ClCompile Include="..\Classes\Framework\controls\TableViewEx.cpp" />
+    <ClCompile Include="..\Classes\Framework\controls\TitleSwitch.cpp" />
     <ClCompile Include="..\Classes\Framework\editor\ScriptCCBReader.cpp" />
     <ClCompile Include="..\Classes\Framework\encryption\AesUtils.cpp" />
     <ClCompile Include="..\Classes\Framework\encryption\DesUtils.cpp" />
