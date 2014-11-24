@@ -631,9 +631,11 @@ function TMXMapLayer:checkResponseTrigger()
 
 	-- npc
 	local npc = self.npcList[nextPos.x .. "," .. nextPos.y]
-	if npc and npc.relatedTriggerId ~= DBNULL then
+	if npc and npc.model.relatedTriggerId ~= DBNULL then
 		for _, trigger in pairs(self.triggerList) do
-			if trigger.id == npc.relatedTriggerId then
+			if trigger.id == npc.relatedTriggerId and trigger.lastStep == DataCenter.currentPlayerData.lastStep then
+				self.observers = { npc.model.id }
+				self:updateObserversDirection(0)
 				return trigger
 			end
 		end
@@ -643,7 +645,7 @@ function TMXMapLayer:checkResponseTrigger()
 	local obstacle = self.obstacleList[nextPos.x .. "," .. nextPos.y]
 	if obstacle and obstacle.relatedTriggerId ~= DBNULL then
 		for _, trigger in pairs(self.triggerList) do
-			if trigger.id == obstacle.relatedTriggerId then
+			if trigger.id == obstacle.relatedTriggerId and trigger.lastStep == DataCenter.currentPlayerData.lastStep then
 				-- 如果响应到npc 需要计算npc方向
 				if obstacle.relatedNpcId ~= DBNULL then
 					self.observers = { obstacle.relatedNpcId }
