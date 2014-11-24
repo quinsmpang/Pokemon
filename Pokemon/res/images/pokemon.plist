@@ -59,15 +59,15 @@
             <key>images/pokemon/background.jpg</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{800,480}}</string>
+                <string>{{2,2},{800,528}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{800,480}}</string>
+                <string>{{0,0},{800,528}}</string>
                 <key>sourceSize</key>
-                <string>{800,480}</string>
+                <string>{800,528}</string>
             </dict>
             <key>images/pokemon/hp_back.png</key>
             <dict>
@@ -527,7 +527,7 @@
             <key>images/pokemon/polygon6withline.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,484},{280,324}}</string>
+                <string>{{2,532},{280,324}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -586,7 +586,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:eeede18ce0e5c82fac32ddeda3a8b2c0:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:2149912ed9441935694e90a5051bb40b:1/1$</string>
             <key>textureFileName</key>
             <string>pokemon.pvr.ccz</string>
         </dict>

@@ -172,6 +172,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\base\RefDouble.h" />
     <ClInclude Include="..\Classes\Framework\base\RefInteger.h" />
     <ClInclude Include="..\Classes\Framework\base\RefString.h" />
+    <ClInclude Include="..\Classes\Framework\base\Uncopyable.h" />
+    <ClInclude Include="..\Classes\Framework\base\Uninheritable.h" />
     <ClInclude Include="..\Classes\Framework\containers\Vector.h" />
     <ClInclude Include="..\Classes\Framework\containers\Map.h" />
     <ClInclude Include="..\Classes\Framework\containers\Queue.h" />

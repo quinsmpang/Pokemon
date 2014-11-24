@@ -217,6 +217,12 @@
     <ClInclude Include="..\Classes\Framework\editor\ScriptCCBReader.h">
       <Filter>Classes\psframework\editor</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\base\Uncopyable.h">
+      <Filter>Classes\psframework\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\base\Uninheritable.h">
+      <Filter>Classes\psframework\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
