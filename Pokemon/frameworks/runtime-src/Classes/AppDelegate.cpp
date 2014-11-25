@@ -8,7 +8,6 @@
 #include "Framework/lua/lua_framework_manual.hpp"
 #include "version.h"
 #include "Framework/win32/KeyboardHelper.h"
-#include "Framework/controls/TitleSwitch.h"
 
 using namespace CocosDenshion;
 
