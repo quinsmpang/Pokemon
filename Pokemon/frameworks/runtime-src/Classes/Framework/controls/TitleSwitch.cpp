@@ -1,5 +1,5 @@
 #include "TitleSwitch.h"
-#include "../Win32/Win32EventListenerKeyboard"
+#include "../Win32/Win32EventListenerKeyboard.h"
 #include "../win32/Win32Notifier.h"
 #include <new>
 
@@ -9,26 +9,21 @@ using namespace std;
 namespace framework
 {
 	TitleSwitch::TitleSwitch()
-	: _bg(nullptr)
-	, _titles()
-	, _labels(nullptr)
-	, _rt(nullptr)
-	, _allowLoop(true)
-	, _currentIndex(0)
-	, _inAction(false)
-	, _actionDirection(0)
-	, _kbdListener(nullptr)
-	, _leftKey(0)
-	, _rightKey(0)
+		: _bg(nullptr)
+		, _titles()
+		, _labels()
+		, _allowLoop(true)
+		, _currentIndex(0)
+		, _inAction(false)
+		, _actionDirection(0)
+		, _kbdListener(nullptr)
+		, _leftKey(0)
+		, _rightKey(0)
 	{
 	}
 
 	TitleSwitch::~TitleSwitch()
 	{
-		if (_labels)
-		{
-			delete _labels
-		}
 	}
 
 	TitleSwitch *TitleSwitch::create(cocos2d::Node *bg, const std::vector<const std::string> &titles)
@@ -45,6 +40,8 @@ namespace framework
 
 	bool TitleSwitch::init(cocos2d::Node *bg, const std::vector<const std::string> &titles)
 	{
+		CCASSERT(bg && titles.size() > 0, "Params error");
+
 		this->addChild(bg);
 		this->_titles = titles;
 
@@ -53,7 +50,7 @@ namespace framework
 
 		for (int i = 0; i < titles.size(); ++i)
 		{
-			auto pLabel = Label::createWithTTF(title, "Helvetica", 12);
+			auto pLabel = Label::createWithTTF(titles[i], "Helvetica", 12);
 			pLabel->setColor(Color3B(0, 0, 0));
 			// pLabel->setPosition(this->getContentSize().width * (0.5 + i), this->getContentSize().height * 0.5);
 			this->_labels.pushBack(pLabel);
@@ -62,14 +59,16 @@ namespace framework
 		auto pRt = RenderTexture::create(this->getContentSize().width, this->getContentSize().height);
 		// pRt->setPosition(bg->getPosition());
 		this->addChild(pRt);
+
+		this->needUpdate();
 	}
 
 	void TitleSwitch::needUpdate()
 	{
-		this->_rt->beginWithClear(0, 0, 0, 0);
-		this->_labels[this->_currentIndex]->setPosition(this->getContentSize().width * 0.5, this->getContentSize().height * 0.5);
-		this->_labels[this->_currentIndex]->visit();
-		this->_rt->end();
+		this->removeChildByTag(this->TITLE_TAG);
+		Label *pCurrentLabel = _labels.at(_currentIndex);
+		pCurrentLabel->setPosition(this->getContentSize().width * 0.5, this->getContentSize().height * 0.5);
+		this->addChild(pCurrentLabel);
 	}
 
 	void TitleSwitch::onEnter()
@@ -91,16 +90,18 @@ namespace framework
 
 	void TitleSwitch::setTitles(const std::vector<const std::string> &titles)
 	{
+		CCASSERT(titles.size() > 0, "Params error");
+
 		this->_titles = titles;
 		for (const auto &lbl : _labels)
 		{
-			lbl->removeFromParentAndCleanup();
+			lbl->removeFromParent();
 		}
 		_labels.clear();
 
 		for (int i = 0; i < titles.size(); ++i)
 		{
-			auto pLabel = Label::createWithTTF(title, "Helvetica", 12);
+			auto pLabel = Label::createWithTTF(titles[i], "Helvetica", 12);
 			pLabel->setColor(Color3B(0, 0, 0));
 			// pLabel->setPosition(this->getContentSize().width * (0.5 + i), this->getContentSize().height * 0.5);
 			this->_labels.pushBack(pLabel);
@@ -111,9 +112,11 @@ namespace framework
 
 	void TitleSwitch::setBackgroundNode(cocos2d::Node *bg)
 	{
+		CCASSERT(bg, "Params error");
+
 		if (this->_bg)
 		{
-			this->_bg->removeFromParentAndCleanup(true);
+			this->_bg->removeFromParent();
 		}
 		this->_bg = bg;
 		bg->setPosition(this->getContentSize().width * 0.5, this->getContentSize().height * 0.5);
@@ -160,7 +163,7 @@ namespace framework
 		this->_leftKey = leftKey;
 		this->_rightKey = rightKey;
 	}
-	
+
 	void TitleSwitch::setEventsSwallowed(bool isSwallowed)
 	{
 		if (this->_kbdListener)
@@ -223,22 +226,12 @@ namespace framework
 		_inAction = true;
 	}
 
-	void TitleSwitch::update(float dt)
+	void TitleSwitch::visit(Renderer *renderer, const kmMat4& parentTransform, bool parentTransformUpdated)
 	{
-		const int duration = 0.75
-		_rt->beginWithClear(0, 0, 0, 0)
-		if (_actionDirection == 1)
-		{
-			const float dx = -this->getContentSize().width / duration;
-			Label *currentLabel = _labels[_currentIndex];
-			if (_currentIndex == _titles.size() - 1)
-			{
-			}
-		}
-		else if (_actionDirection == 2)
-		{
-			const float dx = this->getContentSize().width / duration;
-		}
-		_rt->end();
+		glEnable(GL_SCISSOR_TEST);
+		auto box = this->getBoundingBox();
+		glScissor(box.origin.x, box.origin.y, box.size.width, box.size.height);
+		Node::visit(renderer, parentTransform, parentTransformUpdated);
+		glDisable(GL_SCISSOR_TEST);
 	}
 }

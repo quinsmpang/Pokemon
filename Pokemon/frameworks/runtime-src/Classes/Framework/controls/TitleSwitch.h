@@ -47,6 +47,9 @@ namespace framework
 		// keyboard events
 		virtual void onKeyPressed(int keyCode);
 
+		// override to clip the size
+		virtual void visit(Renderer *renderer, const kmMat4& parentTransform, bool parentTransformUpdated) override;
+
 	protected:
 		bool init(cocos2d::Node *bg, const std::vector<const std::string> &titles);
 		void needUpdate();
@@ -55,12 +58,9 @@ namespace framework
 		void shiftLeft();
 		void shiftRight();
 
-		void update(float dt);
-
 		cocos2d::Node *_bg;
-		const std::vector<const std::string> _titles;
-		cocos2d::Vector<cocos2d::Label> _labels;
-		cocos2d::RenderTexture *_rt;		// to realize transfer animation
+		std::vector<const std::string> _titles;
+		cocos2d::Vector<cocos2d::Label*> _labels;
 		bool _allowLoop;
 		int _currentIndex;
 		bool _inAction;		// whether is playing the action.
@@ -69,6 +69,8 @@ namespace framework
 		Win32EventListenerKeyboard *_kbdListener;
 		int _leftKey;
 		int _rightKey;
+
+		const int TITLE_TAG = 999;
 	};
 }
 
