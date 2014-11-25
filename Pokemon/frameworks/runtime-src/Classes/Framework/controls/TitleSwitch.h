@@ -29,7 +29,7 @@ namespace framework
 		// set title display properties
 		void setTitleColor(const cocos2d::Color3B &color);
 		void setTitleFontSize(int size);
-		void setTitleFont(const std::string &font);
+		void setTitleFontName(const std::string &fontName);
 
 		void setAllowLoop(bool allowLoop);		// whether allow transferring from the last to the first, vice versa.
 
@@ -46,10 +46,16 @@ namespace framework
 
 		// keyboard events
 		virtual void onKeyPressed(int keyCode);
-		virtual void onKeyReleased(int keyCode);
 
 	protected:
 		bool init(cocos2d::Node *bg, const std::vector<const std::string> &titles);
+		void needUpdate();
+
+		// play shift action
+		void shiftLeft();
+		void shiftRight();
+
+		void update(float dt);
 
 		cocos2d::Node *_bg;
 		const std::vector<const std::string> _titles;
@@ -58,6 +64,7 @@ namespace framework
 		bool _allowLoop;
 		int _currentIndex;
 		bool _inAction;		// whether is playing the action.
+		int _actionDirection;
 
 		Win32EventListenerKeyboard *_kbdListener;
 		int _leftKey;
