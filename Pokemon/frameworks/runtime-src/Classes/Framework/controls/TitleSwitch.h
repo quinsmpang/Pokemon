@@ -8,8 +8,6 @@ Date: 11/25/2014
 #define __CONTROLS_TITLESWITCH__
 
 #include "cocos2d.h"
-#include <vector>
-#include <string>
 
 namespace framework
 {
@@ -18,12 +16,12 @@ namespace framework
 	class TitleSwitch : public cocos2d::Node
 	{
 	public:
-		static TitleSwitch *create(cocos2d::Node *bg, const std::vector<const std::string> &titles);
+		static TitleSwitch *create(cocos2d::Node *bg, const std::vector<std::string> &titles, const std::string &ttfFile);
 
 		TitleSwitch();
 		virtual ~TitleSwitch();
 
-		void setTitles(const std::vector<const std::string> &titles);
+		void setTitles(const std::vector<std::string> &titles);
 		void setBackgroundNode(cocos2d::Node *bg);
 
 		// set title display properties
@@ -40,6 +38,10 @@ namespace framework
 		{
 			return this->_currentIndex;
 		}
+		inline void setDuration(float duration)
+		{
+			_duration = duration;
+		}
 
 		void onEnter() override;
 		void onExit() override;
@@ -48,27 +50,35 @@ namespace framework
 		virtual void onKeyPressed(int keyCode);
 
 		// override to clip the size
-		virtual void visit(Renderer *renderer, const kmMat4& parentTransform, bool parentTransformUpdated) override;
+		virtual void visit(cocos2d::Renderer *renderer, const kmMat4& parentTransform, bool parentTransformUpdated) override;
 
 	protected:
-		bool init(cocos2d::Node *bg, const std::vector<const std::string> &titles);
+		bool init(cocos2d::Node *bg, const std::vector<std::string> &titles, const std::string &ttfFile);
 		void needUpdate();
 
 		// play shift action
 		void shiftLeft();
 		void shiftRight();
 
+		void endAction();
+
 		cocos2d::Node *_bg;
-		std::vector<const std::string> _titles;
+		std::vector<std::string> _titles;
+		std::string _ttfPath;
 		cocos2d::Vector<cocos2d::Label*> _labels;
 		bool _allowLoop;
 		int _currentIndex;
+		cocos2d::Label *_currentTitle;
+		cocos2d::Label *_swapTitle;
 		bool _inAction;		// whether is playing the action.
-		int _actionDirection;
+		float _duration;
 
 		Win32EventListenerKeyboard *_kbdListener;
 		int _leftKey;
 		int _rightKey;
+
+		cocos2d::CustomCommand _beforeVisitCmdScissor;
+		cocos2d::CustomCommand _afterVisitCmdScissor;
 
 		const int TITLE_TAG = 999;
 	};

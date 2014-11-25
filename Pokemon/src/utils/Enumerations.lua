@@ -153,3 +153,13 @@ Enumerations.PERSONALITY_NAME = {
 Enumerations.CapturePlaces = {
 	[10001] = "命中注定般相遇",
 }
+
+-- 精灵界面场景参数
+Enumerations.POKEMON_VIEW_SCENE_TYPE = {
+	VIEW_STATUS = 1,
+}
+
+-- 背包界面场景参数
+Enumerations.BAG_VIEW_SCENE_TYPE = {
+	VIEW_ITEMS = 1,
+}

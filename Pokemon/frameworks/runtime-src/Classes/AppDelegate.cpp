@@ -8,7 +8,7 @@
 #include "Framework/lua/lua_framework_manual.hpp"
 #include "version.h"
 #include "Framework/win32/KeyboardHelper.h"
-#include "Framework/format/SaveData.h"
+#include "Framework/controls/TitleSwitch.h"
 
 using namespace CocosDenshion;
 
@@ -29,7 +29,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	// initialize director
 	auto director = Director::getInstance();
 	auto glview = director->getOpenGLView();
-	if(!glview) {
+	if (!glview) {
 		glview = GLView::createWithRect("Pokemon Sunrise", Rect(0, 0, 800, 480));
 		director->setOpenGLView(glview);
 	}
@@ -51,7 +51,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 		DWORD error = GetLastError();
 		LPVOID pBuffer = NULL;
 		FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)&pBuffer, 0, NULL);
-		MessageBoxW( NULL, (LPCTSTR)pBuffer, L"Error", MB_OK | MB_ICONINFORMATION );
+		MessageBoxW(NULL, (LPCTSTR)pBuffer, L"Error", MB_OK | MB_ICONINFORMATION);
 		ExitProcess(-1);
 	}
 #endif

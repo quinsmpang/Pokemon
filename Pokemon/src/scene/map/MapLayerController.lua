@@ -357,10 +357,15 @@ function MapLayerController:onMenuItemSelected(item)
 
 			local pokemonViewController = PokemonViewController:create()
 			-- send enter type (view pokemon)
-			self:getScene():putIntAttribute(GameConfig.POKEMON_KEY, 1)
+			self:getScene():putIntAttribute(GameConfig.POKEMON_KEY, Enumerations.POKEMON_VIEW_SCENE_TYPE.VIEW_STATUS)
 			self:getScene():loadViewController(pokemonViewController)
 		elseif itemIndex == 2 then
 			--背包
+			require "src/scene/bag/BagViewController"
+
+			local bagViewController = BagViewController:create()
+			-- send enter type
+			self:getScene():loadViewController(bagViewController)
 		elseif itemIndex == 3 then
 			--通讯器
 		elseif itemIndex == 4 then

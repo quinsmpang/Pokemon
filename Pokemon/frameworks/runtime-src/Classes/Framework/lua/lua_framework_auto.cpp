@@ -7430,6 +7430,531 @@ int lua_register_psframework_ListMenu(lua_State* tolua_S)
     return 1;
 }
 
+int lua_psframework_TitleSwitch_setBackgroundNode(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TitleSwitch* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.TitleSwitch",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::TitleSwitch*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TitleSwitch_setBackgroundNode'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::Node* arg0;
+
+        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
+        if(!ok)
+            return 0;
+        cobj->setBackgroundNode(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setBackgroundNode",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TitleSwitch_setBackgroundNode'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_TitleSwitch_setAllowLoop(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TitleSwitch* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.TitleSwitch",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::TitleSwitch*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TitleSwitch_setAllowLoop'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        bool arg0;
+
+        ok &= luaval_to_boolean(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj->setAllowLoop(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setAllowLoop",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TitleSwitch_setAllowLoop'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_TitleSwitch_setTitleFontSize(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TitleSwitch* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.TitleSwitch",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::TitleSwitch*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TitleSwitch_setTitleFontSize'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        cobj->setTitleFontSize(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setTitleFontSize",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TitleSwitch_setTitleFontSize'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_TitleSwitch_setTitleFontName(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TitleSwitch* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.TitleSwitch",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::TitleSwitch*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TitleSwitch_setTitleFontName'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj->setTitleFontName(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setTitleFontName",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TitleSwitch_setTitleFontName'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_TitleSwitch_onKeyPressed(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TitleSwitch* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.TitleSwitch",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::TitleSwitch*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TitleSwitch_onKeyPressed'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        cobj->onKeyPressed(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onKeyPressed",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TitleSwitch_onKeyPressed'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_TitleSwitch_setEventsSwallowed(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TitleSwitch* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.TitleSwitch",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::TitleSwitch*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TitleSwitch_setEventsSwallowed'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        bool arg0;
+
+        ok &= luaval_to_boolean(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj->setEventsSwallowed(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setEventsSwallowed",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TitleSwitch_setEventsSwallowed'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_TitleSwitch_getCurrentIndex(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TitleSwitch* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.TitleSwitch",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::TitleSwitch*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TitleSwitch_getCurrentIndex'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        int ret = cobj->getCurrentIndex();
+        tolua_pushnumber(tolua_S,(lua_Number)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getCurrentIndex",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TitleSwitch_getCurrentIndex'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_TitleSwitch_setDuration(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TitleSwitch* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.TitleSwitch",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::TitleSwitch*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TitleSwitch_setDuration'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        double arg0;
+
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj->setDuration(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setDuration",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TitleSwitch_setDuration'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_TitleSwitch_setResponseKeys(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TitleSwitch* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.TitleSwitch",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::TitleSwitch*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TitleSwitch_setResponseKeys'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        int arg0;
+        int arg1;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+
+        ok &= luaval_to_int32(tolua_S, 3,(int *)&arg1);
+        if(!ok)
+            return 0;
+        cobj->setResponseKeys(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setResponseKeys",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TitleSwitch_setResponseKeys'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_TitleSwitch_setTitleColor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TitleSwitch* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.TitleSwitch",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::TitleSwitch*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TitleSwitch_setTitleColor'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::Color3B arg0;
+
+        ok &= luaval_to_color3b(tolua_S, 2, &arg0);
+        if(!ok)
+            return 0;
+        cobj->setTitleColor(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setTitleColor",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TitleSwitch_setTitleColor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_TitleSwitch_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TitleSwitch* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj = new framework::TitleSwitch();
+        cobj->autorelease();
+        int ID =  (int)cobj->_ID ;
+        int* luaID =  &cobj->_luaID ;
+        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.TitleSwitch");
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "TitleSwitch",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TitleSwitch_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_TitleSwitch_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (TitleSwitch)");
+    return 0;
+}
+
+int lua_register_psframework_TitleSwitch(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.TitleSwitch");
+    tolua_cclass(tolua_S,"TitleSwitch","pf.TitleSwitch","cc.Node",nullptr);
+
+    tolua_beginmodule(tolua_S,"TitleSwitch");
+        tolua_function(tolua_S,"setBackgroundNode",lua_psframework_TitleSwitch_setBackgroundNode);
+        tolua_function(tolua_S,"setAllowLoop",lua_psframework_TitleSwitch_setAllowLoop);
+        tolua_function(tolua_S,"setTitleFontSize",lua_psframework_TitleSwitch_setTitleFontSize);
+        tolua_function(tolua_S,"setTitleFontName",lua_psframework_TitleSwitch_setTitleFontName);
+        tolua_function(tolua_S,"onKeyPressed",lua_psframework_TitleSwitch_onKeyPressed);
+        tolua_function(tolua_S,"setEventsSwallowed",lua_psframework_TitleSwitch_setEventsSwallowed);
+        tolua_function(tolua_S,"getCurrentIndex",lua_psframework_TitleSwitch_getCurrentIndex);
+        tolua_function(tolua_S,"setDuration",lua_psframework_TitleSwitch_setDuration);
+        tolua_function(tolua_S,"setResponseKeys",lua_psframework_TitleSwitch_setResponseKeys);
+        tolua_function(tolua_S,"setTitleColor",lua_psframework_TitleSwitch_setTitleColor);
+        tolua_function(tolua_S,"new",lua_psframework_TitleSwitch_constructor);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::TitleSwitch).name(); 
+    g_luaType[typeName] = "pf.TitleSwitch";
+    g_typeCast["TitleSwitch"] = "pf.TitleSwitch";
+    return 1;
+}
+
 int lua_psframework_ScriptCCBReader_readCCB(lua_State* tolua_S)
 {
     int argc = 0;
@@ -9745,6 +10270,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_SqliteDb(tolua_S);
 	lua_register_psframework_Vector(tolua_S);
 	lua_register_psframework_GameLayer(tolua_S);
+	lua_register_psframework_TitleSwitch(tolua_S);
 	lua_register_psframework_CoreLayer(tolua_S);
 	lua_register_psframework_Win32EventListenerKeyboard(tolua_S);
 	lua_register_psframework_IOUtils(tolua_S);

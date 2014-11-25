@@ -33,6 +33,7 @@
 #include "controls/EncryptedTMXTiledMap.h"
 #include "controls/ListMenuItem.h"
 #include "controls/ListMenu.h"
+#include "controls/TitleSwitch.h"
 
 #include "editor/ScriptCCBReader.h"
 

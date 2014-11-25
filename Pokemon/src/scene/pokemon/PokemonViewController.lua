@@ -71,7 +71,7 @@ end
 function PokemonViewController:renderView()
 	log("PokemonViewController:renderView")
 	local enterType = self:getScene():getIntAttribute(GameConfig.POKEMON_KEY)
-	enterType = enterType or 1
+	enterType = enterType or Enumerations.POKEMON_VIEW_SCENE_TYPE
 	log("Pokemon view enter type: " .. enterType)
 
 	local mainView = PokemonMainView:create(enterType)
@@ -104,7 +104,7 @@ function PokemonViewController:onMainViewKeyResponsed(keyCode)
 	elseif keyCode == GameSettings.confirmKey then
 		-- 弹出列表，根据enterType不同 会不同
 		local enterType = self:getScene():getIntAttribute(GameConfig.POKEMON_KEY)
-		if enterType == 1 then
+		if enterType == Enumerations.POKEMON_VIEW_SCENE_TYPE then
 			-- 精灵查看
 			if self.inExchangeState then
 				-- 交换位置

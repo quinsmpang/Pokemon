@@ -11,6 +11,9 @@ using namespace framework;
 #define KEY_LISTMENU_DELEGATE "ListMenuDelegate"
 #define KEY_LISTMENU_DATASOURCE "ListMenuDataSource"
 
+/**********************************
+ListMenu extend
+**********************************/
 class ListMenuScriptDelegate : public Ref, public ListMenuDelegate
 {
 public:
@@ -372,7 +375,7 @@ tolua_lerror:
 #endif
 }
 
-static void register_framework_ListMenu_manual(lua_State *L)
+static void extendListMenu(lua_State *L)
 {
 	lua_pushstring(L, "pf.ListMenu");
     lua_rawget(L, LUA_REGISTRYINDEX);
@@ -387,9 +390,174 @@ static void register_framework_ListMenu_manual(lua_State *L)
 }
 
 /**********************************
+TitleSwitch extend
+**********************************/
+static int lua_framework_TitleSwitch_create(lua_State* tolua_S)
+{
+	if (NULL == tolua_S)
+		return 0;
+
+	int argc = 0;
+
+	tolua_Error tolua_err;
+
+#if COCOS2D_DEBUG >= 1
+	if (!tolua_isusertable(tolua_S, 1, "pf.TitleSwitch", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+	argc = lua_gettop(tolua_S) - 1;
+	if (argc > 0)
+	{
+		if (3 == argc && tolua_istable(tolua_S, 3, 0, &tolua_err))
+		{
+			tolua_Error err;
+
+			// bg
+			Node *bg = static_cast<Node*>(tolua_tousertype(tolua_S, 2, 0));
+			if (!bg)
+			{
+				goto tolua_lerror;
+			}
+
+			// string vector
+			std::vector<std::string> ary;
+
+			size_t len = lua_objlen(tolua_S, 3);
+			for (int i = 0; i < len; i++)
+			{
+				lua_pushnumber(tolua_S, i + 1);		// L: userdata, bg, titles, ttf, i+1
+				lua_gettable(tolua_S, 3);
+
+				if (lua_isnil(tolua_S, -1))
+				{
+					lua_pop(tolua_S, 1);
+					continue;
+				}
+
+				if (!tolua_isstring(tolua_S, -1, 0, &err))
+				{
+					goto tolua_lerror;
+				}
+				std::string title = tolua_tostring(tolua_S, -1, NULL);		// L: userdata, bg, titles, ttf, i+1, string
+				ary.push_back(title);
+
+				lua_pop(tolua_S, 1);		// L: userdata, bg, titles, ttf
+			}
+
+			// ttf path
+			if (!tolua_isstring(tolua_S, 4, 0, &err))
+			{
+				goto tolua_lerror;
+			}
+			std::string ttfPath = tolua_tostring(tolua_S, 4, NULL);		// L: userdata, bg, titles, ttf, string
+
+			TitleSwitch *tolua_ret = TitleSwitch::create(bg, ary, ttfPath);
+
+			lua_pop(tolua_S, 1);
+
+			int nID = (tolua_ret) ? (int)tolua_ret->_ID : -1;
+			int* pLuaID = (tolua_ret) ? &tolua_ret->_luaID : NULL;
+			toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret, "pf.TitleSwitch");
+			return 1;
+		}
+	}
+	CCLOG("'create' has wrong number of arguments: %d, was expecting %d\n", argc, 1);
+	return 0;
+
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+	tolua_error(tolua_S, "#ferror in function 'create'.", &tolua_err);
+	return 0;
+#endif
+}
+static int lua_framework_TitleSwitch_setTitles(lua_State* tolua_S)
+{
+	int argc = 0;
+	framework::TitleSwitch* cobj = nullptr;
+	bool ok = true;
+
+#if COCOS2D_DEBUG >= 1
+	tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+	if (!tolua_isusertype(tolua_S, 1, "pf.TitleSwitch", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+	cobj = (framework::TitleSwitch*)tolua_tousertype(tolua_S, 1, 0);
+
+#if COCOS2D_DEBUG >= 1
+	if (!cobj)
+	{
+		tolua_error(tolua_S, "invalid 'cobj' in function 'lua_framework_TitleSwitch_setTitles'", nullptr);
+		return 0;
+	}
+#endif
+
+	argc = lua_gettop(tolua_S) - 1;
+	if (argc == 1)
+	{
+		tolua_Error err;
+
+		std::vector<std::string> ary;
+
+		size_t len = lua_objlen(tolua_S, 2);
+		for (int i = 0; i < len; i++)
+		{
+			lua_pushnumber(tolua_S, i + 1);		// L: userdata, titles, i+1
+			lua_gettable(tolua_S, 2);
+
+			if (lua_isnil(tolua_S, -1))
+			{
+				lua_pop(tolua_S, 1);		// L: userdata, titles
+				continue;
+			}
+
+			if (!tolua_isstring(tolua_S, -1, 0, &err))
+			{
+				lua_pop(tolua_S, 1);		// L: userdata, titles
+				goto tolua_lerror;
+			}
+			std::string title = tolua_tostring(tolua_S, -1, NULL);		// L: userdata, titles, string
+			ary.push_back(title);
+
+			lua_pop(tolua_S, 1);		// L: userdata, titles
+		}
+
+		cobj->setTitles(ary);
+	}
+	CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setTitles", argc, 1);
+	return 0;
+
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+	tolua_error(tolua_S, "#ferror in function 'lua_framework_TitleSwitch_setTitles'.", &tolua_err);
+#endif
+
+	return 0;
+}
+
+static void extendTitleSwitch(lua_State* tolua_S)
+{
+	lua_pushstring(tolua_S, "pf.TitleSwitch");
+	lua_rawget(tolua_S, LUA_REGISTRYINDEX);
+	if (lua_istable(tolua_S, -1))
+	{
+		lua_pushstring(tolua_S, "create");
+		lua_pushcfunction(tolua_S, lua_framework_TitleSwitch_create);
+		lua_rawset(tolua_S, -3);
+		lua_pushstring(tolua_S, "setTitles");
+		lua_pushcfunction(tolua_S, lua_framework_TitleSwitch_setTitles);
+		lua_rawset(tolua_S, -3);
+	}
+	lua_pop(tolua_S, 1);
+}
+
+/**********************************
 Win32EventListenerKeyboard extend
 **********************************/
-static int lua_psframework_Win32EventListenerKeyboard_unregisterScriptWin32Handler(lua_State* tolua_S)
+static int lua_framework_Win32EventListenerKeyboard_unregisterScriptWin32Handler(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Win32EventListenerKeyboard* cobj = nullptr;
@@ -409,7 +577,7 @@ static int lua_psframework_Win32EventListenerKeyboard_unregisterScriptWin32Handl
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Win32EventListenerKeyboard_unregisterScriptWin32Handler'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Win32EventListenerKeyboard_unregisterScriptWin32Handler'", nullptr);
         return 0;
     }
 #endif
@@ -430,12 +598,12 @@ static int lua_psframework_Win32EventListenerKeyboard_unregisterScriptWin32Handl
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Win32EventListenerKeyboard_unregisterScriptWin32Handler'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_framework_Win32EventListenerKeyboard_unregisterScriptWin32Handler'.",&tolua_err);
 #endif
 
     return 0;
 }
-static int lua_psframework_Win32EventListenerKeyboard_registerScriptWin32Handler(lua_State* tolua_S)
+static int lua_framework_Win32EventListenerKeyboard_registerScriptWin32Handler(lua_State* tolua_S)
 {
     int argc = 0;
     framework::Win32EventListenerKeyboard* cobj = nullptr;
@@ -455,7 +623,7 @@ static int lua_psframework_Win32EventListenerKeyboard_registerScriptWin32Handler
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Win32EventListenerKeyboard_registerScriptWin32Handler'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Win32EventListenerKeyboard_registerScriptWin32Handler'", nullptr);
         return 0;
     }
 #endif
@@ -477,7 +645,7 @@ static int lua_psframework_Win32EventListenerKeyboard_registerScriptWin32Handler
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Win32EventListenerKeyboard_registerScriptWin32Handler'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_framework_Win32EventListenerKeyboard_registerScriptWin32Handler'.",&tolua_err);
 #endif
 
     return 0;
@@ -490,10 +658,10 @@ static void extendWin32EventListenerKeyboard(lua_State* tolua_S)
     if (lua_istable(tolua_S,-1))
     {
         lua_pushstring(tolua_S,"registerScriptWin32Handler");
-        lua_pushcfunction(tolua_S,lua_psframework_Win32EventListenerKeyboard_registerScriptWin32Handler);
+        lua_pushcfunction(tolua_S,lua_framework_Win32EventListenerKeyboard_registerScriptWin32Handler);
         lua_rawset(tolua_S,-3);
         lua_pushstring(tolua_S,"unregisterScriptWin32Handler");
-        lua_pushcfunction(tolua_S,lua_psframework_Win32EventListenerKeyboard_unregisterScriptWin32Handler);
+        lua_pushcfunction(tolua_S,lua_framework_Win32EventListenerKeyboard_unregisterScriptWin32Handler);
         lua_rawset(tolua_S, -3);
     }
     lua_pop(tolua_S, 1);
@@ -501,7 +669,8 @@ static void extendWin32EventListenerKeyboard(lua_State* tolua_S)
 
 int register_all_psframework_manual(lua_State* tolua_S)
 {
-	register_framework_ListMenu_manual(tolua_S);
+	extendListMenu(tolua_S);
+	extendTitleSwitch(tolua_S);
 	extendWin32EventListenerKeyboard(tolua_S);
 
 	return 0;

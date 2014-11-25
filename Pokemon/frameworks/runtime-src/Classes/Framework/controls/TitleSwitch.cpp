@@ -1,4 +1,5 @@
 #include "TitleSwitch.h"
+#include "../lua/LuaUtils.h"
 #include "../Win32/Win32EventListenerKeyboard.h"
 #include "../win32/Win32Notifier.h"
 #include <new>
@@ -11,11 +12,14 @@ namespace framework
 	TitleSwitch::TitleSwitch()
 		: _bg(nullptr)
 		, _titles()
+		, _ttfPath()
 		, _labels()
 		, _allowLoop(true)
 		, _currentIndex(0)
+		, _currentTitle(nullptr)
+		, _swapTitle(nullptr)
 		, _inAction(false)
-		, _actionDirection(0)
+		, _duration(0.5f)
 		, _kbdListener(nullptr)
 		, _leftKey(0)
 		, _rightKey(0)
@@ -26,10 +30,10 @@ namespace framework
 	{
 	}
 
-	TitleSwitch *TitleSwitch::create(cocos2d::Node *bg, const std::vector<const std::string> &titles)
+	TitleSwitch *TitleSwitch::create(cocos2d::Node *bg, const std::vector<std::string> &titles, const std::string &ttfFile)
 	{
 		auto pSwitch = new (std::nothrow) TitleSwitch();
-		if (pSwitch && pSwitch->init(bg, titles))
+		if (pSwitch && pSwitch->init(bg, titles, ttfFile))
 		{
 			pSwitch->autorelease();
 			return pSwitch;
@@ -38,37 +42,41 @@ namespace framework
 		return nullptr;
 	}
 
-	bool TitleSwitch::init(cocos2d::Node *bg, const std::vector<const std::string> &titles)
+	bool TitleSwitch::init(cocos2d::Node *bg, const std::vector<std::string> &titles, const std::string &ttfFile)
 	{
 		CCASSERT(bg && titles.size() > 0, "Params error");
 
 		this->addChild(bg);
+		this->_bg = bg;
 		this->_titles = titles;
+		this->_ttfPath = ttfFile;
 
 		this->setContentSize(bg->getContentSize());
 		bg->setPosition(this->getContentSize().width * 0.5, this->getContentSize().height * 0.5);
 
 		for (int i = 0; i < titles.size(); ++i)
 		{
-			auto pLabel = Label::createWithTTF(titles[i], "Helvetica", 12);
+			auto pLabel = Label::createWithTTF(titles[i], ttfFile, 12);
 			pLabel->setColor(Color3B(0, 0, 0));
 			// pLabel->setPosition(this->getContentSize().width * (0.5 + i), this->getContentSize().height * 0.5);
 			this->_labels.pushBack(pLabel);
 		}
 
-		auto pRt = RenderTexture::create(this->getContentSize().width, this->getContentSize().height);
-		// pRt->setPosition(bg->getPosition());
-		this->addChild(pRt);
-
 		this->needUpdate();
+
+		return true;
 	}
 
 	void TitleSwitch::needUpdate()
 	{
-		this->removeChildByTag(this->TITLE_TAG);
+		if (this->_currentTitle)
+		{
+			this->removeChildByTag(this->TITLE_TAG);
+		}
 		Label *pCurrentLabel = _labels.at(_currentIndex);
 		pCurrentLabel->setPosition(this->getContentSize().width * 0.5, this->getContentSize().height * 0.5);
-		this->addChild(pCurrentLabel);
+		this->addChild(pCurrentLabel, 0, this->TITLE_TAG);
+		this->_currentTitle = pCurrentLabel;
 	}
 
 	void TitleSwitch::onEnter()
@@ -78,6 +86,8 @@ namespace framework
 		pKbdListener->setEventsSwallowed(true);
 		Win32Notifier::getInstance()->addEventListener(pKbdListener);
 		this->_kbdListener = pKbdListener;
+
+		Node::onEnter();
 	}
 
 	void TitleSwitch::onExit()
@@ -86,9 +96,11 @@ namespace framework
 		{
 			Win32Notifier::getInstance()->removeEventListener(this->_kbdListener);
 		}
+
+		Node::onExit();
 	}
 
-	void TitleSwitch::setTitles(const std::vector<const std::string> &titles)
+	void TitleSwitch::setTitles(const std::vector<std::string> &titles)
 	{
 		CCASSERT(titles.size() > 0, "Params error");
 
@@ -101,7 +113,7 @@ namespace framework
 
 		for (int i = 0; i < titles.size(); ++i)
 		{
-			auto pLabel = Label::createWithTTF(titles[i], "Helvetica", 12);
+			auto pLabel = Label::createWithTTF(titles[i], _ttfPath, 12);
 			pLabel->setColor(Color3B(0, 0, 0));
 			// pLabel->setPosition(this->getContentSize().width * (0.5 + i), this->getContentSize().height * 0.5);
 			this->_labels.pushBack(pLabel);
@@ -185,15 +197,22 @@ namespace framework
 			{
 				return;
 			}
-			if (_currentIndex <= 0)
+			int newIndex = (_currentIndex - 1 + _titles.size()) % _titles.size();
+#if CC_ENABLE_SCRIPT_BINDING
+			if (_scriptType == kScriptTypeLua)
 			{
-				_currentIndex = _titles.size() - 1;
+				// params
+				Vector<Ref*> pParams(2);
+				pParams.pushBack(__Integer::create(_currentIndex));
+				pParams.pushBack(__Integer::create(newIndex));
+				// param types
+				Vector<Ref*> pTypes(2);
+				pTypes.pushBack(__String::create("__Integer"));
+				pTypes.pushBack(__String::create("__Integer"));
+				LuaUtils::getInstance()->executePeertableFunction(this, "onShiftLeft", pParams, pTypes, false);
 			}
-			else
-			{
-				--_currentIndex;
-			}
-			_actionDirection = 1;
+#endif
+			_currentIndex = newIndex;
 			this->shiftLeft();
 		}
 		else if (keyCode == _rightKey)
@@ -203,35 +222,89 @@ namespace framework
 			{
 				return;
 			}
-			if (_currentIndex >= _titles.size() - 1)
+			int newIndex = (_currentIndex + 1) % _titles.size();
+#if CC_ENABLE_SCRIPT_BINDING
+			if (_scriptType == kScriptTypeLua)
 			{
-				_currentIndex = 0;
+				// params
+				Vector<Ref*> pParams(2);
+				pParams.pushBack(__Integer::create(_currentIndex));
+				pParams.pushBack(__Integer::create(newIndex));
+				// param types
+				Vector<Ref*> pTypes(2);
+				pTypes.pushBack(__String::create("__Integer"));
+				pTypes.pushBack(__String::create("__Integer"));
+				LuaUtils::getInstance()->executePeertableFunction(this, "onShiftRight", pParams, pTypes, false);
 			}
-			else
-			{
-				++_currentIndex;
-			}
-			_actionDirection = 2;
+#endif
+			_currentIndex = newIndex;
 			this->shiftRight();
 		}
 	}
 
 	void TitleSwitch::shiftLeft()
 	{
+		Label *pLeft = nullptr, *pCurrentTitle = nullptr;
+		pLeft = _labels.at(_currentIndex);
+		pLeft->setPosition(-this->getContentSize().width * 0.5, this->getContentSize().height * 0.5);
+		this->addChild(pLeft);
+		pCurrentTitle = _labels.at((_currentIndex + 1) % _titles.size());
+		this->_swapTitle = pCurrentTitle;
+		auto spawnAction = Spawn::create(TargetedAction::create(pLeft, MoveBy::create(_duration, Point(this->getContentSize().width, 0))), TargetedAction::create(pCurrentTitle, MoveBy::create(_duration, Point(this->getContentSize().width, 0))), nullptr);
+		auto action = Sequence::create(spawnAction, CallFunc::create(std::bind(&TitleSwitch::endAction, this)), nullptr);
 		_inAction = true;
+		this->runAction(action);
+		_currentTitle = pLeft;
 	}
 
 	void TitleSwitch::shiftRight()
 	{
+		Label *pRight = nullptr, *pCurrentTitle = nullptr;
+		pRight = _labels.at(_currentIndex);
+		pRight->setPosition(this->getContentSize().width * 1.5, this->getContentSize().height * 0.5);
+		this->addChild(pRight);
+		pCurrentTitle = _labels.at((_currentIndex - 1 + _titles.size()) % _titles.size());
+		this->_swapTitle = pCurrentTitle;
+		auto spawnAction = Spawn::create(TargetedAction::create(pRight, MoveBy::create(_duration, Point(-this->getContentSize().width, 0))), TargetedAction::create(pCurrentTitle, MoveBy::create(_duration, Point(-this->getContentSize().width, 0))), nullptr);
+		auto action = Sequence::create(spawnAction, CallFunc::create(std::bind(&TitleSwitch::endAction, this)), nullptr);
 		_inAction = true;
+		this->runAction(action);
+		_currentTitle = pRight;
+	}
+
+	void TitleSwitch::endAction()
+	{
+		if (this->_swapTitle)
+		{
+			this->_swapTitle->removeFromParent();
+			this->_swapTitle = nullptr;
+		}
+		this->_inAction = false;
 	}
 
 	void TitleSwitch::visit(Renderer *renderer, const kmMat4& parentTransform, bool parentTransformUpdated)
 	{
-		glEnable(GL_SCISSOR_TEST);
+		// old style
+		/*glEnable(GL_SCISSOR_TEST);
 		auto box = this->getBoundingBox();
 		glScissor(box.origin.x, box.origin.y, box.size.width, box.size.height);
 		Node::visit(renderer, parentTransform, parentTransformUpdated);
-		glDisable(GL_SCISSOR_TEST);
+		glDisable(GL_SCISSOR_TEST);*/
+
+		_beforeVisitCmdScissor.init(_globalZOrder);
+		_beforeVisitCmdScissor.func = [this] {
+			glEnable(GL_SCISSOR_TEST);
+			auto box = this->getBoundingBox();
+			Director::getInstance()->getOpenGLView()->setScissorInPoints(box.origin.x, box.origin.y, box.size.width, box.size.height);
+		};
+		renderer->addCommand(&_beforeVisitCmdScissor);
+
+		Node::visit(renderer, parentTransform, parentTransformUpdated);
+
+		_afterVisitCmdScissor.init(_globalZOrder);
+		_afterVisitCmdScissor.func = [this] {
+			glDisable(GL_SCISSOR_TEST);
+		};
+		renderer->addCommand(&_afterVisitCmdScissor);
 	}
 }
