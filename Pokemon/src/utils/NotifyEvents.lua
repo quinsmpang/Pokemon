@@ -49,3 +49,9 @@ NotifyEvents.SaveView = NotifyEvents.SaveView or {}
 
 -- 新游戏中，确认选择了对应存档点	LoadGameLayerController通知, MainViewController观察
 NotifyEvents.SaveView.SaveSelected = "NotifyEvents.SaveView.SaveSelected"
+
+-- 背包界面事件
+NotifyEvents.Bag = NotifyEvents.Bag or {}
+
+-- Title切换事件
+NotifyEvents.Bag.TitleChanged = "NotifyEvents.Bag.TitleChanged"

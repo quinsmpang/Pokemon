@@ -32,3 +32,4 @@ GameConfig.ITEM_TABLE = "item_info"
 -- scene attribute keys
 GameConfig.MAINVIEW_KEY = "scene_main_branch"
 GameConfig.POKEMON_KEY = "scene_pokemon_branch"
+GameConfig.BAG_KEY = "scene_bag_branch"

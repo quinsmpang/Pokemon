@@ -19,12 +19,6 @@ PokemonMainView.inAction = nil		-- 是否正在播放动画
 PokemonMainView.SELECTION_ZORDER = 100
 PokemonMainView.EXCHANGE_SELECTION_ZORDER = 101
 
-PokemonMainView.ENTER_TYPE = {
-	VIEW_POKEMON = 1,	-- 查看精灵信息
-	USE_ITEM = 2,		-- 使用道具
-	CARRY_ITEM = 3,		-- 携带道具
-}
-
 PokemonMainView.__create = psGameLayer.create
 
 function PokemonMainView:create(enterType)
@@ -45,7 +39,7 @@ function PokemonMainView:create(enterType)
 end
 
 function PokemonMainView:init(enterType)
-	enterType = enterType or self.ENTER_TYPE.VIEW_POKEMON
+	enterType = enterType or Enumerations.POKEMON_VIEW_SCENE_TYPE.VIEW_STATUS
 	self.enterType = enterType
 
 	self.inAction = false

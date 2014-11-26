@@ -365,6 +365,7 @@ function MapLayerController:onMenuItemSelected(item)
 
 			local bagViewController = BagViewController:create()
 			-- send enter type
+			self:getScene():putIntAttribute(GameConfig.BAG_KEY, Enumerations.BAG_VIEW_SCENE_TYPE.VIEW_ITEMS)
 			self:getScene():loadViewController(bagViewController)
 		elseif itemIndex == 3 then
 			--通讯器

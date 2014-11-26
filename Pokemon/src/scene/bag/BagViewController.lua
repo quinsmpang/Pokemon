@@ -6,6 +6,8 @@
 
 class("BagViewController", psViewController)
 
+require "src/scene/bag/BagMainView"
+
 BagViewController.mainView = nil
 
 BagViewController.inSwapState = nil		-- 是否处于交换道具位置的状态
@@ -45,19 +47,28 @@ end
 
 function BagViewController:addObservers()
 	log("BagViewController:addObservers")
+	Notifier:addObserver(NotifyEvents.Bag.TitleChanged, self, self.onTitleChanged)
 end
 
 function BagViewController:removeObservers()
 	log("BagViewController:removeObservers")
+	Notifier:removeObserver(NotifyEvents.Bag.TitleChanged, self)
 end
 
 function BagViewController:renderView()
 	log("BagViewController:renderView")
-	self.inSwapState = false
 
-	local switch = TitleSwitch:create(cc.Sprite:createWithSpriteFrameName("images/common/common_scale9_1.png"), { "aaa", "bbb", "ccc" }, GameConfig.DEFAULT_FONT_PATH)
-	switch:setPosition(200, 100)
-	switch:setTitleFontSize(30)
-	switch:setResponseKeys(GameSettings.leftKey, GameSettings.rightKey)
-	self:getScene():addChild(switch)
+	local enterType = self:getScene():getIntAttribute(GameConfig.BAG_KEY)
+	enterType = enterType or Enumerations.BAG_VIEW_SCENE_TYPE.VIEW_ITEMS
+	log("bag view enter type: " .. enterType)
+
+	local bagMainView = BagMainView:create(enterType)
+	self:getScene():addChild(bagMainView)
+	self.mainView = bagMainView
+	
+	self.inSwapState = false
+end
+
+function BagViewController:onTitleChanged(oldIndex, newIndex)
+	log("BagViewController:onTitleChanged", oldIndex, newIndex)
 end

@@ -156,10 +156,14 @@ Enumerations.CapturePlaces = {
 
 -- 精灵界面场景参数
 Enumerations.POKEMON_VIEW_SCENE_TYPE = {
-	VIEW_STATUS = 1,
+	VIEW_STATUS = 1,	-- 查看精灵状态
+	USE_ITEM = 2,		-- 使用道具
+	CARRY_ITEM = 3,		-- 携带道具
 }
 
 -- 背包界面场景参数
 Enumerations.BAG_VIEW_SCENE_TYPE = {
-	VIEW_ITEMS = 1,
+	VIEW_ITEMS = 1,		-- 查看道具信息
+	CARRY_ITEM = 2,		-- 精灵的携带道具
+	BATTLE = 3,			-- 战斗中
 }

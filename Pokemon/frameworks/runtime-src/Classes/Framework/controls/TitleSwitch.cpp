@@ -83,7 +83,7 @@ namespace framework
 	{
 		auto pKbdListener = Win32EventListenerKeyboard::createWithTarget(this);
 		pKbdListener->onWin32KeyDown = std::bind(&TitleSwitch::onKeyPressed, this, std::placeholders::_1);
-		pKbdListener->setEventsSwallowed(true);
+		pKbdListener->setEventsSwallowed(false);
 		Win32Notifier::getInstance()->addEventListener(pKbdListener);
 		this->_kbdListener = pKbdListener;
 
@@ -209,7 +209,7 @@ namespace framework
 				Vector<Ref*> pTypes(2);
 				pTypes.pushBack(__String::create("__Integer"));
 				pTypes.pushBack(__String::create("__Integer"));
-				LuaUtils::getInstance()->executePeertableFunction(this, "onShiftLeft", pParams, pTypes, false);
+				LuaUtils::getInstance()->executePeertableFunction(this, "onTitleChanged", pParams, pTypes, false);
 			}
 #endif
 			_currentIndex = newIndex;
@@ -234,7 +234,7 @@ namespace framework
 				Vector<Ref*> pTypes(2);
 				pTypes.pushBack(__String::create("__Integer"));
 				pTypes.pushBack(__String::create("__Integer"));
-				LuaUtils::getInstance()->executePeertableFunction(this, "onShiftRight", pParams, pTypes, false);
+				LuaUtils::getInstance()->executePeertableFunction(this, "onTitleChanged", pParams, pTypes, false);
 			}
 #endif
 			_currentIndex = newIndex;
