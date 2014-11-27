@@ -50,6 +50,7 @@ namespace framework
 	ListMenu::~ListMenu()
 	{
 		CC_SAFE_DELETE(_recycledItems);
+		CC_SAFE_RELEASE(_kbdListener);
 	}
 
 	bool ListMenu::initWithShowCount(ssize_t showCount)
@@ -61,6 +62,15 @@ namespace framework
 			this->setAnchorPoint(Point(0.5, 0.5));
 			this->ignoreAnchorPointForPosition(false);
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+			auto pKbdListener = Win32EventListenerKeyboard::createWithTarget(this);
+			pKbdListener->onWin32KeyDown = std::bind(&ListMenu::onKeyPressed, this, std::placeholders::_1);
+			pKbdListener->onWin32KeyUp = std::bind(&ListMenu::onKeyReleased, this, std::placeholders::_1);
+			pKbdListener->setEventsSwallowed(false);
+			pKbdListener->retain();
+			this->_kbdListener = pKbdListener;
+#endif
+
 			return true;
 		}
 		return false;
@@ -68,27 +78,23 @@ namespace framework
 
 	void ListMenu::onEnter()
 	{
-		auto pKbdListener = Win32EventListenerKeyboard::createWithTarget(this);
-		pKbdListener->onWin32KeyDown = std::bind(&ListMenu::onKeyPressed, this, std::placeholders::_1);
-		pKbdListener->onWin32KeyUp = std::bind(&ListMenu::onKeyReleased, this, std::placeholders::_1);
-		pKbdListener->setEventsSwallowed(false);
-		Win32Notifier::getInstance()->addEventListener(pKbdListener);
-		this->_kbdListener = pKbdListener;
-		/*auto pKbdListener = EventListenerKeyboard::create();
-		pKbdListener->onKeyPressed = CC_CALLBACK_2(ListMenu::onKeyPressed, this);
-		pKbdListener->onKeyReleased = CC_CALLBACK_2(ListMenu::onKeyReleased, this);
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		Win32Notifier::getInstance()->addEventListener(this->_kbdListener);
+#endif
 
-		this->_eventDispatcher->addEventListenerWithFixedPriority(pKbdListener, -1);
-		this->_kbdListener = pKbdListener;*/
+		Layer::onEnter();
 	}
 
 	void ListMenu::onExit()
 	{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 		if (this->_kbdListener)
 		{
 			Win32Notifier::getInstance()->removeEventListener(this->_kbdListener);
 		}
-		//this->_eventDispatcher->removeEventListener(_kbdListener);
+#endif
+
+		Layer::onExit();
 	}
 
 	void ListMenu::setResponseKeyCodes(int upKeyCode, int downKeyCode, int confirmKeyCode)
@@ -96,6 +102,14 @@ namespace framework
 		this->_upKeyCode = upKeyCode;
 		this->_downKeyCode = downKeyCode;
 		this->_confirmKeyCode = confirmKeyCode;
+	}
+
+	void ListMenu::setEventsSwallowed(bool isSwallowed)
+	{
+		if (_kbdListener)
+		{
+			this->_kbdListener->setEventsSwallowed(isSwallowed);
+		}
 	}
 
 	void ListMenu::reloadData()
@@ -500,5 +514,15 @@ namespace framework
 #endif
 			_delegate->itemFocused(this, this->getItemAtIndex(_currentShowIndex));
 		}
+	}
+
+	bool ListMenu::isTopOverflowed() const
+	{
+		return _topGlobalIndex > 0;
+	}
+
+	bool ListMenu::isBottomOverflowed()
+	{
+		return _topGlobalIndex + _showCount < _dataSource->countOfItemsInMenu(this);
 	}
 }

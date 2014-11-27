@@ -75,8 +75,15 @@ namespace framework
 		{
 			return this->_currentShowIndex;
 		}
+		bool isTopOverflowed() const;
+		bool isBottomOverflowed();
+		inline ssize_t getIndexInAllItems() const
+		{
+			return this->_topGlobalIndex + this->_currentShowIndex;
+		}
 
 		void setResponseKeyCodes(int upKeyCode, int downKeyCode, int confirmKeyCode);
+		void setEventsSwallowed(bool isSwallowed);
 
 		// reload data from the data source
 		void reloadData();

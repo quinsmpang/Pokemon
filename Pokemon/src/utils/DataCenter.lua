@@ -8,7 +8,7 @@ DataCenter = {}
 
 DataCenter.currentPlayerData = nil		-- 当前玩家数据(PlayerData)
 DataCenter.carriedPokemons = nil	-- 当前携带的宠物({Pokemon})
-DataCenter.currentBagData = nil		-- 当前背包数据({Item})
+DataCenter.currentBagData = nil		-- 当前背包数据({subtype1={{itemId,count},...},...})
 DataCenter.money = nil				-- 零用钱
 DataCenter.computerData = nil	-- 电脑宠物布局信息(ComputerData)
 DataCenter.currentComputerChannel = nil		-- 当前电脑频道(每个频道可以放30个精灵)
@@ -83,9 +83,10 @@ function DataCenter:addNewItem(itemId, count)
 	if not self.currentBagData[subType] then
 		self.currentBagData[subType] = {}
 	end
-	if not self.currentBagData[subType][itemId] then
-		self.currentBagData[subType][itemId] = count
+	if not table.contains(self.currentBagData[subType], function(v, itemId) return v[1] == tonumber(itemId) end, itemId) then
+		table.insert(self.currentBagData[subType], { tonumber(itemId), count })
 	else
-		self.currentBagData[subType][itemId] = self.currentBagData[subType][itemId] + count
+		local target = table.find(self.currentBagData[subType], function(v, itemId) return v[1] == tonumber(itemId) end, itemId)
+		target[2] = target[2] + count
 	end
 end

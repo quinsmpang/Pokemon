@@ -53,5 +53,11 @@ NotifyEvents.SaveView.SaveSelected = "NotifyEvents.SaveView.SaveSelected"
 -- 背包界面事件
 NotifyEvents.Bag = NotifyEvents.Bag or {}
 
--- Title切换事件
+-- Title切换事件	BagMainView通知, BagViewController观察
 NotifyEvents.Bag.TitleChanged = "NotifyEvents.Bag.TitleChanged"
+-- 道具选择变更	BagMainView通知, BagViewController观察
+NotifyEvents.Bag.ItemSelectionChanged = "NotifyEvents.Bag.ItemSelectionChanged"
+-- BagMainView事件	BagMainView通知, BagViewController观察
+NotifyEvents.Bag.MainViewKeyResponsed = "NotifyEvents.Bag.MainViewKeyResponsed"
+-- 道具确认选择	BagMainView通知, BagViewController观察
+NotifyEvents.Bag.ItemSelected = "NotifyEvents.Bag.ItemSelected"

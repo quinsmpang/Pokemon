@@ -48,11 +48,17 @@ end
 function BagViewController:addObservers()
 	log("BagViewController:addObservers")
 	Notifier:addObserver(NotifyEvents.Bag.TitleChanged, self, self.onTitleChanged)
+	Notifier:addObserver(NotifyEvents.Bag.MainViewKeyResponsed, self, self.onMainViewKeyResponsed)
+	Notifier:addObserver(NotifyEvents.Bag.ItemSelectionChanged, self, self.onItemSelectionChanged)
+	Notifier:addObserver(NotifyEvents.Bag.ItemSelected, self, self.onItemSelected)
 end
 
 function BagViewController:removeObservers()
 	log("BagViewController:removeObservers")
 	Notifier:removeObserver(NotifyEvents.Bag.TitleChanged, self)
+	Notifier:removeObserver(NotifyEvents.Bag.MainViewKeyResponsed, self)
+	Notifier:removeObserver(NotifyEvents.Bag.ItemSelectionChanged, self)
+	Notifier:removeObserver(NotifyEvents.Bag.ItemSelected, self)
 end
 
 function BagViewController:renderView()
@@ -69,6 +75,35 @@ function BagViewController:renderView()
 	self.inSwapState = false
 end
 
-function BagViewController:onTitleChanged(oldIndex, newIndex)
-	log("BagViewController:onTitleChanged", oldIndex, newIndex)
+function BagViewController:onTitleChanged(oldIndex, newIndex, subType)
+	log("BagViewController:onTitleChanged", oldIndex, newIndex, subType)
+	BagMainView.lastSubType = subType
+	self.mainView:reloadItems()
+end
+
+function BagViewController:onMainViewKeyResponsed(keyCode)
+	log("BagViewController:onMainViewKeyResponsed", keyCode)
+	if keyCode == GameSettings.cancelKey then
+		if self.inSwapState then
+			-- self:endExchange()
+			-- self.mainView:cancelExchange()
+		else
+			local quitAction = cc.Sequence:create(
+				cc.FadeIn:create(0.15),
+				cc.CallFunc:create(MakeScriptHandler(self, self.onQuit))
+				)
+			self.mainView.mask:runAction(quitAction)
+		end
+	end
+end
+function BagViewController:onQuit()
+	self:getScene():unloadViewController(self)
+end
+
+function BagViewController:onItemSelectionChanged(oldIndex, newIndex, subType)
+	log("BagViewController:onItemSelectionChanged", oldIndex, newIndex, subType)
+end
+
+function BagViewController:onItemSelected(selectedIndex)
+	log("BagViewController:onItemSelected", selectedIndex)
 end

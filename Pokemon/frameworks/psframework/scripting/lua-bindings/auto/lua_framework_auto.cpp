@@ -6669,7 +6669,7 @@ int lua_register_psframework_ListMenuItem(lua_State* tolua_S)
     return 1;
 }
 
-int lua_psframework_ListMenu_dequeueItem(lua_State* tolua_S)
+int lua_psframework_ListMenu_isMenuEnabled(lua_State* tolua_S)
 {
     int argc = 0;
     framework::ListMenu* cobj = nullptr;
@@ -6689,7 +6689,7 @@ int lua_psframework_ListMenu_dequeueItem(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_dequeueItem'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_isMenuEnabled'", nullptr);
         return 0;
     }
 #endif
@@ -6699,16 +6699,199 @@ int lua_psframework_ListMenu_dequeueItem(lua_State* tolua_S)
     {
         if(!ok)
             return 0;
-        framework::ListMenuItem* ret = cobj->dequeueItem();
-        object_to_luaval<framework::ListMenuItem>(tolua_S, "pf.ListMenuItem",(framework::ListMenuItem*)ret);
+        bool ret = cobj->isMenuEnabled();
+        tolua_pushboolean(tolua_S,(bool)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "dequeueItem",argc, 0);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isMenuEnabled",argc, 0);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_dequeueItem'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_isMenuEnabled'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ListMenu_isTopOverflowed(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ListMenu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_isTopOverflowed'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        bool ret = cobj->isTopOverflowed();
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isTopOverflowed",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_isTopOverflowed'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ListMenu_getItemAtIndex(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ListMenu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_getItemAtIndex'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        ssize_t arg0;
+
+        ok &= luaval_to_ssize(tolua_S, 2, &arg0);
+        if(!ok)
+            return 0;
+        framework::ListMenuItem* ret = cobj->getItemAtIndex(arg0);
+        object_to_luaval<framework::ListMenuItem>(tolua_S, "pf.ListMenuItem",(framework::ListMenuItem*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getItemAtIndex",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_getItemAtIndex'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ListMenu_insertItemAtIndex(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ListMenu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_insertItemAtIndex'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        ssize_t arg0;
+
+        ok &= luaval_to_ssize(tolua_S, 2, &arg0);
+        if(!ok)
+            return 0;
+        cobj->insertItemAtIndex(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "insertItemAtIndex",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_insertItemAtIndex'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ListMenu_setMenuEnabled(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ListMenu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_setMenuEnabled'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        bool arg0;
+
+        ok &= luaval_to_boolean(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj->setMenuEnabled(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setMenuEnabled",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_setMenuEnabled'.",&tolua_err);
 #endif
 
     return 0;
@@ -6765,7 +6948,7 @@ int lua_psframework_ListMenu_setResponseKeyCodes(lua_State* tolua_S)
 
     return 0;
 }
-int lua_psframework_ListMenu_onKeyReleased(lua_State* tolua_S)
+int lua_psframework_ListMenu_onKeyPressed(lua_State* tolua_S)
 {
     int argc = 0;
     framework::ListMenu* cobj = nullptr;
@@ -6785,7 +6968,7 @@ int lua_psframework_ListMenu_onKeyReleased(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_onKeyReleased'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_onKeyPressed'", nullptr);
         return 0;
     }
 #endif
@@ -6798,15 +6981,280 @@ int lua_psframework_ListMenu_onKeyReleased(lua_State* tolua_S)
         ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
         if(!ok)
             return 0;
-        cobj->onKeyReleased(arg0);
+        cobj->onKeyPressed(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onKeyReleased",argc, 1);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onKeyPressed",argc, 1);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_onKeyReleased'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_onKeyPressed'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ListMenu_dequeueItem(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ListMenu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_dequeueItem'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        framework::ListMenuItem* ret = cobj->dequeueItem();
+        object_to_luaval<framework::ListMenuItem>(tolua_S, "pf.ListMenuItem",(framework::ListMenuItem*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "dequeueItem",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_dequeueItem'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ListMenu_getTopGlobalIndex(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ListMenu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_getTopGlobalIndex'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        ssize_t ret = cobj->getTopGlobalIndex();
+        tolua_pushnumber(tolua_S,(lua_Number)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getTopGlobalIndex",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_getTopGlobalIndex'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ListMenu_isBottomOverflowed(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ListMenu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_isBottomOverflowed'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        bool ret = cobj->isBottomOverflowed();
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isBottomOverflowed",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_isBottomOverflowed'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ListMenu_removeItemAtIndex(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ListMenu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_removeItemAtIndex'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        ssize_t arg0;
+
+        ok &= luaval_to_ssize(tolua_S, 2, &arg0);
+        if(!ok)
+            return 0;
+        cobj->removeItemAtIndex(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeItemAtIndex",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_removeItemAtIndex'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ListMenu_getIndexInAllItems(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ListMenu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_getIndexInAllItems'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        ssize_t ret = cobj->getIndexInAllItems();
+        tolua_pushnumber(tolua_S,(lua_Number)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getIndexInAllItems",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_getIndexInAllItems'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ListMenu_reloadData(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ListMenu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_reloadData'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj->reloadData();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "reloadData",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_reloadData'.",&tolua_err);
 #endif
 
     return 0;
@@ -6904,7 +7352,7 @@ int lua_psframework_ListMenu_initWithShowCount(lua_State* tolua_S)
 
     return 0;
 }
-int lua_psframework_ListMenu_setMenuEnabled(lua_State* tolua_S)
+int lua_psframework_ListMenu_onKeyReleased(lua_State* tolua_S)
 {
     int argc = 0;
     framework::ListMenu* cobj = nullptr;
@@ -6924,7 +7372,53 @@ int lua_psframework_ListMenu_setMenuEnabled(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_setMenuEnabled'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_onKeyReleased'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        cobj->onKeyReleased(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onKeyReleased",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_onKeyReleased'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_ListMenu_setEventsSwallowed(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ListMenu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_setEventsSwallowed'", nullptr);
         return 0;
     }
 #endif
@@ -6937,15 +7431,15 @@ int lua_psframework_ListMenu_setMenuEnabled(lua_State* tolua_S)
         ok &= luaval_to_boolean(tolua_S, 2,&arg0);
         if(!ok)
             return 0;
-        cobj->setMenuEnabled(arg0);
+        cobj->setEventsSwallowed(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setMenuEnabled",argc, 1);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setEventsSwallowed",argc, 1);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_setMenuEnabled'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_setEventsSwallowed'.",&tolua_err);
 #endif
 
     return 0;
@@ -6990,322 +7484,6 @@ int lua_psframework_ListMenu_getCurrentShowIndex(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_getCurrentShowIndex'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_ListMenu_insertItemAtIndex(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::ListMenu* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_insertItemAtIndex'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
-    {
-        ssize_t arg0;
-
-        ok &= luaval_to_ssize(tolua_S, 2, &arg0);
-        if(!ok)
-            return 0;
-        cobj->insertItemAtIndex(arg0);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "insertItemAtIndex",argc, 1);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_insertItemAtIndex'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_ListMenu_onKeyPressed(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::ListMenu* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_onKeyPressed'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
-    {
-        int arg0;
-
-        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
-        if(!ok)
-            return 0;
-        cobj->onKeyPressed(arg0);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onKeyPressed",argc, 1);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_onKeyPressed'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_ListMenu_getItemAtIndex(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::ListMenu* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_getItemAtIndex'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
-    {
-        ssize_t arg0;
-
-        ok &= luaval_to_ssize(tolua_S, 2, &arg0);
-        if(!ok)
-            return 0;
-        framework::ListMenuItem* ret = cobj->getItemAtIndex(arg0);
-        object_to_luaval<framework::ListMenuItem>(tolua_S, "pf.ListMenuItem",(framework::ListMenuItem*)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getItemAtIndex",argc, 1);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_getItemAtIndex'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_ListMenu_isMenuEnabled(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::ListMenu* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_isMenuEnabled'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 0) 
-    {
-        if(!ok)
-            return 0;
-        bool ret = cobj->isMenuEnabled();
-        tolua_pushboolean(tolua_S,(bool)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isMenuEnabled",argc, 0);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_isMenuEnabled'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_ListMenu_removeItemAtIndex(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::ListMenu* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_removeItemAtIndex'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
-    {
-        ssize_t arg0;
-
-        ok &= luaval_to_ssize(tolua_S, 2, &arg0);
-        if(!ok)
-            return 0;
-        cobj->removeItemAtIndex(arg0);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeItemAtIndex",argc, 1);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_removeItemAtIndex'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_ListMenu_getTopGlobalIndex(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::ListMenu* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_getTopGlobalIndex'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 0) 
-    {
-        if(!ok)
-            return 0;
-        ssize_t ret = cobj->getTopGlobalIndex();
-        tolua_pushnumber(tolua_S,(lua_Number)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getTopGlobalIndex",argc, 0);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_getTopGlobalIndex'.",&tolua_err);
-#endif
-
-    return 0;
-}
-int lua_psframework_ListMenu_reloadData(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::ListMenu* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_reloadData'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 0) 
-    {
-        if(!ok)
-            return 0;
-        cobj->reloadData();
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "reloadData",argc, 0);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_reloadData'.",&tolua_err);
 #endif
 
     return 0;
@@ -7407,20 +7585,24 @@ int lua_register_psframework_ListMenu(lua_State* tolua_S)
     tolua_cclass(tolua_S,"ListMenu","pf.ListMenu","cc.Layer",nullptr);
 
     tolua_beginmodule(tolua_S,"ListMenu");
-        tolua_function(tolua_S,"dequeueItem",lua_psframework_ListMenu_dequeueItem);
+        tolua_function(tolua_S,"isMenuEnabled",lua_psframework_ListMenu_isMenuEnabled);
+        tolua_function(tolua_S,"isTopOverflowed",lua_psframework_ListMenu_isTopOverflowed);
+        tolua_function(tolua_S,"getItemAtIndex",lua_psframework_ListMenu_getItemAtIndex);
+        tolua_function(tolua_S,"insertItemAtIndex",lua_psframework_ListMenu_insertItemAtIndex);
+        tolua_function(tolua_S,"setMenuEnabled",lua_psframework_ListMenu_setMenuEnabled);
         tolua_function(tolua_S,"setResponseKeyCodes",lua_psframework_ListMenu_setResponseKeyCodes);
-        tolua_function(tolua_S,"onKeyReleased",lua_psframework_ListMenu_onKeyReleased);
+        tolua_function(tolua_S,"onKeyPressed",lua_psframework_ListMenu_onKeyPressed);
+        tolua_function(tolua_S,"dequeueItem",lua_psframework_ListMenu_dequeueItem);
+        tolua_function(tolua_S,"getTopGlobalIndex",lua_psframework_ListMenu_getTopGlobalIndex);
+        tolua_function(tolua_S,"isBottomOverflowed",lua_psframework_ListMenu_isBottomOverflowed);
+        tolua_function(tolua_S,"removeItemAtIndex",lua_psframework_ListMenu_removeItemAtIndex);
+        tolua_function(tolua_S,"getIndexInAllItems",lua_psframework_ListMenu_getIndexInAllItems);
+        tolua_function(tolua_S,"reloadData",lua_psframework_ListMenu_reloadData);
         tolua_function(tolua_S,"updateItemAtIndex",lua_psframework_ListMenu_updateItemAtIndex);
         tolua_function(tolua_S,"initWithShowCount",lua_psframework_ListMenu_initWithShowCount);
-        tolua_function(tolua_S,"setMenuEnabled",lua_psframework_ListMenu_setMenuEnabled);
+        tolua_function(tolua_S,"onKeyReleased",lua_psframework_ListMenu_onKeyReleased);
+        tolua_function(tolua_S,"setEventsSwallowed",lua_psframework_ListMenu_setEventsSwallowed);
         tolua_function(tolua_S,"getCurrentShowIndex",lua_psframework_ListMenu_getCurrentShowIndex);
-        tolua_function(tolua_S,"insertItemAtIndex",lua_psframework_ListMenu_insertItemAtIndex);
-        tolua_function(tolua_S,"onKeyPressed",lua_psframework_ListMenu_onKeyPressed);
-        tolua_function(tolua_S,"getItemAtIndex",lua_psframework_ListMenu_getItemAtIndex);
-        tolua_function(tolua_S,"isMenuEnabled",lua_psframework_ListMenu_isMenuEnabled);
-        tolua_function(tolua_S,"removeItemAtIndex",lua_psframework_ListMenu_removeItemAtIndex);
-        tolua_function(tolua_S,"getTopGlobalIndex",lua_psframework_ListMenu_getTopGlobalIndex);
-        tolua_function(tolua_S,"reloadData",lua_psframework_ListMenu_reloadData);
         tolua_function(tolua_S,"new",lua_psframework_ListMenu_constructor);
         tolua_function(tolua_S,"create", lua_psframework_ListMenu_create);
     tolua_endmodule(tolua_S);

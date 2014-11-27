@@ -6,7 +6,16 @@
 
 class("BagMainView", psGameLayer)
 
+-- static, record last operations
+BagMainView.lastIndexs = { [1] = 1, [2] = 1, [3] = 1, [4] = 1, [5] = 1, [7] = 1, [8] = 1 }
+BagMainView.lastSubType = 1
+
 BagMainView.root = nil
+BagMainView.itemIcon = nil
+BagMainView.itemList = nil
+BagMainView.titleSwitch = nil
+BagMainView.upArrow = nil
+BagMainView.downArrow = nil
 
 BagMainView.enterType = nil		-- 来源
 
@@ -22,6 +31,10 @@ BagMainView.TITLE_STRINGS = {
 BagMainView.TITLE_TYPE_MAP = {
 	1, 2, 3, 4, 5, 7, 8,
 }
+
+BagMainView.NAME_LABEL_TAG = 101
+BagMainView.COUNT_LABEL_TAG = 102
+BagMainView.CURSOR_TAG = 103
 
 BagMainView.__create = psGameLayer.create
 
@@ -91,6 +104,8 @@ function BagMainView:init(enterType)
 	local icon = ImageUtils:getInstance():createSpriteWithBinaryData(data)
 	icon:setPosition(iconBorder:getContentSize().width * 0.5, iconBorder:getContentSize().height * 0.5)
 	iconBorder:addChild(icon)
+	icon:setVisible(false)
+	self.itemIcon = icon
 
 	-- 道具框
 	local itemBorder = cc.Scale9Sprite:createWithSpriteFrameName("images/item/items_back.png")
@@ -98,6 +113,29 @@ function BagMainView:init(enterType)
 	self.root:addChild(itemBorder)
 
 	-- 道具list
+	local itemList = ListMenu:create(16)
+	itemList:setPosition(itemBorder:getContentSize().width * 0.5, itemBorder:getContentSize().height * 0.5)
+	itemBorder:addChild(itemList)
+
+	itemList:registerScriptHandler(MakeScriptHandler(self, self.countOfItemInMenu), pf.Handler.LISTMENU_COUNT_OF_ITEMS)
+	itemList:registerScriptHandler(MakeScriptHandler(self, self.itemAtIndex), pf.Handler.LISTMENU_ITEM_AT_INDEX)
+	itemList:registerScriptHandler(MakeScriptHandler(self, self.itemSizeForMenu), pf.Handler.LISTMENU_ITEM_SIZE_FOR_MENU)
+	itemList:setScriptDataSource()
+
+	itemList:registerScriptHandler(MakeScriptHandler(self, self.itemSelected), pf.Handler.LISTMENU_ITEM_SELECTED)
+	itemList:registerScriptHandler(MakeScriptHandler(self, self.itemFocused), pf.Handler.LISTMENU_ITEM_FOCUSED)
+	itemList:registerScriptHandler(MakeScriptHandler(self, self.itemBlurred), pf.Handler.LISTMENU_ITEM_BLURRED)
+	itemList:registerScriptHandler(MakeScriptHandler(self, self.itemWillRecycle), pf.Handler.LISTMENU_ITEM_WILL_RECYCLE)
+	itemList:setScriptDelegate()
+
+	itemList:setResponseKeyCodes(GameSettings.upKey, GameSettings.downKey, GameSettings.confirmKey)
+	itemList:setEventsSwallowed(false)
+
+	-- selected item change event
+	itemList.onSelectedItemChanged = function(instance, oldIndex, newIndex)
+		Notifier:notify(NotifyEvents.Bag.ItemSelectionChanged, oldIndex, newIndex, self.TITLE_TYPE_MAP[self.titleSwitch:getCurrentIndex() + 1])
+	end
+	self.itemList = itemList
 
 	-- 精灵球
 	local ballIcon = cc.Sprite:createWithSpriteFrameName("images/item/pokemon_ball.png")
@@ -111,13 +149,15 @@ function BagMainView:init(enterType)
 	titleSwitch:setTitleFontSize(22)
 	titleSwitch:setTitleColor(COLOR3B_BLACK)
 	titleSwitch:setResponseKeys(GameSettings.leftKey, GameSettings.rightKey)
+	titleSwitch:setEventsSwallowed(false)
 	titleSwitch:setAnchorPoint(0.5, 0.5)
 	titleSwitch:setPosition(300, 440)
 	self.root:addChild(titleSwitch)
 	-- register title changed event
-	titleBg.onTitleChanged = function(titleBg, oldIndex, newIndex)
-		Notifier:notify(NotifyEvents.Bag.TitleChanged, oldIndex, newIndex)
+	titleSwitch.onTitleChanged = function(titleBg, oldIndex, newIndex)
+		Notifier:notify(NotifyEvents.Bag.TitleChanged, oldIndex, newIndex, self.TITLE_TYPE_MAP[newIndex + 1])
 	end
+	self.titleSwitch = titleSwitch
 
 	-- arrows
 	local posMap = { ccp(600, 460), ccp(200, 440), ccp(600, 25), ccp(400, 440) }
@@ -135,8 +175,16 @@ function BagMainView:init(enterType)
 		arrow:setRotation(180 - (i - 1) * 90)
 		self.root:addChild(arrow)
 		table.insert(spawnAry, cc.TargetedAction:create(arrow, actionMap[i]))
+		if i == 1 then
+			self.upArrow = arrow
+		elseif i == 3 then
+			self.downArrow = arrow
+		end
 	end
 	self.root:runAction(cc.RepeatForever:create(cc.Spawn:create(spawnAry)))
+
+	-- items list handle
+	self:reloadItems()
 
 	self:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
 
@@ -149,5 +197,112 @@ end
 function BagMainView:onNodeEvent(event)
 	if event == "enter" then
 		self.mask:runAction(cc.FadeOut:create(0.15))
+
+		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+			local kbdListener = Win32EventListenerKeyboard:createWithTarget(self)
+			kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
+			Win32Notifier:getInstance():addEventListener(kbdListener)
+			self.kbdListener = kbdListener
+		end
+	elseif event == "exit" then
+		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS and self.kbdListener then
+			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
+			self.kbdListener = nil
+		end
 	end
+end
+
+function BagMainView:onKeyboardPressed(keyCode)
+	Notifier:notify(NotifyEvents.Bag.MainViewKeyResponsed, keyCode)
+end
+
+function BagMainView:generateItemsList(subType)
+	log("BagMainView:generateItemsList", subType)
+	local list = {}
+
+	if DataCenter.currentBagData and DataCenter.currentBagData[subType] then
+		for _, v in ipairs(DataCenter.currentBagData[subType]) do
+			local itemId = v[1]
+			local model = ItemInfo:create(itemId)
+			table.insert(list, { model.name, v[2] })
+		end
+	end
+
+	return list
+end
+
+function BagMainView:reloadItems()
+	log("BagMainView:reloadItems")
+	self.itemsData = self:generateItemsList(BagMainView.lastSubType)
+	self.itemList:reloadData()
+	self.upArrow:setVisible(self.itemList:isTopOverflowed())
+	self.downArrow:setVisible(self.itemList:isBottomOverflowed())
+end
+
+-- DataSource interface
+function BagMainView:itemSizeForMenu(menu)
+	return 360, 24
+end
+
+function BagMainView:itemAtIndex(menu, index)
+	log("BagMainView:itemAtIndex", index)
+	local item = menu:dequeueItem()
+	if not item then
+		item = ListMenuItem:create()
+
+		local screenSize = cc.Director:getInstance():getWinSize()
+		-- name label
+		local lblName = cc.Label:createWithTTF(self.itemsData[index + 1][1], GameConfig.DEFAULT_FONT_PATH, 22)
+		lblName:setColor(ccc3(0, 0, 0))
+		lblName:setAnchorPoint(0, 0.5)
+		lblName:setPosition(40, 12)
+		lblName:setTag(self.NAME_LABEL_TAG)
+		item:addChild(lblName)
+		-- count label
+		local lblCount = cc.Label:createWithTTF("x " .. self.itemsData[index + 1][2], GameConfig.DEFAULT_FONT_PATH, 22)
+		lblCount:setColor(ccc3(0, 0, 0))
+		lblCount:setAnchorPoint(1, 0.5)
+		lblCount:setPosition(340, 12)
+		lblCount:setTag(self.COUNT_LABEL_TAG)
+		item:addChild(lblCount)
+		-- arrow
+		local arrow = cc.Sprite:createWithSpriteFrameName("images/common/menu_cursor.png")
+		arrow:setAnchorPoint(1, 0.5)
+		arrow:setPosition(35, 12)
+		arrow:setTag(self.CURSOR_TAG)
+		arrow:setVisible(false)
+		item:addChild(arrow)
+	else
+		local lblName = item:getChildByTag(self.NAME_LABEL_TAG)
+		tolua.cast(lblName, "cc.Label")
+		lblName:setString(self.itemsData[index + 1][1])
+		local lblCount = item:getChildByTag(self.COUNT_LABEL_TAG)
+		tolua.cast(lblCount, "cc.Label")
+		lblCount:setString("x " .. self.itemsData[index + 1][2])
+	end
+
+	return item
+end
+
+function BagMainView:countOfItemInMenu(menu)
+	log("BagMainView:countOfItemInMenu", #self.itemsData)
+	return #self.itemsData
+end
+
+-- ListMenu delegate
+function BagMainView:itemSelected(menu, item)
+	Notifier:notify(NotifyEvents.Bag.ItemSelected, menu:getIndexInAllItems())
+end
+
+function BagMainView:itemFocused(menu, item)
+	local cursor = item:getChildByTag(self.CURSOR_TAG)
+	cursor:setVisible(true)
+end
+
+function BagMainView:itemBlurred(menu, item)
+	local cursor = item:getChildByTag(self.CURSOR_TAG)
+	cursor:setVisible(false)
+end
+
+function BagMainView:itemWillRecycle(menu, item)
 end

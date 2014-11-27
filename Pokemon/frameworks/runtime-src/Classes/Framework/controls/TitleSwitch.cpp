@@ -28,6 +28,7 @@ namespace framework
 
 	TitleSwitch::~TitleSwitch()
 	{
+		CC_SAFE_RELEASE(_kbdListener);
 	}
 
 	TitleSwitch *TitleSwitch::create(cocos2d::Node *bg, const std::vector<std::string> &titles, const std::string &ttfFile)
@@ -58,11 +59,20 @@ namespace framework
 		{
 			auto pLabel = Label::createWithTTF(titles[i], ttfFile, 12);
 			pLabel->setColor(Color3B(0, 0, 0));
+			pLabel->setSystemFontName(ttfFile);
 			// pLabel->setPosition(this->getContentSize().width * (0.5 + i), this->getContentSize().height * 0.5);
 			this->_labels.pushBack(pLabel);
 		}
 
 		this->needUpdate();
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		auto pKbdListener = Win32EventListenerKeyboard::createWithTarget(this);
+		pKbdListener->onWin32KeyDown = std::bind(&TitleSwitch::onKeyPressed, this, std::placeholders::_1);
+		pKbdListener->setEventsSwallowed(false);
+		pKbdListener->retain();
+		this->_kbdListener = pKbdListener;
+#endif
 
 		return true;
 	}
@@ -81,21 +91,21 @@ namespace framework
 
 	void TitleSwitch::onEnter()
 	{
-		auto pKbdListener = Win32EventListenerKeyboard::createWithTarget(this);
-		pKbdListener->onWin32KeyDown = std::bind(&TitleSwitch::onKeyPressed, this, std::placeholders::_1);
-		pKbdListener->setEventsSwallowed(false);
-		Win32Notifier::getInstance()->addEventListener(pKbdListener);
-		this->_kbdListener = pKbdListener;
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		Win32Notifier::getInstance()->addEventListener(this->_kbdListener);
+#endif
 
 		Node::onEnter();
 	}
 
 	void TitleSwitch::onExit()
 	{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 		if (this->_kbdListener)
 		{
 			Win32Notifier::getInstance()->removeEventListener(this->_kbdListener);
 		}
+#endif
 
 		Node::onExit();
 	}
@@ -160,6 +170,7 @@ namespace framework
 		for (const auto &lbl : _labels)
 		{
 			lbl->setSystemFontName(fontName);
+			_ttfPath = fontName;
 		}
 
 		this->needUpdate();
