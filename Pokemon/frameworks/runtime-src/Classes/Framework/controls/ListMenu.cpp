@@ -284,7 +284,7 @@ namespace framework
 
 	void ListMenu::onKeyPressed(int keyCode)
 	{
-		if (!_isEnabled)
+		if (!_isEnabled || _dataSource->countOfItemsInMenu(this) <= 0)
 		{
 			return;
 		}
@@ -335,7 +335,7 @@ namespace framework
 
 	void ListMenu::onKeyReleased(int keyCode)
 	{
-		if (!_isEnabled)
+		if (!_isEnabled || _dataSource->countOfItemsInMenu(this) <= 0)
 		{
 			return;
 		}

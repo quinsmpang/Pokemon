@@ -7,7 +7,7 @@
             <key>images/collection/arrow.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{992,255},{24,25}}</string>
+                <string>{{990,29},{24,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,33 +20,20 @@
             <key>images/collection/background.jpg</key>
             <dict>
                 <key>frame</key>
-                <string>{{0,480},{800,480}}</string>
+                <string>{{0,0},{800,686}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{800,480}}</string>
+                <string>{{0,0},{800,686}}</string>
                 <key>sourceSize</key>
-                <string>{800,480}</string>
-            </dict>
-            <key>images/collection/background2.jpg</key>
-            <dict>
-                <key>frame</key>
-                <string>{{0,0},{800,480}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{800,480}}</string>
-                <key>sourceSize</key>
-                <string>{800,480}</string>
+                <string>{800,686}</string>
             </dict>
             <key>images/collection/ball_owning.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1007,226},{16,16}}</string>
+                <string>{{1007,0},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -56,23 +43,36 @@
                 <key>sourceSize</key>
                 <string>{16,16}</string>
             </dict>
-            <key>images/collection/decoration.png</key>
+            <key>images/collection/collection_back.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{800,0},{219,226}}</string>
+                <string>{{689,936},{270,400}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{219,226}}</string>
+                <string>{{0,0},{270,400}}</string>
                 <key>sourceSize</key>
-                <string>{219,226}</string>
+                <string>{270,400}</string>
+            </dict>
+            <key>images/collection/description_back.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{800,29},{289,150}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{289,150}}</string>
+                <key>sourceSize</key>
+                <string>{289,150}</string>
             </dict>
             <key>images/collection/pokemon_back.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{689,960},{284,250}}</string>
+                <string>{{689,686},{284,250}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>images/collection/scroll.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{0,960},{689,380}}</string>
+                <string>{{0,686},{689,380}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>images/collection/selection_back_yellow.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{800,226},{207,29}}</string>
+                <string>{{800,0},{207,29}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>images/collection/selection_border.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{952,295},{40,40}}</string>
+                <string>{{950,69},{40,40}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,7 +124,7 @@
             <key>images/collection/selection_border_white.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{952,255},{40,40}}</string>
+                <string>{{950,29},{40,40}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,7 +137,7 @@
             <key>images/collection/shallow_gray.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1007,242},{10,10}}</string>
+                <string>{{1007,16},{10,10}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -146,19 +146,6 @@
                 <string>{{0,0},{10,10}}</string>
                 <key>sourceSize</key>
                 <string>{10,10}</string>
-            </dict>
-            <key>images/collection/title_back.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{800,255},{152,65}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{152,65}}</string>
-                <key>sourceSize</key>
-                <string>{152,65}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -170,7 +157,7 @@
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:4fda10487be33c4e7db8867b2c48e6cf:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:e13cd594a9bfe39176fbcad497fc5b8b:1/1$</string>
             <key>textureFileName</key>
             <string>collection.pvr.ccz</string>
         </dict>
