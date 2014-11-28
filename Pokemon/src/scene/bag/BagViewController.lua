@@ -49,7 +49,6 @@ function BagViewController:addObservers()
 	log("BagViewController:addObservers")
 	Notifier:addObserver(NotifyEvents.Bag.TitleChanged, self, self.onTitleChanged)
 	Notifier:addObserver(NotifyEvents.Bag.MainViewKeyResponsed, self, self.onMainViewKeyResponsed)
-	Notifier:addObserver(NotifyEvents.Bag.ItemSelectionChanged, self, self.onItemSelectionChanged)
 	Notifier:addObserver(NotifyEvents.Bag.ItemSelected, self, self.onItemSelected)
 end
 
@@ -57,7 +56,6 @@ function BagViewController:removeObservers()
 	log("BagViewController:removeObservers")
 	Notifier:removeObserver(NotifyEvents.Bag.TitleChanged, self)
 	Notifier:removeObserver(NotifyEvents.Bag.MainViewKeyResponsed, self)
-	Notifier:removeObserver(NotifyEvents.Bag.ItemSelectionChanged, self)
 	Notifier:removeObserver(NotifyEvents.Bag.ItemSelected, self)
 end
 
@@ -100,10 +98,11 @@ function BagViewController:onQuit()
 	self:getScene():unloadViewController(self)
 end
 
-function BagViewController:onItemSelectionChanged(oldIndex, newIndex, subType)
-	log("BagViewController:onItemSelectionChanged", oldIndex, newIndex, subType)
-end
-
 function BagViewController:onItemSelected(selectedIndex)
 	log("BagViewController:onItemSelected", selectedIndex)
+	-- local list = CommonListMenu:create({"使用"}, CCSizeMake(175, 200))
+	-- list:setItemSelectedScript(MakeScriptHandler(self, self.onViewPokemonItemSelected))
+	-- list:setAnchorPoint(1, 0)
+	-- list:setPosition(cc.Director:getInstance():getWinSize().width, 0)
+	-- self:getScene():addChild(list)
 end

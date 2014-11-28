@@ -9010,6 +9010,53 @@ int lua_psframework_ImageUtils_createAnimationByFrames(lua_State* tolua_S)
 
     return 0;
 }
+int lua_psframework_ImageUtils_createSpriteFrameWithBinaryData(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::ImageUtils* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.ImageUtils",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::ImageUtils*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ImageUtils_createSpriteFrameWithBinaryData'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        framework::BinaryData* arg0;
+
+        ok &= luaval_to_object<framework::BinaryData>(tolua_S, 2, "pf.BinaryData",&arg0);
+        if(!ok)
+            return 0;
+        cocos2d::SpriteFrame* ret = cobj->createSpriteFrameWithBinaryData(arg0);
+        object_to_luaval<cocos2d::SpriteFrame>(tolua_S, "cc.SpriteFrame",(cocos2d::SpriteFrame*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "createSpriteFrameWithBinaryData",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ImageUtils_createSpriteFrameWithBinaryData'.",&tolua_err);
+#endif
+
+    return 0;
+}
 int lua_psframework_ImageUtils_getInstance(lua_State* tolua_S)
 {
     int argc = 0;
@@ -9057,6 +9104,7 @@ int lua_register_psframework_ImageUtils(lua_State* tolua_S)
         tolua_function(tolua_S,"createSpriteWithBinaryData",lua_psframework_ImageUtils_createSpriteWithBinaryData);
         tolua_function(tolua_S,"getGifFrames",lua_psframework_ImageUtils_getGifFrames);
         tolua_function(tolua_S,"createAnimationByFrames",lua_psframework_ImageUtils_createAnimationByFrames);
+        tolua_function(tolua_S,"createSpriteFrameWithBinaryData",lua_psframework_ImageUtils_createSpriteFrameWithBinaryData);
         tolua_function(tolua_S,"getInstance", lua_psframework_ImageUtils_getInstance);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::ImageUtils).name();

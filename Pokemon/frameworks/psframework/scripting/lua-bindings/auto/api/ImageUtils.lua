@@ -34,6 +34,12 @@
 -- @return Animate#Animate ret (return value: cc.Animate)
         
 --------------------------------
+-- @function [parent=#ImageUtils] createSpriteFrameWithBinaryData 
+-- @param self
+-- @param #pf.BinaryData binarydata
+-- @return SpriteFrame#SpriteFrame ret (return value: cc.SpriteFrame)
+        
+--------------------------------
 -- @function [parent=#ImageUtils] getInstance 
 -- @param self
 -- @return ImageUtils#ImageUtils ret (return value: pf.ImageUtils)

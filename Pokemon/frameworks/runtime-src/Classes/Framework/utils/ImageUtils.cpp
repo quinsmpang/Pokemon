@@ -11,17 +11,6 @@ using namespace std;
 
 namespace framework
 {
-	ImageUtils *ImageUtils::_instance = nullptr;
-
-	ImageUtils *ImageUtils::getInstance()
-	{
-		if (!_instance)
-		{
-			_instance = new ImageUtils();
-		}
-		return _instance;
-	}
-
 	ImageUtils::ImageUtils()
 	{
 		//FreeImage_Initialise(false);
@@ -90,8 +79,8 @@ namespace framework
 						pTexture->initWithData(data, len, Texture2D::PixelFormat::BGRA8888, width, height, Size(width, height));
 						pTexture->autorelease();
 						frames->addObject(pTexture);
-						delete [] buffer;
-						FreeImage_UnlockPage(fiBmps, pBmp, false); 
+						delete[] buffer;
+						FreeImage_UnlockPage(fiBmps, pBmp, false);
 					}
 					else
 					{
@@ -115,7 +104,7 @@ namespace framework
 	Animate *ImageUtils::createAnimationByFrames(Vector *frames, float timeline)
 	{
 		cocos2d::Vector<SpriteFrame*> vFrames;
-		
+
 		Texture2D *pTexture = nullptr;
 		for (int i = 0; i < frames->getLength(); i++)
 		{
@@ -138,5 +127,16 @@ namespace framework
 		Sprite *pSprite = Sprite::createWithTexture(pTexture);
 
 		return pSprite;
+	}
+
+	SpriteFrame *ImageUtils::createSpriteFrameWithBinaryData(BinaryData *imageData)
+	{
+		auto pImg = new Image();
+		pImg->initWithImageData(imageData->getData(), imageData->getSize());
+		auto pTexture = new Texture2D();
+		pTexture->initWithImage(pImg);
+		auto pFrame = SpriteFrame::createWithTexture(pTexture, Rect(0, 0, pTexture->getContentSize().width, pTexture->getContentSize().height));
+
+		return pFrame;
 	}
 }

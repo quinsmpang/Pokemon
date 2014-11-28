@@ -11,9 +11,6 @@ namespace framework
 {
 	class Uncopyable
 	{
-	public:
-		~Uncopyable() {}
-
 	protected:
 		Uncopyable() {}
 

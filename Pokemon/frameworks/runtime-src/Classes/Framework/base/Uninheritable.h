@@ -17,9 +17,6 @@ namespace framework
 	{
 		friend T;
 		friend Uninheritable<T>;
-	public:
-		~Sealed() {}
-
 	private:
 		Sealed() {}
 	};
@@ -27,9 +24,6 @@ namespace framework
 	template<typename T>
 	class Uninheritable : public virtual Sealed<T>		// use virtual inherit is to ensure the derived class of a sealed class must call the Sealed's constructor at first.
 	{
-	public:
-		~Uninheritable() {}
-
 	protected:
 		Uninheritable() {}
 	};

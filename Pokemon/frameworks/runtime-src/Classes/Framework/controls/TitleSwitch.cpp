@@ -208,13 +208,15 @@ namespace framework
 			{
 				return;
 			}
+			int oldIndex = _currentIndex;
 			int newIndex = (_currentIndex - 1 + _titles.size()) % _titles.size();
+			_currentIndex = newIndex;
 #if CC_ENABLE_SCRIPT_BINDING
 			if (_scriptType == kScriptTypeLua)
 			{
 				// params
 				Vector<Ref*> pParams(2);
-				pParams.pushBack(__Integer::create(_currentIndex));
+				pParams.pushBack(__Integer::create(oldIndex));
 				pParams.pushBack(__Integer::create(newIndex));
 				// param types
 				Vector<Ref*> pTypes(2);
@@ -223,7 +225,6 @@ namespace framework
 				LuaUtils::getInstance()->executePeertableFunction(this, "onTitleChanged", pParams, pTypes, false);
 			}
 #endif
-			_currentIndex = newIndex;
 			this->shiftLeft();
 		}
 		else if (keyCode == _rightKey)
@@ -233,13 +234,15 @@ namespace framework
 			{
 				return;
 			}
+			int oldIndex = _currentIndex;
 			int newIndex = (_currentIndex + 1) % _titles.size();
+			_currentIndex = newIndex;
 #if CC_ENABLE_SCRIPT_BINDING
 			if (_scriptType == kScriptTypeLua)
 			{
 				// params
 				Vector<Ref*> pParams(2);
-				pParams.pushBack(__Integer::create(_currentIndex));
+				pParams.pushBack(__Integer::create(oldIndex));
 				pParams.pushBack(__Integer::create(newIndex));
 				// param types
 				Vector<Ref*> pTypes(2);
@@ -248,7 +251,6 @@ namespace framework
 				LuaUtils::getInstance()->executePeertableFunction(this, "onTitleChanged", pParams, pTypes, false);
 			}
 #endif
-			_currentIndex = newIndex;
 			this->shiftRight();
 		}
 	}

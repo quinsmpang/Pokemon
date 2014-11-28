@@ -13,6 +13,7 @@ BagMainView.lastSubType = 1
 BagMainView.root = nil
 BagMainView.itemIcon = nil
 BagMainView.itemList = nil
+BagMainView.lblDescription = nil
 BagMainView.titleSwitch = nil
 BagMainView.upArrow = nil
 BagMainView.downArrow = nil
@@ -84,13 +85,13 @@ function BagMainView:init(enterType)
 
 	-- 描述
 	local lblDescription = cc.Label:createWithTTF("", GameConfig.DEFAULT_FONT_PATH, 20)
-	lblDescription:setAnchorPoint(0, 1)
 	lblDescription:setColor(COLOR3B_BLACK)
-	lblDescription:setDimensions(335, 130)
+	lblDescription:setDimensions(335, 170)
 	lblDescription:setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT)
   	lblDescription:setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_TOP)
-  	lblDescription:setPosition(43, 175)
-  	self.root:addChild(lblDescription)
+  	lblDescription:setPosition(descriptionBorder:getContentSize().width * 0.5, descriptionBorder:getContentSize().height * 0.5)
+  	descriptionBorder:addChild(lblDescription)
+  	self.lblDescription = lblDescription
 
   	-- 图标框
   	local capInsets = CCRectMake(10, 10, 136, 96)
@@ -132,9 +133,9 @@ function BagMainView:init(enterType)
 	itemList:setEventsSwallowed(false)
 
 	-- selected item change event
-	itemList.onSelectedItemChanged = function(instance, oldIndex, newIndex)
-		Notifier:notify(NotifyEvents.Bag.ItemSelectionChanged, oldIndex, newIndex, self.TITLE_TYPE_MAP[self.titleSwitch:getCurrentIndex() + 1])
-	end
+	-- itemList.onSelectedItemChanged = function(instance, oldIndex, newIndex)
+	-- 	Notifier:notify(NotifyEvents.Bag.ItemSelectionChanged, oldIndex, newIndex, self.TITLE_TYPE_MAP[self.titleSwitch:getCurrentIndex() + 1])
+	-- end
 	self.itemList = itemList
 
 	-- 精灵球
@@ -149,6 +150,7 @@ function BagMainView:init(enterType)
 	titleSwitch:setTitleFontSize(22)
 	titleSwitch:setTitleColor(COLOR3B_BLACK)
 	titleSwitch:setResponseKeys(GameSettings.leftKey, GameSettings.rightKey)
+	titleSwitch:setDuration(0.25)
 	titleSwitch:setEventsSwallowed(false)
 	titleSwitch:setAnchorPoint(0.5, 0.5)
 	titleSwitch:setPosition(300, 440)
@@ -233,10 +235,27 @@ end
 
 function BagMainView:reloadItems()
 	log("BagMainView:reloadItems")
+	-- 清空图标和描述信息
+	self.itemIcon:setVisible(false)
+	self.lblDescription:setString("")
 	self.itemsData = self:generateItemsList(BagMainView.lastSubType)
 	self.itemList:reloadData()
 	self.upArrow:setVisible(self.itemList:isTopOverflowed())
 	self.downArrow:setVisible(self.itemList:isBottomOverflowed())
+end
+
+function BagMainView:select(itemIndex)
+	log("BagMainView:select", itemIndex)
+	local curSubType = self.TITLE_TYPE_MAP[self.titleSwitch:getCurrentIndex() + 1]
+	local itemId = DataCenter.currentBagData[curSubType][itemIndex][1]
+	-- update icon and description
+	local data = ZipHelper:getInstance():getFileDataInZip("images/item_icon.rc", itemId .. ".png", GameConfig.ZIP_PASSWORD)
+	local frame = ImageUtils:getInstance():createSpriteFrameWithBinaryData(data)
+	self.itemIcon:setSpriteFrame(frame)
+	self.itemIcon:setVisible(true)
+
+	local model = ItemInfo:create(itemId)
+	self.lblDescription:setString(model.description)
 end
 
 -- DataSource interface
@@ -297,6 +316,7 @@ end
 function BagMainView:itemFocused(menu, item)
 	local cursor = item:getChildByTag(self.CURSOR_TAG)
 	cursor:setVisible(true)
+	self:select(menu:getIndexInAllItems() + 1)
 end
 
 function BagMainView:itemBlurred(menu, item)
