@@ -27,7 +27,7 @@ MapMenu.ITEM_STRINGS = {
 	"设置",
 	"退出",
 }
-MapMenu.SKIP_COLLECTION_STEP = 10
+MapMenu.SKIP_COLLECTION_STEP = 4
 MapMenu.SKIP_PETS_STEP = 2
 MapMenu.SKIP_CONTACT_STEP = 11
 

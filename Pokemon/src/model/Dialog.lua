@@ -51,6 +51,7 @@ function Dialog:updateFromDB()
 			if #ids == 1 then
 				self.actionId = tonumber(data.actionId)
 			else
+				-- 性别分支
 				self.actionId = DataCenter.currentPlayerData.gender == Enumerations.GENDER.MALE and tonumber(ids[1]) or tonumber(ids[2])
 			end
 		end
@@ -76,6 +77,10 @@ end
 function Dialog:getParamString(param)
 	if param == "hero" then
 		return DataCenter.currentPlayerData.name
+	elseif param == "cohero" then
+		return DataCenter.currentPlayerData.gender == Enumerations.GENDER.MALE and "小云" or "小风"
+	elseif param == "ta" then
+		return DataCenter.currentPlayerData.gender == Enumerations.GENDER.MALE and "她" or "他"
 	end
 	return ""
 end

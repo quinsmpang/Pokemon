@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="13" height="12" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="room_common" tilewidth="32" tileheight="32">
-  <image source="images/terrains/room_common.png" width="256" height="1216"/>
+  <image source="images/terrains/room_common.png" width="256" height="1696"/>
  </tileset>
  <layer name="main" width="13" height="12">
   <data encoding="base64" compression="zlib">
@@ -31,6 +31,14 @@
     <property name="npcId" value="3"/>
     <property name="responseId" value="2"/>
     <property name="step" value="0"/>
+   </properties>
+  </object>
+  <object name="trigger1" x="296" y="367" width="32" height="32">
+   <properties>
+    <property name="action" value="7"/>
+    <property name="id" value="1"/>
+    <property name="lastStep" value="1"/>
+    <property name="step" value="2"/>
    </properties>
   </object>
  </objectgroup>
@@ -172,6 +180,14 @@
     <property name="id" value="1"/>
     <property name="lastStep" value="1"/>
     <property name="step" value="2"/>
+   </properties>
+  </object>
+  <object name="trigger2" x="192" y="352" width="32" height="32">
+   <properties>
+    <property name="action" value="7"/>
+    <property name="id" value="2"/>
+    <property name="lastStep" value="3"/>
+    <property name="step" value="4"/>
    </properties>
   </object>
  </objectgroup>

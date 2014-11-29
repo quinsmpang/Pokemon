@@ -351,6 +351,10 @@ function MapLayerController:onMenuItemSelected(item)
 		local itemIndex = item:getShowIndex()
 		if itemIndex == 0 then
 			--图鉴
+			require "src/scene/collection/CollectionViewController"
+
+			local collectionViewController = CollectionViewController:create()
+			self:getScene():loadViewController(collectionViewController)
 		elseif itemIndex == 1 then
 			--精灵
 			require "src/scene/pokemon/PokemonViewController"

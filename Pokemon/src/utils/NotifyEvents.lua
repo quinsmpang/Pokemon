@@ -61,3 +61,9 @@ NotifyEvents.Bag.ItemSelectionChanged = "NotifyEvents.Bag.ItemSelectionChanged"
 NotifyEvents.Bag.MainViewKeyResponsed = "NotifyEvents.Bag.MainViewKeyResponsed"
 -- 道具确认选择	BagMainView通知, BagViewController观察
 NotifyEvents.Bag.ItemSelected = "NotifyEvents.Bag.ItemSelected"
+
+-- 图鉴界面事件
+NotifyEvents.Collection = NotifyEvents.Collection or {}
+
+-- 主界面事件
+NotifyEvents.Collection.MainViewKeyResponsed = "NotifyEvents.Collection.MainViewKeyResponsed"
