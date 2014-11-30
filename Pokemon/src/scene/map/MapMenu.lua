@@ -136,7 +136,7 @@ function MapMenu:validateItem(item, index)
 		if index == 0 or index == 3 then
 			item.__isEnabled = false
 		end
-	elseif DataSource.currentPlayerData.lastStep < self.SKIP_CONTACT_STEP then
+	elseif DataCenter.currentPlayerData.lastStep < self.SKIP_CONTACT_STEP then
 		if index == 3 then
 			item.__isEnabled = false
 		end

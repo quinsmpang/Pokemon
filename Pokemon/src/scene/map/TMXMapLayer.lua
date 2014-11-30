@@ -437,6 +437,60 @@ function TMXMapLayer:heroWalkWithInstructions(sender, direction)
 	self:runAction(action)
 end
 
+function TMXMapLayer:npcWalkWithInstructions(sender, npcId, direction)
+	-- retreive npc
+	local targetNpc, key = table.find(self.npcList, function(obj, seekId)
+			return obj.id == npcId
+		end, npcId)
+	assert(targetNpc, "NPC doesn't exist.")
+
+	-- npc移动后的位置
+	local nextPos = targetNpc:getNextPosition(direction)
+	targetNpc:updatePosition(nextPos)
+	-- 更改原哈希
+	self.npcList[key] = nil
+	self.npcList[nextPos.x .. "," .. nextPos.y] = targetNpc
+	targetNpc:updateDirection(direction)
+	if self.observers then
+		self:updateObserversDirection(targetNpc.id)
+	end
+
+	local npcAction = targetNpc:getWalkAction(direction)
+	local action = cc.TargetedAction:create(targetNpc, npcAction)
+
+	-- 判断是否拥有下一个指令
+	if type(self.instructions) == "table" and self.instructions:count() > 0 then
+		local ins = self.instructions:front().data
+		log("instructions found, execute next instruction.", ins[1], ins[2])
+		local dir = ins[1]
+		if ins[2] > 0 then
+			ins[2] = ins[2] - 1
+			if ins[2] <= 0 then
+				-- 步数为0后，出队列
+				self.instructions:dequeue()
+				-- 如果队列为空，则将指令置空
+				if self.instructions:empty() then
+					self.instructions = nil
+				end
+			end
+			action = cc.Sequence:create(
+				action,
+				cc.CallFunc:create(MakeScriptHandler(self, self.npcWalkWithInstructions, npcId, dir))
+				)
+		end
+	else
+		-- 清空观察的对象
+		self.observers = nil
+		-- 指令执行完毕的话，通知MapLayerController
+		action = cc.Sequence:create(
+			action, 
+			cc.CallFunc:create(MakeScriptHandler(self, self.onHeroWalkInstructionsEnd))
+			)
+	end
+
+	self:runAction(action)
+end
+
 -- 更新观察对象的方向
 function TMXMapLayer:updateObserversDirection(targetId)
 	if self.observers then
@@ -453,13 +507,21 @@ function TMXMapLayer:updateObserversDirection(targetId)
 
 		-- target为hero
 		for _, observer in ipairs(self.observers) do
-			local targetNpc = table.find(self.npcList, function(obj, seekId)
-					return obj.model.id == seekId
-				end, observer)
-			assert(targetNpc, "invalid observer.")
-			local newDir = self:calculateObserverDirection(targetPos, targetNpc.model.position)
-			if newDir then
-				targetNpc:updateDirection(newDir)
+			if observer == 0 then
+				-- 观察方是主角
+				local newDir = self:calculateObserverDirection(targetPos, DataCenter.currentPlayerData.currentPosition)
+				if newDir then
+					self.hero:changeDirection(newDir, true)
+				end
+			else
+				local targetNpc = table.find(self.npcList, function(obj, seekId)
+						return obj.model.id == seekId
+					end, observer)
+				assert(targetNpc, "invalid observer.")
+				local newDir = self:calculateObserverDirection(targetPos, targetNpc.model.position)
+				if newDir then
+					targetNpc:updateDirection(newDir)
+				end
 			end
 		end
 	end

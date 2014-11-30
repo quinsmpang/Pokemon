@@ -138,12 +138,12 @@ function table.find(table, selector, ...)
 		return false
 	end
 
-	for _, v in pairs(table) do
+	for k, v in pairs(table) do
 		if selector(v, unpack{...}) then
-			return v
+			return v, k
 		end
 	end
-	return nil
+	return nil, nil
 end
 
 -- remove the object which satisfied the condition

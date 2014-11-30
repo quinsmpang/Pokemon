@@ -502,6 +502,9 @@ function MapLayerController:doWalkInstructions(params)
 	if target == 0 then
 		self.currentMap:setInstructions(instructions, observers)
 		self.currentMap:heroWalkWithInstructions(nil, dir)
+	else
+		self.currentMap:setInstructions(instructions, observers)
+		self.currentMap:npcWalkWithInstructions(nil, target, dir)
 	end
 
 	return target
