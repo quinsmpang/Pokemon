@@ -7888,6 +7888,52 @@ int lua_psframework_TitleSwitch_setEventsSwallowed(lua_State* tolua_S)
 
     return 0;
 }
+int lua_psframework_TitleSwitch_setCurrentIndex(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::TitleSwitch* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.TitleSwitch",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::TitleSwitch*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_TitleSwitch_setCurrentIndex'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        int arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
+        if(!ok)
+            return 0;
+        cobj->setCurrentIndex(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setCurrentIndex",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_TitleSwitch_setCurrentIndex'.",&tolua_err);
+#endif
+
+    return 0;
+}
 int lua_psframework_TitleSwitch_getCurrentIndex(lua_State* tolua_S)
 {
     int argc = 0;
@@ -8125,6 +8171,7 @@ int lua_register_psframework_TitleSwitch(lua_State* tolua_S)
         tolua_function(tolua_S,"setTitleFontName",lua_psframework_TitleSwitch_setTitleFontName);
         tolua_function(tolua_S,"onKeyPressed",lua_psframework_TitleSwitch_onKeyPressed);
         tolua_function(tolua_S,"setEventsSwallowed",lua_psframework_TitleSwitch_setEventsSwallowed);
+        tolua_function(tolua_S,"setCurrentIndex",lua_psframework_TitleSwitch_setCurrentIndex);
         tolua_function(tolua_S,"getCurrentIndex",lua_psframework_TitleSwitch_getCurrentIndex);
         tolua_function(tolua_S,"setDuration",lua_psframework_TitleSwitch_setDuration);
         tolua_function(tolua_S,"setResponseKeys",lua_psframework_TitleSwitch_setResponseKeys);

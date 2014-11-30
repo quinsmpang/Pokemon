@@ -154,6 +154,14 @@ function BagMainView:init(enterType)
 	titleSwitch:setEventsSwallowed(false)
 	titleSwitch:setAnchorPoint(0.5, 0.5)
 	titleSwitch:setPosition(300, 440)
+	if BagMainView.lastSubType then
+		for k, v in pairs(self.TITLE_TYPE_MAP) do
+			if v == BagMainView.lastSubType then
+				titleSwitch:setCurrentIndex(k - 1)
+				break
+			end
+		end
+	end
 	self.root:addChild(titleSwitch)
 	-- register title changed event
 	titleSwitch.onTitleChanged = function(titleBg, oldIndex, newIndex)

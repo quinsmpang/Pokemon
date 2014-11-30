@@ -110,6 +110,16 @@ namespace framework
 		Node::onExit();
 	}
 
+	void TitleSwitch::setCurrentIndex(int index)
+	{
+		if (_currentIndex == index)
+		{
+			return;
+		}
+		_currentIndex = index;
+		this->needUpdate();
+	}
+
 	void TitleSwitch::setTitles(const std::vector<std::string> &titles)
 	{
 		CCASSERT(titles.size() > 0, "Params error");

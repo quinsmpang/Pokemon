@@ -37,6 +37,27 @@ function CollectionView:init()
 	bg:setPosition(winSize.width * 0.5, winSize.height * 0.5)
 	self.root:addChild(bg)
 
+	local lblTip = cc.Label:createWithTTF("【按取消键返回】", GameConfig.DEFAULT_FONT_PATH, 14)
+	lblTip:setColor(COLOR3B_BLACK)
+	lblTip:setPosition(90, 435)
+	self.root:addChild(lblTip)
+
+	local infoBack = cc.Sprite:createWithSpriteFrameName("images/common/common_scale9_1.png")
+	infoBack:setPosition(112, 355)
+	self.root:addChild(infoBack)
+
+	local pokemonBack = cc.Sprite:createWithSpriteFrameName("images/collection/pokemon_back.png")
+	pokemonBack:setPosition(345, 320)
+	self.root:addChild(pokemonBack)
+
+	local descriptionBack = cc.Sprite:createWithSpriteFrameName("images/collection/description_back.png")
+	descriptionBack:setPosition(345, 115)
+	self.root:addChild(descriptionBack)
+
+	local collectionBack = cc.Sprite:createWithSpriteFrameName("images/collection/collection_back.png")
+	collectionBack:setPosition(640, 240)
+	self.root:addChild(collectionBack)
+
 	self:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
 
 	if self.mask then

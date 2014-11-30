@@ -38,6 +38,7 @@ namespace framework
 		{
 			return this->_currentIndex;
 		}
+		void setCurrentIndex(int index);
 		inline void setDuration(float duration)
 		{
 			_duration = duration;

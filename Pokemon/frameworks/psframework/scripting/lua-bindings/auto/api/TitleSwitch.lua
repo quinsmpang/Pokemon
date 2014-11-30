@@ -34,6 +34,11 @@
 -- @param #bool bool
         
 --------------------------------
+-- @function [parent=#TitleSwitch] setCurrentIndex 
+-- @param self
+-- @param #int int
+        
+--------------------------------
 -- @function [parent=#TitleSwitch] getCurrentIndex 
 -- @param self
 -- @return int#int ret (return value: int)
