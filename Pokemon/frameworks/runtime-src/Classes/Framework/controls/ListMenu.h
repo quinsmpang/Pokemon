@@ -82,6 +82,8 @@ namespace framework
 			return this->_topGlobalIndex + this->_currentShowIndex;
 		}
 
+		// if the index doesn't suit the showIndex, then showIndex will have no use.
+		void select(int index, int showIndex = 0);
 		void setResponseKeyCodes(int upKeyCode, int downKeyCode, int confirmKeyCode);
 		void setEventsSwallowed(bool isSwallowed);
 

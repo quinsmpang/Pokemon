@@ -67,3 +67,7 @@ NotifyEvents.Collection = NotifyEvents.Collection or {}
 
 -- 主界面事件
 NotifyEvents.Collection.MainViewKeyResponsed = "NotifyEvents.Collection.MainViewKeyResponsed"
+-- 图鉴选择变更
+NotifyEvents.Collection.CollectionSelectionChanged = "NotifyEvents.Collection.CollectionSelectionChanged"
+-- 图鉴选择
+NotifyEvents.Collection.CollectionSelected = "NotifyEvents.Collection.CollectionSelected"

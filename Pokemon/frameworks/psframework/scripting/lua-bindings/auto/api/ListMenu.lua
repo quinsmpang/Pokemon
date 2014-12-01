@@ -14,6 +14,12 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
+-- @function [parent=#ListMenu] select 
+-- @param self
+-- @param #int int
+-- @param #int int
+        
+--------------------------------
 -- @function [parent=#ListMenu] getItemAtIndex 
 -- @param self
 -- @param #long long

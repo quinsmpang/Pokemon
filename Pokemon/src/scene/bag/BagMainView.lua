@@ -7,6 +7,7 @@
 class("BagMainView", psGameLayer)
 
 -- static, record last operations
+BagMainView.lastTop = 0
 BagMainView.lastIndexs = { [1] = 1, [2] = 1, [3] = 1, [4] = 1, [5] = 1, [7] = 1, [8] = 1 }
 BagMainView.lastSubType = 1
 

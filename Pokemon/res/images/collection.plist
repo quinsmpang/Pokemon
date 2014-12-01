@@ -111,7 +111,7 @@
             <key>images/collection/selection_border.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{950,69},{40,40}}</string>
+                <string>{{950,109},{40,40}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,7 +124,7 @@
             <key>images/collection/selection_border_white.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{950,29},{40,40}}</string>
+                <string>{{950,69},{40,40}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -147,6 +147,19 @@
                 <key>sourceSize</key>
                 <string>{10,10}</string>
             </dict>
+            <key>images/collection/unknown_pokemon.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{950,29},{40,40}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{40,40}}</string>
+                <key>sourceSize</key>
+                <string>{40,40}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -157,7 +170,7 @@
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:e13cd594a9bfe39176fbcad497fc5b8b:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:ef859ad6bbbdb56e15fc3d4ff7a4efab:1/1$</string>
             <key>textureFileName</key>
             <string>collection.pvr.ccz</string>
         </dict>

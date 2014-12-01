@@ -76,6 +76,7 @@ end
 function BagViewController:onTitleChanged(oldIndex, newIndex, subType)
 	log("BagViewController:onTitleChanged", oldIndex, newIndex, subType)
 	BagMainView.lastSubType = subType
+	BagMainView.lastIndexs[subType] = newIndex
 	self.mainView:reloadItems()
 end
 

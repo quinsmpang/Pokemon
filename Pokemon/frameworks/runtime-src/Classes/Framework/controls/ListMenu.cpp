@@ -97,6 +97,65 @@ namespace framework
 		Layer::onExit();
 	}
 
+	void ListMenu::select(int index, int showIndex)
+	{
+		for (const auto &item : _shownItems)
+		{
+			// recycle the items.
+			if (_delegate)
+			{
+				_delegate->itemWillRecycle(this, item);
+			}
+			item->reset();
+			_recycledItems->pushBack(item);
+			item->removeFromParentAndCleanup(false);
+		}
+
+		_shownItems.clear();
+		if (_dataSource)
+		{
+			ssize_t itemCount = _dataSource->countOfItemsInMenu(this);
+			if (itemCount > 0)
+			{
+				// init ui
+				itemCount = itemCount > _showCount ? _showCount : itemCount;
+				Size itemSize = _dataSource->itemSizeForMenu(this);
+				this->setContentSize(Size(itemSize.width, _showCount * itemSize.height));
+				ListMenuItem *item = nullptr;
+				int top = 0;
+				int requireIndex = showIndex;
+				if (itemCount > _showCount)
+				{
+					// out of bottom bound
+					if (index > _dataSource->countOfItemsInMenu(this) - _showCount - 1)
+					{
+						top = _dataSource->countOfItemsInMenu(this) - _showCount - 1;
+						requireIndex = _dataSource->countOfItemsInMenu(this) - index - 1;
+					}
+					else
+					{
+						top = index - showIndex;
+						requireIndex = index;
+					}
+				}
+				for (int i = 0; i < itemCount; ++i)
+				{
+					item = _dataSource->itemAtIndex(this, i + top);
+					item->setContentSize(itemSize);
+					if (item)
+					{
+						this->setItemAtIndex(item, i);
+					}
+				}
+				// focus the first item
+				if (_delegate)
+				{
+					_delegate->itemFocused(this, this->getItemAtIndex(requireIndex));
+				}
+			}
+		}
+	}
+
 	void ListMenu::setResponseKeyCodes(int upKeyCode, int downKeyCode, int confirmKeyCode)
 	{
 		this->_upKeyCode = upKeyCode;
@@ -318,19 +377,6 @@ namespace framework
 				_delegate->itemSelected(this, this->getItemAtIndex(_currentShowIndex));
 			}
 		}
-
-#if CC_ENABLE_SCRIPT_BINDING
-		if (_scriptType == kScriptTypeLua)
-		{
-			// params
-			Vector<Ref*> pParams(1);
-			pParams.pushBack(__Integer::create(keyCode));
-			// param types
-			Vector<Ref*> pTypes(1);
-			pTypes.pushBack(__String::create("__Integer"));
-			LuaUtils::getInstance()->executePeertableFunction(this, "afterKeyPressed", pParams, pTypes, false);
-		}
-#endif
 	}
 
 	void ListMenu::onKeyReleased(int keyCode)
@@ -345,19 +391,6 @@ namespace framework
 			Director::getInstance()->getScheduler()->unschedule("long_pressed_delay", this);
 			_pressedKey = 0;
 		}
-
-#if CC_ENABLE_SCRIPT_BINDING
-		if (_scriptType == kScriptTypeLua)
-		{
-			// params
-			Vector<Ref*> pParams(1);
-			pParams.pushBack(__Integer::create(keyCode));
-			// param types
-			Vector<Ref*> pTypes(1);
-			pTypes.pushBack(__String::create("__Integer"));
-			LuaUtils::getInstance()->executePeertableFunction(this, "afterKeyReleased", pParams, pTypes, false);
-		}
-#endif
 	}
 
 	/***************** protected methods *****************/

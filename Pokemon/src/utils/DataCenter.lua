@@ -90,3 +90,25 @@ function DataCenter:addNewItem(itemId, count)
 		target[2] = target[2] + count
 	end
 end
+
+-- 获取图鉴发现数
+function DataCenter:getDiscoverCount()
+	if not self.collectionData then
+		return 0
+	end
+	return table.getTotalCount(self.collectionData)
+end
+
+-- 获取图鉴捕获数
+function DataCenter:getCaptureCount()
+	if not self.collectionData then
+		return 0
+	end
+	local count = 0
+	for k, v in pairs(self.collectionData) do
+		if v then
+			count = count + 1
+		end
+	end
+	return count
+end

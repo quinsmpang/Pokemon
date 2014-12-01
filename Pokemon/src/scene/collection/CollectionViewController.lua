@@ -47,11 +47,13 @@ end
 function CollectionViewController:addObservers()
 	log("CollectionViewController:addObservers")
 	Notifier:addObserver(NotifyEvents.Collection.MainViewKeyResponsed, self, self.onMainViewKeyResponsed)
+	Notifier:addObserver(NotifyEvents.Collection.CollectionSelectionChanged, self, self.onCollectionSelectionChanged)
 end
 
 function CollectionViewController:removeObservers()
 	log("CollectionViewController:removeObservers")
 	Notifier:removeObserver(NotifyEvents.Collection.MainViewKeyResponsed, self)
+	Notifier:removeObserver(NotifyEvents.Collection.CollectionSelectionChanged, self)
 end
 
 function CollectionViewController:renderView()
@@ -72,4 +74,8 @@ function CollectionViewController:onMainViewKeyResponsed(keyCode)
 end
 function CollectionViewController:onQuit()
 	self:getScene():unloadViewController(self)
+end
+
+function CollectionViewController:onCollectionSelectionChanged(oldIndex, newIndex)
+	self.mainView:select(newIndex + 1)
 end
