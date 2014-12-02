@@ -126,8 +126,15 @@ namespace framework
 			auto pos = subStr.find_first_of('/');
 			if (pos < subStr.size())
 			{
-				dirPathArray.push_back(directoryPath.substr(0, pos));
-				subStr = subStr.substr(pos + 1, subStr.size() - 1);
+				if (dirPathArray.size() > 0)
+				{
+					dirPathArray.push_back(dirPathArray[dirPathArray.size() - 1] + string("/") + subStr.substr(0, pos));
+				}
+				else
+				{
+					dirPathArray.push_back(subStr.substr(0, pos));
+				}
+				subStr = subStr.substr(pos + 1);
 				continue;
 			}
 			dirPathArray.push_back(directoryPath);
