@@ -89,7 +89,7 @@ function CollectionView:init()
 	descriptionBack:setPosition(345, 115)
 	self.root:addChild(descriptionBack)
 
-	local lblDescription = cc.Label:createWithTTF("", GameConfig.DEFAULT_FONT_PATH, 18)
+	local lblDescription = cc.Label:createWithTTF("???", GameConfig.DEFAULT_FONT_PATH, 18)
 	lblDescription:setDimensions(descriptionBack:getContentSize().width * 0.9, descriptionBack:getContentSize().height * 0.8)
 	lblDescription:setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT)
   	lblDescription:setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_TOP)
@@ -120,6 +120,7 @@ function CollectionView:init()
 
 	collectionList:setResponseKeyCodes(GameSettings.upKey, GameSettings.downKey, GameSettings.confirmKey)
 	collectionList:setEventsSwallowed(false)
+	-- recover last selection
 
 	-- selected item change event
 	collectionList.onSelectedItemChanged = function(instance, oldIndex, newIndex)
@@ -128,6 +129,7 @@ function CollectionView:init()
 	self.collectionList = collectionList
 
 	self:reloadCollections()
+	self:select(1)
 
 	self:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
 
@@ -147,6 +149,8 @@ function CollectionView:onNodeEvent(event)
 			Win32Notifier:getInstance():addEventListener(kbdListener)
 			self.kbdListener = kbdListener
 		end
+
+		self.collectionList:select(CollectionView.lastIndex)
 	elseif event == "exit" then
 		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS and self.kbdListener then
 			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
@@ -173,20 +177,21 @@ function CollectionView:select(itemIndex)
 			self.lblDescription:setString(pokemonModel.description)
 		end
 		-- pokemon icon
-		local data = ZipHelper:getInstance():getFileDataInZip("images/pokemon_gif.rc", string.format("%03d.gif", pokemonModel.id), GameConfig.ZIP_PASSWORD)
-		local frames = ImageUtils:getInstance():getGifFrames(data)
-		local animate = ImageUtils:getInstance():createAnimationByFrames(frames, 0.1)
+		-- optimization todo
+		local data = ZipHelper:getInstance():getFileDataInZip("images/pokemons.rc", string.format("%03d.png", pokemonModel.id), GameConfig.ZIP_PASSWORD)
 		if not self.pokemonIcon then
-			self.pokemonIcon = cc.Sprite:create()
+			self.pokemonIcon = ImageUtils:getInstance():createSpriteWithBinaryData(data)
+			self.pokemonIcon:setScale(1.5)
 			self.pokemonIcon:setPosition(self.unknownIcon:getPosition())
 			self.unknownIcon:getParent():addChild(self.pokemonIcon)
+		else
+			local frame = ImageUtils:getInstance():createSpriteFrameWithBinaryData(data)
+			self.pokemonIcon:setSpriteFrame(frame)
 		end
-		self.pokemonIcon:runAction(cc.RepeatForever:create(animate))
 		self.pokemonIcon:setVisible(true)
 	else
 		self.unknownIcon:setVisible(true)
 		if self.pokemonIcon then
-			self.pokemonIcon:stopAllActions()
 			self.pokemonIcon:setVisible(false)
 		end
 	end
@@ -254,13 +259,12 @@ end
 
 -- ListMenu delegate
 function CollectionView:itemSelected(menu, item)
-	Notifier:notify(NotifyEvents.Collection.CollectionSelected, menu:getIndexInAllItems())
+	Notifier:notify(NotifyEvents.Collection.CollectionSelected, menu:getIndexInAllItems() + 1)
 end
 
 function CollectionView:itemFocused(menu, item)
 	local selection = item:getChildByTag(self.SELECTION_TAG)
 	selection:setVisible(true)
-	self:select(menu:getIndexInAllItems() + 1)
 end
 
 function CollectionView:itemBlurred(menu, item)
@@ -269,6 +273,7 @@ function CollectionView:itemBlurred(menu, item)
 end
 
 function CollectionView:itemWillRecycle(menu, item)
+	item:getChildByTag(self.SELECTION_TAG):setVisible(false)
 	local ball = item:getChildByTag(self.BALL_TAG)
 	ball:setVisible(false)
 end

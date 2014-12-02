@@ -48,12 +48,14 @@ function CollectionViewController:addObservers()
 	log("CollectionViewController:addObservers")
 	Notifier:addObserver(NotifyEvents.Collection.MainViewKeyResponsed, self, self.onMainViewKeyResponsed)
 	Notifier:addObserver(NotifyEvents.Collection.CollectionSelectionChanged, self, self.onCollectionSelectionChanged)
+	Notifier:addObserver(NotifyEvents.Collection.CollectionSelected, self, self.onCollectionSelected)
 end
 
 function CollectionViewController:removeObservers()
 	log("CollectionViewController:removeObservers")
 	Notifier:removeObserver(NotifyEvents.Collection.MainViewKeyResponsed, self)
 	Notifier:removeObserver(NotifyEvents.Collection.CollectionSelectionChanged, self)
+	Notifier:removeObserver(NotifyEvents.Collection.CollectionSelected, self)
 end
 
 function CollectionViewController:renderView()
@@ -78,4 +80,8 @@ end
 
 function CollectionViewController:onCollectionSelectionChanged(oldIndex, newIndex)
 	self.mainView:select(newIndex + 1)
+end
+
+function CollectionViewController:onCollectionSelected(pokemonId)
+	-- show detail view
 end

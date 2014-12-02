@@ -71,7 +71,9 @@ function DataCenter:addNewCollection(pokemonId, catched)
 	if not self.collectionData then
 		self.collectionData = {}
 	end
-	self.collectionData[pokemonId] = catched
+	if self.collectionData[pokemonId] == nil then
+		self.collectionData[pokemonId] = catched
+	end
 end
 
 function DataCenter:addNewItem(itemId, count)
