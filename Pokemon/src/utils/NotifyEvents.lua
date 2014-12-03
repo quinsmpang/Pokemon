@@ -71,3 +71,5 @@ NotifyEvents.Collection.MainViewKeyResponsed = "NotifyEvents.Collection.MainView
 NotifyEvents.Collection.CollectionSelectionChanged = "NotifyEvents.Collection.CollectionSelectionChanged"
 -- 图鉴选择
 NotifyEvents.Collection.CollectionSelected = "NotifyEvents.Collection.CollectionSelected"
+-- 图鉴详情界面事件
+NotifyEvents.Collection.DetailViewKeyResponsed = "NotifyEvents.Collection.DetailViewKeyResponsed"
