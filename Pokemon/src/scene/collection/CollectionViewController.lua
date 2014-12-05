@@ -100,8 +100,8 @@ function CollectionViewController:onDetailViewKeyResponsed(keyCode)
 			)
 		self.detailView.mask:runAction(quitAction)
 	elseif keyCode == GameSettings.leftKey then
-		self.detailView:select((self.detailView.selectedIndex - 1 + 3) % 4 + 1)
+		self.detailView:select((self.detailView.selectedIndex - 1 + 2) % 3 + 1)
 	elseif keyCode == GameSettings.rightKey then
-		self.detailView:select(self.detailView.selectedIndex % 4 + 1)
+		self.detailView:select(self.detailView.selectedIndex % 3 + 1)
 	end
 end

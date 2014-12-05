@@ -6,6 +6,8 @@
 
 class("CollectionDetailView", psGameLayer)
 
+require "src/scene/collection/CollectionDetailViewAdapter"
+
 CollectionDetailView.root = nil
 
 CollectionDetailView.btns = nil
@@ -48,12 +50,17 @@ function CollectionDetailView:init(pokemonId)
 	bg:setPosition(winSize.width * 0.5, winSize.height * 0.5)
 	self.root:addChild(bg)
 
+	local lblTip = cc.Label:createWithTTF("【按取消键返回】", GameConfig.DEFAULT_FONT_PATH, 14)
+	lblTip:setAnchorPoint(1, 1)
+	lblTip:setPosition(winSize.width * 0.95, winSize.height * 0.95)
+	self.root:addChild(lblTip)
+
 	-- four tabs
 	self.btns = {}
-	local btnTexts = { "详情", "分布", "体型", "返回" }
+	local btnTexts = { "详 情", "分 布", "体 型" }
 	local capInsets = CCRectMake(10, 10, 80, 80)
 	local btnSize = CCSizeMake(150, 50)
-	for i = 1, 4 do
+	for i = 1, #btnTexts do
 		local sp = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_aqua.png", capInsets)
 		sp:setPreferredSize(btnSize)
 		sp:setPosition(winSize.width * (0.2 + (i - 1) * 0.2), winSize.height * 0.92)
@@ -61,6 +68,7 @@ function CollectionDetailView:init(pokemonId)
 		table.insert(self.btns, sp)
 
 		local btnText = cc.Label:createWithTTF(btnTexts[i], GameConfig.DEFAULT_FONT_PATH, 24)
+		btnText:setColor(COLOR3B_BLACK)
 		btnText:setPosition(sp:getContentSize().width * 0.5, sp:getContentSize().height * 0.5)
 		sp:addChild(btnText)
 	end
@@ -110,6 +118,17 @@ end
 function CollectionDetailView:select(index)
 	if self.selectedIndex == index then
 		return
+	end
+
+	local adapter = nil
+	if index == 1 then
+		-- 详情
+		adapter = CollectionDetailViewAdapter:new()
+		adapter:adapt(self)
+	elseif index == 2 then
+		-- 分布todo
+	elseif index == 3 then
+		-- 体型
 	end
 
 	self.selection:setPosition(self.btns[index]:getPosition())
