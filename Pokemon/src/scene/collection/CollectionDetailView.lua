@@ -7,6 +7,7 @@
 class("CollectionDetailView", psGameLayer)
 
 require "src/scene/collection/CollectionDetailViewAdapter"
+require "src/scene/collection/CollectionSizeViewAdapter"
 
 CollectionDetailView.root = nil
 
@@ -129,6 +130,8 @@ function CollectionDetailView:select(index)
 		-- 分布todo
 	elseif index == 3 then
 		-- 体型
+		adapter = CollectionSizeViewAdapter:new()
+		adapter:adapt(self)
 	end
 
 	self.selection:setPosition(self.btns[index]:getPosition())
