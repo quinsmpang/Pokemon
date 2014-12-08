@@ -42,18 +42,17 @@ function CollectionDetailViewAdapter:adapt(detailView)
 	bg1:addChild(spPokemon)
 
 	local animation = nil
-	local num = math.floor(pokemonModel.id / 100) + 1
-	if CollectionAnimationCache.animationCache[num] then
+	if CollectionAnimationCache.animationCache[pokemonModel.id] then
 		-- 有缓存则读取
-		animation = CollectionAnimationCache.animationCache[num]:clone():autorelease()	-- 注意深拷贝
-		tolua.cast(animation, "cc.Animate")
+		animation = CollectionAnimationCache.animationCache[pokemonModel.id]:clone()	-- 注意, 这里不需要autorelease, 在clone方法中已经帮你做了
 		spPokemon:runAction(cc.RepeatForever:create(animation))
 	else
 		-- 首次读取gif并缓存
+		local num = math.floor(pokemonModel.id / 100) + 1
 		local data = ZipHelper:getInstance():getFileDataInZip(string.format("images/pokemon_gif%d.rc", num), string.format("%03d.gif", pokemonModel.id), GameConfig.ZIP_PASSWORD)
 		local frames = ImageUtils:getInstance():getGifFrames(data)
 		local animation = ImageUtils:getInstance():createAnimationByFrames(frames, 0.1)
-		CollectionAnimationCache:cache(num, animation)
+		CollectionAnimationCache:cache(pokemonModel.id, animation)
 		spPokemon:runAction(cc.RepeatForever:create(animation))
 	end
 

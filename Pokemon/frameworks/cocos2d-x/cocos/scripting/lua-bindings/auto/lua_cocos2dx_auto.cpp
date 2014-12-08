@@ -137,6 +137,50 @@ int lua_cocos2dx_Ref_getReferenceCount(lua_State* tolua_S)
 
     return 0;
 }
+int lua_cocos2dx_Ref_autorelease(lua_State* tolua_S)
+{
+    int argc = 0;
+    cocos2d::Ref* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"cc.Ref",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (cocos2d::Ref*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Ref_autorelease'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cocos2d::Ref* ret = cobj->autorelease();
+        object_to_luaval<cocos2d::Ref>(tolua_S, "cc.Ref",(cocos2d::Ref*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "autorelease",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Ref_autorelease'.",&tolua_err);
+#endif
+
+    return 0;
+}
 static int lua_cocos2dx_Ref_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Ref)");
@@ -152,6 +196,7 @@ int lua_register_cocos2dx_Ref(lua_State* tolua_S)
         tolua_function(tolua_S,"release",lua_cocos2dx_Ref_release);
         tolua_function(tolua_S,"retain",lua_cocos2dx_Ref_retain);
         tolua_function(tolua_S,"getReferenceCount",lua_cocos2dx_Ref_getReferenceCount);
+        tolua_function(tolua_S,"autorelease",lua_cocos2dx_Ref_autorelease);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(cocos2d::Ref).name();
     g_luaType[typeName] = "cc.Ref";
@@ -40533,6 +40578,49 @@ int lua_cocos2dx_Menu_isEnabled(lua_State* tolua_S)
 
     return 0;
 }
+int lua_cocos2dx_Menu_alignItemsHorizontally(lua_State* tolua_S)
+{
+    int argc = 0;
+    cocos2d::Menu* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"cc.Menu",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (cocos2d::Menu*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Menu_alignItemsHorizontally'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj->alignItemsHorizontally();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "alignItemsHorizontally",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Menu_alignItemsHorizontally'.",&tolua_err);
+#endif
+
+    return 0;
+}
 int lua_cocos2dx_Menu_alignItemsHorizontallyWithPadding(lua_State* tolua_S)
 {
     int argc = 0;
@@ -40625,49 +40713,6 @@ int lua_cocos2dx_Menu_alignItemsVerticallyWithPadding(lua_State* tolua_S)
 
     return 0;
 }
-int lua_cocos2dx_Menu_alignItemsHorizontally(lua_State* tolua_S)
-{
-    int argc = 0;
-    cocos2d::Menu* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"cc.Menu",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (cocos2d::Menu*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Menu_alignItemsHorizontally'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 0) 
-    {
-        if(!ok)
-            return 0;
-        cobj->alignItemsHorizontally();
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "alignItemsHorizontally",argc, 0);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Menu_alignItemsHorizontally'.",&tolua_err);
-#endif
-
-    return 0;
-}
 static int lua_cocos2dx_Menu_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Menu)");
@@ -40683,9 +40728,9 @@ int lua_register_cocos2dx_Menu(lua_State* tolua_S)
         tolua_function(tolua_S,"setEnabled",lua_cocos2dx_Menu_setEnabled);
         tolua_function(tolua_S,"alignItemsVertically",lua_cocos2dx_Menu_alignItemsVertically);
         tolua_function(tolua_S,"isEnabled",lua_cocos2dx_Menu_isEnabled);
+        tolua_function(tolua_S,"alignItemsHorizontally",lua_cocos2dx_Menu_alignItemsHorizontally);
         tolua_function(tolua_S,"alignItemsHorizontallyWithPadding",lua_cocos2dx_Menu_alignItemsHorizontallyWithPadding);
         tolua_function(tolua_S,"alignItemsVerticallyWithPadding",lua_cocos2dx_Menu_alignItemsVerticallyWithPadding);
-        tolua_function(tolua_S,"alignItemsHorizontally",lua_cocos2dx_Menu_alignItemsHorizontally);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(cocos2d::Menu).name();
     g_luaType[typeName] = "cc.Menu";
@@ -65124,7 +65169,7 @@ TOLUA_API int register_all_cocos2dx(lua_State* tolua_S)
 	lua_register_cocos2dx_EventKeyboard(tolua_S);
 	lua_register_cocos2dx_TransitionSplitCols(tolua_S);
 	lua_register_cocos2dx_Timer(tolua_S);
-	lua_register_cocos2dx_Repeat(tolua_S);
+	lua_register_cocos2dx_RepeatForever(tolua_S);
 	lua_register_cocos2dx_Place(tolua_S);
 	lua_register_cocos2dx_EventListenerAcceleration(tolua_S);
 	lua_register_cocos2dx_GLProgram(tolua_S);
@@ -65147,7 +65192,7 @@ TOLUA_API int register_all_cocos2dx(lua_State* tolua_S)
 	lua_register_cocos2dx_Touch(tolua_S);
 	lua_register_cocos2dx_AnimationFrame(tolua_S);
 	lua_register_cocos2dx_NodeGrid(tolua_S);
-	lua_register_cocos2dx_TMXLayerInfo(tolua_S);
+	lua_register_cocos2dx_ParticleGalaxy(tolua_S);
 	lua_register_cocos2dx_EaseSineIn(tolua_S);
 	lua_register_cocos2dx_TMXTilesetInfo(tolua_S);
 	lua_register_cocos2dx_GridBase(tolua_S);
@@ -65160,7 +65205,7 @@ TOLUA_API int register_all_cocos2dx(lua_State* tolua_S)
 	lua_register_cocos2dx_FadeOutBLTiles(tolua_S);
 	lua_register_cocos2dx_LayerGradient(tolua_S);
 	lua_register_cocos2dx_ToggleVisibility(tolua_S);
-	lua_register_cocos2dx_RepeatForever(tolua_S);
+	lua_register_cocos2dx_Repeat(tolua_S);
 	lua_register_cocos2dx_CardinalSplineTo(tolua_S);
 	lua_register_cocos2dx_CardinalSplineBy(tolua_S);
 	lua_register_cocos2dx_TransitionFlipY(tolua_S);
@@ -65178,8 +65223,8 @@ TOLUA_API int register_all_cocos2dx(lua_State* tolua_S)
 	lua_register_cocos2dx_TransitionPageTurn(tolua_S);
 	lua_register_cocos2dx_BezierBy(tolua_S);
 	lua_register_cocos2dx_BezierTo(tolua_S);
-	lua_register_cocos2dx_ParticleGalaxy(tolua_S);
 	lua_register_cocos2dx_Menu(tolua_S);
+	lua_register_cocos2dx_TMXLayerInfo(tolua_S);
 	lua_register_cocos2dx_SpriteFrame(tolua_S);
 	lua_register_cocos2dx_ActionManager(tolua_S);
 	lua_register_cocos2dx_TransitionFade(tolua_S);
@@ -65194,8 +65239,6 @@ TOLUA_API int register_all_cocos2dx(lua_State* tolua_S)
 	lua_register_cocos2dx_Spawn(tolua_S);
 	lua_register_cocos2dx_ShakyTiles3D(tolua_S);
 	lua_register_cocos2dx_PageTurn3D(tolua_S);
-	lua_register_cocos2dx_TransitionSlideInL(tolua_S);
-	lua_register_cocos2dx_TransitionSlideInT(tolua_S);
 	lua_register_cocos2dx_Grid3D(tolua_S);
 	lua_register_cocos2dx_EaseCircleActionOut(tolua_S);
 	lua_register_cocos2dx_TransitionProgressInOut(tolua_S);
@@ -65229,6 +65272,7 @@ TOLUA_API int register_all_cocos2dx(lua_State* tolua_S)
 	lua_register_cocos2dx_ParticleRain(tolua_S);
 	lua_register_cocos2dx_Waves(tolua_S);
 	lua_register_cocos2dx_EaseBezierAction(tolua_S);
+	lua_register_cocos2dx_TransitionSlideInL(tolua_S);
 	lua_register_cocos2dx_MenuItemFont(tolua_S);
 	lua_register_cocos2dx_TransitionFadeUp(tolua_S);
 	lua_register_cocos2dx_EaseSineOut(tolua_S);
@@ -65241,6 +65285,7 @@ TOLUA_API int register_all_cocos2dx(lua_State* tolua_S)
 	lua_register_cocos2dx_RotateBy(tolua_S);
 	lua_register_cocos2dx_FileUtils(tolua_S);
 	lua_register_cocos2dx_Sprite(tolua_S);
+	lua_register_cocos2dx_TransitionSlideInT(tolua_S);
 	lua_register_cocos2dx_ProgressTo(tolua_S);
 	lua_register_cocos2dx_TransitionProgressOutIn(tolua_S);
 	lua_register_cocos2dx_CatmullRomBy(tolua_S);
