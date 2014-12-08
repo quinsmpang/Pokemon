@@ -8,6 +8,7 @@ class("CollectionViewController", psViewController)
 
 require "src/scene/collection/CollectionView"
 require "src/scene/collection/CollectionDetailView"
+require "src/scene/collection/CollectionAnimationCache"
 
 CollectionViewController.mainView = nil
 CollectionViewController.detailView = nil
@@ -30,6 +31,7 @@ function CollectionViewController:unload()
 	self:removeObservers()
 	self:cleanResources()
 
+	CollectionAnimationCache:purge()
 	if self.mainView then
 		self.mainView:removeFromParent()
 	end

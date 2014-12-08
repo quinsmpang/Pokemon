@@ -40,11 +40,22 @@ function CollectionDetailViewAdapter:adapt(detailView)
 	spPokemon:setPosition(bg1:getContentSize().width * 0.5, bg1:getContentSize().height * 0.5)
 	spPokemon:setScale(1.6)
 	bg1:addChild(spPokemon)
+
+	local animation = nil
 	local num = math.floor(pokemonModel.id / 100) + 1
-	local data = ZipHelper:getInstance():getFileDataInZip(string.format("images/pokemon_gif%d.rc", num), string.format("%03d.gif", pokemonModel.id), GameConfig.ZIP_PASSWORD)
-	local frames = ImageUtils:getInstance():getGifFrames(data)
-	local animation = ImageUtils:getInstance():createAnimationByFrames(frames, 0.1)
-	spPokemon:runAction(cc.RepeatForever:create(animation))
+	if CollectionAnimationCache.animationCache[num] then
+		-- 有缓存则读取
+		animation = CollectionAnimationCache.animationCache[num]:clone():autorelease()	-- 注意深拷贝
+		tolua.cast(animation, "cc.Animate")
+		spPokemon:runAction(cc.RepeatForever:create(animation))
+	else
+		-- 首次读取gif并缓存
+		local data = ZipHelper:getInstance():getFileDataInZip(string.format("images/pokemon_gif%d.rc", num), string.format("%03d.gif", pokemonModel.id), GameConfig.ZIP_PASSWORD)
+		local frames = ImageUtils:getInstance():getGifFrames(data)
+		local animation = ImageUtils:getInstance():createAnimationByFrames(frames, 0.1)
+		CollectionAnimationCache:cache(num, animation)
+		spPokemon:runAction(cc.RepeatForever:create(animation))
+	end
 
 	self:showPokemonDetails()
 end

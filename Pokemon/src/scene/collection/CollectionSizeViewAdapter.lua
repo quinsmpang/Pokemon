@@ -39,7 +39,7 @@ function CollectionSizeViewAdapter:adapt(detailView)
 	local spTrainer = cc.Sprite:createWithSpriteFrameName("images/common/" .. genderStr .. "_hero.png")
 	spTrainer:setAnchorPoint(0.5, 0)
 	spTrainer:setColor(COLOR3B_BLACK)
-	spTrainer:setPosition(bg:getContentSize().width * 0.65, bg:getContentSize().height * 0.1)
+	spTrainer:setPosition(bg:getContentSize().width * 0.7, bg:getContentSize().height * 0.1)
 	bg:addChild(spTrainer)
 
 	local pokemonHeight = pokemonModel.height
@@ -48,5 +48,13 @@ function CollectionSizeViewAdapter:adapt(detailView)
 	local defaultTimes = spTrainer:getContentSize().height / spPokemon:getContentSize().height
 	if trainerHeight < pokemonHeight then
 		local times = pokemonHeight / trainerHeight
+		defaultTimes = defaultTimes * times
+		if spPokemon:getContentSize().height * defaultTimes > bg:getContentSize().height * 0.85 then
+			defaultTimes = defaultTimes * bg:getContentSize().height * 0.85 / (spPokemon:getContentSize().height * defaultTimes)
+			spTrainer:setScale(defaultTimes / times)
+		end
+	else
+		defaultTimes = defaultTimes * pokemonHeight / trainerHeight
 	end
+	spPokemon:setScale(defaultTimes)
 end

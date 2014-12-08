@@ -7,6 +7,7 @@
 class("CollectionDetailView", psGameLayer)
 
 require "src/scene/collection/CollectionDetailViewAdapter"
+require "src/scene/collection/CollectionDistributionViewAdapter"
 require "src/scene/collection/CollectionSizeViewAdapter"
 
 CollectionDetailView.root = nil
@@ -128,6 +129,8 @@ function CollectionDetailView:select(index)
 		adapter:adapt(self)
 	elseif index == 2 then
 		-- 分布todo
+		adapter = CollectionDistributionViewAdapter:new()
+		adapter:adapt(self)
 	elseif index == 3 then
 		-- 体型
 		adapter = CollectionSizeViewAdapter:new()
