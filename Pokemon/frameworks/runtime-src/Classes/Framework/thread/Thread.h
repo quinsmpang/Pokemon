@@ -14,14 +14,16 @@ Date: 12/7/2014
 class Thread : public cocos2d::Ref
 {
 public:
-	explicit Thread(const std::function<void()> &threadFunc);
+	explicit Thread();
 	virtual ~Thread();
 
-	void start();
-	void abort();
+	void start(const std::function<void()> &threadFunc);
+	bool join();		// Equal to the WaitForSingleObject in win32.
+	void detach();	// detach the thread, then the main thread will lose the control to this thread, the thread will be disposed when running over.
 
 protected:
 	std::thread _thread;
+	bool _running;
 };
 
 #endif
