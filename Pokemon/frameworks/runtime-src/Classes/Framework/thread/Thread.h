@@ -8,22 +8,29 @@ Date: 12/7/2014
 #define __THREAD_THREAD__
 
 #include "cocos2d.h"
+#include "../base/Uncopyable.h"
+#include "../base/Uninheritable.h"
 #include <thread>
 #include <functional>
 
-class Thread : public cocos2d::Ref
+namespace framework
 {
-public:
-	explicit Thread();
-	virtual ~Thread();
+	class Thread : public cocos2d::Ref, public Uninheritable<Thread>, private Uncopyable
+	{
+	public:
+		static Thread *create();
 
-	void start(const std::function<void()> &threadFunc);
-	bool join();		// Equal to the WaitForSingleObject in win32.
-	void detach();	// detach the thread, then the main thread will lose the control to this thread, the thread will be disposed when running over.
+		explicit Thread();
+		virtual ~Thread();
 
-protected:
-	std::thread _thread;
-	bool _running;
-};
+		void start(const std::function<void()> &threadFunc);
+		bool join();		// Equal to the WaitForSingleObject in win32.
+		void detach();	// detach the thread, then the main thread will lose the control to this thread, the thread will be disposed when running over.
+
+	protected:
+		std::thread _thread;
+		bool _running;
+	};
+}
 
 #endif
