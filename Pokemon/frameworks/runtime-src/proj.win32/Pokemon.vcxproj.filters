@@ -238,6 +238,9 @@
     <ClInclude Include="..\Classes\Framework\thread\Mutex.h">
       <Filter>Classes\psframework\thread</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\lua\lua_extension.h">
+      <Filter>Classes\psframework\lua</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -392,6 +395,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\thread\Mutex.cpp">
       <Filter>Classes\psframework\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\lua\lua_extension.cpp">
+      <Filter>Classes\psframework\lua</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
