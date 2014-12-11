@@ -194,7 +194,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\framework.h" />
     <ClInclude Include="..\Classes\Framework\lua\LuaEngineEx.h" />
     <ClInclude Include="..\Classes\Framework\lua\LuaUtils.h" />
-    <ClInclude Include="..\Classes\Framework\lua\lua_extension.h" />
     <ClInclude Include="..\Classes\Framework\lua\lua_framework_auto.hpp" />
     <ClInclude Include="..\Classes\Framework\lua\lua_framework_manual.hpp" />
     <ClInclude Include="..\Classes\Framework\scene\GameScene.h" />
@@ -251,7 +250,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\format\SaveData.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\LuaEngineEx.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp" />
-    <ClCompile Include="..\Classes\Framework\lua\lua_extension.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_auto.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_manual.cpp" />
     <ClCompile Include="..\Classes\Framework\scene\GameScene.cpp" />

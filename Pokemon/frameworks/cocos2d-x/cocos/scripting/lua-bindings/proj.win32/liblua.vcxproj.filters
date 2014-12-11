@@ -22,6 +22,9 @@
     <Filter Include="lua">
       <UniqueIdentifier>{062e8f57-a312-4d21-b6fc-3fa2740efb7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="luauser">
+      <UniqueIdentifier>{0b685dc6-17f8-48f1-912e-1c063f75cab8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\auto\lua_cocos2dx_auto.cpp">
@@ -255,6 +258,9 @@
     <ClCompile Include="..\manual\lua_extensions.c">
       <Filter>manual</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\runtime-src\Classes\Framework\lua\lua_extension.cpp">
+      <Filter>luauser</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\auto\lua_cocos2dx_auto.hpp">
@@ -469,6 +475,9 @@
     </ClInclude>
     <ClInclude Include="..\manual\lua_extensions.h">
       <Filter>manual</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\runtime-src\Classes\Framework\lua\lua_extension.h">
+      <Filter>luauser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
