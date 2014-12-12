@@ -4,6 +4,15 @@
 	Date: 04/26/2014
 ]]
 
+-- return type string of the instance
+function GetType(instance)
+	assert(type(instance) == "table" or type(instance) == "userdata", "invalid instance")
+	if instance.__className == nil then
+		return tolua.type(instance)
+	end
+	return instance.__className
+end
+
 -- return instance function pointer
 function MakeScriptHandler(target, selector, ...)
 	local args = {...}
