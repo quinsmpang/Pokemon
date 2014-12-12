@@ -18,6 +18,9 @@ namespace framework
 	public:
 		CREATE_FUNC(CoreLayer);
 
+		CoreLayer();
+		virtual ~CoreLayer();
+
 		virtual bool init();
 
 		void pushLayer(GameLayer *topLayer);
@@ -27,9 +30,6 @@ namespace framework
 		GameLayer *getTopLayer();
 
 	protected:
-		CoreLayer();
-		virtual ~CoreLayer();
-
 		// The top layer goes out at first when push a new layer.
 		virtual void topLayerDidGoOutWhenPush(GameLayer *newLayer);
 		// New layer comes in.

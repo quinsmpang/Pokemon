@@ -258,7 +258,7 @@
     <ClCompile Include="..\manual\lua_extensions.c">
       <Filter>manual</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\runtime-src\Classes\Framework\lua\lua_extension.cpp">
+    <ClCompile Include="..\..\..\..\..\runtime-src\Classes\Framework\lua\lua_extension.c">
       <Filter>luauser</Filter>
     </ClCompile>
   </ItemGroup>

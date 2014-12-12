@@ -5,7 +5,7 @@
 #else
 #include <pthread.h>
 #endif
-#include <stdio.h>
+#include <thread>
 
 static struct {
 #ifdef _WIN32
@@ -14,7 +14,7 @@ static struct {
 	pthread_mutex_t _lock;
 #endif
 	BOOL _inited;
-} g_lock;
+} g_lock = { 0 };
 
 void LuaInitializeLock(lua_State *L)
 {

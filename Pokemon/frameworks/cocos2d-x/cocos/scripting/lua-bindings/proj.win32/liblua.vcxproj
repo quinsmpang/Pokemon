@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\runtime-src\Classes\Framework\lua\lua_extension.cpp" />
+    <ClCompile Include="..\..\..\..\..\runtime-src\Classes\Framework\lua\lua_extension.c" />
     <ClCompile Include="..\..\..\..\external\lua\luasocket\auxiliar.c" />
     <ClCompile Include="..\..\..\..\external\lua\luasocket\buffer.c" />
     <ClCompile Include="..\..\..\..\external\lua\luasocket\except.c" />

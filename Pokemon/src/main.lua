@@ -109,6 +109,14 @@ end
 function GameLauncher:startGame()
     require "src/scene/maintitle/MainViewScene"
 
+    local th = Thread:new()
+    th:start(function()
+        for i = 1, 1000000 do
+            print("###", i)
+        end
+    end)
+    th:join()
+
     local mainView = MainViewScene:create()
 
     cc.Director:getInstance():runWithScene(mainView)

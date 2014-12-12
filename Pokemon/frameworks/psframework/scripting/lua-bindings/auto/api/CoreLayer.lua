@@ -27,4 +27,8 @@
 -- @param self
 -- @return CoreLayer#CoreLayer ret (return value: pf.CoreLayer)
         
+--------------------------------
+-- @function [parent=#CoreLayer] CoreLayer 
+-- @param self
+        
 return nil

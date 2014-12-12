@@ -103,10 +103,8 @@ int lua_psframework_RefString_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::RefString(arg0);
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.RefString");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.RefString");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "RefString",argc, 1);
@@ -122,6 +120,28 @@ int lua_psframework_RefString_constructor(lua_State* tolua_S)
 static int lua_psframework_RefString_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (RefString)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"RefString",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::RefString* self = (framework::RefString*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -247,10 +267,8 @@ int lua_psframework_RefInteger_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::RefInteger(arg0);
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.RefInteger");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.RefInteger");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "RefInteger",argc, 1);
@@ -266,6 +284,28 @@ int lua_psframework_RefInteger_constructor(lua_State* tolua_S)
 static int lua_psframework_RefInteger_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (RefInteger)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"RefInteger",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::RefInteger* self = (framework::RefInteger*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -383,10 +423,8 @@ int lua_psframework_RefDouble_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::RefDouble(arg0);
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.RefDouble");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.RefDouble");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "RefDouble",argc, 1);
@@ -402,6 +440,28 @@ int lua_psframework_RefDouble_constructor(lua_State* tolua_S)
 static int lua_psframework_RefDouble_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (RefDouble)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"RefDouble",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::RefDouble* self = (framework::RefDouble*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -519,10 +579,8 @@ int lua_psframework_RefBoolean_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::RefBoolean(arg0);
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.RefBoolean");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.RefBoolean");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "RefBoolean",argc, 1);
@@ -538,6 +596,28 @@ int lua_psframework_RefBoolean_constructor(lua_State* tolua_S)
 static int lua_psframework_RefBoolean_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (RefBoolean)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"RefBoolean",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::RefBoolean* self = (framework::RefBoolean*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -733,6 +813,28 @@ int lua_psframework_BinaryData_create(lua_State* tolua_S)
 static int lua_psframework_BinaryData_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (BinaryData)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"BinaryData",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::BinaryData* self = (framework::BinaryData*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -1066,10 +1168,8 @@ int lua_psframework_Queue_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::Queue();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.Queue");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.Queue");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "Queue",argc, 0);
@@ -1085,6 +1185,28 @@ int lua_psframework_Queue_constructor(lua_State* tolua_S)
 static int lua_psframework_Queue_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Queue)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"Queue",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::Queue* self = (framework::Queue*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -1422,10 +1544,8 @@ int lua_psframework_Stack_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::Stack();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.Stack");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.Stack");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "Stack",argc, 0);
@@ -1441,6 +1561,28 @@ int lua_psframework_Stack_constructor(lua_State* tolua_S)
 static int lua_psframework_Stack_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Stack)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"Stack",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::Stack* self = (framework::Stack*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -2017,10 +2159,8 @@ int lua_psframework_Vector_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::Vector();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.Vector");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.Vector");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "Vector",argc, 0);
@@ -2036,6 +2176,28 @@ int lua_psframework_Vector_constructor(lua_State* tolua_S)
 static int lua_psframework_Vector_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Vector)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"Vector",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::Vector* self = (framework::Vector*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -2534,10 +2696,8 @@ int lua_psframework_Map_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::Map();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.Map");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.Map");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "Map",argc, 0);
@@ -2553,6 +2713,28 @@ int lua_psframework_Map_constructor(lua_State* tolua_S)
 static int lua_psframework_Map_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Map)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"Map",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::Map* self = (framework::Map*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -3207,6 +3389,28 @@ int lua_psframework_SqliteDb_clearConnectionCache(lua_State* tolua_S)
 static int lua_psframework_SqliteDb_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (SqliteDb)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"SqliteDb",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::SqliteDb* self = (framework::SqliteDb*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -3488,6 +3692,28 @@ int lua_psframework_ViewController_create(lua_State* tolua_S)
 static int lua_psframework_ViewController_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (ViewController)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"ViewController",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::ViewController* self = (framework::ViewController*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -3598,7 +3824,7 @@ int lua_psframework_GameLayer_isShown(lua_State* tolua_S)
 
     return 0;
 }
-int lua_psframework_GameLayer_init(lua_State* tolua_S)
+int lua_psframework_GameLayer_getGoOutWhenPushAction(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -3618,7 +3844,7 @@ int lua_psframework_GameLayer_init(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_init'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_getGoOutWhenPushAction'", nullptr);
         return 0;
     }
 #endif
@@ -3628,16 +3854,16 @@ int lua_psframework_GameLayer_init(lua_State* tolua_S)
     {
         if(!ok)
             return 0;
-        bool ret = cobj->init();
-        tolua_pushboolean(tolua_S,(bool)ret);
+        cocos2d::ActionInterval* ret = cobj->getGoOutWhenPushAction();
+        object_to_luaval<cocos2d::ActionInterval>(tolua_S, "cc.ActionInterval",(cocos2d::ActionInterval*)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "init",argc, 0);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getGoOutWhenPushAction",argc, 0);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_init'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_getGoOutWhenPushAction'.",&tolua_err);
 #endif
 
     return 0;
@@ -3734,7 +3960,7 @@ int lua_psframework_GameLayer_setComeInWhenPushAction(lua_State* tolua_S)
 
     return 0;
 }
-int lua_psframework_GameLayer_getGoOutWhenPushAction(lua_State* tolua_S)
+int lua_psframework_GameLayer_init(lua_State* tolua_S)
 {
     int argc = 0;
     framework::GameLayer* cobj = nullptr;
@@ -3754,7 +3980,7 @@ int lua_psframework_GameLayer_getGoOutWhenPushAction(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_getGoOutWhenPushAction'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_GameLayer_init'", nullptr);
         return 0;
     }
 #endif
@@ -3764,16 +3990,16 @@ int lua_psframework_GameLayer_getGoOutWhenPushAction(lua_State* tolua_S)
     {
         if(!ok)
             return 0;
-        cocos2d::ActionInterval* ret = cobj->getGoOutWhenPushAction();
-        object_to_luaval<cocos2d::ActionInterval>(tolua_S, "cc.ActionInterval",(cocos2d::ActionInterval*)ret);
+        bool ret = cobj->init();
+        tolua_pushboolean(tolua_S,(bool)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getGoOutWhenPushAction",argc, 0);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "init",argc, 0);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_getGoOutWhenPushAction'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_init'.",&tolua_err);
 #endif
 
     return 0;
@@ -4028,9 +4254,63 @@ int lua_psframework_GameLayer_create(lua_State* tolua_S)
 #endif
     return 0;
 }
+int lua_psframework_GameLayer_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::GameLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj = new framework::GameLayer();
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.GameLayer");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "GameLayer",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_GameLayer_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
 static int lua_psframework_GameLayer_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (GameLayer)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"GameLayer",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::GameLayer* self = (framework::GameLayer*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -4042,14 +4322,15 @@ int lua_register_psframework_GameLayer(lua_State* tolua_S)
     tolua_beginmodule(tolua_S,"GameLayer");
         tolua_function(tolua_S,"getComeInWhenPushAction",lua_psframework_GameLayer_getComeInWhenPushAction);
         tolua_function(tolua_S,"isShown",lua_psframework_GameLayer_isShown);
-        tolua_function(tolua_S,"init",lua_psframework_GameLayer_init);
+        tolua_function(tolua_S,"getGoOutWhenPushAction",lua_psframework_GameLayer_getGoOutWhenPushAction);
         tolua_function(tolua_S,"setGoOutWhenPushAction",lua_psframework_GameLayer_setGoOutWhenPushAction);
         tolua_function(tolua_S,"setComeInWhenPushAction",lua_psframework_GameLayer_setComeInWhenPushAction);
-        tolua_function(tolua_S,"getGoOutWhenPushAction",lua_psframework_GameLayer_getGoOutWhenPushAction);
+        tolua_function(tolua_S,"init",lua_psframework_GameLayer_init);
         tolua_function(tolua_S,"getComeInWhenPopAction",lua_psframework_GameLayer_getComeInWhenPopAction);
         tolua_function(tolua_S,"getGoOutWhenPopAction",lua_psframework_GameLayer_getGoOutWhenPopAction);
         tolua_function(tolua_S,"setComeInWhenPopAction",lua_psframework_GameLayer_setComeInWhenPopAction);
         tolua_function(tolua_S,"setGoOutWhenPopAction",lua_psframework_GameLayer_setGoOutWhenPopAction);
+        tolua_function(tolua_S,"new",lua_psframework_GameLayer_constructor);
         tolua_function(tolua_S,"createWithTransitions", lua_psframework_GameLayer_createWithTransitions);
         tolua_function(tolua_S,"create", lua_psframework_GameLayer_create);
     tolua_endmodule(tolua_S);
@@ -4267,9 +4548,63 @@ int lua_psframework_CoreLayer_create(lua_State* tolua_S)
 #endif
     return 0;
 }
+int lua_psframework_CoreLayer_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::CoreLayer* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj = new framework::CoreLayer();
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.CoreLayer");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "CoreLayer",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_CoreLayer_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
 static int lua_psframework_CoreLayer_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (CoreLayer)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"CoreLayer",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::CoreLayer* self = (framework::CoreLayer*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -4283,6 +4618,7 @@ int lua_register_psframework_CoreLayer(lua_State* tolua_S)
         tolua_function(tolua_S,"init",lua_psframework_CoreLayer_init);
         tolua_function(tolua_S,"getTopLayer",lua_psframework_CoreLayer_getTopLayer);
         tolua_function(tolua_S,"pushLayer",lua_psframework_CoreLayer_pushLayer);
+        tolua_function(tolua_S,"new",lua_psframework_CoreLayer_constructor);
         tolua_function(tolua_S,"create", lua_psframework_CoreLayer_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::CoreLayer).name();
@@ -5088,6 +5424,28 @@ int lua_psframework_GameScene_create(lua_State* tolua_S)
 static int lua_psframework_GameScene_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (GameScene)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"GameScene",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::GameScene* self = (framework::GameScene*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -5554,10 +5912,8 @@ int lua_psframework_MaskLayer_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::MaskLayer();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.MaskLayer");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.MaskLayer");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "MaskLayer",argc, 0);
@@ -5573,6 +5929,28 @@ int lua_psframework_MaskLayer_constructor(lua_State* tolua_S)
 static int lua_psframework_MaskLayer_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (MaskLayer)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"MaskLayer",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::MaskLayer* self = (framework::MaskLayer*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -5959,6 +6337,28 @@ int lua_psframework_ModalLayer_create(lua_State* tolua_S)
 static int lua_psframework_ModalLayer_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (ModalLayer)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"ModalLayer",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::ModalLayer* self = (framework::ModalLayer*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -6126,10 +6526,8 @@ int lua_psframework_TableViewEx_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::TableViewEx();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.TableViewEx");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.TableViewEx");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "TableViewEx",argc, 0);
@@ -6145,6 +6543,28 @@ int lua_psframework_TableViewEx_constructor(lua_State* tolua_S)
 static int lua_psframework_TableViewEx_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (TableViewEx)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"TableViewEx",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::TableViewEx* self = (framework::TableViewEx*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -6273,10 +6693,8 @@ int lua_psframework_EncryptedTMXLayer_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::EncryptedTMXLayer();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.EncryptedTMXLayer");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.EncryptedTMXLayer");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "EncryptedTMXLayer",argc, 0);
@@ -6292,6 +6710,28 @@ int lua_psframework_EncryptedTMXLayer_constructor(lua_State* tolua_S)
 static int lua_psframework_EncryptedTMXLayer_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (EncryptedTMXLayer)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"EncryptedTMXLayer",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::EncryptedTMXLayer* self = (framework::EncryptedTMXLayer*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -6409,10 +6849,8 @@ int lua_psframework_EncryptedTMXTiledMap_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::EncryptedTMXTiledMap();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.EncryptedTMXTiledMap");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.EncryptedTMXTiledMap");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "EncryptedTMXTiledMap",argc, 0);
@@ -6428,6 +6866,28 @@ int lua_psframework_EncryptedTMXTiledMap_constructor(lua_State* tolua_S)
 static int lua_psframework_EncryptedTMXTiledMap_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (EncryptedTMXTiledMap)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"EncryptedTMXTiledMap",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::EncryptedTMXTiledMap* self = (framework::EncryptedTMXTiledMap*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -6629,10 +7089,8 @@ int lua_psframework_ListMenuItem_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::ListMenuItem();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.ListMenuItem");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.ListMenuItem");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "ListMenuItem",argc, 0);
@@ -6648,6 +7106,28 @@ int lua_psframework_ListMenuItem_constructor(lua_State* tolua_S)
 static int lua_psframework_ListMenuItem_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (ListMenuItem)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"ListMenuItem",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::ListMenuItem* self = (framework::ListMenuItem*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -7616,10 +8096,8 @@ int lua_psframework_ListMenu_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::ListMenu();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.ListMenu");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.ListMenu");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "ListMenu",argc, 0);
@@ -7635,6 +8113,28 @@ int lua_psframework_ListMenu_constructor(lua_State* tolua_S)
 static int lua_psframework_ListMenu_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (ListMenu)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"ListMenu",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::ListMenu* self = (framework::ListMenu*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -8197,10 +8697,8 @@ int lua_psframework_TitleSwitch_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::TitleSwitch();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.TitleSwitch");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.TitleSwitch");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "TitleSwitch",argc, 0);
@@ -8216,6 +8714,28 @@ int lua_psframework_TitleSwitch_constructor(lua_State* tolua_S)
 static int lua_psframework_TitleSwitch_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (TitleSwitch)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"TitleSwitch",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::TitleSwitch* self = (framework::TitleSwitch*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -8282,6 +8802,28 @@ int lua_psframework_ScriptCCBReader_readCCB(lua_State* tolua_S)
 static int lua_psframework_ScriptCCBReader_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (ScriptCCBReader)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"ScriptCCBReader",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::ScriptCCBReader* self = (framework::ScriptCCBReader*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -8694,13 +9236,35 @@ int lua_psframework_IOUtils_getInstance(lua_State* tolua_S)
 static int lua_psframework_IOUtils_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (IOUtils)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"IOUtils",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::IOUtils* self = (framework::IOUtils*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
 int lua_register_psframework_IOUtils(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.IOUtils");
-    tolua_cclass(tolua_S,"IOUtils","pf.IOUtils","cc.Ref",nullptr);
+    tolua_cclass(tolua_S,"IOUtils","pf.IOUtils","",nullptr);
 
     tolua_beginmodule(tolua_S,"IOUtils");
         tolua_function(tolua_S,"fileExists",lua_psframework_IOUtils_fileExists);
@@ -8895,13 +9459,35 @@ int lua_psframework_RecordHelper_getInstance(lua_State* tolua_S)
 static int lua_psframework_RecordHelper_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (RecordHelper)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"RecordHelper",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::RecordHelper* self = (framework::RecordHelper*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
 int lua_register_psframework_RecordHelper(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.RecordHelper");
-    tolua_cclass(tolua_S,"RecordHelper","pf.RecordHelper","cc.Ref",nullptr);
+    tolua_cclass(tolua_S,"RecordHelper","pf.RecordHelper","",nullptr);
 
     tolua_beginmodule(tolua_S,"RecordHelper");
         tolua_function(tolua_S,"setEncryptionKey",lua_psframework_RecordHelper_setEncryptionKey);
@@ -9198,13 +9784,35 @@ int lua_psframework_ImageUtils_getInstance(lua_State* tolua_S)
 static int lua_psframework_ImageUtils_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (ImageUtils)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"ImageUtils",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::ImageUtils* self = (framework::ImageUtils*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
 int lua_register_psframework_ImageUtils(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.ImageUtils");
-    tolua_cclass(tolua_S,"ImageUtils","pf.ImageUtils","cc.Ref",nullptr);
+    tolua_cclass(tolua_S,"ImageUtils","pf.ImageUtils","",nullptr);
 
     tolua_beginmodule(tolua_S,"ImageUtils");
         tolua_function(tolua_S,"createAnimationByGifImage",lua_psframework_ImageUtils_createAnimationByGifImage);
@@ -9513,13 +10121,35 @@ int lua_psframework_ZipHelper_getInstance(lua_State* tolua_S)
 static int lua_psframework_ZipHelper_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (ZipHelper)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"ZipHelper",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::ZipHelper* self = (framework::ZipHelper*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
 int lua_register_psframework_ZipHelper(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"pf.ZipHelper");
-    tolua_cclass(tolua_S,"ZipHelper","pf.ZipHelper","cc.Ref",nullptr);
+    tolua_cclass(tolua_S,"ZipHelper","pf.ZipHelper","",nullptr);
 
     tolua_beginmodule(tolua_S,"ZipHelper");
         tolua_function(tolua_S,"zipOneFile",lua_psframework_ZipHelper_zipOneFile);
@@ -9893,10 +10523,8 @@ int lua_psframework_SaveData_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::SaveData();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.SaveData");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.SaveData");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "SaveData",argc, 0);
@@ -9912,6 +10540,28 @@ int lua_psframework_SaveData_constructor(lua_State* tolua_S)
 static int lua_psframework_SaveData_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (SaveData)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"SaveData",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::SaveData* self = (framework::SaveData*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -10073,10 +10723,8 @@ int lua_psframework_Thread_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::Thread();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.Thread");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.Thread");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "Thread",argc, 0);
@@ -10092,6 +10740,28 @@ int lua_psframework_Thread_constructor(lua_State* tolua_S)
 static int lua_psframework_Thread_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Thread)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"Thread",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::Thread* self = (framework::Thread*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -10247,10 +10917,8 @@ int lua_psframework_Mutex_constructor(lua_State* tolua_S)
         if(!ok)
             return 0;
         cobj = new framework::Mutex();
-        cobj->autorelease();
-        int ID =  (int)cobj->_ID ;
-        int* luaID =  &cobj->_luaID ;
-        toluafix_pushusertype_ccobject(tolua_S, ID, luaID, (void*)cobj,"pf.Mutex");
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.Mutex");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
         return 1;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "Mutex",argc, 0);
@@ -10266,6 +10934,28 @@ int lua_psframework_Mutex_constructor(lua_State* tolua_S)
 static int lua_psframework_Mutex_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Mutex)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"Mutex",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::Mutex* self = (framework::Mutex*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -10469,6 +11159,28 @@ int lua_psframework_Win32EventListener_isEventsSwallowed(lua_State* tolua_S)
 static int lua_psframework_Win32EventListener_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Win32EventListener)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"Win32EventListener",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::Win32EventListener* self = (framework::Win32EventListener*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -10525,6 +11237,28 @@ int lua_psframework_Win32EventListenerKeyboard_createWithTarget(lua_State* tolua
 static int lua_psframework_Win32EventListenerKeyboard_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Win32EventListenerKeyboard)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"Win32EventListenerKeyboard",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::Win32EventListenerKeyboard* self = (framework::Win32EventListenerKeyboard*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -10717,6 +11451,28 @@ int lua_psframework_Win32Notifier_getInstance(lua_State* tolua_S)
 static int lua_psframework_Win32Notifier_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (Win32Notifier)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"Win32Notifier",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::Win32Notifier* self = (framework::Win32Notifier*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 
@@ -10906,6 +11662,28 @@ int lua_psframework_KeyboardHelper_getInstance(lua_State* tolua_S)
 static int lua_psframework_KeyboardHelper_finalize(lua_State* tolua_S)
 {
     printf("luabindings: finalizing LUA object (KeyboardHelper)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"KeyboardHelper",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::KeyboardHelper* self = (framework::KeyboardHelper*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
     return 0;
 }
 

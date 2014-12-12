@@ -1,7 +1,6 @@
 
 --------------------------------
 -- @module ZipHelper
--- @extend Ref
 
 --------------------------------
 -- @function [parent=#ZipHelper] zipOneFile 

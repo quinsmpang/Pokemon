@@ -1,7 +1,6 @@
 
 --------------------------------
 -- @module ImageUtils
--- @extend Ref
 
 --------------------------------
 -- @function [parent=#ImageUtils] createAnimationByGifImage 

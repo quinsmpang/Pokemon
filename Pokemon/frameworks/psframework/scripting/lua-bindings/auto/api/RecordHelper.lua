@@ -1,7 +1,6 @@
 
 --------------------------------
 -- @module RecordHelper
--- @extend Ref
 
 --------------------------------
 -- @function [parent=#RecordHelper] setEncryptionKey 

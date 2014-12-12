@@ -19,6 +19,9 @@ namespace framework
 	public:
 		CREATE_FUNC(GameLayer);
 
+		GameLayer();
+		virtual ~GameLayer();
+
 		virtual bool init();
 
 		static GameLayer *createWithTransitions(cocos2d::ActionInterval *comeInWhenPushAction, cocos2d::ActionInterval *comeInWhenPopAction, cocos2d::ActionInterval *goOutWhenPushAction, cocos2d::ActionInterval *goOutWhenPopAction);
@@ -43,8 +46,6 @@ namespace framework
 		virtual void onTouchCancelled(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) override;
 
 	protected:
-		GameLayer();
-		virtual ~GameLayer();
 
 		cocos2d::Size _winSize;
 		bool _isShown;

@@ -20,20 +20,19 @@ typedef struct _GUID {
 } GUID, UUID;
 #endif
 
+#include "base/CCRef.h"
+#include "../base/Macros.h"
 #include <string>
 
 namespace framework
 {
-	class UUIDGenerator
+	class UUIDGenerator : public cocos2d::Ref
 	{
+		SINGLETON(UUIDGenerator);
 	public:
-		static UUIDGenerator *getInstance();
-
 		const std::string &generateUUID();
 
 	private:
-		static UUIDGenerator *_instance;
-
 		GUID createGUID();
 		const std::string &guidToString(const GUID &guid);
 	};

@@ -7,16 +7,16 @@ Date: 5/11/2014
 #ifndef __UTILS_IOUTILS__
 #define __UTILS_IOUTILS__
 
-#include "cocos2d.h"
+#include "base/CCRef.h"
+#include "../base/Macros.h"
 #include <string>
 
 namespace framework
 {
 	class IOUtils : public cocos2d::Ref
 	{
+		SINGLETON(IOUtils);
 	public:
-		static IOUtils *getInstance();
-
 		// Judge whether the file does exist.
 		bool fileExists(const std::string &path);
 
@@ -37,10 +37,6 @@ namespace framework
 
 		// Create directory
 		bool createDirectory(const std::string &directoryPath);
-
-	private:
-		static IOUtils *_instance;
-		IOUtils();
 	};
 }
 

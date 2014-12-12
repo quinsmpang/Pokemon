@@ -16,11 +16,6 @@ namespace framework
 		//FreeImage_Initialise(false);
 	}
 
-	ImageUtils::~ImageUtils()
-	{
-		//FreeImage_DeInitialise();
-	}
-
 	framework::Vector *ImageUtils::getGifFrames(const std::string &imagePath)
 	{
 		Data data = FileUtils::getInstance()->getDataFromFile(FileUtils::getInstance()->fullPathForFilename(imagePath));

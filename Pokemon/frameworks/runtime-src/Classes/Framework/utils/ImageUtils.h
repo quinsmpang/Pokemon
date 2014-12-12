@@ -27,9 +27,6 @@ namespace framework
 
 		cocos2d::Sprite *createSpriteWithBinaryData(BinaryData *imageData);
 		cocos2d::SpriteFrame *createSpriteFrameWithBinaryData(BinaryData *imageData);
-
-	private:
-		~ImageUtils();
 	};
 }
 

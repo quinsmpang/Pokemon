@@ -14,9 +14,9 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- @function [parent=#GameLayer] init 
+-- @function [parent=#GameLayer] getGoOutWhenPushAction 
 -- @param self
--- @return bool#bool ret (return value: bool)
+-- @return ActionInterval#ActionInterval ret (return value: cc.ActionInterval)
         
 --------------------------------
 -- @function [parent=#GameLayer] setGoOutWhenPushAction 
@@ -29,9 +29,9 @@
 -- @param #cc.ActionInterval actioninterval
         
 --------------------------------
--- @function [parent=#GameLayer] getGoOutWhenPushAction 
+-- @function [parent=#GameLayer] init 
 -- @param self
--- @return ActionInterval#ActionInterval ret (return value: cc.ActionInterval)
+-- @return bool#bool ret (return value: bool)
         
 --------------------------------
 -- @function [parent=#GameLayer] getComeInWhenPopAction 
@@ -91,5 +91,9 @@
 -- @param #cc.Touch touch
 -- @param #cc.Event event
 -- @return bool#bool ret (return value: bool)
+        
+--------------------------------
+-- @function [parent=#GameLayer] GameLayer 
+-- @param self
         
 return nil

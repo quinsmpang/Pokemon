@@ -589,7 +589,6 @@ static int lua_framework_Thread_start(lua_State* tolua_S)
 
 		cobj->start([=] {
 			LuaEngine::getInstance()->getLuaStack()->executeFunctionByHandler(luaFunc, 0);
-			cobj->release();		// auto release itself when running over.
 		});
 		return 0;
 	}

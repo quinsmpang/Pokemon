@@ -1,4 +1,5 @@
 #include "RecordHelper.h"
+#include "cocos2d.h"
 #include <iostream>
 #include <fstream>
 
@@ -7,17 +8,6 @@ using namespace std;
 
 namespace framework
 {
-	RecordHelper *RecordHelper::_instance = nullptr;
-
-	RecordHelper *RecordHelper::getInstance()
-	{
-		if (!_instance)
-		{
-			_instance = new RecordHelper();
-		}
-		return _instance;
-	}
-
 	RecordHelper::RecordHelper()
 		: _key(0)
 	{

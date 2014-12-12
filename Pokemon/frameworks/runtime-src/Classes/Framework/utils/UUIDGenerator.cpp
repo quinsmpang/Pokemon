@@ -4,17 +4,6 @@ using namespace std;
 
 namespace framework
 {
-	UUIDGenerator *UUIDGenerator::_instance = nullptr;
-
-	UUIDGenerator *UUIDGenerator::getInstance()
-	{
-		if (!_instance)
-		{
-			_instance = new UUIDGenerator();
-		}
-		return _instance;
-	}
-
 	GUID UUIDGenerator::createGUID()
 	{
 		GUID guid;

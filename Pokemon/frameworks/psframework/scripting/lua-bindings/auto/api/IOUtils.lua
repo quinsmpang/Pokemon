@@ -1,7 +1,6 @@
 
 --------------------------------
 -- @module IOUtils
--- @extend Ref
 
 --------------------------------
 -- @function [parent=#IOUtils] fileExists 

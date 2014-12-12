@@ -17,18 +17,6 @@ using namespace std;
 
 namespace framework
 {
-	IOUtils *IOUtils::_instance = nullptr;
-
-	IOUtils *IOUtils::getInstance()
-	{
-		if (!_instance)
-		{
-			_instance = new IOUtils();
-		}
-
-		return _instance;
-	}
-
 	IOUtils::IOUtils()
 	{
 	}
