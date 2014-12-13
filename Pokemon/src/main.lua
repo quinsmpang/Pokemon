@@ -110,14 +110,6 @@ end
 function GameLauncher:startGame()
     require "src/scene/maintitle/MainViewScene"
 
-    local th, err = Threading:newThread(function(max)
-        for i = 1, max do
-            print("####", i)
-            cc.Sprite:create()
-        end
-    end, 100000)
-    print("!!!", th, err)
-
     local mainView = MainViewScene:create()
 
     cc.Director:getInstance():runWithScene(mainView)
