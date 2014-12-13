@@ -13,11 +13,6 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- @function [parent=#Thread] create 
--- @param self
--- @return Thread#Thread ret (return value: pf.Thread)
-        
---------------------------------
 -- @function [parent=#Thread] Thread 
 -- @param self
         

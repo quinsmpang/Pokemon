@@ -69,6 +69,7 @@ function GameLauncher:loadLuaFramework()
     require "src/framework/RecordHelperLua"
     require "src/framework/Containers"
     require "src/framework/TimeSpan"
+    require "src/framework/threading"
 end
 
 function GameLauncher:loadPublicModules()
@@ -109,13 +110,13 @@ end
 function GameLauncher:startGame()
     require "src/scene/maintitle/MainViewScene"
 
-    local th = Thread:new()
-    th:start(function()
-        for i = 1, 1000000 do
-            print("###", i)
+    local th, err = Threading:newThread(function(max)
+        for i = 1, max do
+            print("####", i)
+            cc.Sprite:create()
         end
-    end)
-    th:join()
+    end, 100000)
+    print("!!!", th, err)
 
     local mainView = MainViewScene:create()
 

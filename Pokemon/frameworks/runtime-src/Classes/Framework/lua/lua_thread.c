@@ -1,11 +1,10 @@
-#include "lua_extension.h"
+#include "lua_thread.h"
 
 #ifdef _WIN32
 #include <windows.h>
 #else
 #include <pthread.h>
 #endif
-#include <thread>
 
 static struct {
 #ifdef _WIN32
@@ -14,7 +13,7 @@ static struct {
 	pthread_mutex_t _lock;
 #endif
 	BOOL _inited;
-} g_lock = { 0 };
+} g_lock;
 
 void LuaInitializeLock(lua_State *L)
 {

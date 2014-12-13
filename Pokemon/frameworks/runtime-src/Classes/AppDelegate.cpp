@@ -8,6 +8,7 @@
 #include "Framework/lua/lua_framework_manual.hpp"
 #include "version.h"
 #include "Framework/win32/KeyboardHelper.h"
+#include "Framework/lanes/lanes.h"
 
 using namespace CocosDenshion;
 
@@ -60,12 +61,15 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	auto pEngine = LuaEngine::getInstance();
 	ScriptEngineManager::getInstance()->setScriptEngine(pEngine);
+	lua_State *L = pEngine->getLuaStack()->getLuaState();
 	// bind our framework to lua.
-	register_all_psframework(pEngine->getLuaStack()->getLuaState());
-	register_all_psframework_manual(pEngine->getLuaStack()->getLuaState());
+	register_all_psframework(L);
+	register_all_psframework_manual(L);
+	// multithreading lane lib
+	lua_register_lanes(L);
 	// version management.
 	::printVersion();
-	lua_register_psframework_version(pEngine->getLuaStack()->getLuaState());
+	lua_register_psframework_version(L);
 
 	pEngine->executeScriptFile("src/main.lua");
 

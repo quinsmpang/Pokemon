@@ -61,8 +61,11 @@
     <Filter Include="Classes\psframework\editor">
       <UniqueIdentifier>{ab5866c9-efb9-42e4-bd2a-ec5d029670fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\psframework\thread">
-      <UniqueIdentifier>{1973fe18-7b95-403a-a7e6-42066fc8bf25}</UniqueIdentifier>
+    <Filter Include="Classes\psframework\lanes">
+      <UniqueIdentifier>{ca4a9fe4-0881-4cc5-a4b5-a86cf589b6a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\psframework\lanes\src">
+      <UniqueIdentifier>{f618fc9c-01df-41ea-bd07-11402aa04a61}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -229,14 +232,26 @@
     <ClInclude Include="..\Classes\Framework\controls\TitleSwitch.h">
       <Filter>Classes\psframework\controls</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Framework\thread\Thread.h">
-      <Filter>Classes\psframework\thread</Filter>
+    <ClInclude Include="..\Classes\Framework\lanes\src\compat.h">
+      <Filter>Classes\psframework\lanes\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Framework\thread\ThreadPool.h">
-      <Filter>Classes\psframework\thread</Filter>
+    <ClInclude Include="..\Classes\Framework\lanes\src\deep.h">
+      <Filter>Classes\psframework\lanes\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Framework\thread\Mutex.h">
-      <Filter>Classes\psframework\thread</Filter>
+    <ClInclude Include="..\Classes\Framework\lanes\src\keeper.h">
+      <Filter>Classes\psframework\lanes\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\lanes\src\lanes.h">
+      <Filter>Classes\psframework\lanes\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\lanes\src\threading.h">
+      <Filter>Classes\psframework\lanes\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\lanes\src\tools.h">
+      <Filter>Classes\psframework\lanes\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\lanes\lanes.h">
+      <Filter>Classes\psframework\lanes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -384,14 +399,23 @@
     <ClCompile Include="..\Classes\Framework\controls\TitleSwitch.cpp">
       <Filter>Classes\psframework\controls</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Framework\thread\Thread.cpp">
-      <Filter>Classes\psframework\thread</Filter>
+    <ClCompile Include="..\Classes\Framework\lanes\src\deep.c">
+      <Filter>Classes\psframework\lanes\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Framework\thread\ThreadPool.cpp">
-      <Filter>Classes\psframework\thread</Filter>
+    <ClCompile Include="..\Classes\Framework\lanes\src\keeper.c">
+      <Filter>Classes\psframework\lanes\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Framework\thread\Mutex.cpp">
-      <Filter>Classes\psframework\thread</Filter>
+    <ClCompile Include="..\Classes\Framework\lanes\src\lanes.c">
+      <Filter>Classes\psframework\lanes\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\lanes\src\threading.c">
+      <Filter>Classes\psframework\lanes\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\lanes\src\tools.c">
+      <Filter>Classes\psframework\lanes\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\lanes\src\compat.c">
+      <Filter>Classes\psframework\lanes\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

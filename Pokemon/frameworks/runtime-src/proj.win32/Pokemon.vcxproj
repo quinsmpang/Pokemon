@@ -192,6 +192,13 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\encryption\libdes\des.h" />
     <ClInclude Include="..\Classes\Framework\format\SaveData.h" />
     <ClInclude Include="..\Classes\Framework\framework.h" />
+    <ClInclude Include="..\Classes\Framework\lanes\lanes.h" />
+    <ClInclude Include="..\Classes\Framework\lanes\src\compat.h" />
+    <ClInclude Include="..\Classes\Framework\lanes\src\deep.h" />
+    <ClInclude Include="..\Classes\Framework\lanes\src\keeper.h" />
+    <ClInclude Include="..\Classes\Framework\lanes\src\lanes.h" />
+    <ClInclude Include="..\Classes\Framework\lanes\src\threading.h" />
+    <ClInclude Include="..\Classes\Framework\lanes\src\tools.h" />
     <ClInclude Include="..\Classes\Framework\lua\LuaEngineEx.h" />
     <ClInclude Include="..\Classes\Framework\lua\LuaUtils.h" />
     <ClInclude Include="..\Classes\Framework\lua\lua_framework_auto.hpp" />
@@ -201,9 +208,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.h" />
     <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3ext.h" />
     <ClInclude Include="..\Classes\Framework\sqlite\SqliteDb.h" />
-    <ClInclude Include="..\Classes\Framework\thread\Mutex.h" />
-    <ClInclude Include="..\Classes\Framework\thread\Thread.h" />
-    <ClInclude Include="..\Classes\Framework\thread\ThreadPool.h" />
     <ClInclude Include="..\Classes\Framework\ui\CoreLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\GameLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\MaskLayer.h" />
@@ -248,6 +252,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\encryption\libaes\aes.cpp" />
     <ClCompile Include="..\Classes\Framework\encryption\libdes\des.cpp" />
     <ClCompile Include="..\Classes\Framework\format\SaveData.cpp" />
+    <ClCompile Include="..\Classes\Framework\lanes\src\compat.c" />
+    <ClCompile Include="..\Classes\Framework\lanes\src\deep.c" />
+    <ClCompile Include="..\Classes\Framework\lanes\src\keeper.c" />
+    <ClCompile Include="..\Classes\Framework\lanes\src\lanes.c" />
+    <ClCompile Include="..\Classes\Framework\lanes\src\threading.c" />
+    <ClCompile Include="..\Classes\Framework\lanes\src\tools.c" />
     <ClCompile Include="..\Classes\Framework\lua\LuaEngineEx.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_auto.cpp" />
@@ -256,9 +266,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\scene\ViewController.cpp" />
     <ClCompile Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.c" />
     <ClCompile Include="..\Classes\Framework\sqlite\SqliteDb.cpp" />
-    <ClCompile Include="..\Classes\Framework\thread\Mutex.cpp" />
-    <ClCompile Include="..\Classes\Framework\thread\Thread.cpp" />
-    <ClCompile Include="..\Classes\Framework\thread\ThreadPool.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\CoreLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\GameLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\MaskLayer.cpp" />

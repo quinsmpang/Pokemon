@@ -12,7 +12,6 @@
 #include "containers/Vector.h"
 #include "containers/Map.h"
 
-#include "lua/lua_extension.h"
 #include "lua/LuaUtils.h"
 #include "lua/LuaEngineEx.h"
 
@@ -44,9 +43,6 @@
 #include "utils/ZipHelper.h"
 
 #include "format/SaveData.h"
-
-#include "thread/Thread.h"
-#include "thread/Mutex.h"
 
 #include "win32/Win32EventArgs.h"
 #include "win32/Win32EventListener.h"
