@@ -8,7 +8,7 @@ Threading = {}
 
 -- create a new thread with varadic params
 function Threading:newThread(threadFunc, ...)
-	local f = lanes.gen("", threadFunc)
+	local f = lanes.gen("*", threadFunc)
 
 	local th, err = f(...)
 	return th, err
