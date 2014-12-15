@@ -15,7 +15,7 @@ function Threading:newThread(threadFunc, ...)
 end
 
 function Threading:send(key, value)
-	linda:send("cc", cc)
+	linda:send(key, value)
 end
 
 function Threading:retrieve(key, timeout)

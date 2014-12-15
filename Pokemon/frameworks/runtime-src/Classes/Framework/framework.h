@@ -44,6 +44,8 @@
 
 #include "format/SaveData.h"
 
+#include "threading/Thread.h"
+
 #include "win32/Win32EventArgs.h"
 #include "win32/Win32EventListener.h"
 #include "win32/Win32EventListenerKeyboard.h"

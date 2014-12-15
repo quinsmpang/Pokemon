@@ -9,6 +9,9 @@
 #include "version.h"
 #include "Framework/win32/KeyboardHelper.h"
 #include "Framework/lanes/lanes.h"
+#include <thread>
+
+#define LANES_SUPPORTED 0
 
 using namespace CocosDenshion;
 
@@ -65,8 +68,10 @@ bool AppDelegate::applicationDidFinishLaunching()
 	// bind our framework to lua.
 	register_all_psframework(L);
 	register_all_psframework_manual(L);
+#if LANES_SUPPORTED
 	// multithreading lane lib
 	lua_register_lanes(L);
+#endif
 	// version management.
 	::printVersion();
 	lua_register_psframework_version(L);

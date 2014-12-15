@@ -12,13 +12,14 @@ v1.05	Add ZipHelper to handle zip compression
 v1.06	Add win32 keyboard support into the framework
 v1.07	Add AES encryption and standard save data support
 v1.08	Add TitleSwitch control to the framework
+v1.09	Integrate lanes lib to the framework
 ***********************************************/
 
 #include <iostream>
 #include "tolua_fix.h"
 
-static const char *VERSION = "v1.08";
-static float VERSION_NUM = 1.08;
+static const char *VERSION = "v1.09";
+static float VERSION_NUM = 1.09;
 
 void printVersion()
 {

@@ -14,6 +14,7 @@ DataCenter.computerData = nil	-- 电脑宠物布局信息(ComputerData)
 DataCenter.currentComputerChannel = nil		-- 当前电脑频道(每个频道可以放30个精灵)
 DataCenter.collectionData = nil		-- 图鉴信息({[id]=true/false})
 DataCenter.bonusCollection = nil	-- 获取过的地图道具
+DataCenter.battleRecords = nil		-- 发生过的地图战斗记录
 DataCenter.badges = nil				-- 徽章
 DataCenter.relatedSaveIndex = nil	-- 相关的存档位置
 

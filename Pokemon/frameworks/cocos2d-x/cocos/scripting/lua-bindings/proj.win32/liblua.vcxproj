@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\runtime-src\Classes\Framework\lua\lua_thread.c" />
     <ClCompile Include="..\..\..\..\external\lua\luasocket\auxiliar.c" />
     <ClCompile Include="..\..\..\..\external\lua\luasocket\buffer.c" />
     <ClCompile Include="..\..\..\..\external\lua\luasocket\except.c" />
@@ -90,6 +91,7 @@
     <ClCompile Include="..\manual\tolua_fix.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\runtime-src\Classes\Framework\lua\lua_thread.h" />
     <ClInclude Include="..\..\..\..\external\lua\luajit\include\lauxlib.h" />
     <ClInclude Include="..\..\..\..\external\lua\luajit\include\lua.h" />
     <ClInclude Include="..\..\..\..\external\lua\luajit\include\luaconf.h" />
@@ -239,7 +241,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)cocos\ui;$(EngineRoot)cocos\editor-support;$(EngineRoot)cocos\editor-support\cocostudio;$(EngineRoot)cocos\editor-support\cocosbuilder;$(EngineRoot)cocos\editor-support\spine;$(EngineRoot)cocos\audio\include;$(EngineRoot)extensions;$(EngineRoot)extensions\network;$(EngineRoot)external;$(EngineRoot)external\libwebsockets\win32\include;$(EngineRoot)external\lua\tolua;$(EngineRoot)external\lua\luajit\include;$(EngineRoot)external\lua;$(EngineRoot)cocos\scripting\lua-bindings\auto;$(EngineRoot)cocos\scripting\lua-bindings\manual;$(EngineRoot)..\runtime-src\Classes\Framework\lua;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;LUA_USER_H="lua_thread.h";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>

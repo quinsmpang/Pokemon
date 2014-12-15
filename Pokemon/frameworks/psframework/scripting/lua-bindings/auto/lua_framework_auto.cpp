@@ -10587,6 +10587,169 @@ int lua_register_psframework_SaveData(lua_State* tolua_S)
     return 1;
 }
 
+int lua_psframework_Thread_join(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Thread* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Thread",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Thread*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Thread_join'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        bool ret = cobj->join();
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "join",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Thread_join'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Thread_detach(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Thread* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Thread",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Thread*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Thread_detach'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj->detach();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "detach",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Thread_detach'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Thread_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Thread* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj = new framework::Thread();
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.Thread");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "Thread",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Thread_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_Thread_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (Thread)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"Thread",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::Thread* self = (framework::Thread*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
+    return 0;
+}
+
+int lua_register_psframework_Thread(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.Thread");
+    tolua_cclass(tolua_S,"Thread","pf.Thread","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"Thread");
+        tolua_function(tolua_S,"join",lua_psframework_Thread_join);
+        tolua_function(tolua_S,"detach",lua_psframework_Thread_detach);
+        tolua_function(tolua_S,"new",lua_psframework_Thread_constructor);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::Thread).name();
+    g_luaType[typeName] = "pf.Thread";
+    g_typeCast["Thread"] = "pf.Thread";
+    return 1;
+}
+
 int lua_psframework_Win32EventListener_setEnabled(lua_State* tolua_S)
 {
     int argc = 0;
@@ -11337,6 +11500,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_Stack(tolua_S);
 	lua_register_psframework_GameScene(tolua_S);
 	lua_register_psframework_Win32EventListener(tolua_S);
+	lua_register_psframework_Thread(tolua_S);
 	lua_register_psframework_ScriptCCBReader(tolua_S);
 	lua_register_psframework_ImageUtils(tolua_S);
 	lua_register_psframework_Win32Notifier(tolua_S);

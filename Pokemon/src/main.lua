@@ -69,7 +69,11 @@ function GameLauncher:loadLuaFramework()
     require "src/framework/RecordHelperLua"
     require "src/framework/Containers"
     require "src/framework/TimeSpan"
-    require "src/framework/threading"
+
+    if LANES_SUPPORTED then
+        print("lanes is supported.")
+        require "src/framework/threading"
+    end
 end
 
 function GameLauncher:loadPublicModules()

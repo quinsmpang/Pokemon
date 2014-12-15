@@ -27,6 +27,10 @@ void lua_register_lanes(lua_State *L)
 	// embedded lanes with a custom path
 	luaopen_lanes_embedded(L, load_lanes_lua);
 	lua_pop(L, 1);
+
+	lua_pushboolean(L, (int)true);
+	lua_setglobal(L, "LANES_SUPPORTED");
+	lua_pop(L, 1);
 }
 
 #endif

@@ -555,6 +555,88 @@ static void extendTitleSwitch(lua_State* tolua_S)
 }
 
 /**********************************
+TitleSwitch extend
+**********************************/
+static int lua_framework_Thread_run(lua_State *tolua_S)
+{
+	int argc = 0;
+	framework::Thread* cobj = nullptr;
+	bool ok = true;
+
+#if COCOS2D_DEBUG >= 1
+	tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+	if (!tolua_isusertype(tolua_S, 1, "pf.Thread", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+	cobj = (framework::Thread*)tolua_tousertype(tolua_S, 1, 0);
+
+#if COCOS2D_DEBUG >= 1
+	if (!cobj)
+	{
+		tolua_error(tolua_S, "invalid 'cobj' in function 'lua_framework_Thread_run'", nullptr);
+		return 0;
+	}
+#endif
+
+	argc = lua_gettop(tolua_S) - 1;
+	if (argc == 1)
+	{
+		lua_State *L = LuaEngine::getInstance()->getLuaStack()->getLuaState();
+		// copy a new lua_State based on original lua_State for the new thread
+		lua_State *L2 = lua_newthread(L);
+		// clean L2
+		lua_settop(L2, 0);
+		// L should be like: L: ... luaHandler, Thread
+		luaL_argcheck(L, lua_isfunction(L, -2) && !lua_iscfunction(L, -2), 1, "Lua function expected");
+		lua_pushvalue(L, -2);  // copy function to top
+		lua_xmove(L, L2, 1);  // move function from L to L2
+
+		cobj->run([L2] {
+			// get pcall error handler
+			lua_getglobal(L2, "__G__TRACKBACK__");		// L2: func, __G__TRACKBACK__
+			lua_insert(L2, -2);		// L2: __G__TRACKBACK__, func
+			int err = lua_pcall(L2, 0, 1, -2);
+			if (err)
+			{
+				// L2: __G__TRACKBACK__, msg
+				CCLOG("[LUA ERROR] %s", lua_tostring(L2, -1));
+				lua_pop(L2, 2);
+				return;
+			}
+			lua_pop(L2, 1);	// pop out the return value
+		});
+
+		return 0;
+	}
+	CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "run", argc, 1);
+	return 0;
+
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+	tolua_error(tolua_S, "#ferror in function 'lua_framework_Thread_run'.", &tolua_err);
+#endif
+
+	return 0;
+}
+
+static void extendThread(lua_State* tolua_S)
+{
+	lua_pushstring(tolua_S, "pf.Thread");
+	lua_rawget(tolua_S, LUA_REGISTRYINDEX);
+	if (lua_istable(tolua_S, -1))
+	{
+		lua_pushstring(tolua_S, "run");
+		lua_pushcfunction(tolua_S, lua_framework_Thread_run);
+		lua_rawset(tolua_S, -3);
+	}
+	lua_pop(tolua_S, 1);
+}
+
+/**********************************
 Win32EventListenerKeyboard extend
 **********************************/
 static int lua_framework_Win32EventListenerKeyboard_unregisterScriptWin32Handler(lua_State* tolua_S)
@@ -671,6 +753,7 @@ int register_all_psframework_manual(lua_State* tolua_S)
 {
 	extendListMenu(tolua_S);
 	extendTitleSwitch(tolua_S);
+	extendThread(tolua_S);
 	extendWin32EventListenerKeyboard(tolua_S);
 
 	return 0;
