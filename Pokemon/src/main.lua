@@ -114,11 +114,6 @@ end
 function GameLauncher:startGame()
     require "src/scene/maintitle/MainViewScene"
 
-    local th = Thread:new()
-    th:run(function() 
-            _G["abc"] = 111
-        end)
-
     local mainView = MainViewScene:create()
 
     cc.Director:getInstance():runWithScene(mainView)
