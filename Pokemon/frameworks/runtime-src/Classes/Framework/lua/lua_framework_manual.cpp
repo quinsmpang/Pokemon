@@ -609,6 +609,8 @@ static int lua_framework_Thread_run(lua_State *tolua_S)
 			}
 			lua_pop(L2, 1);	// pop out the return value
 		});
+		// attach the new lua_State
+		cobj->attachLuaState(L2);
 
 		return 0;
 	}
