@@ -10,18 +10,11 @@ namespace framework
 	Thread::Thread()
 		: _hThread()
 		, _running(false)
-#if CC_ENABLE_SCRIPT_BINDING
-		, _L(nullptr)
-		, _attached(false)
-#endif
 	{
 	}
 
-	void Thread::run(const function<void()> &threadFunc)
+	Thread::~Thread()
 	{
-		CCASSERT(!_running, "The thread should not be running");
-		_running = true;
-		_hThread = thread(threadFunc);
 	}
 
 	bool Thread::join()
@@ -40,16 +33,4 @@ namespace framework
 		CCASSERT(_running, "The thread should be running");
 		_hThread.detach();
 	}
-
-#if CC_ENABLE_SCRIPT_BINDING
-	void Thread::attachLuaState(lua_State *L)
-	{
-		if (_attached)
-		{
-			return;
-		}
-		_L = L;
-		_attached = true;
-	}
-#endif
 }

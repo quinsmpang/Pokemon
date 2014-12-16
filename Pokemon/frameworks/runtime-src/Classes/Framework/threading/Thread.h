@@ -23,29 +23,39 @@ namespace framework
 		friend class ThreadPool;
 	public:
 		explicit Thread();
+		~Thread();
 
-		void run(const std::function<void()> &threadFunc);
+		// run thread without arguments, Thread_Func should be std::function
+		template<typename Thread_Func>
+		void run(const Thread_Func &threadFunc);
+		// run thread with arguments, Thread_Func should be std::function
+		template<typename Thread_Func, typename... Args>
+		void run(const Thread_Func &threadFunc, Args... args);
 
 		bool join();
 		void detach();		// detach thread, then the main thread will lose the control of this thread.
-
-#if CC_ENABLE_SCRIPT_BINDING
-	public:
-		// don't call this method by yourself
-		void attachLuaState(lua_State *L);
-		inline lua_State *getAttachedLuaState() const
-		{
-			return _L;
-		}
-	private:
-		lua_State *_L;
-		bool _attached;
-#endif
 
 	private:
 		std::thread _hThread;
 		bool _running;
 	};
+
+	/* Template implementation */
+	template<typename Thread_Func>
+	void Thread::run(const Thread_Func &threadFunc)
+	{
+		assert(!_running, "The thread should not be running");
+		_running = true;
+		_hThread = std::thread(threadFunc);
+	}
+
+	template<typename Thread_Func, typename... Args>
+	void Thread::run(const Thread_Func &threadFunc, Args... args)
+	{
+		assert(!_running, "The thread should not be running");
+		_running = true;
+		_hThread = std::thread(threadFunc, args);
+	}
 }
 
 #endif
