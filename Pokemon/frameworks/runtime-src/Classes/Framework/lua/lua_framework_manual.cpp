@@ -555,7 +555,7 @@ static void extendTitleSwitch(lua_State* tolua_S)
 }
 
 /**********************************
-TitleSwitch extend
+Thread extend
 **********************************/
 static int lua_framework_Thread_run(lua_State *tolua_S)
 {
@@ -583,8 +583,10 @@ static int lua_framework_Thread_run(lua_State *tolua_S)
 #endif
 
 	argc = lua_gettop(tolua_S) - 1;
-	if (argc == 1)
+	if (argc >= 1)
 	{
+		int numArgs = argc - 1;
+
 		lua_State *L = LuaEngine::getInstance()->getLuaStack()->getLuaState();
 		// copy a new lua_State based on original lua_State for the new thread
 		lua_State *L2 = lua_newthread(L);
@@ -592,14 +594,21 @@ static int lua_framework_Thread_run(lua_State *tolua_S)
 		lua_settop(L2, 0);
 		// L should be like: L: ... luaHandler, Thread
 		luaL_argcheck(L, lua_isfunction(L, -2) && !lua_iscfunction(L, -2), 1, "Lua function expected");
+		// copy the params of luaHandler from L to L2
+		for (int i = 1; i <= numArgs; ++i)
+		{
+			lua_pushvalue(L, i);
+			lua_xmove(L, L2, 1);
+		}
 		lua_pushvalue(L, -2);  // copy function to top
 		lua_xmove(L, L2, 1);  // move function from L to L2
 
+		// L2: ... func
 		cobj->run([L2] {
 			// get pcall error handler
-			lua_getglobal(L2, "__G__TRACKBACK__");		// L2: func, __G__TRACKBACK__
-			lua_insert(L2, -2);		// L2: __G__TRACKBACK__, func
-			int err = lua_pcall(L2, 0, 1, -2);
+			lua_getglobal(L2, "__G__TRACKBACK__");		// L2: ... func, __G__TRACKBACK__
+			lua_insert(L2, -2);		// L2: ... __G__TRACKBACK__, func
+			int err = lua_pcall(L2, numArgs, 1, -2);
 			if (err)
 			{
 				// L2: __G__TRACKBACK__, msg
