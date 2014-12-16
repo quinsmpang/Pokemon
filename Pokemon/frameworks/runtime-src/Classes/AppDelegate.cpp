@@ -9,14 +9,11 @@
 #include "version.h"
 #include "Framework/win32/KeyboardHelper.h"
 #include "Framework/lanes/lanes.h"
-#include <thread>
 
 #define LANES_SUPPORTED 0
 
 using namespace CocosDenshion;
-
 USING_NS_CC;
-using namespace std;
 
 AppDelegate::AppDelegate()
 {
