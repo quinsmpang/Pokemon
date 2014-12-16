@@ -87,15 +87,15 @@ static int lua_framework_ListMenu_setScriptDelegate(lua_State *L)
 
 #if COCOS2D_DEBUG >= 1
 	tolua_Error tolua_err;
-	if (!tolua_isusertype(L,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+	if (!tolua_isusertype(L, 1, "pf.ListMenu", 0, &tolua_err)) goto tolua_lerror;
 #endif
 
-	self = (ListMenu*)  tolua_tousertype(L,1,0);
+	self = (ListMenu*)tolua_tousertype(L, 1, 0);
 
 #if COCOS2D_DEBUG >= 1
 	if (nullptr == self)
 	{
-		tolua_error(L,"invalid 'self' in function 'lua_framework_ListMenu_setScriptDelegate'\n", nullptr);
+		tolua_error(L, "invalid 'self' in function 'lua_framework_ListMenu_setScriptDelegate'\n", nullptr);
 		return 0;
 	}
 #endif
@@ -131,7 +131,7 @@ static int lua_framework_ListMenu_setScriptDelegate(lua_State *L)
 
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
-	tolua_error(L,"#ferror in function 'setScriptDelegate'.",&tolua_err);
+	tolua_error(L, "#ferror in function 'setScriptDelegate'.", &tolua_err);
 	return 0;
 #endif
 }
@@ -156,7 +156,7 @@ public:
 				LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::LISTMENU_ITEM_SIZE_FOR_MENU, (void*)&data, 2, [&](lua_State* L, int numReturn){
 					CCASSERT(numReturn == 2, "itemSizeForMenu return count error");
 					ValueVector vec;
-					height  = (float)tolua_tonumber(L, -1, 0);
+					height = (float)tolua_tonumber(L, -1, 0);
 					lua_pop(L, 1);
 					width = (float)tolua_tonumber(L, -1, 0);
 					lua_pop(L, 1);
@@ -226,15 +226,15 @@ static int lua_framework_ListMenu_setScriptDataSource(lua_State *L)
 
 #if COCOS2D_DEBUG >= 1
 	tolua_Error tolua_err;
-	if (!tolua_isusertype(L,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+	if (!tolua_isusertype(L, 1, "pf.ListMenu", 0, &tolua_err)) goto tolua_lerror;
 #endif
 
-	self = (ListMenu*)  tolua_tousertype(L,1,0);
+	self = (ListMenu*)tolua_tousertype(L, 1, 0);
 
 #if COCOS2D_DEBUG >= 1
 	if (nullptr == self)
 	{
-		tolua_error(L,"invalid 'self' in function 'lua_framework_ListMenu_setScriptDataSource'\n", nullptr);
+		tolua_error(L, "invalid 'self' in function 'lua_framework_ListMenu_setScriptDataSource'\n", nullptr);
 		return 0;
 	}
 #endif
@@ -270,7 +270,7 @@ static int lua_framework_ListMenu_setScriptDataSource(lua_State *L)
 
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
-	tolua_error(L,"#ferror in function 'setScriptDataSource'.",&tolua_err);
+	tolua_error(L, "#ferror in function 'setScriptDataSource'.", &tolua_err);
 	return 0;
 #endif
 }
@@ -285,15 +285,15 @@ static int lua_framework_ListMenu_registerScriptHandler(lua_State *L)
 
 #if COCOS2D_DEBUG >= 1
 	tolua_Error tolua_err;
-	if (!tolua_isusertype(L,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+	if (!tolua_isusertype(L, 1, "pf.ListMenu", 0, &tolua_err)) goto tolua_lerror;
 #endif
 
-	self = (ListMenu*)  tolua_tousertype(L,1,0);
+	self = (ListMenu*)tolua_tousertype(L, 1, 0);
 
 #if COCOS2D_DEBUG >= 1
 	if (nullptr == self)
 	{
-		tolua_error(L,"invalid 'self' in function 'lua_framework_ListMenu_registerScriptHandler'\n", nullptr);
+		tolua_error(L, "invalid 'self' in function 'lua_framework_ListMenu_registerScriptHandler'\n", nullptr);
 		return 0;
 	}
 #endif
@@ -303,16 +303,16 @@ static int lua_framework_ListMenu_registerScriptHandler(lua_State *L)
 	if (2 == argc)
 	{
 #if COCOS2D_DEBUG >= 1
-        if (!toluafix_isfunction(L,2,"LUA_FUNCTION",0,&tolua_err) ||
-            !tolua_isnumber(L, 3, 0, &tolua_err) )
-        {
-            goto tolua_lerror;
-        }
+		if (!toluafix_isfunction(L, 2, "LUA_FUNCTION", 0, &tolua_err) ||
+			!tolua_isnumber(L, 3, 0, &tolua_err))
+		{
+			goto tolua_lerror;
+		}
 #endif
-		LUA_FUNCTION handler = toluafix_ref_function(L,2,0);
-		ScriptHandlerMgr::HandlerType handlerType = (ScriptHandlerMgr::HandlerType) ((int)tolua_tonumber(L,3,0) + (int)ScriptHandlerMgr::HandlerType::LISTMENU_ITEMSELECTED);
-        
-        ScriptHandlerMgr::getInstance()->addObjectHandler((void*)self, handler, handlerType);
+		LUA_FUNCTION handler = toluafix_ref_function(L, 2, 0);
+		ScriptHandlerMgr::HandlerType handlerType = (ScriptHandlerMgr::HandlerType) ((int)tolua_tonumber(L, 3, 0) + (int)ScriptHandlerMgr::HandlerType::LISTMENU_ITEMSELECTED);
+
+		ScriptHandlerMgr::getInstance()->addObjectHandler((void*)self, handler, handlerType);
 
 		return 0;
 	}
@@ -322,7 +322,7 @@ static int lua_framework_ListMenu_registerScriptHandler(lua_State *L)
 
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
-	tolua_error(L,"#ferror in function 'registerScriptHandler'.",&tolua_err);
+	tolua_error(L, "#ferror in function 'registerScriptHandler'.", &tolua_err);
 	return 0;
 #endif
 }
@@ -337,15 +337,15 @@ static int lua_framework_ListMenu_unregisterScriptHandler(lua_State *L)
 
 #if COCOS2D_DEBUG >= 1
 	tolua_Error tolua_err;
-	if (!tolua_isusertype(L,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
+	if (!tolua_isusertype(L, 1, "pf.ListMenu", 0, &tolua_err)) goto tolua_lerror;
 #endif
 
-	self = (ListMenu*)  tolua_tousertype(L,1,0);
+	self = (ListMenu*)tolua_tousertype(L, 1, 0);
 
 #if COCOS2D_DEBUG >= 1
 	if (nullptr == self)
 	{
-		tolua_error(L,"invalid 'self' in function 'lua_framework_ListMenu_unregisterScriptHandler'\n", nullptr);
+		tolua_error(L, "invalid 'self' in function 'lua_framework_ListMenu_unregisterScriptHandler'\n", nullptr);
 		return 0;
 	}
 #endif
@@ -355,11 +355,11 @@ static int lua_framework_ListMenu_unregisterScriptHandler(lua_State *L)
 	if (1 == argc)
 	{
 #if COCOS2D_DEBUG >= 1
-        if (!tolua_isnumber(L, 2, 0, &tolua_err))
-            goto tolua_lerror;
+		if (!tolua_isnumber(L, 2, 0, &tolua_err))
+			goto tolua_lerror;
 #endif
-		ScriptHandlerMgr::HandlerType handlerType = (ScriptHandlerMgr::HandlerType) ((int)tolua_tonumber(L,2,0) + (int)ScriptHandlerMgr::HandlerType::LISTMENU_ITEMSELECTED);
-        
+		ScriptHandlerMgr::HandlerType handlerType = (ScriptHandlerMgr::HandlerType) ((int)tolua_tonumber(L, 2, 0) + (int)ScriptHandlerMgr::HandlerType::LISTMENU_ITEMSELECTED);
+
 		ScriptHandlerMgr::getInstance()->removeObjectHandler((void*)self, handlerType);
 
 		return 0;
@@ -370,7 +370,7 @@ static int lua_framework_ListMenu_unregisterScriptHandler(lua_State *L)
 
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
-	tolua_error(L,"#ferror in function 'unregisterScriptHandler'.",&tolua_err);
+	tolua_error(L, "#ferror in function 'unregisterScriptHandler'.", &tolua_err);
 	return 0;
 #endif
 }
@@ -378,15 +378,15 @@ tolua_lerror:
 static void extendListMenu(lua_State *L)
 {
 	lua_pushstring(L, "pf.ListMenu");
-    lua_rawget(L, LUA_REGISTRYINDEX);
-    if (lua_istable(L,-1))
-    {
+	lua_rawget(L, LUA_REGISTRYINDEX);
+	if (lua_istable(L, -1))
+	{
 		tolua_function(L, "setScriptDelegate", lua_framework_ListMenu_setScriptDelegate);
 		tolua_function(L, "setScriptDataSource", lua_framework_ListMenu_setScriptDataSource);
 		tolua_function(L, "registerScriptHandler", lua_framework_ListMenu_registerScriptHandler);
 		tolua_function(L, "unregisterScriptHandler", lua_framework_ListMenu_unregisterScriptHandler);
-    }
-    lua_pop(L, 1);
+	}
+	lua_pop(L, 1);
 }
 
 /**********************************
@@ -592,23 +592,23 @@ static int lua_framework_Thread_run(lua_State *tolua_S)
 		lua_State *L2 = lua_newthread(L);
 		// clean L2
 		lua_settop(L2, 0);
-		// L should be like: L: ... luaHandler, Thread
-		luaL_argcheck(L, lua_isfunction(L, -2) && !lua_iscfunction(L, -2), 1, "Lua function expected");
+		// L should be like: L: Thread, luaHandler, args...
+		luaL_argcheck(L, lua_isfunction(L, 2) && !lua_iscfunction(L, 2), 1, "Lua function expected");
+		lua_pushvalue(L, 2);  // copy function to top
+		lua_xmove(L, L2, 1);  // move function from L to L2
 		// copy the params of luaHandler from L to L2
 		for (int i = 1; i <= numArgs; ++i)
 		{
-			lua_pushvalue(L, i);
+			lua_pushvalue(L, i + 2);
 			lua_xmove(L, L2, 1);
 		}
-		lua_pushvalue(L, -2);  // copy function to top
-		lua_xmove(L, L2, 1);  // move function from L to L2
 
-		// L2: ... func
-		cobj->run([L2] {
+		// L2: luaHandler, args...
+		cobj->run([L2, numArgs] {
 			// get pcall error handler
-			lua_getglobal(L2, "__G__TRACKBACK__");		// L2: ... func, __G__TRACKBACK__
-			lua_insert(L2, -2);		// L2: ... __G__TRACKBACK__, func
-			int err = lua_pcall(L2, numArgs, 1, -2);
+			lua_getglobal(L2, "__G__TRACKBACK__");		// L2: luaHandler, args..., __G__TRACKBACK__
+			lua_insert(L2, 1);		// L2: __G__TRACKBACK__, luaHandler, args...
+			int err = lua_pcall(L2, numArgs, 1, 1);
 			if (err)
 			{
 				// L2: __G__TRACKBACK__, msg
@@ -652,112 +652,112 @@ Win32EventListenerKeyboard extend
 **********************************/
 static int lua_framework_Win32EventListenerKeyboard_unregisterScriptWin32Handler(lua_State* tolua_S)
 {
-    int argc = 0;
-    framework::Win32EventListenerKeyboard* cobj = nullptr;
-    bool ok  = true;
+	int argc = 0;
+	framework::Win32EventListenerKeyboard* cobj = nullptr;
+	bool ok = true;
 
 #if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
+	tolua_Error tolua_err;
 #endif
 
 
 #if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.Win32EventListenerKeyboard",0,&tolua_err)) goto tolua_lerror;
+	if (!tolua_isusertype(tolua_S, 1, "pf.Win32EventListenerKeyboard", 0, &tolua_err)) goto tolua_lerror;
 #endif
 
-    cobj = (framework::Win32EventListenerKeyboard*)tolua_tousertype(tolua_S,1,0);
+	cobj = (framework::Win32EventListenerKeyboard*)tolua_tousertype(tolua_S, 1, 0);
 
 #if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Win32EventListenerKeyboard_unregisterScriptWin32Handler'", nullptr);
-        return 0;
-    }
+	if (!cobj)
+	{
+		tolua_error(tolua_S, "invalid 'cobj' in function 'lua_framework_Win32EventListenerKeyboard_unregisterScriptWin32Handler'", nullptr);
+		return 0;
+	}
 #endif
 
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
-    {
-        int arg0;
+	argc = lua_gettop(tolua_S) - 1;
+	if (argc == 1)
+	{
+		int arg0;
 
-        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
-        if(!ok)
-            return 0;
-        cobj->unregisterScriptWin32Handler(arg0);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "unregisterScriptWin32Handler",argc, 1);
-    return 0;
+		ok &= luaval_to_int32(tolua_S, 2, (int *)&arg0);
+		if (!ok)
+			return 0;
+		cobj->unregisterScriptWin32Handler(arg0);
+		return 0;
+	}
+	CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "unregisterScriptWin32Handler", argc, 1);
+	return 0;
 
 #if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Win32EventListenerKeyboard_unregisterScriptWin32Handler'.",&tolua_err);
+tolua_lerror:
+	tolua_error(tolua_S, "#ferror in function 'lua_framework_Win32EventListenerKeyboard_unregisterScriptWin32Handler'.", &tolua_err);
 #endif
 
-    return 0;
+	return 0;
 }
 static int lua_framework_Win32EventListenerKeyboard_registerScriptWin32Handler(lua_State* tolua_S)
 {
-    int argc = 0;
-    framework::Win32EventListenerKeyboard* cobj = nullptr;
-    bool ok  = true;
+	int argc = 0;
+	framework::Win32EventListenerKeyboard* cobj = nullptr;
+	bool ok = true;
 
 #if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
+	tolua_Error tolua_err;
 #endif
 
 
 #if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.Win32EventListenerKeyboard",0,&tolua_err)) goto tolua_lerror;
+	if (!tolua_isusertype(tolua_S, 1, "pf.Win32EventListenerKeyboard", 0, &tolua_err)) goto tolua_lerror;
 #endif
 
-    cobj = (framework::Win32EventListenerKeyboard*)tolua_tousertype(tolua_S,1,0);
+	cobj = (framework::Win32EventListenerKeyboard*)tolua_tousertype(tolua_S, 1, 0);
 
 #if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_framework_Win32EventListenerKeyboard_registerScriptWin32Handler'", nullptr);
-        return 0;
-    }
+	if (!cobj)
+	{
+		tolua_error(tolua_S, "invalid 'cobj' in function 'lua_framework_Win32EventListenerKeyboard_registerScriptWin32Handler'", nullptr);
+		return 0;
+	}
 #endif
 
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 2) 
-    {
-        LUA_FUNCTION arg0 = toluafix_ref_function(tolua_S,2,0);;
-        int arg1;
+	argc = lua_gettop(tolua_S) - 1;
+	if (argc == 2)
+	{
+		LUA_FUNCTION arg0 = toluafix_ref_function(tolua_S, 2, 0);;
+		int arg1;
 
-        ok &= luaval_to_int32(tolua_S, 3,(int *)&arg1);
-        if(!ok)
-            return 0;
-        cobj->registerScriptWin32Handler(arg0, arg1);
-        return 0;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "registerScriptWin32Handler",argc, 2);
-    return 0;
+		ok &= luaval_to_int32(tolua_S, 3, (int *)&arg1);
+		if (!ok)
+			return 0;
+		cobj->registerScriptWin32Handler(arg0, arg1);
+		return 0;
+	}
+	CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "registerScriptWin32Handler", argc, 2);
+	return 0;
 
 #if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_framework_Win32EventListenerKeyboard_registerScriptWin32Handler'.",&tolua_err);
+tolua_lerror:
+	tolua_error(tolua_S, "#ferror in function 'lua_framework_Win32EventListenerKeyboard_registerScriptWin32Handler'.", &tolua_err);
 #endif
 
-    return 0;
+	return 0;
 }
 
 static void extendWin32EventListenerKeyboard(lua_State* tolua_S)
 {
-    lua_pushstring(tolua_S,"pf.Win32EventListenerKeyboard");
-    lua_rawget(tolua_S,LUA_REGISTRYINDEX);
-    if (lua_istable(tolua_S,-1))
-    {
-        lua_pushstring(tolua_S,"registerScriptWin32Handler");
-        lua_pushcfunction(tolua_S,lua_framework_Win32EventListenerKeyboard_registerScriptWin32Handler);
-        lua_rawset(tolua_S,-3);
-        lua_pushstring(tolua_S,"unregisterScriptWin32Handler");
-        lua_pushcfunction(tolua_S,lua_framework_Win32EventListenerKeyboard_unregisterScriptWin32Handler);
-        lua_rawset(tolua_S, -3);
-    }
-    lua_pop(tolua_S, 1);
+	lua_pushstring(tolua_S, "pf.Win32EventListenerKeyboard");
+	lua_rawget(tolua_S, LUA_REGISTRYINDEX);
+	if (lua_istable(tolua_S, -1))
+	{
+		lua_pushstring(tolua_S, "registerScriptWin32Handler");
+		lua_pushcfunction(tolua_S, lua_framework_Win32EventListenerKeyboard_registerScriptWin32Handler);
+		lua_rawset(tolua_S, -3);
+		lua_pushstring(tolua_S, "unregisterScriptWin32Handler");
+		lua_pushcfunction(tolua_S, lua_framework_Win32EventListenerKeyboard_unregisterScriptWin32Handler);
+		lua_rawset(tolua_S, -3);
+	}
+	lua_pop(tolua_S, 1);
 }
 
 int register_all_psframework_manual(lua_State* tolua_S)
