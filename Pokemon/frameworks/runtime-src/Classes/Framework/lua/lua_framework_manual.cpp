@@ -1,10 +1,10 @@
 #include "lua_framework_manual.hpp"
 #include "framework.h"
 #include "Framework/threading/Thread.h"
-#include "Framework/threading/Future.h"
 #include "LuaBasicConversions.h"
 #include "LuaEngineEx.h"
 #include "tolua_fix.h"
+#include <future>
 
 using namespace cocos2d;
 using namespace framework;
@@ -618,7 +618,7 @@ static int lua_framework_Thread_run(lua_State *tolua_S)
 	{
 		int numArgs = argc - 1;
 
-		lua_State *L = LuaEngine::getInstance()->getLuaStack()->getLuaState();
+		lua_State *L = tolua_S;
 		// copy a new lua_State based on original lua_State for the new thread
 		lua_State *L2 = lua_newthread(L);
 		// clean L2
@@ -633,6 +633,7 @@ static int lua_framework_Thread_run(lua_State *tolua_S)
 			lua_pushvalue(L, i + 2);
 			lua_xmove(L, L2, 1);
 		}
+		lua_pop(L, 1);
 
 		// L2: luaHandler, args...
 		cobj->run([L2, numArgs] {
@@ -658,6 +659,100 @@ static int lua_framework_Thread_run(lua_State *tolua_S)
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
 	tolua_error(tolua_S, "#ferror in function 'lua_framework_Thread_run'.", &tolua_err);
+#endif
+
+	return 0;
+}
+
+static int lua_framework_Thread_runAsync(lua_State* tolua_S)
+{
+	int argc = 0;
+	framework::Thread* cobj = nullptr;
+	bool ok = true;
+
+#if COCOS2D_DEBUG >= 1
+	tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+	if (!tolua_isusertype(tolua_S, 1, "pf.Thread", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+	cobj = (framework::Thread*)tolua_tousertype(tolua_S, 1, 0);
+
+#if COCOS2D_DEBUG >= 1
+	if (!cobj)
+	{
+		tolua_error(tolua_S, "invalid 'cobj' in function 'lua_framework_Thread_runAsync'", nullptr);
+		return 0;
+	}
+#endif
+
+	argc = lua_gettop(tolua_S) - 1;
+	if (argc >= 1)
+	{
+		int numArgs = argc - 1;
+
+		lua_State *L = tolua_S;
+		// copy a new lua_State based on original lua_State for the new thread
+		lua_State *L2 = lua_newthread(L);
+		// clean L2
+		lua_settop(L2, 0);
+		// L should be like: L: Thread, luaHandler, args...
+		luaL_argcheck(L, lua_isfunction(L, 2) && !lua_iscfunction(L, 2), 1, "Lua function expected");
+		lua_pushvalue(L, 2);  // copy function to top
+		lua_xmove(L, L2, 1);  // move function from L to L2
+		// copy the params of luaHandler from L to L2
+		for (int i = 1; i <= numArgs; ++i)
+		{
+			lua_pushvalue(L, i + 2);
+			lua_xmove(L, L2, 1);
+		}
+		lua_pop(L, 1);
+
+		// L2: luaHandler, args...
+		static unsigned int counter = 0;
+		std::string gKey;
+		bool ret = cobj->runAsync([&] {
+			// get pcall error handler
+			lua_getglobal(L2, "__G__TRACKBACK__");		// L2: luaHandler, args..., __G__TRACKBACK__
+			lua_insert(L2, 1);		// L2: __G__TRACKBACK__, luaHandler, args...
+			int err = lua_pcall(L2, numArgs, 1, 1);
+			if (err)
+			{
+				// L2: __G__TRACKBACK__, msg
+				CCLOG("[LUA ERROR] %s", lua_tostring(L2, -1));
+				lua_pop(L2, 2);
+				return false;
+			}
+			// copy the return value to L
+			//LuaEngineEx::getInstance()->copyBetweenLuaStates(L2, L);
+			// use shared _G instead
+			char buffer[256] = { 0 };
+			counter++;
+			sprintf((char*)buffer, "GLOBAL_THREAD_RET_VAL%d", counter);
+			// transfer the return value by _G
+			CCLOG("!!%d", lua_gettop(L2));
+			lua_setglobal(L2, buffer);
+			gKey = buffer;
+			lua_pop(L2, 1);
+			return true;
+		});
+		if (ret)
+		{
+			// why no use?
+			lua_getglobal(tolua_S, gKey.c_str());
+			return 1;
+		}
+		return 0;
+	}
+	CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "join", argc, 0);
+	return 0;
+
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+	tolua_error(tolua_S, "#ferror in function 'lua_framework_Thread_runAsync'.", &tolua_err);
 #endif
 
 	return 0;
@@ -760,6 +855,7 @@ static void extendThread(lua_State* tolua_S)
 	tolua_beginmodule(tolua_S, "Thread");
 	tolua_function(tolua_S, "new", lua_framework_Thread_constructor);
 	tolua_function(tolua_S, "run", lua_framework_Thread_run);
+	tolua_function(tolua_S, "runAsync", lua_framework_Thread_runAsync);
 	tolua_function(tolua_S, "join", lua_framework_Thread_join);
 	tolua_function(tolua_S, "detach", lua_framework_Thread_detach);
 	tolua_endmodule(tolua_S);

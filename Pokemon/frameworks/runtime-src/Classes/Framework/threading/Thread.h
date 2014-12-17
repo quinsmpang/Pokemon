@@ -12,6 +12,7 @@ Date: 12/16/2014
 #include "../base/Uncopyable.h"
 #include <thread>
 #include <functional>
+#include <future>
 extern "C" {
 #include "lua.h"
 }
@@ -69,7 +70,7 @@ namespace framework
 		CCASSERT(!_running, "The thread should not be running");
 		_running = true;
 		auto future = std::async(std::launch::async, threadFunc);
-		auto returnVal = future.wait();
+		auto returnVal = future.get();
 		return returnVal;
 	}
 
@@ -79,7 +80,7 @@ namespace framework
 		CCASSERT(!_running, "The thread should not be running");
 		_running = true;
 		auto future = std::async(std::launch::async, threadFunc, args);
-		auto returnVal = future.wait();
+		auto returnVal = future.get();
 		return returnVal;
 	}
 }

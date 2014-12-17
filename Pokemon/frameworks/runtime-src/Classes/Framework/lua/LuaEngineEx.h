@@ -23,6 +23,9 @@ namespace framework
 	public:
 		static LuaEngineEx *getInstance();
 
+		// copy the value at index from lua_State(from) to lua_State(to)
+		void copyBetweenLuaStates(lua_State *from, lua_State *to, int index = -1);
+
 		int handleFrameworkEvent(cocos2d::ScriptHandlerMgr::HandlerType type, void* data);
 		int handleFrameworkEvent(cocos2d::ScriptHandlerMgr::HandlerType type, void* data, int numResults, const std::function<void(lua_State*,int)>& func);
 
