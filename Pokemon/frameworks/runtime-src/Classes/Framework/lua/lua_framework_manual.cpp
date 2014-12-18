@@ -586,7 +586,6 @@ static int lua_framework_Thread_constructor(lua_State* tolua_S)
 
 	return 0;
 }
-
 static int lua_framework_Thread_run(lua_State *tolua_S)
 {
 	int argc = 0;
@@ -676,7 +675,6 @@ tolua_lerror:
 
 	return 0;
 }
-
 static int lua_framework_Thread_runAsync(lua_State* tolua_S)
 {
 	int argc = 0;
@@ -783,7 +781,6 @@ tolua_lerror:
 
 	return 0;
 }
-
 static int lua_framework_Thread_join(lua_State* tolua_S)
 {
 	int argc = 0;
@@ -828,7 +825,6 @@ tolua_lerror:
 
 	return 0;
 }
-
 static int lua_framework_Thread_detach(lua_State* tolua_S)
 {
 	int argc = 0;
@@ -872,6 +868,40 @@ tolua_lerror:
 
 	return 0;
 }
+static int lua_framework_Thread_sleep(lua_State* tolua_S)
+{
+	if (NULL == tolua_S)
+		return 0;
+
+	int argc = 0;
+	bool ok = true;
+
+	tolua_Error tolua_err;
+
+#if COCOS2D_DEBUG >= 1
+	if (!tolua_isusertable(tolua_S, 1, "pf.Thread", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+	argc = lua_gettop(tolua_S) - 1;
+	if (argc == 1)
+	{
+		unsigned int ms;
+		ok &= luaval_to_uint32(tolua_S, 2, &ms);
+		if (!ok)
+			return 0;
+		framework::Thread::sleep(ms);
+
+		return 0;
+	}
+	CCLOG("'sleep' has wrong number of arguments: %d, was expecting %d\n", argc, 1);
+	return 0;
+
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+	tolua_error(tolua_S, "#ferror in function 'sleep'.", &tolua_err);
+	return 0;
+#endif
+}
 
 static void extendThread(lua_State* tolua_S)
 {
@@ -884,6 +914,7 @@ static void extendThread(lua_State* tolua_S)
 	tolua_function(tolua_S, "runAsync", lua_framework_Thread_runAsync);
 	tolua_function(tolua_S, "join", lua_framework_Thread_join);
 	tolua_function(tolua_S, "detach", lua_framework_Thread_detach);
+	tolua_function(tolua_S, "sleep", lua_framework_Thread_sleep);
 	tolua_endmodule(tolua_S);
 	std::string typeName = typeid(framework::Thread).name();
 	g_luaType[typeName] = "pf.Thread";

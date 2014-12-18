@@ -12,11 +12,6 @@
 -- @param self
         
 --------------------------------
--- @function [parent=#Mutex] create 
--- @param self
--- @return Mutex#Mutex ret (return value: pf.Mutex)
-        
---------------------------------
 -- @function [parent=#Mutex] Mutex 
 -- @param self
         

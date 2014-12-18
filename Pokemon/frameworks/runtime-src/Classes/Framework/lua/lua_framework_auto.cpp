@@ -10587,6 +10587,330 @@ int lua_register_psframework_SaveData(lua_State* tolua_S)
     return 1;
 }
 
+int lua_psframework_Mutex_lock(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Mutex* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Mutex",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Mutex*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Mutex_lock'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj->lock();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "lock",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Mutex_lock'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Mutex_unlock(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Mutex* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.Mutex",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::Mutex*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_Mutex_unlock'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj->unlock();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "unlock",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Mutex_unlock'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_Mutex_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::Mutex* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj = new framework::Mutex();
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.Mutex");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "Mutex",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_Mutex_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_Mutex_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (Mutex)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"Mutex",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::Mutex* self = (framework::Mutex*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
+    return 0;
+}
+
+int lua_register_psframework_Mutex(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.Mutex");
+    tolua_cclass(tolua_S,"Mutex","pf.Mutex","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"Mutex");
+        tolua_function(tolua_S,"lock",lua_psframework_Mutex_lock);
+        tolua_function(tolua_S,"unlock",lua_psframework_Mutex_unlock);
+        tolua_function(tolua_S,"new",lua_psframework_Mutex_constructor);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::Mutex).name();
+    g_luaType[typeName] = "pf.Mutex";
+    g_typeCast["Mutex"] = "pf.Mutex";
+    return 1;
+}
+
+int lua_psframework_RecursiveMutex_lock(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::RecursiveMutex* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.RecursiveMutex",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::RecursiveMutex*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_RecursiveMutex_lock'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj->lock();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "lock",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RecursiveMutex_lock'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_RecursiveMutex_unlock(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::RecursiveMutex* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.RecursiveMutex",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::RecursiveMutex*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_RecursiveMutex_unlock'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj->unlock();
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "unlock",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RecursiveMutex_unlock'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_RecursiveMutex_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::RecursiveMutex* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj = new framework::RecursiveMutex();
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.RecursiveMutex");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "RecursiveMutex",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_RecursiveMutex_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_RecursiveMutex_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (RecursiveMutex)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"RecursiveMutex",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::RecursiveMutex* self = (framework::RecursiveMutex*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
+    return 0;
+}
+
+int lua_register_psframework_RecursiveMutex(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.RecursiveMutex");
+    tolua_cclass(tolua_S,"RecursiveMutex","pf.RecursiveMutex","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"RecursiveMutex");
+        tolua_function(tolua_S,"lock",lua_psframework_RecursiveMutex_lock);
+        tolua_function(tolua_S,"unlock",lua_psframework_RecursiveMutex_unlock);
+        tolua_function(tolua_S,"new",lua_psframework_RecursiveMutex_constructor);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::RecursiveMutex).name();
+    g_luaType[typeName] = "pf.RecursiveMutex";
+    g_typeCast["RecursiveMutex"] = "pf.RecursiveMutex";
+    return 1;
+}
+
 int lua_psframework_Win32EventListener_setEnabled(lua_State* tolua_S)
 {
     int argc = 0;
@@ -11337,6 +11661,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_Stack(tolua_S);
 	lua_register_psframework_GameScene(tolua_S);
 	lua_register_psframework_Win32EventListener(tolua_S);
+	lua_register_psframework_RecursiveMutex(tolua_S);
 	lua_register_psframework_ScriptCCBReader(tolua_S);
 	lua_register_psframework_ImageUtils(tolua_S);
 	lua_register_psframework_Win32Notifier(tolua_S);
@@ -11352,6 +11677,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_MaskLayer(tolua_S);
 	lua_register_psframework_RefDouble(tolua_S);
 	lua_register_psframework_RefString(tolua_S);
+	lua_register_psframework_Mutex(tolua_S);
 	lua_register_psframework_ModalLayer(tolua_S);
 
 	tolua_endmodule(tolua_S);

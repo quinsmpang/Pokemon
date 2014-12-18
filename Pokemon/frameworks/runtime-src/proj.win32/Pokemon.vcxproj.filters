@@ -259,6 +259,12 @@
     <ClInclude Include="..\Classes\Framework\threading\Thread.h">
       <Filter>Classes\psframework\threading</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\threading\Mutex.h">
+      <Filter>Classes\psframework\threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\threading\ThreadPool.h">
+      <Filter>Classes\psframework\threading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -424,6 +430,12 @@
       <Filter>Classes\psframework\lanes\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\threading\Thread.cpp">
+      <Filter>Classes\psframework\threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\threading\Mutex.cpp">
+      <Filter>Classes\psframework\threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\threading\ThreadPool.cpp">
       <Filter>Classes\psframework\threading</Filter>
     </ClCompile>
   </ItemGroup>

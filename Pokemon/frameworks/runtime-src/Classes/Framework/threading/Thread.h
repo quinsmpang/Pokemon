@@ -32,12 +32,14 @@ namespace framework
 		// run thread with arguments, Thread_Func should be std::function
 		template<typename Thread_Func, typename ...Args>
 		void run(const Thread_Func &threadFunc, Args... args);
-		// run async task with no argument
+		// run async task with no argument until over.
 		template<typename Thread_Func>
 		typename std::result_of<Thread_Func()>::type runAsync(const Thread_Func &threadFunc);
-		// run async task with arguments
+		// run async task with arguments until over.
 		template<typename Thread_Func, typename ...Args>
 		typename std::result_of<Thread_Func(Args...)>::type runAsync(const Thread_Func &threadFunc, Args... args);
+
+		static void sleep(unsigned int ms);
 
 		bool join();
 		void detach();		// detach thread, then the main thread will lose the control of this thread.

@@ -208,7 +208,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.h" />
     <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3ext.h" />
     <ClInclude Include="..\Classes\Framework\sqlite\SqliteDb.h" />
+    <ClInclude Include="..\Classes\Framework\threading\Mutex.h" />
     <ClInclude Include="..\Classes\Framework\threading\Thread.h" />
+    <ClInclude Include="..\Classes\Framework\threading\ThreadPool.h" />
     <ClInclude Include="..\Classes\Framework\ui\CoreLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\GameLayer.h" />
     <ClInclude Include="..\Classes\Framework\ui\MaskLayer.h" />
@@ -267,7 +269,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\scene\ViewController.cpp" />
     <ClCompile Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.c" />
     <ClCompile Include="..\Classes\Framework\sqlite\SqliteDb.cpp" />
+    <ClCompile Include="..\Classes\Framework\threading\Mutex.cpp" />
     <ClCompile Include="..\Classes\Framework\threading\Thread.cpp" />
+    <ClCompile Include="..\Classes\Framework\threading\ThreadPool.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\CoreLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\GameLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\ui\MaskLayer.cpp" />
