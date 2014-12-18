@@ -4,7 +4,6 @@
 #include "LuaBasicConversions.h"
 #include "LuaEngineEx.h"
 #include "tolua_fix.h"
-#include <future>
 
 using namespace cocos2d;
 using namespace framework;
@@ -621,6 +620,15 @@ static int lua_framework_Thread_run(lua_State *tolua_S)
 		lua_State *L = tolua_S;
 		// copy a new lua_State based on original lua_State for the new thread
 		lua_State *L2 = lua_newthread(L);
+
+		// save L2 to the registry table, otherwise it will be collected.
+		// use L2's address as key
+		char szKey[256] = { 0 };
+		sprintf(szKey, "0x%x", L2);
+		lua_pushvalue(L, -1);		// copy L2 to the top
+		lua_setfield(L, LUA_REGISTRYINDEX, szKey);
+		char *key = szKey;		// array can't be captured by lambda [=]
+
 		// clean L2
 		lua_settop(L2, 0);
 		// L should be like: L: Thread, luaHandler, args...
@@ -636,7 +644,7 @@ static int lua_framework_Thread_run(lua_State *tolua_S)
 		lua_pop(L, 1);
 
 		// L2: luaHandler, args...
-		cobj->run([L2, numArgs] {
+		cobj->run([L, L2, numArgs, key] {
 			// get pcall error handler
 			lua_getglobal(L2, "__G__TRACKBACK__");		// L2: luaHandler, args..., __G__TRACKBACK__
 			lua_insert(L2, 1);		// L2: __G__TRACKBACK__, luaHandler, args...
@@ -648,6 +656,11 @@ static int lua_framework_Thread_run(lua_State *tolua_S)
 				lua_pop(L2, 2);
 				return;
 			}
+			// clean the registry key
+			lua_lock(L);
+			lua_pushnil(L);
+			lua_setfield(L, LUA_REGISTRYINDEX, key);
+			lua_unlock(L);
 			lua_pop(L2, 1);	// pop out the return value
 		});
 
@@ -699,6 +712,15 @@ static int lua_framework_Thread_runAsync(lua_State* tolua_S)
 		lua_State *L2 = lua_newthread(L);
 		// clean L2
 		lua_settop(L2, 0);
+
+		// save L2 to the registry table, otherwise it will be collected.
+		// use L2's address as key
+		char szKey[256] = { 0 };
+		sprintf(szKey, "0x%x", L2);
+		lua_pushvalue(L, -1);		// copy L2 to the top
+		lua_setfield(L, LUA_REGISTRYINDEX, szKey);
+		char *key = szKey;		// array can't be captured by lambda [=]
+
 		// L should be like: L: Thread, luaHandler, args...
 		luaL_argcheck(L, lua_isfunction(L, 2) && !lua_iscfunction(L, 2), 1, "Lua function expected");
 		lua_pushvalue(L, 2);  // copy function to top
@@ -709,12 +731,11 @@ static int lua_framework_Thread_runAsync(lua_State* tolua_S)
 			lua_pushvalue(L, i + 2);
 			lua_xmove(L, L2, 1);
 		}
-		lua_pop(L, 1);
 
 		// L2: luaHandler, args...
 		static unsigned int counter = 0;
 		std::string gKey;
-		bool ret = cobj->runAsync([&] {
+		bool ret = cobj->runAsync([L, L2, numArgs, key, &gKey] {
 			// get pcall error handler
 			lua_getglobal(L2, "__G__TRACKBACK__");		// L2: luaHandler, args..., __G__TRACKBACK__
 			lua_insert(L2, 1);		// L2: __G__TRACKBACK__, luaHandler, args...
@@ -731,11 +752,16 @@ static int lua_framework_Thread_runAsync(lua_State* tolua_S)
 			// use shared _G instead
 			char buffer[256] = { 0 };
 			counter++;
-			sprintf((char*)buffer, "GLOBAL_THREAD_RET_VAL%d", counter);
+			sprintf((char*)buffer, "__FRAMEWORK_GLOBAL_THREAD_RET_VAL_%d__", counter);
 			// transfer the return value by _G
 			CCLOG("!!%d", lua_gettop(L2));
 			lua_setglobal(L2, buffer);
 			gKey = buffer;
+			// clean the registry key
+			lua_lock(L);
+			lua_pushnil(L);
+			lua_setfield(L, LUA_REGISTRYINDEX, key);
+			lua_unlock(L);
 			lua_pop(L2, 1);
 			return true;
 		});

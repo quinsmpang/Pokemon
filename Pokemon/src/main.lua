@@ -117,15 +117,6 @@ function GameLauncher:startGame()
     local mainView = MainViewScene:create()
 
     cc.Director:getInstance():runWithScene(mainView)
-
-    -- local th = Thread:new()
-    -- th:runAsync(function()
-    --     for i=1,10 do
-    --         print(i)
-    --     end
-    --     return 999
-    -- end)
-    -- print("@@@@", val)
 end
 
 function GameLauncher:restart()

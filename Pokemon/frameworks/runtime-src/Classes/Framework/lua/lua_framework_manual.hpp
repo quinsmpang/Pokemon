@@ -11,6 +11,7 @@ Date: 7/5/2014
 extern "C" {
 #endif
 #include "tolua++.h"
+#include "lua_thread.h"
 #ifdef __cplusplus
 }
 #endif
