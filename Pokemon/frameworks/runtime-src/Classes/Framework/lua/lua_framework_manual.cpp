@@ -924,7 +924,6 @@ static void extendThread(lua_State* tolua_S)
 /**********************************
 Win32EventListenerKeyboard extend
 **********************************/
-#ifdef _WIN32
 static int lua_framework_Win32EventListenerKeyboard_unregisterScriptWin32Handler(lua_State* tolua_S)
 {
 	int argc = 0;
@@ -1034,16 +1033,13 @@ static void extendWin32EventListenerKeyboard(lua_State* tolua_S)
 	}
 	lua_pop(tolua_S, 1);
 }
-#endif
 
 int register_all_psframework_manual(lua_State* tolua_S)
 {
 	extendListMenu(tolua_S);
 	extendTitleSwitch(tolua_S);
 	extendThread(tolua_S);
-#ifdef _WIN32
 	extendWin32EventListenerKeyboard(tolua_S);
-#endif
 
 	return 0;
 }
