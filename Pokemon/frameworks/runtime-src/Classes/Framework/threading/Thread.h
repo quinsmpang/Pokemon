@@ -64,7 +64,7 @@ namespace framework
 	{
 		CCASSERT(!_running, "The thread should not be running");
 		_running = true;
-		_hThread = std::thread(threadFunc, args);
+		_hThread = std::thread(threadFunc, std::forward<Args>(args)...);
 	}
 
 	template<typename Thread_Func>
@@ -78,11 +78,11 @@ namespace framework
 	}
 
 	template<typename Thread_Func, typename ...Args>
-	typename std::result_of<Thread_Func(Args...)>::type runAsync(const Thread_Func &threadFunc, Args... args)
+	typename std::result_of<Thread_Func(Args...)>::type Thread::runAsync(const Thread_Func &threadFunc, Args... args)
 	{
 		CCASSERT(!_running, "The thread should not be running");
 		_running = true;
-		auto future = std::async(std::launch::async, threadFunc, args);
+		auto future = std::async(std::launch::async, threadFunc, std::forward<Args>(args)...);
 		auto returnVal = future.get();
 		return returnVal;
 	}
