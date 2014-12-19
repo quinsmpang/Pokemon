@@ -48,10 +48,12 @@
 #include "threading/ThreadPool.h"
 #include "threading/Mutex.h"
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 #include "win32/Win32EventArgs.h"
 #include "win32/Win32EventListener.h"
 #include "win32/Win32EventListenerKeyboard.h"
 #include "win32/Win32Notifier.h"
 #include "win32/KeyboardHelper.h"
+#endif
 
 #endif

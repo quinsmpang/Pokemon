@@ -1,6 +1,8 @@
 #include "DesUtils.h"
 #include "libdes/des.h"
 #include <new>
+#include <stdlib.h>
+#include <string.h>
 
 namespace framework
 {

@@ -8,6 +8,7 @@ Date: 12/16/2014
 #define __THREAD_H__
 
 #include "base/CCRef.h"
+#include "2d/ccMacros.h"
 #include "../base/Uninheritable.h"
 #include "../base/Uncopyable.h"
 #include <thread>

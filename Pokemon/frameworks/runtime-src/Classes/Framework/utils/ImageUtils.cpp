@@ -79,7 +79,7 @@ namespace framework
 					}
 					else
 					{
-						assert(false, "Invalid image data");
+						CCASSERT(false, "Invalid image data");
 					}
 				}
 			}

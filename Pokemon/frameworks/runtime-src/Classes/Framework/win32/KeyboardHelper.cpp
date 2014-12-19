@@ -8,6 +8,7 @@ using namespace std;
 
 namespace framework
 {
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	static HHOOK g_hHook = INVALID_HOOK;	// handle of the hook
 	static list<int> g_pressedKeys;	// record pressed keys
 
@@ -96,4 +97,5 @@ namespace framework
 		g_hHook = INVALID_HOOK;
 		return true;
 	}
+#endif
 }

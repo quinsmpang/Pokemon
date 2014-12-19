@@ -3,7 +3,6 @@ Debug.win32
 Release.win32
 Debug
 Release
-build
 runtime
 *.sdf
 *.suo

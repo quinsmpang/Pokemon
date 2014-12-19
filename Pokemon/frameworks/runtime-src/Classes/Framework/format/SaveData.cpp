@@ -77,7 +77,7 @@ namespace framework
 		ifs.open(path, ios::in | ios::binary);
 		if (!ifs.good())
 		{
-			return false;
+			return nullptr;
 		}
 		// read prefix
 		char prefix[5] = { 0 };
@@ -99,7 +99,7 @@ namespace framework
 		ifs.read(encryptedData, nSize);
 		if (!ifs.good())
 		{
-			return false;
+			return nullptr;
 		}
 
 		ifs.close();

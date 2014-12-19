@@ -4,6 +4,9 @@
 #include <windows.h>
 #else
 #include <pthread.h>
+#define BOOL int
+#define TRUE 1
+#define FALSE 0
 #endif
 
 static struct {

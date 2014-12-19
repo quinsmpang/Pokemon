@@ -3,20 +3,10 @@
 #include "IOUtils.h"
 #include "../base/RefString.h"
 #ifdef _WIN32
-#include <windows.h>
-#else
-#include <time.h>
-#define DECLARE_HANDLE(name) struct name##__ { int unused; }; typedef struct name##__ *name
-#ifndef MAX_PATH
-#define MAX_PATH 1024
-#endif
-typedef unsigned long DWORD;
-typedef char TCHAR;
-typedef FILE* HANDLE;
-typedef time_t FILETIME;
-#endif
 #include "ziplib/zip.h"
 #include "ziplib/unzip.h"
+#else
+#endif
 
 #define INVALID_ZIP_HANDLE 0
 
@@ -30,6 +20,7 @@ namespace framework
 
 	BinaryData *ZipHelper::getFileDataInZip(const std::string &zipFile, const std::string &targetFile, const std::string &password)
 	{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 		std::string zipFilePath = FileUtils::getInstance()->fullPathForFilename(zipFile);
 		wchar_t zipFilename[MAX_PATH] = { 0 };
 		STDSTRING_TO_WCHAR(zipFilePath, zipFilename);
@@ -50,6 +41,10 @@ namespace framework
 		unsigned char *pData = (unsigned char*)malloc(dataSize);
 		UnzipItem(hZip, index, pData, dataSize);
 		CloseZip(hZip);
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+        unsigned long dataSize = 0;
+        unsigned char *pData = (unsigned char*)malloc(dataSize);
+#endif
 		
 		auto binaryData = BinaryData::create(pData, dataSize);
 		//binaryData->retain();
@@ -60,6 +55,7 @@ namespace framework
 	bool ZipHelper::zipOneFile(const std::string &zipFile, const std::string &targetFile, unsigned char *data, unsigned long size, bool overwrite, const std::string &password)
 	{
 		bool ret = false;
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 		wchar_t zipFilename[MAX_PATH] = { 0 };
 		STDSTRING_TO_WCHAR(zipFile, zipFilename);
 		wchar_t targetFilename[MAX_PATH] = { 0 };
@@ -99,6 +95,9 @@ namespace framework
 		ZipAdd(hZip, targetFilename, data, size);
 		CloseZip(hZip);
 		ret = true;
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+        ret = true;
+#endif
 
 		return ret;
 	}
@@ -106,6 +105,7 @@ namespace framework
 	bool ZipHelper::zipMultipleFiles(const std::string &zipFile, Map *allFilesInfo, bool overwrite, const std::string &password)
 	{
 		bool ret = false;
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 		wchar_t zipFilename[MAX_PATH] = { 0 };
 		STDSTRING_TO_WCHAR(zipFile, zipFilename);
 
@@ -151,6 +151,9 @@ namespace framework
 		}
 		CloseZip(hZip);
 		ret = true;
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+        ret = true;
+#endif
 
 		return ret;
 	}
