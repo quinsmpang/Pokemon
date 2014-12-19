@@ -47,6 +47,7 @@ namespace framework
 			return CallNextHookEx(g_hHook, nCode, wParam, lParam);
 		}
 	}
+#endif
 
 	KeyboardHelper::KeyboardHelper()
 	{
@@ -54,11 +55,16 @@ namespace framework
 
 	bool KeyboardHelper::isKeyPressed(int keyCode)
 	{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 		return GetAsyncKeyState(keyCode) & 0x8000;
+#else
+        return false;
+#endif
 	}
 
 	bool KeyboardHelper::hookOn()
 	{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 		// get current application handle
 		// HINSTANCE instance = GetModuleHandle(nullptr);
 		// CCASSERT(instance, "Invalid application handle");
@@ -80,10 +86,14 @@ namespace framework
 		}
 
 		return true;
+#else
+        return false;
+#endif
 	}
 
 	bool KeyboardHelper::hookOff()
 	{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 		// no hook
 		if (g_hHook == INVALID_HOOK)
 		{
@@ -96,6 +106,8 @@ namespace framework
 
 		g_hHook = INVALID_HOOK;
 		return true;
-	}
+#else
+        return false;
 #endif
+	}
 }
