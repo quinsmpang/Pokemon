@@ -33,12 +33,12 @@ namespace framework
 		// run thread with arguments, Thread_Func should be std::function
 		template<typename Thread_Func, typename ...Args>
 		void run(const Thread_Func &threadFunc, Args... args);
-		// run async task with no argument until over.
-		template<typename Thread_Func>
-		typename std::result_of<Thread_Func()>::type runAsync(const Thread_Func &threadFunc);
-		// run async task with arguments until over.
-		template<typename Thread_Func, typename ...Args>
-		typename std::result_of<Thread_Func(Args...)>::type runAsync(const Thread_Func &threadFunc, Args... args);
+		//// run async task with no argument until over.
+		//template<typename Thread_Func>
+		//typename std::result_of<Thread_Func()>::type runAsync(const Thread_Func &threadFunc);
+		//// run async task with arguments until over.
+		//template<typename Thread_Func, typename ...Args>
+		//typename std::result_of<Thread_Func(Args...)>::type runAsync(const Thread_Func &threadFunc, Args... args);
 
 		static void sleep(unsigned int ms);
 
@@ -67,7 +67,7 @@ namespace framework
 		_hThread = std::thread(threadFunc, std::forward<Args>(args)...);
 	}
 
-	template<typename Thread_Func>
+	/*template<typename Thread_Func>
 	typename std::result_of<Thread_Func()>::type Thread::runAsync(const Thread_Func &threadFunc)
 	{
 		CCASSERT(!_running, "The thread should not be running");
@@ -85,7 +85,7 @@ namespace framework
 		auto future = std::async(std::launch::async, threadFunc, std::forward<Args>(args)...);
 		auto returnVal = future.get();
 		return returnVal;
-	}
+	}*/
 }
 
 #endif

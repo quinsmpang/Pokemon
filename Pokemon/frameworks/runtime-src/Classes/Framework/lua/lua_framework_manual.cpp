@@ -675,6 +675,7 @@ tolua_lerror:
 
 	return 0;
 }
+/*
 static int lua_framework_Thread_runAsync(lua_State* tolua_S)
 {
 	int argc = 0;
@@ -781,6 +782,7 @@ tolua_lerror:
 
 	return 0;
 }
+*/
 static int lua_framework_Thread_join(lua_State* tolua_S)
 {
 	int argc = 0;
@@ -911,7 +913,7 @@ static void extendThread(lua_State* tolua_S)
 	tolua_beginmodule(tolua_S, "Thread");
 	tolua_function(tolua_S, "new", lua_framework_Thread_constructor);
 	tolua_function(tolua_S, "run", lua_framework_Thread_run);
-	tolua_function(tolua_S, "runAsync", lua_framework_Thread_runAsync);
+	//tolua_function(tolua_S, "runAsync", lua_framework_Thread_runAsync);
 	tolua_function(tolua_S, "join", lua_framework_Thread_join);
 	tolua_function(tolua_S, "detach", lua_framework_Thread_detach);
 	tolua_function(tolua_S, "sleep", lua_framework_Thread_sleep);
