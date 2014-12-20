@@ -7,7 +7,7 @@
 #include "Framework/lua/lua_framework_auto.hpp"
 #include "Framework/lua/lua_framework_manual.hpp"
 #include "Framework/lanes/lanes.h"
-#ifdef _WIN32
+#ifdef CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 #include "Framework/win32/KeyboardHelper.h"
 #endif
 
@@ -47,10 +47,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	// set FPS. the default value is 1.0/60 if you don't call this
 	director->setAnimationInterval(1.0 / 60);
-    
-    framework::ImageUtils::getInstance()->getGifFrames("fire.gif");
-    
-    return false;
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	bool res = framework::KeyboardHelper::getInstance()->hookOn();

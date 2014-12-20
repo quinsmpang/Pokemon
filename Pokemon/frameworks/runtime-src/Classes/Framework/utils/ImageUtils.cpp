@@ -1,8 +1,13 @@
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 #pragma comment(lib, "FreeImage.lib")
+#endif
 
 #include "ImageUtils.h"
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#include "lib/FreeImage.h"
+#else
 #include "giflib/gif_lib.h"
-//#include "lib/FreeImage.h"
+#endif
 #include "2d/platform/CCFileUtils.h"
 #include "base/CCVector.h"
 #include <memory>
@@ -12,6 +17,7 @@ using namespace std;
 
 namespace framework
 {
+#if CC_TARGET_PLATFORM != CC_PLATFORM_WIN32
     /* Read raw data of 'len' bytes from gif and copy them to the buffer */
     static int copyGifData(GifFileType *hGif, GifByteType *buffer, int len)
     {
@@ -24,6 +30,7 @@ namespace framework
         
         return len;
     }
+#endif
     
 	ImageUtils::ImageUtils()
 	{
