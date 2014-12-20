@@ -4,8 +4,8 @@ Author: M.Wan
 Date: 12/18/2014
 ******************************/
 
-#ifndef __MUTEX_H__
-#define __MUTEX_H__
+#ifndef __THREADING_MUTEX__
+#define __THREADING_MUTEX__
 
 #include "base/CCRef.h"
 #include "../base/Uninheritable.h"

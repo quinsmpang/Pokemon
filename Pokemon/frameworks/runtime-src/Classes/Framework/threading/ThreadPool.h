@@ -4,8 +4,8 @@ Author: M.Wan
 Date: 12/18/2014
 ******************************/
 
-#ifndef __THREADPOOL_H__
-#define __THREADPOOL_H__
+#ifndef __THREADING_THREADPOOL__
+#define __THREADING_THREADPOOL__
 
 #include "base/CCRef.h"
 #include "../base/Uninheritable.h"

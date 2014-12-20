@@ -11,18 +11,10 @@ namespace framework
 {
 
 	static std::string defaultPackagePath;
-
-	LuaUtils *LuaUtils::_instance = nullptr;
-
-	LuaUtils *LuaUtils::getInstance()
-	{
-		if (!_instance)
-		{
-			_instance = new LuaUtils();
-		}
-		
-		return _instance;
-	}
+    
+    LuaUtils::LuaUtils()
+    {
+    }
 
 	/*****************public api*****************/
 	const char *LuaUtils::getPackagePath()

@@ -18,8 +18,6 @@
 		15A8A4851834C73500142BE0 /* libCocosDenshion Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A41F1834BDA200142BE0 /* libCocosDenshion Mac.a */; };
 		15A8A4881834C90F00142BE0 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4871834C90E00142BE0 /* libcurl.dylib */; };
 		1AF4C403178663F200122817 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF4C402178663F200122817 /* libz.dylib */; };
-		33584C511A451F0400A9B62A /* FreeImage.dll in Resources */ = {isa = PBXBuildFile; fileRef = 33584C4E1A451F0400A9B62A /* FreeImage.dll */; };
-		33584C521A451F0400A9B62A /* FreeImage.lib in Frameworks */ = {isa = PBXBuildFile; fileRef = 33584C501A451F0400A9B62A /* FreeImage.lib */; };
 		33584C5E1A45315200A9B62A /* dgif_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 33584C541A45315200A9B62A /* dgif_lib.c */; };
 		33584C5F1A45315200A9B62A /* egif_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 33584C551A45315200A9B62A /* egif_lib.c */; };
 		33584C601A45315200A9B62A /* gif_err.c in Sources */ = {isa = PBXBuildFile; fileRef = 33584C561A45315200A9B62A /* gif_err.c */; };
@@ -73,7 +71,6 @@
 		3365B7A81A43D29000B33C4B /* ModalLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7581A43D29000B33C4B /* ModalLayer.cpp */; };
 		3365B7A91A43D29000B33C4B /* ImageUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B75B1A43D29000B33C4B /* ImageUtils.cpp */; };
 		3365B7AA1A43D29000B33C4B /* IOUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B75D1A43D29000B33C4B /* IOUtils.cpp */; };
-		3365B7AB1A43D29000B33C4B /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B75F1A43D29000B33C4B /* KeyboardHelper.cpp */; };
 		3365B7AE1A43D29000B33C4B /* RecordHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7651A43D29000B33C4B /* RecordHelper.cpp */; };
 		3365B7AF1A43D29000B33C4B /* UUIDGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7671A43D29000B33C4B /* UUIDGenerator.cpp */; };
 		3365B7B01A43D29000B33C4B /* ZipHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7691A43D29000B33C4B /* ZipHelper.cpp */; };
@@ -343,9 +340,6 @@
 		15A8A4871834C90E00142BE0 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		15C1568D1683131500D239F2 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../../cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = "<group>"; };
 		1AF4C402178663F200122817 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		33584C4E1A451F0400A9B62A /* FreeImage.dll */ = {isa = PBXFileReference; lastKnownFileType = file; path = FreeImage.dll; sourceTree = "<group>"; };
-		33584C4F1A451F0400A9B62A /* FreeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeImage.h; sourceTree = "<group>"; };
-		33584C501A451F0400A9B62A /* FreeImage.lib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = FreeImage.lib; sourceTree = "<group>"; };
 		33584C541A45315200A9B62A /* dgif_lib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dgif_lib.c; sourceTree = "<group>"; };
 		33584C551A45315200A9B62A /* egif_lib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = egif_lib.c; sourceTree = "<group>"; };
 		33584C561A45315200A9B62A /* gif_err.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gif_err.c; sourceTree = "<group>"; };
@@ -454,8 +448,6 @@
 		3365B75C1A43D29000B33C4B /* ImageUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtils.h; sourceTree = "<group>"; };
 		3365B75D1A43D29000B33C4B /* IOUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOUtils.cpp; sourceTree = "<group>"; };
 		3365B75E1A43D29000B33C4B /* IOUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOUtils.h; sourceTree = "<group>"; };
-		3365B75F1A43D29000B33C4B /* KeyboardHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardHelper.cpp; sourceTree = "<group>"; };
-		3365B7601A43D29000B33C4B /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
 		3365B7651A43D29000B33C4B /* RecordHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RecordHelper.cpp; sourceTree = "<group>"; };
 		3365B7661A43D29000B33C4B /* RecordHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordHelper.h; sourceTree = "<group>"; };
 		3365B7671A43D29000B33C4B /* UUIDGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UUIDGenerator.cpp; sourceTree = "<group>"; };
@@ -576,7 +568,6 @@
 				15A8A4471834C43700142BE0 /* libCocosDenshion iOS.a in Frameworks */,
 				D6B061351803AC000077942B /* CoreMotion.framework in Frameworks */,
 				1AF4C403178663F200122817 /* libz.dylib in Frameworks */,
-				33584C521A451F0400A9B62A /* FreeImage.lib in Frameworks */,
 				50805AAF17EBBEAA004CFAD3 /* UIKit.framework in Frameworks */,
 				5023817A17EBBE8300990C9B /* OpenGLES.framework in Frameworks */,
 				F293B3CD15EB7BE500256477 /* QuartzCore.framework in Frameworks */,
@@ -631,16 +622,6 @@
 				C03781CE18BF656A00FE4F13 /* StudioConstants.lua */,
 			);
 			name = "Lua Common";
-			sourceTree = "<group>";
-		};
-		33584C4D1A451F0400A9B62A /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				33584C4E1A451F0400A9B62A /* FreeImage.dll */,
-				33584C4F1A451F0400A9B62A /* FreeImage.h */,
-				33584C501A451F0400A9B62A /* FreeImage.lib */,
-			);
-			path = lib;
 			sourceTree = "<group>";
 		};
 		33584C531A45315200A9B62A /* giflib */ = {
@@ -905,13 +886,10 @@
 			isa = PBXGroup;
 			children = (
 				33584C531A45315200A9B62A /* giflib */,
-				33584C4D1A451F0400A9B62A /* lib */,
 				3365B75B1A43D29000B33C4B /* ImageUtils.cpp */,
 				3365B75C1A43D29000B33C4B /* ImageUtils.h */,
 				3365B75D1A43D29000B33C4B /* IOUtils.cpp */,
 				3365B75E1A43D29000B33C4B /* IOUtils.h */,
-				3365B75F1A43D29000B33C4B /* KeyboardHelper.cpp */,
-				3365B7601A43D29000B33C4B /* KeyboardHelper.h */,
 				3365B7651A43D29000B33C4B /* RecordHelper.cpp */,
 				3365B7661A43D29000B33C4B /* RecordHelper.h */,
 				3365B7671A43D29000B33C4B /* UUIDGenerator.cpp */,
@@ -1285,7 +1263,6 @@
 				C03781E718BF656A00FE4F13 /* json.lua in Resources */,
 				5023811917EBBCAC00990C9B /* Default-568h@2x.png in Resources */,
 				C03781D318BF656A00FE4F13 /* Cocos2d.lua in Resources */,
-				33584C511A451F0400A9B62A /* FreeImage.dll in Resources */,
 				5091733917ECE17A00D62437 /* Icon-58.png in Resources */,
 				C03781ED18BF656A00FE4F13 /* Opengl.lua in Resources */,
 				C03781F118BF656A00FE4F13 /* StudioConstants.lua in Resources */,
@@ -1389,7 +1366,6 @@
 				3365B7831A43D29000B33C4B /* Stack.cpp in Sources */,
 				3365B7B31A43D29000B33C4B /* KeyboardHelper.cpp in Sources */,
 				3365B79D1A43D29000B33C4B /* LuaUtils.cpp in Sources */,
-				3365B7AB1A43D29000B33C4B /* KeyboardHelper.cpp in Sources */,
 				5023812417EBBCAC00990C9B /* main.m in Sources */,
 				3365B7AA1A43D29000B33C4B /* IOUtils.cpp in Sources */,
 				3365B7A31A43D29000B33C4B /* Thread.cpp in Sources */,
@@ -1585,7 +1561,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "/Users/wanxin/Documents/Pokemon/Pokemon/Pokemon/frameworks/runtime-src/Classes/Framework/utils/lib";
+				LIBRARY_SEARCH_PATHS = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/cocos/2d/platform/ios";
@@ -1607,7 +1583,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "/Users/wanxin/Documents/Pokemon/Pokemon/Pokemon/frameworks/runtime-src/Classes/Framework/utils/lib";
+				LIBRARY_SEARCH_PATHS = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/cocos/2d/platform/ios";

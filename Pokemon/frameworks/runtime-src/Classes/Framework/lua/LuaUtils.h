@@ -8,6 +8,7 @@ Date: 4/17/2014
 #define __LUA_LUAUTIL__
 
 #include "cocos2d.h"
+#include "../base/Macros.h"
 #include <vector>
 #include <string>
 
@@ -16,10 +17,9 @@ namespace framework
 
 	class LuaUtils
 	{
+        SINGLETON(LuaUtils)
 	public:
-		static LuaUtils *getInstance();
-
-		const char *getPackagePath();
+        const char *getPackagePath();
 
 		void setPackagePaths(std::vector<std::string> &paths);
 
@@ -34,7 +34,6 @@ namespace framework
 		//int sendCustomEvent(framework::ScriptEvent *customEvent);
 
 	private:
-		LuaUtils() {}
 		static LuaUtils *_instance;
 
 		void setPackagePath(const std::string &path);

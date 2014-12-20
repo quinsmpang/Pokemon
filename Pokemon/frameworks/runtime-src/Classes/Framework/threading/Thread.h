@@ -4,8 +4,8 @@ Author: M.Wan
 Date: 12/16/2014
 ******************************/
 
-#ifndef __THREAD_H__
-#define __THREAD_H__
+#ifndef __THREADING_THREAD__
+#define __THREADING_THREAD__
 
 #include "base/CCRef.h"
 #include "2d/ccMacros.h"

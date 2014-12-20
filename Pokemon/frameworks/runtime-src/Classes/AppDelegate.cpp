@@ -6,9 +6,13 @@
 
 #include "Framework/lua/lua_framework_auto.hpp"
 #include "Framework/lua/lua_framework_manual.hpp"
-#include "version.h"
-#include "Framework/win32/KeyboardHelper.h"
 #include "Framework/lanes/lanes.h"
+#ifdef _WIN32
+#include "Framework/win32/KeyboardHelper.h"
+#endif
+
+#include "version.h"
+#include "Framework/utils/ImageUtils.h"
 
 #define LANES_SUPPORTED 0
 
@@ -34,7 +38,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 		director->setOpenGLView(glview);
 	}
 
-	glview->setDesignResolutionSize(800, 480, ResolutionPolicy::NO_BORDER);
+	glview->setDesignResolutionSize(800, 480, ResolutionPolicy::FIXED_WIDTH);
 
 	FileUtils::getInstance()->addSearchPath("res");
 
@@ -43,6 +47,10 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	// set FPS. the default value is 1.0/60 if you don't call this
 	director->setAnimationInterval(1.0 / 60);
+    
+    framework::ImageUtils::getInstance()->getGifFrames("fire.gif");
+    
+    return false;
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	bool res = framework::KeyboardHelper::getInstance()->hookOn();

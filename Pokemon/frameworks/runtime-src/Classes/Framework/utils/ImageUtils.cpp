@@ -1,7 +1,8 @@
 #pragma comment(lib, "FreeImage.lib")
 
 #include "ImageUtils.h"
-#include "freeimage/FreeImage.h"
+#include "giflib/gif_lib.h"
+//#include "lib/FreeImage.h"
 #include "2d/platform/CCFileUtils.h"
 #include "base/CCVector.h"
 #include <memory>
@@ -11,6 +12,19 @@ using namespace std;
 
 namespace framework
 {
+    /* Read raw data of 'len' bytes from gif and copy them to the buffer */
+    static int copyGifData(GifFileType *hGif, GifByteType *buffer, int len)
+    {
+        // UserData is the raw data you passed to giflib.
+        char *pRawData = (char*)hGif->UserData;
+        memcpy(buffer, pRawData, len);
+        // don't forget to shift the ptr, cuz giflib doesn't read all data at once, you have to memory the offset you have read.
+        pRawData += len;
+        hGif->UserData = (void*)pRawData;
+        
+        return len;
+    }
+    
 	ImageUtils::ImageUtils()
 	{
 		//FreeImage_Initialise(false);
@@ -28,7 +42,7 @@ namespace framework
 	framework::Vector *ImageUtils::getGifFrames(BinaryData *imageData)
 	{
 		Vector *frames = Vector::create();
-
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 		FIMEMORY *pData = FreeImage_OpenMemory(imageData->getData(), imageData->getSize());
 
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
@@ -86,6 +100,32 @@ namespace framework
 			FreeImage_CloseMemory(pData);
 			FreeImage_CloseMultiBitmap(fiBmps);
 		}
+#else
+        int err = 0;
+        GifFileType *hGif = DGifOpen(imageData->getData(), copyGifData, &err);
+        if (err)
+        {
+            CCLOG("Read gif error.");
+            throw "invalid binary data.";
+        }
+        DGifSlurp(hGif);
+        CCLOG("Gif frame count: %d", hGif->ImageCount);
+        if (hGif->ImageCount > 0) {
+            // gif width and height
+            int bgWidth = hGif->SWidth;
+            int bgHeight = hGif->SHeight;
+            // gif color depth
+            int cr = hGif->SColorResolution;
+            // check bg color, if the global color map is nonexistent, then the bg color is no use.
+            GifColorType *bgColor = hGif->SColorMap ? hGif->SColorMap[hGif->SBackGroundColor].Colors : nullptr;
+            
+            // read image data one by one
+            unsigned char *pImgData = nullptr;
+            for (int i = 0; i < hGif->ImageCount; ++i) {
+                pImgData = hGif->SavedImages[i].RasterBits;
+            }
+        }
+#endif
 
 		return frames;
 	}
