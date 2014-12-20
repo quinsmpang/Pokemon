@@ -13,10 +13,10 @@ namespace framework
 	class MaskLayerDelegate
 	{
 	public:
-		/* 事件穿透 */
+		/* Touch penetrated */
 		virtual void onEventPenetrated(float x, float y) = 0;
 
-		/* 事件拦截 */
+		/* Touch intercepted */
 		virtual void onEventIntercepted(float x, float y) = 0;
 	};
 

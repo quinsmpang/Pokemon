@@ -1,7 +1,7 @@
 #pragma comment(lib, "FreeImage.lib")
 
 #include "ImageUtils.h"
-#include "FreeImage.h"
+#include "freeimage/FreeImage.h"
 #include "2d/platform/CCFileUtils.h"
 #include "base/CCVector.h"
 #include <memory>
@@ -50,7 +50,7 @@ namespace framework
 						const int height = FreeImage_GetHeight(pBmp);
 						const int bpp = FreeImage_GetBPP(pBmp);
 						char *data = (char*)FreeImage_GetBits(pBmp);
-						// Í¼ÏñÊÇµßµ¹µÄ
+						// The image is reversed.
 						const int len = width * height * bpp / 8;
 						const int bytes = bpp / 8;
 						char *ptrBegin = data, *ptrEnd = data + (height - 1) * width * bytes;
