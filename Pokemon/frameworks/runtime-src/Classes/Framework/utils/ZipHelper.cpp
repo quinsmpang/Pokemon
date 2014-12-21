@@ -2,10 +2,12 @@
 #include "2d/platform/CCFileUtils.h"
 #include "IOUtils.h"
 #include "../base/RefString.h"
-#ifdef _WIN32
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 #include "ziplib/zip.h"
 #include "ziplib/unzip.h"
-#else
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#include "minizip/zip.h"
+#include "minizip/unzip.h"
 #endif
 
 #define INVALID_ZIP_HANDLE 0
@@ -20,8 +22,8 @@ namespace framework
 
 	BinaryData *ZipHelper::getFileDataInZip(const std::string &zipFile, const std::string &targetFile, const std::string &password)
 	{
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 		std::string zipFilePath = FileUtils::getInstance()->fullPathForFilename(zipFile);
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 		wchar_t zipFilename[MAX_PATH] = { 0 };
 		STDSTRING_TO_WCHAR(zipFilePath, zipFilename);
 		wchar_t targetFilename[MAX_PATH] = { 0 };
@@ -42,10 +44,46 @@ namespace framework
 		UnzipItem(hZip, index, pData, dataSize);
 		CloseZip(hZip);
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-        unsigned long dataSize = 0;
+        unzFile uf = unzOpen64(zipFilePath.c_str());
+        if (!uf) {
+            CCLOG("ZipHelper: %s zip file not found", zipFilePath.c_str());
+            return nullptr;
+        }
+        unz_global_info64 gi;
+        int result = unzGetGlobalInfo64(uf, &gi);
+        if (result != UNZ_OK) {
+            CCLOG("ZipHelper: invalid zip file %s", zipFilePath.c_str());
+            return nullptr;
+        }
+        unz_file_info64 fi;
+        result = unzGetCurrentFileInfo64(uf, &fi, const_cast<char*>(targetFile.c_str()), targetFile.length(), nullptr, 0, nullptr, 0);
+        if (result != UNZ_OK) {
+            CCLOG("ZipHelper: get file %s failed", targetFile.c_str());
+            return nullptr;
+        }
+        // only consider file
+        if (password.size() > 0) {
+            result = unzOpenCurrentFilePassword(uf, password.c_str());
+        } else {
+            result = unzOpenCurrentFile(uf);
+        }
+        unsigned long dataSize = fi.uncompressed_size;
         unsigned char *pData = (unsigned char*)malloc(dataSize);
+        // read
+        while (true) {
+            int size = unzReadCurrentFile(uf, pData, dataSize);
+            if (size < 0) {
+                CCLOG("uncompress met a problem");
+                free(pData);
+                return nullptr;
+            } else if (size == 0) {
+                CCLOG("uncompress data end");
+                break;
+            }
+        }
+        unzCloseCurrentFile(uf);
+        unzClose(uf);
 #endif
-		
 		auto binaryData = BinaryData::create(pData, dataSize);
 		//binaryData->retain();
 
@@ -96,7 +134,8 @@ namespace framework
 		CloseZip(hZip);
 		ret = true;
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-        ret = true;
+        CCLOG("ZipHelper: zipOneFile not implemented yet.");
+        ret = false;
 #endif
 
 		return ret;
@@ -152,7 +191,8 @@ namespace framework
 		CloseZip(hZip);
 		ret = true;
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-        ret = true;
+        CCLOG("ZipHelper: zipMultipleFiles not implemented yet.");
+        ret = false;
 #endif
 
 		return ret;

@@ -13,7 +13,7 @@ v1.06	Add win32 keyboard support into the framework
 v1.07	Add AES encryption and standard save data support
 v1.08	Add TitleSwitch control to the framework
 v1.09	Integrate lanes lib to the framework
-v1.10   Add gif decode method in ohter platform excluding win32
+v1.10   Add gif decode method in ohter platform excluding win32, fix zip on ios issue.
 ***********************************************/
 
 #include <iostream>

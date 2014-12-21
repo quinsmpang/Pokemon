@@ -19,7 +19,6 @@ namespace framework
 	{
 		SINGLETON(ZipHelper);
 	public:
-		// return raw data, don't forget to use free(data) to clean the resource.
 		BinaryData *getFileDataInZip(const std::string &zipFile, const std::string &targetFile, const std::string &password = "");
 
 		bool zipOneFile(const std::string &zipFile, const std::string &targetFile, unsigned char *data, unsigned long size, bool overwrite = false, const std::string &password = "");
