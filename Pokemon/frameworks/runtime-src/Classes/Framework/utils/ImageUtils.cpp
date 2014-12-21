@@ -121,16 +121,85 @@ namespace framework
             // gif width and height
             int bgWidth = hGif->SWidth;
             int bgHeight = hGif->SHeight;
-            // gif color depth
-            int cr = hGif->SColorResolution;
             // check bg color, if the global color map is nonexistent, then the bg color is no use.
-            GifColorType *bgColor = hGif->SColorMap ? hGif->SColorMap[hGif->SBackGroundColor].Colors : nullptr;
-            
-            // read image data one by one
-            unsigned char *pImgData = nullptr;
-            for (int i = 0; i < hGif->ImageCount; ++i) {
-                pImgData = hGif->SavedImages[i].RasterBits;
+            GifColorType defaultColor = { 0x0, 0x0, 0x0 };
+            GifColorType bgColor = hGif->SColorMap ? hGif->SColorMap->Colors[hGif->SBackGroundColor] : defaultColor;
+            CCLOG("Background color: R: %d, G: %d, B: %d", bgColor.Red, bgColor.Green, bgColor.Blue);
+            // alloc the data for the bg at first, use RGBA8888 here
+            unsigned int len = bgWidth * bgHeight * sizeof(unsigned int);
+            unsigned int *pBgBuffer = (unsigned int*)malloc(len);
+            // fill the bg color to the bg buffer
+            // the first row
+            unsigned int r, g, b, a;
+            r = bgColor.Red;
+            g = bgColor.Green;
+            b = bgColor.Blue;
+            a = 0x0;       // alpha, 0 indicates transparency
+            unsigned int bgRgba = (a << 24) | (b << 16) | (g << 8) | r;
+            for (int i = 0; i < bgWidth; ++i) {
+                pBgBuffer[i] = bgRgba;
             }
+            // copy the first row to the rest rows.
+            for (int i = 1; i < bgHeight; ++i) {
+                memcpy(pBgBuffer + i * bgWidth, pBgBuffer, bgWidth);
+            }
+            
+            // save the sub image one by one
+            unsigned int *pImgBuffer = nullptr;
+            for (int i = 0; i < hGif->ImageCount; ++i) {
+                pImgBuffer = (unsigned int*)malloc(len);
+                memcpy(pImgBuffer, pBgBuffer, len);
+                
+                int top = hGif->SavedImages[i].ImageDesc.Top;
+                int left = hGif->SavedImages[i].ImageDesc.Left;
+                int width = hGif->SavedImages[i].ImageDesc.Width;
+                int height = hGif->SavedImages[i].ImageDesc.Height;
+                // check transparency from extension blocks
+                GraphicsControlBlock gcb;
+                DGifSavedExtensionToGCB(hGif, i, &gcb);
+//                CCLOG("delay ts: %d", gcb.DelayTime);
+                // image raw data: RGBRGB...(all color index) read them one by one
+                unsigned char *pRawData = hGif->SavedImages[i].RasterBits;
+                // check local color map, if nonexistence, use global color map
+                // any possibility that neither of color maps exists?
+                GifColorType *pColorMap = hGif->SavedImages[i].ImageDesc.ColorMap ? hGif->SavedImages[i].ImageDesc.ColorMap->Colors : hGif->SColorMap->Colors;
+                // calculate the offset, retrieve data from raw data
+                unsigned int *pImgPtr = pImgBuffer + top * bgWidth + left;
+                unsigned char *pRawPtr = pRawData;
+                int rawIndex;
+                GifColorType color;
+                for (int y = 0; y < height; ++y) {
+                    for (int x = 0; x < width; ++x) {
+                        rawIndex = pRawPtr[x];
+                        // check whether it is the transparent pixel
+                        if (gcb.TransparentColor != -1 && gcb.TransparentColor == rawIndex) {
+                            // skip the current pixel.
+                            continue;
+                        }
+                        color = pColorMap[rawIndex];
+                        r = color.Red;
+                        g = color.Green;
+                        b = color.Blue;
+                        a = 0xff;       // alpha, default as 100% opacity
+                        pImgPtr[x] = (a << 24) | (b << 16) | (g << 8) | r;
+                    }
+                    // shift the pointer
+                    pImgPtr += width + left;
+                    pRawPtr += width;
+                }
+                
+                // create texture
+                auto pTexture = new Texture2D();
+                pTexture->initWithData((void*)pImgBuffer, len, Texture2D::PixelFormat::RGBA8888, bgWidth, bgHeight, Size(bgWidth, bgHeight));
+                pTexture->autorelease();
+                frames->addObject(pTexture);
+                free(pImgBuffer);
+            }
+            
+            // clean the buffer
+            free(pBgBuffer);
+            // close gif
+            DGifCloseFile(hGif, &err);
         }
 #endif
 

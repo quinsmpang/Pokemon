@@ -7,7 +7,7 @@
 #include "Framework/lua/lua_framework_auto.hpp"
 #include "Framework/lua/lua_framework_manual.hpp"
 #include "Framework/lanes/lanes.h"
-#ifdef CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 #include "Framework/win32/KeyboardHelper.h"
 #endif
 
@@ -47,6 +47,19 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	// set FPS. the default value is 1.0/60 if you don't call this
 	director->setAnimationInterval(1.0 / 60);
+    
+    auto pScene = Scene::create();
+    auto pLayer = Layer::create();
+    pScene->addChild(pLayer);
+    auto pSprite = Sprite::create();
+    auto frames = framework::ImageUtils::getInstance()->getGifFrames("006.gif");
+    auto pAnimate = framework::ImageUtils::getInstance()->createAnimationByFrames(frames, 0.1);
+    pSprite->runAction(RepeatForever::create(pAnimate));
+    pSprite->setPosition(Point(400, 240));
+    pLayer->addChild(pSprite);
+    director->runWithScene(pScene);
+    
+    return false;
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	bool res = framework::KeyboardHelper::getInstance()->hookOn();
