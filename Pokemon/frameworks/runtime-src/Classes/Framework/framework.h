@@ -45,7 +45,6 @@
 #include "format/SaveData.h"
 
 //#include "threading/Thread.h"
-#include "threading/ThreadPool.h"
 #include "threading/Mutex.h"
 
 #include "win32/Win32EventArgs.h"
