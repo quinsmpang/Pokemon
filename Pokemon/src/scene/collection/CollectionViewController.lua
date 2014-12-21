@@ -88,7 +88,36 @@ function CollectionViewController:onCollectionSelectionChanged(oldIndex, newInde
 end
 
 function CollectionViewController:onCollectionSelected(pokemonId)
-	-- show detail view
+	-- if not CollectionAnimationCache.animationCache[pokemonId] then
+	if false then
+		local progressLayer = ProgressLayer:create()
+		self:getScene():addChild(progressLayer)
+		self.progressLayer = progressLayer
+
+		CallFunctionAsync(self, self.loadAnimation, 0.05, pokemonId)
+	else
+		-- show detail view
+		local detailView = CollectionDetailView:create(pokemonId)
+		self:getScene():addChild(detailView)
+		self.detailView = detailView
+	end
+end
+
+function CollectionViewController:loadAnimation(pokemonId)
+	-- 首次读取gif并缓存
+	local th = Thread:new()
+	th:runAsync(function()
+		log("Starting cache...")
+		local num = math.floor(pokemonId / 100) + 1
+		local data = ZipHelper:getInstance():getFileDataInZip(string.format("framework/pokemon_gif%d.rc", num), string.format("%03d.gif", pokemonId), GameConfig.ZIP_PASSWORD)
+		local frames = ImageUtils:getInstance():getGifFrames(data)
+		local animation = ImageUtils:getInstance():createAnimationByFrames(frames, 0.1)
+		CollectionAnimationCache:cache(pokemonId, animation)
+		log("Cache complete...")
+	end)
+	self.progressLayer:removeFromParent()
+
+	log("Show detail view")
 	local detailView = CollectionDetailView:create(pokemonId)
 	self:getScene():addChild(detailView)
 	self.detailView = detailView

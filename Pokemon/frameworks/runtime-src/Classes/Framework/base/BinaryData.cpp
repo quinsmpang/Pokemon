@@ -1,4 +1,6 @@
 #include "BinaryData.h"
+#include <malloc.h>
+#include <string.h>
 
 using namespace cocos2d;
 using namespace std;
@@ -21,13 +23,15 @@ namespace framework
 	{
 		if (_data)
 		{
-			delete _data;
+			free(_data);
 		}
 	}
 
 	bool BinaryData::init(unsigned char *data, unsigned long size)
 	{
-		this->_data = data;
+		// copy the data
+		this->_data = (unsigned char*)malloc(size);
+		memcpy(this->_data, data, size);
 		this->_size = size;
 
 		return true;
