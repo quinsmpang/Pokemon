@@ -15,6 +15,36 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
             endingLineNumber = "35">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "decrypt_byte"
+                  moduleName = "Pokemon iOS"
+                  urlString = "file:///Users/wanxin/Documents/Pokemon/Pokemon/Pokemon/frameworks/runtime-src/Classes/Framework/utils/minizip/crypt.h"
+                  timestampString = "441030169.477139"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "18">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "decrypt_byte"
+                  moduleName = "Pokemon iOS"
+                  urlString = "file:///Users/wanxin/Documents/Pokemon/Pokemon/Pokemon/frameworks/runtime-src/Classes/Framework/utils/minizip/crypt.h"
+                  timestampString = "441030169.477366"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "18">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

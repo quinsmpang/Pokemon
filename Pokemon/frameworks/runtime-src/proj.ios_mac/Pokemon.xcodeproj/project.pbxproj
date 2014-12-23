@@ -63,7 +63,6 @@
 		3365B7A11A43D29000B33C4B /* SqliteDb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7481A43D29000B33C4B /* SqliteDb.cpp */; };
 		3365B7A21A43D29000B33C4B /* Mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B74B1A43D29000B33C4B /* Mutex.cpp */; };
 		3365B7A31A43D29000B33C4B /* Thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B74D1A43D29000B33C4B /* Thread.cpp */; };
-		3365B7A41A43D29000B33C4B /* ThreadPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B74F1A43D29000B33C4B /* ThreadPool.cpp */; };
 		3365B7A51A43D29000B33C4B /* CoreLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7521A43D29000B33C4B /* CoreLayer.cpp */; };
 		3365B7A61A43D29000B33C4B /* GameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7541A43D29000B33C4B /* GameLayer.cpp */; };
 		3365B7A71A43D29000B33C4B /* MaskLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7561A43D29000B33C4B /* MaskLayer.cpp */; };
@@ -438,8 +437,6 @@
 		3365B74C1A43D29000B33C4B /* Mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mutex.h; sourceTree = "<group>"; };
 		3365B74D1A43D29000B33C4B /* Thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Thread.cpp; sourceTree = "<group>"; };
 		3365B74E1A43D29000B33C4B /* Thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thread.h; sourceTree = "<group>"; };
-		3365B74F1A43D29000B33C4B /* ThreadPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadPool.cpp; sourceTree = "<group>"; };
-		3365B7501A43D29000B33C4B /* ThreadPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadPool.h; sourceTree = "<group>"; };
 		3365B7521A43D29000B33C4B /* CoreLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoreLayer.cpp; sourceTree = "<group>"; };
 		3365B7531A43D29000B33C4B /* CoreLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLayer.h; sourceTree = "<group>"; };
 		3365B7541A43D29000B33C4B /* GameLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameLayer.cpp; sourceTree = "<group>"; };
@@ -877,8 +874,6 @@
 				3365B74C1A43D29000B33C4B /* Mutex.h */,
 				3365B74D1A43D29000B33C4B /* Thread.cpp */,
 				3365B74E1A43D29000B33C4B /* Thread.h */,
-				3365B74F1A43D29000B33C4B /* ThreadPool.cpp */,
-				3365B7501A43D29000B33C4B /* ThreadPool.h */,
 			);
 			path = threading;
 			sourceTree = "<group>";
@@ -1378,7 +1373,6 @@
 				3365B7B41A43D29000B33C4B /* Win32EventArgs.cpp in Sources */,
 				78B4DA001A47192C0077C418 /* ioapi.c in Sources */,
 				3365B7901A43D29000B33C4B /* des.cpp in Sources */,
-				3365B7A41A43D29000B33C4B /* ThreadPool.cpp in Sources */,
 				3365B77F1A43D29000B33C4B /* RefInteger.cpp in Sources */,
 				3365B7951A43D29000B33C4B /* keeper.c in Sources */,
 				3365B7A71A43D29000B33C4B /* MaskLayer.cpp in Sources */,
