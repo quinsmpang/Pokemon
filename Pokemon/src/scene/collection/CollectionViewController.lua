@@ -117,7 +117,6 @@ function CollectionViewController:loadAnimation(pokemonId)
 	end)
 	self.progressLayer:removeFromParent()
 
-	log("Show detail view")
 	local detailView = CollectionDetailView:create(pokemonId)
 	self:getScene():addChild(detailView)
 	self.detailView = detailView
