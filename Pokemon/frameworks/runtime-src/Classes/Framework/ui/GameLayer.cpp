@@ -17,6 +17,10 @@ namespace framework
 
 	GameLayer::~GameLayer()
 	{
+		CC_SAFE_RELEASE(_comeInWhenPushAction);
+		CC_SAFE_RELEASE(_comeInWhenPopAction);
+		CC_SAFE_RELEASE(_goOutWhenPushAction);
+		CC_SAFE_RELEASE(_goOutWhenPopAction);
 	}
 
 	bool GameLayer::init()
