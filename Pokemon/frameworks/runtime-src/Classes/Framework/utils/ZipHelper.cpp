@@ -53,12 +53,14 @@ namespace framework
         int result = unzGetGlobalInfo64(uf, &gi);
         if (result != UNZ_OK) {
             CCLOG("ZipHelper: invalid zip file %s", zipFilePath.c_str());
+            unzClose(uf);
             return nullptr;
         }
         unz_file_info64 fi;
         result = unzGetCurrentFileInfo64(uf, &fi, const_cast<char*>(targetFile.c_str()), targetFile.length(), nullptr, 0, nullptr, 0);
         if (result != UNZ_OK) {
             CCLOG("ZipHelper: get file %s failed", targetFile.c_str());
+            unzClose(uf);
             return nullptr;
         }
         // only consider file
@@ -75,6 +77,8 @@ namespace framework
             if (size < 0) {
                 CCLOG("uncompress met a problem");
                 free(pData);
+		        unzCloseCurrentFile(uf);
+		        unzClose(uf);
                 return nullptr;
             } else if (size == 0) {
                 CCLOG("uncompress data end");
