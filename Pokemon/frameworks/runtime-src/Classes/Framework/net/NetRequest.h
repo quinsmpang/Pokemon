@@ -40,8 +40,8 @@ namespace framework
         }
     
     protected:
-        std::string _body;
-        std::string _protocolId;
+        std::string _body;				// net data package
+        std::string _protocolId;		// net protocol id
     };
 }
 

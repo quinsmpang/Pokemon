@@ -51,6 +51,7 @@
 #include "net/NetResponse.h"
 #include "net/NetService.h"
 #include "net/NetHandler.h"
+#include "net/NetFilter.h"
 #include "net/NetProtocol.h"
 #include "net/NetCenter.h"
 

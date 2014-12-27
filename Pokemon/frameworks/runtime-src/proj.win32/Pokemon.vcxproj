@@ -203,6 +203,13 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\lua\LuaUtils.h" />
     <ClInclude Include="..\Classes\Framework\lua\lua_framework_auto.hpp" />
     <ClInclude Include="..\Classes\Framework\lua\lua_framework_manual.hpp" />
+    <ClInclude Include="..\Classes\Framework\net\NetCenter.h" />
+    <ClInclude Include="..\Classes\Framework\net\NetFilter.h" />
+    <ClInclude Include="..\Classes\Framework\net\NetHandler.h" />
+    <ClInclude Include="..\Classes\Framework\net\NetProtocol.h" />
+    <ClInclude Include="..\Classes\Framework\net\NetRequest.h" />
+    <ClInclude Include="..\Classes\Framework\net\NetResponse.h" />
+    <ClInclude Include="..\Classes\Framework\net\NetService.h" />
     <ClInclude Include="..\Classes\Framework\scene\GameScene.h" />
     <ClInclude Include="..\Classes\Framework\scene\ViewController.h" />
     <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.h" />
@@ -264,6 +271,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_auto.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_manual.cpp" />
+    <ClCompile Include="..\Classes\Framework\net\NetCenter.cpp" />
+    <ClCompile Include="..\Classes\Framework\net\NetFilter.cpp" />
+    <ClCompile Include="..\Classes\Framework\net\NetHandler.cpp" />
+    <ClCompile Include="..\Classes\Framework\net\NetProtocol.cpp" />
+    <ClCompile Include="..\Classes\Framework\net\NetRequest.cpp" />
+    <ClCompile Include="..\Classes\Framework\net\NetResponse.cpp" />
     <ClCompile Include="..\Classes\Framework\scene\GameScene.cpp" />
     <ClCompile Include="..\Classes\Framework\scene\ViewController.cpp" />
     <ClCompile Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.c" />

@@ -47,9 +47,9 @@ namespace framework
         }
     
     protected:
-        std::string _protocolId;
-        std::string _body;
-        NetRequest *_relatedRequest;
+        std::string _protocolId;		// net response id
+        std::string _body;				// net data package
+        NetRequest *_relatedRequest;		// related request object
     };
 }
 

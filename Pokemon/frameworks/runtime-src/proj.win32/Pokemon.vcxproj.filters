@@ -70,6 +70,9 @@
     <Filter Include="Classes\psframework\threading">
       <UniqueIdentifier>{8db32e5f-bc28-48c6-9fc9-13c40490ae7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\psframework\net">
+      <UniqueIdentifier>{1f9bbd86-912f-48ab-a424-fecb08aef494}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -262,6 +265,27 @@
     <ClInclude Include="..\Classes\Framework\threading\Mutex.h">
       <Filter>Classes\psframework\threading</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\net\NetCenter.h">
+      <Filter>Classes\psframework\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\net\NetHandler.h">
+      <Filter>Classes\psframework\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\net\NetProtocol.h">
+      <Filter>Classes\psframework\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\net\NetRequest.h">
+      <Filter>Classes\psframework\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\net\NetResponse.h">
+      <Filter>Classes\psframework\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\net\NetService.h">
+      <Filter>Classes\psframework\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\net\NetFilter.h">
+      <Filter>Classes\psframework\net</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -431,6 +455,24 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\threading\Mutex.cpp">
       <Filter>Classes\psframework\threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\net\NetCenter.cpp">
+      <Filter>Classes\psframework\net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\net\NetHandler.cpp">
+      <Filter>Classes\psframework\net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\net\NetProtocol.cpp">
+      <Filter>Classes\psframework\net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\net\NetRequest.cpp">
+      <Filter>Classes\psframework\net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\net\NetResponse.cpp">
+      <Filter>Classes\psframework\net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\net\NetFilter.cpp">
+      <Filter>Classes\psframework\net</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

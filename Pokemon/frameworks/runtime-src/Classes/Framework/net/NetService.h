@@ -8,6 +8,7 @@
 #define __NET_NETSERVICE__
 
 #include "base/CCRef.h"
+#include <string>
 
 namespace framework
 {
@@ -18,7 +19,11 @@ namespace framework
     public:
         virtual ~NetService() {}
     
+		// send message to the server
         virtual void sendMessage(NetRequest *request) = 0;
+
+		// execute specified command
+		virtual void executeCommand(const std::string &cmd, cocos2d::Ref *params) = 0;
     };
 }
 
