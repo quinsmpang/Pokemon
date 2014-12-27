@@ -4,8 +4,8 @@ Author: M.Wan
 Date: 8/4/2014
 ******************************/
 
-#ifndef __BINARYDATA_H__
-#define __BINARYDATA_H__
+#ifndef __BASE_BINARYDATA__
+#define __BASE_BINARYDATA__
 
 #include "base/CCRef.h"
 #include <memory>

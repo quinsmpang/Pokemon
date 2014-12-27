@@ -12,7 +12,6 @@
 #endif
 
 #include "version.h"
-#include "Framework/utils/ImageUtils.h"
 
 #define LANES_SUPPORTED 0
 

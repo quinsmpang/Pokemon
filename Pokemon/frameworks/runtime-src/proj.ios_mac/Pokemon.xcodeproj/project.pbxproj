@@ -77,6 +77,11 @@
 		3365B7B51A43D29000B33C4B /* Win32EventListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7761A43D29000B33C4B /* Win32EventListener.cpp */; };
 		3365B7B61A43D29000B33C4B /* Win32EventListenerKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7781A43D29000B33C4B /* Win32EventListenerKeyboard.cpp */; };
 		3365B7B71A43D29000B33C4B /* Win32Notifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B77A1A43D29000B33C4B /* Win32Notifier.cpp */; };
+		33A416FB1A4E9E4900F399E6 /* NetRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33A416F91A4E9E4900F399E6 /* NetRequest.cpp */; };
+		33A416FE1A4EA19300F399E6 /* NetResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33A416FC1A4EA19300F399E6 /* NetResponse.cpp */; };
+		33A417011A4EA33200F399E6 /* NetHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33A416FF1A4EA33200F399E6 /* NetHandler.cpp */; };
+		33A417041A4EA6C000F399E6 /* NetProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33A417021A4EA6C000F399E6 /* NetProtocol.cpp */; };
+		33A417071A4EA9E900F399E6 /* NetCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33A417051A4EA9E900F399E6 /* NetCenter.cpp */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; };
 		5023811917EBBCAC00990C9B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5023810917EBBCAC00990C9B /* Default-568h@2x.png */; };
 		5023811A17EBBCAC00990C9B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5023810A17EBBCAC00990C9B /* Default.png */; };
@@ -466,6 +471,17 @@
 		3365B7791A43D29000B33C4B /* Win32EventListenerKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Win32EventListenerKeyboard.h; sourceTree = "<group>"; };
 		3365B77A1A43D29000B33C4B /* Win32Notifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Win32Notifier.cpp; sourceTree = "<group>"; };
 		3365B77B1A43D29000B33C4B /* Win32Notifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Win32Notifier.h; sourceTree = "<group>"; };
+		33A416F51A4E9C1100F399E6 /* NetService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetService.h; sourceTree = "<group>"; };
+		33A416F91A4E9E4900F399E6 /* NetRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetRequest.cpp; sourceTree = "<group>"; };
+		33A416FA1A4E9E4900F399E6 /* NetRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetRequest.h; sourceTree = "<group>"; };
+		33A416FC1A4EA19300F399E6 /* NetResponse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetResponse.cpp; sourceTree = "<group>"; };
+		33A416FD1A4EA19300F399E6 /* NetResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetResponse.h; sourceTree = "<group>"; };
+		33A416FF1A4EA33200F399E6 /* NetHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetHandler.cpp; sourceTree = "<group>"; };
+		33A417001A4EA33200F399E6 /* NetHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetHandler.h; sourceTree = "<group>"; };
+		33A417021A4EA6C000F399E6 /* NetProtocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetProtocol.cpp; sourceTree = "<group>"; };
+		33A417031A4EA6C000F399E6 /* NetProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetProtocol.h; sourceTree = "<group>"; };
+		33A417051A4EA9E900F399E6 /* NetCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetCenter.cpp; sourceTree = "<group>"; };
+		33A417061A4EA9E900F399E6 /* NetCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetCenter.h; sourceTree = "<group>"; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		5023810817EBBCAC00990C9B /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = "<group>"; };
 		5023810917EBBCAC00990C9B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -657,6 +673,7 @@
 		3365B6E81A43D29000B33C4B /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				33A416F01A4E824000F399E6 /* net */,
 				3365B6E91A43D29000B33C4B /* base */,
 				3365B6F71A43D29000B33C4B /* containers */,
 				3365B7001A43D29000B33C4B /* controls */,
@@ -927,6 +944,24 @@
 				3365B77B1A43D29000B33C4B /* Win32Notifier.h */,
 			);
 			path = win32;
+			sourceTree = "<group>";
+		};
+		33A416F01A4E824000F399E6 /* net */ = {
+			isa = PBXGroup;
+			children = (
+				33A416F51A4E9C1100F399E6 /* NetService.h */,
+				33A416F91A4E9E4900F399E6 /* NetRequest.cpp */,
+				33A416FA1A4E9E4900F399E6 /* NetRequest.h */,
+				33A416FC1A4EA19300F399E6 /* NetResponse.cpp */,
+				33A416FD1A4EA19300F399E6 /* NetResponse.h */,
+				33A416FF1A4EA33200F399E6 /* NetHandler.cpp */,
+				33A417001A4EA33200F399E6 /* NetHandler.h */,
+				33A417021A4EA6C000F399E6 /* NetProtocol.cpp */,
+				33A417031A4EA6C000F399E6 /* NetProtocol.h */,
+				33A417051A4EA9E900F399E6 /* NetCenter.cpp */,
+				33A417061A4EA9E900F399E6 /* NetCenter.h */,
+			);
+			path = net;
 			sourceTree = "<group>";
 		};
 		5023810617EBBCAC00990C9B /* ios */ = {
@@ -1356,6 +1391,7 @@
 				33584C641A45315200A9B62A /* quantize.c in Sources */,
 				3365B79F1A43D29000B33C4B /* ViewController.cpp in Sources */,
 				33584C5E1A45315200A9B62A /* dgif_lib.c in Sources */,
+				33A417041A4EA6C000F399E6 /* NetProtocol.cpp in Sources */,
 				3365B7B71A43D29000B33C4B /* Win32Notifier.cpp in Sources */,
 				78B4DA031A47192C0077C418 /* zip.c in Sources */,
 				33584C631A45315200A9B62A /* gifalloc.c in Sources */,
@@ -1363,6 +1399,7 @@
 				3365B7B01A43D29000B33C4B /* ZipHelper.cpp in Sources */,
 				3365B7A61A43D29000B33C4B /* GameLayer.cpp in Sources */,
 				33584C621A45315200A9B62A /* gif_hash.c in Sources */,
+				33A416FB1A4E9E4900F399E6 /* NetRequest.cpp in Sources */,
 				3365B7A91A43D29000B33C4B /* ImageUtils.cpp in Sources */,
 				3365B7A01A43D29000B33C4B /* sqlite3.c in Sources */,
 				3365B7921A43D29000B33C4B /* SaveData.cpp in Sources */,
@@ -1392,6 +1429,7 @@
 				33584C611A45315200A9B62A /* gif_font.c in Sources */,
 				3365B7811A43D29000B33C4B /* Map.cpp in Sources */,
 				3365B7991A43D29000B33C4B /* lua_framework_auto.cpp in Sources */,
+				33A416FE1A4EA19300F399E6 /* NetResponse.cpp in Sources */,
 				3365B7841A43D29000B33C4B /* Vector.cpp in Sources */,
 				3365B7931A43D29000B33C4B /* compat.c in Sources */,
 				3365B78D1A43D29000B33C4B /* DesUtils.cpp in Sources */,
@@ -1400,6 +1438,8 @@
 				3365B7B31A43D29000B33C4B /* KeyboardHelper.cpp in Sources */,
 				3365B79D1A43D29000B33C4B /* LuaUtils.cpp in Sources */,
 				5023812417EBBCAC00990C9B /* main.m in Sources */,
+				33A417011A4EA33200F399E6 /* NetHandler.cpp in Sources */,
+				33A417071A4EA9E900F399E6 /* NetCenter.cpp in Sources */,
 				3365B7AA1A43D29000B33C4B /* IOUtils.cpp in Sources */,
 				78B4DA021A47192C0077C418 /* unzip.c in Sources */,
 				3365B7A31A43D29000B33C4B /* Thread.cpp in Sources */,
