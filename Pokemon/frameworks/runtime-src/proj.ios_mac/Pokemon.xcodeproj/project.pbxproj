@@ -114,6 +114,7 @@
 		50D7C96C17EBBEDF005D0B91 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96B17EBBEDF005D0B91 /* OpenGL.framework */; };
 		50D7C96E17EBBEE6005D0B91 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96D17EBBEE6005D0B91 /* AppKit.framework */; };
 		50D7C97017EBBEEC005D0B91 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96F17EBBEEC005D0B91 /* IOKit.framework */; };
+		7885ED921A4EE47200FA0CAA /* NetFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7885ED901A4EE47200FA0CAA /* NetFilter.cpp */; };
 		78B4D9CB1A46E1FD0077C418 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B4D9A01A46E0900077C418 /* libz.1.2.5.dylib */; };
 		78B4DA001A47192C0077C418 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 78B4D9F81A47192C0077C418 /* ioapi.c */; };
 		78B4DA011A47192C0077C418 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 78B4D9FA1A47192C0077C418 /* mztools.c */; };
@@ -514,6 +515,8 @@
 		50D7C96B17EBBEDF005D0B91 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		50D7C96D17EBBEE6005D0B91 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		50D7C96F17EBBEEC005D0B91 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		7885ED901A4EE47200FA0CAA /* NetFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetFilter.cpp; sourceTree = "<group>"; };
+		7885ED911A4EE47200FA0CAA /* NetFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetFilter.h; sourceTree = "<group>"; };
 		78B4D9A01A46E0900077C418 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/libz.1.2.5.dylib; sourceTree = DEVELOPER_DIR; };
 		78B4D9C71A46E1E40077C418 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
 		78B4D9C91A46E1F00077C418 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/libz.1.1.3.dylib; sourceTree = DEVELOPER_DIR; };
@@ -949,6 +952,8 @@
 		33A416F01A4E824000F399E6 /* net */ = {
 			isa = PBXGroup;
 			children = (
+				7885ED901A4EE47200FA0CAA /* NetFilter.cpp */,
+				7885ED911A4EE47200FA0CAA /* NetFilter.h */,
 				33A416F51A4E9C1100F399E6 /* NetService.h */,
 				33A416F91A4E9E4900F399E6 /* NetRequest.cpp */,
 				33A416FA1A4E9E4900F399E6 /* NetRequest.h */,
@@ -1411,6 +1416,7 @@
 				78B4DA001A47192C0077C418 /* ioapi.c in Sources */,
 				3365B7901A43D29000B33C4B /* des.cpp in Sources */,
 				3365B77F1A43D29000B33C4B /* RefInteger.cpp in Sources */,
+				7885ED921A4EE47200FA0CAA /* NetFilter.cpp in Sources */,
 				3365B7951A43D29000B33C4B /* keeper.c in Sources */,
 				3365B7A71A43D29000B33C4B /* MaskLayer.cpp in Sources */,
 				3365B7B51A43D29000B33C4B /* Win32EventListener.cpp in Sources */,
