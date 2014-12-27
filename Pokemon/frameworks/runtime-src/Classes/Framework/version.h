@@ -21,8 +21,8 @@ v1.12   Add net service base to the framework, to expand net services in the fut
 #include <iostream>
 #include "tolua_fix.h"
 
-static const char *VERSION = "v1.11";
-static float VERSION_NUM = 1.11;
+static const char *VERSION = "v1.12";
+static float VERSION_NUM = 1.12;
 
 void printVersion()
 {
