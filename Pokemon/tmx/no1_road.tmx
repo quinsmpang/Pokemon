@@ -234,14 +234,16 @@
  <objectgroup name="encounterObjects" width="45" height="24">
   <object name="encounter1" x="512" y="480" width="224" height="96">
    <properties>
-    <property name="pets" value="1:5,16:50,19:45"/>
-    <property name="type" value="1"/>
+    <property name="bg_type" value="1"/>
+    <property name="field_type" value="1"/>
+    <property name="pets" value="1:5:5:5,16:50:2:4,19:45:2:4"/>
    </properties>
   </object>
   <object name="encounter2" x="416" y="96" width="128" height="128">
    <properties>
+    <property name="bg_type" value="1"/>
+    <property name="field_type" value="1"/>
     <property name="pets" value="1:5,16:50,19:45"/>
-    <property name="type" value="1"/>
    </properties>
   </object>
  </objectgroup>

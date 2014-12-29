@@ -94,6 +94,7 @@ function GameLauncher:loadPublicModules()
     require "src/model/SkillInfo"
     require "src/model/SpecialityInfo"
     require "src/model/ItemInfo"
+    require "src/model/Encounter"
 
     -- public data or utils
     require "src/utils/GameConfig"

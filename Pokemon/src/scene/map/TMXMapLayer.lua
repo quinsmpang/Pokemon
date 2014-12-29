@@ -27,6 +27,7 @@ TMXMapLayer.npcList = nil 		-- NPC sprite集合
 TMXMapLayer.obstacleList = nil		-- 障碍物(Obstacle model)集合
 TMXMapLayer.entranceList = nil		-- 入口出口(Entrance model)集合
 TMXMapLayer.triggerList = nil 		-- 剧情触发点(Trigger model)集合
+TMXMapLayer.encounterList = nil 	-- 遭遇点(Encounter model)集合
 TMXMapLayer.instructions = nil 		-- 行走指令队列，一般在剧情中的行走才需要用到
 TMXMapLayer.isMoving = nil 			-- 是否在移动，自由行走的时候需要用到
 TMXMapLayer.upConcat = nil
@@ -161,6 +162,22 @@ function TMXMapLayer:initWithMapInfo(mapInfo, lastMapId)
 			for i = 0, triggerModel.width - 1 do
 				for j = 0, triggerModel.height - 1 do
 					self.triggerList[triggerModel.position.x + i .. "," .. triggerModel.position.y + j] = triggerModel
+				end
+			end
+		end
+	end
+
+	-- 设置遭遇点
+	log("Map Initialization: Loading encounters")
+	self.encounterList = {}
+	local encounterObjectGroup = map:getObjectGroup("encounterObjects")
+	if encounterObjectGroup then
+		local encounterObjects = encounterObjectGroup:getObjects()
+		for _, encounterObj in ipairs(encounterObjects) do
+			local encounterModel = Encounter:create(encounterObj)
+			for i = 0, encounterModel.width - 1 do
+				for j = 0, encounterModel.height - 1 do
+					self.encounterList[encounterModel.position.x + i .. "," .. encounterModel.position.y + j] = encounterModel
 				end
 			end
 		end
@@ -311,7 +328,7 @@ end
 
 function TMXMapLayer:onMovingEnd()
 	self.isMoving = false
-	Notifier:notify()
+	Notifier:notify(NotifyEvents.MapView.HeroMoved)
 end
 
 function TMXMapLayer:heroRun(direction, callback)
@@ -721,6 +738,16 @@ function TMXMapLayer:checkResponseTrigger()
 	return nil
 end
 
+-- 检测是否遭遇野生精灵
+function TMXMapLayer:checkEncounter(position)
+	-- 遭遇概率暂定为10%
+	if FallInRandom(1, 10) then
+		local encounterModel = self.encounterList[position.x .. "," .. position.y]
+		return encounterModel
+	end
+	return nil
+end
+
 function TMXMapLayer:isHeroMoving()
 	return self.isMoving
 end
@@ -739,9 +766,6 @@ function TMXMapLayer:willMapOutOfBound(direction)
 
 	local winSize = cc.Director:getInstance():getWinSize()
 	local curPos = ccp(self:getPosition())
-
-	log(string.format("curPos: %d, %d\tself:getContentSize(): %d, %d\tself.map:getContentSize(): %d, %d", curPos.x, curPos.y, self:getContentSize().width,
-		self:getContentSize().height, self.map:getContentSize().width, self.map:getContentSize().height))
 
 	if direction == Enumerations.DIRECTIONS.UP then
 		return curPos.y + self:getContentSize().height * 0.5 + self.map:getContentSize().height * 0.5 <= winSize.height
