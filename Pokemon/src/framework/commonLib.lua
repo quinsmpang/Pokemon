@@ -75,7 +75,7 @@ function GenerateAllUTF8Substrings(text)
 	local function isChinese(index)
 		-- the high 4 bits of UTF-8 Chinese is 1110
 		local byte = string.byte(text, index)
-		byte = bit.rshift(byte, 4)
+		byte = bit:_rshift(byte, 4)
 		if byte == 0xE then
 			return true
 		end

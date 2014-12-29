@@ -333,11 +333,13 @@ function MapLayerController:onShowEntranceMessage(message)
 end
 
 function MapLayerController:onHeroMoved()
+	log("MapLayerController:onHeroMoved")
 	-- 亲密度增加todo
 	if self.currentMap then
 		-- 检测当前位置是否有剧情触发
 		local trigger = self.currentMap:checkTrigger(DataCenter.currentPlayerData.currentPosition)
 		if trigger then
+			log("触发剧情")
 			self.nextDirection = nil
 			self.playerState = PLAYER_STATE.STANDING
 			self.currentMap:continueStory(trigger)
@@ -345,10 +347,10 @@ function MapLayerController:onHeroMoved()
 		-- 检测遭遇点
 		local encounter = self.currentMap:checkEncounter(DataCenter.currentPlayerData.currentPosition)
 		if encounter then
+			log("遭遇精灵")
 			self.nextDirection = nil
 			self.playerState = PLAYER_STATE.STANDING
 			-- 随机出遭遇精灵、等级
-			log("遭遇精灵")
 		end
 	end
 end

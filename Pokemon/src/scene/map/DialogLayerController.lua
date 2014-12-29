@@ -212,6 +212,7 @@ function DialogLayerController:generateNextDialog()
 			-- 如果action是-1，则进入自由活动
 			self.root:setVisible(false)
 			if tonumber(self.currentDialogModel.actionId) == -1 then
+				self.currentDialogModel = nil
 				DataCenter.currentPlayerData.lastDialogId = self.currentDialogId
 				DataCenter.currentPlayerData:enterFreedom()
 			else

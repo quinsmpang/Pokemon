@@ -161,7 +161,20 @@ function TMXMapLayer:initWithMapInfo(mapInfo, lastMapId)
 			local triggerModel = Trigger:create(triggerObj)
 			for i = 0, triggerModel.width - 1 do
 				for j = 0, triggerModel.height - 1 do
-					self.triggerList[triggerModel.position.x + i .. "," .. triggerModel.position.y + j] = triggerModel
+					-- 剧情触发点如果相同则确认
+					if DataCenter.currentPlayerData.lastStep == triggerModel.lastStep then
+						self.triggerList[triggerModel.position.x + i .. "," .. triggerModel.position.y + j] = triggerModel
+						break
+					elseif DataCenter.currentPlayerData.lastStep < triggerModel.lastStep then
+						local tmp = self.triggerList[triggerModel.position.x + i .. "," .. triggerModel.position.y + j]
+						if tmp then
+							if triggerModel.lastStep < tmp.lastStep then
+								self.triggerList[triggerModel.position.x + i .. "," .. triggerModel.position.y + j] = triggerModel
+							end
+						else
+							self.triggerList[triggerModel.position.x + i .. "," .. triggerModel.position.y + j] = triggerModel
+						end
+					end
 				end
 			end
 		end
@@ -587,10 +600,9 @@ end
 
 -- 剧情触发点检测
 function TMXMapLayer:checkTrigger(position)
-	for _, trigger in pairs(self.triggerList) do
-		if PositionEquals(position, trigger.position) and DataCenter.currentPlayerData.lastStep == trigger.lastStep then
-			return trigger
-		end
+	local trigger = self.triggerList[position.x .. "," .. position.y]
+	if trigger and DataCenter.currentPlayerData.lastStep == trigger.lastStep then
+		return trigger
 	end
 	return nil
 end
@@ -690,7 +702,7 @@ function TMXMapLayer:checkResponse()
 	-- 障碍物
 	local obstacle = self.obstacleList[nextPos.x .. "," .. nextPos.y]
 	if obstacle and obstacle.responseId < -100 then
-		-- 特殊情况优先处理
+		-- 特殊情况优先处理todo
 	elseif obstacle and obstacle.responseId > 0 then
 		-- 如果响应到npc 需要计算npc方向
 		if obstacle.relatedNpcId ~= DBNULL then
@@ -740,8 +752,8 @@ end
 
 -- 检测是否遭遇野生精灵
 function TMXMapLayer:checkEncounter(position)
-	-- 遭遇概率暂定为10%
-	if FallInRandom(1, 10) then
+	-- 遭遇概率暂定为20%
+	if FallInRandom(1, 5) then
 		local encounterModel = self.encounterList[position.x .. "," .. position.y]
 		return encounterModel
 	end

@@ -105,6 +105,7 @@ function BagMainView:init(enterType)
   	local data = ZipHelper:getInstance():getFileDataInZip("images/item_icon.rc", "1001.png", GameConfig.ZIP_PASSWORD)
 	local icon = ImageUtils:getInstance():createSpriteWithBinaryData(data)
 	icon:setPosition(iconBorder:getContentSize().width * 0.5, iconBorder:getContentSize().height * 0.5)
+	icon:setScale(1.5)
 	iconBorder:addChild(icon)
 	icon:setVisible(false)
 	self.itemIcon = icon
