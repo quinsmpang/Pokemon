@@ -26,7 +26,7 @@ namespace framework
     {
         SINGLETON(NetCenter);
     public:
-        ~NetCenter();
+        ~NetCenter(); 
         
         void sendMessage(NetRequest *request);
 		void sendCommand(const std::string &serviceId, const std::string &cmd, cocos2d::Ref *params);

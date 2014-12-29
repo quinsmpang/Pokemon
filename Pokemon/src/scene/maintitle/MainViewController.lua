@@ -65,7 +65,7 @@ end
 function MainViewController:renderView()
 	local coreLayer = self:getScene():getCoreLayer()
 
-	local screenSize = cc.Director:getInstance():getWinSize()
+	local screenSize = cc.Director:getInstance():getVisibleSize()
 
 	-- info text
 	local gameInfoText = cc.Label:createWithTTF(self.GAME_INFO_TEXT, GameConfig.DEFAULT_FONT_PATH, 24)
@@ -80,8 +80,10 @@ function MainViewController:renderView()
 
 	-- main view
 	local ccbMainView = ScriptCCBReader:readCCB("ccb/MainTitle.ccbi", self)
-	ccbMainView:setAnchorPoint(0, 0)
-	ccbMainView:setPosition(0, 0)
+	ccbMainView:setContentSize(screenSize)
+	ccbMainView:ignoreAnchorPointForPosition(false)
+	ccbMainView:setAnchorPoint(0.5, 0.5)
+	ccbMainView:setPosition(screenSize.width * 0.5, screenSize.height * 0.5)
 	-- set cascade opacity, otherwise the opacity property of parent node won't affect the opacity of children.
 	ccbMainView:setCascadeOpacityEnabled(true)
 	ccbMainView:setOpacity(0)

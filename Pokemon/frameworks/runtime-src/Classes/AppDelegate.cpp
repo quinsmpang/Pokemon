@@ -37,7 +37,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 		director->setOpenGLView(glview);
 	}
 
-	glview->setDesignResolutionSize(800, 480, ResolutionPolicy::FIXED_WIDTH);
+	glview->setDesignResolutionSize(800, 480, ResolutionPolicy::SHOW_ALL);
 
 	FileUtils::getInstance()->addSearchPath("res");
 

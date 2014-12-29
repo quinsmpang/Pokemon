@@ -26,8 +26,12 @@ function GenderChooseLayer:initUI()
 
 	self.enableClick = false
 
+	local winSize = cc.Director:getInstance():getWinSize()
+
 	self.window = ScriptCCBReader:readCCB("ccb/GenderChooseLayer.ccbi", self)
-	self.window:setPosition(0, 0)
+	self.window:ignoreAnchorPointForPosition(false)
+	self.window:setAnchorPoint(0.5, 0.5)
+	self.window:setPosition(winSize.width * 0.5, winSize.height * 0.5)
 	self.window:setScale(0)
 	self:addChild(self.window)
 
