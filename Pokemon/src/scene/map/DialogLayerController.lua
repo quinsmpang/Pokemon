@@ -137,7 +137,7 @@ function DialogLayerController:onNodeEvent(event)
 		else
 			local touchListener = cc.EventListenerTouchOneByOne:create()
 			touchListener:setSwallowTouches(true)
-			touchListener:registerScriptHandler(MakeScriptHandler(self, self.onTouch), cc.Handler.EVENT_TOUCH_ENDED)
+			touchListener:registerScriptHandler(MakeScriptHandler(self, self.onTouch), cc.Handler.EVENT_TOUCH_BEGAN)
 			self.root:getEventDispatcher():addEventListenerWithSceneGraphPriority(touchListener, self.root)
 			self.touchListener = touchListener
 		end
@@ -190,11 +190,12 @@ function DialogLayerController:onKeyboardPressed(keyCode)
 end
 
 function DialogLayerController:onTouch(touch, event)
-	log("DialogLayerController:onTouch", touch:getLocation().x, touch:getLocation().y)
+	log("DialogLayerController:onTouch")
 	if ActionController.isUnderAction then
 		return
 	end
 	self:handleDialogDisplay()
+	return true
 end
 
 function DialogLayerController:handleDialogDisplay()
