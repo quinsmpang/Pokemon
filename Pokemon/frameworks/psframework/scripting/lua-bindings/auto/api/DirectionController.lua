@@ -44,11 +44,6 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- @function [parent=#DirectionController] setControllerDelegate 
--- @param self
--- @param #pf.DirectionControllerDelegate directioncontrollerdelegate
-        
---------------------------------
 -- overload function: create(cc.Node, cc.Node)
 --          
 -- overload function: create(string, string)
