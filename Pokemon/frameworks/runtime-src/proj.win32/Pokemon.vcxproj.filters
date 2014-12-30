@@ -286,6 +286,9 @@
     <ClInclude Include="..\Classes\Framework\net\NetFilter.h">
       <Filter>Classes\psframework\net</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\controls\DirectionController.h">
+      <Filter>Classes\psframework\controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -473,6 +476,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\net\NetFilter.cpp">
       <Filter>Classes\psframework\net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\controls\DirectionController.cpp">
+      <Filter>Classes\psframework\controls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

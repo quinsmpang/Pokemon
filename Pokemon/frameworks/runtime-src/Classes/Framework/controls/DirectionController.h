@@ -28,8 +28,8 @@ namespace framework
     {
     public:
         // touch area radius will be set to the half of the value, which is the min one between the width and height of the content size of bg node.
-        static DirectionController *create(const std::string &bgFile, const std::string &controllerFile);
-        static DirectionController *create(cocos2d::Node *bgNode, cocos2d::Node *controllerNode);
+        static DirectionController *create(const std::string &bgFile, const std::string &rockerFile);
+        static DirectionController *create(cocos2d::Node *bgNode, cocos2d::Node *rockerNode);
         
         DirectionController();
         virtual ~DirectionController();
@@ -64,7 +64,7 @@ namespace framework
         virtual bool init(cocos2d::Node *bgNode, cocos2d::Node *controllerNode);
         
         cocos2d::Node *_bg;
-        cocos2d::Node *_controller;
+        cocos2d::Node *_rocker;
         
         cocos2d::EventListenerTouchOneByOne *_touchListener;
         bool _isEnabled;

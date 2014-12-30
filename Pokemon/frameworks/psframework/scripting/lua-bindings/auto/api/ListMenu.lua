@@ -9,11 +9,6 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- @function [parent=#ListMenu] isTopOverflowed 
--- @param self
--- @return bool#bool ret (return value: bool)
-        
---------------------------------
 -- @function [parent=#ListMenu] select 
 -- @param self
 -- @param #int int
@@ -82,9 +77,8 @@
 -- @param #long long
         
 --------------------------------
--- @function [parent=#ListMenu] initWithShowCount 
+-- @function [parent=#ListMenu] isTopOverflowed 
 -- @param self
--- @param #long long
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------

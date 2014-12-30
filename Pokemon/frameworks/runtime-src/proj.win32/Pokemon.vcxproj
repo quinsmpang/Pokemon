@@ -178,6 +178,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\containers\Map.h" />
     <ClInclude Include="..\Classes\Framework\containers\Queue.h" />
     <ClInclude Include="..\Classes\Framework\containers\Stack.h" />
+    <ClInclude Include="..\Classes\Framework\controls\DirectionController.h" />
     <ClInclude Include="..\Classes\Framework\controls\EncryptedTMXLayer.h" />
     <ClInclude Include="..\Classes\Framework\controls\EncryptedTMXTiledMap.h" />
     <ClInclude Include="..\Classes\Framework\controls\ListMenu.h" />
@@ -248,6 +249,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\containers\Map.cpp" />
     <ClCompile Include="..\Classes\Framework\containers\Queue.cpp" />
     <ClCompile Include="..\Classes\Framework\containers\Stack.cpp" />
+    <ClCompile Include="..\Classes\Framework\controls\DirectionController.cpp" />
     <ClCompile Include="..\Classes\Framework\controls\EncryptedTMXLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\controls\EncryptedTMXTiledMap.cpp" />
     <ClCompile Include="..\Classes\Framework\controls\ListMenu.cpp" />

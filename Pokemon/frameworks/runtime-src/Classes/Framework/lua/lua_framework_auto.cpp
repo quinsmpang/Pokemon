@@ -681,56 +681,6 @@ int lua_psframework_BinaryData_getSize(lua_State* tolua_S)
 
     return 0;
 }
-int lua_psframework_BinaryData_init(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::BinaryData* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.BinaryData",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::BinaryData*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_BinaryData_init'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 2) 
-    {
-        unsigned char* arg0;
-        unsigned long arg1;
-
-        #pragma warning NO CONVERSION TO NATIVE FOR unsigned char*;
-
-        ok &= luaval_to_ulong(tolua_S, 3, &arg1);
-        if(!ok)
-            return 0;
-        bool ret = cobj->init(arg0, arg1);
-        tolua_pushboolean(tolua_S,(bool)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "init",argc, 2);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_BinaryData_init'.",&tolua_err);
-#endif
-
-    return 0;
-}
 int lua_psframework_BinaryData_getData(lua_State* tolua_S)
 {
     int argc = 0;
@@ -845,7 +795,6 @@ int lua_register_psframework_BinaryData(lua_State* tolua_S)
 
     tolua_beginmodule(tolua_S,"BinaryData");
         tolua_function(tolua_S,"getSize",lua_psframework_BinaryData_getSize);
-        tolua_function(tolua_S,"init",lua_psframework_BinaryData_init);
         tolua_function(tolua_S,"getData",lua_psframework_BinaryData_getData);
         tolua_function(tolua_S,"create", lua_psframework_BinaryData_create);
     tolua_endmodule(tolua_S);
@@ -7193,50 +7142,6 @@ int lua_psframework_ListMenu_isMenuEnabled(lua_State* tolua_S)
 
     return 0;
 }
-int lua_psframework_ListMenu_isTopOverflowed(lua_State* tolua_S)
-{
-    int argc = 0;
-    framework::ListMenu* cobj = nullptr;
-    bool ok  = true;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
-#endif
-
-
-#if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"pf.ListMenu",0,&tolua_err)) goto tolua_lerror;
-#endif
-
-    cobj = (framework::ListMenu*)tolua_tousertype(tolua_S,1,0);
-
-#if COCOS2D_DEBUG >= 1
-    if (!cobj) 
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_isTopOverflowed'", nullptr);
-        return 0;
-    }
-#endif
-
-    argc = lua_gettop(tolua_S)-1;
-    if (argc == 0) 
-    {
-        if(!ok)
-            return 0;
-        bool ret = cobj->isTopOverflowed();
-        tolua_pushboolean(tolua_S,(bool)ret);
-        return 1;
-    }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isTopOverflowed",argc, 0);
-    return 0;
-
-#if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_isTopOverflowed'.",&tolua_err);
-#endif
-
-    return 0;
-}
 int lua_psframework_ListMenu_select(lua_State* tolua_S)
 {
     int argc = 0;
@@ -7844,7 +7749,7 @@ int lua_psframework_ListMenu_updateItemAtIndex(lua_State* tolua_S)
 
     return 0;
 }
-int lua_psframework_ListMenu_initWithShowCount(lua_State* tolua_S)
+int lua_psframework_ListMenu_isTopOverflowed(lua_State* tolua_S)
 {
     int argc = 0;
     framework::ListMenu* cobj = nullptr;
@@ -7864,29 +7769,26 @@ int lua_psframework_ListMenu_initWithShowCount(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_initWithShowCount'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_ListMenu_isTopOverflowed'", nullptr);
         return 0;
     }
 #endif
 
     argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
+    if (argc == 0) 
     {
-        ssize_t arg0;
-
-        ok &= luaval_to_ssize(tolua_S, 2, &arg0);
         if(!ok)
             return 0;
-        bool ret = cobj->initWithShowCount(arg0);
+        bool ret = cobj->isTopOverflowed();
         tolua_pushboolean(tolua_S,(bool)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "initWithShowCount",argc, 1);
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isTopOverflowed",argc, 0);
     return 0;
 
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_initWithShowCount'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ListMenu_isTopOverflowed'.",&tolua_err);
 #endif
 
     return 0;
@@ -8145,7 +8047,6 @@ int lua_register_psframework_ListMenu(lua_State* tolua_S)
 
     tolua_beginmodule(tolua_S,"ListMenu");
         tolua_function(tolua_S,"isMenuEnabled",lua_psframework_ListMenu_isMenuEnabled);
-        tolua_function(tolua_S,"isTopOverflowed",lua_psframework_ListMenu_isTopOverflowed);
         tolua_function(tolua_S,"select",lua_psframework_ListMenu_select);
         tolua_function(tolua_S,"getItemAtIndex",lua_psframework_ListMenu_getItemAtIndex);
         tolua_function(tolua_S,"insertItemAtIndex",lua_psframework_ListMenu_insertItemAtIndex);
@@ -8159,7 +8060,7 @@ int lua_register_psframework_ListMenu(lua_State* tolua_S)
         tolua_function(tolua_S,"getIndexInAllItems",lua_psframework_ListMenu_getIndexInAllItems);
         tolua_function(tolua_S,"reloadData",lua_psframework_ListMenu_reloadData);
         tolua_function(tolua_S,"updateItemAtIndex",lua_psframework_ListMenu_updateItemAtIndex);
-        tolua_function(tolua_S,"initWithShowCount",lua_psframework_ListMenu_initWithShowCount);
+        tolua_function(tolua_S,"isTopOverflowed",lua_psframework_ListMenu_isTopOverflowed);
         tolua_function(tolua_S,"onKeyReleased",lua_psframework_ListMenu_onKeyReleased);
         tolua_function(tolua_S,"setEventsSwallowed",lua_psframework_ListMenu_setEventsSwallowed);
         tolua_function(tolua_S,"getCurrentShowIndex",lua_psframework_ListMenu_getCurrentShowIndex);
@@ -8761,6 +8662,522 @@ int lua_register_psframework_TitleSwitch(lua_State* tolua_S)
     std::string typeName = typeid(framework::TitleSwitch).name();
     g_luaType[typeName] = "pf.TitleSwitch";
     g_typeCast["TitleSwitch"] = "pf.TitleSwitch";
+    return 1;
+}
+
+int lua_psframework_DirectionController_setEnabled(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::DirectionController* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.DirectionController",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::DirectionController*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_DirectionController_setEnabled'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        bool arg0;
+
+        ok &= luaval_to_boolean(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj->setEnabled(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setEnabled",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_DirectionController_setEnabled'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_DirectionController_onTouchEnded(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::DirectionController* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.DirectionController",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::DirectionController*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_DirectionController_onTouchEnded'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        cocos2d::Touch* arg0;
+        cocos2d::Event* arg1;
+
+        ok &= luaval_to_object<cocos2d::Touch>(tolua_S, 2, "cc.Touch",&arg0);
+
+        ok &= luaval_to_object<cocos2d::Event>(tolua_S, 3, "cc.Event",&arg1);
+        if(!ok)
+            return 0;
+        cobj->onTouchEnded(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTouchEnded",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_DirectionController_onTouchEnded'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_DirectionController_onTouchMoved(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::DirectionController* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.DirectionController",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::DirectionController*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_DirectionController_onTouchMoved'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        cocos2d::Touch* arg0;
+        cocos2d::Event* arg1;
+
+        ok &= luaval_to_object<cocos2d::Touch>(tolua_S, 2, "cc.Touch",&arg0);
+
+        ok &= luaval_to_object<cocos2d::Event>(tolua_S, 3, "cc.Event",&arg1);
+        if(!ok)
+            return 0;
+        cobj->onTouchMoved(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTouchMoved",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_DirectionController_onTouchMoved'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_DirectionController_setTouchRadius(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::DirectionController* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.DirectionController",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::DirectionController*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_DirectionController_setTouchRadius'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        double arg0;
+
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+        if(!ok)
+            return 0;
+        cobj->setTouchRadius(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setTouchRadius",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_DirectionController_setTouchRadius'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_DirectionController_isEnabled(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::DirectionController* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.DirectionController",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::DirectionController*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_DirectionController_isEnabled'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        bool ret = cobj->isEnabled();
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isEnabled",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_DirectionController_isEnabled'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_DirectionController_onTouchCancelled(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::DirectionController* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.DirectionController",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::DirectionController*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_DirectionController_onTouchCancelled'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        cocos2d::Touch* arg0;
+        cocos2d::Event* arg1;
+
+        ok &= luaval_to_object<cocos2d::Touch>(tolua_S, 2, "cc.Touch",&arg0);
+
+        ok &= luaval_to_object<cocos2d::Event>(tolua_S, 3, "cc.Event",&arg1);
+        if(!ok)
+            return 0;
+        cobj->onTouchCancelled(arg0, arg1);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTouchCancelled",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_DirectionController_onTouchCancelled'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_DirectionController_onTouchBegan(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::DirectionController* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.DirectionController",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::DirectionController*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_DirectionController_onTouchBegan'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 2) 
+    {
+        cocos2d::Touch* arg0;
+        cocos2d::Event* arg1;
+
+        ok &= luaval_to_object<cocos2d::Touch>(tolua_S, 2, "cc.Touch",&arg0);
+
+        ok &= luaval_to_object<cocos2d::Event>(tolua_S, 3, "cc.Event",&arg1);
+        if(!ok)
+            return 0;
+        bool ret = cobj->onTouchBegan(arg0, arg1);
+        tolua_pushboolean(tolua_S,(bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "onTouchBegan",argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_DirectionController_onTouchBegan'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_DirectionController_setControllerDelegate(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::DirectionController* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.DirectionController",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::DirectionController*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_DirectionController_setControllerDelegate'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        framework::DirectionControllerDelegate* arg0;
+
+        ok &= luaval_to_object<framework::DirectionControllerDelegate>(tolua_S, 2, "pf.DirectionControllerDelegate",&arg0);
+        if(!ok)
+            return 0;
+        cobj->setControllerDelegate(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setControllerDelegate",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_DirectionController_setControllerDelegate'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_DirectionController_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.DirectionController",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+
+    do 
+    {
+        if (argc == 2)
+        {
+            cocos2d::Node* arg0;
+            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
+            if (!ok) { break; }
+            cocos2d::Node* arg1;
+            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 3, "cc.Node",&arg1);
+            if (!ok) { break; }
+            framework::DirectionController* ret = framework::DirectionController::create(arg0, arg1);
+            object_to_luaval<framework::DirectionController>(tolua_S, "pf.DirectionController",(framework::DirectionController*)ret);
+            return 1;
+        }
+    } while (0);
+    ok  = true;
+    do 
+    {
+        if (argc == 2)
+        {
+            std::string arg0;
+            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+            if (!ok) { break; }
+            std::string arg1;
+            ok &= luaval_to_std_string(tolua_S, 3,&arg1);
+            if (!ok) { break; }
+            framework::DirectionController* ret = framework::DirectionController::create(arg0, arg1);
+            object_to_luaval<framework::DirectionController>(tolua_S, "pf.DirectionController",(framework::DirectionController*)ret);
+            return 1;
+        }
+    } while (0);
+    ok  = true;
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d", "create",argc, 2);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_DirectionController_create'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_psframework_DirectionController_constructor(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::DirectionController* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        cobj = new framework::DirectionController();
+        tolua_pushusertype(tolua_S,(void*)cobj,"pf.DirectionController");
+        tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "DirectionController",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_DirectionController_constructor'.",&tolua_err);
+#endif
+
+    return 0;
+}
+
+static int lua_psframework_DirectionController_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (DirectionController)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"DirectionController",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::DirectionController* self = (framework::DirectionController*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
+    return 0;
+}
+
+int lua_register_psframework_DirectionController(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.DirectionController");
+    tolua_cclass(tolua_S,"DirectionController","pf.DirectionController","cc.Node",nullptr);
+
+    tolua_beginmodule(tolua_S,"DirectionController");
+        tolua_function(tolua_S,"setEnabled",lua_psframework_DirectionController_setEnabled);
+        tolua_function(tolua_S,"onTouchEnded",lua_psframework_DirectionController_onTouchEnded);
+        tolua_function(tolua_S,"onTouchMoved",lua_psframework_DirectionController_onTouchMoved);
+        tolua_function(tolua_S,"setTouchRadius",lua_psframework_DirectionController_setTouchRadius);
+        tolua_function(tolua_S,"isEnabled",lua_psframework_DirectionController_isEnabled);
+        tolua_function(tolua_S,"onTouchCancelled",lua_psframework_DirectionController_onTouchCancelled);
+        tolua_function(tolua_S,"onTouchBegan",lua_psframework_DirectionController_onTouchBegan);
+        tolua_function(tolua_S,"setControllerDelegate",lua_psframework_DirectionController_setControllerDelegate);
+        tolua_function(tolua_S,"new",lua_psframework_DirectionController_constructor);
+        tolua_function(tolua_S,"create", lua_psframework_DirectionController_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::DirectionController).name();
+    g_luaType[typeName] = "pf.DirectionController";
+    g_typeCast["DirectionController"] = "pf.DirectionController";
     return 1;
 }
 
@@ -11653,6 +12070,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_RefInteger(tolua_S);
 	lua_register_psframework_ListMenu(tolua_S);
 	lua_register_psframework_Map(tolua_S);
+	lua_register_psframework_DirectionController(tolua_S);
 	lua_register_psframework_KeyboardHelper(tolua_S);
 	lua_register_psframework_TableViewEx(tolua_S);
 	lua_register_psframework_BinaryData(tolua_S);

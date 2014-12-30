@@ -1,4 +1,5 @@
 #include "BinaryData.h"
+#include <new>
 #include <stdlib.h>
 #include <string.h>
 
@@ -9,8 +10,8 @@ namespace framework
 {
 	BinaryData *BinaryData::create(unsigned char *data, unsigned long size)
 	{
-		auto pData = new BinaryData();
-		if (pData->init(data, size))
+		auto pData = new (nothrow) BinaryData();
+		if (pData && pData->init(data, size))
 		{
 			pData->autorelease();
 			return pData;

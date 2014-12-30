@@ -34,6 +34,7 @@
 #include "controls/ListMenuItem.h"
 #include "controls/ListMenu.h"
 #include "controls/TitleSwitch.h"
+#include "controls/DirectionController.h"
 
 #include "editor/ScriptCCBReader.h"
 

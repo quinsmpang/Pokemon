@@ -9,7 +9,7 @@ namespace framework
 {
     DirectionController::DirectionController()
         : _bg(nullptr)
-        , _controller(nullptr)
+        , _rocker(nullptr)
         , _touchListener(nullptr)
         , _isEnabled(true)
         , _controlDelegate(nullptr)
@@ -26,10 +26,10 @@ namespace framework
         }
     }
     
-    DirectionController *DirectionController::create(const std::string &bgFile, const std::string &controllerFile)
+    DirectionController *DirectionController::create(const std::string &bgFile, const std::string &rockerFile)
     {
         auto controller = new (nothrow) DirectionController();
-        if (controller && controller->init(bgFile, controllerFile)) {
+        if (controller && controller->init(bgFile, rockerFile)) {
             controller->autorelease();
             return controller;
         }
@@ -37,10 +37,10 @@ namespace framework
         return nullptr;
     }
     
-    DirectionController *DirectionController::create(cocos2d::Node *bgNode, cocos2d::Node *controllerNode)
+    DirectionController *DirectionController::create(cocos2d::Node *bgNode, cocos2d::Node *rockerNode)
     {
         auto controller = new (nothrow) DirectionController();
-        if (controller && controller->init(bgNode, controllerNode)) {
+        if (controller && controller->init(bgNode, rockerNode)) {
             controller->autorelease();
             return controller;
         }
@@ -48,32 +48,32 @@ namespace framework
         return nullptr;
     }
     
-    bool DirectionController::init(const std::string &bgFile, const std::string &controllerFile)
+    bool DirectionController::init(const std::string &bgFile, const std::string &rockerFile)
     {
-        CCASSERT(bgFile.size() > 0 && controllerFile.size() > 0, "params can't be empty string");
+        CCASSERT(bgFile.size() > 0 && rockerFile.size() > 0, "params can't be empty string");
         
         auto bgNode = Sprite::create(bgFile);
-        auto controllerNode = Sprite::create(controllerFile);
+        auto controllerNode = Sprite::create(rockerFile);
         return this->init(bgNode, controllerNode);
     }
     
-    bool DirectionController::init(cocos2d::Node *bgNode, cocos2d::Node *controllerNode)
+    bool DirectionController::init(cocos2d::Node *bgNode, cocos2d::Node *rockerNode)
     {
-        CCASSERT(bgNode && controllerNode, "params can't be null");
+        CCASSERT(bgNode && rockerNode, "params can't be null");
         
         _bg = bgNode;
-        _controller = controllerNode;
+		_rocker = rockerNode;
         
         _bg->setAnchorPoint(Point(0.5, 0.5));
-        _controller->setAnchorPoint(Point(0.5, 0.5));
+		_rocker->setAnchorPoint(Point(0.5, 0.5));
         // radius is set to the half of the min border size of the bg node.
         float min = MIN(_bg->getContentSize().width, _bg->getContentSize().height);
         _radius = min * 0.5;
         
         _bg->setPosition(0, 0);
-        _controller->setPosition(0, 0);
+		_rocker->setPosition(0, 0);
         this->addChild(_bg);
-        this->addChild(_controller);
+		this->addChild(_rocker);
         this->setContentSize(_bg->getContentSize());
         
         // register touch events
@@ -102,7 +102,7 @@ namespace framework
         
         Point loc = touch->getLocation();
         Point relativeLoc = this->convertToNodeSpace(loc);
-        if (_controller->getBoundingBox().containsPoint(relativeLoc)) {
+		if (_rocker->getBoundingBox().containsPoint(relativeLoc)) {
             _pressed = true;
             _touchPos = loc;
             return true;
@@ -125,7 +125,7 @@ namespace framework
                 exactPos.x = _radius * vec.x / module;
                 exactPos.y = _radius * vec.y / module;
             }
-            _controller->setPosition(exactPos);     // update controller node position
+			_rocker->setPosition(exactPos);     // update controller node position
         }
     }
     
@@ -137,6 +137,17 @@ namespace framework
         _touchPos = Point::ZERO;
         // move the controller to the origin
         auto pAction = EaseIn::create(MoveTo::create(0.1, Point::ZERO), 2);
-        _controller->runAction(pAction);
+		_rocker->runAction(pAction);
     }
+
+	void DirectionController::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+	{
+		CC_UNUSED_PARAM(unused_event);
+
+		_pressed = false;
+		_touchPos = Point::ZERO;
+		// move the controller to the origin
+		auto pAction = EaseIn::create(MoveTo::create(0.1, Point::ZERO), 2);
+		_rocker->runAction(pAction);
+	}
 }

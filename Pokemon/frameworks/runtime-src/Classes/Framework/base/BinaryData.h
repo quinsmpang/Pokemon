@@ -12,19 +12,43 @@ Date: 8/4/2014
 
 namespace framework
 {
+	/**
+	* Wrapper of binary data.
+	*/
 	class BinaryData : public cocos2d::Ref
 	{
 	public:
+		/**
+		* Create BinaryObject object.
+		*
+		* @param data Raw binary data.
+		* @param size Binary data size.
+		*
+		* @return Return BinaryData instance, or return nullptr when encounter an error.
+		*/
 		static BinaryData *create(unsigned char *data, unsigned long size);
 
+		/**
+		* BinaryData destructor.
+		*/
 		virtual ~BinaryData();
 
-		bool init(unsigned char *data, unsigned long size);
-
+		/**
+		* Get raw data.
+		*
+		* @return Return the raw data.
+		*/
 		unsigned char *getData() const;
+		/**
+		* Get data size.
+		*
+		* @return Return data size.
+		*/
 		unsigned long getSize() const;
 
 	private:
+		bool init(unsigned char *data, unsigned long size);
+
 		unsigned char *_data;
 		unsigned long _size;
 	};
