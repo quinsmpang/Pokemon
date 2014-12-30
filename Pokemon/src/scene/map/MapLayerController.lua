@@ -347,10 +347,22 @@ function MapLayerController:onHeroMoved()
 		-- 检测遭遇点
 		local encounter = self.currentMap:checkEncounter(DataCenter.currentPlayerData.currentPosition)
 		if encounter then
-			log("遭遇精灵")
 			self.nextDirection = nil
 			self.playerState = PLAYER_STATE.STANDING
 			-- 随机出遭遇精灵、等级
+			local id, level = encounter:randomIdAndLevel()
+			log(string.format("遭遇精灵: %d, 等级: %d", id, level))
+			-- 随机携带道具 todo
+
+			require "src/scene/battle/BattleScene"
+
+			-- replace to battle scene
+			local sceneParams = Map:create()
+			sceneParams:setIntegerForKey(Enumerations.BATTLE_TYPE.WILD, "battle_type")
+			sceneParams:setIntegerForKey(id, "pokemon_id")
+			sceneParams:setIntegerForKey(level, "pokemon_level")
+			local battleScene = BattleScene:create(sceneParams)
+			cc.Director:getInstance():replaceScene(battleScene)
 		end
 	end
 end

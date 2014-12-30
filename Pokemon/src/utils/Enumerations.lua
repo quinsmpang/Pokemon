@@ -167,3 +167,11 @@ Enumerations.BAG_VIEW_SCENE_TYPE = {
 	CARRY_ITEM = 2,		-- 精灵的携带道具
 	BATTLE = 3,			-- 战斗中
 }
+
+-- 战斗类型
+Enumerations.BATTLE_TYPE = {
+	WILD = 1,		-- 野生精灵遭遇
+	TRAINER_1V1,	-- 1v1战斗
+	TRAINER_2V2,	-- 2v2战斗
+	CONNECTION,		-- 联机对战
+}

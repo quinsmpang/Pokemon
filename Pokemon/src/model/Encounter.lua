@@ -35,6 +35,19 @@ function Encounter:initWithInfo(encounterInfo)
 	local petInfo = nil
 	for _, v in ipairs(ary) do
 		petInfo = string.split(v, ":")
-		self.pets[tonumber(petInfo[1])] = { Probability = tonumber(petInfo[2]), LowLevel = tonumber(petInfo[3]), HighLevel = tonumber(petInfo[4]) }
+		self.pets[tonumber(petInfo[1])] = { probability = tonumber(petInfo[2]), lowLevel = tonumber(petInfo[3]), highLevel = tonumber(petInfo[4]) }
 	end
+end
+
+function Encounter:randomIdAndLevel()
+	local sum = 0
+	local rdNum = math.random(1, 100)
+	for id, v in pairs(self.pets) do
+		sum = sum + v["probability"]
+		if rdNum <= sum then
+			local level = math.random(v["lowLevel"], v["highLevel"])
+			return id, level
+		end
+	end
+	return nil, nil
 end
