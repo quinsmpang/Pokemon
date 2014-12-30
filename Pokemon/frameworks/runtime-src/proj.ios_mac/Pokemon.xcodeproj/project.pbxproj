@@ -82,6 +82,7 @@
 		33A417011A4EA33200F399E6 /* NetHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33A416FF1A4EA33200F399E6 /* NetHandler.cpp */; };
 		33A417041A4EA6C000F399E6 /* NetProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33A417021A4EA6C000F399E6 /* NetProtocol.cpp */; };
 		33A417071A4EA9E900F399E6 /* NetCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33A417051A4EA9E900F399E6 /* NetCenter.cpp */; };
+		33C221B91A52C72C00A20105 /* DirectionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C221B71A52C72C00A20105 /* DirectionController.cpp */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; };
 		5023811917EBBCAC00990C9B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5023810917EBBCAC00990C9B /* Default-568h@2x.png */; };
 		5023811A17EBBCAC00990C9B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5023810A17EBBCAC00990C9B /* Default.png */; };
@@ -483,6 +484,8 @@
 		33A417031A4EA6C000F399E6 /* NetProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetProtocol.h; sourceTree = "<group>"; };
 		33A417051A4EA9E900F399E6 /* NetCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetCenter.cpp; sourceTree = "<group>"; };
 		33A417061A4EA9E900F399E6 /* NetCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetCenter.h; sourceTree = "<group>"; };
+		33C221B71A52C72C00A20105 /* DirectionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DirectionController.cpp; sourceTree = "<group>"; };
+		33C221B81A52C72C00A20105 /* DirectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionController.h; sourceTree = "<group>"; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		5023810817EBBCAC00990C9B /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = "<group>"; };
 		5023810917EBBCAC00990C9B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -748,6 +751,8 @@
 				3365B70A1A43D29000B33C4B /* TableViewEx.h */,
 				3365B70B1A43D29000B33C4B /* TitleSwitch.cpp */,
 				3365B70C1A43D29000B33C4B /* TitleSwitch.h */,
+				33C221B71A52C72C00A20105 /* DirectionController.cpp */,
+				33C221B81A52C72C00A20105 /* DirectionController.h */,
 			);
 			path = controls;
 			sourceTree = "<group>";
@@ -1381,6 +1386,7 @@
 			files = (
 				3365B79A1A43D29000B33C4B /* lua_framework_manual.cpp in Sources */,
 				3365B7941A43D29000B33C4B /* deep.c in Sources */,
+				33C221B91A52C72C00A20105 /* DirectionController.cpp in Sources */,
 				3365B7A81A43D29000B33C4B /* ModalLayer.cpp in Sources */,
 				3365B78B1A43D29000B33C4B /* ScriptCCBReader.cpp in Sources */,
 				3365B7851A43D29000B33C4B /* EncryptedTMXLayer.cpp in Sources */,

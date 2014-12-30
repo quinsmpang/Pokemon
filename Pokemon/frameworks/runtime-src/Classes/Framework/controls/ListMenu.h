@@ -50,8 +50,6 @@ namespace framework
 		ListMenu();
 		virtual ~ListMenu();
 
-		virtual bool initWithShowCount(ssize_t showCount);
-
 		CC_SYNTHESIZE(ListMenuDelegate*, _delegate, Delegate);
 		CC_SYNTHESIZE(ListMenuDataSource*, _dataSource, DataSource);
 
@@ -104,6 +102,8 @@ namespace framework
 		//virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) override;
 
 	protected:
+		virtual bool initWithShowCount(ssize_t showCount);
+        
 		static float LONG_PRESSED_DT;		// long pressed duration
 		static float LONG_PRESSED_DELAY;		// long pressed delay
 

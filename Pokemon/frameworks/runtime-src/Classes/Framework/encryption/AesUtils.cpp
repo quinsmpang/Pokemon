@@ -1,5 +1,6 @@
 #include "AesUtils.h"
 #include "libaes/aes.h"
+#include <stdlib.h>
 
 using namespace std;
 
@@ -12,7 +13,7 @@ namespace framework
 	unsigned char *AesUtils::encipher(unsigned char *data, const std::string &key, int *outSize)
 	{
 		AES aes((unsigned char*)key.c_str());
-		char *encryptedData = new char[1024 * 1024];
+		char *encryptedData = (char*)malloc(1024 * 1024);
 		aes.Cipher((char*)data, encryptedData);
 		*outSize = string(encryptedData).size();
 		/*for (int i = 0; i < 16; ++i)
@@ -27,7 +28,7 @@ namespace framework
 	unsigned char *AesUtils::decipher(unsigned char *data, const std::string &key, int *outSize)
 	{
 		AES aes((unsigned char*)key.c_str());
-		char *decryptedData = new char[1024 * 1024];
+		char *decryptedData = (char*)malloc(1024 * 1024);
 		aes.InvCipher((char*)data, decryptedData);
 		*outSize = string(decryptedData).size();
 		/*for (int i = 0; i < 16; ++i)

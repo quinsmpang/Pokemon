@@ -134,11 +134,19 @@ function DialogLayerController:onNodeEvent(event)
 			kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
 			Win32Notifier:getInstance():addEventListener(kbdListener)
 			self.kbdListener = kbdListener
+		else
+			local touchListener = cc.EventListenerTouchOneByOne:create()
+			touchListener:setSwallowTouches(true)
+			touchListener:registerScriptHandler(MakeScriptHandler(self, self.onTouch), cc.Handler.EVENT_TOUCH_ENDED)
+			self.root:getEventDispatcher():addEventListenerWithSceneGraphPriority(touchListener, self.root)
+			self.touchListener = touchListener
 		end
 	elseif event == "exit" then
 		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS and self.kbdListener then
 			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
 			self.kbdListener = nil
+		elseif self.touchListener then
+			self.root:getEventDispatcher():removeEventListener(self.touchListener)
 		end
 	end
 end
@@ -159,9 +167,15 @@ function DialogLayerController:setEnabled(isEnabled)
 		self.root:setVisible(false)
 	end
 
-	-- 控制键盘响应
-	if self.kbdListener then
-		self.kbdListener:setEnabled(isEnabled)
+	-- 控制事件响应
+	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+		if self.kbdListener then
+			self.kbdListener:setEnabled(isEnabled)
+		end
+	else
+		if self.touchListener then
+			self.touchListener:setEnabled(isEnabled)
+		end
 	end
 end
 
@@ -173,6 +187,14 @@ function DialogLayerController:onKeyboardPressed(keyCode)
 	if keyCode == GameSettings.confirmKey or keyCode == GameSettings.cancelKey then
 		self:handleDialogDisplay()
 	end
+end
+
+function DialogLayerController:onTouch(touch, event)
+	log("DialogLayerController:onTouch", touch:getLocation().x, touch:getLocation().y)
+	if ActionController.isUnderAction then
+		return
+	end
+	self:handleDialogDisplay()
 end
 
 function DialogLayerController:handleDialogDisplay()

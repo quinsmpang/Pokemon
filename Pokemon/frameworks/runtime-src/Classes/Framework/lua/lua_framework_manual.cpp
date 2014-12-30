@@ -474,7 +474,6 @@ static int lua_framework_TitleSwitch_setTitles(lua_State* tolua_S)
 {
 	int argc = 0;
 	framework::TitleSwitch* cobj = nullptr;
-	bool ok = true;
 
 #if COCOS2D_DEBUG >= 1
 	tolua_Error tolua_err;
@@ -590,7 +589,6 @@ static int lua_framework_Thread_run(lua_State *tolua_S)
 {
 	int argc = 0;
 	framework::Thread* cobj = nullptr;
-	bool ok = true;
 
 #if COCOS2D_DEBUG >= 1
 	tolua_Error tolua_err;
@@ -679,7 +677,6 @@ static int lua_framework_Thread_runAsync(lua_State* tolua_S)
 {
 	int argc = 0;
 	framework::Thread* cobj = nullptr;
-	bool ok = true;
 
 #if COCOS2D_DEBUG >= 1
 	tolua_Error tolua_err;

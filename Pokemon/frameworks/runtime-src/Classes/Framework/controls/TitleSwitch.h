@@ -54,7 +54,7 @@ namespace framework
 		virtual void visit(cocos2d::Renderer *renderer, const kmMat4& parentTransform, bool parentTransformUpdated) override;
 
 	protected:
-		bool init(cocos2d::Node *bg, const std::vector<std::string> &titles, const std::string &ttfFile);
+		virtual bool init(cocos2d::Node *bg, const std::vector<std::string> &titles, const std::string &ttfFile);
 		void needUpdate();
 
 		// play shift action
