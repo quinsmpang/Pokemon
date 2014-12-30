@@ -9,6 +9,9 @@ Date: 11/25/2014
 
 namespace framework
 {
+	/**
+     * Make object uncopyable.
+     */
 	class Uncopyable
 	{
 	protected:

@@ -1,4 +1,5 @@
 #include "RefInteger.h"
+#include <new>
 
 using namespace cocos2d;
 
@@ -6,8 +7,10 @@ namespace framework
 {
 	RefInteger *RefInteger::create(int number)
 	{
-		auto pInt = new RefInteger(number);
-		pInt->autorelease();
+		auto pInt = new (std::nothrow) RefInteger(number);
+        if (pInt) {
+            pInt->autorelease();
+        }
 
 		return pInt;
 	}

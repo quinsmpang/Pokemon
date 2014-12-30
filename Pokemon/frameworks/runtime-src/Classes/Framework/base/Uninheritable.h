@@ -21,6 +21,10 @@ namespace framework
 		Sealed() {}
 	};
 
+    
+	/**
+     * Make the object inheritable.
+     */
 	template<typename T>
 	class Uninheritable : public virtual Sealed<T>		// use virtual inherit is to ensure the derived class of a sealed class must call the Sealed's constructor at first.
 	{

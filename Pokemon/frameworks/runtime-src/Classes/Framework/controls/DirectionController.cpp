@@ -126,6 +126,29 @@ namespace framework
                 exactPos.y = _radius * vec.y / module;
             }
 			_rocker->setPosition(exactPos);     // update controller node position
+            
+            if (_controlDelegate) {
+                float responseModule = this->_radius * 0.5;     // response radius condition
+                if (moduleSq >= responseModule * responseModule) {
+                    if (abs(vec.x) >= abs(vec.y)) {
+                        if (vec.x > 0) {
+                            // on right
+                            _controlDelegate->onControlToRight();
+                        } else {
+                            // on left
+                            _controlDelegate->onControlToLeft();
+                        }
+                    } else {
+                        if (vec.y > 0) {
+                            // on up
+                            _controlDelegate->onControlToUp();
+                        } else {
+                            // on down
+                            _controlDelegate->onControlToDown();
+                        }
+                    }
+                }
+            }
         }
     }
     
