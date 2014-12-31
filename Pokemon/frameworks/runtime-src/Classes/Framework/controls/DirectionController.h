@@ -12,16 +12,19 @@
 
 namespace framework
 {
+    class DirectionController;
+    
     class DirectionControllerDelegate
     {
     public:
         virtual ~DirectionControllerDelegate() {}
         
         // direction response events
-        virtual void onControlToRight() = 0;
-        virtual void onControlToLeft() = 0;
-        virtual void onControlToUp() = 0;
-        virtual void onControlToDown() = 0;
+        virtual void onControlToRight(DirectionController *sender) = 0;
+        virtual void onControlToLeft(DirectionController *sender) = 0;
+        virtual void onControlToUp(DirectionController *sender) = 0;
+        virtual void onControlToDown(DirectionController *sender) = 0;
+        virtual void onControlStop(DirectionController *sender) = 0;
     };
     
     class DirectionController : public cocos2d::Node

@@ -71,30 +71,34 @@ namespace framework
 	{
 		switch (type)
 		{
-		case ScriptHandlerMgr::HandlerType::LISTMENU_ITEMSELECTED:
-		case ScriptHandlerMgr::HandlerType::LISTMENU_ITEMFOCUSED:
-		case ScriptHandlerMgr::HandlerType::LISTMENU_ITEMBLURRED:
-		case ScriptHandlerMgr::HandlerType::LISTMENU_ITEMWILLRECYCLE:
-		{
-																		return this->handleListMenuEvent(type, data);
+            case ScriptHandlerMgr::HandlerType::LISTMENU_ITEMSELECTED:
+            case ScriptHandlerMgr::HandlerType::LISTMENU_ITEMFOCUSED:
+            case ScriptHandlerMgr::HandlerType::LISTMENU_ITEMBLURRED:
+            case ScriptHandlerMgr::HandlerType::LISTMENU_ITEMWILLRECYCLE:
+                return this->handleListMenuEvent(type, data);
+            case ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_RIGHT:
+            case ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_LEFT:
+            case ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_UP:
+            case ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_DOWN:
+            case ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_STOP:
+                return this->handleDirectionControllerEvent(type, data);
+            default:
+                break;
 		}
-			break;
-		}
+        
+        return 0;
 	}
 
 	int LuaEngineEx::handleFrameworkEvent(cocos2d::ScriptHandlerMgr::HandlerType type, void* data, int numResults, const std::function<void(lua_State*, int)>& func)
 	{
 		switch (type)
 		{
-		case ScriptHandlerMgr::HandlerType::LISTMENU_ITEM_SIZE_FOR_MENU:
-		case ScriptHandlerMgr::HandlerType::LISTMENU_ITEM_AT_INDEX:
-		case ScriptHandlerMgr::HandlerType::LISTMENU_COUNT_OF_ITEMS:
-		{
-																	   return this->handleListMenuEvent(type, data, numResults, func);
-		}
-			break;
-		default:
-			break;
+            case ScriptHandlerMgr::HandlerType::LISTMENU_ITEM_SIZE_FOR_MENU:
+            case ScriptHandlerMgr::HandlerType::LISTMENU_ITEM_AT_INDEX:
+            case ScriptHandlerMgr::HandlerType::LISTMENU_COUNT_OF_ITEMS:
+                return this->handleListMenuEvent(type, data, numResults, func);
+            default:
+                break;
 		}
 
 		return 0;
@@ -193,4 +197,38 @@ namespace framework
 
 		return ret;
 	}
+    
+    int LuaEngineEx::handleDirectionControllerEvent(cocos2d::ScriptHandlerMgr::HandlerType type, void *data)
+    {
+        if (!data) {
+            return 0;
+        }
+        
+		BasicScriptData *eventData = static_cast<BasicScriptData*>(data);
+		if (!eventData->nativeObject)
+		{
+			return 0;
+		}
+        
+		LuaDirectionControllerEventData *directionControllerData = static_cast<LuaDirectionControllerEventData*>(eventData->value);
+		int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)eventData->nativeObject, type);
+        
+		if (!handler)
+		{
+			return 0;
+		}
+        
+		Ref *pObj = static_cast<Ref*>(eventData->nativeObject);
+        
+		if (!pObj)
+		{
+			return 0;
+		}
+        
+		int ret = 0;
+		toluafix_pushusertype_ccobject(this->getLuaStack()->getLuaState(), pObj->_ID, &(pObj->_luaID), (void*)pObj, "pf.DirectionController");
+		ret = this->getLuaStack()->executeFunctionByHandler(handler, 1);
+        
+		return ret;
+    }
 }

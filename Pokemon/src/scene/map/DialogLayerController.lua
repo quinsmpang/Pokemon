@@ -191,7 +191,7 @@ end
 
 function DialogLayerController:onTouch(touch, event)
 	log("DialogLayerController:onTouch")
-	if ActionController.isUnderAction then
+	if ActionController.isUnderAction or DataCenter.currentPlayerData.currentStep == 0 then
 		return
 	end
 	self:handleDialogDisplay()
@@ -252,7 +252,7 @@ function DialogLayerController:generateNextDialog()
 	else
 		ActionController.isUnderAction = false
 		self.root:setVisible(true)
-		-- MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
+		MapStateController:setCurrentState(Enumerations.MAP_STATE.DIALOG)
 	end
 
 	self.dialogIndice:setVisible(false)

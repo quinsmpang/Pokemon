@@ -31,6 +31,8 @@ NotifyEvents.MapView.MapStateChanged = "NotifyEvents.MapView.MapStateChanged"
 NotifyEvents.MapView.ShowMapMenu = "NotifyEvents.MapView.ShowMapMenu"
 -- 玩家移动了一格  TMXMapLayer通知, MapLayerController观察
 NotifyEvents.MapView.HeroMoved = "NotifyEvents.MapView.HeroMoved"
+-- 摇杆触屏事件	DirectionRockerLayer通知, MapLayerController观察
+NotifyEvents.MapView.RockerEvent = "NotifyEvents.MapView.RockerEvent"
 
 -- 精灵界面事件
 NotifyEvents.PokemonView = NotifyEvents.PokemonView or {}

@@ -30,4 +30,14 @@ struct LuaListMenuEventData
 	}
 };
 
+struct LuaDirectionControllerEventData
+{
+    void *_value;
+    
+    LuaDirectionControllerEventData(void *value = nullptr)
+        : _value(value)
+    {
+    }
+};
+
 #endif

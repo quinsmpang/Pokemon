@@ -133,20 +133,22 @@ namespace framework
                     if (abs(vec.x) >= abs(vec.y)) {
                         if (vec.x > 0) {
                             // on right
-                            _controlDelegate->onControlToRight();
+                            _controlDelegate->onControlToRight(this);
                         } else {
                             // on left
-                            _controlDelegate->onControlToLeft();
+                            _controlDelegate->onControlToLeft(this);
                         }
                     } else {
                         if (vec.y > 0) {
                             // on up
-                            _controlDelegate->onControlToUp();
+                            _controlDelegate->onControlToUp(this);
                         } else {
                             // on down
-                            _controlDelegate->onControlToDown();
+                            _controlDelegate->onControlToDown(this);
                         }
                     }
+                } else {
+                    _controlDelegate->onControlStop(this);
                 }
             }
         }
@@ -161,6 +163,10 @@ namespace framework
         // move the controller to the origin
         auto pAction = EaseIn::create(MoveTo::create(0.1, Point::ZERO), 2);
 		_rocker->runAction(pAction);
+        
+        if (_controlDelegate) {
+            _controlDelegate->onControlStop(this);
+        }
     }
 
 	void DirectionController::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unused_event)
@@ -172,5 +178,9 @@ namespace framework
 		// move the controller to the origin
 		auto pAction = EaseIn::create(MoveTo::create(0.1, Point::ZERO), 2);
 		_rocker->runAction(pAction);
+        
+        if (_controlDelegate) {
+            _controlDelegate->onControlStop(this);
+        }
 	}
 }

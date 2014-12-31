@@ -11,9 +11,11 @@ require "src/scene/map/MessageTip"
 require "src/scene/map/MapNameBoard"
 require "src/scene/map/MapMenuLayer"
 require "src/scene/map/SaveGameLayer"
+require "src/scene/map/DirectionRockerLayer"
 
 MapLayerController.root = nil
 MapLayerController.currentMap = nil		-- 当前地图层
+MapLayerController.rockerLayer = nil	-- 触屏控制层
 MapLayerController.mainMenu = nil		-- 主菜单
 
 -- logic
@@ -68,6 +70,8 @@ function MapLayerController:addObservers()
 	Notifier:addObserver(NotifyEvents.MapView.MenuItemSelected, self, self.onMenuItemSelected)
 	Notifier:addObserver(NotifyEvents.MapView.ShowMapMenu, self, self.onShowMapMenu)
 	Notifier:addObserver(NotifyEvents.MapView.HeroMoved, self, self.onHeroMoved)
+	Notifier:addObserver(NotifyEvents.MapView.RockerEvent, self, self.onRockerEvent)
+	Notifier:addObserver(NotifyEvents.MapView.MapStateChanged, self, self.onMapStateChanged)
 end
 
 function MapLayerController:removeObservers()
@@ -77,12 +81,16 @@ function MapLayerController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.MapView.MapUpdate, self)
 	Notifier:removeObserver(NotifyEvents.MapView.ShowEntranceMessage, self)
 	Notifier:removeObserver(NotifyEvents.MapView.MenuItemSelected, self)
+	Notifier:removeObserver(NotifyEvents.MapView.ShowMapMenu, self)
 	Notifier:removeObserver(NotifyEvents.MapView.HeroMoved, self)
+	Notifier:removeObserver(NotifyEvents.MapView.RockerEvent, self)
+	Notifier:removeObserver(NotifyEvents.MapView.MapStateChanged, self)
 
 	Notifier:removeObserver(NotifyEvents.MapView.ActionInstructionsEnded, self)
 end
 
 function MapLayerController:renderView()
+	log("MapLayerController:renderView")
 	self.pressedDirectionKeys = {}
 
 	local coreLayer = self:getScene():getCoreLayer()
@@ -95,13 +103,22 @@ function MapLayerController:renderView()
 
 	local playerData = DataCenter.currentPlayerData
 
+	if TARGET_PLATFORM ~= cc.PLATFORM_OS_WINDOWS then
+		local rockerLayer = DirectionRockerLayer:create()
+		self:getScene():addChild(rockerLayer)
+		self.rockerLayer = rockerLayer
+	end
+
 	self:switchMap(playerData.currentMapId)
 
-	-- main menu
-	local mainMenu = MapMenuLayer:create()
-	self:getScene():addChild(mainMenu)
-	mainMenu:setVisible(false)
-	self.mainMenu = mainMenu
+	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+		-- main menu
+		local mainMenu = MapMenuLayer:create()
+		self:getScene():addChild(mainMenu)
+		mainMenu:setVisible(false)
+		self.mainMenu = mainMenu
+	else
+	end
 
 	self.playerState = PLAYER_STATE.STANDING
 end
@@ -222,6 +239,27 @@ function MapLayerController:onKeyboardPressed(keyCode)
 	self:checkPlayerState()
 end
 
+function MapLayerController:onRockerEvent(eventType, param)
+	if eventType == DirectionRockerLayer.MOVE_EVENT then
+		if param > 0 then
+			-- move
+			if param ~= DataCenter.currentPlayerData.currentDirection then
+				self.nextDirection = param
+			end
+			if self.rockerLayer.inRunningState then
+				self.playerState = PLAYER_STATE.RUNNING
+			else
+				self.playerState = PLAYER_STATE.WALKING
+			end
+		else
+			-- stop the moving
+			self.nextDirection = nil
+			self.playerState = PLAYER_STATE.STANDING
+		end
+	elseif eventType == DirectionRockerLayer.BTN_EVENT then
+	end
+end
+
 function MapLayerController:resetHero(direction)
 	direction = direction or DataCenter.currentPlayerData.currentDirection
 	self.playerState = PLAYER_STATE.STANDING
@@ -245,14 +283,17 @@ function MapLayerController:onKeyboardReleased(keyCode)
 end
 
 function MapLayerController:checkPlayerState()
-	if #self.pressedDirectionKeys > 0 then
-		if KeyboardHelper:getInstance():isKeyPressed(GameSettings.cancelKey) then
-			self.playerState = PLAYER_STATE.RUNNING
+	-- only responsed on win32
+	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+		if #self.pressedDirectionKeys > 0 then
+			if KeyboardHelper:getInstance():isKeyPressed(GameSettings.cancelKey) then
+				self.playerState = PLAYER_STATE.RUNNING
+			else
+				self.playerState = PLAYER_STATE.WALKING
+			end
 		else
-			self.playerState = PLAYER_STATE.WALKING
+			self.playerState = PLAYER_STATE.STANDING
 		end
-	else
-		self.playerState = PLAYER_STATE.STANDING
 	end
 end
 
@@ -289,6 +330,9 @@ function MapLayerController:switchMap(newMapId, lastMapId)
 			coreLayer:popLayer()
 		end
 
+		if self.rockerLayer then
+			self.rockerLayer:setVisible(false)
+		end
 		CallFunctionAsync(self, self.switchMapCallFunc, 0.25, newMapId, lastMapId)
 	end
 	--coreLayer:pushLayer(newMap)
@@ -318,6 +362,9 @@ function MapLayerController:switchMapCallFunc(newMapId, lastMapId)
 				board:setAnchorPoint(0, 0)
 				board:setPosition(0, cc.Director:getInstance():getWinSize().height)
 				coreLayer:addChild(board)
+			end
+			if DataCenter.currentPlayerData:isFreedom() and self.rockerLayer then
+				self.rockerLayer:setVisible(true)
 			end
 		end, 0.25)
 end
@@ -363,6 +410,18 @@ function MapLayerController:onHeroMoved()
 			sceneParams:setIntegerForKey(level, "pokemon_level")
 			local battleScene = BattleScene:create(sceneParams)
 			cc.Director:getInstance():replaceScene(battleScene)
+		end
+	end
+end
+
+function MapLayerController:onMapStateChanged(oldState, newState)
+	if newState == Enumerations.MAP_STATE.FREEDOM then
+		if self.rockerLayer then
+			self.rockerLayer:setVisible(true)
+		end
+	else
+		if self.rockerLayer then
+			self.rockerLayer:setVisible(false)
 		end
 	end
 end

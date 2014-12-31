@@ -10,6 +10,7 @@ using namespace framework;
 
 #define KEY_LISTMENU_DELEGATE "ListMenuDelegate"
 #define KEY_LISTMENU_DATASOURCE "ListMenuDataSource"
+#define KEY_DIRECTIONCONTROLLER_DELEGATE "DirectionControllerDelegate"
 
 /**********************************
 ListMenu extend
@@ -554,6 +555,248 @@ static void extendTitleSwitch(lua_State* tolua_S)
 }
 
 /**********************************
+ TitleSwitch extend
+ **********************************/
+class DirectionControllerScriptDelegate : public Ref, public DirectionControllerDelegate
+{
+public:
+    DirectionControllerScriptDelegate() {}
+    virtual ~DirectionControllerScriptDelegate() {}
+    
+    virtual void onControlToRight(DirectionController *sender) override
+    {
+        if (sender) {
+            int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)sender, ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_RIGHT);
+            if (handler) {
+                LuaDirectionControllerEventData eventData;
+                BasicScriptData data(sender, &eventData);
+                LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_RIGHT, (void*)&data);
+            }
+        }
+    }
+    
+    virtual void onControlToLeft(DirectionController *sender) override
+    {
+        if (sender) {
+            int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)sender, ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_LEFT);
+            if (handler) {
+                LuaDirectionControllerEventData eventData;
+                BasicScriptData data(sender, &eventData);
+                LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_LEFT, (void*)&data);
+            }
+        }
+    }
+    
+    virtual void onControlToUp(DirectionController *sender) override
+    {
+        if (sender) {
+            int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)sender, ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_UP);
+            if (handler) {
+                LuaDirectionControllerEventData eventData;
+                BasicScriptData data(sender, &eventData);
+                LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_UP, (void*)&data);
+            }
+        }
+    }
+    
+    virtual void onControlToDown(DirectionController *sender) override
+    {
+        if (sender) {
+            int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)sender, ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_DOWN);
+            if (handler) {
+                LuaDirectionControllerEventData eventData;
+                BasicScriptData data(sender, &eventData);
+                LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_DOWN, (void*)&data);
+            }
+        }
+    }
+    
+    virtual void onControlStop(DirectionController *sender) override
+    {
+        if (sender) {
+            int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)sender, ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_STOP);
+            if (handler) {
+                LuaDirectionControllerEventData eventData;
+                BasicScriptData data(sender, &eventData);
+                LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_STOP, (void*)&data);
+            }
+        }
+    }
+};
+
+static int lua_framework_DirectionController_setScriptDelegate(lua_State *L)
+{
+	if (nullptr == L)
+		return 0;
+    
+	int argc = 0;
+	DirectionController* self = nullptr;
+    
+#if COCOS2D_DEBUG >= 1
+	tolua_Error tolua_err;
+	if (!tolua_isusertype(L, 1, "pf.DirectionController", 0, &tolua_err)) goto tolua_lerror;
+#endif
+    
+	self = (DirectionController*)tolua_tousertype(L, 1, 0);
+    
+#if COCOS2D_DEBUG >= 1
+	if (nullptr == self)
+	{
+		tolua_error(L, "invalid 'self' in function 'lua_framework_DirectionController_setScriptDelegate'\n", nullptr);
+		return 0;
+	}
+#endif
+    
+	argc = lua_gettop(L) - 1;
+    
+	if (0 == argc)
+	{
+		DirectionControllerScriptDelegate* delegate = new DirectionControllerScriptDelegate();
+		if (nullptr == delegate)
+			return 0;
+        
+		__Dictionary* userDict = static_cast<__Dictionary*>(self->getUserObject());
+		if (nullptr == userDict)
+		{
+			userDict = new __Dictionary();
+			if (NULL == userDict)
+				return 0;
+            
+			self->setUserObject(userDict);
+			userDict->release();
+		}
+        
+		userDict->setObject(delegate, KEY_DIRECTIONCONTROLLER_DELEGATE);
+		self->setControllerDelegate(delegate);
+		delegate->release();
+        
+		return 0;
+	}
+    
+	CCLOG("'setScriptDelegate' function of DirectionController wrong number of arguments: %d, was expecting %d\n", argc, 0);
+	return 0;
+    
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+	tolua_error(L, "#ferror in function 'setScriptDelegate'.", &tolua_err);
+	return 0;
+#endif
+}
+
+static int lua_framework_DirectionController_registerScriptHandler(lua_State *L)
+{
+	if (nullptr == L)
+		return 0;
+    
+	int argc = 0;
+	DirectionController* self = nullptr;
+    
+#if COCOS2D_DEBUG >= 1
+	tolua_Error tolua_err;
+	if (!tolua_isusertype(L, 1, "pf.DirectionController", 0, &tolua_err)) goto tolua_lerror;
+#endif
+    
+	self = (DirectionController*)tolua_tousertype(L, 1, 0);
+    
+#if COCOS2D_DEBUG >= 1
+	if (nullptr == self)
+	{
+		tolua_error(L, "invalid 'self' in function 'lua_framework_DirectionController_registerScriptHandler'\n", nullptr);
+		return 0;
+	}
+#endif
+    
+	argc = lua_gettop(L) - 1;
+    
+	if (2 == argc)
+	{
+#if COCOS2D_DEBUG >= 1
+		if (!toluafix_isfunction(L, 2, "LUA_FUNCTION", 0, &tolua_err) ||
+			!tolua_isnumber(L, 3, 0, &tolua_err))
+		{
+			goto tolua_lerror;
+		}
+#endif
+		LUA_FUNCTION handler = toluafix_ref_function(L, 2, 0);
+		ScriptHandlerMgr::HandlerType handlerType = (ScriptHandlerMgr::HandlerType) ((int)tolua_tonumber(L, 3, 0) + (int)ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_RIGHT);
+        
+		ScriptHandlerMgr::getInstance()->addObjectHandler((void*)self, handler, handlerType);
+        
+		return 0;
+	}
+    
+	CCLOG("'registerScriptHandler' function of ListMenu wrong number of arguments: %d, was expecting %d\n", argc, 2);
+	return 0;
+    
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+	tolua_error(L, "#ferror in function 'registerScriptHandler'.", &tolua_err);
+	return 0;
+#endif
+}
+
+static int lua_framework_DirectionController_unregisterScriptHandler(lua_State *L)
+{
+	if (nullptr == L)
+		return 0;
+    
+	int argc = 0;
+	DirectionController* self = nullptr;
+    
+#if COCOS2D_DEBUG >= 1
+	tolua_Error tolua_err;
+	if (!tolua_isusertype(L, 1, "pf.DirectionController", 0, &tolua_err)) goto tolua_lerror;
+#endif
+    
+	self = (DirectionController*)tolua_tousertype(L, 1, 0);
+    
+#if COCOS2D_DEBUG >= 1
+	if (nullptr == self)
+	{
+		tolua_error(L, "invalid 'self' in function 'lua_framework_DirectionController_unregisterScriptHandler'\n", nullptr);
+		return 0;
+	}
+#endif
+    
+	argc = lua_gettop(L) - 1;
+    
+	if (1 == argc)
+	{
+#if COCOS2D_DEBUG >= 1
+		if (!tolua_isnumber(L, 2, 0, &tolua_err))
+			goto tolua_lerror;
+#endif
+		ScriptHandlerMgr::HandlerType handlerType = (ScriptHandlerMgr::HandlerType) ((int)tolua_tonumber(L, 2, 0) + (int)ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_RIGHT);
+        
+		ScriptHandlerMgr::getInstance()->removeObjectHandler((void*)self, handlerType);
+        
+		return 0;
+	}
+    
+	CCLOG("'unregisterScriptHandler' function of DirectionController wrong number of arguments: %d, was expecting %d\n", argc, 2);
+	return 0;
+    
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+	tolua_error(L, "#ferror in function 'unregisterScriptHandler'.", &tolua_err);
+	return 0;
+#endif
+}
+
+static void extendDirectionController(lua_State *L)
+{
+	lua_pushstring(L, "pf.DirectionController");
+	lua_rawget(L, LUA_REGISTRYINDEX);
+	if (lua_istable(L, -1))
+	{
+		tolua_function(L, "setScriptDelegate", lua_framework_DirectionController_setScriptDelegate);
+		tolua_function(L, "registerScriptHandler", lua_framework_DirectionController_registerScriptHandler);
+		tolua_function(L, "unregisterScriptHandler", lua_framework_DirectionController_unregisterScriptHandler);
+	}
+	lua_pop(L, 1);
+}
+
+/**********************************
 Thread extend
 **********************************/
 static int lua_framework_Thread_constructor(lua_State* tolua_S)
@@ -1035,6 +1278,7 @@ int register_all_psframework_manual(lua_State* tolua_S)
 {
 	extendListMenu(tolua_S);
 	extendTitleSwitch(tolua_S);
+    extendDirectionController(tolua_S);
 	extendThread(tolua_S);
 	extendWin32EventListenerKeyboard(tolua_S);
 
