@@ -115,3 +115,11 @@ function DataCenter:getCaptureCount()
 	end
 	return count
 end
+
+-- 添加零花钱
+function DataCenter:addMoney(money)
+	if not self.money then
+		self.money = 0
+	end
+	self.money = self.money + money
+end

@@ -541,6 +541,47 @@ function MapLayerController:action_PopMessage(params)
 	tip:pop()
 end
 
+function MapLayerController:action_OccurAndWalk(params)
+	params = string.split(params, ",")
+	local newId = tonumber(params[1])		-- 新增npc的临时id
+	local npcId = tonumber(params[2])
+	local direction = tonumber(params[3])
+	-- location的x, y特殊判断
+	local locX, locY
+	if string.find(params[4], "x") then
+		locX = DataCenter.currentPlayerData.currentPosition.x
+	else
+		locX = tonumber(params[4])
+	end
+	if string.find(params[5], "y") then
+		locY = DataCenter.currentPlayerData.currentPosition.y
+	else
+		locY = tonumber(params[5])
+	end
+	local responseId = tonumber(params[6])
+	-- 新增npc model
+	local npcModel = NPC:new()
+	npcModel.id = newId
+	npcModel.position = ccp(locX, locY)
+	npcModel.direction = direction
+	npcModel.width = 1
+	npcModel.height = 1
+	npcModel.npcId = npcId
+	npcModel.responseId = responseId
+	npcModel.step = 0
+	npcModel.npcDbModel = NpcInfo:create(npcId)
+	-- 创建npc sprite并添加到地图
+	self.currentMap:addNewNpc(npcModel)
+
+	-- 移动操作
+	local restParams = {}
+	for i = 7, #params do
+		table.insert(restParams, params[i])
+	end
+	local walkParams = newId .. "," .. table.join(restParams, ",")
+	self:action_Walk(walkParams)
+end
+
 -------------------------- Action相关的回调函数 --------------------------
 function MapLayerController:onActionBegan(actionModel)
 	log("MapLayerController:onActionBegan", actionModel.handler)
@@ -557,6 +598,7 @@ function MapLayerController:endAction()
 end
 
 function MapLayerController:doWalkInstructions(params)
+	log("MapLayerController:doWalkInstructions", params)
 	params = string.split(params, ",")
 	local target = tonumber(params[1])
 
@@ -600,6 +642,8 @@ function MapLayerController:onWalkOutEnd(target)
 	Notifier:removeObserver(NotifyEvents.MapView.ActionInstructionsEnded, self)
 	if target == 0 then
 		self.currentMap.hero:removeFromParent()
+	else
+		self.currentMap:removeNpcById(target)
 	end
 
 	CallFunctionAsync(self, self.endAction, 0.5)

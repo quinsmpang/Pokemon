@@ -45,3 +45,7 @@ end
 function ActionController:action_PopMessage(params)
 	
 end
+
+function ActionController:action_OccurAndWalk(params)
+	
+end

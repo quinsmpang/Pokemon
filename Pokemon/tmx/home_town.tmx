@@ -286,4 +286,14 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="triggerObjects" width="45" height="25">
+  <object name="trigger1" x="928" y="128" width="94" height="32">
+   <properties>
+    <property name="action" value="13"/>
+    <property name="id" value="1"/>
+    <property name="lastStep" value="4"/>
+    <property name="step" value="5"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

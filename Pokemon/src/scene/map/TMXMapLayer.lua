@@ -826,3 +826,27 @@ function TMXMapLayer:getMapAction(direction, isWalking)
 	end
 	return mapAction
 end
+
+function TMXMapLayer:addNewNpc(npcModel)
+	local newNpc = NpcSprite:createWithModel(npcModel)
+	newNpc:setAnchorPoint(0, 0)
+	newNpc:setPosition(npcModel.position.x * self.TILE_SIZE, npcModel.position.y * self.TILE_SIZE)
+	self.npcLayer:addChild(newNpc)
+	self.npcList[npcModel.position.x .. "," .. npcModel.position.y] = newNpc
+end
+
+function TMXMapLayer:removeNpcById(id)
+	local targetNpc = nil
+	local targetKey = nil
+	for k, npc in pairs(self.npcList) do
+		if npc.model.id == id then
+			targetNpc = npc
+			targetKey = k
+			break
+		end
+	end
+	if targetNpc then
+		targetNpc:removeFromParent()
+		self.npcList[targetKey] = nil
+	end
+end

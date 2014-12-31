@@ -38,3 +38,9 @@ function EventController:event_gainNewItem(params)
 
 	DataCenter:addNewItem(itemId, num)
 end
+
+function EventController:event_gainMoney(params)
+	local amount = tonumber(params)
+	
+	DataCenter:addMoney(amount)
+end
