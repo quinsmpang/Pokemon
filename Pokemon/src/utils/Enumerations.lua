@@ -20,14 +20,6 @@ Enumerations.DIRECTIONS = {
 	RIGHT = 4,
 }
 
--- Action Type
-Enumerations.ACTION_TYPE = {
-	FADEOUT = 1,		-- 显示黑屏
-	FADEIN = 2,			-- 显示地图
-	WALKOUT = 3,		-- 移动并走出地图
-	FADEOUTIN = 4,		-- 立即更换地图
-}
-
 -- Map state
 Enumerations.MAP_STATE = {
 	FREEDOM = 1,
@@ -43,11 +35,6 @@ Enumerations.RESPONSE_TYPE = {
 	BRANCH = 2,
 	RECOVER = 3,
 	LAYER = 4,
-}
-
--- 事件类型
-Enumerations.EVENT_TYPE = {
-	GAIN_NEW_PET = 1,	-- 获得新宠物
 }
 
 -- 属性
@@ -171,7 +158,7 @@ Enumerations.BAG_VIEW_SCENE_TYPE = {
 -- 战斗类型
 Enumerations.BATTLE_TYPE = {
 	WILD = 1,		-- 野生精灵遭遇
-	TRAINER_1V1,	-- 1v1战斗
-	TRAINER_2V2,	-- 2v2战斗
-	CONNECTION,		-- 联机对战
+	TRAINER_1V1 = 2,	-- 1v1战斗
+	TRAINER_2V2 = 3,	-- 2v2战斗
+	CONNECTION = 4,		-- 联机对战
 }

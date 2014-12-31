@@ -408,6 +408,8 @@ function MapLayerController:onHeroMoved()
 			sceneParams:setIntegerForKey(Enumerations.BATTLE_TYPE.WILD, "battle_type")
 			sceneParams:setIntegerForKey(id, "pokemon_id")
 			sceneParams:setIntegerForKey(level, "pokemon_level")
+			sceneParams:setIntegerForKey(encounter.bgType, "battle_bg_type")
+			sceneParams:setIntegerForKey(encounter.fieldType, "battle_field_type")
 			local battleScene = BattleScene:create(sceneParams)
 			cc.Director:getInstance():replaceScene(battleScene)
 		end

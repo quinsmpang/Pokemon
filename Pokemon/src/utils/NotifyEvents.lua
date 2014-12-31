@@ -67,7 +67,7 @@ NotifyEvents.Bag.ItemSelected = "NotifyEvents.Bag.ItemSelected"
 -- 图鉴界面事件
 NotifyEvents.Collection = NotifyEvents.Collection or {}
 
--- 主界面事件
+-- 图鉴主界面键盘事件
 NotifyEvents.Collection.MainViewKeyResponsed = "NotifyEvents.Collection.MainViewKeyResponsed"
 -- 图鉴选择变更
 NotifyEvents.Collection.CollectionSelectionChanged = "NotifyEvents.Collection.CollectionSelectionChanged"
@@ -75,3 +75,6 @@ NotifyEvents.Collection.CollectionSelectionChanged = "NotifyEvents.Collection.Co
 NotifyEvents.Collection.CollectionSelected = "NotifyEvents.Collection.CollectionSelected"
 -- 图鉴详情界面事件
 NotifyEvents.Collection.DetailViewKeyResponsed = "NotifyEvents.Collection.DetailViewKeyResponsed"
+
+-- 战斗事件
+NotifyEvents.Battle = NotifyEvents.Battle or {}

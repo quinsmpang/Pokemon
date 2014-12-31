@@ -6,9 +6,11 @@
 
 class("BattleScene", psGameScene)
 
+require "src/scene/battle/BattleUIController"
+
 BattleScene.resources = {
-	"images/battle.plist",
-	"images/battle.pvr.ccz",
+	"images/battle_1.plist",
+	"images/battle_1.pvr.ccz",
 }
 
 function BattleScene:onEnter()
@@ -18,7 +20,9 @@ end
 function BattleScene:onEnterTransitionDidFinish()
 	log("BattleScene:onEnterTransitionDidFinish")
 	self:loadResources()
-	self:renderView()
+	
+	local battleUIController = BattleUIController:create()
+	self:loadViewController(battleUIController)
 end
 
 function BattleScene:onExit()
@@ -32,8 +36,4 @@ end
 
 function BattleScene:cleanResources()
 	RemoveSpriteFrames(self.resources)
-end
-
-function BattleScene:renderView()
-
 end

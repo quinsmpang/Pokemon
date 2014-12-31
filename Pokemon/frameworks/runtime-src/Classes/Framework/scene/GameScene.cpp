@@ -1,5 +1,9 @@
 #include "GameScene.h"
 #include "../lua/LuaUtils.h"
+#include "../base/RefBoolean.h"
+#include "../base/RefInteger.h"
+#include "../base/RefDouble.h"
+#include "../base/RefString.h"
 
 using namespace cocos2d;
 
@@ -117,22 +121,22 @@ namespace framework
 
 	void GameScene::putBoolAttribute(const std::string &key, bool value)
 	{
-		this->_paramsMap->setObjectForKey(__Bool::create(value), key);
+		this->_paramsMap->setObjectForKey(RefBoolean::create(value), key);
 	}
 
 	void GameScene::putIntAttribute(const std::string &key, int value)
 	{
-		this->_paramsMap->setObjectForKey(__Integer::create(value), key);
+		this->_paramsMap->setObjectForKey(RefInteger::create(value), key);
 	}
 
 	void GameScene::putDoubleAttribute(const std::string &key, double value)
 	{
-		this->_paramsMap->setObjectForKey(__Double::create(value), key);
+		this->_paramsMap->setObjectForKey(RefDouble::create(value), key);
 	}
 
 	void GameScene::putStringAttribute(const std::string &key, const std::string &value)
 	{
-		this->_paramsMap->setObjectForKey(__String::create(value), key);
+		this->_paramsMap->setObjectForKey(RefString::create(value), key);
 	}
 
 	void GameScene::putRefAttribute(const std::string &key, Ref *value)
@@ -143,10 +147,10 @@ namespace framework
 	bool GameScene::getBoolAttribute(const std::string &key) const
 	{
 		Ref *value = this->getRefAttribute(key);
-		__Bool *boolValue = dynamic_cast<__Bool*>(value);
+		RefBoolean *boolValue = dynamic_cast<RefBoolean*>(value);
 		if (boolValue)
 		{
-			return boolValue->getValue();
+			return boolValue->getBoolean();
 		}
 
 		return false;
@@ -155,10 +159,10 @@ namespace framework
 	int GameScene::getIntAttribute(const std::string &key) const
 	{
 		Ref *value = this->getRefAttribute(key);
-		__Integer *intValue = dynamic_cast<__Integer*>(value);
+		RefInteger *intValue = dynamic_cast<RefInteger*>(value);
 		if (intValue)
 		{
-			return intValue->getValue();
+			return intValue->getNumber();
 		}
 
 		return 0;
@@ -167,10 +171,10 @@ namespace framework
 	double GameScene::getDoubleAttribute(const std::string &key) const
 	{
 		Ref *value = this->getRefAttribute(key);
-		__Double *doubleValue = dynamic_cast<__Double*>(value);
+		RefDouble *doubleValue = dynamic_cast<RefDouble*>(value);
 		if (doubleValue)
 		{
-			return doubleValue->getValue();
+			return doubleValue->getNumber();
 		}
 
 		return 0;
@@ -179,7 +183,7 @@ namespace framework
 	const char *GameScene::getStringAttribute(const std::string &key) const
 	{
 		Ref *value = this->getRefAttribute(key);
-		__String *strValue = dynamic_cast<__String*>(value);
+		RefString *strValue = dynamic_cast<RefString*>(value);
 		if (strValue)
 		{
 			return strValue->getCString();
