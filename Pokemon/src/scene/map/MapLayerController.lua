@@ -23,6 +23,7 @@ MapLayerController.pressedDirectionKeys = nil
 MapLayerController.nextDirection = nil
 MapLayerController.playerState = nil
 MapLayerController.scheduleHandle = nil		-- 游戏时间计时器
+MapLayerController.inBattle = nil
 
 -- const
 MapLayerController.KEYBOARD_DT = 0.25
@@ -156,7 +157,7 @@ end
 
 -- used in TMXMapLayer's update scheduler
 function MapLayerController:onMapUpdate(dt)
-	if not self.currentMap then
+	if not self.currentMap or self.inBattle then
 		return
 	end
 
@@ -394,26 +395,46 @@ function MapLayerController:onHeroMoved()
 		-- 检测遭遇点
 		local encounter = self.currentMap:checkEncounter(DataCenter.currentPlayerData.currentPosition)
 		if encounter then
-			self.nextDirection = nil
+			self.inBattle = true
 			self.playerState = PLAYER_STATE.STANDING
-			-- 随机出遭遇精灵、等级
-			local id, level = encounter:randomIdAndLevel()
-			log(string.format("遭遇精灵: %d, 等级: %d", id, level))
-			-- 随机携带道具 todo
+			self.nextDirection = nil
+			if self.rockerLayer then
+				self.rockerLayer:setVisible(false)
+			end
 
-			require "src/scene/battle/BattleScene"
-
-			-- replace to battle scene
-			local sceneParams = Map:create()
-			sceneParams:setIntegerForKey(Enumerations.BATTLE_TYPE.WILD, "battle_type")
-			sceneParams:setIntegerForKey(id, "pokemon_id")
-			sceneParams:setIntegerForKey(level, "pokemon_level")
-			sceneParams:setIntegerForKey(encounter.bgType, "battle_bg_type")
-			sceneParams:setIntegerForKey(encounter.fieldType, "battle_field_type")
-			local battleScene = BattleScene:create(sceneParams)
-			cc.Director:getInstance():replaceScene(battleScene)
+			local blinkAction = cc.Sequence:create(
+				cc.TargetedAction:create(self.currentMap.mask, cc.FadeIn:create(0.15)),
+				cc.TargetedAction:create(self.currentMap.mask, cc.FadeOut:create(0.15)),
+				cc.TargetedAction:create(self.currentMap.mask, cc.FadeIn:create(0.15)),
+				cc.TargetedAction:create(self.currentMap.mask, cc.FadeOut:create(0.15))
+				)
+			local callFunc = cc.CallFunc:create(MakeScriptHandler(self, self.enterBattleView, encounter))
+			local action = cc.Sequence:create(
+				blinkAction,
+				callFunc
+				)
+			self.currentMap:runAction(action)
 		end
 	end
+end
+
+function MapLayerController:enterBattleView(sender, encounter)
+	-- 随机出遭遇精灵、等级
+	local id, level = encounter:randomIdAndLevel()
+	log(string.format("遭遇精灵: %d, 等级: %d", id, level))
+	-- 随机携带道具 todo
+
+	require "src/scene/battle/BattleScene"
+
+	-- replace to battle scene
+	local sceneParams = Map:create()
+	sceneParams:setIntegerForKey(Enumerations.BATTLE_TYPE.WILD, "battle_type")
+	sceneParams:setIntegerForKey(id, "pokemon_id")
+	sceneParams:setIntegerForKey(level, "pokemon_level")
+	sceneParams:setIntegerForKey(encounter.bgType, "battle_bg_type")
+	sceneParams:setIntegerForKey(encounter.fieldType, "battle_field_type")
+	local battleScene = BattleScene:create(sceneParams)
+	cc.Director:getInstance():replaceScene(battleScene)
 end
 
 function MapLayerController:onMapStateChanged(oldState, newState)
