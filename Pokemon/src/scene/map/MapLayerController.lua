@@ -408,6 +408,7 @@ function MapLayerController:onHeroMoved()
 				cc.TargetedAction:create(self.currentMap.mask, cc.FadeIn:create(0.15)),
 				cc.TargetedAction:create(self.currentMap.mask, cc.FadeOut:create(0.15))
 				)
+			local middleAction = nil
 			local callFunc = cc.CallFunc:create(MakeScriptHandler(self, self.enterBattleView, encounter))
 			local action = cc.Sequence:create(
 				blinkAction,
