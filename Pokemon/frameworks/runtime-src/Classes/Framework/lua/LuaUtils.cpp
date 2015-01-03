@@ -142,26 +142,6 @@ namespace framework
 		return pResult;
 	}
 
-	/*
-	int LuaUtils::sendCustomEvent(framework::ScriptEvent *customEvent)
-	{
-		if (!customEvent)
-			return 0;
-
-		switch (customEvent->_type)
-		{
-		case framework::ScriptEventType::kEventNodeTouchEvent:
-			return LuaUtils::handleEventNodeTouchEvent(customEvent->_data);
-			break;
-		case framework::ScriptEventType::kEventNodeKeyboardEvent:
-			return LuaUtils::handleEventNodeKeyboardEvent(customEvent->_data);
-			break;
-		}
-
-		return 0;
-	}
-	*/
-
 	/*****************private api*****************/
 	void LuaUtils::setPackagePath(const std::string &path)
 	{
@@ -341,58 +321,4 @@ namespace framework
 
 		return pResult;
 	}
-
-	/*
-	int LuaUtils::handleEventNodeTouchEvent(void *data)
-	{
-		if (!data)
-			return 0;
-
-		auto *pData = static_cast<EventNodeTouchScriptData*>(data);
-		if (!pData->_nativeData || !pData->_sender)
-			return 0;
-
-		int handler = ScriptHandlerMgr::getInstance()->getObjectHandler(pData->_nativeData, (ScriptHandlerMgr::HandlerType)CustomHandlerTypes::EVENTNODE_TOUCH_HANDLER);
-
-		if (handler == 0)
-			return 0;
-
-		int ret = 0;
-
-		auto pStack = LuaEngine::getInstance()->getLuaStack();
-		pStack->pushObject(pData->_sender, "cc.Ref");
-		ret = pStack->executeFunctionByHandler(handler, 2);
-
-		pStack->clean();
-
-		return ret;
-	}
-
-	int LuaUtils::handleEventNodeKeyboardEvent(void *data)
-	{
-		if (!data)
-			return 0;
-
-		auto *pData = static_cast<EventNodeKeyboardScriptData*>(data);
-		if (!pData->_nativeData || !pData->_sender)
-			return 0;
-
-		int handler = ScriptHandlerMgr::getInstance()->getObjectHandler(pData->_nativeData, (ScriptHandlerMgr::HandlerType)CustomHandlerTypes::EVENTNODE_KEYBOARD_HANDLER);
-
-		if (handler == 0)
-			return 0;
-
-		int ret = 0;
-
-		auto pStack = LuaEngine::getInstance()->getLuaStack();
-		pStack->pushObject(pData->_sender, "cc.Ref");
-		pStack->pushInt((int)pData->_keyCode);
-		ret = pStack->executeFunctionByHandler(handler, 2);
-
-		pStack->clean();
-
-		return ret;
-	}
-	*/
-
 }

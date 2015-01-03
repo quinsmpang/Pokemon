@@ -10,6 +10,7 @@ end
 GameLauncher = {}
 
 DEBUG = true
+TEST = true
 
 GameLauncher.publicResources = {
     "images/common.plist",
@@ -115,11 +116,18 @@ function GameLauncher:loadPublicResources()
 end
 
 function GameLauncher:startGame()
-    require "src/scene/maintitle/MainViewScene"
 
-    local mainView = MainViewScene:create()
+    if TEST then
+        require "src/scene/test/TestScene"
 
-    cc.Director:getInstance():runWithScene(mainView)
+        local testView = TestScene:create()
+        cc.Director:getInstance():runWithScene(testView)
+    else
+        require "src/scene/maintitle/MainViewScene"
+
+        local mainView = MainViewScene:create()
+        cc.Director:getInstance():runWithScene(mainView)
+    end
 end
 
 function GameLauncher:restart()

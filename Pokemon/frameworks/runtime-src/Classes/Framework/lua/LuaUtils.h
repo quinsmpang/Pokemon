@@ -31,8 +31,6 @@ namespace framework
 
 		void *executePeertableFunction(cocos2d::Ref *userdata, const std::string &functionName, cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue);
 
-		//int sendCustomEvent(framework::ScriptEvent *customEvent);
-
 	private:
 		static LuaUtils *_instance;
 
@@ -43,12 +41,6 @@ namespace framework
 		bool hasFunction(void *userdata, const std::string &functionName);
 
 		void *executeFunction(cocos2d::Vector<cocos2d::Ref*> params, cocos2d::Vector<cocos2d::Ref*> paramTypes, bool hasReturnValue);
-
-		/*
-		int handleEventNodeTouchEvent(void *data);
-
-		int handleEventNodeKeyboardEvent(void *data);
-		*/
 	};
 
 }
