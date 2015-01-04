@@ -38,11 +38,13 @@ function TestViewController:renderView()
 
 	local bg = cc.Sprite:createWithSpriteFrameName("images/item/background.jpg")
 	bg:setPosition(winSize.width * 0.5, winSize.height * 0.5)
-	-- testLayer:addChild(bg)
+	testLayer:addChild(bg)
 
 	local clipper = cc.ClippingNode:create()
+	clipper:setContentSize(winSize)
 	clipper:setPosition(0, 0)
 	clipper:setAnchorPoint(0, 0)
+	-- clipper:setAlphaThreshold(0)
 
 	local blackLayer = cc.LayerColor:create(ccc4(0, 0, 0, 1))
 	blackLayer:setPosition(0, 0)
