@@ -39,7 +39,7 @@ function TestViewController:renderView()
 
 	local dots = {}
 	local r = math.sqrt(400 * 400 + 240 * 240)
-	for i = 0, 360 do
+	for i = 1, 360 do
 		local pt = ccp(r * math.cos(math.rad(i)), r * math.sin(math.rad(i)))
 		table.insert(dots, pt)
 	end

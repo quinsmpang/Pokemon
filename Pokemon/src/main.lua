@@ -10,7 +10,7 @@ end
 GameLauncher = {}
 
 DEBUG = true
-TEST = true
+TEST = false
 
 GameLauncher.publicResources = {
     "images/common.plist",
@@ -118,7 +118,6 @@ function GameLauncher:loadPublicResources()
 end
 
 function GameLauncher:startGame()
-
     if TEST then
         require "src/scene/test/TestScene"
 

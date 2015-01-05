@@ -402,16 +402,12 @@ function MapLayerController:onHeroMoved()
 				self.rockerLayer:setVisible(false)
 			end
 
-			local blinkAction = cc.Sequence:create(
-				cc.TargetedAction:create(self.currentMap.mask, cc.FadeIn:create(0.15)),
-				cc.TargetedAction:create(self.currentMap.mask, cc.FadeOut:create(0.15)),
-				cc.TargetedAction:create(self.currentMap.mask, cc.FadeIn:create(0.15)),
-				cc.TargetedAction:create(self.currentMap.mask, cc.FadeOut:create(0.15))
-				)
-			local middleAction = nil
+			require "src/scene/battle/BattleTransitionManager"
+
+			local transition = BattleTransitionManager:randomTransition()
 			local callFunc = cc.CallFunc:create(MakeScriptHandler(self, self.enterBattleView, encounter))
 			local action = cc.Sequence:create(
-				blinkAction,
+				transition,
 				callFunc
 				)
 			self.currentMap:runAction(action)
