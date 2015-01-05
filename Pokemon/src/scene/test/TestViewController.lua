@@ -35,6 +35,7 @@ function TestViewController:renderView()
 
 	local bg = cc.Sprite:createWithSpriteFrameName("images/item/background.jpg")
 	bg:setPosition(winSize.width * 0.5, winSize.height * 0.5)
+	coreLayer:addChild(bg)
 
 	local dots = {}
 	local r = math.sqrt(400 * 400 + 240 * 240)
@@ -43,15 +44,20 @@ function TestViewController:renderView()
 		table.insert(dots, pt)
 	end
 	local stencil = cc.DrawNode:create()
-	stencil:drawPolygon(dots, 360, ccc4f(1, 1, 1, 1), 50, ccc4f(1, 1, 1, 1))
+	stencil:drawPolygon(dots, 360, ccc4f(1, 1, 1, 1), 1, ccc4f(1, 1, 1, 1))
 	stencil:setAnchorPoint(0.5, 0.5)
 	stencil:setPosition(winSize.width * 0.5, winSize.height * 0.5)
+
+	local mask = cc.LayerColor:create()
+	mask:setColor(COLOR3B_BLACK)
+	mask:setPosition(0, 0)
+	mask:setOpacity(255)
 
 	local clipper = cc.ClippingNode:create(stencil)
 	clipper:setAnchorPoint(0, 0)
 	clipper:setPosition(0, 0)
-	clipper:addChild(bg)
-	clipper:setInverted(false)
+	clipper:addChild(mask)
+	clipper:setInverted(true)
 	-- clipper:setAlphaThreshold(0)
 	coreLayer:addChild(clipper)
 
