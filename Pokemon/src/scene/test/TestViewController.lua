@@ -33,36 +33,38 @@ function TestViewController:renderView()
 
 	local winSize = cc.Director:getInstance():getWinSize()
 
-	local testLayer = cc.Layer:create()
-	coreLayer:addChild(testLayer)
-
 	local bg = cc.Sprite:createWithSpriteFrameName("images/item/background.jpg")
 	bg:setPosition(winSize.width * 0.5, winSize.height * 0.5)
-	testLayer:addChild(bg)
-
-	local clipper = cc.ClippingNode:create()
-	clipper:setContentSize(winSize)
-	clipper:setPosition(0, 0)
-	clipper:setAnchorPoint(0, 0)
-	-- clipper:setAlphaThreshold(0)
-
-	local blackLayer = cc.LayerColor:create(ccc4(0, 0, 0, 1))
-	blackLayer:setPosition(0, 0)
-	clipper:addChild(blackLayer)
 
 	local dots = {}
-	local r = 100
+	local r = math.sqrt(400 * 400 + 240 * 240)
 	for i = 0, 360 do
 		local pt = ccp(r * math.cos(math.rad(i)), r * math.sin(math.rad(i)))
 		table.insert(dots, pt)
 	end
 	local stencil = cc.DrawNode:create()
-	stencil:drawPolygon(dots, 360, ccc4f(1, 1, 1, 1), 1, ccc4f(1, 1, 1, 1))
+	stencil:drawPolygon(dots, 360, ccc4f(1, 1, 1, 1), 50, ccc4f(1, 1, 1, 1))
+	stencil:setAnchorPoint(0.5, 0.5)
 	stencil:setPosition(winSize.width * 0.5, winSize.height * 0.5)
-	clipper:setStencil(stencil)
-	clipper:setInverted(true)
 
-	-- testLayer:addChild(stencil)
+	local clipper = cc.ClippingNode:create(stencil)
+	clipper:setAnchorPoint(0, 0)
+	clipper:setPosition(0, 0)
+	clipper:addChild(bg)
+	clipper:setInverted(false)
+	-- clipper:setAlphaThreshold(0)
+	coreLayer:addChild(clipper)
 
-	testLayer:addChild(clipper)
+	stencil:runAction(cc.ScaleTo:create(10, 0))
+
+	-- stencil:setBlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_DST_ALPHA)
+
+	-- local renderer = cc.RenderTexture:create(winSize.width, winSize.height, cc.TEXTURE2_D_PIXEL_FORMAT_RGB_A8888)
+	-- renderer:setAnchorPoint(0.5, 0.5)
+	-- renderer:setPosition(winSize.width * 0.5, winSize.height * 0.5)
+	-- coreLayer:addChild(renderer)
+
+	-- renderer:begin()
+	-- stencil:visit()
+	-- renderer:endToLua()
 end

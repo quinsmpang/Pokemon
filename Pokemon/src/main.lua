@@ -58,6 +58,8 @@ end
 function GameLauncher:loadLuaFramework()
     require "src/framework/Cocos2d"
     require "src/framework/Cocos2dConstants"
+    require "src/framework/Opengl"
+    require "src/framework/OpenglConstants"
     require "src/framework/bit"
     require "src/framework/luaClass"
     require "src/framework/class"

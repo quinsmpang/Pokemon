@@ -207,18 +207,6 @@ namespace framework
 			_stencil->setPosition(_area.origin.x - OFFSET, _area.origin.y - OFFSET);
 			_stencil->setVisible(true);
 		}
-
-		/*
-		// draw area -- deprecated, there are some issues using DrawNode when there are multiple layers covering together.
-		if (_area.size.width != 0 && _area.size.height != 0)
-		{
-			auto pDrawNode = DrawNode::create();
-			// The origin of the rect is at bottom-left
-			Point rect[4] = { Point(_area.origin.x, _area.origin.y + _area.size.height), Point(_area.origin.x + _area.size.width, _area.origin.y + _area.size.height), Point(_area.origin.x + _area.size.width, _area.origin.y), _area.origin };
-			pDrawNode->drawPolygon(rect, 4, Color4F::WHITE, 0, Color4F::WHITE);
-			_clipper->setStencil(pDrawNode);
-		}
-		*/
 	}
 
 }
