@@ -4,12 +4,10 @@ using namespace cocos2d;
 
 namespace framework
 {
-	const char *EncryptedTMXLayer::ENCRYPTION_KEY = "b77j19dK8ay2F5k90znsC31g";
-
-	EncryptedTMXLayer *EncryptedTMXLayer::create(cocos2d::TMXTilesetInfo *tilesetInfo, cocos2d::TMXLayerInfo *layerInfo, cocos2d::TMXMapInfo *mapInfo)
+	EncryptedTMXLayer *EncryptedTMXLayer::create(cocos2d::TMXTilesetInfo *tilesetInfo, cocos2d::TMXLayerInfo *layerInfo, cocos2d::TMXMapInfo *mapInfo, const std::string &encryptionKey)
 	{
 		auto pLayer = new EncryptedTMXLayer();
-		if (pLayer && pLayer->initWithInfo(tilesetInfo, layerInfo, mapInfo))
+		if (pLayer && pLayer->initWithInfo(tilesetInfo, layerInfo, mapInfo, encryptionKey))
 		{
 			pLayer->autorelease();
 			return pLayer;
@@ -20,6 +18,7 @@ namespace framework
 
 	EncryptedTMXLayer::EncryptedTMXLayer()
 		: _encryptor(nullptr)
+        , _encryptionKey("")
 	{
 	}
 
@@ -28,14 +27,15 @@ namespace framework
 		CC_SAFE_RELEASE_NULL(_encryptor);
 	}
 
-	bool EncryptedTMXLayer::initWithInfo(cocos2d::TMXTilesetInfo *tilesetInfo, cocos2d::TMXLayerInfo *layerInfo, cocos2d::TMXMapInfo *mapInfo)
+	bool EncryptedTMXLayer::initWithInfo(cocos2d::TMXTilesetInfo *tilesetInfo, cocos2d::TMXLayerInfo *layerInfo, cocos2d::TMXMapInfo *mapInfo, const std::string &encryptionKey)
 	{
 		// XXX: is 35% a good estimate ?
 		Size size = layerInfo->_layerSize;
 		float totalNumberOfTiles = size.width * size.height;
 		float capacity = totalNumberOfTiles * 0.35f + 1; // 35 percent is occupied ?
 
-		this->_encryptor = FileEncryptor::create(EncryptedTMXLayer::ENCRYPTION_KEY);
+        this->_encryptionKey = encryptionKey;
+		this->_encryptor = FileEncryptor::create(encryptionKey.c_str());
 		this->_encryptor->retain();
 
 		Texture2D *texture = nullptr;

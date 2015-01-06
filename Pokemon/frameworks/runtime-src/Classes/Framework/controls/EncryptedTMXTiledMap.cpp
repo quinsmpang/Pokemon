@@ -5,11 +5,9 @@ using namespace std;
 
 namespace framework
 {
-	// encryption key
-	const char *EncryptedTMXTiledMap::ENCRYPTION_KEY = "b77j19dK8ay2F5k90znsC31g";
-
 	EncryptedTMXTiledMap::EncryptedTMXTiledMap()
 		: _encryptor(nullptr)
+        , _encryptionKey("")
 	{
 	}
 
@@ -18,10 +16,10 @@ namespace framework
 		CC_SAFE_RELEASE_NULL(_encryptor);
 	}
 
-	EncryptedTMXTiledMap *EncryptedTMXTiledMap::create(const std::string &tmxFile)
+	EncryptedTMXTiledMap *EncryptedTMXTiledMap::create(const std::string &tmxFile, const std::string &encryptionKey)
 	{
 		auto pMap = new EncryptedTMXTiledMap();
-		if (pMap && pMap->initWithEncryptedTMXFile(tmxFile))
+		if (pMap && pMap->initWithEncryptedTMXFile(tmxFile, encryptionKey))
 		{
 			pMap->autorelease();
 			return pMap;
@@ -30,13 +28,14 @@ namespace framework
 		return nullptr;
 	}
 
-	bool EncryptedTMXTiledMap::initWithEncryptedTMXFile(const std::string &tmxFile)
+	bool EncryptedTMXTiledMap::initWithEncryptedTMXFile(const std::string &tmxFile, const std::string &encryptionKey)
 	{
 		CCASSERT(tmxFile.size()>0, "EncryptedTMXTiledMap: tmx file should not be empty");
 
 		this->setContentSize(Size::ZERO);
 
-		this->_encryptor = FileEncryptor::create(EncryptedTMXTiledMap::ENCRYPTION_KEY);
+        this->_encryptionKey = encryptionKey;
+		this->_encryptor = FileEncryptor::create(encryptionKey.c_str());
 		this->_encryptor->retain();
 
 		// compatible with Android
@@ -52,7 +51,7 @@ namespace framework
 		{
 			return false;
 		}
-		CCASSERT( !mapInfo->getTilesets().empty(), "TMXTiledMap: Map not found. Please check the filename.");
+		CCASSERT(!mapInfo->getTilesets().empty(), "TMXTiledMap: Map not found. Please check the filename.");
 		this->initWithMapInfo(mapInfo);
 
 		return true;
@@ -94,7 +93,7 @@ namespace framework
 	EncryptedTMXLayer *EncryptedTMXTiledMap::parseLayerByInfo(TMXLayerInfo *layerInfo, TMXMapInfo *mapInfo)
 	{
 		TMXTilesetInfo *tileset = tilesetForLayer(layerInfo, mapInfo);
-		EncryptedTMXLayer *layer = EncryptedTMXLayer::create(tileset, layerInfo, mapInfo);
+		EncryptedTMXLayer *layer = EncryptedTMXLayer::create(tileset, layerInfo, mapInfo, _encryptionKey);
 
 		// tell the layerinfo to release the ownership of the tiles map.
 		layerInfo->_ownTiles = false;

@@ -19,19 +19,17 @@ namespace framework
 	class EncryptedTMXTiledMap : public cocos2d::TMXTiledMap
 	{
 	public:
-		static const char *ENCRYPTION_KEY;
-
-		static EncryptedTMXTiledMap *create(const std::string &tmxFile);
+		static EncryptedTMXTiledMap *create(const std::string &tmxFile, const std::string &encryptionKey);
 
 		explicit EncryptedTMXTiledMap();
 		~EncryptedTMXTiledMap();
 
-		bool initWithEncryptedTMXFile(const std::string &tmxFile);
-
 	protected:
+		bool initWithEncryptedTMXFile(const std::string &tmxFile, const std::string &encryptionKey);
 		void initWithMapInfo(cocos2d::TMXMapInfo *mapInfo);
 		EncryptedTMXLayer *parseLayerByInfo(cocos2d::TMXLayerInfo *layerInfo, cocos2d::TMXMapInfo *mapInfo);
 
+        std::string _encryptionKey;
 		FileEncryptor *_encryptor;
 	};
 }

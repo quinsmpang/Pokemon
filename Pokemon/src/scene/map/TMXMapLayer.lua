@@ -68,7 +68,7 @@ function TMXMapLayer:initWithMapInfo(mapInfo, lastMapId)
 
 	local screenSize = cc.Director:getInstance():getWinSize()
 
-	local map = EncryptedTMXTiledMap:create(mapInfo.path)
+	local map = EncryptedTMXTiledMap:create(mapInfo.path, GameConfig.MAP_PASSWORD)
 	self.map = map
 
 	self.width = map:getMapSize().width
