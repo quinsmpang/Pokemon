@@ -19,9 +19,23 @@ namespace framework
 	class EncryptedTMXTiledMap : public cocos2d::TMXTiledMap
 	{
 	public:
+        /**
+         * Create an encrypted tmx map.
+         *
+         * @param tmxFile The path of the encrypted tmx file.
+         * @param encryptionKey The encipher key of the tmx file.
+         *
+         * @return Return EncryptedTMXTiledMap object.
+         */
 		static EncryptedTMXTiledMap *create(const std::string &tmxFile, const std::string &encryptionKey);
 
+        /**
+         * EncryptedTMXTiledMap constructor.
+         */
 		explicit EncryptedTMXTiledMap();
+        /**
+         * EncryptedTMXTiledMap destructor.
+         */
 		~EncryptedTMXTiledMap();
 
 	protected:
