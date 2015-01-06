@@ -6533,6 +6533,7 @@ int lua_register_psframework_TableViewEx(lua_State* tolua_S)
     g_typeCast["TableViewEx"] = "pf.TableViewEx";
     return 1;
 }
+
 int lua_psframework_EncryptedTMXLayer_create(lua_State* tolua_S)
 {
     int argc = 0;
@@ -6557,7 +6558,7 @@ int lua_psframework_EncryptedTMXLayer_create(lua_State* tolua_S)
         ok &= luaval_to_object<cocos2d::TMXTilesetInfo>(tolua_S, 2, "cc.TMXTilesetInfo",&arg0);
         ok &= luaval_to_object<cocos2d::TMXLayerInfo>(tolua_S, 3, "cc.TMXLayerInfo",&arg1);
         ok &= luaval_to_object<cocos2d::TMXMapInfo>(tolua_S, 4, "cc.TMXMapInfo",&arg2);
-        ok &= luaval_to_std_string(tolua_S, 5, &arg3);
+        ok &= luaval_to_std_string(tolua_S, 5,&arg3);
         if(!ok)
             return 0;
         framework::EncryptedTMXLayer* ret = framework::EncryptedTMXLayer::create(arg0, arg1, arg2, arg3);
@@ -6638,7 +6639,6 @@ int lua_register_psframework_EncryptedTMXLayer(lua_State* tolua_S)
     tolua_cclass(tolua_S,"EncryptedTMXLayer","pf.EncryptedTMXLayer","cc.TMXLayer",nullptr);
 
     tolua_beginmodule(tolua_S,"EncryptedTMXLayer");
-        tolua_function(tolua_S,"new",lua_psframework_EncryptedTMXLayer_constructor);
         tolua_function(tolua_S,"create", lua_psframework_EncryptedTMXLayer_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::EncryptedTMXLayer).name();
@@ -6646,6 +6646,7 @@ int lua_register_psframework_EncryptedTMXLayer(lua_State* tolua_S)
     g_typeCast["EncryptedTMXLayer"] = "pf.EncryptedTMXLayer";
     return 1;
 }
+
 int lua_psframework_EncryptedTMXTiledMap_create(lua_State* tolua_S)
 {
     int argc = 0;
@@ -6666,7 +6667,7 @@ int lua_psframework_EncryptedTMXTiledMap_create(lua_State* tolua_S)
         std::string arg0;
         std::string arg1;
         ok &= luaval_to_std_string(tolua_S, 2,&arg0);
-        ok &= luaval_to_std_string(tolua_S, 3, &arg1);
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1);
         if(!ok)
             return 0;
         framework::EncryptedTMXTiledMap* ret = framework::EncryptedTMXTiledMap::create(arg0, arg1);
@@ -6747,7 +6748,6 @@ int lua_register_psframework_EncryptedTMXTiledMap(lua_State* tolua_S)
     tolua_cclass(tolua_S,"EncryptedTMXTiledMap","pf.EncryptedTMXTiledMap","cc.TMXTiledMap",nullptr);
 
     tolua_beginmodule(tolua_S,"EncryptedTMXTiledMap");
-        tolua_function(tolua_S,"new",lua_psframework_EncryptedTMXTiledMap_constructor);
         tolua_function(tolua_S,"create", lua_psframework_EncryptedTMXTiledMap_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(framework::EncryptedTMXTiledMap).name();

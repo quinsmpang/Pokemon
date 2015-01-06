@@ -1,6 +1,7 @@
 #ifndef __FRAMEWORK_H__
 #define __FRAMEWORK_H__
 
+#include "base/Macros.h"
 #include "base/RefString.h"
 #include "base/RefInteger.h"
 #include "base/RefDouble.h"
