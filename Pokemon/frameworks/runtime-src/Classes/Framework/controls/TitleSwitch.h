@@ -16,41 +16,118 @@ namespace framework
 	class TitleSwitch : public cocos2d::Node
 	{
 	public:
+        /**
+         * Create a TitleSwitch control.
+         *
+         * @param bg Control background node.
+         * @param titles Title collection.
+         * @param ttfFile The font family used for the control.
+         *
+         * @return A new TitleSwitch object.
+         */
 		static TitleSwitch *create(cocos2d::Node *bg, const std::vector<std::string> &titles, const std::string &ttfFile);
 
+        /**
+         * TitleSwitch constructor.
+         */
 		TitleSwitch();
+        /**
+         * TitleSwitch destructor.
+         */
 		virtual ~TitleSwitch();
 
+        /**
+         * Title collection setter.
+         *
+         * @param titles Title collection to replace.
+         */
 		void setTitles(const std::vector<std::string> &titles);
+        /**
+         * Update control background.
+         *
+         * @param bg Background node to replace.
+         */
 		void setBackgroundNode(cocos2d::Node *bg);
 
-		// set title display properties
+		/**
+         * Title font color setter.
+         *
+         * @param color Font color to replace.
+         */
 		void setTitleColor(const cocos2d::Color3B &color);
+        /**
+         * Title font size setter.
+         *
+         * @param size Font size to replace.
+         */
 		void setTitleFontSize(int size);
+        /**
+         * Title font family setter.
+         *
+         * @param fontName Font family or font path to replace.
+         */
 		void setTitleFontName(const std::string &fontName);
 
+        /**
+         * Whether to allow you swap between the first title and the last one.
+         *
+         * @param allowLoop A boolean value which indicates you'd like to swap between the first and the last.
+         */
 		void setAllowLoop(bool allowLoop);		// whether allow transferring from the last to the first, vice versa.
 
+        /**
+         * Set the keys which would response to your operations.
+         *
+         * @param leftKey The key for responsing left operation.
+         * @param rightKey The key for responsing right operation.
+         */
 		void setResponseKeys(int leftKey, int rightKey);
+        /**
+         * Whether to swallow the keyboard events below.
+         *
+         * @param isSwallowed A boolean value.
+         */
 		void setEventsSwallowed(bool isSwallowed);
 
+        /**
+         * Get the current showing index.
+         *
+         * @return The current showing index.
+         */
 		inline int getCurrentIndex() const
 		{
 			return this->_currentIndex;
 		}
+        /**
+         * Set the current showing index.
+         *
+         * @param The showing index you are going to set.
+         */
 		void setCurrentIndex(int index);
+        /**
+         * Get the transition animation duration.
+         *
+         * @param The transition duration.
+         */
 		inline void setDuration(float duration)
 		{
 			_duration = duration;
 		}
 
+        /**
+         * Enter and exit events overrides.
+         */
 		void onEnter() override;
 		void onExit() override;
 
-		// keyboard events
+		/**
+         * Keyboard events.
+         */
 		virtual void onKeyPressed(int keyCode);
 
-		// override to clip the size
+		/**
+         * Override visit method.
+         */
 		virtual void visit(cocos2d::Renderer *renderer, const kmMat4& parentTransform, bool parentTransformUpdated) override;
 
 	protected:

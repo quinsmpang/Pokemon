@@ -15,11 +15,30 @@ namespace framework
 	{
 		SINGLETON(DesUtils);
 	public:
-		// key: 24-bit encryption key;  data: data to be encrypted;  inSize: data size;  outSize: data size after the encryption.
-		// Note: You have to delete the non-nil return value by yourself.  free(p);
+        /**
+         * @brief Encrypt content using DES.
+         * Note: You have to delete the non-nil return value by yourself.  free(p);
+         *
+         * @param key 24-bit encryption key.
+         * @param data Data to be enciphered.
+         * @param data The size of raw data.
+         * @param outSize You can get the data size after the encryption from here.
+         *
+         * @return The content after encryption.
+         */
 		unsigned char *encrypt(const char *key, unsigned char *data, int inSize, int *outSize);
 
-		// Note: You have to delete the non-nil return value by yourself.  free(p);
+		/**
+         * @brief Decrypt content using DES.
+         * Note: You have to delete the non-nil return value by yourself.  free(p);
+         *
+         * @param key 24-bit encryption key.
+         * @param data Data to be deciphered.
+         * @param data The size of encrypted data.
+         * @param outSize You can get the data size after the decryption from here.
+         *
+         * @return The content after decryption.
+         */
 		unsigned char *decrypt(const char *key, unsigned char *data, int inSize, int *outSize);
 
 	private:

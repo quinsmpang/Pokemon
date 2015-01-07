@@ -202,21 +202,32 @@ namespace framework
          */
 		void setEventsSwallowed(bool isSwallowed);
 
-		// reload data from the data source
+		/**
+         * Reload data from the data source
+         */
 		void reloadData();
 
+        /**
+         * Get the item at the specified index.
+         *
+         * @param index Seeking index.
+         *
+         * @return Return the item at your seeking index.
+         */
 		ListMenuItem *getItemAtIndex(ssize_t index);
-		void insertItemAtIndex(ssize_t index);
-		void removeItemAtIndex(ssize_t index);
-		void updateItemAtIndex(ssize_t index);
 
+        /**
+         * Recycle the item from the recycling pool, or return a new menu item.
+         *
+         * @return Return the generated item.
+         */
 		ListMenuItem *dequeueItem();
 
-		// keyboard events
+		/**
+         * Keyboard events overrides.
+         */
 		virtual void onKeyPressed(int keyCode);
 		virtual void onKeyReleased(int keyCode);
-		//virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) override;
-		//virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) override;
 
 	protected:
 		virtual bool initWithShowCount(ssize_t showCount);

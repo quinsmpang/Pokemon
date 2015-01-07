@@ -32,6 +32,14 @@ namespace framework
 	class ScriptCCBReader
 	{
 	public:
+        /**
+         * Read from a .ccbi file.
+         *
+         * @param ccbFilePath The path of .ccbi file.
+         * @param scriptDelegate The cocos2dx object which implements the delegate.
+         *
+         * @return Node object load from ccb.
+         */
 		static cocos2d::Node *readCCB(const std::string &ccbFilePath, cocos2d::Ref *scriptDelegate);
 	};
 }

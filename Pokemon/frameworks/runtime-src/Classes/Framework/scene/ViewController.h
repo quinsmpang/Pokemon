@@ -17,17 +17,32 @@ namespace framework
 	class ViewController : public cocos2d::Ref
 	{
 	public:
+        /**
+         * Create a new ViewController.
+         */
 		CREATE_FUNC(ViewController);
 
+        /**
+         * ViewController destructor.
+         */
 		virtual ~ViewController();
 
-		virtual bool init();
-
+        /**
+         * Do sth when you load this view controller.
+         */
 		virtual void load();
-
+        /**
+         * Do sth when you unload this view controller.
+         */
 		virtual void unload();
 
+        /**
+         * Get the related GameScene object of this controller.
+         */
 		CC_SYNTHESIZE(GameScene*, _scene, Scene);
+        
+    protected:
+		virtual bool init();
 	};
 
 }
