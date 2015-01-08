@@ -17,10 +17,22 @@ namespace framework
 	class Mutex : public cocos2d::Ref, public Uninheritable<Mutex>, private Uncopyable
 	{
 	public:
+        /**
+         * Mutex constructor.
+         */
 		explicit Mutex();
+        /**
+         * Mutex destructor.
+         */
 		~Mutex();
 
+        /**
+         * Lock the current environment.
+         */
 		void lock();
+        /**
+         * Unock the current environment.
+         */
 		void unlock();
 
 	private:
@@ -30,10 +42,22 @@ namespace framework
 	class RecursiveMutex : public cocos2d::Ref, public Uninheritable<RecursiveMutex>, private Uncopyable
 	{
 	public:
+        /**
+         * RecursiveMutex constructor.
+         */
 		explicit RecursiveMutex();
+        /**
+         * RecursiveMutex destructor.
+         */
 		~RecursiveMutex();
 
+        /**
+         * Lock the current environment.
+         */
 		void lock();
+        /**
+         * Unlock the current environment.
+         */
 		void unlock();
 
 	private:
