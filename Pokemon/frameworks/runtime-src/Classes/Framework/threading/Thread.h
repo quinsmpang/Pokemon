@@ -27,23 +27,52 @@ namespace framework
 		explicit Thread();
 		~Thread();
 
-		// run thread without arguments, Thread_Func should be std::function
+        /**
+         * Run thread without arguments, Thread_Func should be std::function.
+         *
+         * @param threadFunc Thread execution function.
+         */
 		template<typename Thread_Func>
 		void run(const Thread_Func &threadFunc);
-		// run thread with arguments, Thread_Func should be std::function
+        /**
+         * Run thread with arguments, Thread_Func should be std::function.
+         *
+         * @param threadFunc Thread execution function.
+         * @param args Varadic parameters of the function.
+         */
 		template<typename Thread_Func, typename ...Args>
 		void run(const Thread_Func &threadFunc, Args... args);
-		// run async task with no argument until over.
+        /**
+         * Run an async task with no argument until the target thread runs over.
+         *
+         * @param threadFunc Thread execution function.
+         */
 		template<typename Thread_Func>
 		typename std::result_of<Thread_Func()>::type runAsync(const Thread_Func &threadFunc);
-		// run async task with arguments until over.
+		/**
+         * Run an async task with arguments until the target thread runs over.
+         *
+         * @param threadFunc Thread execution function.
+         * @param args Varadic parameters of the function.
+         */
 		template<typename Thread_Func, typename ...Args>
 		typename std::result_of<Thread_Func(Args...)>::type runAsync(const Thread_Func &threadFunc, Args... args);
 
+        /**
+         * Make current thread sleep for specified miliseconds.
+         */
 		static void sleep(unsigned int ms);
 
+        /**
+         * Wait other threads to run over.
+         *
+         * @return Join result, when the thread is detached, it can't join.
+         */
 		bool join();
-		void detach();		// detach thread, then the main thread will lose the control of this thread.
+        /**
+         * Detach thread, the main thread will lose the control of this thread.
+         */
+		void detach();
 
 	private:
 		std::thread _hThread;

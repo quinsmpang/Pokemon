@@ -16,20 +16,41 @@ namespace framework
 	class CoreLayer : public GameLayer
 	{
 	public:
+        /**
+         * Create a CoreLayer.
+         */
 		CREATE_FUNC(CoreLayer);
 
+        /**
+         * CoreLayer constructor.
+         */
 		CoreLayer();
+        /**
+         * CoreLayer destructor.
+         */
 		virtual ~CoreLayer();
 
-		virtual bool init();
-
+        /**
+         * Push a new layer into the current scene.
+         *
+         * @param topLayer The new layer to push into.
+         */
 		void pushLayer(GameLayer *topLayer);
-
+        /**
+         * Pop out the top layer of the current scene.
+         */
 		void popLayer();
 
+        /**
+         * Get the top game layer.
+         *
+         * @return Current top game layer.
+         */
 		GameLayer *getTopLayer();
 
 	protected:
+		virtual bool init();
+        
 		// The top layer goes out at first when push a new layer.
 		virtual void topLayerDidGoOutWhenPush(GameLayer *newLayer);
 		// New layer comes in.

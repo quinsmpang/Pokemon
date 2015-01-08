@@ -3,6 +3,7 @@
 #include "../base/RefString.h"
 #include "../base/RefInteger.h"
 #include "../base/RefDouble.h"
+#include "../base/RefBoolean.h"
 
 using namespace cocos2d;
 
@@ -70,6 +71,10 @@ namespace framework
 		{
 			return "RefDouble";
 		}
+        else if (dynamic_cast<RefBoolean*>(value))
+        {
+            return "RefBoolean";
+        }
 		else
 		{
 			return "Unknown";

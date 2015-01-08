@@ -14,13 +14,17 @@ namespace framework
 	class ModalLayerDelegate
 	{
 	public:
-		// handle modal layer touch events
+		/**
+         * ModalLayer delegates
+         */
 		virtual void onModalTouchBegan(float x, float y) = 0;
 		virtual void onModalTouchMoved(float x, float y) = 0;
 		virtual void onModalTouchEnded(float x, float y) = 0;
 		virtual void onModalTouchCancelled(float x, float y) = 0;
 
-		// handle come in event and go out event.
+		/**
+         * Node enter and exit events.
+         */
 		virtual void onComeIn() = 0;
 		virtual void onGoOut() = 0;
 	};
@@ -28,28 +32,39 @@ namespace framework
 	class ModalLayer : public cocos2d::LayerColor, public ModalLayerDelegate
 	{
 	public:
+        /**
+         * Create a new ModalLayer.
+         *
+         * @return Return new ModalLayer object.
+         */
 		static ModalLayer *create();
 
-		virtual bool init();
-
+        /**
+         * Base node events overrides.
+         */
 		void onEnter() override;
-
 		void onExit() override;
 
+        /**
+         * Touch events overrides.
+         */
 		bool onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) override;
 		void onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) override; 
 		void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) override; 
 		void onTouchCancelled(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) override;
 		
-		// handle modal layer touch events
+		/**
+         * ModalLayer delegate overrides.
+         */
 		virtual void onModalTouchBegan(float x, float y);
 		virtual void onModalTouchMoved(float x, float y);
 		virtual void onModalTouchEnded(float x, float y);
 		virtual void onModalTouchCancelled(float x, float y);
-
-		// handle come in event and go out event.
 		virtual void onComeIn();
 		virtual void onGoOut();
+        
+    protected:
+		virtual bool init();
 	};
 }
 
