@@ -26,11 +26,6 @@
 -- @param #float float
         
 --------------------------------
--- @function [parent=#ModalLayer] init 
--- @param self
--- @return bool#bool ret (return value: bool)
-        
---------------------------------
 -- @function [parent=#ModalLayer] onModalTouchCancelled 
 -- @param self
 -- @param #float float

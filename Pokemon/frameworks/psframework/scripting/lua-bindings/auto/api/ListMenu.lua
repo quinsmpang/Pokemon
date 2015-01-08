@@ -4,31 +4,9 @@
 -- @extend Layer
 
 --------------------------------
--- @function [parent=#ListMenu] isMenuEnabled 
+-- @function [parent=#ListMenu] dequeueItem 
 -- @param self
--- @return bool#bool ret (return value: bool)
-        
---------------------------------
--- @function [parent=#ListMenu] select 
--- @param self
--- @param #int int
--- @param #int int
-        
---------------------------------
--- @function [parent=#ListMenu] getItemAtIndex 
--- @param self
--- @param #long long
 -- @return ListMenuItem#ListMenuItem ret (return value: pf.ListMenuItem)
-        
---------------------------------
--- @function [parent=#ListMenu] insertItemAtIndex 
--- @param self
--- @param #long long
-        
---------------------------------
--- @function [parent=#ListMenu] setMenuEnabled 
--- @param self
--- @param #bool bool
         
 --------------------------------
 -- @function [parent=#ListMenu] setResponseKeyCodes 
@@ -38,17 +16,22 @@
 -- @param #int int
         
 --------------------------------
--- @function [parent=#ListMenu] onKeyPressed 
+-- @function [parent=#ListMenu] getIndexInAllItems 
 -- @param self
--- @param #int int
-        
---------------------------------
--- @function [parent=#ListMenu] dequeueItem 
--- @param self
--- @return ListMenuItem#ListMenuItem ret (return value: pf.ListMenuItem)
+-- @return long#long ret (return value: long)
         
 --------------------------------
 -- @function [parent=#ListMenu] getTopGlobalIndex 
+-- @param self
+-- @return long#long ret (return value: long)
+        
+--------------------------------
+-- @function [parent=#ListMenu] setMenuEnabled 
+-- @param self
+-- @param #bool bool
+        
+--------------------------------
+-- @function [parent=#ListMenu] getCurrentShowIndex 
 -- @param self
 -- @return long#long ret (return value: long)
         
@@ -58,23 +41,25 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- @function [parent=#ListMenu] removeItemAtIndex 
+-- @function [parent=#ListMenu] onKeyPressed 
+-- @param self
+-- @param #int int
+        
+--------------------------------
+-- @function [parent=#ListMenu] getItemAtIndex 
 -- @param self
 -- @param #long long
+-- @return ListMenuItem#ListMenuItem ret (return value: pf.ListMenuItem)
         
 --------------------------------
--- @function [parent=#ListMenu] getIndexInAllItems 
+-- @function [parent=#ListMenu] isMenuEnabled 
 -- @param self
--- @return long#long ret (return value: long)
+-- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- @function [parent=#ListMenu] reloadData 
+-- @function [parent=#ListMenu] setEventsSwallowed 
 -- @param self
-        
---------------------------------
--- @function [parent=#ListMenu] updateItemAtIndex 
--- @param self
--- @param #long long
+-- @param #bool bool
         
 --------------------------------
 -- @function [parent=#ListMenu] isTopOverflowed 
@@ -87,14 +72,14 @@
 -- @param #int int
         
 --------------------------------
--- @function [parent=#ListMenu] setEventsSwallowed 
+-- @function [parent=#ListMenu] reloadData 
 -- @param self
--- @param #bool bool
         
 --------------------------------
--- @function [parent=#ListMenu] getCurrentShowIndex 
+-- @function [parent=#ListMenu] select 
 -- @param self
--- @return long#long ret (return value: long)
+-- @param #int int
+-- @param #int int
         
 --------------------------------
 -- overload function: create(pf.ListMenuDataSource, long)

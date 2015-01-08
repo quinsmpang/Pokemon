@@ -52,11 +52,6 @@
 -- @param self
         
 --------------------------------
--- @function [parent=#GameScene] init 
--- @param self
--- @return bool#bool ret (return value: bool)
-        
---------------------------------
 -- @function [parent=#GameScene] putDoubleAttribute 
 -- @param self
 -- @param #string str

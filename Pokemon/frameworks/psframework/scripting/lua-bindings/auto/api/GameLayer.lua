@@ -14,11 +14,6 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- @function [parent=#GameLayer] getGoOutWhenPushAction 
--- @param self
--- @return ActionInterval#ActionInterval ret (return value: cc.ActionInterval)
-        
---------------------------------
 -- @function [parent=#GameLayer] setGoOutWhenPushAction 
 -- @param self
 -- @param #cc.ActionInterval actioninterval
@@ -29,9 +24,9 @@
 -- @param #cc.ActionInterval actioninterval
         
 --------------------------------
--- @function [parent=#GameLayer] init 
+-- @function [parent=#GameLayer] getGoOutWhenPushAction 
 -- @param self
--- @return bool#bool ret (return value: bool)
+-- @return ActionInterval#ActionInterval ret (return value: cc.ActionInterval)
         
 --------------------------------
 -- @function [parent=#GameLayer] getComeInWhenPopAction 

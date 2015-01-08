@@ -13,11 +13,6 @@
 -- @param #pf.GameScene gamescene
         
 --------------------------------
--- @function [parent=#ViewController] init 
--- @param self
--- @return bool#bool ret (return value: bool)
-        
---------------------------------
 -- @function [parent=#ViewController] getScene 
 -- @param self
 -- @return GameScene#GameScene ret (return value: pf.GameScene)

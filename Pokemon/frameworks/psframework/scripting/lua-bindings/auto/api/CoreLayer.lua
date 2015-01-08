@@ -8,19 +8,14 @@
 -- @param self
         
 --------------------------------
--- @function [parent=#CoreLayer] init 
+-- @function [parent=#CoreLayer] pushLayer 
 -- @param self
--- @return bool#bool ret (return value: bool)
+-- @param #pf.GameLayer gamelayer
         
 --------------------------------
 -- @function [parent=#CoreLayer] getTopLayer 
 -- @param self
 -- @return GameLayer#GameLayer ret (return value: pf.GameLayer)
-        
---------------------------------
--- @function [parent=#CoreLayer] pushLayer 
--- @param self
--- @param #pf.GameLayer gamelayer
         
 --------------------------------
 -- @function [parent=#CoreLayer] create 
