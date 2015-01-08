@@ -16,9 +16,22 @@ namespace framework
 {
 	class KeyboardHelper : public cocos2d::Ref
 	{
+        /**
+         * KeyboardHelper is a singleton.
+         */
 		SINGLETON(KeyboardHelper);
 	public:
+        /**
+         * Open the keyboard hook.
+         *
+         * @return Operation result.
+         */
 		bool hookOn();
+        /**
+         * Close the keyboard hook.
+         *
+         * @return Operation result.
+         */
 		bool hookOff();
 		bool isKeyPressed(int keyCode);
 	};

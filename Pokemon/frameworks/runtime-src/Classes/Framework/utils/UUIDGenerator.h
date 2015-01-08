@@ -28,8 +28,16 @@ namespace framework
 {
 	class UUIDGenerator : public cocos2d::Ref
 	{
+        /**
+         * UUIDGenerator is a singleton.
+         */
 		SINGLETON(UUIDGenerator);
 	public:
+        /**
+         * Generate a GUID.
+         *
+         * @return New GUID.
+         */
 		const std::string &generateUUID();
 
 	private:

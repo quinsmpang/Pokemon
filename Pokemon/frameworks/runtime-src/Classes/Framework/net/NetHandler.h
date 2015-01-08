@@ -16,14 +16,31 @@ namespace framework
 	class NetHandler : public cocos2d::Ref
 	{
 	public:
+        /**
+         * Create a new NetHandler.
+         */
 	    CREATE_FUNC(NetHandler);
-	    
-	    virtual bool init();
-	    
+        
+        /**
+         * NetHandler destructor.
+         */
 	    virtual ~NetHandler();
 	    
+        /**
+         * How to handle successful message.
+         *
+         * @param response The response to handle.
+         */
 	    virtual void handleSuccessfulMessage(NetResponse *response);
+        /**
+         * How to handle failed message.
+         *
+         * @param response The response to handle.
+         */
 	    virtual void handleFailedMessage(NetResponse *response);
+        
+    protected:
+	    virtual bool init();
 	};
 }
 

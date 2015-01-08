@@ -17,12 +17,24 @@ namespace framework
     class NetService : public cocos2d::Ref
     {
     public:
+        /**
+         * NetService destructor.
+         */
         virtual ~NetService() {}
     
-		// send message to the server
+		/**
+         * Send request to the server.
+         *
+         * @param request The request to send.
+         */
         virtual void sendMessage(NetRequest *request) = 0;
 
-		// execute specified command
+		/**
+         * Execute extra command.
+         *
+         * @param cmd Command name.
+         * @param params Command parameters.
+         */
 		virtual void executeCommand(const std::string &cmd, cocos2d::Ref *params) = 0;
     };
 }

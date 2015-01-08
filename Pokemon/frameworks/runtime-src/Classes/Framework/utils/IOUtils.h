@@ -15,27 +15,77 @@ namespace framework
 {
 	class IOUtils : public cocos2d::Ref
 	{
+        /**
+         * IOUtils is a singleton.
+         */
 		SINGLETON(IOUtils);
 	public:
-		// Judge whether the file does exist.
+        /**
+         * Check whether the specified file does exist.
+         *
+         * @param path File path to check.
+         *
+         * @return A boolean value.
+         */
 		bool fileExists(const std::string &path);
 
-		// Judge whether the directory does exist.
+        /**
+         * Check whether the directory does exist.
+         *
+         * @param path Directory path to check.
+         *
+         * @return A boolean value.
+         */
 		bool directoryExists(const std::string &path);
 
-		// Move file from one path to another path, which can be also used to rename a file.
+        /**
+         * Move file from old path to new path.
+         *
+         * @param oldPath Source file path.
+         * @param newPath New file path.
+         *
+         * @return Operation result.
+         */
 		bool moveFile(const std::string &oldPath, const std::string &newPath);
 
-		// Copy file from one path to another path
+		/**
+         * Copy file from old path to new path.
+         *
+         * @param oldPath Source file path.
+         * @param newPath New file path.
+         *
+         * @return Operation result.
+         */
 		bool copyFile(const std::string &oldPath, const std::string &newPath);
 
-		// Write data to file
+		/**
+         * Write content to the specified file.
+         *
+         * @param content File content to write.
+         * @param length Content size.
+         * @param filePath Destination file path.
+         * @param isAppend Whether to append the content at the end of the file.
+         *
+         * @return Operation result.
+         */
 		bool writeDataToFile(const unsigned char *content, unsigned long length, const std::string &filePath, bool isAppend = false);
 
-		// Delete file
+		/**
+         * Remove file from the specified path.
+         *
+         * @param filePath Destination file path.
+         *
+         * @return Operation result.
+         */
 		bool removeFile(const std::string &filePath);
 
-		// Create directory
+		/**
+         * Create a new directory.
+         *
+         * @param directoryPath The new directory path.
+         *
+         * @return Operation result.
+         */
 		bool createDirectory(const std::string &directoryPath);
 	};
 }

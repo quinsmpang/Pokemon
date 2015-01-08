@@ -17,9 +17,22 @@ namespace framework
 	{
 		friend class Win32Notifier;
 	public:
+        /**
+         * Win32EventArgs constructor.
+         *
+         * @param params Event related parameters.
+         */
 		Win32EventArgs(void *params);
+        /**
+         * Win32EventArgs destructor.
+         */
 		virtual ~Win32EventArgs();
 
+        /**
+         * Get parameters.
+         *
+         * @return Parameters of the event.
+         */
 		inline void *getParams() const
 		{
 			return _params;

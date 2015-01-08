@@ -16,14 +16,35 @@ namespace framework
 	class NetFilter : public cocos2d::Ref
 	{
 	public:
+        /**
+         * Create a NetFileter object.
+         */
 		CREATE_FUNC(NetFilter);
 
-		virtual bool init();
-
+        /**
+         * NetFilter destructor.
+         */
 		virtual ~NetFilter();
 
+        /**
+         * Filter the successful response message.
+         *
+         * @param response Target response object.
+         *
+         * @return Return the filtered response.
+         */
 		virtual NetResponse *filterSuccessfulMessage(NetResponse *response);
+        /**
+         * Filter the failed response message.
+         *
+         * @param response Target response object.
+         *
+         * @return Return the filtered response.
+         */
 		virtual NetResponse *filterFailedMessage(NetResponse *response);
+        
+    protected:
+		virtual bool init();
 	};
 }
 

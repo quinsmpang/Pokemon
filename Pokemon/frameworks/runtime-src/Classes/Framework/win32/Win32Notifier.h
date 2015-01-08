@@ -18,10 +18,29 @@ namespace framework
 {
 	class Win32Notifier : public cocos2d::Ref
 	{
+        /**
+         * Win32Notifier is a singleton.
+         */
 		SINGLETON(Win32Notifier);
 	public:
+        /**
+         * Store a new event listener.
+         *
+         * @param listener The win32 listener to add.
+         */
 		void addEventListener(Win32EventListener *listener);
+        /**
+         * Remove the event listener.
+         *
+         * @param listener The win32 listener to remove.
+         */
 		void removeEventListener(Win32EventListener *listener);
+        /**
+         * Send notifications for every event listeners.
+         *
+         * @param type Win32 event type.
+         * @param args Related parameters of the event.
+         */
 		void notify(Win32EventListener::Win32EventListenerType type, Win32EventArgs *args);
 
 	protected:

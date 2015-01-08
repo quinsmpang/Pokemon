@@ -26,8 +26,14 @@ namespace framework
 			KEYBOARD = 1,
 		};
 
+        /**
+         * Win32EventListener destructor.
+         */
 		virtual ~Win32EventListener();
 
+        /**
+         * Listener getter and setter.
+         */
 		inline void setEnabled(bool isEnabled)
 		{
 			this->_isEnabled = isEnabled;
@@ -37,7 +43,9 @@ namespace framework
 			return this->_isEnabled;
 		}
 		
-		// whether to swallow the event, default true
+		/**
+         * Whether to swallow the event.
+         */
 		inline void setEventsSwallowed(bool bSwallowed)
 		{
 			this->_swallowed = bSwallowed;
