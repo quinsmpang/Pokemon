@@ -49,6 +49,7 @@
 //#include "threading/Thread.h"
 #include "threading/Mutex.h"
 
+#include "net/NetTransferStrategy.h"
 #include "net/NetRequest.h"
 #include "net/NetResponse.h"
 #include "net/NetService.h"
@@ -56,6 +57,9 @@
 #include "net/NetFilter.h"
 #include "net/NetProtocol.h"
 #include "net/NetCenter.h"
+
+#include "http/HttpForm.h"
+#include "http/HttpService.h"
 
 #include "win32/Win32EventArgs.h"
 #include "win32/Win32EventListener.h"

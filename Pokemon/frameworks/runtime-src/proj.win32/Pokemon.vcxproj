@@ -69,7 +69,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(EngineRoot)cocos\scripting\lua-bindings\auto;$(EngineRoot)cocos\scripting\lua-bindings\manual;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\lua\lua;$(EngineRoot)external\lua\tolua;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;$(EngineRoot);$(ProjectDir)..\Classes\Framework\utils\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(EngineRoot)cocos\scripting\lua-bindings\auto;$(EngineRoot)cocos\scripting\lua-bindings\manual;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\lua\lua;$(EngineRoot)external\lua\tolua;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;$(EngineRoot);$(ProjectDir)..\Classes\Framework\utils\lib;$(EngineRoot)cocos\network;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -193,6 +193,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\encryption\libdes\des.h" />
     <ClInclude Include="..\Classes\Framework\format\SaveData.h" />
     <ClInclude Include="..\Classes\Framework\framework.h" />
+    <ClInclude Include="..\Classes\Framework\http\HttpForm.h" />
+    <ClInclude Include="..\Classes\Framework\http\HttpService.h" />
     <ClInclude Include="..\Classes\Framework\lanes\lanes.h" />
     <ClInclude Include="..\Classes\Framework\lanes\src\compat.h" />
     <ClInclude Include="..\Classes\Framework\lanes\src\deep.h" />
@@ -211,6 +213,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\net\NetRequest.h" />
     <ClInclude Include="..\Classes\Framework\net\NetResponse.h" />
     <ClInclude Include="..\Classes\Framework\net\NetService.h" />
+    <ClInclude Include="..\Classes\Framework\net\NetTransferStrategy.h" />
     <ClInclude Include="..\Classes\Framework\scene\GameScene.h" />
     <ClInclude Include="..\Classes\Framework\scene\ViewController.h" />
     <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.h" />
@@ -263,6 +266,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\encryption\libaes\aes.cpp" />
     <ClCompile Include="..\Classes\Framework\encryption\libdes\des.cpp" />
     <ClCompile Include="..\Classes\Framework\format\SaveData.cpp" />
+    <ClCompile Include="..\Classes\Framework\http\HttpForm.cpp" />
+    <ClCompile Include="..\Classes\Framework\http\HttpService.cpp" />
     <ClCompile Include="..\Classes\Framework\lanes\src\compat.c" />
     <ClCompile Include="..\Classes\Framework\lanes\src\deep.c" />
     <ClCompile Include="..\Classes\Framework\lanes\src\keeper.c" />

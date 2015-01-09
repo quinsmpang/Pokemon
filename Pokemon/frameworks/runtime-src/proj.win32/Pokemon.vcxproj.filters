@@ -73,6 +73,9 @@
     <Filter Include="Classes\psframework\net">
       <UniqueIdentifier>{1f9bbd86-912f-48ab-a424-fecb08aef494}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\psframework\http">
+      <UniqueIdentifier>{f4b28b70-6494-4673-a407-293242709d41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -289,6 +292,15 @@
     <ClInclude Include="..\Classes\Framework\controls\DirectionController.h">
       <Filter>Classes\psframework\controls</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\http\HttpService.h">
+      <Filter>Classes\psframework\http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\http\HttpForm.h">
+      <Filter>Classes\psframework\http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\net\NetTransferStrategy.h">
+      <Filter>Classes\psframework\net</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -479,6 +491,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\controls\DirectionController.cpp">
       <Filter>Classes\psframework\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\http\HttpService.cpp">
+      <Filter>Classes\psframework\http</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\http\HttpForm.cpp">
+      <Filter>Classes\psframework\http</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
