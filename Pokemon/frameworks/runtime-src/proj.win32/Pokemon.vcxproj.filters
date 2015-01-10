@@ -76,6 +76,18 @@
     <Filter Include="Classes\psframework\http">
       <UniqueIdentifier>{f4b28b70-6494-4673-a407-293242709d41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\psframework\json">
+      <UniqueIdentifier>{a547c1da-94f7-4c85-b349-63203e07910f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\psframework\json\libjson">
+      <UniqueIdentifier>{3dda1009-7007-473c-bd90-4cf9fc1c9c8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\psframework\json\libjson\Dependencies">
+      <UniqueIdentifier>{c9ab08c0-9c6f-4618-801f-89eeae5bf0ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\psframework\json\libjson\Source">
+      <UniqueIdentifier>{cb4df6d2-a07a-4f98-a594-9ab6716d25f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -298,8 +310,98 @@
     <ClInclude Include="..\Classes\Framework\http\HttpForm.h">
       <Filter>Classes\psframework\http</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Framework\net\NetTransferStrategy.h">
-      <Filter>Classes\psframework\net</Filter>
+    <ClInclude Include="..\Classes\Framework\http\HttpTransferStrategy.h">
+      <Filter>Classes\psframework\http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\JsonElement.h">
+      <Filter>Classes\psframework\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\JsonFormatter.h">
+      <Filter>Classes\psframework\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\JsonParser.h">
+      <Filter>Classes\psframework\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\JsonStructure.h">
+      <Filter>Classes\psframework\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\JSONOptions.h">
+      <Filter>Classes\psframework\json\libjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\libjson.h">
+      <Filter>Classes\psframework\json\libjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Dependencies\libbase64++\libbase64++.h">
+      <Filter>Classes\psframework\json\libjson\Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Dependencies\mempool++\mempool.h">
+      <Filter>Classes\psframework\json\libjson\Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\internalJSONNode.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONAllocator.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONChildren.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONDebug.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONDefs\GNU_C.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONDefs\Strings_Defs.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONDefs\Unknown_C.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONDefs\Visual_C.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONDefs.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONGlobals.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONMemory.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONMemoryPool.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONNode.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONPreparse.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONSharedString.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONSingleton.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONStats.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONStream.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONValidator.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONWorker.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSON_Base64.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\NumberToString.h">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -497,6 +599,60 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\http\HttpForm.cpp">
       <Filter>Classes\psframework\http</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\JsonElement.cpp">
+      <Filter>Classes\psframework\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\JsonFormatter.cpp">
+      <Filter>Classes\psframework\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\JsonParser.cpp">
+      <Filter>Classes\psframework\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\JsonStructure.cpp">
+      <Filter>Classes\psframework\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\internalJSONNode.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONAllocator.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONChildren.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONDebug.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONIterators.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONMemory.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONNode.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONNode_Mutex.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONPreparse.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONStream.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONValidator.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONWorker.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONWriter.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\libjson.cpp">
+      <Filter>Classes\psframework\json\libjson\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

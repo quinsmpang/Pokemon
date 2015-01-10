@@ -78,7 +78,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS_DEBUG;COCOS2D_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS_DEBUG;COCOS2D_DEBUG=1;JSON_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -195,6 +195,37 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\framework.h" />
     <ClInclude Include="..\Classes\Framework\http\HttpForm.h" />
     <ClInclude Include="..\Classes\Framework\http\HttpService.h" />
+    <ClInclude Include="..\Classes\Framework\http\HttpTransferStrategy.h" />
+    <ClInclude Include="..\Classes\Framework\json\JsonElement.h" />
+    <ClInclude Include="..\Classes\Framework\json\JsonFormatter.h" />
+    <ClInclude Include="..\Classes\Framework\json\JsonParser.h" />
+    <ClInclude Include="..\Classes\Framework\json\JsonStructure.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Dependencies\libbase64++\libbase64++.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Dependencies\mempool++\mempool.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\JSONOptions.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\libjson.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\internalJSONNode.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONAllocator.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONChildren.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONDebug.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONDefs.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONDefs\GNU_C.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONDefs\Strings_Defs.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONDefs\Unknown_C.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONDefs\Visual_C.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONGlobals.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONMemory.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONMemoryPool.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONNode.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONPreparse.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONSharedString.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONSingleton.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONStats.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONStream.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONValidator.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSONWorker.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\JSON_Base64.h" />
+    <ClInclude Include="..\Classes\Framework\json\libjson\Source\NumberToString.h" />
     <ClInclude Include="..\Classes\Framework\lanes\lanes.h" />
     <ClInclude Include="..\Classes\Framework\lanes\src\compat.h" />
     <ClInclude Include="..\Classes\Framework\lanes\src\deep.h" />
@@ -213,7 +244,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\net\NetRequest.h" />
     <ClInclude Include="..\Classes\Framework\net\NetResponse.h" />
     <ClInclude Include="..\Classes\Framework\net\NetService.h" />
-    <ClInclude Include="..\Classes\Framework\net\NetTransferStrategy.h" />
     <ClInclude Include="..\Classes\Framework\scene\GameScene.h" />
     <ClInclude Include="..\Classes\Framework\scene\ViewController.h" />
     <ClInclude Include="..\Classes\Framework\sqlite\libsqlite\sqlite3.h" />
@@ -268,6 +298,24 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\format\SaveData.cpp" />
     <ClCompile Include="..\Classes\Framework\http\HttpForm.cpp" />
     <ClCompile Include="..\Classes\Framework\http\HttpService.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\JsonElement.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\JsonFormatter.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\JsonParser.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\JsonStructure.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\internalJSONNode.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONAllocator.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONChildren.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONDebug.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONIterators.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONMemory.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONNode.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONNode_Mutex.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONPreparse.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONStream.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONValidator.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONWorker.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\JSONWriter.cpp" />
+    <ClCompile Include="..\Classes\Framework\json\libjson\Source\libjson.cpp" />
     <ClCompile Include="..\Classes\Framework\lanes\src\compat.c" />
     <ClCompile Include="..\Classes\Framework\lanes\src\deep.c" />
     <ClCompile Include="..\Classes\Framework\lanes\src\keeper.c" />
