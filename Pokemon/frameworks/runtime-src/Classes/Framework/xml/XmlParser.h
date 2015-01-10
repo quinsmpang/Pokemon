@@ -7,9 +7,13 @@
 #ifndef __XML_XMLPARSER__
 #define __XML_XMLPARSER__
 
-#include "cocos2d.h"
+#include "platform/CCFileUtils.h"
 #include "../base/Macros.h"
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#include "external/tinyxml2/tinyxml2.h"
+#else
 #include "tinyxml2/tinyxml2.h"
+#endif
 #include <string>
 
 namespace framework {

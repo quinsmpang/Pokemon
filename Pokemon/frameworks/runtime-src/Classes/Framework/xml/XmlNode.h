@@ -10,7 +10,6 @@
 #include "cocos2d.h"
 #include "../containers/Map.h"
 #include "../containers/Vector.h"
-#include "tinyxml2/tinyxml2.h"
 
 namespace framework {
     class XmlNode : public cocos2d::Ref

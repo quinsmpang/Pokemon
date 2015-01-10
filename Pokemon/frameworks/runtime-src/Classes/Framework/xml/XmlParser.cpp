@@ -14,7 +14,7 @@ namespace framework {
     
     XmlNode *XmlParser::parseString(const std::string &xmlStr)
     {
-        XMLDocument doc;
+        tinyxml2::XMLDocument doc;
         doc.Parse(xmlStr.c_str());
         if (doc.ErrorID()) {
             CCLOG("Invalid XML content.");
