@@ -49,12 +49,6 @@ namespace framework
 		* @param Transfer strategy.
 		*/
 		inline void setRequestTransferRule(NetTransferStrategy *strategy);
-		/**
-		* Set the rule of transfer in response.
-		*
-		* @param Transfer strategy.
-		*/
-		inline void setResponseTransferRule(NetTransferStrategy *strategy);
 
 	protected:
 		bool init(const std::string &serviceAddress);
@@ -64,7 +58,6 @@ namespace framework
 
 		std::string _serviceAddr;
 		NetTransferStrategy *_requestStrategy;
-		NetTransferStrategy *_responseStrategy;
 	};
 }
 

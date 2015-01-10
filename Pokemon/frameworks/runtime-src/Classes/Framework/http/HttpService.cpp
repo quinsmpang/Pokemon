@@ -36,7 +36,6 @@ namespace framework
 	HttpService::HttpService()
 		: _serviceAddr()
 		, _requestStrategy(nullptr)
-		, _responseStrategy(nullptr)
 	{
 	}
 
@@ -45,10 +44,6 @@ namespace framework
 		if (_requestStrategy)
 		{
 			delete _requestStrategy;
-		}
-		if (_responseStrategy)
-		{
-			delete _responseStrategy;
 		}
 	}
 
@@ -116,7 +111,7 @@ namespace framework
 		responseBody.assign(buffer->begin(), buffer->end());
 		// decode unicode todo
 
-		CCLOG("Response successful. Data: %s", responseBody);
+		CCLOG("Response successful. Data: %s", responseBody.c_str());
 		// create net response
 		auto pResponse = NetResponse::create(pUserRequest->getProtocolId(), responseBody, pUserRequest);
 		NetCenter::getInstance()->dispatchSuccessfulMessage(pResponse);

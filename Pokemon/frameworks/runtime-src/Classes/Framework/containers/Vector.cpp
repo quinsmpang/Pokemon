@@ -2,6 +2,7 @@
 #include "../base/RefString.h"
 #include "../base/RefInteger.h"
 #include "../base/RefDouble.h"
+#include "../base/RefBoolean.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -34,12 +35,19 @@ namespace framework
 		CC_SAFE_RELEASE_NULL(pAry);
 		return nullptr;
 	}
+    
+    void Vector::addBoolean(const bool &value)
+    {
+        auto refBool = RefBoolean::create(value);
+        refBool->retain();
+        this->_container->push_back(refBool);
+    }
 
 	void Vector::addString(const string &str)
 	{
 		auto refStr = RefString::create(str.c_str());
 		refStr->retain();
-		this->_container->push_back(RefString::create(str.c_str()));
+		this->_container->push_back(refStr);
 	}
 
 	void Vector::addInteger(const int &num)

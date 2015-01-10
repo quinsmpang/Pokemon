@@ -49,6 +49,11 @@
 //#include "threading/Thread.h"
 #include "threading/Mutex.h"
 
+#include "json/JsonElement.h"
+#include "json/JsonStructure.h"
+#include "json/JsonParser.h"
+#include "json/JsonFormatter.h"
+
 #include "net/NetTransferStrategy.h"
 #include "net/NetRequest.h"
 #include "net/NetResponse.h"

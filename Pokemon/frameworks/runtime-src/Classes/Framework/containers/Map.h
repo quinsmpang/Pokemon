@@ -48,6 +48,13 @@ namespace framework
          */
 		cocos2d::Ref *objectForKey(const std::string &key);
         /**
+         * Set boolean value to the specified key.
+         *
+         * @param value The boolean value.
+         * @param key The key you want to set.
+         */
+		void setBooleanForKey(bool value, const std::string &key);
+        /**
          * Set string value to the specified key.
          *
          * @param value The string value.

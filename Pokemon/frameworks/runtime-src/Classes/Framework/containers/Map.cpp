@@ -2,6 +2,7 @@
 #include "../base/RefString.h"
 #include "../base/RefInteger.h"
 #include "../base/RefDouble.h"
+#include "../base/RefBoolean.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -51,6 +52,13 @@ namespace framework
 	{
 		return this->_container->at(key);
 	}
+    
+    void Map::setBooleanForKey(bool value, const std::string &key)
+    {
+        auto refBoolean = RefBoolean::create(value);
+        refBoolean->retain();
+        (*(this->_container))[key] = refBoolean;
+    }
 
 	void Map::setStringForKey(const string &value, const string &key)
 	{

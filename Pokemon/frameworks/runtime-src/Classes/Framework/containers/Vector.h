@@ -38,6 +38,12 @@ namespace framework
          */
 		void addString(const std::string &str);
         /**
+         * Add boolean to the array.
+         *
+         * @param value Boolean to add.
+         */
+		void addBoolean(const bool &value);
+        /**
          * Add integer to the array.
          *
          * @param num Integer to add.
