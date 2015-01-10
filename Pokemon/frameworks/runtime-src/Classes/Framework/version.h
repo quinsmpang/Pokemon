@@ -17,13 +17,14 @@ v1.10	Add gif decode method in ohter platform excluding win32, fix zip on ios is
 v1.11	Add simple threading to the framework, threading features will be expanded in the future.
 v1.12   Add net service base to the framework, to expand net services in the future.
 v1.13	Add DirectionController control.
+v1.14   Add http service and json elements.
 ***********************************************/
 
 #include <iostream>
 #include "tolua_fix.h"
 
-static const char *VERSION = "v1.13";
-static float VERSION_NUM = 1.13;
+static const char *VERSION = "v1.14";
+static float VERSION_NUM = 1.14;
 
 void printVersion()
 {

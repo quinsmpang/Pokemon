@@ -4,7 +4,7 @@
 #include "../net/NetRequest.h"
 #include "../net/NetResponse.h"
 #include "../net/NetCenter.h"
-#include "../net/NetTransferStrategy.h"
+#include "../base/RefString.h"
 #include <new>
 #include <vector>
 
@@ -35,16 +35,13 @@ namespace framework
 
 	HttpService::HttpService()
 		: _serviceAddr()
-		, _requestStrategy(nullptr)
+		, _strategy(nullptr)
 	{
 	}
 
 	HttpService::~HttpService()
 	{
-		if (_requestStrategy)
-		{
-			delete _requestStrategy;
-		}
+        CC_SAFE_DELETE(_strategy);
 	}
 
 	void HttpService::sendMessage(NetRequest *request)
@@ -58,15 +55,7 @@ namespace framework
 		pHttpRequest->setRequestType(HttpRequest::Type::GET);
 		HttpForm *pForm = nullptr;
 		// get parameters through the strategy.
-		if (_requestStrategy)
-		{
-			pForm = this->createForm(body);
-		}
-		else
-		{
-			CCLOG("You can't send the message if you don't set the transfer rule.");
-			return;
-		}
+        pForm = this->createForm(body);
 
 		if (!pForm)
 		{
@@ -121,25 +110,16 @@ namespace framework
 
 	HttpForm *HttpService::createForm(const std::string &body)
 	{
-		CCASSERT(_requestStrategy, "A request rule is required!");
-		void *pMsg = _requestStrategy->toTransferData(body);
-		// distinguish different format type and handle with them. Add params to the form.
+		CCASSERT(_strategy, "A transfer rule is required!");
+        Map *pParams = _strategy->transferParameters();
+		// Put parameters to the form.
 		HttpForm *pForm = HttpForm::create();
-		auto transferType = _requestStrategy->getTransferType();
-		if (transferType == NetTransferType::JSON)
-		{
-		}
-		else if (transferType == NetTransferType::XML)
-		{
-		}
-		else if (transferType == NetTransferType::PROTOBUF)
-		{
-		}
-		else
-		{
-			// what's the rule you don't know about?
-			pForm = nullptr;
-		}
+        Vector *pKeys = pParams->allKeys();
+        for (int i = 0; i < pKeys->getLength(); ++i) {
+            string key = ((RefString*)pKeys->objectAt(i))->getCString();
+            string value = ((RefString*)pParams->objectForKey(key))->getCString();
+            pForm->putParam(key, value);
+        }
 
 		return pForm;
 	}

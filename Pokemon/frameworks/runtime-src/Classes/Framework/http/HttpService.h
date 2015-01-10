@@ -12,7 +12,7 @@ Date: 01/09/2015
 #include "HttpRequest.h"
 #include "HttpResponse.h"
 #include "../net/NetService.h"
-#include "../net/NetTransferStrategy.h"
+#include "HttpTransferStrategy.h"
 #include <string>
 
 namespace framework
@@ -44,11 +44,14 @@ namespace framework
 		virtual void executeCommand(const std::string &cmd, cocos2d::Ref *param);
 
 		/**
-		* Set the rule of transfer in request.
+		* Set the rule of transfering.
 		*
 		* @param Transfer strategy.
 		*/
-		inline void setRequestTransferRule(NetTransferStrategy *strategy);
+		inline void setTransferRule(HttpTransferStrategy *strategy)
+        {
+            _strategy = strategy;
+        }
 
 	protected:
 		bool init(const std::string &serviceAddress);
@@ -57,7 +60,7 @@ namespace framework
 		void onHttpRequestCompleted(cocos2d::network::HttpClient *client, cocos2d::network::HttpResponse *response);
 
 		std::string _serviceAddr;
-		NetTransferStrategy *_requestStrategy;
+        HttpTransferStrategy *_strategy;
 	};
 }
 

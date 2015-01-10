@@ -14,9 +14,6 @@ Date: 12/16/2014
 #include <thread>
 #include <functional>
 #include <future>
-extern "C" {
-#include "lua.h"
-}
 
 namespace framework
 {

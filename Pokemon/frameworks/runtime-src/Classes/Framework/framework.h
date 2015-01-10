@@ -54,7 +54,6 @@
 #include "json/JsonParser.h"
 #include "json/JsonFormatter.h"
 
-#include "net/NetTransferStrategy.h"
 #include "net/NetRequest.h"
 #include "net/NetResponse.h"
 #include "net/NetService.h"
@@ -63,6 +62,7 @@
 #include "net/NetProtocol.h"
 #include "net/NetCenter.h"
 
+#include "http/HttpTransferStrategy.h"
 #include "http/HttpForm.h"
 #include "http/HttpService.h"
 
