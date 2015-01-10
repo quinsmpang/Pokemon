@@ -49,8 +49,10 @@ namespace framework {
     
     bool JsonObject::getBoolean(const std::string &key) const
     {
-        auto val = (JsonBoolean*)_dataHolder->objectForKey(key);
-        return val->boolValue();
+        auto val = _dataHolder->objectForKey(key);
+        CCASSERT(val, "Invalid key.");
+        JsonElement *pVal = dynamic_cast<JsonElement*>(val);
+        return pVal->boolValue();
     }
     
     void JsonObject::putNumber(const std::string &key, double value)
@@ -61,8 +63,10 @@ namespace framework {
     
     double JsonObject::getNumber(const std::string &key) const
     {
-        auto val = (JsonNumber*)_dataHolder->objectForKey(key);
-        return val->numberValue();
+        auto val = _dataHolder->objectForKey(key);
+        CCASSERT(val, "Invalid key.");
+        JsonElement *pVal = dynamic_cast<JsonElement*>(val);
+        return pVal->numberValue();
     }
     
     void JsonObject::putString(const std::string &key, const std::string &value)
@@ -73,8 +77,10 @@ namespace framework {
     
     const char *JsonObject::getString(const std::string &key) const
     {
-        auto val = (JsonString*)_dataHolder->objectForKey(key);
-        return val->stringValue();
+        auto val = _dataHolder->objectForKey(key);
+        CCASSERT(val, "Invalid key.");
+        JsonElement *pVal = dynamic_cast<JsonElement*>(val);
+        return pVal->stringValue();
     }
     
     void JsonObject::putJsonObject(const std::string &key, JsonObject *value)

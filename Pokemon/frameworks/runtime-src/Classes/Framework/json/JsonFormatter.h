@@ -14,6 +14,9 @@
 namespace framework {
     class JsonFormatter
     {
+        /**
+         * JsonFormatter is a singleton.
+         */
         SINGLETON(JsonFormatter);
     public:
         /**

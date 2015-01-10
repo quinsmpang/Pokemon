@@ -1,11 +1,11 @@
 /******************************
- Description: JSON elements classes.
+ Description: XML elements classes.
  Author: M.Wan
- Date: 01/10/2015
+ Date: 01/11/2015
  ******************************/
 
-#ifndef __JSON_JSONELEMENT__
-#define __JSON_JSONELEMENT__
+#ifndef __XML_XMLELEMENT__
+#define __XML_XMLELEMENT__
 
 #include "base/CCRef.h"
 #include "../base/Uninheritable.h"
@@ -13,15 +13,15 @@
 
 namespace framework {
     /**
-     * Json element base class.
+     * Xml element base class.
      */
-    class JsonElement : public cocos2d::Ref
+    class XmlElement : public cocos2d::Ref
     {
     public:
         /**
-         * JsonElement destructor.
+         * XmlElement destructor.
          */
-        virtual ~JsonElement() {}
+        virtual ~XmlElement() {}
         
         /**
          * Return boolean value.
@@ -37,24 +37,24 @@ namespace framework {
         virtual const char *stringValue() = 0;
     };
     
-    class JsonBoolean : public JsonElement, public Uninheritable<JsonBoolean>
+    class XmlBoolean : public cocos2d::Ref, Uninheritable<XmlBoolean>
     {
     public:
         /**
-         * Create json boolean element.
+         * Create xml boolean element.
          *
          * @param value Boolean value.
          *
-         * @return Return boolean json element.
+         * @return Return boolean xml element.
          */
-        static JsonBoolean *create(bool value);
+        static XmlBoolean *create(bool value);
         
         /**
-         * JsonBoolean constructor.
+         * XmlBoolean constructor.
          *
          * @param value Boolean value.
          */
-        JsonBoolean(bool value);
+        XmlBoolean(bool value);
         
         /**
          * Return exact value.
@@ -79,24 +79,24 @@ namespace framework {
         bool _val;
     };
     
-    class JsonNumber : public JsonElement, public Uninheritable<JsonNumber>
+    class XmlNumber : public XmlElement, public Uninheritable<XmlNumber>
     {
     public:
         /**
-         * Create json number element.
+         * Create xml number element.
          *
          * @param value Number value.
          *
-         * @return Return number json element.
+         * @return Return number xml element.
          */
-        static JsonNumber *create(double value);
+        static XmlNumber *create(double value);
         
         /**
-         * JsonBoolean constructor.
+         * XmlNumber constructor.
          *
          * @param value Number value.
          */
-        JsonNumber(double value);
+        XmlNumber(double value);
         
         /**
          * Return true if the number is a non-zero value.
@@ -121,24 +121,24 @@ namespace framework {
         double _val;
     };
     
-    class JsonString : public JsonElement, public Uninheritable<JsonString>
+    class XmlString : public XmlElement, public Uninheritable<XmlString>
     {
     public:
         /**
-         * Create json string element.
+         * Create xml string element.
          *
          * @param value String value.
          *
-         * @return Return string json element.
+         * @return Return string xml element.
          */
-        static JsonString *create(const std::string &value);
+        static XmlString *create(const std::string &value);
         
         /**
-         * JsonString constructor.
+         * XmlString constructor.
          *
          * @param value String value.
          */
-        JsonString(const std::string &value);
+        XmlString(const std::string &value);
         
         /**
          * Return true if it's not an empty string.
@@ -164,4 +164,4 @@ namespace framework {
     };
 }
 
-#endif /* defined(__JSON_JSONELEMENT__) */
+#endif /* defined(__XML_XMLELEMENT__) */

@@ -14,6 +14,9 @@
 namespace framework {
     class JsonParser
     {
+        /**
+         * JsonParser is a singleton.
+         */
         SINGLETON(JsonParser);
     public:
         /**

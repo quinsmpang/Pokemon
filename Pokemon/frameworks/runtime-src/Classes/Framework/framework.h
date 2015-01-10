@@ -54,6 +54,10 @@
 #include "json/JsonParser.h"
 #include "json/JsonFormatter.h"
 
+#include "xml/XmlElement.h"
+#include "xml/XmlNode.h"
+#include "xml/XmlParser.h"
+
 #include "net/NetRequest.h"
 #include "net/NetResponse.h"
 #include "net/NetService.h"
