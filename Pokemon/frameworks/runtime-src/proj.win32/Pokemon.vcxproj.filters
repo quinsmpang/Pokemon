@@ -91,6 +91,9 @@
     <Filter Include="Classes\psframework\xml">
       <UniqueIdentifier>{d30b3425-7486-4e93-a08f-63339010bab3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\psframework\utils\regexx">
+      <UniqueIdentifier>{eeb7b2ef-d089-4a17-983e-8e0afbdb1651}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -418,6 +421,15 @@
     <ClInclude Include="..\Classes\Framework\xml\XmlPrinter.h">
       <Filter>Classes\psframework\xml</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\utils\RegexUtils.h">
+      <Filter>Classes\psframework\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\utils\regexx\regexx.hh">
+      <Filter>Classes\psframework\utils\regexx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\utils\regexx\split.hh">
+      <Filter>Classes\psframework\utils\regexx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -680,6 +692,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\xml\XmlPrinter.cpp">
       <Filter>Classes\psframework\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\utils\RegexUtils.cpp">
+      <Filter>Classes\psframework\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\utils\regexx\regexx.cc">
+      <Filter>Classes\psframework\utils\regexx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\utils\regexx\split.cc">
+      <Filter>Classes\psframework\utils\regexx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
