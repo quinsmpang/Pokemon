@@ -1,6 +1,7 @@
 #include "XmlNode.h"
 #include "XmlElement.h"
 #include "XmlParser.h"
+#include "XmlPrinter.h"
 #include "../base/RefString.h"
 #include <new>
 
@@ -73,6 +74,7 @@ namespace framework {
     void XmlNode::putAttribute(const std::string &name, const std::string &value)
     {
         CCASSERT(name.size() > 0 && value.size() > 0, "Name and value can't be empty.");
+        CCASSERT(value.find('"') < 0, "Value can't include illegal characters.");
         auto pStr = XmlString::create(value);
         _attributes->setObjectForKey(pStr, name);
     }
@@ -312,8 +314,13 @@ namespace framework {
         return (XmlNode*)pBrothers->objectAt(--idx);
     }
     
-    const char *XmlNode::toString()
+    const char *XmlNode::toString(bool needXmlHead)
     {
-        return nullptr;
+        return XmlPrinter::getInstance()->print(this, needXmlHead);
+    }
+    
+    const char *XmlNode::toPrettyString(bool needXmlHead)
+    {
+        return XmlPrettyPrinter::getInstance()->print(this, needXmlHead);
     }
 }

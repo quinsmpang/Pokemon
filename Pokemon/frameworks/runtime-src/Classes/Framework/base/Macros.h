@@ -18,7 +18,7 @@ public:		\
 		}	\
 		return _instance;		\
 	}	\
-private:	\
+protected:	\
 	__TYPE__();
 
 /**

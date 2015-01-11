@@ -136,13 +136,13 @@
 		50D7C96E17EBBEE6005D0B91 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96D17EBBEE6005D0B91 /* AppKit.framework */; };
 		50D7C97017EBBEEC005D0B91 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96F17EBBEEC005D0B91 /* IOKit.framework */; };
 		783F6CF01A61B52100C78763 /* XmlParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 783F6CEE1A61B52100C78763 /* XmlParser.cpp */; };
+		7873CD631A62515D00421CA4 /* XmlPrinter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7873CD611A62515D00421CA4 /* XmlPrinter.cpp */; };
 		7885ED921A4EE47200FA0CAA /* NetFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7885ED901A4EE47200FA0CAA /* NetFilter.cpp */; };
 		78B4D9CB1A46E1FD0077C418 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B4D9A01A46E0900077C418 /* libz.1.2.5.dylib */; };
 		78B4DA001A47192C0077C418 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 78B4D9F81A47192C0077C418 /* ioapi.c */; };
 		78B4DA011A47192C0077C418 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 78B4D9FA1A47192C0077C418 /* mztools.c */; };
 		78B4DA021A47192C0077C418 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 78B4D9FC1A47192C0077C418 /* unzip.c */; };
 		78B4DA031A47192C0077C418 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 78B4D9FE1A47192C0077C418 /* zip.c */; };
-		78C45A1C1A61895900474362 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78C45A1A1A61895900474362 /* tinyxml2.cpp */; };
 		78C45A211A618A0000474362 /* XmlElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78C45A1F1A618A0000474362 /* XmlElement.cpp */; };
 		78C45A261A618D7800474362 /* XmlNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78C45A241A618D7800474362 /* XmlNode.cpp */; };
 		C03781B918BF655400FE4F13 /* res in Resources */ = {isa = PBXBuildFile; fileRef = C03781B718BF655400FE4F13 /* res */; };
@@ -597,6 +597,8 @@
 		50D7C96F17EBBEEC005D0B91 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		783F6CEE1A61B52100C78763 /* XmlParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XmlParser.cpp; sourceTree = "<group>"; };
 		783F6CEF1A61B52100C78763 /* XmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlParser.h; sourceTree = "<group>"; };
+		7873CD611A62515D00421CA4 /* XmlPrinter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XmlPrinter.cpp; sourceTree = "<group>"; };
+		7873CD621A62515D00421CA4 /* XmlPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlPrinter.h; sourceTree = "<group>"; };
 		7885ED901A4EE47200FA0CAA /* NetFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetFilter.cpp; sourceTree = "<group>"; };
 		7885ED911A4EE47200FA0CAA /* NetFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetFilter.h; sourceTree = "<group>"; };
 		78B4D9A01A46E0900077C418 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/libz.1.2.5.dylib; sourceTree = DEVELOPER_DIR; };
@@ -611,8 +613,6 @@
 		78B4D9FD1A47192C0077C418 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
 		78B4D9FE1A47192C0077C418 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
 		78B4D9FF1A47192C0077C418 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
-		78C45A1A1A61895900474362 /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml2.cpp; sourceTree = "<group>"; };
-		78C45A1B1A61895900474362 /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml2.h; sourceTree = "<group>"; };
 		78C45A1F1A618A0000474362 /* XmlElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XmlElement.cpp; sourceTree = "<group>"; };
 		78C45A201A618A0000474362 /* XmlElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlElement.h; sourceTree = "<group>"; };
 		78C45A241A618D7800474362 /* XmlNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XmlNode.cpp; sourceTree = "<group>"; };
@@ -1245,24 +1245,16 @@
 		78C45A181A61895900474362 /* xml */ = {
 			isa = PBXGroup;
 			children = (
-				78C45A191A61895900474362 /* tinyxml2 */,
 				78C45A1F1A618A0000474362 /* XmlElement.cpp */,
 				78C45A201A618A0000474362 /* XmlElement.h */,
 				78C45A241A618D7800474362 /* XmlNode.cpp */,
 				78C45A251A618D7800474362 /* XmlNode.h */,
 				783F6CEE1A61B52100C78763 /* XmlParser.cpp */,
 				783F6CEF1A61B52100C78763 /* XmlParser.h */,
+				7873CD611A62515D00421CA4 /* XmlPrinter.cpp */,
+				7873CD621A62515D00421CA4 /* XmlPrinter.h */,
 			);
 			path = xml;
-			sourceTree = "<group>";
-		};
-		78C45A191A61895900474362 /* tinyxml2 */ = {
-			isa = PBXGroup;
-			children = (
-				78C45A1A1A61895900474362 /* tinyxml2.cpp */,
-				78C45A1B1A61895900474362 /* tinyxml2.h */,
-			);
-			path = tinyxml2;
 			sourceTree = "<group>";
 		};
 		C03781AF18BF654500FE4F13 /* Products */ = {
@@ -1643,6 +1635,7 @@
 				3365B7961A43D29000B33C4B /* lanes.c in Sources */,
 				33C657F11A60F57D00CCBA97 /* JsonElement.cpp in Sources */,
 				3365B7A21A43D29000B33C4B /* Mutex.cpp in Sources */,
+				7873CD631A62515D00421CA4 /* XmlPrinter.cpp in Sources */,
 				33C657E21A60F54A00CCBA97 /* JSONAllocator.cpp in Sources */,
 				3365B78E1A43D29000B33C4B /* FileEncryptor.cpp in Sources */,
 				3365B7881A43D29000B33C4B /* ListMenuItem.cpp in Sources */,
@@ -1665,7 +1658,6 @@
 				33A416FB1A4E9E4900F399E6 /* NetRequest.cpp in Sources */,
 				3365B7A91A43D29000B33C4B /* ImageUtils.cpp in Sources */,
 				3365B7A01A43D29000B33C4B /* sqlite3.c in Sources */,
-				78C45A1C1A61895900474362 /* tinyxml2.cpp in Sources */,
 				3365B7921A43D29000B33C4B /* SaveData.cpp in Sources */,
 				78B4DA011A47192C0077C418 /* mztools.c in Sources */,
 				3365B7891A43D29000B33C4B /* TableViewEx.cpp in Sources */,

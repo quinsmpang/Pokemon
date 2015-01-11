@@ -275,9 +275,15 @@ namespace framework {
         /**
          * Format to xml string.
          *
+         * @return Return xml.
+         */
+        const char *toString(bool needXmlHead = false);
+        /**
+         * Format to xml string in a pretty format.
+         *
          * @return Return formatted xml.
          */
-        const char *toString();
+        const char *toPrettyString(bool needXmlHead = false);
         
     protected:
         bool satisfyAttributeConditions(XmlNode *node, Map *conditions);

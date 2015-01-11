@@ -57,6 +57,7 @@
 #include "xml/XmlElement.h"
 #include "xml/XmlNode.h"
 #include "xml/XmlParser.h"
+#include "xml/XmlPrinter.h"
 
 #include "net/NetRequest.h"
 #include "net/NetResponse.h"
