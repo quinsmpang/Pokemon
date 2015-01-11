@@ -415,6 +415,9 @@
     <ClInclude Include="..\Classes\Framework\xml\XmlParser.h">
       <Filter>Classes\psframework\xml</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\xml\XmlPrinter.h">
+      <Filter>Classes\psframework\xml</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -673,6 +676,9 @@
       <Filter>Classes\psframework\xml</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\xml\XmlParser.cpp">
+      <Filter>Classes\psframework\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\xml\XmlPrinter.cpp">
       <Filter>Classes\psframework\xml</Filter>
     </ClCompile>
   </ItemGroup>
