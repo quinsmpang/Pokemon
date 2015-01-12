@@ -269,10 +269,13 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\win32\Win32EventListener.h" />
     <ClInclude Include="..\Classes\Framework\win32\Win32EventListenerKeyboard.h" />
     <ClInclude Include="..\Classes\Framework\win32\Win32Notifier.h" />
+    <ClInclude Include="..\Classes\Framework\xml\pugixml\pugiconfig.hpp" />
+    <ClInclude Include="..\Classes\Framework\xml\pugixml\pugixml.hpp" />
     <ClInclude Include="..\Classes\Framework\xml\XmlElement.h" />
     <ClInclude Include="..\Classes\Framework\xml\XmlNode.h" />
     <ClInclude Include="..\Classes\Framework\xml\XmlParser.h" />
     <ClInclude Include="..\Classes\Framework\xml\XmlPrinter.h" />
+    <ClInclude Include="..\Classes\Framework\xml\XpathHelper.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -360,10 +363,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\win32\Win32EventListener.cpp" />
     <ClCompile Include="..\Classes\Framework\win32\Win32EventListenerKeyboard.cpp" />
     <ClCompile Include="..\Classes\Framework\win32\Win32Notifier.cpp" />
+    <ClCompile Include="..\Classes\Framework\xml\pugixml\pugixml.cpp" />
     <ClCompile Include="..\Classes\Framework\xml\XmlElement.cpp" />
     <ClCompile Include="..\Classes\Framework\xml\XmlNode.cpp" />
     <ClCompile Include="..\Classes\Framework\xml\XmlParser.cpp" />
     <ClCompile Include="..\Classes\Framework\xml\XmlPrinter.cpp" />
+    <ClCompile Include="..\Classes\Framework\xml\XpathHelper.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

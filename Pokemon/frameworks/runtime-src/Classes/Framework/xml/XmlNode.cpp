@@ -210,6 +210,7 @@ namespace framework {
     
     XmlNode *XmlNode::findFirstNode(const std::string &xpath)
     {
+		CCASSERT(false, "xpath not implemented yet.");
         // todo
         return nullptr;
     }
@@ -256,7 +257,8 @@ namespace framework {
     }
     
     Vector *XmlNode::findNodes(const std::string &xpath)
-    {
+	{
+		CCASSERT(false, "xpath not implemented yet.");
         // todo
         return nullptr;
     }
