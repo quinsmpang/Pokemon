@@ -98,8 +98,7 @@ namespace framework
 		vector<char> *buffer = response->getResponseData();
 		string responseBody;
 		responseBody.assign(buffer->begin(), buffer->end());
-		// decode unicode todo
-
+		// please use UTF-8 encoding on server. some decoding may be required. todo
 		CCLOG("Response successful. Data: %s", responseBody.c_str());
 		// create net response
 		auto pResponse = NetResponse::create(pUserRequest->getProtocolId(), responseBody, pUserRequest);

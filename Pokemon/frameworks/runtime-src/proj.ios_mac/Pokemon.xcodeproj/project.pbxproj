@@ -103,6 +103,7 @@
 		33C657F41A610D2700CCBA97 /* JsonStructure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C657F21A610D2700CCBA97 /* JsonStructure.cpp */; };
 		33C657F71A61223700CCBA97 /* JsonParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C657F51A61223700CCBA97 /* JsonParser.cpp */; };
 		33C657FA1A612B1500CCBA97 /* JsonFormatter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C657F81A612B1500CCBA97 /* JsonFormatter.cpp */; };
+		33CCF6AD1A638B5B00FFCA3C /* RegexUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33CCF6AB1A638B5B00FFCA3C /* RegexUtils.cpp */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; };
 		5023811917EBBCAC00990C9B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5023810917EBBCAC00990C9B /* Default-568h@2x.png */; };
 		5023811A17EBBCAC00990C9B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5023810A17EBBCAC00990C9B /* Default.png */; };
@@ -563,6 +564,8 @@
 		33C657F81A612B1500CCBA97 /* JsonFormatter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JsonFormatter.cpp; sourceTree = "<group>"; };
 		33C657F91A612B1500CCBA97 /* JsonFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonFormatter.h; sourceTree = "<group>"; };
 		33C657FC1A6151E300CCBA97 /* HttpTransferStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpTransferStrategy.h; sourceTree = "<group>"; };
+		33CCF6AB1A638B5B00FFCA3C /* RegexUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RegexUtils.cpp; sourceTree = "<group>"; };
+		33CCF6AC1A638B5B00FFCA3C /* RegexUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexUtils.h; sourceTree = "<group>"; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		5023810817EBBCAC00990C9B /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = "<group>"; };
 		5023810917EBBCAC00990C9B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -1009,6 +1012,8 @@
 		3365B75A1A43D29000B33C4B /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				33CCF6AB1A638B5B00FFCA3C /* RegexUtils.cpp */,
+				33CCF6AC1A638B5B00FFCA3C /* RegexUtils.h */,
 				78B4D9F61A47192C0077C418 /* minizip */,
 				33584C531A45315200A9B62A /* giflib */,
 				3365B75B1A43D29000B33C4B /* ImageUtils.cpp */,
@@ -1630,6 +1635,7 @@
 				3365B7B61A43D29000B33C4B /* Win32EventListenerKeyboard.cpp in Sources */,
 				3365B77D1A43D29000B33C4B /* RefBoolean.cpp in Sources */,
 				33C657E41A60F54A00CCBA97 /* JSONDebug.cpp in Sources */,
+				33CCF6AD1A638B5B00FFCA3C /* RegexUtils.cpp in Sources */,
 				3365B7AF1A43D29000B33C4B /* UUIDGenerator.cpp in Sources */,
 				3365B78A1A43D29000B33C4B /* TitleSwitch.cpp in Sources */,
 				3365B7961A43D29000B33C4B /* lanes.c in Sources */,

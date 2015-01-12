@@ -42,7 +42,7 @@ namespace framework {
         virtual const char *visitEnd(XmlNode *node);
         
         /**
-         * Print xml node recursively.
+         * Print xml node recursively. Ignore encoding.
          *
          * @param node The node to print.
          *

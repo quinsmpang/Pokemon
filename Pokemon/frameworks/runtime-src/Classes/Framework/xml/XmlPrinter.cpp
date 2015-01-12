@@ -47,7 +47,7 @@ namespace framework {
         }
         string xml;
         if (needVersion) {
-            xml.append("<?xml version=\"1.0\"?>");
+            xml.append("<?xml version=\"1.0\"?>\n");
         }
         xml.append(this->visitBegin(node));
         Vector *pChildren = node->getChildren();

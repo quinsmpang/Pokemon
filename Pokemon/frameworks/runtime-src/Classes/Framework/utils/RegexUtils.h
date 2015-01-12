@@ -53,7 +53,7 @@ namespace framework
 		*/
 		int replaceAll(const std::string &content, const std::string &regex, const std::string &newStr);
 		/**
-		*Replace all substrings which match the regex expression with the new string which is from the callback.
+		* Replace all substrings which match the regex expression with the new string which is from the callback.
 		*
 		* @param content Target string to replace.
 		* @param regex Regex expression.
