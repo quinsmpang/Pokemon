@@ -259,8 +259,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\utils\IOUtils.h" />
     <ClInclude Include="..\Classes\Framework\utils\RecordHelper.h" />
     <ClInclude Include="..\Classes\Framework\utils\RegexUtils.h" />
-    <ClInclude Include="..\Classes\Framework\utils\regexx\regexx.hh" />
-    <ClInclude Include="..\Classes\Framework\utils\regexx\split.hh" />
     <ClInclude Include="..\Classes\Framework\utils\UUIDGenerator.h" />
     <ClInclude Include="..\Classes\Framework\utils\ZipHelper.h" />
     <ClInclude Include="..\Classes\Framework\utils\ziplib\unzip.h" />
@@ -353,8 +351,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\utils\IOUtils.cpp" />
     <ClCompile Include="..\Classes\Framework\utils\RecordHelper.cpp" />
     <ClCompile Include="..\Classes\Framework\utils\RegexUtils.cpp" />
-    <ClCompile Include="..\Classes\Framework\utils\regexx\regexx.cc" />
-    <ClCompile Include="..\Classes\Framework\utils\regexx\split.cc" />
     <ClCompile Include="..\Classes\Framework\utils\UUIDGenerator.cpp" />
     <ClCompile Include="..\Classes\Framework\utils\ZipHelper.cpp" />
     <ClCompile Include="..\Classes\Framework\utils\ziplib\unzip.cpp" />
