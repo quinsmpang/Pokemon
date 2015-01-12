@@ -13,18 +13,19 @@ v1.06	Add win32 keyboard support into the framework.
 v1.07	Add AES encryption and standard save data support.
 v1.08	Add TitleSwitch control to the framework.
 v1.09	Integrate lanes lib to the framework.
-v1.10	Add gif decode method in ohter platform excluding win32, fix zip on ios issue.
+v1.10	Add gif decode method in other platform excluding win32, fix zip on ios issue.
 v1.11	Add simple threading to the framework, threading features will be expanded in the future.
 v1.12   Add net service base to the framework, to expand net services in the future.
 v1.13	Add DirectionController control.
 v1.14   Add http service and json elements.
+v1.15	Add xml elements without xpath, which may be completed in the future.
 ***********************************************/
 
 #include <iostream>
 #include "tolua_fix.h"
 
-static const char *VERSION = "v1.14";
-static float VERSION_NUM = 1.14;
+static const char *VERSION = "v1.15";
+static float VERSION_NUM = 1.15;
 
 void printVersion()
 {
