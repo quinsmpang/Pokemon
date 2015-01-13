@@ -31,7 +31,7 @@ namespace framework
 		/**
 		* HttpService constructor.
 		*/
-		explicit HttpService();
+		explicit HttpService(const std::string &serviceAddress);
 		/**
 		* HttpService destructor.
 		*/
@@ -42,6 +42,21 @@ namespace framework
 		*/
 		virtual void sendMessage(NetRequest *request);
 		virtual void executeCommand(const std::string &cmd, cocos2d::Ref *param);
+        
+        /**
+         * Get service address.
+         */
+        inline const std::string &getServiceAddress()
+        {
+            return _serviceAddr;
+        }
+        /**
+         * Set service address.
+         */
+        inline void setServiceAddress(const std::string &serviceAddress)
+        {
+            _serviceAddr = serviceAddress;
+        }
 
 		/**
 		* Set the rule of transfering.

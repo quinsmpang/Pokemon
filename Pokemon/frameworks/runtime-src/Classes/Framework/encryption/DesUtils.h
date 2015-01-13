@@ -26,7 +26,7 @@ namespace framework
          *
          * @return The content after encryption.
          */
-		unsigned char *encrypt(const char *key, unsigned char *data, int inSize, int *outSize);
+		void *encrypt(const char *key, void *data, int inSize, int *outSize);
 
 		/**
          * @brief Decrypt content using DES.
@@ -39,7 +39,7 @@ namespace framework
          *
          * @return The content after decryption.
          */
-		unsigned char *decrypt(const char *key, unsigned char *data, int inSize, int *outSize);
+		void *decrypt(const char *key, void *data, int inSize, int *outSize);
 
 	private:
 		static DesUtils *_instance;

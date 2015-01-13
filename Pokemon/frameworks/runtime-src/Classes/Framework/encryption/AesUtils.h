@@ -26,7 +26,7 @@ namespace framework
          *
          * @return The content after encryption.
          */
-		unsigned char *encipher(unsigned char *data, const std::string &key, int *outSize);
+		void *encipher(void *data, const std::string &key, int *outSize);
 
 		/**
          * @brief Decrypt content using AES.
@@ -38,7 +38,7 @@ namespace framework
          *
          * @return The content after decryption.
          */
-		unsigned char *decipher(unsigned char *data, const std::string &key, int *outSize);
+		void *decipher(void *data, const std::string &key, int *outSize);
 	};
 }
 

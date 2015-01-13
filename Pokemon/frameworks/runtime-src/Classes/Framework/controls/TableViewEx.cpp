@@ -71,7 +71,7 @@ namespace framework
 			Vector<Ref*> pParams(1);
 			pParams.pushBack(this);
 			Vector<Ref*> pParamTypes(1);
-			pParams.pushBack(__String::create("cc.TableView"));
+			pParams.pushBack(__String::create("pf.TableViewEx"));
 			LuaUtils::getInstance()->executePeertableFunction(this->_tableViewScriptDelegate, "scrollViewDidScroll", pParams, pParamTypes, false);
 		}
 #endif
@@ -194,7 +194,7 @@ namespace framework
 				pParams.pushBack(this);
 				pParams.pushBack(_touchedCell);
 				Vector<Ref*> pParamTypes(2);
-				pParams.pushBack(__String::create("cc.TableView"));
+				pParams.pushBack(__String::create("pf.TableViewEx"));
 				pParams.pushBack(__String::create("cc.TableViewCell"));
 				LuaUtils::getInstance()->executePeertableFunction(this->_tableViewScriptDelegate, "tableCellHighlight", pParams, pParamTypes, false);
 			}
@@ -214,7 +214,7 @@ namespace framework
 				pParams.pushBack(this);
 				pParams.pushBack(_touchedCell);
 				Vector<Ref*> pParamTypes(2);
-				pParams.pushBack(__String::create("cc.TableView"));
+				pParams.pushBack(__String::create("pf.TableViewEx"));
 				pParams.pushBack(__String::create("cc.TableViewCell"));
 				LuaUtils::getInstance()->executePeertableFunction(this->_tableViewScriptDelegate, "tableCellUnhighlight", pParams, pParamTypes, false);
 			}
@@ -243,7 +243,7 @@ namespace framework
 				pParams.pushBack(this);
 				pParams.pushBack(_touchedCell);
 				Vector<Ref*> pParamTypes(2);
-				pParams.pushBack(__String::create("cc.TableView"));
+				pParams.pushBack(__String::create("pf.TableViewEx"));
 				pParams.pushBack(__String::create("cc.TableViewCell"));
 				LuaUtils::getInstance()->executePeertableFunction(this->_tableViewScriptDelegate, "tableCellUnhighlight", pParams, pParamTypes, false);
 			}
@@ -277,7 +277,7 @@ namespace framework
 					pParams.pushBack(this);
 					pParams.pushBack(_touchedCell);
 					Vector<Ref*> pParamTypes(2);
-					pParams.pushBack(__String::create("cc.TableView"));
+					pParams.pushBack(__String::create("pf.TableViewEx"));
 					pParams.pushBack(__String::create("cc.TableViewCell"));
 					LuaUtils::getInstance()->executePeertableFunction(this->_tableViewScriptDelegate, "tableCellUnhighlight", pParams, pParamTypes, false);
 					LuaUtils::getInstance()->executePeertableFunction(this->_tableViewScriptDelegate, "tableCellTouched", pParams, pParamTypes, false);
@@ -309,7 +309,7 @@ namespace framework
 				pParams.pushBack(this);
 				pParams.pushBack(_touchedCell);
 				Vector<Ref*> pParamTypes(2);
-				pParams.pushBack(__String::create("cc.TableView"));
+				pParams.pushBack(__String::create("pf.TableViewEx"));
 				pParams.pushBack(__String::create("cc.TableViewCell"));
 				LuaUtils::getInstance()->executePeertableFunction(this->_tableViewScriptDelegate, "tableCellUnhighlight", pParams, pParamTypes, false);
 			}

@@ -10,7 +10,7 @@ namespace framework
 	{
 	}
 
-	unsigned char *DesUtils::encrypt(const char *key, unsigned char *data, int inSize, int *outSize)
+	void *DesUtils::encrypt(const char *key, void *data, int inSize, int *outSize)
 	{
 		DES des;
 		*outSize = des.extend(inSize);
@@ -21,7 +21,7 @@ namespace framework
 		return buffer;
 	}
 
-	unsigned char *DesUtils::decrypt(const char *key, unsigned char *data, int inSize, int *outSize)
+	void *DesUtils::decrypt(const char *key, void *data, int inSize, int *outSize)
 	{
 		DES des;
 		unsigned char *buffer = (unsigned char*)malloc(inSize);

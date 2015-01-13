@@ -1,3 +1,5 @@
+
+
 #ifndef __LUA_THREAD__
 #define __LUA_THREAD__
 

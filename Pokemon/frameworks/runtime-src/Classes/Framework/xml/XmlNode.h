@@ -285,6 +285,15 @@ namespace framework {
          */
         const char *toPrettyString(bool needXmlHead = false);
         
+        /**
+         * Write generated xml to the specified file.
+         *
+         * @param path File path to write.
+         *
+         * @return Return xml.
+         */
+        bool writeToFile(const std::string &path);
+        
     protected:
         bool satisfyAttributeConditions(XmlNode *node, Map *conditions);
         

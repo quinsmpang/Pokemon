@@ -3,6 +3,7 @@
 #include "XmlParser.h"
 #include "XmlPrinter.h"
 #include "../base/RefString.h"
+#include "../utils/IOUtils.h"
 #include <new>
 
 using namespace cocos2d;
@@ -295,6 +296,9 @@ namespace framework {
                 break;
             }
         }
+        if (idx == pBrothers->getLength() - 1) {
+            return nullptr;
+        }
         return (XmlNode*)pBrothers->objectAt(++idx);
     }
     
@@ -313,6 +317,9 @@ namespace framework {
                 break;
             }
         }
+        if (idx == 0) {
+            return nullptr;
+        }
         return (XmlNode*)pBrothers->objectAt(--idx);
     }
     
@@ -324,5 +331,12 @@ namespace framework {
     const char *XmlNode::toPrettyString(bool needXmlHead)
     {
         return XmlPrettyPrinter::getInstance()->print(this, needXmlHead);
+    }
+    
+    bool XmlNode::writeToFile(const std::string &path)
+    {
+        const char *szXml = this->toPrettyString(true);
+        string xml(szXml);
+        return IOUtils::getInstance()->writeDataToFile((const unsigned char*)szXml, xml.size(), path);
     }
 }

@@ -10,7 +10,7 @@ namespace framework
 	{
 	}
 
-	unsigned char *AesUtils::encipher(unsigned char *data, const std::string &key, int *outSize)
+	void *AesUtils::encipher(void *data, const std::string &key, int *outSize)
 	{
 		AES aes((unsigned char*)key.c_str());
 		char *encryptedData = (char*)malloc(1024 * 1024);
@@ -22,10 +22,10 @@ namespace framework
 		}*/
 		//printf("encipher: %s\n", encryptedData);
 
-		return (unsigned char*)encryptedData;
+		return encryptedData;
 	}
 
-	unsigned char *AesUtils::decipher(unsigned char *data, const std::string &key, int *outSize)
+	void *AesUtils::decipher(void *data, const std::string &key, int *outSize)
 	{
 		AES aes((unsigned char*)key.c_str());
 		char *decryptedData = (char*)malloc(1024 * 1024);
@@ -37,6 +37,6 @@ namespace framework
 		}*/
 		//printf("decipher: %s\n", decryptedData);
 
-		return (unsigned char*)decryptedData;
+		return decryptedData;
 	}
 }

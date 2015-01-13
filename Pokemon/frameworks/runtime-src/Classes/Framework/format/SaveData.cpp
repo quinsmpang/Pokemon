@@ -36,7 +36,7 @@ namespace framework
 	bool SaveData::serializeToFile(const std::string &path, const std::string &cipherKey)
 	{
 		int size = this->_data.size();
-		unsigned char *encryptedData = AesUtils::getInstance()->encipher((unsigned char*)this->_data.c_str(), cipherKey, &size);
+		unsigned char *encryptedData = (unsigned char*)AesUtils::getInstance()->encipher((unsigned char*)this->_data.c_str(), cipherKey, &size);
 
 		ofstream ofs;
 		ofs.open(path, ios::out | ios::binary);
@@ -105,7 +105,7 @@ namespace framework
 		ifs.close();
 
 		int outSize;
-		unsigned char *decryptedData = AesUtils::getInstance()->decipher((unsigned char*)encryptedData, cipherKey, &outSize);
+		unsigned char *decryptedData = (unsigned char*)AesUtils::getInstance()->decipher((unsigned char*)encryptedData, cipherKey, &outSize);
 		string data = string((const char*)decryptedData);
 
 		auto pSave = SaveData::createWithData(data);

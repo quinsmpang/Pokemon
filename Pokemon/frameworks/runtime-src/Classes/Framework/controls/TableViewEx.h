@@ -23,6 +23,11 @@ namespace framework
          * TableViewEx destructor.
          */
 		virtual ~TableViewEx();
+        
+        /**
+         * Create a table view.
+         */
+        CREATE_FUNC(TableViewEx);
 
         /**
          * Create a TableViewEx control.

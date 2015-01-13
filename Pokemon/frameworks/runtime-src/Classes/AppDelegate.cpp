@@ -6,6 +6,7 @@
 
 #include "Framework/lua/lua_framework_auto.hpp"
 #include "Framework/lua/lua_framework_manual.hpp"
+#include "Framework/lua/lua_decryption_loader.h"
 #include "Framework/lanes/lanes.h"
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 #include "Framework/win32/KeyboardHelper.h"
@@ -14,6 +15,7 @@
 #include "version.h" 
 
 #define LANES_SUPPORTED 0
+#define LUA_DECIPHER_SUPPORTED 0
 
 using namespace CocosDenshion;
 USING_NS_CC;
@@ -75,6 +77,10 @@ bool AppDelegate::applicationDidFinishLaunching()
 	// version management.
 	::printVersion();
 	lua_register_psframework_version(L);
+#if LUA_DECIPHER_SUPPORTED
+    // use lua encryption.
+    pEngine->addLuaLoader(framework_decipher_loader);
+#endif
 
 	pEngine->executeScriptFile("src/main.lua");
 

@@ -40,7 +40,7 @@ namespace framework
 
 		// encryption
 		int outSize = 0;
-		unsigned char *encryptData = DesUtils::getInstance()->encrypt(_key.c_str(), data, size, &outSize);
+		unsigned char *encryptData = (unsigned char*)DesUtils::getInstance()->encrypt(_key.c_str(), data, size, &outSize);
 
 		IOUtils::getInstance()->writeDataToFile(encryptData, outSize, fullPath);
 
@@ -65,7 +65,7 @@ namespace framework
 		// decryption
 		int outSize = 0;
 		// don't forget to release it.
-		unsigned char *decryptData = DesUtils::getInstance()->decrypt(_key.c_str(), data, size, &outSize);
+		unsigned char *decryptData = (unsigned char*)DesUtils::getInstance()->decrypt(_key.c_str(), data, size, &outSize);
 		*dataSize = outSize;
 
 		if (writeToFile)
