@@ -14,6 +14,7 @@
 namespace framework {
     class XmlNode : public cocos2d::Ref
     {
+		friend class XmlParser;
     public:
         /**
          * XmlNode constructor.
@@ -277,13 +278,13 @@ namespace framework {
          *
          * @return Return xml.
          */
-        const char *toString(bool needXmlHead = false);
+		std::string toString(bool needXmlHead = false);
         /**
          * Format to xml string in a pretty format.
          *
          * @return Return formatted xml.
          */
-        const char *toPrettyString(bool needXmlHead = false);
+		std::string toPrettyString(bool needXmlHead = false);
         
         /**
          * Write generated xml to the specified file.

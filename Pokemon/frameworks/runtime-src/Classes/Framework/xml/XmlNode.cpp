@@ -323,20 +323,20 @@ namespace framework {
         return (XmlNode*)pBrothers->objectAt(--idx);
     }
     
-    const char *XmlNode::toString(bool needXmlHead)
+	std::string XmlNode::toString(bool needXmlHead)
     {
-        return XmlPrinter::getInstance()->print(this, needXmlHead);
+        return XmlPrinter::getInstance()->print(this, needXmlHead).c_str();
     }
     
-    const char *XmlNode::toPrettyString(bool needXmlHead)
+	std::string XmlNode::toPrettyString(bool needXmlHead)
     {
-        return XmlPrettyPrinter::getInstance()->print(this, needXmlHead);
+        return XmlPrettyPrinter::getInstance()->print(this, needXmlHead).c_str();
     }
     
     bool XmlNode::writeToFile(const std::string &path)
     {
-        const char *szXml = this->toPrettyString(true);
+		std::string szXml = this->toPrettyString(true);
         string xml(szXml);
-        return IOUtils::getInstance()->writeDataToFile((const unsigned char*)szXml, xml.size(), path);
+        return IOUtils::getInstance()->writeDataToFile((const unsigned char*)szXml.c_str(), xml.size(), path);
     }
 }

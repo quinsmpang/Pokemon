@@ -11,7 +11,7 @@ namespace framework {
     {
     }
     
-    const char *XmlPrinter::visitBegin(XmlNode *node)
+	std::string XmlPrinter::visitBegin(XmlNode *node)
     {
         CCASSERT(node, "The node to visit can't be null.");
         string head("<");
@@ -26,28 +26,30 @@ namespace framework {
                 head.append(" ").append(key).append("=").append("\"").append(value).append("\"");
             }
         }
-        head.append(">");
+		head.append(">").append(node->getValue());
         
-        return head.c_str();
+        return head;
     }
     
-    const char *XmlPrinter::visitEnd(XmlNode *node)
+	std::string XmlPrinter::visitEnd(XmlNode *node)
     {
         CCASSERT(node, "The node to visit can't be null.");
         string tail;
-        tail.append(node->getValue()).append("</").append(node->getName()).append(">");
+		tail.clear();
+        tail.append("</").append(node->getName()).append(">");
         
-        return tail.c_str();
+        return tail;
     }
     
-    const char *XmlPrinter::print(framework::XmlNode *node, bool needVersion)
+	std::string XmlPrinter::print(framework::XmlNode *node, bool needVersion)
     {
         if (!node) {
             return nullptr;
         }
         string xml;
+		xml.clear();
         if (needVersion) {
-            xml.append("<?xml version=\"1.0\"?>\n");
+            xml.append("<?xml version=\"1.0\"?>");
         }
         xml.append(this->visitBegin(node));
         Vector *pChildren = node->getChildren();
@@ -59,47 +61,77 @@ namespace framework {
         }
         xml.append(this->visitEnd(node));
         
-        return xml.c_str();
+        return xml;
     }
     
     XmlPrettyPrinter::XmlPrettyPrinter()
-        : _counter(0)
+        : _counter(-1)
     {
     }
     
-    const char *XmlPrettyPrinter::printTabs(int tabNum)
+	std::string XmlPrettyPrinter::printTabs(int tabNum)
     {
         string tabs;
         for (int i = 0; i < tabNum; ++i) {
             tabs.append("\t");
         }
-        return tabs.c_str();
+        return tabs;
     }
     
-    const char *XmlPrettyPrinter::visitBegin(framework::XmlNode *node)
+	std::string XmlPrettyPrinter::visitBegin(framework::XmlNode *node)
     {
-        CCASSERT(node, "The node to visit can't be null.");
-        string head;
-        head.append(this->printTabs(_counter));
-        head.append(XmlPrinter::visitBegin(node));
-        head.append("\n");
-        ++_counter;
-        
-        return head.c_str();
+		CCASSERT(node, "The node to visit can't be null.");
+		++_counter;
+		string head;
+		head.append(this->printTabs(_counter)).append("<");
+		head.append(node->getName());
+		Map *pAttrs = node->getAttributes();
+		if (pAttrs->getLength() > 0) {
+			Vector *pAttrKeys = pAttrs->allKeys();
+			int len = pAttrKeys->getLength();
+			for (int i = 0; i < len; ++i) {
+				string key = ((RefString*)pAttrKeys->objectAt(i))->getCString();
+				string value = ((XmlElement*)pAttrs->objectForKey(key))->stringValue();
+				head.append(" ").append(key).append("=").append("\"").append(value).append("\"");
+			}
+		}
+		head.append(">").append("\n").append(this->printTabs(_counter + 1)).append(node->getValue()).append("\n");
+
+		return head;
     }
     
-    const char *XmlPrettyPrinter::visitEnd(framework::XmlNode *node)
+	std::string XmlPrettyPrinter::visitEnd(framework::XmlNode *node)
     {
-        CCASSERT(node, "The node to visit can't be null.");
-        string tail;
-        if (node->getValue().size() > 0) {
-            tail.append(this->printTabs(_counter + 1));
-            tail.append(node->getValue()).append("\n");
-        }
-        tail.append(this->printTabs(_counter));
-        tail.append("</").append(node->getName()).append(">");
-        --_counter;
-        
-        return tail.c_str();
+		CCASSERT(node, "The node to visit can't be null.");
+		string tail;
+		tail.clear();
+		tail.append(this->printTabs(_counter));
+		tail.append("</").append(node->getName()).append(">\n");
+		--_counter;
+
+		return tail;
     }
+
+	std::string XmlPrettyPrinter::print(framework::XmlNode *node, bool needVersion)
+	{
+		if (!node) {
+			return nullptr;
+		}
+		string xml;
+		xml.clear();
+		if (needVersion) {
+			xml.append("<?xml version=\"1.0\"?>\n");
+		}
+		xml.append(this->visitBegin(node));
+		Vector *pChildren = node->getChildren();
+		int len = pChildren->getLength();
+		XmlNode *pChild = nullptr;
+		for (int i = 0; i < len; ++i) {
+			pChild = (XmlNode*)pChildren->objectAt(i);
+			xml.append(this->print(pChild));
+		}
+		xml.append(this->visitEnd(node));
+
+		return xml;
+	}
 }

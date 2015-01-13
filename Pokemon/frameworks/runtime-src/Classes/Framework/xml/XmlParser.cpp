@@ -59,6 +59,8 @@ namespace framework {
         for (auto child = elem->FirstChildElement(); child; child = child->NextSiblingElement()) {
             XmlNode *pChild = this->parseToXmlNode(child);
             pNode->appendChildNode(pChild);
+			// set parent
+			pChild->_parent = pNode;
         }
         
         return pNode;

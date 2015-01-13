@@ -8,6 +8,8 @@
 #define __XML_XMLPRINTER__
 
 #include "../base/Macros.h"
+#include "../base/Uninheritable.h"
+#include <string>
 
 namespace framework {
     class XmlNode;
@@ -22,13 +24,13 @@ namespace framework {
          *
          * @param node Node to visit
          */
-        virtual const char *visitBegin(XmlNode *node) = 0;
+        virtual std::string visitBegin(XmlNode *node) = 0;
         /**
          * Provide a visit way when ending.
          *
          * @param node Node to visit
          */
-        virtual const char *visitEnd(XmlNode *node) = 0;
+		virtual std::string visitEnd(XmlNode *node) = 0;
     };
     
     class XmlPrinter : public XmlVisitor
@@ -38,8 +40,8 @@ namespace framework {
         /**
          * XmlVisitor overrides.
          */
-        virtual const char *visitBegin(XmlNode *node);
-        virtual const char *visitEnd(XmlNode *node);
+		virtual std::string visitBegin(XmlNode *node);
+		virtual std::string visitEnd(XmlNode *node);
         
         /**
          * Print xml node recursively. Ignore encoding.
@@ -48,21 +50,23 @@ namespace framework {
          *
          * @return Xml string.
          */
-        virtual const char *print(XmlNode *node, bool needVersion = false);
+		virtual std::string print(XmlNode *node, bool needVersion = false);
     };
     
-    class XmlPrettyPrinter : public XmlPrinter
+    class XmlPrettyPrinter : public XmlPrinter, public Uninheritable<XmlPrettyPrinter>
     {
         SINGLETON(XmlPrettyPrinter);
     public:
         /**
          * XmlVisitor overrides.
          */
-        const char *visitBegin(XmlNode *node) override;
-        const char *visitEnd(XmlNode *node) override;
+		std::string visitBegin(XmlNode *node) override;
+		std::string visitEnd(XmlNode *node) override;
+
+		virtual std::string print(XmlNode *node, bool needVersion = false) override;
         
     private:
-        const char *printTabs(int tabNum);
+		std::string printTabs(int tabNum);
         
         int _counter;
     };

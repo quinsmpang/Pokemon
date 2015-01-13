@@ -235,6 +235,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\lanes\src\tools.h" />
     <ClInclude Include="..\Classes\Framework\lua\LuaEngineEx.h" />
     <ClInclude Include="..\Classes\Framework\lua\LuaUtils.h" />
+    <ClInclude Include="..\Classes\Framework\lua\lua_decryption_loader.h" />
     <ClInclude Include="..\Classes\Framework\lua\lua_framework_auto.hpp" />
     <ClInclude Include="..\Classes\Framework\lua\lua_framework_manual.hpp" />
     <ClInclude Include="..\Classes\Framework\net\NetCenter.h" />
@@ -329,6 +330,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\lanes\src\tools.c" />
     <ClCompile Include="..\Classes\Framework\lua\LuaEngineEx.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\LuaUtils.cpp" />
+    <ClCompile Include="..\Classes\Framework\lua\lua_decryption_loader.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_auto.cpp" />
     <ClCompile Include="..\Classes\Framework\lua\lua_framework_manual.cpp" />
     <ClCompile Include="..\Classes\Framework\net\NetCenter.cpp" />

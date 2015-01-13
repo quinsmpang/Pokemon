@@ -50,8 +50,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 	// set FPS. the default value is 1.0/60 if you don't call this
 	director->setAnimationInterval(1.0 / 60);
     
-    framework::XmlNode *pRoot = framework::XmlNode::createWithString("<?xml version=\"1.0\"?><root><node1 attr=\"abc\">123</node1><node2>321</node2>11111</root>");
-    std::cout << pRoot->toString() << std::endl;
+    framework::XmlNode *pRoot = framework::XmlNode::createWithString("<?xml version=\"1.0\"?><root>1111<node1 attr=\"abc\">123</node1><node2>321</node2></root>");
+    std::cout << pRoot->toPrettyString(true) << std::endl;
     return false;
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
