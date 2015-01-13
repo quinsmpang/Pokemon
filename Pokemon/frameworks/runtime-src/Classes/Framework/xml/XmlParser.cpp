@@ -3,8 +3,10 @@
 #include "XmlNode.h"
 #include "../containers/Map.h"
 #include "../containers/Vector.h"
+#include <iostream>
 
 using namespace cocos2d;
+using namespace std;
 using namespace tinyxml2;
 
 namespace framework {
@@ -43,17 +45,18 @@ namespace framework {
     
     XmlNode *XmlParser::parseToXmlNode(tinyxml2::XMLElement *elem)
     {
-        auto pNode = XmlNode::create(elem->Name());
+        auto pNode = XmlNode::create(elem->ToElement()->Value());
         // value
-        pNode->setValue(elem->Value());
+        pNode->setValue((elem->GetText() ? elem->GetText() : ""));
         // attributes
         auto rootAttrs = Map::create();
-        for (auto attr = elem->FirstAttribute(); attr->Next(); attr = attr->Next()) {
-            rootAttrs->setStringForKey(attr->Value(), attr->Name());
+        for (auto attr = elem->FirstAttribute(); attr; attr = attr->Next()) {
+            XmlString *pValue = XmlString::create(attr->Value());
+            rootAttrs->setObjectForKey(pValue, attr->Name());
         }
         pNode->setAttributes(rootAttrs);
         // add child nodes recursively.
-        for (auto child = elem->FirstChildElement(); child->NextSiblingElement(); child = child->NextSiblingElement()) {
+        for (auto child = elem->FirstChildElement(); child; child = child->NextSiblingElement()) {
             XmlNode *pChild = this->parseToXmlNode(child);
             pNode->appendChildNode(pChild);
         }

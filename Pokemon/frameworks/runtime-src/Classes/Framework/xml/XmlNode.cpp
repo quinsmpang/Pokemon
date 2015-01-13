@@ -54,7 +54,7 @@ namespace framework {
     
     void XmlNode::setValue(const std::string &value)
     {
-        CCASSERT(value.find('<') < 0, "Invalid '<' character.");
+        CCASSERT(value.find('<') == string::npos, "Invalid '<' character.");
         _nodeValue = value;
     }
     
@@ -75,7 +75,7 @@ namespace framework {
     void XmlNode::putAttribute(const std::string &name, const std::string &value)
     {
         CCASSERT(name.size() > 0 && value.size() > 0, "Name and value can't be empty.");
-        CCASSERT(value.find('"') < 0, "Value can't include illegal characters.");
+        CCASSERT(value.find('"') == string::npos, "Value can't include illegal characters.");
         auto pStr = XmlString::create(value);
         _attributes->setObjectForKey(pStr, name);
     }

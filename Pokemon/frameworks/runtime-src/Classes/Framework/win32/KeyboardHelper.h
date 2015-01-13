@@ -33,6 +33,13 @@ namespace framework
          * @return Operation result.
          */
 		bool hookOff();
+        /**
+         * Check whether the win32 key is pressed.
+         *
+         * @param keyCode Win32 virtual key code.
+         *
+         * @return Is pressed.
+         */
 		bool isKeyPressed(int keyCode);
 	};
 }
