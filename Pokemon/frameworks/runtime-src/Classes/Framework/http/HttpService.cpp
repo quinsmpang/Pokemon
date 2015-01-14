@@ -16,7 +16,7 @@ namespace framework
 {
 	HttpService *HttpService::create(const std::string &serviceAddress)
 	{
-		auto pService = new (nothrow)HttpService(serviceAddress);
+		auto pService = new (nothrow) HttpService(serviceAddress);
 		if (pService && pService->init(serviceAddress))
 		{
 			pService->autorelease();

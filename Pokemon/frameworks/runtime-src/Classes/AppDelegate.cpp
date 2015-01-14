@@ -98,6 +98,10 @@ void AppDelegate::applicationDidEnterBackground()
 	bool res = framework::KeyboardHelper::getInstance()->hookOn();
 	if (!res)
 	{
+        DWORD error = GetLastError();
+		LPVOID pBuffer = NULL;
+		FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)&pBuffer, 0, NULL);
+		MessageBoxW(NULL, (LPCTSTR)pBuffer, L"Error", MB_OK | MB_ICONINFORMATION);
 		ExitProcess(-1);
 	}
 #endif
