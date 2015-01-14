@@ -1,7 +1,6 @@
 #include "JsonFormatter.h"
 #include "JsonElement.h"
 #include "../base/RefString.h"
-#include <string>
 
 using namespace cocos2d;
 using namespace std;
@@ -11,7 +10,7 @@ namespace framework {
     {
     }
     
-    const char *JsonFormatter::format(Ref *json, bool isPretty)
+    string JsonFormatter::format(Ref *json, bool isPretty)
     {
         JSONNODE *jsonNode = this->formatToJsonNode(json);
         json_char *jsonChar = isPretty ? json_write_formatted(jsonNode) : json_write(jsonNode);
@@ -19,7 +18,7 @@ namespace framework {
         json_free(jsonChar);
         json_delete(jsonNode);
         
-        return jsonStr.c_str();
+        return jsonStr;
     }
     
     JSONNODE *JsonFormatter::formatToJsonNode(Ref *json)
@@ -32,7 +31,7 @@ namespace framework {
         } else if ((pJsonAry = dynamic_cast<JsonArray*>(json)) != nullptr) {
             return this->formatJsonArrayToJsonNode(pJsonAry);
         }
-        CCASSERT(false, "Invalide json type.");
+        CCASSERT(false, "Invalid json type.");
         return nullptr;
     }
     

@@ -10,6 +10,7 @@
 #include "JsonStructure.h"
 #include "../base/Macros.h"
 #include "libjson/libjson.h"
+#include <string>
 
 namespace framework {
     class JsonFormatter
@@ -26,7 +27,7 @@ namespace framework {
          *
          * @return Return Formatted string.
          */
-        const char *format(cocos2d::Ref *json, bool isPretty = false);
+        std::string format(cocos2d::Ref *json, bool isPretty = false);
         
     private:
         JSONNODE *formatToJsonNode(cocos2d::Ref *json);

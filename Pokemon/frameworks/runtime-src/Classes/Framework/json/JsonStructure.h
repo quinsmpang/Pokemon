@@ -171,19 +171,19 @@ namespace framework {
          *
          * @return Return json string format.
          */
-        const std::string &toString();
+        std::string toString();
         /**
          * Convert to pretty string.
          *
          * @return Return pretty version of json string.
          */
-        const std::string &toPrettyString();
+        std::string toPrettyString();
         /**
          * Convert to lua string.
          *
          * @return Return lua version of json string.
          */
-        const std::string &toLuaString();
+        std::string toLuaString();
         
     protected:
         bool init();
@@ -360,19 +360,19 @@ namespace framework {
          *
          * @return Return json string format.
          */
-        const std::string &toString();
+        std::string toString();
         /**
          * Convert to pretty string.
          *
          * @return Return pretty version of json string.
          */
-        const std::string &toPrettyString();
+        std::string toPrettyString();
         /**
          * Convert to lua string.
          *
          * @return Return lua version of json string.
          */
-        const std::string &toLuaString();
+        std::string toLuaString();
         
     protected:
         bool init();

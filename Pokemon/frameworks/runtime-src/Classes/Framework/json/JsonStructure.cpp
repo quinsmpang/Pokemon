@@ -118,17 +118,17 @@ namespace framework {
         return _dataHolder->allKeys();
     }
     
-    const std::string &JsonObject::toString()
+    std::string JsonObject::toString()
     {
         return JsonFormatter::getInstance()->format(this);
     }
     
-    const std::string &JsonObject::toPrettyString()
+    std::string JsonObject::toPrettyString()
     {
         return JsonFormatter::getInstance()->format(this, true);
     }
     
-    const std::string &JsonObject::toLuaString()
+    std::string JsonObject::toLuaString()
     {
         // begining
         std::string luaStr = "{\n";
@@ -296,17 +296,17 @@ namespace framework {
         _dataHolder->clear();
     }
     
-    const std::string &JsonArray::toString()
+    std::string JsonArray::toString()
     {
         return JsonFormatter::getInstance()->format(this);
     }
     
-    const std::string &JsonArray::toPrettyString()
+    std::string JsonArray::toPrettyString()
     {
         return JsonFormatter::getInstance()->format(this, true);
     }
     
-    const std::string &JsonArray::toLuaString()
+    std::string JsonArray::toLuaString()
     {
         // begining
         std::string luaStr = "{\n";
