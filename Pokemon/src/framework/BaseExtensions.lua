@@ -79,17 +79,17 @@ class("psSprite", {
 		end
 	})
 
---psTableView
-class("psTableView", {
-		create = function(...)
-			return cc.TableView:create(...)
-		end
-	})
-
 --psListMenu
 class("psListMenu", {
 		create = function(...)
 			return ListMenu:create(...)
+		end
+	})
+
+--psTableView
+class("psTableView", {
+		create = function(...)
+			return cc.TableView:create(...)
 		end
 	})
 

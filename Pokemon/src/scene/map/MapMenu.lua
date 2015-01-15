@@ -4,7 +4,11 @@
 	Date: 07/06/2014
 ]]
 
+if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
 class("MapMenu", psListMenu)
+else
+class("MapMenu", psTableView)
+end
 
 -- const
 MapMenu.ICON_PATHS = {
@@ -34,28 +38,53 @@ MapMenu.SKIP_CONTACT_STEP = 11
 MapMenu.LABEL_TAG = 998
 MapMenu.ARROW_TAG = 999
 
+if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
 MapMenu.__create = psListMenu.create
+else
+MapMenu.__create = psTableView.create
+end
 
 function MapMenu:create()
-	local menu = MapMenu:__create(#self.ITEM_STRINGS)
+	local menu = nil
+	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+		menu = MapMenu:__create(#self.ITEM_STRINGS)
+	else
+		menu = MapMenu:__create()
+	end
 	menu:init()
 	return menu
 end
 
 function MapMenu:init()
-	self:registerScriptHandler(MakeScriptHandler(self, self.countOfItemInMenu), pf.Handler.LISTMENU_COUNT_OF_ITEMS)
-	self:registerScriptHandler(MakeScriptHandler(self, self.itemAtIndex), pf.Handler.LISTMENU_ITEM_AT_INDEX)
-	self:registerScriptHandler(MakeScriptHandler(self, self.itemSizeForMenu), pf.Handler.LISTMENU_ITEM_SIZE_FOR_MENU)
-	self:setScriptDataSource()
+	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+		self:registerScriptHandler(MakeScriptHandler(self, self.countOfItemInMenu), pf.Handler.LISTMENU_COUNT_OF_ITEMS)
+		self:registerScriptHandler(MakeScriptHandler(self, self.itemAtIndex), pf.Handler.LISTMENU_ITEM_AT_INDEX)
+		self:registerScriptHandler(MakeScriptHandler(self, self.itemSizeForMenu), pf.Handler.LISTMENU_ITEM_SIZE_FOR_MENU)
+		self:setScriptDataSource()
 
-	self:registerScriptHandler(MakeScriptHandler(self, self.itemSelected), pf.Handler.LISTMENU_ITEM_SELECTED)
-	self:registerScriptHandler(MakeScriptHandler(self, self.itemFocused), pf.Handler.LISTMENU_ITEM_FOCUSED)
-	self:registerScriptHandler(MakeScriptHandler(self, self.itemBlurred), pf.Handler.LISTMENU_ITEM_BLURRED)
-	self:registerScriptHandler(MakeScriptHandler(self, self.itemWillRecycle), pf.Handler.LISTMENU_ITEM_WILL_RECYCLE)
-	self:setScriptDelegate()
+		self:registerScriptHandler(MakeScriptHandler(self, self.itemSelected), pf.Handler.LISTMENU_ITEM_SELECTED)
+		self:registerScriptHandler(MakeScriptHandler(self, self.itemFocused), pf.Handler.LISTMENU_ITEM_FOCUSED)
+		self:registerScriptHandler(MakeScriptHandler(self, self.itemBlurred), pf.Handler.LISTMENU_ITEM_BLURRED)
+		self:registerScriptHandler(MakeScriptHandler(self, self.itemWillRecycle), pf.Handler.LISTMENU_ITEM_WILL_RECYCLE)
+		self:setScriptDelegate()
 
-	self:setResponseKeyCodes(GameSettings.upKey, GameSettings.downKey, GameSettings.confirmKey)
+		self:setResponseKeyCodes(GameSettings.upKey, GameSettings.downKey, GameSettings.confirmKey)
+	else
+		self:registerScriptHandler(MakeScriptHandler(self, self.tableCellSizeForIndex), cc.Handler.TABLECELL_SIZE_FOR_INDEX)
+		self:registerScriptHandler(MakeScriptHandler(self, self.tableCellAtIndex), cc.Handler.TABLECELL_AT_INDEX)
+		self:registerScriptHandler(MakeScriptHandler(self, self.tableNumsOfCells), cc.Handler.TABLEVIEW_NUMS_OF_CELLS)
+		self:setDataSource()
+
+		self:registerScriptHandler(MakeScriptHandler(self, self.tableCellTouched), cc.Handler.TABLECELL_TOUCHED)
+		self:registerScriptHandler(MakeScriptHandler(self, self.tableCellHighlight), cc.Handler.TABLECELL_HIGHLIGHT)
+		self:registerScriptHandler(MakeScriptHandler(self, self.tableCellUnhighlight), cc.Handler.TABLECELL_UNHIGHLIGHT)
+		self:registerScriptHandler(MakeScriptHandler(self, self.tableCellWillRecycle), cc.Handler.TABLECELL_WILL_RECYCLE)
+		self:setDelegate()
+	end
 end
+
+if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+------------------ Win32 Delegates ------------------
 
 -- DataSource interface
 function MapMenu:itemSizeForMenu(menu)
@@ -124,6 +153,71 @@ end
 
 function MapMenu:itemWillRecycle(menu, item)
 	--item:removeAllChildrenWithCleanup(true)
+end
+
+else
+------------------ Mobile platform Delegates ------------------
+
+-- DataSource interface
+function MapMenu:tableCellSizeForIndex(view)
+	local screenSize = cc.Director:getInstance():getWinSize()
+	return CCSizeMake(screenSize.width * 0.15, screenSize.height * 0.08)
+end
+
+function MapMenu:tableCellAtIndex(view, index)
+	local item = view:dequeueCell()
+	if not item then
+		item = cc.TableViewCell:create()
+
+		local screenSize = cc.Director:getInstance():getWinSize()
+		-- label
+		local label = cc.Label:createWithTTF(self.ITEM_STRINGS[index + 1], GameConfig.DEFAULT_FONT_PATH, 20)
+		label:setDimensions(screenSize.width * 0.1, screenSize.height * 0.08)
+		label:setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT)
+		label:setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+		label:setColor(ccc3(0, 0, 0))
+		label:setAnchorPoint(0, 0.5)
+		label:setPosition(screenSize.width * 0.065, screenSize.height * 0.04)
+		label:setTag(self.LABEL_TAG)
+		item:addChild(label)
+		-- icon
+		local icon = cc.Sprite:createWithSpriteFrameName(self.ICON_PATHS[index + 1])
+		icon:setAnchorPoint(1, 0.5)
+		icon:setPosition(screenSize.width * 0.06, screenSize.height * 0.04)
+		item:addChild(icon)
+	else
+		local label = item:getChildByTag(self.LABEL_TAG)
+		tolua.cast(label, "cc.Label")
+		label:setString(self.ITEM_STRINGS[index + 1])
+	end
+
+	self:validateItem(item, index)
+
+	return item
+end
+
+function MapMenu:tableNumsOfCells(view)
+	return #self.ITEM_STRINGS
+end
+
+-- TableView delegate
+function MapMenu:tableCellTouched(view, cell)
+	Notifier:notify(NotifyEvents.MapView.MenuItemSelected, cell)
+end
+
+function MapMenu:tableCellHighlight(view, cell)
+	local label = cell:getChildByTag(self.LABEL_TAG)
+	label:setColor(ccc3(255, 0, 0))
+end
+
+function MapMenu:tableCellUnhighlight(view, cell)
+	local label = cell:getChildByTag(self.LABEL_TAG)
+	label:setColor(ccc3(0, 0, 0))
+end
+
+function MapMenu:tableCellWillRecycle(view, cell)
+end
+
 end
 
 function MapMenu:validateItem(item, index)

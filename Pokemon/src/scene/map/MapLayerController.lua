@@ -449,7 +449,12 @@ end
 function MapLayerController:onMenuItemSelected(item)
 	if item.__isEnabled then
 		GameVolumeHelper:playBtnClickSound()
-		local itemIndex = item:getShowIndex()
+		local itemIndex = nil
+		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+			itemIndex = item:getShowIndex()
+		else
+			itemIndex = item:getIdx()
+		end
 		if itemIndex == 0 then
 			--图鉴
 			require "src/scene/collection/CollectionViewController"

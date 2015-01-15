@@ -37,7 +37,6 @@
 		3365B7861A43D29000B33C4B /* EncryptedTMXTiledMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7031A43D29000B33C4B /* EncryptedTMXTiledMap.cpp */; };
 		3365B7871A43D29000B33C4B /* ListMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7051A43D29000B33C4B /* ListMenu.cpp */; };
 		3365B7881A43D29000B33C4B /* ListMenuItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7071A43D29000B33C4B /* ListMenuItem.cpp */; };
-		3365B7891A43D29000B33C4B /* TableViewEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7091A43D29000B33C4B /* TableViewEx.cpp */; };
 		3365B78A1A43D29000B33C4B /* TitleSwitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B70B1A43D29000B33C4B /* TitleSwitch.cpp */; };
 		3365B78B1A43D29000B33C4B /* ScriptCCBReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B70E1A43D29000B33C4B /* ScriptCCBReader.cpp */; };
 		3365B78C1A43D29000B33C4B /* AesUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3365B7111A43D29000B33C4B /* AesUtils.cpp */; };
@@ -415,8 +414,6 @@
 		3365B7061A43D29000B33C4B /* ListMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListMenu.h; sourceTree = "<group>"; };
 		3365B7071A43D29000B33C4B /* ListMenuItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ListMenuItem.cpp; sourceTree = "<group>"; };
 		3365B7081A43D29000B33C4B /* ListMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListMenuItem.h; sourceTree = "<group>"; };
-		3365B7091A43D29000B33C4B /* TableViewEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TableViewEx.cpp; sourceTree = "<group>"; };
-		3365B70A1A43D29000B33C4B /* TableViewEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewEx.h; sourceTree = "<group>"; };
 		3365B70B1A43D29000B33C4B /* TitleSwitch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleSwitch.cpp; sourceTree = "<group>"; };
 		3365B70C1A43D29000B33C4B /* TitleSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleSwitch.h; sourceTree = "<group>"; };
 		3365B70E1A43D29000B33C4B /* ScriptCCBReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptCCBReader.cpp; sourceTree = "<group>"; };
@@ -841,8 +838,6 @@
 				3365B7061A43D29000B33C4B /* ListMenu.h */,
 				3365B7071A43D29000B33C4B /* ListMenuItem.cpp */,
 				3365B7081A43D29000B33C4B /* ListMenuItem.h */,
-				3365B7091A43D29000B33C4B /* TableViewEx.cpp */,
-				3365B70A1A43D29000B33C4B /* TableViewEx.h */,
 				3365B70B1A43D29000B33C4B /* TitleSwitch.cpp */,
 				3365B70C1A43D29000B33C4B /* TitleSwitch.h */,
 				33C221B71A52C72C00A20105 /* DirectionController.cpp */,
@@ -1671,7 +1666,6 @@
 				3365B7A01A43D29000B33C4B /* sqlite3.c in Sources */,
 				3365B7921A43D29000B33C4B /* SaveData.cpp in Sources */,
 				78B4DA011A47192C0077C418 /* mztools.c in Sources */,
-				3365B7891A43D29000B33C4B /* TableViewEx.cpp in Sources */,
 				3365B7911A43D29000B33C4B /* md5.cpp in Sources */,
 				33CCF7261A6520BC00FFCA3C /* lua_decryption_loader.cpp in Sources */,
 				33584C5F1A45315200A9B62A /* egif_lib.c in Sources */,

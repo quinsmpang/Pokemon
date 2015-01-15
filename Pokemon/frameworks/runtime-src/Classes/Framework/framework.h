@@ -29,7 +29,6 @@
 #include "ui/MaskLayer.h"
 #include "ui/ModalLayer.h"
 
-#include "controls/TableViewEx.h"
 #include "controls/EncryptedTMXLayer.h"
 #include "controls/EncryptedTMXTiledMap.h"
 #include "controls/ListMenuItem.h"

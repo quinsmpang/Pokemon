@@ -30,6 +30,7 @@ function DirectionRockerLayer:init()
 
 	local winSize = cc.Director:getInstance():getWinSize()
 
+	-- rocker
 	local bgNode = cc.Sprite:createWithSpriteFrameName("images/common/controller_bg.png")
 	local rockerNode = cc.Sprite:createWithSpriteFrameName("images/common/rocker.png")
 	local rocker = DirectionController:create(bgNode, rockerNode)
@@ -44,6 +45,13 @@ function DirectionRockerLayer:init()
 	rocker:registerScriptHandler(MakeScriptHandler(self, self.onControlDirection, DirectionRockerLayer.MOVE_EVENT, Enumerations.DIRECTIONS.DOWN), pf.Handler.DIRECTIONCONTROLLER_ON_DOWN)
 	rocker:registerScriptHandler(MakeScriptHandler(self, self.onControlDirection, DirectionRockerLayer.MOVE_EVENT, -1), pf.Handler.DIRECTIONCONTROLLER_ON_STOP)
 	rocker:setScriptDelegate()
+
+	local menu = cc.Menu:create()
+	menu:setPosition(0, 0)
+	self:addChild(menu)
+	-- menu button
+
+	-- walking/running transfer button
 end
 
 -- eventType为DirectionRockerLayer.MOVE_EVENT时, param为方向(松开则为-1)

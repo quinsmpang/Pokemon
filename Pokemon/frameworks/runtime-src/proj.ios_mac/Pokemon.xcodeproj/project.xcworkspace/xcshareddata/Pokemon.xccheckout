@@ -10,29 +10,29 @@
 	<string>Pokemon</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>8624B506-C397-4D8A-A12D-3572FE267EF7</key>
-		<string>ssh://github.com/wanmaple/Pokemon.git</string>
+		<key>37379C2CFE6A33AE9137C2C5C58B6896FB81A5EC</key>
+		<string>github.com:wanmaple/Pokemon.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Pokemon/frameworks/runtime-src/proj.ios_mac/Pokemon.xcodeproj/project.xcworkspace</string>
+	<string>Pokemon/frameworks/runtime-src/proj.ios_mac/Pokemon.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>8624B506-C397-4D8A-A12D-3572FE267EF7</key>
+		<key>37379C2CFE6A33AE9137C2C5C58B6896FB81A5EC</key>
 		<string>../../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/wanmaple/Pokemon.git</string>
+	<string>github.com:wanmaple/Pokemon.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>8624B506-C397-4D8A-A12D-3572FE267EF7</string>
+	<string>37379C2CFE6A33AE9137C2C5C58B6896FB81A5EC</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>8624B506-C397-4D8A-A12D-3572FE267EF7</string>
+			<string>37379C2CFE6A33AE9137C2C5C58B6896FB81A5EC</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Pokemon</string>
 		</dict>
