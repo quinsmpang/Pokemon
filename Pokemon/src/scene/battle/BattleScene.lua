@@ -7,6 +7,8 @@
 class("BattleScene", psGameScene)
 
 require "src/scene/battle/BattleUIController"
+require "src/scene/battle/BattleDialogController"
+require "src/scene/battle/BattleAnimationController"
 
 BattleScene.resources = {
 	"images/battle_1.plist",
@@ -23,6 +25,10 @@ function BattleScene:onEnterTransitionDidFinish()
 	
 	local battleUIController = BattleUIController:create()
 	self:loadViewController(battleUIController)
+	local battleDialogController = BattleDialogController:create()
+	self:loadViewController(battleDialogController)
+	local battleAnimationController = BattleAnimationController:create()
+	self:loadViewController(battleAnimationController)
 end
 
 function BattleScene:onExit()

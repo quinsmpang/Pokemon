@@ -408,6 +408,7 @@ function MapLayerController:onHeroMoved()
 			local callFunc = cc.CallFunc:create(MakeScriptHandler(self, self.enterBattleView, encounter))
 			local action = cc.Sequence:create(
 				transition,
+				cc.DelayTime:create(0.5),
 				callFunc
 				)
 			self.currentMap:runAction(action)

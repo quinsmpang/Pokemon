@@ -160,5 +160,10 @@ Enumerations.BATTLE_TYPE = {
 	WILD = 1,		-- 野生精灵遭遇
 	TRAINER_1V1 = 2,	-- 1v1战斗
 	TRAINER_2V2 = 3,	-- 2v2战斗
-	CONNECTION = 4,		-- 联机对战
+	TRAINER_3V3_TOGETHER = 4,	-- 3v3战斗(共存制)
+	TRAINER_3V3_ROTATION = 5,	-- 3v3战斗(旋转制)
+	CONNECTION_1V1 = 6,		-- 联机对战1v1
+	CONNECTION_2V2 = 7,		-- 联机对战2v2
+	CONNECTION_3V3_TOGETHER = 6,	-- 联机对战3v3(共存制)
+	CONNECTION_3V3_ROTATION = 7,	-- 联机对战3v3(旋转制)
 }

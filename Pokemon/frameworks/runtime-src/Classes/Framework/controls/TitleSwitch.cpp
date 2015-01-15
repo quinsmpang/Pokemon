@@ -1,6 +1,6 @@
 #include "TitleSwitch.h"
 #include "../lua/LuaUtils.h"
-#include "../Win32/Win32EventListenerKeyboard.h"
+#include "../win32/Win32EventListenerKeyboard.h"
 #include "../win32/Win32Notifier.h"
 #include <new>
 
