@@ -30,19 +30,6 @@
                 <key>sourceSize</key>
                 <string>{800,686}</string>
             </dict>
-            <key>images/collection/ball_owning.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1007,0},{16,16}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{16,16}}</string>
-                <key>sourceSize</key>
-                <string>{16,16}</string>
-            </dict>
             <key>images/collection/collection_back.png</key>
             <dict>
                 <key>frame</key>
@@ -137,7 +124,7 @@
             <key>images/collection/shallow_gray.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1007,16},{10,10}}</string>
+                <string>{{1007,0},{10,10}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -170,7 +157,7 @@
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ef859ad6bbbdb56e15fc3d4ff7a4efab:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:6d03b686ad00735465a29984b078008c:1/1$</string>
             <key>textureFileName</key>
             <string>collection.pvr.ccz</string>
         </dict>

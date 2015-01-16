@@ -67,14 +67,19 @@ NotifyEvents.Bag.ItemSelected = "NotifyEvents.Bag.ItemSelected"
 -- 图鉴界面事件
 NotifyEvents.Collection = NotifyEvents.Collection or {}
 
--- 图鉴主界面键盘事件
+-- 图鉴主界面键盘事件 CollectionView通知, CollectionViewController观察
 NotifyEvents.Collection.MainViewKeyResponsed = "NotifyEvents.Collection.MainViewKeyResponsed"
--- 图鉴选择变更
+-- 图鉴选择变更 CollectionView通知, CollectionViewController观察
 NotifyEvents.Collection.CollectionSelectionChanged = "NotifyEvents.Collection.CollectionSelectionChanged"
--- 图鉴选择
+-- 图鉴选择 CollectionView通知, CollectionViewController观察
 NotifyEvents.Collection.CollectionSelected = "NotifyEvents.Collection.CollectionSelected"
--- 图鉴详情界面事件
+-- 图鉴详情界面事件 CollectionView通知, CollectionViewController观察
 NotifyEvents.Collection.DetailViewKeyResponsed = "NotifyEvents.Collection.DetailViewKeyResponsed"
 
 -- 战斗事件
 NotifyEvents.Battle = NotifyEvents.Battle or {}
+
+-- 需要响应战斗对话框 BattleUIController通知, BattleDialogController观察
+NotifyEvents.Battle.UpdateDialog = "NotifyEvents.Battle.UpdateDialog"
+-- 战斗对话显示完成 BattleDialogController通知, BattleUIController观察
+NotifyEvents.Battle.DialogEnded = "NotifyEvents.Battle.DialogEnded"

@@ -6,6 +6,10 @@
 
 class("BattleUIController", psViewController)
 
+require "src/scene/battle/BattleLogicConstants"
+require "src/scene/battle/EnemyPokemonBoard"
+require "src/scene/battle/BattleStateMachine"
+
 BattleUIController.root = nil
 BattleUIController.fieldPlayer = nil
 BattleUIController.fieldEnemy = nil
@@ -29,11 +33,11 @@ function BattleUIController:unload()
 end
 
 function BattleUIController:addObservers()
-
+	Notifier:addObserver(NotifyEvents.Battle.DialogEnded, self, self.onDialogEnded)
 end
 
 function BattleUIController:removeObservers()
-
+	Notifier:removeObserver(NotifyEvents.Battle.DialogEnded, self)
 end
 
 function BattleUIController:renderView()
@@ -72,6 +76,9 @@ function BattleUIController:renderView()
 	self.root:addChild(fieldEnemy)
 	self.fieldEnemy = fieldEnemy
 
+	-- 初始化状态机
+	BattleStateMachine:init(battleType)
+
 	if battleType == Enumerations.BATTLE_TYPE.WILD then
 		-- 野生精灵对战 直接显示野生精灵
 		local pokemonId = self:getScene():getIntAttribute("pokemon_id")
@@ -80,6 +87,9 @@ function BattleUIController:renderView()
 		-- 随机生成神奇宝贝
 		local pokemonModel = Pokemon:create(pokemonId, pokemonLevel)
 		self.wildPokemonModel = pokemonModel
+
+		-- 添加进入图鉴
+		DataCenter:addNewCollection(pokemonId, false)
 
 		self:beginBattleWild1v1(pokemonModel)
 	elseif battleType == Enumerations.BATTLE_TYPE.TRAINER_1V1 then
@@ -101,34 +111,48 @@ function BattleUIController:beginBattleAnimation()
 		)
 
 	if self.battleType == Enumerations.BATTLE_TYPE.WILD then
-		-- 显示遭遇精灵面板
-		local enemyBoard = cc.Scale9Sprite:createWithSpriteFrameName("images/common/back_gray.png", CCRectMake(10, 10, 30, 30))
-		enemyBoard:setPreferredSize(CCSizeMake(240, 64))
-		enemyBoard:setPosition(winSize.width * -0.2, winSize.height * 0.85)
-		self.root:addChild(enemyBoard)
-		self.enemyBoard = enemyBoard
-
-		local lblWildName = cc.Label:createWithTTF(self.wildPokemonModel.model.name, GameConfig.DEFAULT_FONT_PATH, 15)
-		-- lblWildName:enableOutline(ccc4(0, 0, 0, 1), 4)
-		lblWildName:setPosition(enemyBoard:getContentSize().width * 0.15, enemyBoard:getContentSize().height * 0.77)
-		enemyBoard:addChild(lblWildName)
-
 		action = cc.Sequence:create(
 			action,
-			cc.TargetedAction:create(enemyBoard, cc.MoveBy:create(0.8, ccp(winSize.width * 0.4, 0)))
+			cc.TargetedAction:create(self.enemyBoard, cc.MoveBy:create(0.8, ccp(winSize.width * 0.4, 0))),
+			cc.CallFunc:create(MakeScriptHandler(self, self.notifyUpdatingDialog, "WILD_POKEMON_OCCUR", self.wildPokemonModel.model.name))
 			)
 	end
 
 	self.root:runAction(action)
 end
 
+function BattleUIController:notifyUpdatingDialog(sender, dialogKey, ...)
+	log("BattleUIController:notifyUpdatingDialog", dialogKey, ...)
+	Notifier:notify(NotifyEvents.Battle.UpdateDialog, dialogKey, ...)
+end
+
 function BattleUIController:beginBattleWild1v1(pokemonModel)
-	local data = ZipHelper:getInstance():getFileDataInZip("images/pokemons.rc", string.format("%03d.png", pokemonModel.id), GameConfig.ZIP_PASSWORD)
+	local formatStr = nil
+	-- 是否是闪光？
+	if pokemonModel.isShining then
+		formatStr = "%03d_s.png"
+	else
+		formatStr = "%03d.png"
+	end
+	local data = ZipHelper:getInstance():getFileDataInZip("images/pokemons.rc", string.format(formatStr, pokemonModel.id), GameConfig.ZIP_PASSWORD)
 	local wildPokemon = ImageUtils:getInstance():createSpriteWithBinaryData(data)
 	wildPokemon:setScale(2)
 	wildPokemon:setPosition(self.fieldEnemy:getContentSize().width * 0.5, self.fieldEnemy:getContentSize().height * 0.5)
 	wildPokemon:setAnchorPoint(0.5, 0)
 	self.fieldEnemy:addChild(wildPokemon)
 
+	-- 遭遇精灵面板初始化
+	local winSize = cc.Director:getInstance():getWinSize()
+
+	local board = EnemyPokemonBoard:create(pokemonModel)
+	board:setPosition(winSize.width * -0.2, winSize.height * 0.85)
+	self.root:addChild(board)
+	self.enemyBoard = board
+
 	self:beginBattleAnimation()
+end
+
+function BattleUIController:onDialogEnded()
+	log("BattleUIController:onDialogEnded")
+	BattleStateMachine:process()
 end

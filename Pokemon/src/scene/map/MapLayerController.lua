@@ -49,6 +49,7 @@ end
 
 function MapLayerController:unload()
 	log("MapLayerController:unload")
+	self.root:removeFromParent()
 	self:cleanResources()
 	self:removeObservers()
 end

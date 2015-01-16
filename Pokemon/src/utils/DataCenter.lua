@@ -64,6 +64,17 @@ function DataCenter:addPokemonToComputer(pokemon)
 	return existPos
 end
 
+function DataCenter:isPokemonCaptured(pokemonId)
+	if not self.collectionData then
+		return false
+	end
+	if self.collectionData[pokemonId] then
+		return true
+	else
+		return false
+	end
+end
+
 function DataCenter:addNewCollection(pokemonId, catched)
 	assert(type(pokemonId) == "number" and pokemonId >= 1 and pokemonId <= 649, "invalide pokemon id")
 	if catched == nil then

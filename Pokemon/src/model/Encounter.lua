@@ -11,6 +11,7 @@ Encounter.width = DBNULL
 Encounter.height = DBNULL
 Encounter.bgType = DBNULL		-- 战斗背景类型
 Encounter.fieldType = DBNULL	-- 战斗区域类型
+Encounter.encounterRate = DBNULL	-- 遭遇概率
 Encounter.pets = DBNULL			-- 遭遇精灵信息
 
 function Encounter:create(encounterInfo)
@@ -29,6 +30,7 @@ function Encounter:initWithInfo(encounterInfo)
 	self.width = encounterInfo["width"] / 32
 	self.height = encounterInfo["height"] / 32
 	self.bgType = tonumber(encounterInfo["bg_type"])
+	self.encounterRate = tonumber(encounterInfo["encounter_rate"])
 	self.fieldType = tonumber(encounterInfo["field_type"])
 	self.pets = {}
 	local ary = string.split(encounterInfo["pets"], ",")

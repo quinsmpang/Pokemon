@@ -32,18 +32,13 @@ function luaClass(className, super)
 				instance = {}
 			end
 
-			setmetatable(instance, self)
 			-- set template pointer
-			instance.__class = self
+			setmetatable(instance, self)
 			-- set class template
-			instance:init()
+			instance.__class = self
 
 			return instance
 		end
-	end
-
-	-- You can override this method to initialize.
-	function class:init(...)
 	end
 
 	_G[className] = class
