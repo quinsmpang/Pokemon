@@ -50,6 +50,12 @@ function DirectionRockerLayer:init()
 	menu:setPosition(0, 0)
 	self:addChild(menu)
 	-- menu button
+	local normalSprite, selectedSprite
+	normalSprite = cc.Sprite:createWithSpriteFrameName("images/map/btn_menu.png")
+	selectedSprite = cc.Sprite:createWithSpriteFrameName("images/map/btn_menu.png")
+	local btnMenu = cc.MenuItemSprite:create(normalSprite, selectedSprite)
+	btnMenu:setPosition(winSize.width - 25, winSize.height - 25)
+	menu:addChild(btnMenu)
 
 	-- walking/running transfer button
 end

@@ -3,7 +3,9 @@
 #include "../threading/Thread.h"
 #include "LuaBasicConversions.h"
 #include "LuaEngineEx.h"
+extern "C" {
 #include "tolua_fix.h"
+}
 
 using namespace cocos2d;
 using namespace framework;

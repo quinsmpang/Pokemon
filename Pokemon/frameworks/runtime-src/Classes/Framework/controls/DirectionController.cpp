@@ -92,6 +92,10 @@ namespace framework
     {
         CC_UNUSED_PARAM(unused_event);
         
+        if (!_isEnabled) {
+            return false;
+        }
+        
         for (Node *c = this->_parent; c != nullptr; c = c->getParent())
         {
             if (c->isVisible() == false)

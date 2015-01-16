@@ -4,6 +4,45 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>images/map/btn_menu.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{65,134},{42,42}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{42,42}}</string>
+                <key>sourceSize</key>
+                <string>{42,42}</string>
+            </dict>
+            <key>images/map/btn_run.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{65,92},{42,42}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{42,42}}</string>
+                <key>sourceSize</key>
+                <string>{42,42}</string>
+            </dict>
+            <key>images/map/btn_walk.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{65,50},{42,42}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{42,42}}</string>
+                <key>sourceSize</key>
+                <string>{42,42}</string>
+            </dict>
             <key>images/map/dialog_indice.png</key>
             <dict>
                 <key>frame</key>
@@ -20,7 +59,7 @@
             <key>images/map/icon_back.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{97,82},{16,16}}</string>
+                <string>{{0,170},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +72,7 @@
             <key>images/map/icon_bag.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{65,84},{16,16}}</string>
+                <string>{{107,164},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +85,7 @@
             <key>images/map/icon_collection.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{81,82},{16,16}}</string>
+                <string>{{107,148},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +98,7 @@
             <key>images/map/icon_contact.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{101,66},{16,16}}</string>
+                <string>{{107,132},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +111,7 @@
             <key>images/map/icon_info.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{65,68},{16,16}}</string>
+                <string>{{107,116},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +124,7 @@
             <key>images/map/icon_pokemon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{85,66},{16,16}}</string>
+                <string>{{107,100},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +137,7 @@
             <key>images/map/icon_record.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{101,50},{16,16}}</string>
+                <string>{{107,84},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +150,7 @@
             <key>images/map/icon_setting.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{85,50},{16,16}}</string>
+                <string>{{107,68},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,7 +176,7 @@
             <key>images/map/menu_cursor.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{65,50},{18,20}}</string>
+                <string>{{107,50},{18,20}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -170,7 +209,7 @@
             <key>size</key>
             <string>{128,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:cb0a1b1dda9e5bc1837ceef2fd1d56e1:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:d031bac48db79000d46da14917b022ba:1/1$</string>
             <key>textureFileName</key>
             <string>map.pvr.ccz</string>
         </dict>

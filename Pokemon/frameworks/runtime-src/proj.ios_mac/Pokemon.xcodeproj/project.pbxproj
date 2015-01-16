@@ -104,6 +104,7 @@
 		33C657FA1A612B1500CCBA97 /* JsonFormatter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C657F81A612B1500CCBA97 /* JsonFormatter.cpp */; };
 		33CCF6AD1A638B5B00FFCA3C /* RegexUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33CCF6AB1A638B5B00FFCA3C /* RegexUtils.cpp */; };
 		33CCF7261A6520BC00FFCA3C /* lua_decryption_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33CCF7241A6520BC00FFCA3C /* lua_decryption_loader.cpp */; };
+		33CCF7A71A68DFD400FFCA3C /* CheckedButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33CCF7A51A68DFD400FFCA3C /* CheckedButton.cpp */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; };
 		5023811917EBBCAC00990C9B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5023810917EBBCAC00990C9B /* Default-568h@2x.png */; };
 		5023811A17EBBCAC00990C9B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5023810A17EBBCAC00990C9B /* Default.png */; };
@@ -566,6 +567,8 @@
 		33CCF6AC1A638B5B00FFCA3C /* RegexUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexUtils.h; sourceTree = "<group>"; };
 		33CCF7241A6520BC00FFCA3C /* lua_decryption_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_decryption_loader.cpp; sourceTree = "<group>"; };
 		33CCF7251A6520BC00FFCA3C /* lua_decryption_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_decryption_loader.h; sourceTree = "<group>"; };
+		33CCF7A51A68DFD400FFCA3C /* CheckedButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CheckedButton.cpp; sourceTree = "<group>"; };
+		33CCF7A61A68DFD400FFCA3C /* CheckedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckedButton.h; sourceTree = "<group>"; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		5023810817EBBCAC00990C9B /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = "<group>"; };
 		5023810917EBBCAC00990C9B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -842,6 +845,8 @@
 				3365B70C1A43D29000B33C4B /* TitleSwitch.h */,
 				33C221B71A52C72C00A20105 /* DirectionController.cpp */,
 				33C221B81A52C72C00A20105 /* DirectionController.h */,
+				33CCF7A51A68DFD400FFCA3C /* CheckedButton.cpp */,
+				33CCF7A61A68DFD400FFCA3C /* CheckedButton.h */,
 			);
 			path = controls;
 			sourceTree = "<group>";
@@ -1687,6 +1692,7 @@
 				3365B78F1A43D29000B33C4B /* aes.cpp in Sources */,
 				3365B7861A43D29000B33C4B /* EncryptedTMXTiledMap.cpp in Sources */,
 				3365B79E1A43D29000B33C4B /* GameScene.cpp in Sources */,
+				33CCF7A71A68DFD400FFCA3C /* CheckedButton.cpp in Sources */,
 				3365B7821A43D29000B33C4B /* Queue.cpp in Sources */,
 				3365B7A51A43D29000B33C4B /* CoreLayer.cpp in Sources */,
 				3365B7971A43D29000B33C4B /* threading.c in Sources */,
