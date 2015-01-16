@@ -7,7 +7,7 @@
             <key>images/common/arrow.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{453,136},{24,25}}</string>
+                <string>{{248,240},{24,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -17,10 +17,62 @@
                 <key>sourceSize</key>
                 <string>{24,25}</string>
             </dict>
+            <key>images/common/back_aqua.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{453,161},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{51,51}</string>
+            </dict>
+            <key>images/common/back_gray.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{459,108},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{51,51}</string>
+            </dict>
+            <key>images/common/back_rose.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{459,55},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{51,51}</string>
+            </dict>
+            <key>images/common/back_white.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{459,2},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{51,51}</string>
+            </dict>
             <key>images/common/black_back.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{501,61},{5,5}}</string>
+                <string>{{505,221},{5,5}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +137,7 @@
             <key>images/common/border_orange.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{350,272},{100,100}}</string>
+                <string>{{2,324},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +150,7 @@
             <key>images/common/border_orange_transparent.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,324},{100,100}}</string>
+                <string>{{127,322},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +163,7 @@
             <key>images/common/border_red.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{127,322},{100,100}}</string>
+                <string>{{350,272},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -163,7 +215,7 @@
             <key>images/common/btn_orange.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{459,54},{80,40}}</string>
+                <string>{{453,266},{80,40}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -228,11 +280,11 @@
             <key>images/common/menu_cursor.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{480,136},{15,17}}</string>
+                <string>{{495,266},{15,17}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{15,17}}</string>
                 <key>sourceSize</key>
@@ -241,7 +293,7 @@
             <key>images/common/rocker.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{459,2},{50,50}}</string>
+                <string>{{453,214},{50,50}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -267,7 +319,7 @@
             <key>images/common/white_back.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{501,54},{5,5}}</string>
+                <string>{{505,214},{5,5}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -287,7 +339,7 @@
             <key>size</key>
             <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:907d372d1a7e5c61b8b79f37eb590cd4:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:dca6fb996384be7f568ca0925c1e34e0:1/1$</string>
             <key>textureFileName</key>
             <string>common.pvr.ccz</string>
         </dict>

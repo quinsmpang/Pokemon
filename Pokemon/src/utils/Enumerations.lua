@@ -40,22 +40,23 @@ Enumerations.RESPONSE_TYPE = {
 -- 属性
 Enumerations.PROPERTIES = {
 	NORMAL = 1,		-- 普通
-	WRESTLE = 2,	-- 格斗
-	FLY = 3,		-- 飞行
+	FIGHTING = 2,	-- 格斗
+	FLYING = 3,		-- 飞行
 	POISON = 4,		-- 毒
 	GROUND = 5,		-- 地
-	STONE = 6,		-- 岩
-	INSECT = 7,		-- 虫
+	ROCK = 6,		-- 岩
+	BUG = 7,		-- 虫
 	GHOST = 8,		-- 鬼
 	STEEL = 9,		-- 钢
 	FIRE = 10,		-- 火
 	WATER = 11, 	-- 水
 	GRASS = 12,		-- 草
-	ELECTRICITY = 13,	-- 电
-	SUPER = 14, 	-- 超能
+	ELECTRIC = 13,	-- 电
+	PSYCHIC = 14, 	-- 超能
 	ICE = 15,		-- 冰
 	DRAGON = 16,	-- 龙
-	EVIL = 17,		-- 恶
+	DARK = 17,		-- 恶
+	FAIRY = 18,		-- 妖精
 }
 
 -- 宠物状态

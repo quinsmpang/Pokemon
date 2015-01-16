@@ -76,7 +76,7 @@ function PokemonDetailView:init(pokemon)
 	self:addChild(list)
 	self.menu = list
 
-	local pokemonBg = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/back_gray.png", CCRectMake(10, 10, 31, 31))
+	local pokemonBg = cc.Scale9Sprite:createWithSpriteFrameName("images/common/back_gray.png", CCRectMake(10, 10, 31, 31))
 	pokemonBg:setPreferredSize(CCSizeMake(225, 325))
 	pokemonBg:setAnchorPoint(ccp(0, 1))
 	pokemonBg:setPosition(185, winSize.height - 20)
@@ -87,7 +87,7 @@ function PokemonDetailView:init(pokemon)
 	lblNo:setPosition(10, pokemonBg:getContentSize().height - 10)
 	pokemonBg:addChild(lblNo)
 
-	local whiteBg = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/back_white.png", CCRectMake(10, 10, 31, 31))
+	local whiteBg = cc.Scale9Sprite:createWithSpriteFrameName("images/common/back_white.png", CCRectMake(10, 10, 31, 31))
 	whiteBg:setPreferredSize(CCSizeMake(200, 200))
 	whiteBg:setPosition(pokemonBg:getContentSize().width * 0.5, pokemonBg:getContentSize().height * 0.58)
 	pokemonBg:addChild(whiteBg)

@@ -222,9 +222,9 @@ function PokemonMainView:createPokemonCell(index)
 	if self.pokemonList[index + 1] then
 		local pokemon = self.pokemonList[index + 1]
 		if pokemon.currentHp > 0 then
-			cell = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/back_aqua.png", CCRectMake(10, 10, 30, 30))
+			cell = cc.Scale9Sprite:createWithSpriteFrameName("images/common/back_aqua.png", CCRectMake(10, 10, 30, 30))
 		else
-			cell = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/back_rose.png", CCRectMake(10, 10, 30, 30))
+			cell = cc.Scale9Sprite:createWithSpriteFrameName("images/common/back_rose.png", CCRectMake(10, 10, 30, 30))
 		end
 		cell:setPreferredSize(CCSizeMake(winSize.width * 0.4, winSize.height * 0.18))
 
@@ -308,7 +308,7 @@ function PokemonMainView:createPokemonCell(index)
      		cell:addChild(spStatus)
      	end
 	else
-		cell = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/back_gray.png", CCRectMake(10, 10, 30, 30))
+		cell = cc.Scale9Sprite:createWithSpriteFrameName("images/common/back_gray.png", CCRectMake(10, 10, 30, 30))
 		cell:setPreferredSize(CCSizeMake(winSize.width * 0.4, winSize.height * 0.18))
 
 		local label = cc.Label:createWithTTF("无携带精灵", GameConfig.DEFAULT_FONT_PATH, 20)

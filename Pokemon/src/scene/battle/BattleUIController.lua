@@ -9,6 +9,9 @@ class("BattleUIController", psViewController)
 BattleUIController.root = nil
 BattleUIController.fieldPlayer = nil
 BattleUIController.fieldEnemy = nil
+BattleUIController.enemyBoard = nil		-- 1v1
+
+BattleUIController.wildPokemonModel = nil	-- wild 1v1
 
 BattleUIController.battleType = nil
 BattleUIController.bgType = nil
@@ -76,6 +79,7 @@ function BattleUIController:renderView()
 
 		-- 随机生成神奇宝贝
 		local pokemonModel = Pokemon:create(pokemonId, pokemonLevel)
+		self.wildPokemonModel = pokemonModel
 
 		self:beginBattleWild1v1(pokemonModel)
 	elseif battleType == Enumerations.BATTLE_TYPE.TRAINER_1V1 then
@@ -95,6 +99,26 @@ function BattleUIController:beginBattleAnimation()
 		cc.TargetedAction:create(self.fieldPlayer, cc.MoveBy:create(3, ccp(-winSize.width, 0))),
 		cc.TargetedAction:create(self.fieldEnemy, cc.MoveBy:create(3, ccp(winSize.width, 0)))
 		)
+
+	if self.battleType == Enumerations.BATTLE_TYPE.WILD then
+		-- 显示遭遇精灵面板
+		local enemyBoard = cc.Scale9Sprite:createWithSpriteFrameName("images/common/back_gray.png", CCRectMake(10, 10, 30, 30))
+		enemyBoard:setPreferredSize(CCSizeMake(240, 64))
+		enemyBoard:setPosition(winSize.width * -0.2, winSize.height * 0.85)
+		self.root:addChild(enemyBoard)
+		self.enemyBoard = enemyBoard
+
+		local lblWildName = cc.Label:createWithTTF(self.wildPokemonModel.model.name, GameConfig.DEFAULT_FONT_PATH, 15)
+		-- lblWildName:enableOutline(ccc4(0, 0, 0, 1), 4)
+		lblWildName:setPosition(enemyBoard:getContentSize().width * 0.15, enemyBoard:getContentSize().height * 0.77)
+		enemyBoard:addChild(lblWildName)
+
+		action = cc.Sequence:create(
+			action,
+			cc.TargetedAction:create(enemyBoard, cc.MoveBy:create(0.8, ccp(winSize.width * 0.4, 0)))
+			)
+	end
+
 	self.root:runAction(action)
 end
 
