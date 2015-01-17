@@ -8,5 +8,5 @@ BattleLogicConstants = {}
 
 BattleLogicConstants.BATTLE_STATE = {
 	PREPARE = "prepare",
-	BATTLE_BEGIN = "beginBattle",
+	BATTLE_START = "battle_start",
 }

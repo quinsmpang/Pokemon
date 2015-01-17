@@ -134,3 +134,13 @@ function DataCenter:addMoney(money)
 	end
 	self.money = self.money + money
 end
+
+-- 获取第一个可战斗的精灵
+function DataCenter:getFirstAvailablePokemon()
+	for _, pokemon in ipairs(self.carriedPokemons) do
+		if pokemon.currentHp > 0 then
+			return pokemon
+		end
+	end
+	return nil
+end
