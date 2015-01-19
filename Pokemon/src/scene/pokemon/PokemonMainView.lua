@@ -222,9 +222,9 @@ function PokemonMainView:createPokemonCell(index)
 	if self.pokemonList[index + 1] then
 		local pokemon = self.pokemonList[index + 1]
 		if pokemon.currentHp > 0 then
-			cell = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/back_aqua.png", CCRectMake(10, 10, 30, 30))
+			cell = cc.Scale9Sprite:createWithSpriteFrameName("images/common/back_aqua.png", CCRectMake(10, 10, 30, 30))
 		else
-			cell = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/back_rose.png", CCRectMake(10, 10, 30, 30))
+			cell = cc.Scale9Sprite:createWithSpriteFrameName("images/common/back_rose.png", CCRectMake(10, 10, 30, 30))
 		end
 		cell:setPreferredSize(CCSizeMake(winSize.width * 0.4, winSize.height * 0.18))
 
@@ -233,15 +233,15 @@ function PokemonMainView:createPokemonCell(index)
 
 		local hpRate = pokemon.currentHp / pokemon.basicData.hp
 		local dt = 0.1
-		local hpFrameName = "images/pokemon/hp_green.png"
+		local hpFrameName = "images/common/hp_green.png"
 		if hpRate <= 0 then
 			dt = 0.8
 		elseif hpRate <= 0.1 then
 			dt = 0.5
-			hpFrameName = "images/pokemon/hp_red.png"
+			hpFrameName = "images/common/hp_red.png"
 		elseif hpRate <= 0.5 then
 			dt = 0.2
-			hpFrameName = "images/pokemon/hp_yellow.png"
+			hpFrameName = "images/common/hp_yellow.png"
 		end
 		local animate = ImageUtils:getInstance():createAnimationByFrames(frames, dt)
 		local action = cc.RepeatForever:create(animate)
@@ -272,12 +272,12 @@ function PokemonMainView:createPokemonCell(index)
 		cell:addChild(lblLv)
 
 		-- 性别
-		local spGender = cc.Sprite:createWithSpriteFrameName(pokemon.gender == 0 and "images/pokemon/icon_male.png" or "images/pokemon/icon_female.png")
+		local spGender = cc.Sprite:createWithSpriteFrameName(pokemon.gender == 0 and "images/common/icon_male.png" or "images/common/icon_female.png")
 		spGender:setPosition(cell:getContentSize().width * 0.42, cell:getContentSize().height * 0.31)
 		cell:addChild(spGender)
 
 		-- hp槽
-		local hpBack = cc.Sprite:createWithSpriteFrameName("images/pokemon/hp_back.png")
+		local hpBack = cc.Sprite:createWithSpriteFrameName("images/common/hp_back.png")
 		hpBack:setPosition(cell:getContentSize().width * 0.75, cell:getContentSize().height * 0.6)
 		cell:addChild(hpBack)
 		local spHp = cc.Sprite:createWithSpriteFrameName(hpFrameName)
@@ -303,12 +303,12 @@ function PokemonMainView:createPokemonCell(index)
 
      	-- 异常状态
      	if pokemon.status > 0 then
-     		local spStatus = cc.Sprite:createWithSpriteFrameName("images/pokemon/icon_state_" .. pokemon.status .. ".png")
+     		local spStatus = cc.Sprite:createWithSpriteFrameName("images/common/icon_state_" .. pokemon.status .. ".png")
      		spStatus:setPosition(cell:getContentSize().width * 0.58, cell:getContentSize().height * 0.33)
      		cell:addChild(spStatus)
      	end
 	else
-		cell = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/back_gray.png", CCRectMake(10, 10, 30, 30))
+		cell = cc.Scale9Sprite:createWithSpriteFrameName("images/common/back_gray.png", CCRectMake(10, 10, 30, 30))
 		cell:setPreferredSize(CCSizeMake(winSize.width * 0.4, winSize.height * 0.18))
 
 		local label = cc.Label:createWithTTF("无携带精灵", GameConfig.DEFAULT_FONT_PATH, 20)

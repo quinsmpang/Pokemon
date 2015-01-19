@@ -10,6 +10,7 @@ Observer.sender = nil		-- notifier
 Observer.callback = nil		-- callback
 Observer.params = nil		-- params, a table
 
+--[[ Seems that passing nil in "notify" function will cause exception. todo ]]
 function Observer:call(...)
 	local args = {...}
 	for _, arg in ipairs(self.params) do

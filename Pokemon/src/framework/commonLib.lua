@@ -11,11 +11,14 @@ end
 
 -- return type string of the instance
 function GetType(instance)
-	assert(type(instance) == "table" or type(instance) == "userdata", "invalid instance")
-	if instance.__className == nil then
-		return tolua.type(instance)
+	if type(instance) == "table" then
+		if instance.__className == nil then
+			return tolua.type(instance)
+		end
+		return instance.__className
+	else
+		return type(instance)
 	end
-	return instance.__className
 end
 
 -- return instance function pointer

@@ -231,7 +231,7 @@ function CollectionView:itemAtIndex(menu, index)
 		lblName:setTag(self.NAME_LABEL_TAG)
 		item:addChild(lblName)
 		-- capture ball
-		local ball = cc.Sprite:createWithSpriteFrameName("images/collection/ball_owning.png")
+		local ball = cc.Sprite:createWithSpriteFrameName("images/common/ball_owning.png")
 		ball:setAnchorPoint(0, 0.5)
 		ball:setPosition(10, 10)
 		ball:setTag(self.BALL_TAG)

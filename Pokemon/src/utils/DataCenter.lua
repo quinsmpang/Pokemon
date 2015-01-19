@@ -64,6 +64,17 @@ function DataCenter:addPokemonToComputer(pokemon)
 	return existPos
 end
 
+function DataCenter:isPokemonCaptured(pokemonId)
+	if not self.collectionData then
+		return false
+	end
+	if self.collectionData[pokemonId] then
+		return true
+	else
+		return false
+	end
+end
+
 function DataCenter:addNewCollection(pokemonId, catched)
 	assert(type(pokemonId) == "number" and pokemonId >= 1 and pokemonId <= 649, "invalide pokemon id")
 	if catched == nil then
@@ -122,4 +133,14 @@ function DataCenter:addMoney(money)
 		self.money = 0
 	end
 	self.money = self.money + money
+end
+
+-- 获取第一个可战斗的精灵
+function DataCenter:getFirstAvailablePokemon()
+	for _, pokemon in ipairs(self.carriedPokemons) do
+		if pokemon.currentHp > 0 then
+			return pokemon
+		end
+	end
+	return nil
 end

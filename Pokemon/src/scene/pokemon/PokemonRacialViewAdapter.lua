@@ -33,7 +33,7 @@ function PokemonRacialViewAdapter:adapt(detailView)
 	lbltabRacial:setPosition(8.5, tabRacial:getContentSize().height * 0.5)
 	tabRacial:addChild(lbltabRacial)
 
-	local racialBorder = cc.Scale9Sprite:createWithSpriteFrameName("images/pokemon/back_white.png", CCRectMake(10, 10, 30, 30))
+	local racialBorder = cc.Scale9Sprite:createWithSpriteFrameName("images/common/back_white.png", CCRectMake(10, 10, 30, 30))
 	racialBorder:setPreferredSize(CCSizeMake(360, 390))
 	racialBorder:setAnchorPoint(0, 1)
 	racialBorder:setPosition(tabRacial:getPositionX(), tabRacial:getPositionY() - tabRacial:getContentSize().height - 10)

@@ -752,9 +752,8 @@ end
 
 -- 检测是否遭遇野生精灵
 function TMXMapLayer:checkEncounter(position)
-	-- 遭遇概率暂定为20%
-	if FallInRandom(1, 5) then
-		local encounterModel = self.encounterList[position.x .. "," .. position.y]
+	local encounterModel = self.encounterList[position.x .. "," .. position.y]
+	if encounterModel and FallInRandom(encounterModel.encounterRate, 100) then
 		return encounterModel
 	end
 	return nil
