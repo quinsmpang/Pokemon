@@ -4,14 +4,19 @@
 -- @extend Ref
 
 --------------------------------
--- @function [parent=#Vector] addObject 
+-- @function [parent=#Vector] addBoolean 
 -- @param self
--- @param #cc.Ref ref
+-- @param #bool bool
         
 --------------------------------
 -- @function [parent=#Vector] addDouble 
 -- @param self
 -- @param #float float
+        
+--------------------------------
+-- @function [parent=#Vector] addObject 
+-- @param self
+-- @param #cc.Ref ref
         
 --------------------------------
 -- @function [parent=#Vector] getLength 

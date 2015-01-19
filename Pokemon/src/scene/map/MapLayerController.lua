@@ -73,6 +73,7 @@ function MapLayerController:addObservers()
 	Notifier:addObserver(NotifyEvents.MapView.ShowMapMenu, self, self.onShowMapMenu)
 	Notifier:addObserver(NotifyEvents.MapView.HeroMoved, self, self.onHeroMoved)
 	Notifier:addObserver(NotifyEvents.MapView.RockerEvent, self, self.onRockerEvent)
+	Notifier:addObserver(NotifyEvents.MapView.MapMenuClicked, self, self.onMapMenuClicked)
 	Notifier:addObserver(NotifyEvents.MapView.MapStateChanged, self, self.onMapStateChanged)
 end
 
@@ -86,6 +87,7 @@ function MapLayerController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.MapView.ShowMapMenu, self)
 	Notifier:removeObserver(NotifyEvents.MapView.HeroMoved, self)
 	Notifier:removeObserver(NotifyEvents.MapView.RockerEvent, self)
+	Notifier:removeObserver(NotifyEvents.MapView.MapMenuClicked, self)
 	Notifier:removeObserver(NotifyEvents.MapView.MapStateChanged, self)
 
 	Notifier:removeObserver(NotifyEvents.MapView.ActionInstructionsEnded, self)
@@ -120,6 +122,7 @@ function MapLayerController:renderView()
 		mainMenu:setVisible(false)
 		self.mainMenu = mainMenu
 	else
+		-- local mainMenu = cc.TableView:create()
 	end
 
 	self.playerState = PLAYER_STATE.STANDING
@@ -260,6 +263,12 @@ function MapLayerController:onRockerEvent(eventType, param)
 		end
 	elseif eventType == DirectionRockerLayer.BTN_EVENT then
 	end
+end
+
+function MapLayerController:onMapMenuClicked()
+	MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
+	self.mainMenu:validateAllItems()
+	self.mainMenu:setVisible(shown)
 end
 
 function MapLayerController:resetHero(direction)

@@ -41,11 +41,6 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- @function [parent=#ListMenu] onKeyPressed 
--- @param self
--- @param #int int
-        
---------------------------------
 -- @function [parent=#ListMenu] getItemAtIndex 
 -- @param self
 -- @param #long long
@@ -65,11 +60,6 @@
 -- @function [parent=#ListMenu] isTopOverflowed 
 -- @param self
 -- @return bool#bool ret (return value: bool)
-        
---------------------------------
--- @function [parent=#ListMenu] onKeyReleased 
--- @param self
--- @param #int int
         
 --------------------------------
 -- @function [parent=#ListMenu] reloadData 

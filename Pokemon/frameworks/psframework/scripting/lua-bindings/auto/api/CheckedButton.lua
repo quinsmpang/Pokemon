@@ -1,20 +1,25 @@
 
 --------------------------------
--- @module DirectionController
+-- @module CheckedButton
 -- @extend Node
 
 --------------------------------
--- @function [parent=#DirectionController] setEnabled 
+-- @function [parent=#CheckedButton] setEnabled 
 -- @param self
 -- @param #bool bool
         
 --------------------------------
--- @function [parent=#DirectionController] setTouchRadius 
+-- @function [parent=#CheckedButton] setChecked 
 -- @param self
--- @param #float float
+-- @param #bool bool
         
 --------------------------------
--- @function [parent=#DirectionController] isEnabled 
+-- @function [parent=#CheckedButton] isEnabled 
+-- @param self
+-- @return bool#bool ret (return value: bool)
+        
+--------------------------------
+-- @function [parent=#CheckedButton] isChecked 
 -- @param self
 -- @return bool#bool ret (return value: bool)
         
@@ -23,14 +28,14 @@
 --          
 -- overload function: create(string, string)
 --          
--- @function [parent=#DirectionController] create
+-- @function [parent=#CheckedButton] create
 -- @param self
 -- @param #string str
 -- @param #string str
--- @return DirectionController#DirectionController ret (retunr value: pf.DirectionController)
+-- @return CheckedButton#CheckedButton ret (retunr value: pf.CheckedButton)
 
 --------------------------------
--- @function [parent=#DirectionController] DirectionController 
+-- @function [parent=#CheckedButton] CheckedButton 
 -- @param self
         
 return nil

@@ -10,6 +10,7 @@ namespace framework {
         , _uncheckedNode(nullptr)
         , _isChecked(false)
         , _isEnabled(true)
+        , _delegate(nullptr)
     {
     }
     
@@ -58,6 +59,9 @@ namespace framework {
         auto uncheckedSize = uncheckedNode->getContentSize();
         Size fitSize = Size(MAX(checkedSize.width, uncheckedSize.width), MAX(checkedSize.height, uncheckedSize.height));
         this->setContentSize(fitSize);
+        this->setAnchorPoint(Point(0.5, 0.5));
+        checkedNode->setAnchorPoint(Point(0.5, 0.5));
+        uncheckedNode->setAnchorPoint(Point(0.5, 0.5));
         checkedNode->setPosition(fitSize.width * 0.5, fitSize.height * 0.5);
         uncheckedNode->setPosition(fitSize.width * 0.5, fitSize.height * 0.5);
         this->addChild(uncheckedNode);
@@ -102,16 +106,16 @@ namespace framework {
             return false;
         }
         
-        for (Node *c = this->_parent; c != nullptr; c = c->getParent())
+        for (Node *c = this->_parent; c; c = c->getParent())
         {
-            if (c->isVisible() == false)
+            if (!c->isVisible())
             {
                 return false;
             }
         }
         
         Point loc = touch->getLocation();
-		if (_delegate && this->getBoundingBox().containsPoint(loc)) {
+		if (this->getBoundingBox().containsPoint(loc)) {
             return true;
         }
         return false;
@@ -127,12 +131,14 @@ namespace framework {
         CC_UNUSED_PARAM(unused_event);
         
         Point loc = touch->getLocation();
-		if (_delegate && this->getBoundingBox().containsPoint(loc)) {
+		if (this->getBoundingBox().containsPoint(loc)) {
             this->setChecked(!_isChecked);
-            if (_isChecked) {
-                _delegate->onButtonChecked(this);
-            } else {
-                _delegate->onButtonUnchecked(this);
+            if (_delegate) {
+                if (_isChecked) {
+                    _delegate->onButtonChecked(this);
+                } else {
+                    _delegate->onButtonUnchecked(this);
+                }
             }
         }
     }

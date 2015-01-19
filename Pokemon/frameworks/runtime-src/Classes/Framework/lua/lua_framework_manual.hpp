@@ -40,4 +40,14 @@ struct LuaDirectionControllerEventData
     }
 };
 
+struct LuaCheckedButtonEventData
+{
+    void *_value;
+    
+    LuaCheckedButtonEventData(void *value = nullptr)
+        : _value(value)
+    {
+    }
+};
+
 #endif

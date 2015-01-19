@@ -24,11 +24,6 @@
 -- @param #string str
         
 --------------------------------
--- @function [parent=#TitleSwitch] onKeyPressed 
--- @param self
--- @param #int int
-        
---------------------------------
 -- @function [parent=#TitleSwitch] setEventsSwallowed 
 -- @param self
 -- @param #bool bool
@@ -58,14 +53,6 @@
 -- @function [parent=#TitleSwitch] setTitleColor 
 -- @param self
 -- @param #color3B_table color3b
-        
---------------------------------
--- @function [parent=#TitleSwitch] onEnter 
--- @param self
-        
---------------------------------
--- @function [parent=#TitleSwitch] onExit 
--- @param self
         
 --------------------------------
 -- @function [parent=#TitleSwitch] TitleSwitch 

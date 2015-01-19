@@ -54,14 +54,36 @@ function DirectionRockerLayer:init()
 	normalSprite = cc.Sprite:createWithSpriteFrameName("images/map/btn_menu.png")
 	selectedSprite = cc.Sprite:createWithSpriteFrameName("images/map/btn_menu.png")
 	local btnMenu = cc.MenuItemSprite:create(normalSprite, selectedSprite)
+	btnMenu:registerScriptTapHandler(MakeScriptHandler(self, self.onBtnMenuClick))
 	btnMenu:setPosition(winSize.width - 25, winSize.height - 25)
 	menu:addChild(btnMenu)
 
 	-- walking/running transfer button
+	local checkedNode = cc.Sprite:createWithSpriteFrameName("images/map/btn_run.png")
+	local uncheckedNode = cc.Sprite:createWithSpriteFrameName("images/map/btn_walk.png")
+	local btnWalkRun = CheckedButton:create(checkedNode, uncheckedNode)
+	btnWalkRun:setPosition(btnMenu:getPositionX() - 50, btnMenu:getPositionY())
+	btnWalkRun:registerScriptHandler(MakeScriptHandler(self, self.onWalkStateChanged), pf.Handler.CHECKEDBUTTON_ON_CHECKED)
+	btnWalkRun:registerScriptHandler(MakeScriptHandler(self, self.onWalkStateChanged), pf.Handler.CHECKEDBUTTON_ON_UNCHECKED)
+	btnWalkRun:setScriptDelegate()
+	self:addChild(btnWalkRun)
 end
 
 -- eventType为DirectionRockerLayer.MOVE_EVENT时, param为方向(松开则为-1)
 -- eventType为DirectionRockerLayer.BTN_EVENT时, param为确认/取消 (bool)
 function DirectionRockerLayer:onControlDirection(sender, eventType, param)
 	Notifier:notify(NotifyEvents.MapView.RockerEvent, eventType, param)
+end
+
+function DirectionRockerLayer:onBtnMenuClick()
+	Notifier:notify(NotifyEvents.MapView.MapMenuClicked)
+end
+
+function DirectionRockerLayer:onWalkStateChanged(sender)
+	if sender:isChecked() then
+		log("Change walk state to running.")
+	else
+		log("Change walk state to walking.")
+	end
+	self.inRunningState = sender:isChecked()
 end

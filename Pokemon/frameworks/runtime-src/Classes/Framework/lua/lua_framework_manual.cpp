@@ -13,6 +13,7 @@ using namespace framework;
 #define KEY_LISTMENU_DELEGATE "ListMenuDelegate"
 #define KEY_LISTMENU_DATASOURCE "ListMenuDataSource"
 #define KEY_DIRECTIONCONTROLLER_DELEGATE "DirectionControllerDelegate"
+#define KEY_CHECKEDBUTTON_DELEGATE "CheckedButtonDelegate"
 
 /**********************************
 ListMenu extend
@@ -727,7 +728,7 @@ static int lua_framework_DirectionController_registerScriptHandler(lua_State *L)
 		return 0;
 	}
     
-	CCLOG("'registerScriptHandler' function of ListMenu wrong number of arguments: %d, was expecting %d\n", argc, 2);
+	CCLOG("'registerScriptHandler' function of DirectionController wrong number of arguments: %d, was expecting %d\n", argc, 2);
 	return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -794,6 +795,212 @@ static void extendDirectionController(lua_State *L)
 		tolua_function(L, "setScriptDelegate", lua_framework_DirectionController_setScriptDelegate);
 		tolua_function(L, "registerScriptHandler", lua_framework_DirectionController_registerScriptHandler);
 		tolua_function(L, "unregisterScriptHandler", lua_framework_DirectionController_unregisterScriptHandler);
+	}
+	lua_pop(L, 1);
+}
+
+/**********************************
+ CheckedButton extend
+ **********************************/
+class CheckedButtonScriptDelegate : public Ref, public CheckedButtonDelegate
+{
+public:
+    CheckedButtonScriptDelegate() {}
+    virtual ~CheckedButtonScriptDelegate() {}
+    
+    virtual void onButtonChecked(CheckedButton *sender) override
+    {
+        if (sender) {
+            int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)sender, ScriptHandlerMgr::HandlerType::CHECKEDBUTTON_ON_CHECKED);
+            if (handler) {
+                LuaCheckedButtonEventData eventData;
+                BasicScriptData data(sender, &eventData);
+                LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::CHECKEDBUTTON_ON_CHECKED, (void*)&data);
+            }
+        }
+    }
+    
+    virtual void onButtonUnchecked(CheckedButton *sender) override
+    {
+        if (sender) {
+            int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)sender, ScriptHandlerMgr::HandlerType::CHECKEDBUTTON_ON_UNCHECKED);
+            if (handler) {
+                LuaDirectionControllerEventData eventData;
+                BasicScriptData data(sender, &eventData);
+                LuaEngineEx::getInstance()->handleFrameworkEvent(ScriptHandlerMgr::HandlerType::CHECKEDBUTTON_ON_UNCHECKED, (void*)&data);
+            }
+        }
+    }
+};
+
+static int lua_framework_CheckedButton_setScriptDelegate(lua_State *L)
+{
+	if (nullptr == L)
+		return 0;
+    
+	int argc = 0;
+	CheckedButton* self = nullptr;
+    
+#if COCOS2D_DEBUG >= 1
+	tolua_Error tolua_err;
+	if (!tolua_isusertype(L, 1, "pf.CheckedButton", 0, &tolua_err)) goto tolua_lerror;
+#endif
+    
+	self = (CheckedButton*)tolua_tousertype(L, 1, 0);
+    
+#if COCOS2D_DEBUG >= 1
+	if (nullptr == self)
+	{
+		tolua_error(L, "invalid 'self' in function 'lua_framework_CheckedButton_setScriptDelegate'\n", nullptr);
+		return 0;
+	}
+#endif
+    
+	argc = lua_gettop(L) - 1;
+    
+	if (0 == argc)
+	{
+		CheckedButtonScriptDelegate* delegate = new CheckedButtonScriptDelegate();
+		if (nullptr == delegate)
+			return 0;
+        
+		__Dictionary* userDict = static_cast<__Dictionary*>(self->getUserObject());
+		if (nullptr == userDict)
+		{
+			userDict = new __Dictionary();
+			if (NULL == userDict)
+				return 0;
+            
+			self->setUserObject(userDict);
+			userDict->release();
+		}
+        
+        userDict->setObject(delegate, KEY_CHECKEDBUTTON_DELEGATE);
+		self->setDelegate(delegate);
+		delegate->release();
+        
+		return 0;
+	}
+    
+	CCLOG("'setScriptDelegate' function of CheckedButton wrong number of arguments: %d, was expecting %d\n", argc, 0);
+	return 0;
+    
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+	tolua_error(L, "#ferror in function 'setScriptDelegate'.", &tolua_err);
+	return 0;
+#endif
+}
+
+static int lua_framework_CheckedButton_registerScriptHandler(lua_State *L)
+{
+	if (nullptr == L)
+		return 0;
+    
+	int argc = 0;
+	CheckedButton* self = nullptr;
+    
+#if COCOS2D_DEBUG >= 1
+	tolua_Error tolua_err;
+	if (!tolua_isusertype(L, 1, "pf.CheckedButton", 0, &tolua_err)) goto tolua_lerror;
+#endif
+    
+	self = (CheckedButton*)tolua_tousertype(L, 1, 0);
+    
+#if COCOS2D_DEBUG >= 1
+	if (nullptr == self)
+	{
+		tolua_error(L, "invalid 'self' in function 'lua_framework_CheckedButton_registerScriptHandler'\n", nullptr);
+		return 0;
+	}
+#endif
+    
+	argc = lua_gettop(L) - 1;
+    
+	if (2 == argc)
+	{
+#if COCOS2D_DEBUG >= 1
+		if (!toluafix_isfunction(L, 2, "LUA_FUNCTION", 0, &tolua_err) ||
+			!tolua_isnumber(L, 3, 0, &tolua_err))
+		{
+			goto tolua_lerror;
+		}
+#endif
+		LUA_FUNCTION handler = toluafix_ref_function(L, 2, 0);
+		ScriptHandlerMgr::HandlerType handlerType = (ScriptHandlerMgr::HandlerType) ((int)tolua_tonumber(L, 3, 0) + (int)ScriptHandlerMgr::HandlerType::CHECKEDBUTTON_ON_CHECKED);
+        
+		ScriptHandlerMgr::getInstance()->addObjectHandler((void*)self, handler, handlerType);
+        
+		return 0;
+	}
+    
+	CCLOG("'registerScriptHandler' function of CheckedButton wrong number of arguments: %d, was expecting %d\n", argc, 2);
+	return 0;
+    
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+	tolua_error(L, "#ferror in function 'registerScriptHandler'.", &tolua_err);
+	return 0;
+#endif
+}
+
+static int lua_framework_CheckedButton_unregisterScriptHandler(lua_State *L)
+{
+	if (nullptr == L)
+		return 0;
+    
+	int argc = 0;
+	CheckedButton* self = nullptr;
+    
+#if COCOS2D_DEBUG >= 1
+	tolua_Error tolua_err;
+	if (!tolua_isusertype(L, 1, "pf.CheckedButton", 0, &tolua_err)) goto tolua_lerror;
+#endif
+    
+	self = (CheckedButton*)tolua_tousertype(L, 1, 0);
+    
+#if COCOS2D_DEBUG >= 1
+	if (nullptr == self)
+	{
+		tolua_error(L, "invalid 'self' in function 'lua_framework_CheckedButton_unregisterScriptHandler'\n", nullptr);
+		return 0;
+	}
+#endif
+    
+	argc = lua_gettop(L) - 1;
+    
+	if (1 == argc)
+	{
+#if COCOS2D_DEBUG >= 1
+		if (!tolua_isnumber(L, 2, 0, &tolua_err))
+			goto tolua_lerror;
+#endif
+		ScriptHandlerMgr::HandlerType handlerType = (ScriptHandlerMgr::HandlerType) ((int)tolua_tonumber(L, 2, 0) + (int)ScriptHandlerMgr::HandlerType::CHECKEDBUTTON_ON_CHECKED);
+        
+		ScriptHandlerMgr::getInstance()->removeObjectHandler((void*)self, handlerType);
+        
+		return 0;
+	}
+    
+	CCLOG("'unregisterScriptHandler' function of CheckedButton wrong number of arguments: %d, was expecting %d\n", argc, 2);
+	return 0;
+    
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+	tolua_error(L, "#ferror in function 'unregisterScriptHandler'.", &tolua_err);
+	return 0;
+#endif
+}
+
+static void extendCheckedButton(lua_State *L)
+{
+	lua_pushstring(L, "pf.CheckedButton");
+	lua_rawget(L, LUA_REGISTRYINDEX);
+	if (lua_istable(L, -1))
+	{
+		tolua_function(L, "setScriptDelegate", lua_framework_CheckedButton_setScriptDelegate);
+		tolua_function(L, "registerScriptHandler", lua_framework_CheckedButton_registerScriptHandler);
+		tolua_function(L, "unregisterScriptHandler", lua_framework_CheckedButton_unregisterScriptHandler);
 	}
 	lua_pop(L, 1);
 }
@@ -1281,6 +1488,7 @@ int register_all_psframework_manual(lua_State* tolua_S)
 	extendListMenu(tolua_S);
 	extendTitleSwitch(tolua_S);
     extendDirectionController(tolua_S);
+    extendCheckedButton(tolua_S);
 	extendThread(tolua_S);
 	extendWin32EventListenerKeyboard(tolua_S);
 

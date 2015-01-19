@@ -82,6 +82,9 @@ namespace framework
             case ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_DOWN:
             case ScriptHandlerMgr::HandlerType::DIRECTION_CONTROLLER_ON_STOP:
                 return this->handleDirectionControllerEvent(type, data);
+            case ScriptHandlerMgr::HandlerType::CHECKEDBUTTON_ON_CHECKED:
+            case ScriptHandlerMgr::HandlerType::CHECKEDBUTTON_ON_UNCHECKED:
+                return this->handleCheckedButtonEvent(type, data);
             default:
                 break;
 		}
@@ -230,5 +233,36 @@ namespace framework
 		ret = this->getLuaStack()->executeFunctionByHandler(handler, 1);
         
 		return ret;
+    }
+    
+    int LuaEngineEx::handleCheckedButtonEvent(cocos2d::ScriptHandlerMgr::HandlerType type, void *data)
+    {
+        if (!data) {
+            return 0;
+        }
+        
+        BasicScriptData *eventData = static_cast<BasicScriptData*>(data);
+        if (!eventData->nativeObject) {
+            return 0;
+        }
+        
+        LuaCheckedButtonEventData *checkedBtnData = static_cast<LuaCheckedButtonEventData*>(eventData->value);
+        int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)eventData->nativeObject, type);
+        
+        if (!handler) {
+            return 0;
+        }
+        
+        Ref *pObj = static_cast<Ref*>(eventData->nativeObject);
+        
+        if (!pObj) {
+            return 0;
+        }
+        
+        int ret = 0;
+        toluafix_pushusertype_ccobject(this->getLuaStack()->getLuaState(), pObj->_ID, &(pObj->_luaID), (void*)pObj, "pf.CheckedButton");
+        ret = this->getLuaStack()->executeFunctionByHandler(handler, 1);
+        
+        return ret;
     }
 }

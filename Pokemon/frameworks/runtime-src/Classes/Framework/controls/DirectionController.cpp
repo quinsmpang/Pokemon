@@ -64,17 +64,18 @@ namespace framework
         _bg = bgNode;
 		_rocker = rockerNode;
         
+        this->setContentSize(_bg->getContentSize());
         _bg->setAnchorPoint(Point(0.5, 0.5));
 		_rocker->setAnchorPoint(Point(0.5, 0.5));
         // radius is set to the half of the min border size of the bg node.
         float min = MIN(_bg->getContentSize().width, _bg->getContentSize().height);
         _radius = min * 0.5;
         
-        _bg->setPosition(0, 0);
-		_rocker->setPosition(0, 0);
+        _bg->setPosition(this->getContentSize().width * 0.5, this->getContentSize().height * 0.5);
+		_rocker->setPosition(_bg->getPosition());
         this->addChild(_bg);
 		this->addChild(_rocker);
-        this->setContentSize(_bg->getContentSize());
+        this->setAnchorPoint(Point(0.5, 0.5));
         
         // register touch events
         _touchListener = EventListenerTouchOneByOne::create();
@@ -96,9 +97,9 @@ namespace framework
             return false;
         }
         
-        for (Node *c = this->_parent; c != nullptr; c = c->getParent())
+        for (Node *c = this->_parent; c; c = c->getParent())
         {
-            if (c->isVisible() == false)
+            if (!c->isVisible())
             {
                 return false;
             }
@@ -121,13 +122,13 @@ namespace framework
         if (_pressed) {
             Point loc = touch->getLocation();
             Point vec = Point(loc.x - _touchPos.x, loc.y - _touchPos.y);
-            Point exactPos = vec;
+            Point exactPos = Point(this->getContentSize().width * 0.5 + vec.x, this->getContentSize().height * 0.5 + vec.y);
             // check whether the current position is out of the limited circle.
             float moduleSq = vec.x * vec.x + vec.y * vec.y;
             if (moduleSq > _radius * _radius) {
                 float module = sqrt(moduleSq);
-                exactPos.x = _radius * vec.x / module;
-                exactPos.y = _radius * vec.y / module;
+                exactPos.x = _radius * vec.x / module + this->getContentSize().width * 0.5;
+                exactPos.y = _radius * vec.y / module + this->getContentSize().height * 0.5;
             }
 			_rocker->setPosition(exactPos);     // update controller node position
             
@@ -165,7 +166,7 @@ namespace framework
         _pressed = false;
         _touchPos = Point::ZERO;
         // move the controller to the origin
-        auto pAction = EaseIn::create(MoveTo::create(0.1, Point::ZERO), 2);
+        auto pAction = EaseIn::create(MoveTo::create(0.1, Point(this->getContentSize().width * 0.5, this->getContentSize().height * 0.5)), 2);
 		_rocker->runAction(pAction);
         
         if (_controlDelegate) {

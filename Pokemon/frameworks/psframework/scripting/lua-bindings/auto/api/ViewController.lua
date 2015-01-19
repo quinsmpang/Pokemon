@@ -4,10 +4,6 @@
 -- @extend Ref
 
 --------------------------------
--- @function [parent=#ViewController] load 
--- @param self
-        
---------------------------------
 -- @function [parent=#ViewController] setScene 
 -- @param self
 -- @param #pf.GameScene gamescene
@@ -16,10 +12,6 @@
 -- @function [parent=#ViewController] getScene 
 -- @param self
 -- @return GameScene#GameScene ret (return value: pf.GameScene)
-        
---------------------------------
--- @function [parent=#ViewController] unload 
--- @param self
         
 --------------------------------
 -- @function [parent=#ViewController] create 

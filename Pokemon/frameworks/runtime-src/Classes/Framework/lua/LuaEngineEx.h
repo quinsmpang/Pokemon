@@ -55,6 +55,7 @@ namespace framework
 		int handleListMenuEvent(cocos2d::ScriptHandlerMgr::HandlerType type, void* data);
 		int handleListMenuEvent(cocos2d::ScriptHandlerMgr::HandlerType type, void* data, int numResults, const std::function<void(lua_State*,int)>& func);
         int handleDirectionControllerEvent(cocos2d::ScriptHandlerMgr::HandlerType type, void* data);
+        int handleCheckedButtonEvent(cocos2d::ScriptHandlerMgr::HandlerType type, void* data);
 	};
 }
 

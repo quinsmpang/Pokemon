@@ -25,6 +25,12 @@
 -- @param #string str
         
 --------------------------------
+-- @function [parent=#Map] setBooleanForKey 
+-- @param self
+-- @param #bool bool
+-- @param #string str
+        
+--------------------------------
 -- @function [parent=#Map] objectForKey 
 -- @param self
 -- @param #string str

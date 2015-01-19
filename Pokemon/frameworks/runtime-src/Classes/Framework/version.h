@@ -19,13 +19,14 @@ v1.12   Add net service base to the framework, to expand net services in the fut
 v1.13	Add DirectionController control.
 v1.14   Add http service and json elements.
 v1.15	Add xml elements without xpath, which may be completed in the future.
+v1.16   Add CheckedButton control.
 ***********************************************/
 
 #include <iostream>
 #include "tolua_fix.h"
 
-static const char *VERSION = "v1.15";
-static float VERSION_NUM = 1.15;
+static const char *VERSION = "v1.16";
+static float VERSION_NUM = 1.16;
 
 void printVersion()
 {

@@ -11,6 +11,13 @@ LinkedListLua.head = nil
 LinkedListLua.tail = nil
 LinkedListLua.length = nil
 
+function LinkedListLua:new()
+	local instance = self:__ctor()
+	log("luaclass new [" .. self.__className .. "]")
+	instance:init()
+	return instance
+end
+
 function LinkedListLua:init()
 	self.length = 0
 end
@@ -70,6 +77,13 @@ luaClass("QueueLua")
 
 QueueLua.items = nil
 
+function QueueLua:new()
+	local instance = self:__ctor()
+	log("luaclass new [" .. self.__className .. "]")
+	instance:init()
+	return instance
+end
+
 function QueueLua:init()
 	self.items = LinkedListLua:new()
 end
@@ -99,6 +113,13 @@ end
 luaClass("StackLua")
 
 StackLua.items = nil
+
+function StackLua:new()
+	local instance = self:__ctor()
+	log("luaclass new [" .. self.__className .. "]")
+	instance:init()
+	return instance
+end
 
 function StackLua:init()
 	self.items = LinkedListLua:new()

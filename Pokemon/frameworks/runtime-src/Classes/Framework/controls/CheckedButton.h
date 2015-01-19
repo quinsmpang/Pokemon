@@ -19,7 +19,7 @@ namespace framework {
         /**
          * CheckedButtonDelegate destructor.
          */
-        virtual ~CheckedButtonDelegate();
+        virtual ~CheckedButtonDelegate() {};
         
         /**
          * The callback when the button is checked.
@@ -107,7 +107,7 @@ namespace framework {
          *
          * @param isEnabled A boolean value.
          */
-        inline void setChecked(bool isChecked);
+        void setChecked(bool isChecked);
         
         /**
          * Touch events.
