@@ -181,7 +181,7 @@ namespace framework
 		_pressed = false;
 		_touchPos = Point::ZERO;
 		// move the controller to the origin
-		auto pAction = EaseIn::create(MoveTo::create(0.1, Point::ZERO), 2);
+		auto pAction = EaseIn::create(MoveTo::create(0.1, Point(this->getContentSize().width * 0.5, this->getContentSize().height * 0.5)), 2);
 		_rocker->runAction(pAction);
         
         if (_controlDelegate) {
