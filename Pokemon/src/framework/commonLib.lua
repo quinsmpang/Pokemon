@@ -16,6 +16,8 @@ function GetType(instance)
 			return tolua.type(instance)
 		end
 		return instance.__className
+	elseif type(instance) == "userdata" then
+		return tolua.type(instance)
 	else
 		return type(instance)
 	end
