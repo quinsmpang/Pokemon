@@ -205,6 +205,26 @@ namespace framework {
          */
         XmlNode *findFirstNode(const std::string &attributeName, const std::string &attributeValue, bool isRecursive = false);
         /**
+         * Find first child node with specified node name.
+         *
+         * @param nodeName XML node name.
+         * @param isRecursive Whether to find the node recursively.
+         *
+         * @return Return the first satisfied node if found, otherwise it will return null.
+         */
+        XmlNode *findFirstNode(const std::string &nodeName, bool isRecursive = false);
+        /**
+         * Find first child node with specified node name.
+         *
+         * @param nodeName XML node name.
+         * @param attributeName Attribute name of condition.
+         * @param attributeValue Attribute value of condition.
+         * @param isRecursive Whether to find the node recursively.
+         *
+         * @return Return the first satisfied node if found, otherwise it will return null.
+         */
+        XmlNode *findFirstNode(const std::string &nodeName, const std::string &attributeName, const std::string &attributeValue, bool isRecursive = false);
+        /**
          * Find first child node with multiple conditions of attribute.
          *
          * @param attributePairs Attribute conditions map.
@@ -213,6 +233,16 @@ namespace framework {
          * @return Return the first satisfied node if found, otherwise it will return null.
          */
         XmlNode *findFirstNode(Map *attributePairs, bool isRecursive = false);
+        /**
+         * Find first child node with multiple conditions of attribute and specified node name.
+         *
+         * @param nodeName XML node name.
+         * @param attributePairs Attribute conditions map.
+         * @param isRecursive Whether to find the node recursively.
+         *
+         * @return Return the first satisfied node if found, otherwise it will return null.
+         */
+        XmlNode *findFirstNode(const std::string &nodeName, Map *attributePairs, bool isRecursive = false);
         /**
          * Find first child node with xpath.
          *
@@ -233,6 +263,26 @@ namespace framework {
          */
         Vector *findNodes(const std::string &attributeName, const std::string &attributeValue, bool isRecursive = false);
         /**
+         * Find all child nodes with specified attribute name and value.
+         *
+         * @param nodeName XML node name.
+         * @param isRecursive Whether to find the node recursively.
+         *
+         * @return Return all satisfied nodes if found, otherwise it will return null.
+         */
+        Vector *findNodes(const std::string &nodeName, bool isRecursive = false);
+        /**
+         * Find all child nodes with specified node name, attribute name and value.
+         *
+         * @param nodeName XML node name.
+         * @param attributeName Attribute name of condition.
+         * @param attributeValue Attribute value of condition.
+         * @param isRecursive Whether to find the node recursively.
+         *
+         * @return Return all satisfied nodes if found, otherwise it will return null.
+         */
+        Vector *findNodes(const std::string &nodeName, const std::string &attributeName, const std::string &attributeValue, bool isRecursive = false);
+        /**
          * Find all child nodes with multiple conditions of attribute.
          *
          * @param attributePairs Attribute conditions map.
@@ -241,6 +291,16 @@ namespace framework {
          * @return Return all satisfied nodes if found, otherwise it will return null.
          */
         Vector *findNodes(Map *attributePairs, bool isRecursive = false);
+        /**
+         * Find all child nodes with multiple conditions of attribute.
+         *
+         * @param nodeName XML node name.
+         * @param attributePairs Attribute conditions map.
+         * @param isRecursive Whether to find the node recursively.
+         *
+         * @return Return all satisfied nodes if found, otherwise it will return null.
+         */
+        Vector *findNodes(const std::string &nodeName, Map *attributePairs, bool isRecursive = false);
         /**
          * Find all child nodes with xpath.
          *
@@ -272,6 +332,13 @@ namespace framework {
          * @return Return previous sibling node, or null if non-exist.
          */
         XmlNode *prevSibling();
+        
+        /**
+         * Get the root node.
+         *
+         * @return Return root node.
+         */
+        XmlNode *root();
         
         /**
          * Format to xml string.

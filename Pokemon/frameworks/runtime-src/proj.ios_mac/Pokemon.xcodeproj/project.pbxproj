@@ -81,6 +81,7 @@
 		33A417011A4EA33200F399E6 /* NetHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33A416FF1A4EA33200F399E6 /* NetHandler.cpp */; };
 		33A417041A4EA6C000F399E6 /* NetProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33A417021A4EA6C000F399E6 /* NetProtocol.cpp */; };
 		33A417071A4EA9E900F399E6 /* NetCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33A417051A4EA9E900F399E6 /* NetCenter.cpp */; };
+		33BE79A51A6E17CF00E0AA62 /* XpathExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33BE79A31A6E17CF00E0AA62 /* XpathExpression.cpp */; };
 		33C221B91A52C72C00A20105 /* DirectionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C221B71A52C72C00A20105 /* DirectionController.cpp */; };
 		33C657AE1A60E02600CCBA97 /* HttpForm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C657AA1A60E02600CCBA97 /* HttpForm.cpp */; };
 		33C657AF1A60E02600CCBA97 /* HttpService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C657AC1A60E02600CCBA97 /* HttpService.cpp */; };
@@ -508,6 +509,8 @@
 		33A417031A4EA6C000F399E6 /* NetProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetProtocol.h; sourceTree = "<group>"; };
 		33A417051A4EA9E900F399E6 /* NetCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetCenter.cpp; sourceTree = "<group>"; };
 		33A417061A4EA9E900F399E6 /* NetCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetCenter.h; sourceTree = "<group>"; };
+		33BE79A31A6E17CF00E0AA62 /* XpathExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XpathExpression.cpp; sourceTree = "<group>"; };
+		33BE79A41A6E17CF00E0AA62 /* XpathExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XpathExpression.h; sourceTree = "<group>"; };
 		33C221B71A52C72C00A20105 /* DirectionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DirectionController.cpp; sourceTree = "<group>"; };
 		33C221B81A52C72C00A20105 /* DirectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionController.h; sourceTree = "<group>"; };
 		33C657AA1A60E02600CCBA97 /* HttpForm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HttpForm.cpp; sourceTree = "<group>"; };
@@ -1263,6 +1266,8 @@
 				783F6CEF1A61B52100C78763 /* XmlParser.h */,
 				7873CD611A62515D00421CA4 /* XmlPrinter.cpp */,
 				7873CD621A62515D00421CA4 /* XmlPrinter.h */,
+				33BE79A31A6E17CF00E0AA62 /* XpathExpression.cpp */,
+				33BE79A41A6E17CF00E0AA62 /* XpathExpression.h */,
 			);
 			path = xml;
 			sourceTree = "<group>";
@@ -1702,6 +1707,7 @@
 				5023812517EBBCAC00990C9B /* RootViewController.mm in Sources */,
 				3365B7AE1A43D29000B33C4B /* RecordHelper.cpp in Sources */,
 				33C657E81A60F54A00CCBA97 /* JSONNode_Mutex.cpp in Sources */,
+				33BE79A51A6E17CF00E0AA62 /* XpathExpression.cpp in Sources */,
 				F293BB9C15EB831F00256477 /* AppDelegate.cpp in Sources */,
 				3365B78C1A43D29000B33C4B /* AesUtils.cpp in Sources */,
 				33584C601A45315200A9B62A /* gif_err.c in Sources */,
