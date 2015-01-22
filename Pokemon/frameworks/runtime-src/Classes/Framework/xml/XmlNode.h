@@ -10,6 +10,7 @@
 #include "cocos2d.h"
 #include "../containers/Map.h"
 #include "../containers/Vector.h"
+#include <functional>
 
 namespace framework {
     class XmlNode : public cocos2d::Ref
@@ -195,54 +196,41 @@ namespace framework {
         void clearChildNodes();
         
         /**
-         * Find first child node with specified attribute name and value.
-         *
-         * @param attributeName Attribute name of condition.
-         * @param attributeValue Attribute value of condition.
-         * @param isRecursive Whether to find the node recursively.
-         *
-         * @return Return the first satisfied node if found, otherwise it will return null.
-         */
-        XmlNode *findFirstNode(const std::string &attributeName, const std::string &attributeValue, bool isRecursive = false);
-        /**
          * Find first child node with specified node name.
          *
          * @param nodeName XML node name.
-         * @param isRecursive Whether to find the node recursively.
          *
          * @return Return the first satisfied node if found, otherwise it will return null.
          */
-        XmlNode *findFirstNode(const std::string &nodeName, bool isRecursive = false);
+        XmlNode *findFirstNode(const std::string &nodeName);
         /**
          * Find first child node with specified node name.
          *
          * @param nodeName XML node name.
          * @param attributeName Attribute name of condition.
          * @param attributeValue Attribute value of condition.
-         * @param isRecursive Whether to find the node recursively.
          *
          * @return Return the first satisfied node if found, otherwise it will return null.
          */
-        XmlNode *findFirstNode(const std::string &nodeName, const std::string &attributeName, const std::string &attributeValue, bool isRecursive = false);
-        /**
-         * Find first child node with multiple conditions of attribute.
-         *
-         * @param attributePairs Attribute conditions map.
-         * @param isRecursive Whether to find the node recursively.
-         *
-         * @return Return the first satisfied node if found, otherwise it will return null.
-         */
-        XmlNode *findFirstNode(Map *attributePairs, bool isRecursive = false);
+        XmlNode *findFirstNode(const std::string &nodeName, const std::string &attributeName, const std::string &attributeValue);
         /**
          * Find first child node with multiple conditions of attribute and specified node name.
          *
          * @param nodeName XML node name.
          * @param attributePairs Attribute conditions map.
-         * @param isRecursive Whether to find the node recursively.
          *
          * @return Return the first satisfied node if found, otherwise it will return null.
          */
-        XmlNode *findFirstNode(const std::string &nodeName, Map *attributePairs, bool isRecursive = false);
+        XmlNode *findFirstNode(const std::string &nodeName, Map *attributePairs);
+        /**
+         * Find first child node with specified node name and specified condition returned by handler.
+         *
+         * @param nodeName XML node name.
+         * @param condition Condition function pointer.
+         *
+         * @return Return the first satisfied node if found, otherwise it will return null.
+         */
+        XmlNode *findFirstNode(const std::string &nodeName, const std::function<bool(XmlNode*)> &condition);
         /**
          * Find first child node with xpath.
          *
@@ -250,57 +238,44 @@ namespace framework {
          *
          * @return Return the first satisfied node if found, otherwise it will return null.
          */
-        XmlNode *findFirstNode(const std::string &xpath);
+        XmlNode *selectSingleNode(const std::string &xpath);
         
         /**
          * Find all child nodes with specified attribute name and value.
          *
-         * @param attributeName Attribute name of condition.
-         * @param attributeValue Attribute value of condition.
-         * @param isRecursive Whether to find the node recursively.
-         *
-         * @return Return all satisfied nodes if found, otherwise it will return null.
-         */
-        Vector *findNodes(const std::string &attributeName, const std::string &attributeValue, bool isRecursive = false);
-        /**
-         * Find all child nodes with specified attribute name and value.
-         *
          * @param nodeName XML node name.
-         * @param isRecursive Whether to find the node recursively.
          *
          * @return Return all satisfied nodes if found, otherwise it will return null.
          */
-        Vector *findNodes(const std::string &nodeName, bool isRecursive = false);
+        Vector *findNodes(const std::string &nodeName);
         /**
          * Find all child nodes with specified node name, attribute name and value.
          *
          * @param nodeName XML node name.
          * @param attributeName Attribute name of condition.
          * @param attributeValue Attribute value of condition.
-         * @param isRecursive Whether to find the node recursively.
          *
          * @return Return all satisfied nodes if found, otherwise it will return null.
          */
-        Vector *findNodes(const std::string &nodeName, const std::string &attributeName, const std::string &attributeValue, bool isRecursive = false);
-        /**
-         * Find all child nodes with multiple conditions of attribute.
-         *
-         * @param attributePairs Attribute conditions map.
-         * @param isRecursive Whether to find the node recursively.
-         *
-         * @return Return all satisfied nodes if found, otherwise it will return null.
-         */
-        Vector *findNodes(Map *attributePairs, bool isRecursive = false);
+        Vector *findNodes(const std::string &nodeName, const std::string &attributeName, const std::string &attributeValue);
         /**
          * Find all child nodes with multiple conditions of attribute.
          *
          * @param nodeName XML node name.
          * @param attributePairs Attribute conditions map.
-         * @param isRecursive Whether to find the node recursively.
          *
          * @return Return all satisfied nodes if found, otherwise it will return null.
          */
-        Vector *findNodes(const std::string &nodeName, Map *attributePairs, bool isRecursive = false);
+        Vector *findNodes(const std::string &nodeName, Map *attributePairs);
+        /**
+         * Find all child nodes with multiple conditions of attribute.
+         *
+         * @param nodeName XML node name.
+         * @param condition Condition function pointer.
+         *
+         * @return Return all satisfied nodes if found, otherwise it will return null.
+         */
+        Vector *findNodes(const std::string &nodeName, const std::function<bool(XmlNode*)> &condition);
         /**
          * Find all child nodes with xpath.
          *
@@ -308,7 +283,7 @@ namespace framework {
          *
          * @return Return all satisfied nodes if found, otherwise it will return null.
          */
-        Vector *findNodes(const std::string &xpath);
+        Vector *selectAllNodes(const std::string &xpath);
         
         /**
          * Get parent node.

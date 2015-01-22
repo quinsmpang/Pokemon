@@ -12,6 +12,7 @@
 #include "Framework/win32/KeyboardHelper.h"
 #endif
 
+#include "framework.h"
 #include "version.h"
 
 #define LANES_SUPPORTED 0

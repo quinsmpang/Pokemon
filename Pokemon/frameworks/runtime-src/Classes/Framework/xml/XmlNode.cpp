@@ -166,223 +166,95 @@ namespace framework {
         _childNodes->clear();
     }
     
-    XmlNode *XmlNode::findFirstNode(const std::string &nodeName, bool isRecursive)
+    XmlNode *XmlNode::findFirstNode(const std::string &nodeName)
     {
-        XmlNode *pResult = nullptr;
-        XmlNode *pChild = nullptr;
-        for (int i = 0; i < _childNodes->getLength(); ++i) {
-            pChild = (XmlNode*)_childNodes->objectAt(i);
-            if (pChild->getName() == nodeName) {
-                pResult = pChild;
-                break;
-            } else {
-                if (isRecursive) {
-                    pResult = pChild->findFirstNode(nodeName, isRecursive);
-                    if (pResult) {
-                        break;
-                    }
-                }
-            }
-        }
-        return pResult;
+        return this->findFirstNode(nodeName, [this](XmlNode *child) {
+            return true;
+        });
     }
     
-    XmlNode *XmlNode::findFirstNode(const std::string &attributeName, const std::string &attributeValue, bool isRecursive)
+    XmlNode *XmlNode::findFirstNode(const std::string &nodeName, const std::string &attributeName, const std::string &attributeValue)
     {
-        XmlNode *pResult = nullptr;
-        XmlNode *pChild = nullptr;
-        for (int i = 0; i < _childNodes->getLength(); ++i) {
-            pChild = (XmlNode*)_childNodes->objectAt(i);
-            if (pChild->getStringAttribute(attributeName) == attributeValue) {
-                pResult = pChild;
-                break;
-            } else {
-                if (isRecursive) {
-                    pResult = pChild->findFirstNode(attributeName, attributeValue, isRecursive);
-                    if (pResult) {
-                        break;
-                    }
-                }
-            }
-        }
-        return pResult;
+        return this->findFirstNode(nodeName, [&](XmlNode *child) {
+            return child->getStringAttribute(attributeName) == attributeValue;
+        });
     }
     
-    XmlNode *XmlNode::findFirstNode(const std::string &nodeName, const std::string &attributeName, const std::string &attributeValue, bool isRecursive)
+    XmlNode *XmlNode::findFirstNode(const std::string &nodeName, framework::Map *attributePairs)
     {
-        XmlNode *pResult = nullptr;
-        XmlNode *pChild = nullptr;
-        for (int i = 0; i < _childNodes->getLength(); ++i) {
-            pChild = (XmlNode*)_childNodes->objectAt(i);
-            if (pChild->getName() == nodeName && pChild->getStringAttribute(attributeName) == attributeValue) {
-                pResult = pChild;
-                break;
-            } else {
-                if (isRecursive) {
-                    pResult = pChild->findFirstNode(nodeName, attributeName, attributeValue, isRecursive);
-                    if (pResult) {
-                        break;
-                    }
-                }
-            }
-        }
-        return pResult;
+        return this->findFirstNode(nodeName, [&](XmlNode *child) {
+            return this->satisfyAttributeConditions(child, attributePairs);
+        });
     }
     
-    XmlNode *XmlNode::findFirstNode(framework::Map *attributePairs, bool isRecursive)
+    XmlNode *XmlNode::findFirstNode(const std::string &nodeName, const std::function<bool(XmlNode*)> &condition)
     {
         XmlNode *pResult = nullptr;
         XmlNode *pChild = nullptr;
         for (int i = 0; i < _childNodes->getLength(); ++i) {
             pChild = (XmlNode*)_childNodes->objectAt(i);
-            bool satisfy = this->satisfyAttributeConditions(pChild, attributePairs);
+            bool satisfy = pChild->getName() == nodeName && condition(pChild);
             if (satisfy) {
                 pResult = pChild;
                 break;
             } else {
-                if (isRecursive) {
-                    pResult = pChild->findFirstNode(attributePairs, isRecursive);
-                    if (pResult) {
-                        break;
-                    }
+                pResult = pChild->findFirstNode(nodeName, condition);
+                if (pResult) {
+                    break;
                 }
             }
         }
         return pResult;
     }
     
-    XmlNode *XmlNode::findFirstNode(const std::string &nodeName, framework::Map *attributePairs, bool isRecursive)
-    {
-        XmlNode *pResult = nullptr;
-        XmlNode *pChild = nullptr;
-        for (int i = 0; i < _childNodes->getLength(); ++i) {
-            pChild = (XmlNode*)_childNodes->objectAt(i);
-            bool satisfy = pChild->getName() == nodeName && this->satisfyAttributeConditions(pChild, attributePairs);
-            if (satisfy) {
-                pResult = pChild;
-                break;
-            } else {
-                if (isRecursive) {
-                    pResult = pChild->findFirstNode(nodeName, attributePairs, isRecursive);
-                    if (pResult) {
-                        break;
-                    }
-                }
-            }
-        }
-        return pResult;
-    }
-    
-    XmlNode *XmlNode::findFirstNode(const std::string &xpath)
+    XmlNode *XmlNode::selectSingleNode(const std::string &xpath)
     {
 		CCASSERT(false, "xpath not implemented yet.");
         // todo
         return nullptr;
     }
     
-    Vector *XmlNode::findNodes(const std::string &nodeName, bool isRecursive)
+    Vector *XmlNode::findNodes(const std::string &nodeName)
     {
-        auto nodes = Vector::create();
-        XmlNode *pChild = nullptr;
-        for (int i = 0; i < _childNodes->getLength(); ++i) {
-            pChild = (XmlNode*)_childNodes->objectAt(i);
-            if (pChild->getName() == nodeName) {
-                nodes->addObject(pChild);
-            } else {
-                if (isRecursive) {
-                    auto childResultNodes = pChild->findNodes(nodeName, isRecursive);
-                    for (int j = 0; j < childResultNodes->getLength(); ++j) {
-                        nodes->addObject(childResultNodes->objectAt(j));
-                    }
-                }
-            }
-        }
-        return nodes;
+        return this->findNodes(nodeName, [this](XmlNode *child) {
+            return true;
+        });
     }
     
-    Vector *XmlNode::findNodes(const std::string &attributeName, const std::string &attributeValue, bool isRecursive)
+    Vector *XmlNode::findNodes(const std::string &nodeName, const std::string &attributeName, const std::string &attributeValue)
     {
-        auto nodes = Vector::create();
-        XmlNode *pChild = nullptr;
-        for (int i = 0; i < _childNodes->getLength(); ++i) {
-            pChild = (XmlNode*)_childNodes->objectAt(i);
-            if (pChild->getStringAttribute(attributeName) == attributeValue) {
-                nodes->addObject(pChild);
-            } else {
-                if (isRecursive) {
-                    auto childResultNodes = pChild->findNodes(attributeName, attributeValue, isRecursive);
-                    for (int j = 0; j < childResultNodes->getLength(); ++j) {
-                        nodes->addObject(childResultNodes->objectAt(j));
-                    }
-                }
-            }
-        }
-        return nodes;
+        return this->findNodes(nodeName, [&](XmlNode *child) {
+            return child->getStringAttribute(attributeName) == attributeValue;
+        });
     }
     
-    Vector *XmlNode::findNodes(const std::string &nodeName, const std::string &attributeName, const std::string &attributeValue, bool isRecursive)
+    Vector *XmlNode::findNodes(const std::string &nodeName, framework::Map *attributePairs)
     {
-        auto nodes = Vector::create();
-        XmlNode *pChild = nullptr;
-        for (int i = 0; i < _childNodes->getLength(); ++i) {
-            pChild = (XmlNode*)_childNodes->objectAt(i);
-            if (pChild->getName() == nodeName && pChild->getStringAttribute(attributeName) == attributeValue) {
-                nodes->addObject(pChild);
-            } else {
-                if (isRecursive) {
-                    auto childResultNodes = pChild->findNodes(nodeName, attributeName, attributeValue, isRecursive);
-                    for (int j = 0; j < childResultNodes->getLength(); ++j) {
-                        nodes->addObject(childResultNodes->objectAt(j));
-                    }
-                }
-            }
-        }
-        return nodes;
+        return this->findNodes(nodeName, [&](XmlNode *child) {
+            return this->satisfyAttributeConditions(child, attributePairs);
+        });
     }
     
-    Vector *XmlNode::findNodes(framework::Map *attributePairs, bool isRecursive)
+    Vector *XmlNode::findNodes(const std::string &nodeName, const std::function<bool (XmlNode *)> &condition)
     {
         auto nodes = Vector::create();
         XmlNode *pChild = nullptr;
         for (int i = 0; i < _childNodes->getLength(); ++i) {
             pChild = (XmlNode*)_childNodes->objectAt(i);
-            bool satisfy = this->satisfyAttributeConditions(pChild, attributePairs);
+            bool satisfy = pChild->getName() == nodeName && condition(pChild);
             if (satisfy) {
                 nodes->addObject(pChild);
             } else {
-                if (isRecursive) {
-                    auto childResultNodes = pChild->findNodes(attributePairs, isRecursive);
-                    for (int j = 0; j < childResultNodes->getLength(); ++j) {
-                        nodes->addObject(childResultNodes->objectAt(j));
-                    }
+                auto childResultNodes = pChild->findNodes(nodeName, condition);
+                for (int j = 0; j < childResultNodes->getLength(); ++j) {
+                    nodes->addObject(childResultNodes->objectAt(j));
                 }
             }
         }
         return nodes;
     }
     
-    Vector *XmlNode::findNodes(const std::string &nodeName, framework::Map *attributePairs, bool isRecursive)
-    {
-        auto nodes = Vector::create();
-        XmlNode *pChild = nullptr;
-        for (int i = 0; i < _childNodes->getLength(); ++i) {
-            pChild = (XmlNode*)_childNodes->objectAt(i);
-            bool satisfy = pChild->getName() == nodeName && this->satisfyAttributeConditions(pChild, attributePairs);
-            if (satisfy) {
-                nodes->addObject(pChild);
-            } else {
-                if (isRecursive) {
-                    auto childResultNodes = pChild->findNodes(nodeName, attributePairs, isRecursive);
-                    for (int j = 0; j < childResultNodes->getLength(); ++j) {
-                        nodes->addObject(childResultNodes->objectAt(j));
-                    }
-                }
-            }
-        }
-        return nodes;
-    }
-    
-    Vector *XmlNode::findNodes(const std::string &xpath)
+    Vector *XmlNode::selectAllNodes(const std::string &xpath)
 	{
 		CCASSERT(false, "xpath not implemented yet.");
         // todo
