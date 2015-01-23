@@ -35,8 +35,9 @@ namespace framework {
          * Delegate when the download task executes.
          *
          * @param downloader Related downloader of the task.
+         * @param progress Downloading progress.
          */
-        virtual void onDownloading(HttpDownloader *downloader) = 0;
+        virtual void onDownloading(HttpDownloader *downloader, float progress) = 0;
         /**
          * Delegate when the download task completes.
          *
@@ -47,8 +48,9 @@ namespace framework {
          * Delegate when the download task fails.
          *
          * @param downloader Related downloader of the task.
+         * @param errorMsg Encountered error message.
          */
-        virtual void onDownloadFailed(HttpDownloader *downloader) = 0;
+        virtual void onDownloadFailed(HttpDownloader *downloader, const std::string &errorMsg) = 0;
     };
     
     class DownloadTask : public cocos2d::Ref
@@ -143,6 +145,45 @@ namespace framework {
         volatile int _retryTimes;
     };
     
+    enum class DownloadEventType
+    {
+        DOWNLOAD_STARTED = 0,
+        DOWNLOAD_INPROGRESS,
+        DOWNLOAD_SUCCESS,
+        DOWNLOAD_FAILED,
+    };
+    
+    class DownloadEvent : public cocos2d::Ref
+    {
+    public:
+        /**
+         * Create a download event.
+         *
+         * @param eventType Download event type.
+         * @param task Related download task.ß
+         *
+         * @return DownloadEvent object.
+         */
+        static DownloadEvent *create(DownloadEventType eventType, DownloadTask *task);
+        
+        /**
+         * DownloadEvent constructor.
+         *
+         * @param eventType Download event type.
+         * @param task Related download task.ß
+         */
+        DownloadEvent(DownloadEventType eventType, DownloadTask *task);
+        /**
+         * DownloadEvent destructor.
+         */
+        ~DownloadEvent();
+        
+        CC_SYNTHESIZE(DownloadEventType, _type, Type);
+        CC_SYNTHESIZE_RETAIN(DownloadTask*, _task, RelatedTask);
+        CC_SYNTHESIZE(float, _progress, Progress);
+        CC_SYNTHESIZE_PASS_BY_REF(std::string, _errorMsg, ErrorMessage);
+    };
+    
     class HttpDownloader : public cocos2d::Ref
     {
         friend size_t onReceiveData(void *, size_t size, size_t writeSize, void *userdata);
@@ -198,15 +239,21 @@ namespace framework {
             return _downloading;
         }
         
+        void onDownloadUpdated(float dt);
+        
     protected:
         bool initThread();
-        bool initTasks();
         void executeTask();
         
+        bool initTask();
         bool download();
+        bool finishDownloading();
+        
+        void addDownloadEvent(DownloadEventType eventType, DownloadTask *task, float progress, const std::string &error = "");
         
         bool _inited;       // whether inited.
         Queue *_taskQueue;
+        Queue *_eventQueue;
         
         bool _needQuit;
         DownloadTask *_currentTask;
@@ -215,8 +262,8 @@ namespace framework {
         pthread_t _networkThread;
         pthread_mutex_t _taskMutex;
         pthread_mutex_t _eventMutex;
-        sem_t *_newTaskSem;
-        sem_t _completeTaskSem;
+        sem_t *_newTaskSemPtr;
+        sem_t _newTaskmSem;
     };
 }
 
