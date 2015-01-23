@@ -421,6 +421,9 @@
     <ClInclude Include="..\Classes\Framework\lua\lua_decryption_loader.h">
       <Filter>Classes\psframework\lua</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\http\HttpDownloader.h">
+      <Filter>Classes\psframework\http</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -686,6 +689,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\lua\lua_decryption_loader.cpp">
       <Filter>Classes\psframework\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\http\HttpDownloader.cpp">
+      <Filter>Classes\psframework\http</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

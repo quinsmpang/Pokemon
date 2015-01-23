@@ -192,6 +192,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\encryption\libdes\des.h" />
     <ClInclude Include="..\Classes\Framework\format\SaveData.h" />
     <ClInclude Include="..\Classes\Framework\framework.h" />
+    <ClInclude Include="..\Classes\Framework\http\HttpDownloader.h" />
     <ClInclude Include="..\Classes\Framework\http\HttpForm.h" />
     <ClInclude Include="..\Classes\Framework\http\HttpService.h" />
     <ClInclude Include="..\Classes\Framework\http\HttpTransferStrategy.h" />
@@ -300,6 +301,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\encryption\libaes\aes.cpp" />
     <ClCompile Include="..\Classes\Framework\encryption\libdes\des.cpp" />
     <ClCompile Include="..\Classes\Framework\format\SaveData.cpp" />
+    <ClCompile Include="..\Classes\Framework\http\HttpDownloader.cpp" />
     <ClCompile Include="..\Classes\Framework\http\HttpForm.cpp" />
     <ClCompile Include="..\Classes\Framework\http\HttpService.cpp" />
     <ClCompile Include="..\Classes\Framework\json\JsonElement.cpp" />

@@ -70,7 +70,7 @@
 
 #include "http/HttpTransferStrategy.h"
 #include "http/HttpForm.h"
-//#include "http/HttpDownloader.h"
+#include "http/HttpDownloader.h"
 #include "http/HttpService.h"
 
 #include "win32/Win32EventArgs.h"
