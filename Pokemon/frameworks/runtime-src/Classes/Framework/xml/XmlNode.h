@@ -13,7 +13,7 @@
 #include <functional>
 
 namespace framework {
-    class CC_DEPRECATED_ATTRIBUTE XmlNode : public cocos2d::Ref
+    class XmlNode : public cocos2d::Ref
     {
 		friend class XmlParser;
     public:

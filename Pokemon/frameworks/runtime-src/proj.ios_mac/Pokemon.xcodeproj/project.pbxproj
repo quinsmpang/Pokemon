@@ -82,6 +82,7 @@
 		33A417041A4EA6C000F399E6 /* NetProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33A417021A4EA6C000F399E6 /* NetProtocol.cpp */; };
 		33A417071A4EA9E900F399E6 /* NetCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33A417051A4EA9E900F399E6 /* NetCenter.cpp */; };
 		33BE79A51A6E17CF00E0AA62 /* XpathExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33BE79A31A6E17CF00E0AA62 /* XpathExpression.cpp */; };
+		33BE79B41A7258EB00E0AA62 /* HttpDownloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33BE79B21A7258EB00E0AA62 /* HttpDownloader.cpp */; };
 		33C221B91A52C72C00A20105 /* DirectionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C221B71A52C72C00A20105 /* DirectionController.cpp */; };
 		33C657AE1A60E02600CCBA97 /* HttpForm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C657AA1A60E02600CCBA97 /* HttpForm.cpp */; };
 		33C657AF1A60E02600CCBA97 /* HttpService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C657AC1A60E02600CCBA97 /* HttpService.cpp */; };
@@ -511,6 +512,8 @@
 		33A417061A4EA9E900F399E6 /* NetCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetCenter.h; sourceTree = "<group>"; };
 		33BE79A31A6E17CF00E0AA62 /* XpathExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XpathExpression.cpp; sourceTree = "<group>"; };
 		33BE79A41A6E17CF00E0AA62 /* XpathExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XpathExpression.h; sourceTree = "<group>"; };
+		33BE79B21A7258EB00E0AA62 /* HttpDownloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HttpDownloader.cpp; sourceTree = "<group>"; };
+		33BE79B31A7258EB00E0AA62 /* HttpDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpDownloader.h; sourceTree = "<group>"; };
 		33C221B71A52C72C00A20105 /* DirectionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DirectionController.cpp; sourceTree = "<group>"; };
 		33C221B81A52C72C00A20105 /* DirectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionController.h; sourceTree = "<group>"; };
 		33C657AA1A60E02600CCBA97 /* HttpForm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HttpForm.cpp; sourceTree = "<group>"; };
@@ -1083,6 +1086,8 @@
 				33C657AC1A60E02600CCBA97 /* HttpService.cpp */,
 				33C657AD1A60E02600CCBA97 /* HttpService.h */,
 				33C657FC1A6151E300CCBA97 /* HttpTransferStrategy.h */,
+				33BE79B21A7258EB00E0AA62 /* HttpDownloader.cpp */,
+				33BE79B31A7258EB00E0AA62 /* HttpDownloader.h */,
 			);
 			path = http;
 			sourceTree = "<group>";
@@ -1694,6 +1699,7 @@
 				33C657E11A60F54A00CCBA97 /* internalJSONNode.cpp in Sources */,
 				3365B7A71A43D29000B33C4B /* MaskLayer.cpp in Sources */,
 				3365B7B51A43D29000B33C4B /* Win32EventListener.cpp in Sources */,
+				33BE79B41A7258EB00E0AA62 /* HttpDownloader.cpp in Sources */,
 				3365B78F1A43D29000B33C4B /* aes.cpp in Sources */,
 				3365B7861A43D29000B33C4B /* EncryptedTMXTiledMap.cpp in Sources */,
 				3365B79E1A43D29000B33C4B /* GameScene.cpp in Sources */,

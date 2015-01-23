@@ -29,3 +29,14 @@ for (int i = 0; i < (__STR__).size(); i++)	\
 {	\
 	(__BUFFER__)[i] = (__STR__)[i];	\
 }
+
+/**
+* Mark as deprecated
+*/
+#if defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
+#define FRAMEWORK_DEPRECATED __attribute__((deprecated))
+#elif _MSC_VER >= 1400 //vs 2005 or higher
+#define FRAMEWORK_DEPRECATED __declspec(deprecated)
+#else
+#define FRAMEWORK_DEPRECATED
+#endif

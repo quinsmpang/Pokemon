@@ -24,12 +24,16 @@ namespace framework
 	{
 	public:
 		/**
-		* Create HttpService with specified service address.
-		*/
+         * Create HttpService with specified service address.
+         *
+         * @param serviceAddress Service address.
+         */
 		static HttpService *create(const std::string &serviceAddress);
 
 		/**
-		* HttpService constructor.
+         * HttpService constructor.
+         *
+         * @param serviceAddress Service address.
 		*/
 		explicit HttpService(const std::string &serviceAddress);
 		/**
