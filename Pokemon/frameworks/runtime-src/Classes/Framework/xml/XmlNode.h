@@ -1,5 +1,5 @@
 /******************************
- Description: XML nodes.
+ Description: XML nodes, without comments, CDATA, complicated text.
  Author: M.Wan
  Date: 01/11/2015
  ******************************/
@@ -13,7 +13,7 @@
 #include <functional>
 
 namespace framework {
-    class XmlNode : public cocos2d::Ref
+    class CC_DEPRECATED_ATTRIBUTE XmlNode : public cocos2d::Ref
     {
 		friend class XmlParser;
     public:
