@@ -69,7 +69,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(EngineRoot)cocos\scripting\lua-bindings\auto;$(EngineRoot)cocos\scripting\lua-bindings\manual;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\lua\lua;$(EngineRoot)external\lua\tolua;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;$(EngineRoot);$(ProjectDir)..\Classes\Framework\utils\lib;$(EngineRoot)cocos\network;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(EngineRoot)cocos\scripting\lua-bindings\auto;$(EngineRoot)cocos\scripting\lua-bindings\manual;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\lua\lua;$(EngineRoot)external\lua\tolua;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;$(EngineRoot);$(ProjectDir)..\Classes\Framework\utils\lib;$(EngineRoot)cocos\network;$(EngineRoot)external\curl\include\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -178,6 +178,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Framework\containers\Map.h" />
     <ClInclude Include="..\Classes\Framework\containers\Queue.h" />
     <ClInclude Include="..\Classes\Framework\containers\Stack.h" />
+    <ClInclude Include="..\Classes\Framework\controls\CheckedButton.h" />
     <ClInclude Include="..\Classes\Framework\controls\DirectionController.h" />
     <ClInclude Include="..\Classes\Framework\controls\EncryptedTMXLayer.h" />
     <ClInclude Include="..\Classes\Framework\controls\EncryptedTMXTiledMap.h" />
@@ -288,6 +289,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Framework\containers\Map.cpp" />
     <ClCompile Include="..\Classes\Framework\containers\Queue.cpp" />
     <ClCompile Include="..\Classes\Framework\containers\Stack.cpp" />
+    <ClCompile Include="..\Classes\Framework\controls\CheckedButton.cpp" />
     <ClCompile Include="..\Classes\Framework\controls\DirectionController.cpp" />
     <ClCompile Include="..\Classes\Framework\controls\EncryptedTMXLayer.cpp" />
     <ClCompile Include="..\Classes\Framework\controls\EncryptedTMXTiledMap.cpp" />

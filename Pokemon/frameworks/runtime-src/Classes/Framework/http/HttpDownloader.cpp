@@ -18,6 +18,35 @@ using namespace std;
 namespace framework {
     static string g_downloaderSemName = string(HTTPDOWNLOADER_SEMAPHORE_NAME);
     
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+	DWORD WINAPI DownloadThread(LPVOID userdata)
+	{
+		HttpDownloader *pDownloader = (HttpDownloader*)userdata;
+
+		while (!pDownloader->_needQuit) {
+			// wait for new task
+			WaitForSingleObject(pDownloader->_newTaskSem, INFINITE);
+
+			pDownloader->_downloading = true;
+
+			DownloadTask *pTask = nullptr;
+			EnterCriticalSection(&pDownloader->_taskMutex);
+			if (pDownloader->_taskQueue->getLength() > 0) {
+				pTask = (DownloadTask*)pDownloader->_taskQueue->front();
+				pDownloader->_taskQueue->dequeue();
+			}
+			LeaveCriticalSection(&pDownloader->_taskMutex);
+
+			if (pTask) {
+				pDownloader->_currentTask = pTask;
+				pDownloader->executeTask();
+			}
+			pDownloader->_downloading = false;
+		}
+
+		return 0;
+	}
+#else
     void *downloadThread(void *userdata)
     {
         HttpDownloader *pDownloader = (HttpDownloader*)userdata;
@@ -45,6 +74,7 @@ namespace framework {
         
         return nullptr;
     }
+#endif
     
     size_t onReceiveData(void *buffer, size_t size, size_t writeSize, void *userdata)
     {
@@ -166,8 +196,10 @@ namespace framework {
         , _currentTask(nullptr)
         , _delegate(nullptr)
         , _downloading(false)
+#if CC_TARGET_PLATFORM != CC_PLATFORM_WIN32
         , _newTaskSemPtr(nullptr)
-        , _newTaskmSem()
+#endif
+		, _newTaskSem()
         , _eventMutex()
     {
     }
@@ -186,6 +218,10 @@ namespace framework {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
         sem_unlink(g_downloaderSemName.c_str());
         sem_close(_newTaskSemPtr);
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		CloseHandle(_newTaskSem);
+		DeleteCriticalSection(&_taskMutex);
+		DeleteCriticalSection(&_eventMutex);
 #else
         sem_destroy(_newTaskSemPtr);
 #endif
@@ -211,18 +247,33 @@ namespace framework {
         // create download task and add to the task queue.
         auto pTask = DownloadTask::create(url, savePath, userdata, supportResume, retryTimes);
         
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		EnterCriticalSection(&_taskMutex);
+#else
         pthread_mutex_lock(&_taskMutex);
+#endif
         _taskQueue->enqueue(pTask);
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		LeaveCriticalSection(&_taskMutex);
+
+		// post semaphore to the downloading thread.
+		SetEvent(_newTaskSem);
+#else
         pthread_mutex_unlock(&_taskMutex);
-        
+
         // post semaphore to the downloading thread.
         sem_post(_newTaskSemPtr);
+#endif
     }
     
     void HttpDownloader::onDownloadUpdated(float dt)
     {
         if (_delegate) {
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+			EnterCriticalSection(&_eventMutex);
+#else
             pthread_mutex_lock(&_eventMutex);
+#endif
             DownloadEvent *pEvent = nullptr;
             while (_eventQueue->getLength() > 0) {
                 pEvent = (DownloadEvent*)_eventQueue->front();
@@ -237,13 +288,23 @@ namespace framework {
                     _delegate->onDownloadFailed(this, pEvent->getErrorMessage());
                 }
             }
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+			LeaveCriticalSection(&_eventMutex);
+#else
             pthread_mutex_unlock(&_eventMutex);
+#endif
         }
     }
     
     bool HttpDownloader::initThread()
     {
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		InitializeCriticalSection(&_taskMutex);
+		InitializeCriticalSection(&_eventMutex);
+#else
         pthread_mutex_init(&_taskMutex, NULL);
+		pthread_mutex_init(&_eventMutex, NULL);
+#endif
         
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
         long t = time(NULL);
@@ -254,17 +315,28 @@ namespace framework {
             _newTaskSemPtr = nullptr;
             return false;
         }
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		long t = time(NULL);
+		g_downloaderSemName.append(__String::createWithFormat("%ld", t)->getCString());
+		wchar_t buffer[MAX_PATH];
+		STDSTRING_TO_WCHAR(g_downloaderSemName, buffer);
+		_newTaskSem = CreateEvent(NULL, false, false, buffer);
 #else
-        int semRet = sem_init(&_newTaskmSem, 0, 0);
+		int semRet = sem_init(&_newTaskSem, 0, 0);
         if (semRet < 0) {
             CCLOG("Create complete task semaphore failed.");
             return false;
         }
-        _newTaskSemPtr = &_newTaskmSem;
+		_newTaskSemPtr = &_newTaskSem;
 #endif
         
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		DWORD threadId;
+		CreateThread(NULL, 0, &DownloadThread, NULL, 0, &threadId);
+#else
         pthread_create(&_networkThread, nullptr, &downloadThread, this);
         pthread_detach(_networkThread);
+#endif
         
         Director::getInstance()->getScheduler()->schedule(schedule_selector(HttpDownloader::onDownloadUpdated), this, 0, false);
         
@@ -436,8 +508,16 @@ namespace framework {
         pEvent->setProgress(progress);
         pEvent->setErrorMessage(error);
         
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		EnterCriticalSection(&_eventMutex);
+#else
         pthread_mutex_lock(&_eventMutex);
+#endif
         _eventQueue->enqueue(pEvent);
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		LeaveCriticalSection(&_eventMutex);
+#else
         pthread_mutex_unlock(&_eventMutex);
+#endif
     }
 }

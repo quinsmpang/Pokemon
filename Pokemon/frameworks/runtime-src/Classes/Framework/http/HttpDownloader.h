@@ -11,8 +11,12 @@
 #include "../containers/Queue.h"
 #include <string>
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#include <windows.h>
+#else
 #include <pthread.h>
 #include <semaphore.h>
+#endif
 #include <sys/stat.h>
 #include <errno.h>
 
@@ -199,7 +203,11 @@ namespace framework {
     class HttpDownloader : public cocos2d::Ref
     {
         friend size_t onReceiveData(void *, size_t size, size_t writeSize, void *userdata);
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		friend DWORD WINAPI DownloadThread(LPVOID);
+#else
         friend void *downloadThread(void *data);
+#endif
         friend int onProgress(void *userdata, double totalToDownload, double downloaded, double totalToUpload, double uploaded);
     public:
         /**
@@ -271,11 +279,18 @@ namespace framework {
         DownloadTask *_currentTask;
         bool _downloading;
         
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+		HANDLE _networkThread;
+		CRITICAL_SECTION _taskMutex;
+		CRITICAL_SECTION _eventMutex;
+		HANDLE _newTaskSem;
+#else
         pthread_t _networkThread;
         pthread_mutex_t _taskMutex;
         pthread_mutex_t _eventMutex;
         sem_t *_newTaskSemPtr;
-        sem_t _newTaskmSem;
+        sem_t _newTaskSem;
+#endif
     };
 }
 
