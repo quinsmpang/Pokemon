@@ -218,12 +218,16 @@ namespace framework {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
         sem_unlink(g_downloaderSemName.c_str());
         sem_close(_newTaskSemPtr);
+        pthread_mutex_destroy(&_taskMutex);
+        pthread_mutex_destroy(&_eventMutex);
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 		CloseHandle(_newTaskSem);
 		DeleteCriticalSection(&_taskMutex);
 		DeleteCriticalSection(&_eventMutex);
 #else
         sem_destroy(_newTaskSemPtr);
+        pthread_mutex_destroy(&_taskMutex);
+        pthread_mutex_destroy(&_eventMutex);
 #endif
         this->release();
     }
