@@ -5,6 +5,9 @@
 #include <time.h>
 #include <new>
 
+#include "curl/curl.h"
+#include "curl/easy.h"
+
 using namespace cocos2d;
 using namespace std;
 
@@ -349,6 +352,68 @@ namespace framework {
     bool HttpDownloader::download()
     {
         // use curl.
+        CURL *curl = curl_easy_init();
+        if (!curl) {
+            CCLOG("Curl initialization failed.");
+            return false;
+        }
+        
+        char *errorBuffer = (char*)malloc(CURL_ERROR_SIZE);
+        CURLcode res;
+        
+        curl_easy_setopt(curl, CURLOPT_URL, _currentTask->getUrl());
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, onReceiveData);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, this);
+        
+        // breakpoint resume
+        if (_currentTask->_supportResume && _currentTask->_breakpointBytes != 0) {
+            char buffer[1000] = { 0 };
+            sprintf(buffer, "%d-", _currentTask->_breakpointBytes);
+            string str(buffer);
+            curl_easy_setopt(curl, CURLOPT_RANGE, str.c_str());
+        }
+        
+        // no timeout
+        curl_easy_setopt(curl, CURLOPT_TIMEOUT, 0);
+        curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 0);
+        curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errorBuffer);
+        
+        // download progress
+        curl_easy_setopt(curl, CURLOPT_NOPROGRESS, false);
+        curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, onProgress);
+        curl_easy_setopt(curl, CURLOPT_PROGRESSDATA, this);
+        
+        // forbid alarm timeout, dns timeout depends on this, so there is no timeout check.
+        curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1L);
+        
+        // dns cache, 6 hours
+        static CURLSH *shareHandle = nullptr;
+        if (!shareHandle) {
+            shareHandle = curl_share_init();
+            curl_share_setopt(shareHandle, CURLSHOPT_SHARE, CURL_LOCK_DATA_DNS);
+        }
+        curl_easy_setopt(curl, CURLOPT_SHARE, shareHandle);
+        curl_easy_setopt(curl, CURLOPT_DNS_CACHE_TIMEOUT, 3600 * 6);
+        
+        res = curl_easy_perform(curl);
+        
+        int responseCode;
+        CURLcode code = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &responseCode);
+        // 206 is breakpoing resuming.
+        if (code != CURLE_OK || (responseCode != 200 && responseCode != 206)) {
+            code = CURLE_HTTP_RETURNED_ERROR;
+        }
+        
+        curl_easy_cleanup(curl);
+        
+        if (res != 0 || code != CURLE_OK || (responseCode != 200 && responseCode != 206)) {
+            string errorMsg;
+            errorMsg.append("Download failed: ").append(errorBuffer);
+            CCLOG("Download error: %s", errorMsg.c_str());
+            return false;
+        }
+        free(errorBuffer);
+        
         return true;
     }
     

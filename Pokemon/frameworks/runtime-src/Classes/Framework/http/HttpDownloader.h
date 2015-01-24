@@ -178,9 +178,21 @@ namespace framework {
          */
         ~DownloadEvent();
         
+        /**
+         * DownloadEvent getter and setter.
+         */
         CC_SYNTHESIZE(DownloadEventType, _type, Type);
+        /**
+         * Related task getter and setter.
+         */
         CC_SYNTHESIZE_RETAIN(DownloadTask*, _task, RelatedTask);
+        /**
+         * Download progress getter and setter.
+         */
         CC_SYNTHESIZE(float, _progress, Progress);
+        /**
+         * Error message getter and setter.
+         */
         CC_SYNTHESIZE_PASS_BY_REF(std::string, _errorMsg, ErrorMessage);
     };
     
