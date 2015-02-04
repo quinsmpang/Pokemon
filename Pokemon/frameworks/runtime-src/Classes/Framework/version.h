@@ -20,13 +20,14 @@ v1.13	Add DirectionController control.
 v1.14   Add http service and json elements.
 v1.15	Add xml elements without xpath, which may be completed in the future.
 v1.16   Add CheckedButton control.
+v1.17	Add http downloader.
 ***********************************************/
 
 #include <iostream>
 #include "tolua_fix.h"
 
-static const char *VERSION = "v1.16";
-static float VERSION_NUM = 1.16;
+static const char *VERSION = "v1.17";
+static float VERSION_NUM = 1.17;
 
 void printVersion()
 {
@@ -37,11 +38,9 @@ void lua_register_psframework_version(lua_State *tolua_S)
 {
 	lua_pushstring(tolua_S, VERSION);
 	lua_setglobal(tolua_S, "PSFrameworkVersionStr");
-	lua_pop(tolua_S, -2);
 
 	lua_pushnumber(tolua_S, VERSION_NUM);
 	lua_setglobal(tolua_S, "PSFrameworkVersionNumber");
-	lua_pop(tolua_S, -2);
 }
 
 #endif
