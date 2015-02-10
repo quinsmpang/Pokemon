@@ -267,19 +267,6 @@
             <key>images/pokemon/pokemon_ball_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{888,228},{30,30}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{30,30}}</string>
-                <key>sourceSize</key>
-                <string>{30,30}</string>
-            </dict>
-            <key>images/pokemon/pokemon_ball_13.png</key>
-            <dict>
-                <key>frame</key>
                 <string>{{836,258},{30,28}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
@@ -293,7 +280,7 @@
             <key>images/pokemon/pokemon_ball_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{804,253},{30,30}}</string>
+                <string>{{888,228},{30,30}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -304,6 +291,19 @@
                 <string>{30,30}</string>
             </dict>
             <key>images/pokemon/pokemon_ball_3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{804,253},{30,30}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{30,30}}</string>
+                <key>sourceSize</key>
+                <string>{30,30}</string>
+            </dict>
+            <key>images/pokemon/pokemon_ball_4.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{856,226},{30,30}}</string>
@@ -391,7 +391,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f0336c7d2d578552f543583737688e60:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:241f619addb96e45ace7c1f55144ac31:1/1$</string>
             <key>textureFileName</key>
             <string>pokemon.pvr.ccz</string>
         </dict>

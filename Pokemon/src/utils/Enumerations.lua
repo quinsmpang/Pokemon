@@ -99,6 +99,14 @@ Enumerations.POKEMON_PERSONALITY = {
 	CAREFUL = 24,	-- 慎重
 }
 
+-- 精灵球
+Enumerations.POKEBALL = {
+	MASTER_BALL = 1,	-- 大师球
+	ULTRA_BALL = 2,		-- 超级球
+	GREAT_BALL = 3,		-- 高级球
+	POKE_BALL = 4,		-- 精灵球
+}
+
 -- 战斗状态
 Enumerations.BATTLE_STATUS = {
 	CONFUSED = 1,		-- 混乱

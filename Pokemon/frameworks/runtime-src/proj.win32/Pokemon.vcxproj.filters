@@ -91,6 +91,9 @@
     <Filter Include="Classes\psframework\xml">
       <UniqueIdentifier>{d30b3425-7486-4e93-a08f-63339010bab3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\psframework\actions">
+      <UniqueIdentifier>{05cc5169-32c4-42f4-a3f9-9309ed7ea3f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -427,6 +430,9 @@
     <ClInclude Include="..\Classes\Framework\controls\CheckedButton.h">
       <Filter>Classes\psframework\controls</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Framework\actions\ActionParabola.h">
+      <Filter>Classes\psframework\actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -698,6 +704,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Framework\controls\CheckedButton.cpp">
       <Filter>Classes\psframework\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\actions\ActionParabola.cpp">
+      <Filter>Classes\psframework\actions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

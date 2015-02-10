@@ -4,6 +4,58 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>images/battle/ball1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{70,966},{30,30}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{30,30}}</string>
+                <key>sourceSize</key>
+                <string>{30,30}</string>
+            </dict>
+            <key>images/battle/ball2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{102,966},{30,30}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{30,30}}</string>
+                <key>sourceSize</key>
+                <string>{30,30}</string>
+            </dict>
+            <key>images/battle/ball3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{134,966},{30,30}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{30,30}}</string>
+                <key>sourceSize</key>
+                <string>{30,30}</string>
+            </dict>
+            <key>images/battle/ball4.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{166,966},{30,30}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{30,30}}</string>
+                <key>sourceSize</key>
+                <string>{30,30}</string>
+            </dict>
             <key>images/battle/battle_bg1.png</key>
             <dict>
                 <key>frame</key>
@@ -157,7 +209,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2ef4dfdba6c8e1b7c7b07aa585d22f76:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:9c1d700de63755ae724ca941d2d08e78:1/1$</string>
             <key>textureFileName</key>
             <string>battle_1.pvr.ccz</string>
         </dict>

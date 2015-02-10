@@ -114,6 +114,7 @@ namespace framework
 				if (listener->isEnabled() && listener->_callback)
 				{
 					listener->_callback(listener->_target, args);
+					//delete args;	// keep from memory leak
 					// check whether to swallow the event
 					if (listener->isEventsSwallowed())
 					{

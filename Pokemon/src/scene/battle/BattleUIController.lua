@@ -169,19 +169,16 @@ function BattleUIController:showPokemon()
 	local data = ZipHelper:getInstance():getFileDataInZip("images/pokemons.rc", string.format(formatStr, self.currentPokemonModel.id), GameConfig.ZIP_PASSWORD)
 	local playerPokemon = ImageUtils:getInstance():createSpriteWithBinaryData(data)
 	playerPokemon:setScale(0)
-	playerPokemon:setPosition(self.fieldPlayer:getContentSize().width * 0.5, self.fieldPlayer:getContentSize().height * -0.5)
+	playerPokemon:setPosition(self.fieldPlayer:getContentSize().width * 0.5, self.fieldPlayer:getContentSize().height * 0.5)
 	playerPokemon:setAnchorPoint(0.5, 0)
 	self.fieldPlayer:addChild(playerPokemon)
 	self.playerPokemon = playerPokemon
 
-	local action = cc.Spawn:create(
-		cc.MoveBy:create(0.7, ccp(0, self.fieldPlayer:getContentSize().height)),
-		cc.Sequence:create(
-			cc.DelayTime:create(0.2),
-			cc.EaseIn:create(cc.ScaleTo:create(0.5, 2), 2)
-			)
-		)
-	playerPokemon:runAction(action)
+	-- 丢出精灵球
+	local winSize = cc.Director:getInstance():getWinSize()
+	local ball = cc.Sprite:createWithSpriteFrameName("images/battle/ball" .. self.currentPokemonModel.ballId .. ".png")
+	ball:setPosition(-winSize.width * 0.04, winSize.height * 0.42)
+	self.root:addChild(ball)
 end
 
 function BattleUIController:showBattleBoard()

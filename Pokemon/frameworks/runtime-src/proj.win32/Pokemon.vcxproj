@@ -166,6 +166,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\Framework\actions\ActionParabola.h" />
     <ClInclude Include="..\Classes\Framework\base\BinaryData.h" />
     <ClInclude Include="..\Classes\Framework\base\Macros.h" />
     <ClInclude Include="..\Classes\Framework\base\RefBoolean.h" />
@@ -280,6 +281,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\Framework\actions\ActionParabola.cpp" />
     <ClCompile Include="..\Classes\Framework\base\BinaryData.cpp" />
     <ClCompile Include="..\Classes\Framework\base\RefBoolean.cpp" />
     <ClCompile Include="..\Classes\Framework\base\RefDouble.cpp" />

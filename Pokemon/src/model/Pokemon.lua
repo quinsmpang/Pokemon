@@ -62,7 +62,7 @@ function Pokemon:createWithLoadData(loadData)
 end
 
 function Pokemon:initRandom(id, level, ballId, place, carriedItem, isEgg)
-	ballId = ballId or 1
+	ballId = ballId or Enumerations.POKEBALL.POKE_BALL
 	place = place or DataCenter.currentPlayerData.currentMapId
 	if isEgg == nil then
 		isEgg = false

@@ -22,11 +22,13 @@ namespace framework
 			// the 31th bit indicates the key state
 			if (lParam & 0x80000000)
 			{
+				///todo memory leak
 				// the key is released
 				int *keyData = new int[2];
 				keyData[0] = vkCode;
 				keyData[1] = 2;
-				Win32Notifier::getInstance()->notify(Win32EventListener::Win32EventListenerType::KEYBOARD, new Win32EventArgs(keyData));
+				auto eventArgs = new Win32EventArgs(keyData);
+				Win32Notifier::getInstance()->notify(Win32EventListener::Win32EventListenerType::KEYBOARD, eventArgs);
 
 				g_pressedKeys.remove(vkCode);
 			}
@@ -38,7 +40,8 @@ namespace framework
 					int *keyData = new int[2];
 					keyData[0] = vkCode;
 					keyData[1] = 1;
-					Win32Notifier::getInstance()->notify(Win32EventListener::Win32EventListenerType::KEYBOARD, new Win32EventArgs(keyData));
+					auto eventArgs = new Win32EventArgs(keyData);
+					Win32Notifier::getInstance()->notify(Win32EventListener::Win32EventListenerType::KEYBOARD, eventArgs);
 
 					g_pressedKeys.push_back(vkCode);
 				}
