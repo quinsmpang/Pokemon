@@ -17,7 +17,7 @@ namespace framework
 		/**
 		* Create parabola path action with formula: y = a * (x - h) ^ 2 + k.
 		*
-		* @param a Coefficient, it affects the expansion of the parabola.
+		* @param a Coefficient, it affects the expansion and direction of the parabola.
 		* @param h Top point's x-axis value.
 		* @param k Top point's y-axis value.
 		* @param x1, Start position x.
@@ -35,6 +35,8 @@ namespace framework
 
 	protected:
 		bool init(float duration, float a, float h, float k, float x1, float x2);
+		float lx(float x);
+		cocos2d::Point deltaVector(float dt);
 
 		float _a, _h, _k;
 		float _x1, _x2;

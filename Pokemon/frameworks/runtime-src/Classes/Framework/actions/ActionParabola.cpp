@@ -33,13 +33,24 @@ namespace framework
 		_k = k;
 		_x1 = x1;
 		_x2 = x2;
+
 		// calculate perimeter from x1 to x2.
+		_perimeter = this->lx(x2) - this->lx(x1);
+
+		return true;
+	}
+
+	float ActionParabola::lx(float x)
+	{
 		/* y = a * (x - h) ^ 2 + k
 		* dy = 2 * a * x * dx
 		* dl = sqrt(dx ^ 2 + dy ^ 2) = sqrt(dx ^ 2 + 4 * a * a * x * x * dx ^ 2) = sqrt(4 * a * a * x * x + 1) * dx
 		* l = integration(x1 -> x2) sqrt(4 * a * a * x * x + 1) dx
+		* formula: integration sqrt(x * x + a * a) dx = x / 2 * sqrt(x * x + a * a) + a * a / 2 * ln(x + sqrt(x * x + a * a)) + C
+		* =>: l(x) = 2 * a * (x / 2 * sqrt(x * x + 1 / (4 * a * a)) + 1 / (8 * a * a) * ln(x + sqrt(x * x + 1 / (4 * a * a))) + C
+		* =>: l = l(x2) - l(x1)
 		*/
-		return true;
+		return 2 * _a * (x / 2 * sqrt(x * x + 1 / (4 * _a * _a)) + 1 / (8 * _a * _a) * log(x + sqrt(x * x + 1 / (4 * _a * _a))));
 	}
 
 	ActionParabola *ActionParabola::clone() const
@@ -73,12 +84,25 @@ namespace framework
 			Point currentPos = _target->getPosition();
 			Point diff = currentPos - _previousPosition;
 			_startPosition = _startPosition + diff;
-			Point newPos = _startPosition + (Point(0.01f, 0.01f) * t);
+			Point newPos = _startPosition + this->deltaVector(t);
 			_target->setPosition(newPos);
 			_previousPosition = newPos;
 #else
 			_target->setPosition(_startPosition + _positionDelta * t);
 #endif
 		}
+	}
+
+	Point ActionParabola::deltaVector(float dt)
+	{
+		float prevX = _previousPosition.x;
+		float deltaL = _perimeter * dt;
+		// deltaL = lx(nextX) - lx(prevX)
+		float lNextX = deltaL + this->lx(prevX);
+		// how to calculate nextX?
+		float nextX = 0.02f;
+		float nextY = _a * (nextX - _h) * (nextX - _h) + _k;
+		
+		return Point(nextX, nextY) - _previousPosition;
 	}
 }
