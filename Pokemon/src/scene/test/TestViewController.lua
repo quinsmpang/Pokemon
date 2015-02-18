@@ -8,6 +8,7 @@ class("TestViewController", psViewController)
 
 require "src/scene/test/TestClippingCircleLayer"
 require "src/scene/test/TestParabolaLayer"
+require "src/scene/test/TestBlendLayer"
 
 TestViewController.resources = {
 	"images/item.plist",
@@ -35,6 +36,7 @@ function TestViewController:renderView()
 	local coreLayer = self:getScene():getCoreLayer()
 
 	-- local testLayer = TestClippingCircleLayer:create()
-	local testLayer = TestParabolaLayer:create()
+	-- local testLayer = TestParabolaLayer:create()
+	local testLayer = TestBlendLayer:create()
 	coreLayer:addChild(testLayer)
 end

@@ -21,7 +21,7 @@ function TestParabolaLayer:init()
 	local h = 400
 	local k = 420
 	local x1 = 250
-	local x2 = 550
+	local x2 = 500
 
 	local dots = {}
 	-- y = -2 * (x - 400) ^ 2 + 300

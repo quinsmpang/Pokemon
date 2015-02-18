@@ -259,12 +259,14 @@ end
 
 function TMXMapLayer:onNodeEvent(event)
 	if event == "enter" then
-		self.scheduleHandle = cc.Director:getInstance():getScheduler():scheduleScriptFunc(MakeScriptHandler(self, self.onMapUpdate), 0.05, false)
+		self:scheduleUpdateWithPriorityLua(MakeScriptHandler(self, self.onMapUpdate), 0)
+		-- self.scheduleHandle = cc.Director:getInstance():getScheduler():scheduleScriptFunc(MakeScriptHandler(self, self.onMapUpdate), 0.05, false)
 	elseif event == "exit" then
-		if self.scheduleHandle then
-			cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.scheduleHandle)
-			self.scheduleHandle = nil
-		end
+		-- if self.scheduleHandle then
+		-- 	cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.scheduleHandle)
+		-- 	self.scheduleHandle = nil
+		-- end
+		self:unscheduleUpdate()
 	end
 end
 
