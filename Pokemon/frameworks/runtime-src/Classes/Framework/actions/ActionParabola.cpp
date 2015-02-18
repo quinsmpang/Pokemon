@@ -35,7 +35,7 @@ namespace framework
 		_x2 = x2;
 
 		// calculate perimeter from x1 to x2.
-		_perimeter = this->lx(x2) - this->lx(x1);
+		//_perimeter = this->lx(x2) - this->lx(x1);
 
 		return true;
 	}
@@ -61,6 +61,7 @@ namespace framework
 			pCopy->autorelease();
 			return pCopy;
 		}
+		CC_SAFE_RELEASE(pCopy);
 		return nullptr;
 	}
 
@@ -88,21 +89,23 @@ namespace framework
 			_target->setPosition(newPos);
 			_previousPosition = newPos;
 #else
-			_target->setPosition(_startPosition + _positionDelta * t);
+			_target->setPosition(_startPosition + this->deltaVector(t));
 #endif
 		}
 	}
 
 	Point ActionParabola::deltaVector(float dt)
 	{
-		float prevX = _previousPosition.x;
-		float deltaL = _perimeter * dt;
-		// deltaL = lx(nextX) - lx(prevX)
-		float lNextX = deltaL + this->lx(prevX);
-		// how to calculate nextX?
-		float nextX = 0.02f;
+		float prevX = _startPosition.x;
+		//float deltaL = _perimeter * dt;
+		//// deltaL = lx(nextX) - lx(prevX)
+		//float lNextX = deltaL + this->lx(prevX);
+		//// how to calculate nextX?
+		//float nextX = 0.02f;
+		float deltaX = (_x2 - _x1) * dt;
+		float nextX = prevX + deltaX;
 		float nextY = _a * (nextX - _h) * (nextX - _h) + _k;
 		
-		return Point(nextX, nextY) - _previousPosition;
+		return Point(nextX, nextY) - _startPosition;
 	}
 }

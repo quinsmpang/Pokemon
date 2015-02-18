@@ -37,6 +37,8 @@
 #include "controls/DirectionController.h"
 #include "controls/CheckedButton.h"
 
+#include "actions/ActionParabola.h"
+
 #include "editor/ScriptCCBReader.h"
 
 #include "utils/IOUtils.h"

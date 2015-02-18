@@ -8356,6 +8356,91 @@ int lua_register_psframework_CheckedButton(lua_State* tolua_S)
     return 1;
 }
 
+int lua_psframework_ActionParabola_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.ActionParabola",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 6)
+    {
+        double arg0;
+        double arg1;
+        double arg2;
+        double arg3;
+        double arg4;
+        double arg5;
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+        ok &= luaval_to_number(tolua_S, 3,&arg1);
+        ok &= luaval_to_number(tolua_S, 4,&arg2);
+        ok &= luaval_to_number(tolua_S, 5,&arg3);
+        ok &= luaval_to_number(tolua_S, 6,&arg4);
+        ok &= luaval_to_number(tolua_S, 7,&arg5);
+        if(!ok)
+            return 0;
+        framework::ActionParabola* ret = framework::ActionParabola::create(arg0, arg1, arg2, arg3, arg4, arg5);
+        object_to_luaval<framework::ActionParabola>(tolua_S, "pf.ActionParabola",(framework::ActionParabola*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 6);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ActionParabola_create'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_ActionParabola_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (ActionParabola)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"ActionParabola",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::ActionParabola* self = (framework::ActionParabola*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
+    return 0;
+}
+
+int lua_register_psframework_ActionParabola(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.ActionParabola");
+    tolua_cclass(tolua_S,"ActionParabola","pf.ActionParabola","cc.ActionInterval",nullptr);
+
+    tolua_beginmodule(tolua_S,"ActionParabola");
+        tolua_function(tolua_S,"create", lua_psframework_ActionParabola_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::ActionParabola).name();
+    g_luaType[typeName] = "pf.ActionParabola";
+    g_typeCast["ActionParabola"] = "pf.ActionParabola";
+    return 1;
+}
+
 int lua_psframework_ScriptCCBReader_readCCB(lua_State* tolua_S)
 {
     int argc = 0;
@@ -12758,6 +12843,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_Vector(tolua_S);
 	lua_register_psframework_GameLayer(tolua_S);
 	lua_register_psframework_TitleSwitch(tolua_S);
+	lua_register_psframework_Mutex(tolua_S);
 	lua_register_psframework_CoreLayer(tolua_S);
 	lua_register_psframework_Win32EventListenerKeyboard(tolua_S);
 	lua_register_psframework_IOUtils(tolua_S);
@@ -12766,8 +12852,8 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_MaskLayer(tolua_S);
 	lua_register_psframework_RefDouble(tolua_S);
 	lua_register_psframework_RefString(tolua_S);
-	lua_register_psframework_Mutex(tolua_S);
 	lua_register_psframework_ModalLayer(tolua_S);
+	lua_register_psframework_ActionParabola(tolua_S);
 
 	tolua_endmodule(tolua_S);
 	return 1;
