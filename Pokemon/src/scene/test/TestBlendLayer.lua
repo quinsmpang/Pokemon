@@ -25,7 +25,6 @@ function TestBlendLayer:init()
 	-- mask:setCascadeOpacityEnabled(true)
 	mask:setOpacity(255)
 	mask:ignoreAnchorPointForPosition(false)
-	-- self:addChild(mask)
 
 	local data = ZipHelper:getInstance():getFileDataInZip("images/pokemons.rc", "003_b.png", GameConfig.ZIP_PASSWORD)
 	local playerPokemon = ImageUtils:getInstance():createSpriteWithBinaryData(data)
@@ -35,6 +34,10 @@ function TestBlendLayer:init()
 
 	mask:setContentSize(playerPokemon:getContentSize())
 	mask:setPosition(playerPokemon:getPosition())
+	self:addChild(mask)
 
-	playerPokemon:setBlendFunc(gl.ONE_MINUS_DST_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
+	mask:setBlendFunc(gl.DST_ALPHA, gl.SRC_ALPHA)
+	-- playerPokemon:setBlendFunc(gl.SRC_COLOR, gl.SRC_ALPHA)
+
+	-- mask:runAction(cc.FadeOut:create(3))
 end
