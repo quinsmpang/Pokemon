@@ -30,18 +30,14 @@ namespace framework
          * Filter the successful response message.
          *
          * @param response Target response object.
-         *
-         * @return Return the filtered response.
          */
-		virtual NetResponse *filterSuccessfulMessage(NetResponse *response);
+		virtual void filterSuccessfulMessage(NetResponse *response);
         /**
          * Filter the failed response message.
          *
          * @param response Target response object.
-         *
-         * @return Return the filtered response.
          */
-		virtual NetResponse *filterFailedMessage(NetResponse *response);
+		virtual void filterFailedMessage(NetResponse *response);
         
     protected:
 		virtual bool init();

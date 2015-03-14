@@ -10,7 +10,7 @@ end
 GameLauncher = {}
 
 DEBUG = true
-TEST = true
+TEST = false
 
 GameLauncher.publicResources = {
     "images/common.plist",

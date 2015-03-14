@@ -21,7 +21,7 @@ namespace framework
         Vector<Ref*> params;
         params.pushBack(response);
         Vector<Ref*> paramTypes;
-        paramTypes.pushBack(__String::create("pf.NetHandler"));
+        paramTypes.pushBack(__String::create("pf.NetResponse"));
         
         LuaUtils::getInstance()->executePeertableFunction(this, "handleSuccessfulMessage", params, paramTypes, false);
     #endif
@@ -33,7 +33,7 @@ namespace framework
         Vector<Ref*> params;
         params.pushBack(response);
         Vector<Ref*> paramTypes;
-        paramTypes.pushBack(__String::create("pf.NetHandler"));
+        paramTypes.pushBack(__String::create("pf.NetResponse"));
         
         LuaUtils::getInstance()->executePeertableFunction(this, "handleFailedMessage", params, paramTypes, false);
     #endif
