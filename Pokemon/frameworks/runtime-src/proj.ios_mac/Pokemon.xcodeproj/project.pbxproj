@@ -200,6 +200,7 @@
 		F293B3D915EB7BE500256477 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3D815EB7BE500256477 /* Foundation.framework */; };
 		F293B3DB15EB7BE500256477 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3DA15EB7BE500256477 /* CoreGraphics.framework */; };
 		F293BB9C15EB831F00256477 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F293BB7E15EB831F00256477 /* AppDelegate.cpp */; };
+		F56EE79D1AB0BA79000D9587 /* ActionParabola.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F56EE79B1AB0BA79000D9587 /* ActionParabola.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -663,6 +664,8 @@
 		F293B3DA15EB7BE500256477 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		F293BB7E15EB831F00256477 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = ../Classes/AppDelegate.cpp; sourceTree = "<group>"; };
 		F293BB7F15EB831F00256477 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../Classes/AppDelegate.h; sourceTree = "<group>"; };
+		F56EE79B1AB0BA79000D9587 /* ActionParabola.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionParabola.cpp; sourceTree = "<group>"; };
+		F56EE79C1AB0BA79000D9587 /* ActionParabola.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionParabola.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -776,6 +779,7 @@
 		3365B6E81A43D29000B33C4B /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				F56EE79A1AB0BA79000D9587 /* actions */,
 				78C45A181A61895900474362 /* xml */,
 				33C657B21A60E5A900CCBA97 /* json */,
 				33C657A91A60E02600CCBA97 /* http */,
@@ -1357,6 +1361,15 @@
 			path = ../Resources;
 			sourceTree = "<group>";
 		};
+		F56EE79A1AB0BA79000D9587 /* actions */ = {
+			isa = PBXGroup;
+			children = (
+				F56EE79B1AB0BA79000D9587 /* ActionParabola.cpp */,
+				F56EE79C1AB0BA79000D9587 /* ActionParabola.h */,
+			);
+			path = actions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1416,7 +1429,7 @@
 				LastUpgradeCheck = 0500;
 				TargetAttributes = {
 					F293B3C715EB7BE500256477 = {
-						DevelopmentTeam = MDDB52YB8L;
+						DevelopmentTeam = Q989R2SM23;
 					};
 				};
 			};
@@ -1738,6 +1751,7 @@
 				33C657E91A60F54A00CCBA97 /* JSONPreparse.cpp in Sources */,
 				78B4DA021A47192C0077C418 /* unzip.c in Sources */,
 				3365B7A31A43D29000B33C4B /* Thread.cpp in Sources */,
+				F56EE79D1AB0BA79000D9587 /* ActionParabola.cpp in Sources */,
 				3365B79C1A43D29000B33C4B /* LuaEngineEx.cpp in Sources */,
 				3365B77E1A43D29000B33C4B /* RefDouble.cpp in Sources */,
 				3365B7871A43D29000B33C4B /* ListMenu.cpp in Sources */,
