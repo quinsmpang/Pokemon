@@ -63,7 +63,7 @@ namespace framework
 		for (int i = 0; i < _filters->getLength(); ++i)
 		{
 			pFilter = (NetFilter*)_filters->objectAt(i);
-			response = pFilter->filterSuccessfulMessage(response);
+			pFilter->filterSuccessfulMessage(response);
 		}
 		// handle the response
 		NetHandler *pHandler = (NetHandler*)pProtocol->getRelatedHandler();
@@ -86,7 +86,7 @@ namespace framework
 		for (int i = 0; i < _filters->getLength(); ++i)
 		{
 			pFilter = (NetFilter*)_filters->objectAt(i);
-			response = pFilter->filterFailedMessage(response);
+			pFilter->filterFailedMessage(response);
 		}
 		// handle the response
 		NetHandler *pHandler = (NetHandler*)pProtocol->getRelatedHandler();
