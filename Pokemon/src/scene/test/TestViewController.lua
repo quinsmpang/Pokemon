@@ -36,7 +36,7 @@ function TestViewController:renderView()
 	local coreLayer = self:getScene():getCoreLayer()
 
 	-- local testLayer = TestClippingCircleLayer:create()
-	-- local testLayer = TestParabolaLayer:create()
-	local testLayer = TestBlendLayer:create()
+	local testLayer = TestParabolaLayer:create()
+	-- local testLayer = TestBlendLayer:create()
 	coreLayer:addChild(testLayer)
 end

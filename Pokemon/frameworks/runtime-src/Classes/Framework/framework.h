@@ -38,6 +38,7 @@
 #include "controls/CheckedButton.h"
 
 #include "actions/ActionParabola.h"
+#include "actions/ActionColorTo.h"
 
 #include "editor/ScriptCCBReader.h"
 

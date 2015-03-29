@@ -8441,6 +8441,83 @@ int lua_register_psframework_ActionParabola(lua_State* tolua_S)
     return 1;
 }
 
+int lua_psframework_ActionColorTo_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.ActionColorTo",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 2)
+    {
+        double arg0;
+        cocos2d::Color3B arg1;
+        ok &= luaval_to_number(tolua_S, 2,&arg0);
+        ok &= luaval_to_color3b(tolua_S, 3, &arg1);
+        if(!ok)
+            return 0;
+        framework::ActionColorTo* ret = framework::ActionColorTo::create(arg0, arg1);
+        object_to_luaval<framework::ActionColorTo>(tolua_S, "pf.ActionColorTo",(framework::ActionColorTo*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 2);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_ActionColorTo_create'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_ActionColorTo_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (ActionColorTo)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"ActionColorTo",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::ActionColorTo* self = (framework::ActionColorTo*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
+    return 0;
+}
+
+int lua_register_psframework_ActionColorTo(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.ActionColorTo");
+    tolua_cclass(tolua_S,"ActionColorTo","pf.ActionColorTo","cc.ActionInterval",nullptr);
+
+    tolua_beginmodule(tolua_S,"ActionColorTo");
+        tolua_function(tolua_S,"create", lua_psframework_ActionColorTo_create);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::ActionColorTo).name();
+    g_luaType[typeName] = "pf.ActionColorTo";
+    g_typeCast["ActionColorTo"] = "pf.ActionColorTo";
+    return 1;
+}
+
 int lua_psframework_ScriptCCBReader_readCCB(lua_State* tolua_S)
 {
     int argc = 0;
@@ -12819,13 +12896,13 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_RecordHelper(tolua_S);
 	lua_register_psframework_ListMenuItem(tolua_S);
 	lua_register_psframework_RefInteger(tolua_S);
-	lua_register_psframework_Win32Notifier(tolua_S);
+	lua_register_psframework_ActionColorTo(tolua_S);
 	lua_register_psframework_ListMenu(tolua_S);
 	lua_register_psframework_NetHandler(tolua_S);
 	lua_register_psframework_Map(tolua_S);
 	lua_register_psframework_DirectionController(tolua_S);
 	lua_register_psframework_NetRequest(tolua_S);
-	lua_register_psframework_KeyboardHelper(tolua_S);
+	lua_register_psframework_Win32Notifier(tolua_S);
 	lua_register_psframework_BinaryData(tolua_S);
 	lua_register_psframework_SaveData(tolua_S);
 	lua_register_psframework_RefBoolean(tolua_S);
@@ -12844,6 +12921,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_GameLayer(tolua_S);
 	lua_register_psframework_TitleSwitch(tolua_S);
 	lua_register_psframework_Mutex(tolua_S);
+	lua_register_psframework_KeyboardHelper(tolua_S);
 	lua_register_psframework_CoreLayer(tolua_S);
 	lua_register_psframework_Win32EventListenerKeyboard(tolua_S);
 	lua_register_psframework_IOUtils(tolua_S);

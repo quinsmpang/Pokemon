@@ -14,6 +14,7 @@ BattleDialogController.dialogLabel = nil
 
 BattleDialogController.isDialogInProcess = nil
 BattleDialogController.isEnabled = nil
+BattleDialogController.currentDialog = nil		-- 当前会话内容
 
 -- const values
 BattleDialogController.DIALOG_TEXT_FONT_SIZE = 18
@@ -117,7 +118,7 @@ function BattleDialogController:onKeyboardPressed(keyCode)
 		return
 	end
 	if keyCode == GameSettings.confirmKey or keyCode == GameSettings.cancelKey then
-		self:handleDialogDisplay()
+		self:handleDialogDisplay(self.currentDialog)
 	end
 end
 
@@ -154,6 +155,7 @@ end
 function BattleDialogController:onUpdateDialog(dialogKey, ...)
 	local showDialog = string.format(BattleDialogConstants[dialogKey], unpack{...})
 	log("BattleDialogConstants:onUpdateDialog", showDialog)
+	self.currentDialog = showDialog
 	local substrings = GenerateAllUTF8Substrings(showDialog)
 	self.isDialogInProcess = true
 	self.isEnabled = true

@@ -178,15 +178,17 @@ end
 
 function Pokemon:getLevelUpExp(level)
 	-- 具体的到时候再配，先取标准经验表todo
-	return level * level * level
+	return self:getAllExp(level + 1) - self:getAllExp(level)
 end
 
 function Pokemon:getAllExp(level)
-	local sum = 0
-	for i = 2, level do
-		sum = sum + self:getLevelUpExp(i)
-	end
-	return sum
+	return level ^ 3
+end
+
+function Pokemon:getExpPercentage()
+	local numerator = self.exp - self:getAllExp(self.level)
+	local denominator = self:getAllExp(self.level + 1)
+	return numerator / denominator * 100
 end
 
 function Pokemon:getSkillMaxPP(index)

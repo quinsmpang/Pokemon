@@ -17,6 +17,7 @@ namespace framework
 		/**
 		* Create parabola path action with formula: y = a * (x - h) ^ 2 + k.
 		*
+		* @param duration Action duration.
 		* @param a Coefficient, it affects the expansion and direction of the parabola.
 		* @param h Top point's x-axis value.
 		* @param k Top point's y-axis value.
@@ -28,8 +29,8 @@ namespace framework
 		/**
 		* Overrides
 		*/
-		virtual ActionParabola* clone() const override;
-		virtual ActionParabola* reverse(void) const  override;
+		virtual ActionParabola *clone() const override;
+		virtual ActionParabola *reverse(void) const  override;
 		virtual void startWithTarget(cocos2d::Node *target) override;
 		virtual void update(float time) override;
 

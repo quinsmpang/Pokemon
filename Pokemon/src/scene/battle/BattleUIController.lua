@@ -7,12 +7,14 @@
 class("BattleUIController", psViewController)
 
 require "src/scene/battle/BattleLogicConstants"
+require "src/scene/battle/PlayerPokemonBoard"
 require "src/scene/battle/EnemyPokemonBoard"
 require "src/scene/battle/BattleStateMachine"
 
 BattleUIController.root = nil
 BattleUIController.fieldPlayer = nil
 BattleUIController.fieldEnemy = nil
+BattleUIController.playerBoard = nil
 BattleUIController.enemyBoard = nil		-- 1v1
 BattleUIController.player = nil
 BattleUIController.playerPokemon = nil
@@ -153,8 +155,6 @@ function BattleUIController:checkPrepareDialog()
 		local moveAction = cc.MoveBy:create(0.7, ccp(-350, 0))
 		self.player:runAction(moveAction)
 		CallFunctionAsync(self, self.showPokemon, 0.7)
-		CallFunctionAsync(self, self.showBattleBoard, 0.8)
-		CallFunctionAsync(self, self.resetBattle, 0.8)
 	end
 end
 
@@ -177,12 +177,61 @@ function BattleUIController:showPokemon()
 	-- 丢出精灵球
 	local winSize = cc.Director:getInstance():getWinSize()
 	local ball = cc.Sprite:createWithSpriteFrameName("images/battle/ball" .. self.currentPokemonModel.ballId .. ".png")
-	ball:setPosition(-winSize.width * 0.04, winSize.height * 0.42)
 	self.root:addChild(ball)
+	-- 计算抛物线
+	local h = winSize.width * 0.125
+	local k = winSize.height * 0.7
+	local fieldPos = ccp(self.fieldPlayer:getPosition())
+	local a = (fieldPos.y - k) / (fieldPos.x - h) / (fieldPos.x - h)
+	local parabolaAction = ActionParabola:create(1, a, h, k, -winSize.width * 0.1, fieldPos.x)
+	local rotationAction = cc.RotateBy:create(1, 360 * 4)
+	local callFuncAction = cc.CallFunc:create(MakeScriptHandler(self, self.showPokemonCallback, ball))
+	local action = cc.Sequence:create(
+		cc.Spawn:create(
+			parabolaAction,
+			rotationAction
+			),
+		callFuncAction
+		)
+	ball:runAction(action)
+end
+function BattleUIController:showPokemonCallback(sender, ball)
+	ball:removeFromParent(true)
+	local scaleAction = cc.ScaleTo:create(0.5, 2)
+	local colorAction1 = ActionColorTo:create(0.5, ccc3(255, 0, 0))
+	local colorAction2 = colorAction1:reverse()
+	local callFuncAction = cc.CallFunc:create(MakeScriptHandler(self, self.showPokemonCallback2))
+	local action = cc.Sequence:create(
+		cc.Spawn:create(
+			scaleAction,
+			colorAction1
+			),
+		colorAction2,
+		callFuncAction
+		)
+	self.playerPokemon:runAction(action)
+end
+function BattleUIController:showPokemonCallback2()
+	local winSize = cc.Director:getInstance():getWinSize()
+
+	local playerBoard = PlayerPokemonBoard:create(self.currentPokemonModel)
+	playerBoard:setPosition(winSize.width * 1.2, winSize.height * 0.4)
+	self.root:addChild(playerBoard)
+	self.playerBoard = playerBoard
+
+	playerBoard:runAction(cc.Sequence:create(
+		cc.MoveBy:create(0.8, ccp(-winSize.width * 0.4, 0)),
+		cc.CallFunc:create(MakeScriptHandler(self, self.showPokemonCallback3))
+		))
+end
+function BattleUIController:showPokemonCallback3()
+	self:showBattleBoard()
 end
 
 function BattleUIController:showBattleBoard()
+	-- 显示战斗操作面板
 
+	self:resetBattle()
 end
 
 function BattleUIController:resetBattle()
