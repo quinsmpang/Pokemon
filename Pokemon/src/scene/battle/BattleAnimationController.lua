@@ -17,6 +17,7 @@ end
 function BattleAnimationController:unload()
 	log("BattleAnimationController:unload")
 	self:removeObservers()
+	self.root:removeFromParent(true)
 end
 
 function BattleAnimationController:addObservers()

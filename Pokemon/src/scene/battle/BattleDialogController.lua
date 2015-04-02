@@ -33,6 +33,7 @@ end
 function BattleDialogController:unload()
 	log("BattleDialogController:unload")
 	self:removeObservers()
+	self.root:removeFromParent(true)
 end
 
 function BattleDialogController:addObservers()

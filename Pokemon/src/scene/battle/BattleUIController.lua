@@ -41,6 +41,7 @@ end
 function BattleUIController:unload()
 	log("BattleUIController:unload")
 	self:removeObservers()
+	self.root:removeFromParent(true)
 end
 
 function BattleUIController:addObservers()
@@ -230,6 +231,7 @@ end
 
 function BattleUIController:showBattleBoard()
 	-- 显示战斗操作面板
+	Notifier:notify(NotifyEvents.Battle.ShowBattleMenu)
 
 	self:resetBattle()
 end
