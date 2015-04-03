@@ -14,6 +14,8 @@ BattleDialogController.dialogLabel = nil
 
 BattleDialogController.isDialogInProcess = nil
 BattleDialogController.isEnabled = nil
+BattleDialogController.currentDialogKey = nil
+BattleDialogController.currentDialogParams = nil
 BattleDialogController.currentDialog = nil		-- 当前会话内容
 
 -- const values
@@ -95,6 +97,7 @@ function BattleDialogController:onNodeEvent(event)
 		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
 			local kbdListener = Win32EventListenerKeyboard:createWithTarget(self.root)
 			kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
+			kbdListener:setEventsSwallowed(false)
 			Win32Notifier:getInstance():addEventListener(kbdListener)
 			self.kbdListener = kbdListener
 		else
@@ -156,6 +159,8 @@ end
 function BattleDialogController:onUpdateDialog(dialogKey, ...)
 	local showDialog = string.format(BattleDialogConstants[dialogKey], unpack{...})
 	log("BattleDialogConstants:onUpdateDialog", showDialog)
+	self.currentDialogKey = dialogKey
+	self.currentDialogParams = unpack{...}
 	self.currentDialog = showDialog
 	local substrings = GenerateAllUTF8Substrings(showDialog)
 	self.isDialogInProcess = true

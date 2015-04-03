@@ -245,7 +245,7 @@
     <property name="bg_type" value="1"/>
     <property name="encounter_rate" value="10"/>
     <property name="field_type" value="1"/>
-    <property name="pets" value="1:5,16:50,19:45"/>
+    <property name="pets" value="1:5:5:5,16:50:2:4,19:45:2:4"/>
    </properties>
   </object>
  </objectgroup>

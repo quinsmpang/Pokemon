@@ -10,6 +10,7 @@ require "src/scene/battle/BattleLogicConstants"
 require "src/scene/battle/PlayerPokemonBoard"
 require "src/scene/battle/EnemyPokemonBoard"
 require "src/scene/battle/BattleStateMachine"
+require "src/scene/battle/BattleCommonMenu"
 
 BattleUIController.root = nil
 BattleUIController.fieldPlayer = nil
@@ -19,9 +20,9 @@ BattleUIController.enemyBoard = nil		-- 1v1
 BattleUIController.player = nil
 BattleUIController.playerPokemon = nil
 BattleUIController.enemyPokemon = nil
-
-BattleUIController.currentPokemonModel = nil
-BattleUIController.wildPokemonModel = nil	-- wild 1v1
+BattleUIController.battleMenu = nil		-- 战斗菜单
+BattleUIController.skillMenu = nil		-- 技能菜单
+BattleUIController.focusMenu = nil		-- 当前锁定的菜单
 
 BattleUIController.battleType = nil
 BattleUIController.bgType = nil
@@ -31,6 +32,11 @@ BattleUIController.WILD1V1_PREPARE_DIALOGS = {
 	"WILD_POKEMON_OCCUR",
 	"CHANGE_POKEMON",
 }
+BattleUIController.BATTLE_INSTRUCTIONS = {
+	"战斗", "背包", "精灵", "逃跑",
+}
+
+local winSize = cc.Director:getInstance():getWinSize()
 
 function BattleUIController:load()
 	log("BattleUIController:load")
@@ -46,23 +52,25 @@ end
 
 function BattleUIController:addObservers()
 	Notifier:addObserver(NotifyEvents.Battle.DialogEnded, self, self.onDialogEnded)
+	Notifier:addObserver(NotifyEvents.Battle.StartBattle, self, self.onUpdateUI)
 end
 
 function BattleUIController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.Battle.DialogEnded, self)
+	Notifier:removeObserver(NotifyEvents.Battle.StartBattle, self)
 end
 
 function BattleUIController:renderView()
 	log("BattleUIController:renderView")
-	local winSize = cc.Director:getInstance():getWinSize()
 
 	self.root = cc.Layer:create()
+	self.root:registerScriptHandler(MakeScriptHandler(self, self.onNodeEvent))
 	self:getScene():addChild(self.root)
 
 	local battleType = self:getScene():getIntAttribute("battle_type")
 	local bgType = self:getScene():getIntAttribute("battle_bg_type")
 	local fieldType = self:getScene():getIntAttribute("battle_field_type")
-	self.battleType = battleType
+	BattleSharedData.battleType = battleType
 	self.bgType = bgType
 	self.fieldType = fieldType
 	log(string.format("Battle type: %d, Bg type: %d, Field type: %d", battleType, bgType, fieldType))
@@ -101,7 +109,7 @@ function BattleUIController:renderView()
 
 		-- 随机生成神奇宝贝
 		local pokemonModel = Pokemon:create(pokemonId, pokemonLevel)
-		self.wildPokemonModel = pokemonModel
+		BattleSharedData.enemyPokemonModel = pokemonModel
 
 		-- 添加进入图鉴
 		DataCenter:addNewCollection(pokemonId, false)
@@ -117,15 +125,83 @@ function BattleUIController:renderView()
 	end
 end
 
-function BattleUIController:beginBattleAnimation()
-	local winSize = cc.Director:getInstance():getWinSize()
+function BattleUIController:onNodeEvent(event)
+	if event == "enter" then
+		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+			local kbdListener = Win32EventListenerKeyboard:createWithTarget(self.root)
+			kbdListener:registerScriptWin32Handler(MakeScriptHandler(self, self.onKeyboardPressed), pf.Handler.WIN32_KEYBOARD_DOWN)
+			kbdListener:setEventsSwallowed(true)
+			Win32Notifier:getInstance():addEventListener(kbdListener)
+			self.kbdListener = kbdListener
+		else
+			local touchListener = cc.EventListenerTouchOneByOne:create()
+			touchListener:setSwallowTouches(true)
+			touchListener:registerScriptHandler(MakeScriptHandler(self, self.onTouch), cc.Handler.EVENT_TOUCH_BEGAN)
+			self.root:getEventDispatcher():addEventListenerWithSceneGraphPriority(touchListener, self.root)
+			self.touchListener = touchListener
+		end
+	elseif event == "exit" then
+		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS and self.kbdListener then
+			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
+			self.kbdListener = nil
+		elseif self.touchListener then
+			self.root:getEventDispatcher():removeEventListener(self.touchListener)
+		end
+	end
+end
 
+function BattleUIController:onKeyboardPressed(keyCode)
+	if not self.focusMenu or not self.focusMenu:isVisible() then
+		return
+	end
+	if keyCode == GameSettings.leftKey then
+		self.focusMenu:cursorLeft()
+	elseif keyCode == GameSettings.rightKey then
+		self.focusMenu:cursorRight()
+	elseif keyCode == GameSettings.upKey then
+		self.focusMenu:cursorUp()
+	elseif keyCode == GameSettings.downKey then
+		self.focusMenu:cursorDown()
+	elseif keyCode == GameSettings.confirmKey then
+		local selectedIndex = self.focusMenu.selectedIndex
+		if self.focusMenu == self.battleMenu then
+			if selectedIndex == 1 then
+				-- 战斗
+				local skillNames = {}
+				for _, skillInfo in ipairs(BattleSharedData.currentPokemonModel.skills) do
+					local skillModel = SkillInfo:create(skillInfo[1])
+					table.insert(skillNames, skillModel.name)
+				end
+				self.skillMenu = BattleCommonMenu:create(skillNames)
+				self.skillMenu:setPosition(winSize.width * 0.25, winSize.height * 0.1)
+				self:getScene():addChild(self.skillMenu)
+				self.focusMenu = self.skillMenu
+			elseif selectedIndex == 2 then
+				-- 背包
+			elseif selectedIndex == 3 then
+				-- 精灵
+			elseif selectedIndex == 4 then
+				-- 逃跑
+				self.battleMenu:setVisible(false)
+				BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.ESCAPE)
+				BattleStateMachine:process()
+			end
+		elseif self.focusMenu == self.skillMenu then
+		end
+	elseif keyCode == GameSettings.cancelKey and self.focusMenu == self.skillMenu then
+		self.skillMenu:removeFromParent(true)
+		self.skillMenu = nil
+		self.focusMenu = self.battleMenu
+	end
+end
+
+function BattleUIController:beginBattleAnimation()
 	local action = cc.Spawn:create(
 		cc.TargetedAction:create(self.fieldPlayer, cc.MoveBy:create(3, ccp(-winSize.width, 0))),
 		cc.TargetedAction:create(self.fieldEnemy, cc.MoveBy:create(3, ccp(winSize.width, 0)))
 		)
 
-	if self.battleType == Enumerations.BATTLE_TYPE.WILD then
+	if BattleSharedData.battleType == Enumerations.BATTLE_TYPE.WILD then
 		action = cc.Sequence:create(
 			action,
 			cc.TargetedAction:create(self.enemyBoard, cc.MoveBy:create(0.8, ccp(winSize.width * 0.4, 0))),
@@ -138,17 +214,17 @@ end
 
 function BattleUIController:checkPrepareDialog()
 	local dialogs = nil
-	if self.battleType == Enumerations.BATTLE_TYPE.WILD then
+	if BattleSharedData.battleType == Enumerations.BATTLE_TYPE.WILD then
 		dialogs = self.WILD1V1_PREPARE_DIALOGS
 	end
 	local dialogKey = dialogs[self.prepareStep]
 	if dialogKey then
 		if dialogKey == "WILD_POKEMON_OCCUR" then
-			self:notifyUpdatingDialog(dialogKey, self.wildPokemonModel.model.name)
+			self:notifyUpdatingDialog(dialogKey, BattleSharedData.enemyPokemonModel.model.name)
 		elseif dialogKey == "CHANGE_POKEMON" then
 			-- 取第一个可用精灵
-			self.currentPokemonModel = DataCenter:getFirstAvailablePokemon()
-			self:notifyUpdatingDialog(dialogKey, self.currentPokemonModel.model.name)
+			BattleSharedData.currentPokemonModel = DataCenter:getFirstAvailablePokemon()
+			self:notifyUpdatingDialog(dialogKey, BattleSharedData.currentPokemonModel.model.name)
 		end
 	else
 		-- 正式开始战斗
@@ -162,12 +238,12 @@ end
 function BattleUIController:showPokemon()
 	local formatStr = nil
 	-- 是否是闪光？
-	if self.currentPokemonModel.isShining then
+	if BattleSharedData.currentPokemonModel.isShining then
 		formatStr = "%03d_sb.png"
 	else
 		formatStr = "%03d_b.png"
 	end
-	local data = ZipHelper:getInstance():getFileDataInZip("images/pokemons.rc", string.format(formatStr, self.currentPokemonModel.id), GameConfig.ZIP_PASSWORD)
+	local data = ZipHelper:getInstance():getFileDataInZip("images/pokemons.rc", string.format(formatStr, BattleSharedData.currentPokemonModel.id), GameConfig.ZIP_PASSWORD)
 	local playerPokemon = ImageUtils:getInstance():createSpriteWithBinaryData(data)
 	playerPokemon:setScale(0)
 	playerPokemon:setPosition(self.fieldPlayer:getContentSize().width * 0.5, self.fieldPlayer:getContentSize().height * 0.5)
@@ -176,8 +252,7 @@ function BattleUIController:showPokemon()
 	self.playerPokemon = playerPokemon
 
 	-- 丢出精灵球
-	local winSize = cc.Director:getInstance():getWinSize()
-	local ball = cc.Sprite:createWithSpriteFrameName("images/battle/ball" .. self.currentPokemonModel.ballId .. ".png")
+	local ball = cc.Sprite:createWithSpriteFrameName("images/battle/ball" .. BattleSharedData.currentPokemonModel.ballId .. ".png")
 	self.root:addChild(ball)
 	-- 计算抛物线
 	local h = winSize.width * 0.125
@@ -213,9 +288,7 @@ function BattleUIController:showPokemonCallback(sender, ball)
 	self.playerPokemon:runAction(action)
 end
 function BattleUIController:showPokemonCallback2()
-	local winSize = cc.Director:getInstance():getWinSize()
-
-	local playerBoard = PlayerPokemonBoard:create(self.currentPokemonModel)
+	local playerBoard = PlayerPokemonBoard:create(BattleSharedData.currentPokemonModel)
 	playerBoard:setPosition(winSize.width * 1.2, winSize.height * 0.4)
 	self.root:addChild(playerBoard)
 	self.playerBoard = playerBoard
@@ -226,18 +299,23 @@ function BattleUIController:showPokemonCallback2()
 		))
 end
 function BattleUIController:showPokemonCallback3()
-	self:showBattleBoard()
+	BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.BATTLE_START)
+	BattleStateMachine:process()
 end
 
-function BattleUIController:showBattleBoard()
-	-- 显示战斗操作面板
-	Notifier:notify(NotifyEvents.Battle.ShowBattleMenu)
+function BattleUIController:onUpdateUI()
+	if BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.BATTLE_START then
+		-- 显示战斗操作面板
+		if not self.battleMenu then
+			self.battleMenu = BattleCommonMenu:create(self.BATTLE_INSTRUCTIONS)
+			self.battleMenu:setPosition(winSize.width * 0.78, winSize.height * 0.1)
+			self.battleMenu:setVisible(false)
+			self:getScene():addChild(self.battleMenu)
+		end
+		self.battleMenu:setVisible(true)
 
-	self:resetBattle()
-end
-
-function BattleUIController:resetBattle()
-	BattleStateMachine:reset()
+		self.focusMenu = self.battleMenu
+	end
 end
 
 function BattleUIController:notifyUpdatingDialog(dialogKey, ...)
@@ -262,8 +340,6 @@ function BattleUIController:beginBattleWild1v1(pokemonModel)
 	self.enemyPokemon = wildPokemon
 
 	-- 遭遇精灵面板初始化
-	local winSize = cc.Director:getInstance():getWinSize()
-
 	local board = EnemyPokemonBoard:create(pokemonModel)
 	board:setPosition(winSize.width * -0.2, winSize.height * 0.85)
 	self.root:addChild(board)
@@ -278,6 +354,9 @@ function BattleUIController:onDialogEnded()
 		-- 准备阶段是否结束？
 		self.prepareStep = self.prepareStep + 1
 		self:checkPrepareDialog()
+	elseif BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.ESCAPE then
+		-- 逃跑
+		ReplaceScene(MapViewScene)
 	else
 		BattleStateMachine:process()
 	end

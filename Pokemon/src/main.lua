@@ -121,13 +121,11 @@ function GameLauncher:startGame()
     if TEST then
         require "src/scene/test/TestScene"
 
-        local testView = TestScene:create()
-        cc.Director:getInstance():runWithScene(testView)
+        ReplaceScene(TestScene)
     else
         require "src/scene/maintitle/MainViewScene"
 
-        local mainView = MainViewScene:create()
-        cc.Director:getInstance():runWithScene(mainView)
+        ReplaceScene(MainViewScene)
     end
 end
 

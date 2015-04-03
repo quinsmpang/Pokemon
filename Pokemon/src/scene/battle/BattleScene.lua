@@ -6,9 +6,9 @@
 
 class("BattleScene", psGameScene)
 
+require "src/scene/battle/BattleSharedData"
 require "src/scene/battle/BattleUIController"
 require "src/scene/battle/BattleDialogController"
-require "src/scene/battle/BattleMenuController"
 require "src/scene/battle/BattleAnimationController"
 
 BattleScene.resources = {
@@ -28,8 +28,6 @@ function BattleScene:onEnterTransitionDidFinish()
 	self:loadViewController(battleUIController)
 	local battleDialogController = BattleDialogController:create()
 	self:loadViewController(battleDialogController)
-	local battleMenuController = BattleMenuController:create()
-	self:loadViewController(battleMenuController)
 	local battleAnimationController = BattleAnimationController:create()
 	self:loadViewController(battleAnimationController)
 end

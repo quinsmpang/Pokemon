@@ -7,6 +7,7 @@
 BattleLogicConstants = {}
 
 BattleLogicConstants.BATTLE_STATE = {
-	PREPARE = "prepare",
-	BATTLE_START = "battle_start",
+	PREPARE = "prepare",		-- 战斗前准备
+	BATTLE_START = "battle_start",	-- 战斗开始
+	ESCAPE = "escape",		-- 逃跑
 }

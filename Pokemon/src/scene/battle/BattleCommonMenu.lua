@@ -10,6 +10,7 @@ BattleCommonMenu.bg = nil
 BattleCommonMenu.btns = nil
 BattleCommonMenu.cursor = nil
 
+BattleCommonMenu.contentList = nil
 BattleCommonMenu.selectedIndex = nil
 
 BattleCommonMenu.LABEL_SIZE = 18
@@ -26,6 +27,8 @@ function BattleCommonMenu:create(contentList)
 end
 
 function BattleCommonMenu:init(contentList)
+	self.contentList = contentList
+
 	local capInsets = CCRectMake(20, 20, 60, 60)
 	local bg = cc.Scale9Sprite:createWithSpriteFrameName("images/common/border_red.png", capInsets)
 	bg:setPreferredSize(CCSizeMake(winSize.width * 0.32, winSize.height * 0.21))
@@ -65,7 +68,7 @@ end
 
 function BattleCommonMenu:cursorDown()
 	local newIndex = self.selectedIndex + 2
-	if newIndex <= 4 then
+	if newIndex <= #self.contentList then
 		self:select(newIndex)
 	end
 end
@@ -79,7 +82,7 @@ end
 
 function BattleCommonMenu:cursorRight()
 	local newIndex = self.selectedIndex + 1
-	if newIndex <= 4 then
+	if newIndex <= #self.contentList then
 		self:select(newIndex)
 	end
 end

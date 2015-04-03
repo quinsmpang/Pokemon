@@ -56,9 +56,9 @@ function ReplaceScene(scene, params)
 
 	local currentScene = cc.Director:getInstance():getRunningScene()
 	if currentScene then
-		cc.Director:getInstance():replaceScene(currentScene)
+		cc.Director:getInstance():replaceScene(newScene)
 	else
-		cc.Director:getInstance():runWithScene(currentScene)
+		cc.Director:getInstance():runWithScene(newScene)
 	end
 end
 
