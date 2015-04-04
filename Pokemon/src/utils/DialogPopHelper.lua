@@ -164,3 +164,22 @@ function DialogPopHelper:popMessageWindow(windowSize, content, okScript)
 
 	cc.Director:getInstance():getRunningScene():addChild(dialog)
 end
+
+function DialogPopHelper:popAutoHideMessage(windowSize, content)
+	local dialog = DialogWindow:create()
+	dialog.window:setPreferredSize(windowSize)
+	dialog.textLabel:setString(content)
+	dialog.textLabel:setDimensions(windowSize.width - 50, windowSize.height - 80)
+	dialog.textLabel:setPosition(windowSize.width * 0.5, windowSize.height * 0.5)
+	dialog.btnOK:setVisible(false)
+	dialog.btnCancel:setVisible(false)
+
+	local action = cc.Sequence:create(
+		cc.DelayTime:create(1),
+		cc.EaseIn:create(cc.ScaleTo:create(0.15, 0), 2),
+		cc.RemoveSelf:create()
+		)
+	dialog:runAction(action)
+
+	cc.Director:getInstance():getRunningScene():addChild(dialog)
+end

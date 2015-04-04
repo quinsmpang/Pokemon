@@ -12,6 +12,7 @@ BattleCommonMenu.cursor = nil
 
 BattleCommonMenu.contentList = nil
 BattleCommonMenu.selectedIndex = nil
+BattleCommonMenu.selectedIndexChangedScript = nil
 
 BattleCommonMenu.LABEL_SIZE = 18
 BattleCommonMenu.LABEL_COLOR = ccc3(0, 0, 0)
@@ -55,8 +56,17 @@ function BattleCommonMenu:select(index)
 	if self.selectedIndex == index then
 		return
 	end
+	local oldIndex = self.selectedIndex
 	self.selectedIndex = index
 	self.cursor:setPosition(self.btns[index]:getPositionX() - 20, self.btns[index]:getPositionY())
+	if self.selectedIndexChangedScript then
+		self.selectedIndexChangedScript(oldIndex, index)
+	end
+end
+
+function BattleCommonMenu:setIndexChangedScript(script)
+	assert(type(script) == "nil" or type(script) == "function", "Invalid script.")
+	self.selectedIndexChangedScript = script
 end
 
 function BattleCommonMenu:cursorUp()

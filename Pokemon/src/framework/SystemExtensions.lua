@@ -90,14 +90,14 @@ function table.forEachAsHash(table, action)
 end
 
 -- select new table for the specified behaviors
-function table.select(table, selector)
+function table.select(table, selector, ...)
 	if type(table) ~= "table" or type(selector) ~= "function" then
 		return
 	end
 
 	local newTable = {}
 	for _, v in pairs(table) do
-		if selector(v) then
+		if selector(v, ...) then
 			_G["table"].insert(newTable, v)
 		end
 	end
@@ -105,14 +105,14 @@ function table.select(table, selector)
 end
 
 -- cast every item of table to the specified item
-function table.cast(table, caster)
+function table.cast(table, caster, ...)
 	if type(table) ~= "table" or type(caster) ~= "function" then
 		return
 	end
 
 	local newTable = {}
 	for _, v in pairs(table) do
-		local item = caster(v)
+		local item = caster(v, ...)
 		_G["table"].insert(newTable, item)
 	end
 	return newTable
@@ -125,7 +125,7 @@ function table.contains(table, selector, ...)
 	end
 
 	for _, v in pairs(table) do
-		if selector(v, unpack{...}) then
+		if selector(v, ...) then
 			return true
 		end
 	end
@@ -139,7 +139,7 @@ function table.find(table, selector, ...)
 	end
 
 	for k, v in pairs(table) do
-		if selector(v, unpack{...}) then
+		if selector(v, ...) then
 			return v, k
 		end
 	end
@@ -153,12 +153,26 @@ function table.erase(table, selector, ...)
 	end
 
 	for i, v in ipairs(table) do
-		if selector(v, unpack{...}) then
+		if selector(v, ...) then
 			_G["table"].remove(table, i)
 			return true
 		end
 	end
 	return false
+end
+
+-- random object which satisfied the condition
+function table.random(table, selector, ...)
+	if type(table) ~= "table" then
+		return false
+	end
+
+	local targetTable = _G["table"].select(table, selector, ...)
+	if #targetTable <= 0 then
+		return nil
+	end
+	local rd = math.random(1, #targetTable)
+	return targetTable[rd]
 end
 
 -- log table

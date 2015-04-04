@@ -49,7 +49,7 @@ function class(className, super)
 		end
 
 		-- invoke origin methods of the cpp class( only instance could invoke this method )
-		function cls:callOrigin(functionName, ...)
+		function cls:__callOrigin(functionName, ...)
 			-- get peertable of the instance
 			local peertable = tolua.getpeer(self)
 

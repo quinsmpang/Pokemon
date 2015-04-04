@@ -11,6 +11,9 @@ require "src/scene/battle/PlayerPokemonBoard"
 require "src/scene/battle/EnemyPokemonBoard"
 require "src/scene/battle/BattleStateMachine"
 require "src/scene/battle/BattleCommonMenu"
+require "src/scene/battle/SkillDescriptionBoard"
+require "src/scene/battle/BattleBehaviors"
+require "src/scene/battle/BattleAI"
 
 BattleUIController.root = nil
 BattleUIController.fieldPlayer = nil
@@ -23,6 +26,7 @@ BattleUIController.enemyPokemon = nil
 BattleUIController.battleMenu = nil		-- 战斗菜单
 BattleUIController.skillMenu = nil		-- 技能菜单
 BattleUIController.focusMenu = nil		-- 当前锁定的菜单
+BattleUIController.skillDescriptionBoard = nil	-- 技能描述栏
 
 BattleUIController.battleType = nil
 BattleUIController.bgType = nil
@@ -110,6 +114,7 @@ function BattleUIController:renderView()
 		-- 随机生成神奇宝贝
 		local pokemonModel = Pokemon:create(pokemonId, pokemonLevel)
 		BattleSharedData.enemyPokemonModel = pokemonModel
+		BattleSharedData.enemyAI = BattleAI:create(1, { pokemonModel })
 
 		-- 添加进入图鉴
 		DataCenter:addNewCollection(pokemonId, false)
@@ -167,15 +172,27 @@ function BattleUIController:onKeyboardPressed(keyCode)
 		if self.focusMenu == self.battleMenu then
 			if selectedIndex == 1 then
 				-- 战斗
-				local skillNames = {}
-				for _, skillInfo in ipairs(BattleSharedData.currentPokemonModel.skills) do
-					local skillModel = SkillInfo:create(skillInfo[1])
-					table.insert(skillNames, skillModel.name)
+				-- 检查是否有可用技能
+				if self:hasAvailableSkill() then
+					local skillNames = {}
+					for _, skillInfo in ipairs(BattleSharedData.currentPokemonModel.skills) do
+						local skillModel = SkillInfo:create(skillInfo[1])
+						table.insert(skillNames, skillModel.name)
+					end
+					self.skillMenu = BattleCommonMenu:create(skillNames)
+					self.skillMenu:setPosition(winSize.width * 0.25, winSize.height * 0.1)
+					self.skillMenu:setIndexChangedScript(MakeScriptHandler(self, self.onSkillIndexChanged))
+					self:getScene():addChild(self.skillMenu)
+					self.focusMenu = self.skillMenu
+					self.battleMenu:setVisible(false)
+
+					-- 技能描述栏
+					self.skillDescriptionBoard = SkillDescriptionBoard:create(BattleSharedData.currentPokemonModel.skills[1])
+					self.skillDescriptionBoard:setPosition(winSize.width * 0.75, self.skillMenu:getContentSize().height * 0.5)
+					self.skillMenu:addChild(self.skillDescriptionBoard)
+				else
+					-- 没有技能可用，使用拼命技能 todo
 				end
-				self.skillMenu = BattleCommonMenu:create(skillNames)
-				self.skillMenu:setPosition(winSize.width * 0.25, winSize.height * 0.1)
-				self:getScene():addChild(self.skillMenu)
-				self.focusMenu = self.skillMenu
 			elseif selectedIndex == 2 then
 				-- 背包
 			elseif selectedIndex == 3 then
@@ -183,16 +200,46 @@ function BattleUIController:onKeyboardPressed(keyCode)
 			elseif selectedIndex == 4 then
 				-- 逃跑
 				self.battleMenu:setVisible(false)
-				BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.ESCAPE)
-				BattleStateMachine:process()
+				BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.GENERATE_BEHAVIORS)
+				BattleStateMachine:process(BattleBehavior.BEHAVIOR_TYPES.ESCAPE)
 			end
 		elseif self.focusMenu == self.skillMenu then
+			local skills = BattleSharedData.currentPokemonModel.skills
+			-- 该技能是否被禁用？
+			if BattleSharedData.forbiddenPlayerPokemonIndex == selectedIndex then
+				DialogPopHelper:popAutoHideMessage(CCSizeMake(winSize.width * 0.4, winSize.height * 0.1), "该技能被封印!")
+				return
+			elseif skills[selectedIndex][2] <= 0 then
+				DialogPopHelper:popAutoHideMessage(CCSizeMake(winSize.width * 0.4, winSize.height * 0.1), "该技能没有PP!")
+				return
+			else
+				local skill = skills[selectedIndex]
+				BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.GENERATE_BEHAVIORS)
+				BattleStateMachine:process(BattleBehavior.BEHAVIOR_TYPES.ATTACK, skillData)
+			end 
 		end
 	elseif keyCode == GameSettings.cancelKey and self.focusMenu == self.skillMenu then
 		self.skillMenu:removeFromParent(true)
 		self.skillMenu = nil
 		self.focusMenu = self.battleMenu
+		self.battleMenu:setVisible(true)
 	end
+end
+
+function BattleUIController:hasAvailableSkill()
+	local skills = BattleSharedData.currentPokemonModel.skills
+	local flag = false
+	for i, skill in ipairs(skills) do
+		if i ~= BattleSharedData.forbiddenPlayerPokemonIndex and skill[2] > 0 then
+			flag = true
+			break
+		end
+	end
+	return flag
+end
+
+function BattleUIController:onSkillIndexChanged(oldIndex, newIndex)
+	self.skillDescriptionBoard:update(BattleSharedData.currentPokemonModel.skills[newIndex])
 end
 
 function BattleUIController:beginBattleAnimation()
@@ -357,6 +404,10 @@ function BattleUIController:onDialogEnded()
 	elseif BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.ESCAPE then
 		-- 逃跑
 		ReplaceScene(MapViewScene)
+	elseif BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.ESCAPE_FORBIDDEN then
+		-- 禁止逃跑
+		BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.BATTLE_START)
+		BattleStateMachine:process()
 	else
 		BattleStateMachine:process()
 	end

@@ -32,6 +32,7 @@ function PlayerPokemonBoard:initWithModel(pokemonModel)
 	-- 名称
 	local lblPokemonName = cc.Label:createWithTTF(pokemonModel.model.name, GameConfig.DEFAULT_FONT_PATH, 15)
 	-- lblPokemonName:enableOutline(ccc4(0, 0, 0, 1), 4)
+	lblPokemonName:enableShadow()
 	lblPokemonName:setAnchorPoint(0, 0.5)
 	lblPokemonName:setPosition(bg:getContentSize().width * 0.05, bg:getContentSize().height * 0.8)
 	bg:addChild(lblPokemonName)
@@ -43,6 +44,7 @@ function PlayerPokemonBoard:initWithModel(pokemonModel)
 
 	-- 等级
 	local lblLevel = cc.Label:createWithTTF("Lv " .. pokemonModel.level, GameConfig.DEFAULT_FONT_PATH, 15)
+	lblLevel:enableShadow()
 	lblLevel:setAnchorPoint(1, 0.5)
 	lblLevel:setPosition(bg:getContentSize().width * 0.95, lblPokemonName:getPositionY())
 	bg:addChild(lblLevel)
@@ -64,6 +66,7 @@ function PlayerPokemonBoard:initWithModel(pokemonModel)
 	self.hpBar = hpBar
 
 	local lblHp = cc.Label:createWithTTF("HP", GameConfig.DEFAULT_FONT_PATH, 15)
+	lblHp:enableShadow()
 	lblHp:setPosition(bg:getContentSize().width * 0.32, hpBar:getPositionY())
 	bg:addChild(lblHp)
 
@@ -77,6 +80,7 @@ function PlayerPokemonBoard:initWithModel(pokemonModel)
 
 	-- HP详细值
 	local lblHpDetail = cc.Label:createWithTTF(string.format("%d / %d", pokemonModel.currentHp, pokemonModel.basicData.hp), GameConfig.DEFAULT_FONT_PATH, 15)
+	lblHpDetail:enableShadow()
 	lblHpDetail:setPosition(bg:getContentSize().width * 0.95, bg:getContentSize().height * 0.2)
 	lblHpDetail:setAnchorPoint(1, 0.5)
 	bg:addChild(lblHpDetail)

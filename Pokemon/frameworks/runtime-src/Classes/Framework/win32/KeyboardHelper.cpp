@@ -28,6 +28,7 @@ namespace framework
 				keyData[0] = vkCode;
 				keyData[1] = 2;
 				auto eventArgs = new Win32EventArgs(keyData);
+				eventArgs->autorelease();
 				Win32Notifier::getInstance()->notify(Win32EventListener::Win32EventListenerType::KEYBOARD, eventArgs);
 
 				g_pressedKeys.remove(vkCode);
@@ -41,6 +42,7 @@ namespace framework
 					keyData[0] = vkCode;
 					keyData[1] = 1;
 					auto eventArgs = new Win32EventArgs(keyData);
+					eventArgs->autorelease();
 					Win32Notifier::getInstance()->notify(Win32EventListener::Win32EventListenerType::KEYBOARD, eventArgs);
 
 					g_pressedKeys.push_back(vkCode);

@@ -10,6 +10,9 @@ BattleStateMachine.lastState = nil	-- 上个状态
 BattleStateMachine.state = nil		-- 当前状态
 BattleStateMachine.battleType = nil		-- 战斗类型
 
+BattleStateMachine.friendBehavior = nil
+BattleStateMachine.enemyBehavior = nil
+
 function BattleStateMachine:init(battleType)
 	self.battleType = battleType
 	self.state = BattleLogicConstants.BATTLE_STATE.PREPARE
@@ -38,8 +41,34 @@ function BattleStateMachine:hack_battle_start()
 	Notifier:notify(NotifyEvents.Battle.StartBattle)
 end
 
+function BattleStateMachine:hack_generate_behaviors(behaviorType, param)
+	-- 生成战斗行为
+	local friendBehavior, enemyBehavior
+	local behaviorMap = { "AttackBehavior", "UseItemBehavior", "ChangePokemonBehavior", "EscapeBehavior" }
+	friendBehavior = _G[behaviorMap[behaviorType]]:create(param)
+	enemyBehavior = BattleSharedData.enemyAI:generateBehavior()
+	self.friendBehavior = friendBehavior
+	self.enemyBehavior = enemyBehavior
+
+	if friendBehavior.priority >= enemyBehavior.priority then
+		self:setState(BattleLogicConstants.BATTLE_STATE.PLAYER_TURN)
+	else
+		self:setState(BattleLogicConstants.BATTLE_STATE.ENEMY_TURN)
+	end
+	self:process()
+end
+
+function BattleStateMachine:hack_player_turn()
+	assert(self.friendBehavior, "Invalid player behavior.")
+	self.friendBehavior:process()
+end
+
+function BattleStateMachine:hack_enemy_turn()
+	assert(self.enemyBehavior, "Invalid enemy behavior.")
+	self.enemyBehavior:process()
+end
+
 function BattleStateMachine:hack_escape()
-	-- 逃跑
-	local dialogKey = "ESCAPE_SUCCESS"
-	Notifier:notify(NotifyEvents.Battle.UpdateDialog, dialogKey)
+	-- 逃跑状态仅用于判断
+	assert(false, "Invalid operation.")
 end
