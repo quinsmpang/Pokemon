@@ -57,11 +57,15 @@ end
 function BattleUIController:addObservers()
 	Notifier:addObserver(NotifyEvents.Battle.DialogEnded, self, self.onDialogEnded)
 	Notifier:addObserver(NotifyEvents.Battle.StartBattle, self, self.onUpdateUI)
+	Notifier:addObserver(NotifyEvents.Battle.PokemonHurtAnimation, self, self.onPokemonHurtAnimation)
+	Notifier:addObserver(NotifyEvents.Battle.PokemonAbilityLevelChangedAnimation, self, self.onPokemonAbilityLevelChangedAnimation)
 end
 
 function BattleUIController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.Battle.DialogEnded, self)
 	Notifier:removeObserver(NotifyEvents.Battle.StartBattle, self)
+	Notifier:removeObserver(NotifyEvents.Battle.PokemonHurtAnimation, self)
+	Notifier:removeObserver(NotifyEvents.Battle.PokemonAbilityLevelChangedAnimation, self)
 end
 
 function BattleUIController:renderView()
@@ -191,7 +195,9 @@ function BattleUIController:onKeyboardPressed(keyCode)
 					self.skillDescriptionBoard:setPosition(winSize.width * 0.75, self.skillMenu:getContentSize().height * 0.5)
 					self.skillMenu:addChild(self.skillDescriptionBoard)
 				else
-					-- 没有技能可用，使用拼命技能 todo
+					-- 没有技能可用，使用拼命技能
+					BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.GENERATE_BEHAVIORS)
+					BattleStateMachine:process(BattleBehavior.BEHAVIOR_TYPES.ATTACK, { 165, 999999, 0 })
 				end
 			elseif selectedIndex == 2 then
 				-- 背包
@@ -411,4 +417,14 @@ function BattleUIController:onDialogEnded()
 	else
 		BattleStateMachine:process()
 	end
+end
+
+function BattleUIController:onPokemonHurtAnimation()
+	if BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.PLAYER_TURN then
+	elseif BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.ENEMY_TURN then
+	end
+end
+
+function BattleUIController:onPokemonAbilityLevelChangedAnimation(skillId)
+	
 end

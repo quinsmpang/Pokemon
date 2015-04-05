@@ -41,5 +41,5 @@ function BattleAI:generate_1()
 	if skill then
 		skillId = skill[1]
 	end
-	return AttackBehavior:create(skillId)
+	return AttackBehavior:create(skillId, false)
 end

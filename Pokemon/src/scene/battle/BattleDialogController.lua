@@ -40,10 +40,12 @@ end
 
 function BattleDialogController:addObservers()
 	Notifier:addObserver(NotifyEvents.Battle.UpdateDialog, self, self.onUpdateDialog)
+	Notifier:addObserver(NotifyEvents.Battle.ShowDialog, self, self.onShowDialog)
 end
 
 function BattleDialogController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.Battle.UpdateDialog, self)
+	Notifier:removeObserver(NotifyEvents.Battle.ShowDialog, self)
 end
 
 function BattleDialogController:renderView()
@@ -157,7 +159,7 @@ function BattleDialogController:showTextOneByOne(substrings, index)
 end
 
 function BattleDialogController:onUpdateDialog(dialogKey, ...)
-	local showDialog = string.format(BattleDialogConstants[dialogKey], unpack{...})
+	local showDialog = string.format(BattleDialogConstants[dialogKey], ...)
 	log("BattleDialogConstants:onUpdateDialog", showDialog)
 	self.currentDialogKey = dialogKey
 	self.currentDialogParams = unpack{...}
@@ -166,4 +168,10 @@ function BattleDialogController:onUpdateDialog(dialogKey, ...)
 	self.isDialogInProcess = true
 	self.isEnabled = true
 	self:showTextOneByOne(substrings, 1)
+end
+
+function BattleDialogController:onShowDialog(dialogKey, ...)
+	local showDialog = string.format(BattleDialogConstants[dialogKey], ...)
+	log("BattleDialogController:onShowDialog", showDialog)
+	self.dialogLabel:setString(showDialog)
 end

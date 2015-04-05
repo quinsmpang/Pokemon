@@ -21,11 +21,13 @@ function BattleAnimationController:unload()
 end
 
 function BattleAnimationController:addObservers()
-
+	Notifier:addObserver(NotifyEvents.Battle.PlayerAttackAnimation, self, self.onPlayerAttackAnimation)
+	Notifier:addObserver(NotifyEvents.Battle.EnemyAttackAnimation, self, self.onEnemyAttackAnimation)
 end
 
 function BattleAnimationController:removeObservers()
-
+	Notifier:removeObserver(NotifyEvents.Battle.PlayerAttackAnimation, self)
+	Notifier:removeObserver(NotifyEvents.Battle.EnemyAttackAnimation, self)
 end
 
 function BattleAnimationController:renderView()
@@ -55,4 +57,21 @@ function BattleAnimationController:renderView()
 			))
 		)
 	self.root:runAction(action)
+end
+
+function BattleAnimationController:onPlayerAttackAnimation(skillId)
+	CallFunctionAsync(self, self.onSkillAnimationEnded, 0.5, skillId)
+end
+
+function BattleAnimationController:onEnemyAttackAnimation(skillId)
+	CallFunctionAsync(self, self.onSkillAnimationEnded, 0.5, skillId)
+end
+
+function BattleAnimationController:onSkillAnimationEnded(skillId)
+	local skillModel = SkillInfo:create(skillId)
+	if skillModel.type == Enumerations.SKILL_TYPE.VARIATION then
+		Notifier:notify(NotifyEvents.Battle.PokemonAbilityLevelChangedAnimation, skillId)
+	else
+		Notifier:notify(NotifyEvents.Battle.PokemonHurtAnimation)
+	end
 end

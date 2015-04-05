@@ -45,7 +45,7 @@ function BattleStateMachine:hack_generate_behaviors(behaviorType, param)
 	-- 生成战斗行为
 	local friendBehavior, enemyBehavior
 	local behaviorMap = { "AttackBehavior", "UseItemBehavior", "ChangePokemonBehavior", "EscapeBehavior" }
-	friendBehavior = _G[behaviorMap[behaviorType]]:create(param)
+	friendBehavior = _G[behaviorMap[behaviorType]]:create(param, true)
 	enemyBehavior = BattleSharedData.enemyAI:generateBehavior()
 	self.friendBehavior = friendBehavior
 	self.enemyBehavior = enemyBehavior
@@ -61,14 +61,16 @@ end
 function BattleStateMachine:hack_player_turn()
 	assert(self.friendBehavior, "Invalid player behavior.")
 	self.friendBehavior:process()
+	self.friendBehavior = nil
 end
 
 function BattleStateMachine:hack_enemy_turn()
 	assert(self.enemyBehavior, "Invalid enemy behavior.")
 	self.enemyBehavior:process()
+	self.enemyBehavior = nil
 end
 
 function BattleStateMachine:hack_escape()
 	-- 逃跑状态仅用于判断
-	assert(false, "Invalid operation.")
+	assert(false, "NO ESCAPE HACK.")
 end

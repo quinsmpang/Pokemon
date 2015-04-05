@@ -201,3 +201,26 @@ function Pokemon:getSkillMaxPP(index)
 	end
 	return 0
 end
+
+-- 会心等级
+function Pokemon:getCriticalLevel()
+	-- 特性修正todo
+	-- 道具修正todo
+	return 1
+end
+
+-- 受到伤害
+function Pokemon:hurt(dmg)
+	self.currentHp = self.currentHp - dmg
+	if self.currentHp < 0 then
+		self.currentHp = 0
+	end
+end
+
+-- 回复
+function Pokemon:heal(value)
+	self.currentHp = self.currentHp + value
+	if self.currentHp > self.basicData.hp then
+		self.currentHp = self.basicData.hp
+	end
+end

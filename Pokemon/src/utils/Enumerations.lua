@@ -129,6 +129,13 @@ Enumerations.POKEBALL = {
 	POKE_BALL = 4,		-- 精灵球
 }
 
+-- 技能类型
+Enumerations.SKILL_TYPE = {
+	PHYSICAL = 1,		-- 物理
+	SPECIAL = 2,		-- 特殊
+	VARIATION = 3,		-- 变化
+}
+
 -- 战斗状态
 Enumerations.BATTLE_STATUS = {
 	CONFUSED = 1,		-- 混乱
