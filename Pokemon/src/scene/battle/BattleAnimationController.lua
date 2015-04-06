@@ -59,19 +59,19 @@ function BattleAnimationController:renderView()
 	self.root:runAction(action)
 end
 
-function BattleAnimationController:onPlayerAttackAnimation(skillId)
-	CallFunctionAsync(self, self.onSkillAnimationEnded, 0.5, skillId)
+function BattleAnimationController:onPlayerAttackAnimation(skillId, dmg, heal)
+	CallFunctionAsync(self, self.onSkillAnimationEnded, 0.5, skillId, dmg, heal)
 end
 
-function BattleAnimationController:onEnemyAttackAnimation(skillId)
-	CallFunctionAsync(self, self.onSkillAnimationEnded, 0.5, skillId)
+function BattleAnimationController:onEnemyAttackAnimation(skillId, dmg, heal)
+	CallFunctionAsync(self, self.onSkillAnimationEnded, 0.5, skillId, dmg, heal)
 end
 
-function BattleAnimationController:onSkillAnimationEnded(skillId)
+function BattleAnimationController:onSkillAnimationEnded(skillId, dmg, heal)
 	local skillModel = SkillInfo:create(skillId)
 	if skillModel.type == Enumerations.SKILL_TYPE.VARIATION then
 		Notifier:notify(NotifyEvents.Battle.PokemonAbilityLevelChangedAnimation, skillId)
 	else
-		Notifier:notify(NotifyEvents.Battle.PokemonHurtAnimation)
+		Notifier:notify(NotifyEvents.Battle.PokemonHurtAnimation, dmg, heal)
 	end
 end

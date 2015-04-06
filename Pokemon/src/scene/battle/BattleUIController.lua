@@ -56,14 +56,14 @@ end
 
 function BattleUIController:addObservers()
 	Notifier:addObserver(NotifyEvents.Battle.DialogEnded, self, self.onDialogEnded)
-	Notifier:addObserver(NotifyEvents.Battle.StartBattle, self, self.onUpdateUI)
+	Notifier:addObserver(NotifyEvents.Battle.TurnStart, self, self.onUpdateUI)
 	Notifier:addObserver(NotifyEvents.Battle.PokemonHurtAnimation, self, self.onPokemonHurtAnimation)
 	Notifier:addObserver(NotifyEvents.Battle.PokemonAbilityLevelChangedAnimation, self, self.onPokemonAbilityLevelChangedAnimation)
 end
 
 function BattleUIController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.Battle.DialogEnded, self)
-	Notifier:removeObserver(NotifyEvents.Battle.StartBattle, self)
+	Notifier:removeObserver(NotifyEvents.Battle.TurnStart, self)
 	Notifier:removeObserver(NotifyEvents.Battle.PokemonHurtAnimation, self)
 	Notifier:removeObserver(NotifyEvents.Battle.PokemonAbilityLevelChangedAnimation, self)
 end
@@ -219,7 +219,10 @@ function BattleUIController:onKeyboardPressed(keyCode)
 				DialogPopHelper:popAutoHideMessage(CCSizeMake(winSize.width * 0.4, winSize.height * 0.1), "该技能没有PP!")
 				return
 			else
-				local skill = skills[selectedIndex]
+				local skillData = skills[selectedIndex]
+				self.skillMenu:removeFromParent(true)
+				self.skillMenu = nil
+				self.focusMenu = self.battleMenu
 				BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.GENERATE_BEHAVIORS)
 				BattleStateMachine:process(BattleBehavior.BEHAVIOR_TYPES.ATTACK, skillData)
 			end 
@@ -352,12 +355,12 @@ function BattleUIController:showPokemonCallback2()
 		))
 end
 function BattleUIController:showPokemonCallback3()
-	BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.BATTLE_START)
+	BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.TURN_START)
 	BattleStateMachine:process()
 end
 
 function BattleUIController:onUpdateUI()
-	if BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.BATTLE_START then
+	if BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.TURN_START then
 		-- 显示战斗操作面板
 		if not self.battleMenu then
 			self.battleMenu = BattleCommonMenu:create(self.BATTLE_INSTRUCTIONS)
@@ -412,19 +415,102 @@ function BattleUIController:onDialogEnded()
 		ReplaceScene(MapViewScene)
 	elseif BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.ESCAPE_FORBIDDEN then
 		-- 禁止逃跑
-		BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.BATTLE_START)
+		BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.TURN_START)
 		BattleStateMachine:process()
 	else
 		BattleStateMachine:process()
 	end
 end
 
-function BattleUIController:onPokemonHurtAnimation()
+function BattleUIController:onPokemonHurtAnimation(dmg, heal)
 	if BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.PLAYER_TURN then
+		if dmg > 0 then
+			-- 敌方伤血(如果有)
+			local callback = function()
+				if BattleSharedData.enemyPokemonModel:isDead() then
+					-- 精灵死亡
+					local dialogKey = "POKEMON_DEAD"
+					local showDialog = string.format(BattleDialogConstants[dialogKey], BattleSharedData.enemyPokemonModel.model.name)
+					local substrings = GenerateAllUTF8Substrings(showDialog)
+					Notifier:notify(NotifyEvents.Battle.ShowDialog, substrings)
+					CallFunctionAsync(self, self.enemyDead, BattleDialogController.DIALOG_TEXT_DURATION * (#substrings + 2))
+				else
+					-- 是否继续进行敌方回合
+					self:checkOppositeTurn(nil, false)
+				end
+			end
+			if heal > 0 then
+				-- 是否有回复？
+				callback = function()
+					self.playerBoard:progressTo(heal, callback)
+				end
+			end
+			self.enemyBoard:progressTo(dmg, callback)
+		elseif heal > 0 then
+			-- 我方回复(如果有)
+			self.playerBoard:progressTo(heal, MakeScriptHandler(self, self.checkOppositeTurn, false))
+		end
 	elseif BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.ENEMY_TURN then
+		if dmg > 0 then
+			-- 我方伤血(如果有)
+			local callback = function()
+				if BattleSharedData.currentPokemonModel:isDead() then
+					-- 精灵死亡
+					local dialogKey = "POKEMON_DEAD"
+					local showDialog = string.format(BattleDialogConstants[dialogKey], BattleSharedData.currentPokemonModel.model.name)
+					local substrings = GenerateAllUTF8Substrings(showDialog)
+					Notifier:notify(NotifyEvents.Battle.ShowDialog, substrings)
+					CallFunctionAsync(self, self.playerDead, BattleDialogController.DIALOG_TEXT_DURATION * (#substrings + 2))
+				else
+					-- 是否继续进行我方回合
+					self:checkOppositeTurn(nil, true)
+				end
+			end
+			if heal > 0 then
+				-- 是否有回复？
+				callback = function()
+					self.enemyBoard:progressTo(heal, callback)
+				end
+			else
+				callback = MakeScriptHandler(self, self.checkOppositeTurn, true)
+			end
+			self.playerBoard:progressTo(dmg, callback)
+		elseif heal > 0 then
+			-- 敌方回复(如果有)
+			self.enemyBoard:progressTo(heal, MakeScriptHandler(self, self.checkOppositeTurn, true))
+		end
+	end
+end
+function BattleUIController:checkOppositeTurn(sender, isPlayer)
+	log("BattleUIController:checkOppositeTurn", isPlayer)
+	-- 回合是否继续
+	if BattleStateMachine[(isPlayer and "friendBehavior" or "enemyBehavior")] then
+		BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE[(isPlayer and "PLAYER_TURN" or "ENEMY_TURN")])
+	else
+		BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.TURN_START)
+	end
+	BattleStateMachine:process()
+end
+
+function BattleUIController:playerDead()
+	if DataCenter:getAvailablePokemonCount() > 0 then
+		-- 选其他精灵 todo
+	else
+		-- 战斗失败 todo
+	end
+end
+
+function BattleUIController:enemyDead()
+	if BattleSharedData.battleType == Enumerations.BATTLE_TYPE.WILD then
+		-- 战斗结束 增加经验值
+		ReplaceScene(MapViewScene)
 	end
 end
 
 function BattleUIController:onPokemonAbilityLevelChangedAnimation(skillId)
-	
+	if BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.PLAYER_TURN then
+		self:checkOppositeTurn(nil, false)
+	elseif BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.ENEMY_TURN then
+		self:checkOppositeTurn(nil, true)
+	end
 end

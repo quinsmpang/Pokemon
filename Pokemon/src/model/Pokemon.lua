@@ -224,3 +224,7 @@ function Pokemon:heal(value)
 		self.currentHp = self.basicData.hp
 	end
 end
+
+function Pokemon:isDead()
+	return self.currentHp <= 0
+end

@@ -8,7 +8,7 @@ BattleLogicConstants = {}
 
 BattleLogicConstants.BATTLE_STATE = {
 	PREPARE = "prepare",		-- 战斗前准备
-	BATTLE_START = "battle_start",	-- 战斗开始
+	TURN_START = "turn_start",	-- 战斗开始
 	GENERATE_BEHAVIORS = "generate_behaviors",	-- 生成敌我的战斗行为
 	PLAYER_TURN = "player_turn",		-- 玩家回合开始结算(逃跑不会走入此流程)
 	ENEMY_TURN = "enemy_turn",		-- 敌人回合开始结算

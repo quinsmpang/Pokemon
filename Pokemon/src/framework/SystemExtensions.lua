@@ -36,14 +36,16 @@ function table.deepCopy(targetTable, sourceTable)
 end
 
 -- get k-v count
-function table.getTotalCount(table)
+function table.getTotalCount(table, selector, ...)
 	if type(table) ~= "table" then
 		return -1
 	end
 	
 	local count = 0
 	for k, v in pairs(table) do
-		count = count + 1
+		if selector == nil or selector(v, ...) then
+			count = count + 1
+		end
 	end
 
 	return count

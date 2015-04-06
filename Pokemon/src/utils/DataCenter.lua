@@ -144,3 +144,9 @@ function DataCenter:getFirstAvailablePokemon()
 	end
 	return nil
 end
+
+function DataCenter:getAvailablePokemonCount()
+	return table.getTotalCount(self.carriedPokemons, function(v)
+		return v.currentHp > 0
+	end)
+end

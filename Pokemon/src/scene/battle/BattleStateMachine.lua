@@ -28,6 +28,7 @@ end
 
 -- 该函数只处理 "prepare" 和 "ending" 以外的战斗状态
 function BattleStateMachine:process(...)
+	log("BattleStateMachine:process", unpack{...})
 	local handler = "hack_" .. self.state
 	self[handler](self, unpack{...})
 end
@@ -36,16 +37,16 @@ function BattleStateMachine:hack_prepare()
 	assert(false, "NO PREPARE HACK.")
 end
 
-function BattleStateMachine:hack_battle_start()
+function BattleStateMachine:hack_turn_start()
 	-- 开始战斗
-	Notifier:notify(NotifyEvents.Battle.StartBattle)
+	Notifier:notify(NotifyEvents.Battle.TurnStart)
 end
 
 function BattleStateMachine:hack_generate_behaviors(behaviorType, param)
 	-- 生成战斗行为
 	local friendBehavior, enemyBehavior
 	local behaviorMap = { "AttackBehavior", "UseItemBehavior", "ChangePokemonBehavior", "EscapeBehavior" }
-	friendBehavior = _G[behaviorMap[behaviorType]]:create(param, true)
+	friendBehavior = _G[behaviorMap[behaviorType]]:create(param[1], true)
 	enemyBehavior = BattleSharedData.enemyAI:generateBehavior()
 	self.friendBehavior = friendBehavior
 	self.enemyBehavior = enemyBehavior

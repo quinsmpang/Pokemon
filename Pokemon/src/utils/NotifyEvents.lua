@@ -87,8 +87,8 @@ NotifyEvents.Battle = NotifyEvents.Battle or {}
 NotifyEvents.Battle.UpdateDialog = "NotifyEvents.Battle.UpdateDialog"
 -- 战斗对话显示完成 BattleDialogController通知, BattleUIController观察
 NotifyEvents.Battle.DialogEnded = "NotifyEvents.Battle.DialogEnded"
--- 通知开始战斗 BattleStateMachine通知, BattleUIController观察
-NotifyEvents.Battle.StartBattle = "NotifyEvents.Battle.StartBattle"
+-- 通知回合开始 BattleStateMachine通知, BattleUIController观察
+NotifyEvents.Battle.TurnStart = "NotifyEvents.Battle.TurnStart"
 -- 播放玩家攻击动画 BattleBehaviors通知, BattleAnimationController观察
 NotifyEvents.Battle.PlayerAttackAnimation = "NotifyEvents.Battle.PlayerAttackAnimation"
 -- 播放敌人攻击动画 BattleBehaviors通知, BattleAnimationController观察

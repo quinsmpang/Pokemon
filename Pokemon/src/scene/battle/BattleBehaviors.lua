@@ -23,11 +23,11 @@ BattleBehavior.skillId = nil		-- 技能id
 BattleBehavior.itemId = nil			-- 道具id
 BattleBehavior.pokemonId = nil		-- 更换精灵id
 
-function BattleBehavior:notifyPlaySkillAnimation()
+function BattleBehavior:notifyPlaySkillAnimation(dmg, heal)
 	if self.isPlayer then
-		Notifier:notify(NotifyEvents.Battle.PlayerAttackAnimation, self.skillId)
+		Notifier:notify(NotifyEvents.Battle.PlayerAttackAnimation, self.skillId, dmg, heal)
 	else
-		Notifier:notify(NotifyEvents.Battle.EnemyAttackAnimation, self.skillId)
+		Notifier:notify(NotifyEvents.Battle.EnemyAttackAnimation, self.skillId, dmg, heal)
 	end
 end
 
@@ -66,8 +66,12 @@ function AttackBehavior:process()
 		hitRate = 100
 	end
 
+	log(string.format("%s use the skill: %d", (self.isPlayer and "Player" or "Enemy"), self.skillId))
 	if FallInRandom(hitRate, 100) then
 		-- 判断技能类型 1物理 2特殊 3变化
+		local dmg = 0
+		local heal = 0
+		local noDmgType = nil 	-- 没有伤害的原因
 		if skillModel.type == Enumerations.SKILL_TYPE.PHYSICAL or skillModel.type == Enumerations.SKILL_TYPE.SPECIAL then
 			-- 伤害技能
 			-- 基础伤害 = (((攻击方等级 * 0.4 + 2) * 技能威力 * 攻击方攻击力 / 防守方防御力) / 50) + 2
@@ -96,7 +100,6 @@ function AttackBehavior:process()
 			end
 			-- 特性修正todo
 			local specicialityCorrection = 1
-			local 
 			-- 会心一击修正
 			local criticalCorrection = 1
 			local criticalLevel = BattleSharedData.currentPokemonModel:getCriticalLevel() + BattleSharedData.playerPokemonCriticalLevel
@@ -117,10 +120,28 @@ function AttackBehavior:process()
 				BattleSharedData.enemyLastSkillPropertyCorrection = propertyCorrection
 			end
 			-- 最终伤害
-			local dmg = (basicDmg * atk / def / 50 + 2) * itemCorrection * weatherCorrection * randomCorrection * propertyCorrection * burnCorrection * specicialityCorrection
+			dmg = (basicDmg * atk / def / 50 + 2) * itemCorrection * weatherCorrection * randomCorrection * propertyCorrection * burnCorrection * specicialityCorrection
 			dmg = math.floor(dmg)
 			log("Final damage value: " .. dmg)
-			BattleSharedData.enemyPokemonModel:hurt(dmg)
+			if self.isPlayer then
+				if dmg > BattleSharedData.enemyPokemonModel.currentHp then
+					dmg = BattleSharedData.enemyPokemonModel.currentHp
+				end
+				if heal + BattleSharedData.currentPokemonModel.currentHp > BattleSharedData.currentPokemonModel.basicData.hp then
+					heal = BattleSharedData.currentPokemonModel.basicData.hp - BattleSharedData.currentPokemonModel.currentHp
+				end
+				BattleSharedData.enemyPokemonModel:hurt(dmg)
+				BattleSharedData.currentPokemonModel:heal(heal)
+			else
+				if dmg > BattleSharedData.currentPokemonModel.currentHp then
+					dmg = BattleSharedData.currentPokemonModel.currentHp
+				end
+				if heal + BattleSharedData.enemyPokemonModel.currentHp > BattleSharedData.enemyPokemonModel.basicData.hp then
+					heal = BattleSharedData.enemyPokemonModel.basicData.hp - BattleSharedData.enemyPokemonModel.currentHp
+				end
+				BattleSharedData.currentPokemonModel:hurt(dmg)
+				BattleSharedData.enemyPokemonModel:heal(heal)
+			end
 		elseif skillModel.type == Enumerations.SKILL_TYPE.VARIATION then
 			-- 变化技能
 			BattleSharedData.playerLastSkillCriticalCorrection = 1
@@ -131,9 +152,16 @@ function AttackBehavior:process()
 			assert(false, "Invalid skill type.")
 		end
 
-		local dialogKey = "USE_SKILL"
-		Notifier:notify(NotifyEvents.Battle.ShowDialog, dialogKey, (self.isPlayer and "我方" .. BattleSharedData.currentPokemonModel.model.name or "敌方" .. BattleSharedData.enemyPokemonModel.model.name), skillModel.name)
-		CallFunctionAsync(self, self.notifyPlaySkillAnimation, 0.5)
+		if noDmgType == nil then
+			-- 有伤害 也可能是变化技能或0伤害 但是仍然要播放动画
+			local dialogKey = "USE_SKILL"
+			local showDialog = string.format(BattleDialogConstants[dialogKey], (self.isPlayer and "我方" .. BattleSharedData.currentPokemonModel.model.name or "敌方" .. BattleSharedData.enemyPokemonModel.model.name), skillModel.name)
+			local substrings = GenerateAllUTF8Substrings(showDialog)
+			Notifier:notify(NotifyEvents.Battle.ShowDialog, substrings)
+			CallFunctionAsync(self, self.notifyPlaySkillAnimation, BattleDialogController.DIALOG_TEXT_DURATION * (#substrings + 2), dmg, heal)
+		else
+			-- 各种无伤害的情况 todo
+		end
 	end
 end
 

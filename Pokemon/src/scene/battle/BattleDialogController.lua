@@ -148,6 +148,7 @@ function BattleDialogController:showTextOneByOne(substrings, index)
 	if not self.isDialogInProcess then
 		return
 	end
+	index = index or 1
 	-- jump out of recursive
 	if index > #substrings then
 		self.dialogIndice:setVisible(true)
@@ -167,11 +168,19 @@ function BattleDialogController:onUpdateDialog(dialogKey, ...)
 	local substrings = GenerateAllUTF8Substrings(showDialog)
 	self.isDialogInProcess = true
 	self.isEnabled = true
-	self:showTextOneByOne(substrings, 1)
+	self:showTextOneByOne(substrings)
 end
 
-function BattleDialogController:onShowDialog(dialogKey, ...)
-	local showDialog = string.format(BattleDialogConstants[dialogKey], ...)
-	log("BattleDialogController:onShowDialog", showDialog)
-	self.dialogLabel:setString(showDialog)
+function BattleDialogController:onShowDialog(substrings)
+	self:showTextWithoutControl(substrings)
+end
+
+function BattleDialogController:showTextWithoutControl(substrings, index)
+	index = index or 1
+	if index > #substrings then
+		return
+	end
+	self.dialogLabel:setVisible(true)
+	self.dialogLabel:setString(substrings[index])
+	CallFunctionAsync(self, self.showTextWithoutControl, self.DIALOG_TEXT_DURATION, substrings, index + 1)
 end

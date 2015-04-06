@@ -75,7 +75,11 @@ function PokemonAbilityViewAdapter:adapt(detailView)
 		lblAbilityName:setAnchorPoint(0, 1)
 		lblAbilityName:setPosition(lblItem:getPositionX() + math.floor((i - 1) / 3) * 175, abilityBorder:getContentSize().height - 5 - (i - 1) % 3 * 32)
 		abilityBorder:addChild(lblAbilityName)
-		local lblValue = cc.Label:createWithTTF(tostring(basicData[valueMap[i]]), GameConfig.DEFAULT_FONT_PATH, 22)
+		local str = tostring(basicData[valueMap[i]])
+		if i == 1 then
+			str = pokemon.currentHp .. " / " .. str
+		end
+		local lblValue = cc.Label:createWithTTF(str, GameConfig.DEFAULT_FONT_PATH, 22)
 		lblValue:setColor(COLOR3B_BLACK)
 		lblValue:setAnchorPoint(1, 1)
 		lblValue:setPosition(lblItem:getPositionX() + 150 + math.floor((i - 1) / 3) * 175, abilityBorder:getContentSize().height - 5 - (i - 1) % 3 * 32)

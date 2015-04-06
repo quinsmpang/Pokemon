@@ -12,6 +12,8 @@ EnemyPokemonBoard.hpBar = nil
 
 EnemyPokemonBoard.pokemonModel = nil
 
+EnemyPokemonBoard.HURT_SPEED_UNIT = 0.05
+
 EnemyPokemonBoard.__create = psNode.create
 
 function EnemyPokemonBoard:create(pokemonModel)
@@ -83,4 +85,15 @@ function EnemyPokemonBoard:initWithModel(pokemonModel)
 		ball:setPosition(iconStatus:getPositionX() - 30, iconStatus:getPositionY())
 		bg:addChild(ball)
 	end
+end
+
+function EnemyPokemonBoard:progressTo(value, callback)
+	local actionAry = {}
+	local progressAction = cc.ProgressFromTo:create(value * self.HURT_SPEED_UNIT, self.hpBar:getPercentage(), self.pokemonModel.currentHp / self.pokemonModel.basicData.hp * 100)
+	table.insert(actionAry, progressAction)
+	if callback then
+		table.insert(actionAry, cc.CallFunc:create(callback))
+	end
+	local action = cc.Sequence:create(actionAry)
+	self.hpBar:runAction(action)
 end

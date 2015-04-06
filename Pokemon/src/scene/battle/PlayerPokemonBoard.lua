@@ -10,8 +10,11 @@ PlayerPokemonBoard.bg = nil
 PlayerPokemonBoard.iconStatus = nil
 PlayerPokemonBoard.hpBar = nil
 PlayerPokemonBoard.expBar = nil
+PlayerPokemonBoard.lblHpDetail = nil
 
 PlayerPokemonBoard.pokemonModel = nil
+
+PlayerPokemonBoard.HURT_SPEED_UNIT = 0.05
 
 PlayerPokemonBoard.__create = psNode.create
 
@@ -84,6 +87,7 @@ function PlayerPokemonBoard:initWithModel(pokemonModel)
 	lblHpDetail:setPosition(bg:getContentSize().width * 0.95, bg:getContentSize().height * 0.2)
 	lblHpDetail:setAnchorPoint(1, 0.5)
 	bg:addChild(lblHpDetail)
+	self.lblHpDetail = lblHpDetail
 
 	-- 经验条
 	local expBg = cc.Scale9Sprite:createWithSpriteFrameName("images/common/back_gray.png", CCRectMake(10, 10, 30, 30))
@@ -104,4 +108,23 @@ function PlayerPokemonBoard:initWithModel(pokemonModel)
 	expBar:setPercentage(pokemonModel:getExpPercentage())
 	expBack:addChild(expBar)
 	self.expBar = expBar
+end
+
+function PlayerPokemonBoard:update(dt)
+	self.lblHpDetail:setString(string.format("%d / %d", math.floor(self.hpBar:getPercentage() / 100 * self.pokemonModel.basicData.hp), self.pokemonModel.basicData.hp))
+end
+
+function PlayerPokemonBoard:progressTo(value, callback)
+	local actionAry = {}
+	local progressAction = cc.ProgressFromTo:create(value * self.HURT_SPEED_UNIT, self.hpBar:getPercentage(), self.pokemonModel.currentHp / self.pokemonModel.basicData.hp * 100)
+	table.insert(actionAry, progressAction)
+	table.insert(actionAry, function()
+		self:unscheduleUpdate()
+	end)
+	if callback then
+		table.insert(actionAry, cc.CallFunc:create(callback))
+	end
+	local action = cc.Sequence:create(actionAry)
+	self:scheduleUpdateWithPriorityLua(MakeScriptHandler(self, self.update), 0)
+	self.hpBar:runAction(action)
 end
