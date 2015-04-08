@@ -140,6 +140,16 @@ Enumerations.SKILL_TYPE = {
 Enumerations.SKILL_TARGET_TYPE = {
 	SINGLE_ENEMY = 1,	-- 敌方单体
 	ALL_ENEMIES = 2,	-- 敌方全体
+	SELF = 3，			-- 自身
+	EXCEPT_SELF = 4,	-- 自身以外
+	RANDOM_ENEMY = 5,	-- 敌方随机
+	SELF_PLACE = 6,		-- 己方场地
+	ENEMY_PLACE = 7,	-- 敌方场地
+	ALL_PLACE = 8,		-- 全场场地
+	FRIEND = 9,			-- 队友
+	WAITING = 10,		-- 待机
+	UNKNOWN = 11,		-- 不定
+	ANY = 12,			-- 任选
 }
 
 -- 战斗状态
