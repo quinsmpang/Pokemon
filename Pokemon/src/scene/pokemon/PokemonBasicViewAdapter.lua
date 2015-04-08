@@ -117,7 +117,7 @@ function PokemonBasicViewAdapter:adapt(detailView)
 	local capturePlaceStr = "Unknown"
 	if pokemon.capturePlace ~= DBNULL then
 		if pokemon.capturePlace > 10000 then
-			capturePlaceStr = Enumerations.CapturePlaces[pokemon.capturePlace]
+			capturePlaceStr = Enumerations.CAPTURE_PLACES[pokemon.capturePlace]
 		else
 			local mapModel = MapInfo:create(pokemon.capturePlace)
 			capturePlaceStr = "在" .. mapModel.name .. "相遇"

@@ -136,6 +136,12 @@ Enumerations.SKILL_TYPE = {
 	VARIATION = 3,		-- 变化
 }
 
+-- 技能目标类型
+Enumerations.SKILL_TARGET_TYPE = {
+	SINGLE_ENEMY = 1,	-- 敌方单体
+	ALL_ENEMIES = 2,	-- 敌方全体
+}
+
 -- 战斗状态
 Enumerations.BATTLE_STATUS = {
 	CONFUSED = 1,		-- 混乱
@@ -175,7 +181,7 @@ Enumerations.PERSONALITY_NAME = {
 }
 
 -- 特殊捕获地点
-Enumerations.CapturePlaces = {
+Enumerations.CAPTURE_PLACES = {
 	[10001] = "命中注定般相遇",
 }
 

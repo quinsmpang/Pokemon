@@ -21,13 +21,14 @@ v1.14   Add http service and json elements.
 v1.15	Add xml elements without xpath, which may be completed in the future.
 v1.16   Add CheckedButton control.
 v1.17	Add http downloader.
+v1.18   Add Parabola and ColorTo actions.
 ***********************************************/
 
 #include <iostream>
 #include "tolua_fix.h"
 
-static const char *VERSION = "v1.17";
-static float VERSION_NUM = 1.17;
+static const char *VERSION = "v1.18";
+static float VERSION_NUM = 1.18;
 
 void printVersion()
 {
