@@ -237,7 +237,7 @@ function MapLayerController:onKeyboardPressed(keyCode)
 	elseif keyCode == GameSettings.startKey then
 		-- 打开主菜单
 		MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
-		self.mainMenu:validateAllItems()
+		self.mainMenu:reloadData()
 		self:getScene():addChild(self.mainMenu)
 		-- self.mainMenu:setVisible(true)
 	end
@@ -267,7 +267,7 @@ end
 
 function MapLayerController:onMapMenuClicked()
 	MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
-	self.mainMenu:validateAllItems()
+	self.mainMenu:reloadData()
 	self:getScene():addChild(self.mainMenu)
 	-- self.mainMenu:setVisible(true)
 end
@@ -529,7 +529,7 @@ function MapLayerController:onTimeTick(dt)
 end
 
 function MapLayerController:onShowMapMenu()
-	self.mainMenu:validateAllItems()
+	self.mainMenu:reloadData()
 	self:getScene():addChild(self.mainMenu)
 	-- self.mainMenu:setVisible(true)
 end

@@ -33,7 +33,6 @@ function MapMenuLayer:init()
 	self:addChild(self.back)
 
 	local listMenu = MapMenu:create()
-	listMenu:reloadData()
 	listMenu:ignoreAnchorPointForPosition(false)
 	listMenu:setAnchorPoint(0.5, 1)
 	listMenu:setPosition(self.back:getContentSize().width * 0.5, self.back:getContentSize().height * 0.95)
@@ -72,6 +71,6 @@ function MapMenuLayer:exitMenu()
 	MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
 end
 
-function MapMenuLayer:validateAllItems()
-	self.listMenu:validateAllItems()
+function MapMenuLayer:reloadData()
+	self.listMenu:reloadData()
 end

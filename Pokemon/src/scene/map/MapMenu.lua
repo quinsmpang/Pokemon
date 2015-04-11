@@ -83,6 +83,7 @@ function MapMenu:init()
 		self:registerScriptHandler(MakeScriptHandler(self, self.tableCellWillRecycle), cc.Handler.TABLECELL_WILL_RECYCLE)
 		self:setDelegate()
 	end
+	self:reloadData()
 end
 
 if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
@@ -96,12 +97,13 @@ end
 
 function MapMenu:itemAtIndex(menu, index)
 	local item = menu:dequeueItem()
+	local label = nil
 	if not item then
 		item = ListMenuItem:create()
 
 		local screenSize = cc.Director:getInstance():getWinSize()
 		-- label
-		local label = cc.Label:createWithTTF(self.ITEM_STRINGS[index + 1], GameConfig.DEFAULT_FONT_PATH, 20)
+		label = cc.Label:createWithTTF(self.ITEM_STRINGS[index + 1], GameConfig.DEFAULT_FONT_PATH, 20)
 		label:setDimensions(screenSize.width * 0.1, screenSize.height * 0.08)
 		label:setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT)
 		label:setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
@@ -123,12 +125,17 @@ function MapMenu:itemAtIndex(menu, index)
 		arrow:setVisible(false)
 		item:addChild(arrow)
 	else
-		local label = item:getChildByTag(self.LABEL_TAG)
+		label = item:getChildByTag(self.LABEL_TAG)
 		tolua.cast(label, "cc.Label")
 		label:setString(self.ITEM_STRINGS[index + 1])
 	end
 
-	self:validateItem(item, index)
+	local isEnabled = self:validateItem(index)
+	if not isEnabled then
+		label:setColor(ccc3(200, 200, 200))
+	else
+		label:setColor(ccc3(0, 0, 0))
+	end
 
 	return item
 end
@@ -168,12 +175,13 @@ end
 
 function MapMenu:tableCellAtIndex(view, index)
 	local item = view:dequeueCell()
+	local label = nil
 	if not item then
 		item = cc.TableViewCell:create()
 
 		local screenSize = cc.Director:getInstance():getWinSize()
 		-- label
-		local label = cc.Label:createWithTTF(self.ITEM_STRINGS[index + 1], GameConfig.DEFAULT_FONT_PATH, 20)
+		label = cc.Label:createWithTTF(self.ITEM_STRINGS[index + 1], GameConfig.DEFAULT_FONT_PATH, 20)
 		label:setDimensions(screenSize.width * 0.1, screenSize.height * 0.08)
 		label:setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT)
 		label:setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
@@ -188,17 +196,23 @@ function MapMenu:tableCellAtIndex(view, index)
 		icon:setPosition(screenSize.width * 0.06, screenSize.height * 0.04)
 		item:addChild(icon)
 	else
-		local label = item:getChildByTag(self.LABEL_TAG)
+		label = item:getChildByTag(self.LABEL_TAG)
 		tolua.cast(label, "cc.Label")
 		label:setString(self.ITEM_STRINGS[index + 1])
 	end
 
-	self:validateItem(item, index)
+	local isEnabled = self:validateItem(index)
+	if not isEnabled then
+		label:setColor(ccc3(200, 200, 200))
+	else
+		label:setColor(ccc3(0, 0, 0))
+	end
 
 	return item
 end
 
 function MapMenu:tableNumsOfCells(view)
+	log("####", #self.ITEM_STRINGS)
 	return #self.ITEM_STRINGS
 end
 
@@ -224,39 +238,21 @@ end
 
 ------------------ Public Methods ------------------
 
-function MapMenu:validateItem(item, index)
-	item.__isEnabled = true
+function MapMenu:validateItem(index)
+	local isEnabled = true
 	if DataCenter.currentPlayerData.lastStep < self.SKIP_PETS_STEP then
 		if index == 0 or index == 1 or index == 3 then
-			item.__isEnabled = false
+			isEnabled = false
 		end
 	elseif DataCenter.currentPlayerData.lastStep < self.SKIP_COLLECTION_STEP then
 		if index == 0 or index == 3 then
-			item.__isEnabled = false
+			isEnabled = false
 		end
 	elseif DataCenter.currentPlayerData.lastStep < self.SKIP_CONTACT_STEP then
 		if index == 3 then
-			item.__isEnabled = false
+			isEnabled = false
 		end
 	end
 
-	local label = item:getChildByTag(self.LABEL_TAG)
-	tolua.cast(label, "cc.Label")
-	if not item.__isEnabled then
-		label:setColor(ccc3(200, 200, 200))
-	else
-		label:setColor(ccc3(0, 0, 0))
-	end
-end
-
-function MapMenu:validateAllItems()
-	for i = 0, #self.ITEM_STRINGS - 1 do
-		local item = nil
-		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
-			item = self:getItemAtIndex(i)
-		else
-			item = self:tableCellAtIndex(self, i)
-		end
-		self:validateItem(item, i)
-	end
+	return isEnabled
 end
