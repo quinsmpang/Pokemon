@@ -34,7 +34,6 @@ end
 -- 1. check updateFlag when index an attribute, invoke updateFromDB when it's true.
 -- 2. Forbid adding new attributes to the model instance.
 function psModel:__createProxy()
-	log("psModel:__createProxy")
 	local instance = self
 	local proxy = {}
 	-- add a reference to the real object

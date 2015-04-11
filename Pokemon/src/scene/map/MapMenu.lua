@@ -37,6 +37,7 @@ MapMenu.SKIP_CONTACT_STEP = 11
 
 MapMenu.LABEL_TAG = 998
 MapMenu.ARROW_TAG = 999
+MapMenu.ICON_TAG = 1000
 
 if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
 MapMenu.__create = psListMenu.create
@@ -75,13 +76,15 @@ function MapMenu:init()
 		self:registerScriptHandler(MakeScriptHandler(self, self.tableCellSizeForIndex), cc.Handler.TABLECELL_SIZE_FOR_INDEX)
 		self:registerScriptHandler(MakeScriptHandler(self, self.tableCellAtIndex), cc.Handler.TABLECELL_AT_INDEX)
 		self:registerScriptHandler(MakeScriptHandler(self, self.tableNumsOfCells), cc.Handler.TABLEVIEW_NUMS_OF_CELLS)
-		self:setDataSource()
+		-- self:setDataSource()		create的时候已经自动设置了数据源了
 
 		self:registerScriptHandler(MakeScriptHandler(self, self.tableCellTouched), cc.Handler.TABLECELL_TOUCHED)
 		self:registerScriptHandler(MakeScriptHandler(self, self.tableCellHighlight), cc.Handler.TABLECELL_HIGHLIGHT)
 		self:registerScriptHandler(MakeScriptHandler(self, self.tableCellUnhighlight), cc.Handler.TABLECELL_UNHIGHLIGHT)
 		self:registerScriptHandler(MakeScriptHandler(self, self.tableCellWillRecycle), cc.Handler.TABLECELL_WILL_RECYCLE)
 		self:setDelegate()
+
+		self:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
 	end
 	self:reloadData()
 end
@@ -116,6 +119,7 @@ function MapMenu:itemAtIndex(menu, index)
 		local icon = cc.Sprite:createWithSpriteFrameName(self.ICON_PATHS[index + 1])
 		icon:setAnchorPoint(1, 0.5)
 		icon:setPosition(screenSize.width * 0.06, screenSize.height * 0.04)
+		icon:setTag(self.ICON_TAG)
 		item:addChild(icon)
 		-- arrow
 		local arrow = cc.Sprite:createWithSpriteFrameName("images/map/menu_cursor.png")
@@ -128,6 +132,10 @@ function MapMenu:itemAtIndex(menu, index)
 		label = item:getChildByTag(self.LABEL_TAG)
 		tolua.cast(label, "cc.Label")
 		label:setString(self.ITEM_STRINGS[index + 1])
+
+		local icon = item:getChildByTag(self.ICON_TAG)
+		tolua.cast(icon, "cc.Sprite")
+		icon:setSpriteFrame(cc.SpriteFrameCache:getInstance():getSpriteFrame(self.ICON_PATHS[index + 1]))
 	end
 
 	local isEnabled = self:validateItem(index)
@@ -136,6 +144,7 @@ function MapMenu:itemAtIndex(menu, index)
 	else
 		label:setColor(ccc3(0, 0, 0))
 	end
+	item.__isEnabled = isEnabled
 
 	return item
 end
@@ -146,7 +155,6 @@ end
 
 -- ListMenu delegate
 function MapMenu:itemSelected(menu, item)
-	-- local itemIndex = item:getShowIndex()
 	Notifier:notify(NotifyEvents.MapView.MenuItemSelected, item)
 end
 
@@ -161,7 +169,8 @@ function MapMenu:itemBlurred(menu, item)
 end
 
 function MapMenu:itemWillRecycle(menu, item)
-	--item:removeAllChildrenWithCleanup(true)
+	local cursor = item:getChildByTag(self.ARROW_TAG)
+	cursor:setVisible(false)
 end
 
 else
@@ -170,7 +179,7 @@ else
 -- DataSource interface
 function MapMenu:tableCellSizeForIndex(view)
 	local screenSize = cc.Director:getInstance():getWinSize()
-	return CCSizeMake(screenSize.width * 0.15, screenSize.height * 0.08)
+	return screenSize.width * 0.15, screenSize.height * 0.08
 end
 
 function MapMenu:tableCellAtIndex(view, index)
@@ -178,27 +187,32 @@ function MapMenu:tableCellAtIndex(view, index)
 	local label = nil
 	if not item then
 		item = cc.TableViewCell:create()
+		item:setContentSize(CCSizeMake(self:tableCellSizeForIndex(view)))
 
 		local screenSize = cc.Director:getInstance():getWinSize()
+		-- icon
+		local icon = cc.Sprite:createWithSpriteFrameName(self.ICON_PATHS[index + 1])
+		icon:setAnchorPoint(1, 0.5)
+		icon:setPosition(screenSize.width * 0.06, item:getContentSize().height * 0.5)
+		icon:setTag(self.ICON_TAG)
+		item:addChild(icon)
 		-- label
 		label = cc.Label:createWithTTF(self.ITEM_STRINGS[index + 1], GameConfig.DEFAULT_FONT_PATH, 20)
-		label:setDimensions(screenSize.width * 0.1, screenSize.height * 0.08)
 		label:setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT)
 		label:setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 		label:setColor(ccc3(0, 0, 0))
 		label:setAnchorPoint(0, 0.5)
-		label:setPosition(screenSize.width * 0.065, screenSize.height * 0.04)
+		label:setPosition(screenSize.width * 0.065, item:getContentSize().height * 0.5)
 		label:setTag(self.LABEL_TAG)
 		item:addChild(label)
-		-- icon
-		local icon = cc.Sprite:createWithSpriteFrameName(self.ICON_PATHS[index + 1])
-		icon:setAnchorPoint(1, 0.5)
-		icon:setPosition(screenSize.width * 0.06, screenSize.height * 0.04)
-		item:addChild(icon)
 	else
 		label = item:getChildByTag(self.LABEL_TAG)
 		tolua.cast(label, "cc.Label")
 		label:setString(self.ITEM_STRINGS[index + 1])
+
+		local icon = item:getChildByTag(self.ICON_TAG)
+		tolua.cast(icon, "cc.Sprite")
+		icon:setSpriteFrame(cc.SpriteFrameCache:getInstance():getSpriteFrame(self.ICON_PATHS[index + 1]))
 	end
 
 	local isEnabled = self:validateItem(index)
@@ -207,12 +221,12 @@ function MapMenu:tableCellAtIndex(view, index)
 	else
 		label:setColor(ccc3(0, 0, 0))
 	end
+	item.__isEnabled = isEnabled
 
 	return item
 end
 
 function MapMenu:tableNumsOfCells(view)
-	log("####", #self.ITEM_STRINGS)
 	return #self.ITEM_STRINGS
 end
 
@@ -222,13 +236,17 @@ function MapMenu:tableCellTouched(view, cell)
 end
 
 function MapMenu:tableCellHighlight(view, cell)
-	local label = cell:getChildByTag(self.LABEL_TAG)
-	label:setColor(ccc3(255, 0, 0))
+	if cell.__isEnabled then
+		local label = cell:getChildByTag(self.LABEL_TAG)
+		label:setColor(ccc3(255, 0, 0))
+	end
 end
 
 function MapMenu:tableCellUnhighlight(view, cell)
-	local label = cell:getChildByTag(self.LABEL_TAG)
-	label:setColor(ccc3(0, 0, 0))
+	if cell.__isEnabled then
+		local label = cell:getChildByTag(self.LABEL_TAG)
+		label:setColor(ccc3(0, 0, 0))
+	end
 end
 
 function MapMenu:tableCellWillRecycle(view, cell)
