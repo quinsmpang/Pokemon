@@ -44,12 +44,14 @@ else
 MapMenu.__create = psTableView.create
 end
 
+local winSize = cc.Director:getInstance():getWinSize()
+
 function MapMenu:create()
 	local menu = nil
 	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
 		menu = MapMenu:__create(#self.ITEM_STRINGS)
 	else
-		menu = MapMenu:__create()
+		menu = MapMenu:__create(CCSizeMake(winSize.width * 0.15, winSize.height * 0.64))
 	end
 	menu:init()
 	return menu
@@ -220,6 +222,8 @@ end
 
 end
 
+------------------ Public Methods ------------------
+
 function MapMenu:validateItem(item, index)
 	item.__isEnabled = true
 	if DataCenter.currentPlayerData.lastStep < self.SKIP_PETS_STEP then
@@ -247,7 +251,12 @@ end
 
 function MapMenu:validateAllItems()
 	for i = 0, #self.ITEM_STRINGS - 1 do
-		local item = self:getItemAtIndex(i)
+		local item = nil
+		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+			item = self:getItemAtIndex(i)
+		else
+			item = self:tableCellAtIndex(self, i)
+		end
 		self:validateItem(item, i)
 	end
 end

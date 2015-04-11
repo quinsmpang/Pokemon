@@ -38,7 +38,6 @@ function MapMenuLayer:init()
 	listMenu:setAnchorPoint(0.5, 1)
 	listMenu:setPosition(self.back:getContentSize().width * 0.5, self.back:getContentSize().height * 0.95)
 	self.listMenu = listMenu
-
 	self.back:addChild(listMenu)
 
 	self:registerScriptHandler(MakeScriptHandler(self, self.onSceneEvent))
@@ -68,7 +67,8 @@ function MapMenuLayer:onKeyboardPressed(keyCode)
 end
 
 function MapMenuLayer:exitMenu()
-	self:setVisible(false)
+	self:removeFromParent(false)
+	-- self:setVisible(false)
 	MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
 end
 

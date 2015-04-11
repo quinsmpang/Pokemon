@@ -201,6 +201,11 @@ function BattleUIController:onKeyboardPressed(keyCode)
 				end
 			elseif selectedIndex == 2 then
 				-- 背包
+				require "src/scene/bag/BagViewController"
+
+				local bagViewController = BagViewController:create()
+				self:getScene():putIntAttribute(GameConfig.BAG_KEY, Enumerations.BAG_VIEW_SCENE_TYPE.BATTLE)
+				self:getScene():loadViewController(bagViewController)
 			elseif selectedIndex == 3 then
 				-- 精灵
 			elseif selectedIndex == 4 then

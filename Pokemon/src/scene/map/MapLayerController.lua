@@ -115,15 +115,12 @@ function MapLayerController:renderView()
 
 	self:switchMap(playerData.currentMapId)
 
-	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
-		-- main menu
-		local mainMenu = MapMenuLayer:create()
-		self:getScene():addChild(mainMenu)
-		mainMenu:setVisible(false)
-		self.mainMenu = mainMenu
-	else
-		-- local mainMenu = cc.TableView:create()
-	end
+	-- main menu
+	local mainMenu = MapMenuLayer:create()
+	mainMenu:retain()
+	-- self:getScene():addChild(mainMenu)
+	-- mainMenu:setVisible(false)
+	self.mainMenu = mainMenu
 
 	self.playerState = PLAYER_STATE.STANDING
 end
@@ -149,6 +146,8 @@ function MapLayerController:onNodeEvent(event)
   			cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.scheduleHandle)
   			self.scheduleHandle = nil
   		end
+
+  		self.mainMenu:release()
 	end
 end
 
@@ -239,7 +238,8 @@ function MapLayerController:onKeyboardPressed(keyCode)
 		-- 打开主菜单
 		MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
 		self.mainMenu:validateAllItems()
-		self.mainMenu:setVisible(true)
+		self:getScene():addChild(self.mainMenu)
+		-- self.mainMenu:setVisible(true)
 	end
 	self:checkPlayerState()
 end
@@ -268,7 +268,8 @@ end
 function MapLayerController:onMapMenuClicked()
 	MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
 	self.mainMenu:validateAllItems()
-	self.mainMenu:setVisible(shown)
+	self:getScene():addChild(self.mainMenu)
+	-- self.mainMenu:setVisible(true)
 end
 
 function MapLayerController:resetHero(direction)
@@ -496,7 +497,8 @@ function MapLayerController:onMenuItemSelected(item)
 			end
 		elseif itemIndex == 5 then
 			--记录
-			self.mainMenu:setVisible(false)
+			-- self.mainMenu:setVisible(false)
+			self.mainMenu:removeFromParent(false)
 			local saveLayer = SaveGameLayer:create()
 			self:getScene():addChild(saveLayer)
 		elseif itemIndex == 6 then
@@ -528,7 +530,8 @@ end
 
 function MapLayerController:onShowMapMenu()
 	self.mainMenu:validateAllItems()
-	self.mainMenu:setVisible(true)
+	self:getScene():addChild(self.mainMenu)
+	-- self.mainMenu:setVisible(true)
 end
 
 -------------------------- Action 处理函数 --------------------------

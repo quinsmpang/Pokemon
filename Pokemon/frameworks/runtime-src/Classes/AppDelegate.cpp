@@ -24,11 +24,11 @@ USING_NS_CC;
 // The code is to fix Xcode 6 linking duplication issue.
 // source: http://forum.openframeworks.cc/t/xcode6-beta-of-0-8-1-for-ios-8-0/16103/6
 extern "C"{
-    size_t fwrite$UNIX2003( const void *a, size_t b, size_t c, FILE *d )
+    size_t fwrite$UNIX2003(const void *a, size_t b, size_t c, FILE *d)
     {
         return fwrite(a, b, c, d);
     }
-    char* strerror$UNIX2003( int errnum )
+    char *strerror$UNIX2003(int errnum)
     {
         return strerror(errnum);
     }
