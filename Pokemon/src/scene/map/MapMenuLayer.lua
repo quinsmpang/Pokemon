@@ -66,8 +66,11 @@ function MapMenuLayer:onKeyboardPressed(keyCode)
 end
 
 function MapMenuLayer:exitMenu()
-	self:removeFromParent(false)
-	-- self:setVisible(false)
+	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+		self:setVisible(false)
+	else
+		self:removeFromParent(false)
+	end
 	MapStateController:setCurrentState(Enumerations.MAP_STATE.FREEDOM)
 end
 

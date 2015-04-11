@@ -117,9 +117,12 @@ function MapLayerController:renderView()
 
 	-- main menu
 	local mainMenu = MapMenuLayer:create()
-	mainMenu:retain()
-	-- self:getScene():addChild(mainMenu)
-	-- mainMenu:setVisible(false)
+	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+		self:getScene():addChild(mainMenu)
+		mainMenu:setVisible(false)
+	else
+		mainMenu:retain()
+	end
 	self.mainMenu = mainMenu
 
 	self.playerState = PLAYER_STATE.STANDING
@@ -147,7 +150,9 @@ function MapLayerController:onNodeEvent(event)
   			self.scheduleHandle = nil
   		end
 
-  		self.mainMenu:release()
+  		if TARGET_PLATFORM ~= cc.PLATFORM_OS_WINDOWS then
+  			self.mainMenu:release()
+  		end
 	end
 end
 
@@ -238,8 +243,11 @@ function MapLayerController:onKeyboardPressed(keyCode)
 		-- 打开主菜单
 		MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
 		self.mainMenu:reloadData()
-		self:getScene():addChild(self.mainMenu)
-		-- self.mainMenu:setVisible(true)
+		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+			self.mainMenu:setVisible(true)
+		else
+			self:getScene():addChild(self.mainMenu)
+		end
 	end
 	self:checkPlayerState()
 end
@@ -268,8 +276,11 @@ end
 function MapLayerController:onMapMenuClicked()
 	MapStateController:setCurrentState(Enumerations.MAP_STATE.MENU)
 	self.mainMenu:reloadData()
-	self:getScene():addChild(self.mainMenu)
-	-- self.mainMenu:setVisible(true)
+	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+		self.mainMenu:setVisible(true)
+	else
+		self:getScene():addChild(self.mainMenu)
+	end
 end
 
 function MapLayerController:resetHero(direction)
@@ -497,8 +508,11 @@ function MapLayerController:onMenuItemSelected(item)
 			end
 		elseif itemIndex == 5 then
 			--记录
-			-- self.mainMenu:setVisible(false)
-			self.mainMenu:removeFromParent(false)
+			if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+				self.mainMenu:setVisible(false)
+			else
+				self.mainMenu:removeFromParent(false)
+			end
 			local saveLayer = SaveGameLayer:create()
 			self:getScene():addChild(saveLayer)
 		elseif itemIndex == 6 then
@@ -530,8 +544,11 @@ end
 
 function MapLayerController:onShowMapMenu()
 	self.mainMenu:reloadData()
-	self:getScene():addChild(self.mainMenu)
-	-- self.mainMenu:setVisible(true)
+	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+		self.mainMenu:setVisible(true)
+	else
+		self:getScene():addChild(self.mainMenu)
+	end
 end
 
 -------------------------- Action 处理函数 --------------------------
