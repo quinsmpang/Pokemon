@@ -147,6 +147,7 @@ function DialogLayerController:onNodeEvent(event)
 			self.kbdListener = nil
 		elseif self.touchListener then
 			self.root:getEventDispatcher():removeEventListener(self.touchListener)
+			self.touchListener = nil
 		end
 	end
 end

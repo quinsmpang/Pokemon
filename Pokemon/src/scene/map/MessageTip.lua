@@ -19,6 +19,8 @@ MessageTip.DELAY_TIME = 1.5
 
 MessageTip.__create = psModalLayer.create
 
+local winSize = cc.Director:getInstance():getWinSize()
+
 function MessageTip:create(message, callback)
 	local dialog = MessageTip:__create()
 	dialog:init(message, callback)
@@ -31,8 +33,6 @@ function MessageTip:init(message, callback)
 	self.callback = callback
 
 	self:setOpacity(100)
-
-	local winSize = cc.Director:getInstance():getWinSize()
 
 	local label = cc.Label:createWithTTF(message, GameConfig.DEFAULT_FONT_PATH, self.FONT_SIZE)
 	label:setColor(self.FONT_COLOR)
@@ -49,15 +49,7 @@ function MessageTip:init(message, callback)
 
 	self:addChild(border)
 
-	-- 注册事件
-	if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
-		local kbdListener = cc.EventListenerKeyboard:create()
-		kbdListener:registerScriptHandler(MakeScriptHandler(self, self.onKeyboardPressed), cc.Handler.EVENT_KEYBOARD_PRESSED)
-		self.keyboardListener = kbdListener
-		self:getEventDispatcher():addEventListenerWithSceneGraphPriority(kbdListener, self)
-
-		self:registerScriptHandler(MakeScriptHandler(self, self.onSceneEvent))
-	end
+	self:registerScriptHandler(MakeScriptHandler(self, self.onSceneEvent))
 end
 
 function MessageTip:pop()
@@ -87,8 +79,11 @@ function MessageTip:onSceneEvent(event)
 		end
 	elseif event == "exit" then
 		-- 移除监听
-		if self.kbdListener then
-			Win32Notifier:getInstance():removeEventListener(self.kbdListener)
+		if TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS then
+			if self.kbdListener then
+				Win32Notifier:getInstance():removeEventListener(self.kbdListener)
+				self.kbdListener = nil
+			end
 		end
 	end
 end
@@ -108,4 +103,15 @@ function MessageTip:exit()
 	if callback then
 		callback()
 	end
+end
+
+if TARGET_PLATFORM ~= cc.PLATFORM_OS_WINDOWS then
+
+function MessageTip:onModalTouchBegan(x, y)
+	log("MessageTip:onModalTouchBegan", x, y)
+	if self.enableClick then
+		self:exit()
+	end
+end
+
 end

@@ -85,6 +85,7 @@ function MapMenu:init()
 		self:setDelegate()
 
 		self:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
+		self:setBounceable(false)
 	end
 	self:reloadData()
 end
@@ -177,9 +178,10 @@ else
 ------------------ Mobile platform Delegates ------------------
 
 -- DataSource interface
-function MapMenu:tableCellSizeForIndex(view)
+function MapMenu:tableCellSizeForIndex(view, index)
 	local screenSize = cc.Director:getInstance():getWinSize()
-	return screenSize.width * 0.15, screenSize.height * 0.08
+	-- 我真fuck了 为何这里的size是宽高反着传递的 md调试了半天 by M.Wan
+	return screenSize.height * 0.08, screenSize.width * 0.15
 end
 
 function MapMenu:tableCellAtIndex(view, index)
@@ -187,13 +189,12 @@ function MapMenu:tableCellAtIndex(view, index)
 	local label = nil
 	if not item then
 		item = cc.TableViewCell:create()
-		item:setContentSize(CCSizeMake(self:tableCellSizeForIndex(view)))
 
 		local screenSize = cc.Director:getInstance():getWinSize()
 		-- icon
 		local icon = cc.Sprite:createWithSpriteFrameName(self.ICON_PATHS[index + 1])
 		icon:setAnchorPoint(1, 0.5)
-		icon:setPosition(screenSize.width * 0.06, item:getContentSize().height * 0.5)
+		icon:setPosition(screenSize.width * 0.06, screenSize.height * 0.04)
 		icon:setTag(self.ICON_TAG)
 		item:addChild(icon)
 		-- label
@@ -202,7 +203,7 @@ function MapMenu:tableCellAtIndex(view, index)
 		label:setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 		label:setColor(ccc3(0, 0, 0))
 		label:setAnchorPoint(0, 0.5)
-		label:setPosition(screenSize.width * 0.065, item:getContentSize().height * 0.5)
+		label:setPosition(screenSize.width * 0.065, screenSize.height * 0.04)
 		label:setTag(self.LABEL_TAG)
 		item:addChild(label)
 	else
