@@ -205,10 +205,10 @@ namespace framework
 						this->setItemAtIndex(item, i);
 					}
 				}
-				// focus the first item
+				// focus the selected item
 				if (_delegate)
 				{
-					_delegate->itemFocused(this, this->getItemAtIndex(0));
+					_delegate->itemFocused(this, this->getItemAtIndex(_currentShowIndex));
 				}
 			}
 		}

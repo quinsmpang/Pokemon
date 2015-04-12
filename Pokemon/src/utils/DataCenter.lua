@@ -18,8 +18,12 @@ DataCenter.battleRecords = nil		-- 发生过的地图战斗记录
 DataCenter.badges = nil				-- 徽章
 DataCenter.relatedSaveIndex = nil	-- 相关的存档位置
 
-function DataCenter:addNewPokemon(pokemon)
-	log("DataCenter:addNewPokemon")
+function DataCenter:addNewPokemon(pokemon, ownerId)
+	log("DataCenter:addNewPokemon", pokemon.id, ownerId)
+	ownerId = ownerId or self.currentPlayerData.id
+	if not pokemon.owner or pokemon.owner == DBNULL then
+		pokemon.owner = ownerId
+	end
 	if not self.carriedPokemons then
 		self.carriedPokemons = {}
 	end

@@ -9917,6 +9917,124 @@ int lua_register_psframework_ZipHelper(lua_State* tolua_S)
     return 1;
 }
 
+int lua_psframework_UUIDGenerator_generateUUID(lua_State* tolua_S)
+{
+    int argc = 0;
+    framework::UUIDGenerator* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"pf.UUIDGenerator",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (framework::UUIDGenerator*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_psframework_UUIDGenerator_generateUUID'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+            return 0;
+        std::string ret = cobj->generateUUID();
+        tolua_pushcppstring(tolua_S,ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "generateUUID",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_UUIDGenerator_generateUUID'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_psframework_UUIDGenerator_getInstance(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"pf.UUIDGenerator",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+            return 0;
+        framework::UUIDGenerator* ret = framework::UUIDGenerator::getInstance();
+        object_to_luaval<framework::UUIDGenerator>(tolua_S, "pf.UUIDGenerator",(framework::UUIDGenerator*)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "getInstance",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_psframework_UUIDGenerator_getInstance'.",&tolua_err);
+#endif
+    return 0;
+}
+static int lua_psframework_UUIDGenerator_finalize(lua_State* tolua_S)
+{
+    printf("luabindings: finalizing LUA object (UUIDGenerator)");
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (
+    !tolua_isusertype(tolua_S,1,"UUIDGenerator",0,&tolua_err) ||
+    !tolua_isnoobj(tolua_S,2,&tolua_err)
+    )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        framework::UUIDGenerator* self = (framework::UUIDGenerator*)  tolua_tousertype(tolua_S,1,0);
+#if COCOS2D_DEBUG >= 1
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", nullptr);
+#endif
+        delete self;
+    }
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+    return 0;
+#endif
+    return 0;
+}
+
+int lua_register_psframework_UUIDGenerator(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S,"pf.UUIDGenerator");
+    tolua_cclass(tolua_S,"UUIDGenerator","pf.UUIDGenerator","cc.Ref",nullptr);
+
+    tolua_beginmodule(tolua_S,"UUIDGenerator");
+        tolua_function(tolua_S,"generateUUID",lua_psframework_UUIDGenerator_generateUUID);
+        tolua_function(tolua_S,"getInstance", lua_psframework_UUIDGenerator_getInstance);
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(framework::UUIDGenerator).name();
+    g_luaType[typeName] = "pf.UUIDGenerator";
+    g_typeCast["UUIDGenerator"] = "pf.UUIDGenerator";
+    return 1;
+}
+
 int lua_psframework_SaveData_getPrefix(lua_State* tolua_S)
 {
     int argc = 0;
@@ -12905,6 +13023,7 @@ TOLUA_API int register_all_psframework(lua_State* tolua_S)
 	lua_register_psframework_Win32Notifier(tolua_S);
 	lua_register_psframework_BinaryData(tolua_S);
 	lua_register_psframework_SaveData(tolua_S);
+	lua_register_psframework_UUIDGenerator(tolua_S);
 	lua_register_psframework_RefBoolean(tolua_S);
 	lua_register_psframework_Stack(tolua_S);
 	lua_register_psframework_NetFilter(tolua_S);

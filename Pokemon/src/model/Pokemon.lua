@@ -45,8 +45,11 @@ Pokemon.captureLevel = DBNULL	-- 捕获等级
 Pokemon.capturePlace = DBNULL	-- 捕获地点
 Pokemon.isEgg = DBNULL	-- 是否是宠物蛋
 Pokemon.familiarity = DBNULL	-- 亲密度
+Pokemon.owner = DBNULL		-- 主人id
 
 Pokemon.model = DBNULL
+
+local POKEMON_MAX_LEVEL = 100
 
 function Pokemon:create(id, level, ballId, place, carriedItem, isEgg)
 	local pokemon = Pokemon:new()
@@ -90,6 +93,7 @@ function Pokemon:initRandom(id, level, ballId, place, carriedItem, isEgg)
 	self:initRandomValues()
 	self:initSkills()
 	self:recalculateBasicData()
+	self.currentHp = self.basicData.hp
 end
 
 function Pokemon:initRandomValues()
@@ -103,22 +107,23 @@ function Pokemon:initRandomValues()
 end
 
 function Pokemon:recalculateBasicData()
-	if self.basicData == DBNULL then
-		self.basicData = BasicData:new()
-	end
+	self.basicData = self:getBasicDataAtLevel(self.level)
+end
+
+function Pokemon:getBasicDataAtLevel(level)
+	local basicData = BasicData:new()
 
 	local racialValues = self.model.racial
 	local personalityConst = self:getPersonalityConst()
 
-	self.basicData.hp = math.floor((racialValues[1] * 2 + self.entityValues[1] + self.hardValues[1] * 0.25) * self.level * 0.01 + self.level + 10)
-	self.basicData.physicalAttack = math.floor(((racialValues[2] * 2 + self.entityValues[2] + self.hardValues[2] * 0.25) * self.level * 0.01 + 5) * personalityConst[1])
-	self.basicData.physicalDefense = math.floor(((racialValues[3] * 2 + self.entityValues[3] + self.hardValues[3] * 0.25) * self.level * 0.01 + 5) * personalityConst[2])
-	self.basicData.specialAttack = math.floor(((racialValues[4] * 2 + self.entityValues[4] + self.hardValues[4] * 0.25) * self.level * 0.01 + 5) * personalityConst[3])
-	self.basicData.specialDefense = math.floor(((racialValues[5] * 2 + self.entityValues[5] + self.hardValues[5] * 0.25) * self.level * 0.01 + 5) * personalityConst[4])
-	self.basicData.agility = math.floor(((racialValues[6] * 2 + self.entityValues[6] + self.hardValues[6] * 0.25) * self.level * 0.01 + 5) * personalityConst[5])
+	basicData.hp = math.floor((racialValues[1] * 2 + self.entityValues[1] + self.hardValues[1] * 0.25) * level * 0.01 + level + 10)
+	basicData.physicalAttack = math.floor(((racialValues[2] * 2 + self.entityValues[2] + self.hardValues[2] * 0.25) * level * 0.01 + 5) * personalityConst[1])
+	basicData.physicalDefense = math.floor(((racialValues[3] * 2 + self.entityValues[3] + self.hardValues[3] * 0.25) * level * 0.01 + 5) * personalityConst[2])
+	basicData.specialAttack = math.floor(((racialValues[4] * 2 + self.entityValues[4] + self.hardValues[4] * 0.25) * level * 0.01 + 5) * personalityConst[3])
+	basicData.specialDefense = math.floor(((racialValues[5] * 2 + self.entityValues[5] + self.hardValues[5] * 0.25) * level * 0.01 + 5) * personalityConst[4])
+	basicData.agility = math.floor(((racialValues[6] * 2 + self.entityValues[6] + self.hardValues[6] * 0.25) * level * 0.01 + 5) * personalityConst[5])
 
-	-- hp默认满血
-	self.currentHp = self.basicData.hp
+	return basicData
 end
 
 function Pokemon:initSkills()
@@ -191,6 +196,26 @@ function Pokemon:getExpPercentage()
 	return numerator / denominator * 100
 end
 
+function Pokemon:addExp(exp)
+	self.exp = self.exp + exp
+	-- 是否满级?
+	if self.exp > self:getAllExp(POKEMON_MAX_LEVEL) then
+		self.exp = self:getAllExp(POKEMON_MAX_LEVEL)
+	end
+	-- 是否升级
+	local newLevel = math.floor(self.exp ^ (1 / 3))
+	log("增加经验后的等级: " .. newLevel)
+	if newLevel ~= self.level then
+		self.level = newLevel
+		-- 重新计算能力值
+		local oldHpMax = self.basicData.hp
+		self:recalculateBasicData()
+		local deltaHp = self.basicData.hp - oldHpMax
+		-- 当前血量增加差值
+		self.currentHp = self.currentHp + deltaHp
+	end
+end
+
 function Pokemon:getSkillMaxPP(index)
 	if self.skills[index] then
 		local skillId = self.skills[index][1]
@@ -227,4 +252,14 @@ end
 
 function Pokemon:isDead()
 	return self.currentHp <= 0
+end
+
+-- 被击败获得的经验值(无修正参数)
+function Pokemon:beatenExp()
+	local totalRacial = 0
+	for _, v in ipairs(self.model.racial) do
+		totalRacial = totalRacial + v
+	end
+	local basicExp = math.floor(totalRacial / 10)
+	return self.level * basicExp
 end

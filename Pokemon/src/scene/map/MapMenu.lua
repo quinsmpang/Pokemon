@@ -137,6 +137,8 @@ function MapMenu:itemAtIndex(menu, index)
 		local icon = item:getChildByTag(self.ICON_TAG)
 		tolua.cast(icon, "cc.Sprite")
 		icon:setSpriteFrame(cc.SpriteFrameCache:getInstance():getSpriteFrame(self.ICON_PATHS[index + 1]))
+
+		item:getChildByTag(self.ARROW_TAG):setVisible(false)
 	end
 
 	local isEnabled = self:validateItem(index)

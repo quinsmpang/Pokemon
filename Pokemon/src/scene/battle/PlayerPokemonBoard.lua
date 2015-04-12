@@ -15,6 +15,7 @@ PlayerPokemonBoard.lblHpDetail = nil
 PlayerPokemonBoard.pokemonModel = nil
 
 PlayerPokemonBoard.HURT_SPEED_UNIT = 0.05
+PlayerPokemonBoard.EXP_SPEED_UNIT = 0.01
 
 PlayerPokemonBoard.__create = psNode.create
 
@@ -82,7 +83,9 @@ function PlayerPokemonBoard:initWithModel(pokemonModel)
 	iconStatus:setVisible(false)
 
 	-- HP详细值
-	local lblHpDetail = cc.Label:createWithTTF(string.format("%d / %d", pokemonModel.currentHp, pokemonModel.basicData.hp), GameConfig.DEFAULT_FONT_PATH, 15)
+	self.currentHp = pokemonModel.currentHp
+	self.maxHp = pokemonModel.basicData.hp
+	local lblHpDetail = cc.Label:createWithTTF(string.format("%d / %d", self.currentHp, self.maxHp), GameConfig.DEFAULT_FONT_PATH, 15)
 	lblHpDetail:enableShadow()
 	lblHpDetail:setPosition(bg:getContentSize().width * 0.95, bg:getContentSize().height * 0.2)
 	lblHpDetail:setAnchorPoint(1, 0.5)
@@ -115,6 +118,7 @@ function PlayerPokemonBoard:update(dt)
 end
 
 function PlayerPokemonBoard:progressTo(value, callback)
+	self.currentHp = value
 	local actionAry = {}
 	local progressAction = cc.ProgressFromTo:create(value * self.HURT_SPEED_UNIT, self.hpBar:getPercentage(), self.pokemonModel.currentHp / self.pokemonModel.basicData.hp * 100)
 	table.insert(actionAry, progressAction)
@@ -127,4 +131,43 @@ function PlayerPokemonBoard:progressTo(value, callback)
 	local action = cc.Sequence:create(actionAry)
 	self:scheduleUpdateWithPriorityLua(MakeScriptHandler(self, self.update), 0)
 	self.hpBar:runAction(action)
+end
+
+function PlayerPokemonBoard:addExp(exp, oldLevel, newLevel, callback)
+	assert(newLevel >= oldLevel, "PlayerPokemonBoard:addExp invalid params.")
+	local action = nil
+	if oldLevel == newLevel then
+		-- 无等级变化
+		local actionAry = {}
+		local progressAction = cc.ProgressFromTo:create((self.pokemonModel:getExpPercentage() - self.expBar:getPercentage()) * self.EXP_SPEED_UNIT, self.expBar:getPercentage(), self.pokemonModel:getExpPercentage())
+		table.insert(actionAry, progressAction)
+		if callback then
+			table.insert(actionAry, cc.CallFunc:create(callback))
+		end
+		action = cc.Sequence:create(actionAry)
+	else
+		-- 升级
+		local deltaLevel = newLevel - oldLevel
+		local actionAry = {}
+		local firstProgress = cc.ProgressFromTo:create((100 - self.expBar:getPercentage()) * self.EXP_SPEED_UNIT, self.expBar:getPercentage(), 100)
+		table.insert(actionAry, firstProgress)
+		local firstCallFunc = cc.CallFunc:create(MakeScriptHandler(self, self.updateHpBar, oldLevel + 1))
+		for i = 2, deltaLevel do
+			table.insert(actionAry, cc.ProgressFromTo:create(100 * self.EXP_SPEED_UNIT, 0, 100))
+			table.insert(actionAry, cc.CallFunc:create(MakeScriptHandler(self, self.updateHpBar, oldLevel + i)))
+		end
+		table.insert(actionAry, cc.ProgressFromTo:create(self.pokemonModel:getExpPercentage() * self.EXP_SPEED_UNIT, 0, self.pokemonModel:getExpPercentage()))
+		if callback then
+			table.insert(actionAry, cc.CallFunc:create(callback))
+		end
+		action = cc.Sequence:create(actionAry)
+	end
+	self.expBar:runAction(action)
+end
+
+function PlayerPokemonBoard:updateHpBar(sender, level)
+	local oldHp = self.pokemonModel:getBasicDataAtLevel(level - 1).hp
+	local newHp = self.pokemonModel:getBasicDataAtLevel(level).hp
+	local deltaHp = newHp - oldHp
+	self.lblHpDetail:setString(string.format("%d / %d", self.currentHp + deltaHp, newHp))
 end

@@ -46,6 +46,7 @@
 #include "utils/RecordHelper.h"
 #include "utils/ImageUtils.h"
 #include "utils/ZipHelper.h"
+#include "utils/UUIDGenerator.h"
 
 #include "format/SaveData.h"
 

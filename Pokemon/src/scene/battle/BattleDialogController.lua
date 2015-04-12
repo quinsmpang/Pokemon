@@ -41,11 +41,13 @@ end
 function BattleDialogController:addObservers()
 	Notifier:addObserver(NotifyEvents.Battle.UpdateDialog, self, self.onUpdateDialog)
 	Notifier:addObserver(NotifyEvents.Battle.ShowDialog, self, self.onShowDialog)
+	Notifier:addObserver(NotifyEvents.Battle.ShowDialogDirectly, self, self.onShowDialogDirectly)
 end
 
 function BattleDialogController:removeObservers()
 	Notifier:removeObserver(NotifyEvents.Battle.UpdateDialog, self)
 	Notifier:removeObserver(NotifyEvents.Battle.ShowDialog, self)
+	Notifier:removeObserver(NotifyEvents.Battle.ShowDialogDirectly, self)
 end
 
 function BattleDialogController:renderView()
@@ -183,4 +185,8 @@ function BattleDialogController:showTextWithoutControl(substrings, index)
 	self.dialogLabel:setVisible(true)
 	self.dialogLabel:setString(substrings[index])
 	CallFunctionAsync(self, self.showTextWithoutControl, self.DIALOG_TEXT_DURATION, substrings, index + 1)
+end
+
+function BattleDialogController:onShowDialogDirectly(content)
+	self.dialogLabel:setString(content)
 end

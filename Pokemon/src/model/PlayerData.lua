@@ -34,12 +34,13 @@ end
 function PlayerData:createWithLoadData(loadData)
 	local model = PlayerData:new()
 	table.shallowCopy(model, loadData)
+	log("玩家UUID", model.id)
 
 	return model
 end
 
 function PlayerData:initNewGameData(gender)
-	self.id = 111
+	self.id = UUIDGenerator:getInstance():generateUUID()
 	self.gender = gender
 	self.name = NAMES[gender + 1]
 

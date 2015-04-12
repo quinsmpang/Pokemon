@@ -75,7 +75,7 @@ function GameLauncher:loadLuaFramework()
     require "src/framework/TimeSpan"
 
     if LANES_SUPPORTED then
-        print("lanes is supported.")
+        log("lanes is supported.")
         require "src/framework/threading"
     end
 end

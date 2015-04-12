@@ -212,7 +212,7 @@ function BattleUIController:onKeyboardPressed(keyCode)
 				-- 逃跑
 				self.battleMenu:setVisible(false)
 				BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.GENERATE_BEHAVIORS)
-				BattleStateMachine:process(BattleBehavior.BEHAVIOR_TYPES.ESCAPE)
+				BattleStateMachine:process(BattleBehavior.BEHAVIOR_TYPES.ESCAPE, { true })
 			end
 		elseif self.focusMenu == self.skillMenu then
 			local skills = BattleSharedData.currentPokemonModel.skills
@@ -366,6 +366,9 @@ end
 
 function BattleUIController:onUpdateUI()
 	if BattleStateMachine.state == BattleLogicConstants.BATTLE_STATE.TURN_START then
+		local dialogKey = "GIVE_INSTRUCTIONS"
+		local showDialog = string.format(BattleDialogConstants[dialogKey])
+		Notifier:notify(NotifyEvents.Battle.ShowDialogDirectly, showDialog)
 		-- 显示战斗操作面板
 		if not self.battleMenu then
 			self.battleMenu = BattleCommonMenu:create(self.BATTLE_INSTRUCTIONS)
@@ -494,10 +497,14 @@ function BattleUIController:checkOppositeTurn(sender, isPlayer)
 	else
 		BattleStateMachine:setState(BattleLogicConstants.BATTLE_STATE.TURN_START)
 	end
-	BattleStateMachine:process()
+	BattleStateMachine:process(NotifyEvents.Battle.ShowDialog, substrings)
 end
 
 function BattleUIController:playerDead()
+	self.playerPokemon:runAction(cc.FadeOut:create(1))
+	CallFunctionAsync(self, self.playerDeadCallback, 1.5)
+end
+function BattleUIController:playerDeadCallback()
 	if DataCenter:getAvailablePokemonCount() > 0 then
 		-- 选其他精灵 todo
 	else
@@ -506,7 +513,40 @@ function BattleUIController:playerDead()
 end
 
 function BattleUIController:enemyDead()
+	self.enemyPokemon:runAction(cc.FadeOut:create(1))
+	CallFunctionAsync(self, self.enemyDeadCallback, 1.5)
+end
+function BattleUIController:enemyDeadCallback()
 	if BattleSharedData.battleType == Enumerations.BATTLE_TYPE.WILD then
+		local oldLevel = BattleSharedData.currentPokemonModel.level
+		local dialogKey = "GAIN_EXP"
+		local baseExp = BattleSharedData.enemyPokemonModel:beatenExp()
+		-- 是否有幸福蛋道具 todo
+		local happinessEggCorrection = 1
+		-- 是否是交换的精灵 todo
+		local exchangeCorrection = 1
+		local exp = baseExp * happinessEggCorrection * exchangeCorrection
+		-- 增加经验值
+		BattleSharedData.currentPokemonModel:addExp(exp)
+		local newLevel = BattleSharedData.currentPokemonModel.level
+		-- 增加努力值 todo
+		local showDialog = string.format(BattleDialogConstants[dialogKey], BattleSharedData.currentPokemonModel.model.name, exp)
+		local substrings = GenerateAllUTF8Substrings(showDialog)
+		Notifier:notify(NotifyEvents.Battle.ShowDialog, substrings)
+		CallFunctionAsync(self, self.enemyDeadCallback2, BattleDialogController.DIALOG_TEXT_DURATION * (#substrings + 2), exp, oldLevel, newLevel)
+	end
+end
+function BattleUIController:enemyDeadCallback2(exp, oldLevel, newLevel)
+	log(string.format("增加经验值: %d, 等级变化: %d -> %d", exp, oldLevel, newLevel))
+	if BattleSharedData.battleType == Enumerations.BATTLE_TYPE.WILD then
+		self.playerBoard:addExp(exp, oldLevel, newLevel, MakeScriptHandler(self, self.showLevelUpInfo, oldLevel, newLevel))
+	end
+end
+function BattleUIController:showLevelUpInfo(sender, oldLevel, newLevel)
+	if newLevel > oldLevel then
+		-- 战斗结束 增加经验值
+		ReplaceScene(MapViewScene)
+	else
 		-- 战斗结束 增加经验值
 		ReplaceScene(MapViewScene)
 	end

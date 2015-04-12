@@ -93,8 +93,10 @@ NotifyEvents.Battle.TurnStart = "NotifyEvents.Battle.TurnStart"
 NotifyEvents.Battle.PlayerAttackAnimation = "NotifyEvents.Battle.PlayerAttackAnimation"
 -- 播放敌人攻击动画 BattleBehaviors通知, BattleAnimationController观察
 NotifyEvents.Battle.EnemyAttackAnimation = "NotifyEvents.Battle.EnemyAttackAnimation"
--- 在战斗对话框直接显示内容 BattleBehaviors通知, BattleDialogController观察
+-- 在战斗对话框直接显示内容 Any通知, BattleDialogController观察
 NotifyEvents.Battle.ShowDialog = "NotifyEvents.Battle.ShowDialog"
+-- 在战斗对话框直接显示内容 Any通知, BattleDialogController观察
+NotifyEvents.Battle.ShowDialogDirectly = "NotifyEvents.Battle.ShowDialogDirectly"
 -- 精灵受伤动画 BattleAnimationController通知, BattleUIController观察
 NotifyEvents.Battle.PokemonHurtAnimation = "NotifyEvents.Battle.PokemonHurtAnimation"
 -- 精灵能力值等级变化 BattleAnimationController通知, BattleUIController观察
