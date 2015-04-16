@@ -15,6 +15,8 @@ BattleSharedData.playerLastSkillPropertyCorrection = nil	-- 玩家上个技能�
 BattleSharedData.enemyLastSkillCriticalCorrection = nil		-- 敌人上个技能会心修正
 BattleSharedData.enemyLastSkillPropertyCorrection = nil		-- 敌人上个技能属性修正
 
+BattleSharedData.joinBattlePokemons = {}	-- 一场战斗参与过的精灵
+
 BattleSharedData.weather = nil		-- 天气
 BattleSharedData.specialEnvironments = {}	-- 特殊特性环境(天气锁、压迫等等)
 

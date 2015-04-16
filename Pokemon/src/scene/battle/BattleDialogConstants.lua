@@ -14,4 +14,5 @@ BattleDialogConstants = {
 	["ESCAPE_FAILURE"] = "逃跑失败!",
 	["ESCAPE_FORBIDDEN"] = "精灵对战中无法逃跑!",
 	["GAIN_EXP"] = "%s获得了%d的经验值",
+	["LEVEL_UP"] = "%s升到了%d级",
 }
