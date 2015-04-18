@@ -312,11 +312,11 @@ public class MainFrame extends javax.swing.JFrame {
     
     private void innerExportToDb(Sheet sheet) {
         int rowNum = sheet.getLastRowNum();
-        if (rowNum < 1) {
+        if (rowNum < 2) {
             throw new RuntimeException("Empty excel.");
         }
         // the first row is attribute names.
-        Row firstRow = sheet.getRow(0);
+        Row firstRow = sheet.getRow(1);
         int colNum = firstRow.getLastCellNum();
         Cell cell = null;
         
@@ -344,7 +344,7 @@ public class MainFrame extends javax.swing.JFrame {
         // import the data
         Row row = null;
         sql = "insert into [" + _currentFile + "] values(";
-        for (int i = 1; i < rowNum; i++) {
+        for (int i = 2; i < rowNum; i++) {
             row = sheet.getRow(i);
             String tmpSql = sql;
             for (int j = 0; j < colNum; j++) {
