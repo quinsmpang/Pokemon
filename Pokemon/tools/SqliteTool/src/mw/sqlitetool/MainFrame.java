@@ -6,7 +6,11 @@
 package mw.sqlitetool;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,6 +67,11 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("Sqlite Tool (By M.Wan)");
         setPreferredSize(new java.awt.Dimension(480, 410));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         lbl1.setText("DBPath: ");
 
@@ -210,6 +219,17 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
         
+        // Serialize dialog info
+        File hSave = new File("config.sav");
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(hSave));
+            SaveData save = new SaveData(txtDbPath.getText().trim(), txtDataPath.getText().trim(), txtModeContent.getText().trim());
+            oos.writeObject(save);
+            oos.close();
+        } catch (IOException ex) {
+            this.log("Error: " + ex.getMessage());
+        }
+        
         if (!hDb.exists()) {
             this.log("The db doesn't exist. Create a new one.");
         }
@@ -229,6 +249,26 @@ public class MainFrame extends javax.swing.JFrame {
         };
         worker.start();
     }//GEN-LAST:event_btnStartActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        // get config info
+        File hSave = new File("config.sav");
+        if (hSave.exists()) {
+            try {
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(hSave));
+                SaveData save = (SaveData)ois.readObject();
+                txtDbPath.setText(save.getDbPath());
+                txtDataPath.setText(save.getDataPath());
+                txtModeContent.setText(save.getFilters());
+                ois.close();
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     private void beginWork() {
         File hData = new File(txtDataPath.getText().trim());
@@ -312,7 +352,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     private void innerExportToDb(Sheet sheet) {
         int rowNum = sheet.getLastRowNum();
-        if (rowNum < 1) {
+        if (rowNum < 2) {
             throw new RuntimeException("Empty excel.");
         }
         // the first row is attribute names.
@@ -344,7 +384,7 @@ public class MainFrame extends javax.swing.JFrame {
         // import the data
         Row row = null;
         sql = "insert into [" + _currentFile + "] values(";
-        for (int i = 1; i < rowNum; i++) {
+        for (int i = 2; i < rowNum; i++) {
             row = sheet.getRow(i);
             String tmpSql = sql;
             for (int j = 0; j < colNum; j++) {
