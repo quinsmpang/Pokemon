@@ -356,7 +356,7 @@ public class MainFrame extends javax.swing.JFrame {
             throw new RuntimeException("Empty excel.");
         }
         // the first row is attribute names.
-        Row firstRow = sheet.getRow(0);
+        Row firstRow = sheet.getRow(1);
         int colNum = firstRow.getLastCellNum();
         Cell cell = null;
         
